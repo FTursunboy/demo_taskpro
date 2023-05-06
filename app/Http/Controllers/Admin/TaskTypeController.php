@@ -43,26 +43,30 @@ class TaskTypeController extends Controller
 
     public function kpi(TaskTypeModel $taskTypeModel)
     {
-        $types = TaskTypesTypeModel::where('typeTask_id', $taskTypeModel)->get();
 
-        return view('superAdmin.tasks.kpi.kpi', compact('taskTypeModel', 'kpi'));
+        $types = TaskTypesTypeModel::where('typeTask_id', $taskTypeModel->id)->get();
+
+        $taskType = TaskTypeModel::get();
+
+        return view('admin.settings.kpi', compact('taskTypeModel', 'types', 'taskType'));
     }
 
     public function kpiStore(Request $request)
     {
+
         $data = $request->validate([
             'name' => ['required'],
-            'typeTask' => ['required', 'exists:task_setting_models,id'],
+            'typetask' => ['required'],
         ]);
-
         try {
+
             TaskTypesTypeModel::create([
                 'name' => $data['name'],
-                'typeTask_id' => $data['typeTask'],
+                'typeTask_id' => $data['typetask'],
             ]);
             return redirect()->route('settings.kpi')->with('mess', 'Операция прошло успешно!');
         } catch (\Exception $exception) {
-            return redirect()->route('settings.kpi')->with('err', $exception->getMessage());
+            return redirect()->route('settings.kpi', 1)->with('err', $exception->getMessage());
         }
     }
 
