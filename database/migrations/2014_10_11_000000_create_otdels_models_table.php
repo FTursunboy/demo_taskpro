@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('otdels_models', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->boolean('status')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

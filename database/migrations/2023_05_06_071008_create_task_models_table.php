@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('status_id');
-            $table->boolean('status');
+            $table->softDeletes();
             $table->string('slug');
             $table->timestamps();
 

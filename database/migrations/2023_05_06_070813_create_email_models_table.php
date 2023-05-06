@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('email_models', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-            $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

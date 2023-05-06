@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
     {
         EmailModel::create([
             'email' => 'fingroup.task@gmail.com',
-            'status' => true,
         ]);
         Role::create([
             'name' => 'admin'
@@ -60,128 +59,105 @@ class DatabaseSeeder extends Seeder
 
         OtdelsModel::create([
             'name' => 'FIN Group',
-            'status' => true,
         ]);
 
         OtdelsModel::create([
             'name' => 'Веб -разработка',
-            'status' => true,
         ]);
 
         OtdelsModel::create([
             'name' => '1с - разработка',
-            'status' => true,
         ]);
 
         OtdelsModel::create([
             'name' => 'Развития',
-            'status' => true,
         ]);
         OtdelsModel::create([
             'name' => 'Клиенты',
-            'status' => true,
         ]);
 
         TaskTypeModel::create([
             'name' => 'Разовые',
-            'status' => true
         ]);
         TaskTypeModel::create([
             'name' => 'KPI',
-            'status' => true
         ]);
         TaskTypeModel::create([
             'name' => 'Другие',
-            'status' => true
         ]);
         TaskTypesTypeModel::create([
             'name' => 'Январь',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
         TaskTypesTypeModel::create([
             'name' => 'Февраль',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
         TaskTypesTypeModel::create([
             'name' => 'Март',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
         TaskTypesTypeModel::create([
             'name' => 'Апрель',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Май',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Июнь',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Июль',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Август',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Сентябр',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Октябр',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Ноябр',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         TaskTypesTypeModel::create([
             'name' => 'Декабр',
             'typeTask_id' => 2,
-            'status' => true,
         ]);
 
         ProjectTypeModel::create([
             'name' => 'Создание сайт',
-            'status' => true
         ]);
         ProjectTypeModel::create([
             'name' => 'Доработка сайтов',
-            'status' => true
         ]);
         ProjectTypeModel::create([
             'name' => 'Доработка 1с',
-            'status' => true
+
         ]);
         ProjectTypeModel::create([
             'name' => 'Обучение',
-            'status' => true
+
         ]);
         ProjectTypeModel::create([
             'name' => 'FIN Group',
-            'status' => true
         ]);
         User::create([
             'name' => 'Nuriddin',
@@ -194,7 +170,6 @@ class DatabaseSeeder extends Seeder
             'otdel_id' => 1,
             'telegram_user_id' => 5205653584,
             'xp' => 100,
-            'status' => true,
             'slug' => Str::slug(Str::random(6) . ' ' . "Nuriddin Shahobov " . Str::random(4), '-'),
         ])->assignRole('admin');
 

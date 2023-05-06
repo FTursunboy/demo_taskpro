@@ -24,11 +24,10 @@ return new class extends Migration
             $table->string('telegram_user_id')->unique();
             $table->integer('xp')->default(50);
             $table->string('slug')->unique();
-            $table->boolean('status')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
+            $table->softDeletes();
             $table->foreign('otdel_id')->references('id')->on('otdels_models')->onDelete('cascade');
         });
     }

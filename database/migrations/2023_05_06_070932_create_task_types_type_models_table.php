@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->unsignedBigInteger('typeTask_id');
-            $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('typeTask_id')->references('id')->on('task_type_models')->onDelete('cascade');
         });

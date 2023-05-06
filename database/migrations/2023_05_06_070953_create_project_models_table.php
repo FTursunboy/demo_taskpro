@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('finish');
             $table->text('comment');
             $table->integer('pro_status');
-            $table->boolean('status');
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('type_id')->references('id')->on('project_type_models')->onDelete('cascade');
         });
