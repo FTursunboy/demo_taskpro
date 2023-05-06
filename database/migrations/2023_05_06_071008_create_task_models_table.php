@@ -17,28 +17,23 @@ return new class extends Migration
             $table->string('time');
             $table->date('from');
             $table->date('to');
-            $table->string('file');
-            $table->string('file_name');
-            $table->text('comment');
-            $table->date('start');
-            $table->date('finish');
+            $table->string('file')->nullable();
+            $table->string('file_name')->nullable();
+            $table->text('comment')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('type_id');
-            $table->unsignedBigInteger('kpi_id');
+            $table->string('kpi_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('client_id');
+            $table->string('client_id')->nullable();
             $table->unsignedBigInteger('status_id');
             $table->softDeletes();
-            $table->string('slug');
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('project_models')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('task_type_models')->onDelete('cascade');
-            $table->foreign('kpi_id')->references('id')->on('task_types_type_models')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('statuses_models')->onDelete('cascade');
 
         });
