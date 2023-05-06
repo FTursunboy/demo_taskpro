@@ -13,11 +13,10 @@ return new class extends Migration {
         Schema::create('task_types_type_models', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->integer('type_id');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id', 'task_type_models')->references('id')->on('task_type_models')->onDelete('cascade');
+            $table->unsignedBigInteger('typeTask_id');
             $table->boolean('status')->default(true);
             $table->timestamps();
+            $table->foreign('typeTask_id')->references('id')->on('task_type_models')->onDelete('cascade');
         });
     }
 
