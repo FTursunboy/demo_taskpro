@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TaskModel extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'name',
         'time',
@@ -17,39 +18,51 @@ class TaskModel extends Model
         'to',
         'file',
         'file_name',
-        'comment',
-        'start',
-        'finish',
         'project_id',
         'type_id',
         'kpi_id',
         'user_id',
+        'author_id',
         'client_id',
         'status_id',
-        'status',
-        'slug'
     ];
 
-    public function type() {
+
+    public function project()
+    {
+        return $this->belongsTo(ProjectTypeModel::class);
+    }
+
+    public function type()
+    {
         return $this->belongsTo(TaskTypeModel::class);
     }
 
-    public function kpi() {
-        return $this->belongsTo(TaskTypesTypeModel::class);
+    public function typeType()
+    {
+        return $this->belongsTo(TaskTypesTypeModel::class,'kpi_id');
     }
-    public function status() {
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function status()
+    {
         return $this->belongsTo(StatusesModel::class);
     }
 
-    public function client() {
-        return $this->belongsTo(User::class, 'client_id');
-    }
-    public function project() {
-        return $this->belongsTo(ProjectModel::class);
-    }
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id');
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
     }
 
 
 }
+
