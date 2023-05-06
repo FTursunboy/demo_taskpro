@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TaskTypesTypeModel extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'typeTask_id', 'status'];
 }

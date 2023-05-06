@@ -26,7 +26,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'position',
-        'otdel_slug',
+        'otdel_id',
         'telegram_user_id',
         'status',
         'xp',

@@ -9,5 +9,5 @@ class OtdelsModel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'status'];
+    protected $fillable = ['name', 'status'];
 }
