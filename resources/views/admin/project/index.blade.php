@@ -6,6 +6,7 @@
 
 @section('content')
     <div id="main">
+        @include('.inc.messages')
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('project.create') }}" class="btn btn-outline-primary">
@@ -15,7 +16,5 @@
             <div class="card-bode"></div>
             <div class="card-footer"></div>
         </div>
-
     </div>
-
 @endsection

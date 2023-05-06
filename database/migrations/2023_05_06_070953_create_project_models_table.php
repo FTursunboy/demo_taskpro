@@ -16,12 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('type_id');
             $table->string('time');
-            $table->date('from');
-            $table->date('to');
             $table->date('start');
             $table->date('finish');
             $table->text('comment');
-            $table->integer('pro_status');
+            $table->integer('pro_status')->default(1);
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('type_id')->references('id')->on('project_type_models')->onDelete('cascade');
