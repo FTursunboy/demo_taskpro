@@ -12,7 +12,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = ProjectModel::where('status', true)->get();
+        $projects = ProjectModel::get();
         return view('admin.project.index', compact('projects'));
     }
 
@@ -25,6 +25,7 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $data = $request->validated();
-        dd($data);
+        ProjectModel::create($data);
+        return redirect()->route('project.index')->with('create', 'Проект успешно содань');
     }
 }
