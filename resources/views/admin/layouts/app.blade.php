@@ -15,14 +15,20 @@
 
 <body>
 
-@include('admin.incs.navbar')
+<div id="app">
+    @include('admin.incs.navbar')
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+    </div>
 
-@yield('content')
-
-
-
-
-
+    <div class="page-content">
+        @yield('content')
+    </div>
+</div>
 
 
 <script src="{{asset('assets/js/bootstrap.js')}}"></script>
