@@ -18,7 +18,6 @@ class TaskModel extends Model
         'to',
         'file',
         'file_name',
-        'comment',
         'project_id',
         'type_id',
         'kpi_id',
@@ -27,6 +26,7 @@ class TaskModel extends Model
         'client_id',
         'status_id',
     ];
+
 
     public function project()
     {
@@ -62,5 +62,7 @@ class TaskModel extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+
 }
 
