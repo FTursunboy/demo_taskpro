@@ -17,7 +17,7 @@
                 <div class="auth-logo">
                     <a href="#"><img src="{{ asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
                 </div>
-                <h1 class="auth-title">Вход.</h1>
+                <h2 class="auth-title">Вход</h2>
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     @include('inc.messages')

@@ -31,7 +31,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::group(['as' => 'project.'], function () {
         Route::get('/projects', [\App\Http\Controllers\Admin\ProjectController::class, 'index'])->name('index');
         Route::get('/projects/create', [\App\Http\Controllers\Admin\ProjectController::class, 'create'])->name('create');
-        Route::post('/project/store', [\App\Http\Controllers\Admin\ProjectController::class, 'store'])->name('store');
+        Route::post('/projects/store', [\App\Http\Controllers\Admin\ProjectController::class, 'store'])->name('store');
+        Route::get('/projects/show/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'show'])->name('show');
+        Route::get('/projects/edit/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'edit'])->name('edit');
+        Route::patch('/projects/edit/{projectModel}/update', [\App\Http\Controllers\Admin\ProjectController::class, 'update'])->name('update');
+        Route::delete('/projects/destroy/{projectModel}', [\App\Http\Controllers\Admin\ProjectController::class, 'destroy'])->name('destroy');
     });
 
 });
