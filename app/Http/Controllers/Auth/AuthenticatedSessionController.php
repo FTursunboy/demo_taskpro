@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         return match ($role) {
             'admin' => redirect()->intended(RouteServiceProvider::HOME),
             'user' => redirect()->intended(RouteServiceProvider::USER),
-            'client' => redirect()->intended(RouteServiceProvider::CLIENT),
+            'incs' => redirect()->intended(RouteServiceProvider::CLIENT),
             default => redirect()->back()->with('err', 'Что то пошло не так'),
         };
     }

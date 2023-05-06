@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'user'
         ]);
         Role::create([
-            'name' => 'client'
+            'name' => 'incs'
         ]);
 
         StatusesModel::create([
