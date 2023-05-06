@@ -11,9 +11,9 @@ class ProjectTypeController extends Controller
     public function index()
     {
 
-        $types = ProjectTypeModel::where('status', true)->get();
+        $types = ProjectTypeModel::get();
 
-        return view('admin.projectType.index', compact('types'));
+        return view('admin.settings.index', compact('types'));
     }
 
     public function store(Request $request)
@@ -23,7 +23,6 @@ class ProjectTypeController extends Controller
         ]);
         ProjectTypeModel::create([
             'name' => $data['name'],
-            'status' => true,
         ]);
         return redirect()->route('settings.project')->with('mess', 'Успешно добавлен!!');
 
@@ -40,7 +39,6 @@ class ProjectTypeController extends Controller
         return redirect()->route('settings.project')->with('mess', 'Успешно обновлено');
     }
     public function delete(ProjectTypeModel $projectTypeModel) {
-
         $projectTypeModel->delete();
         return redirect()->route('settings.project')->with('mess', 'Успешно удалено');
     }

@@ -110,7 +110,7 @@
                             <a href="table-datatable-jquery.html">Отдел</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="table-datatable-jquery.html">Задачи</a>
+                            <a href="{{route('settings.task')}}">Задачи</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('settings.project')}}">Проекты</a>
