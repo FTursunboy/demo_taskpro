@@ -14,7 +14,7 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Настройки</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Kpi</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{$taskTypeModel->name}}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -58,7 +58,7 @@
                                                     <h5 class="modal-title">Обноавление этапа</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{route('settings.task.update', $type->id)}}" method="post">
+                                                <form action="{{route('settings.kpi.update', $type->id)}}" method="post">
                                                     @csrf
                                                     @method('patch')
                                                     <div class="modal-body">
@@ -83,7 +83,7 @@
                                                     <h5 class="modal-title">Вы действительно хотите удалить</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{route('settings.task.delete', $type->id)}}" method="get">
+                                                <form action="{{route('settings.kpi.delete', $type->id)}}" method="get">
                                                     <div class="modal-body">
                                                         <div>
                                                             <div>
@@ -122,12 +122,19 @@
                     <h5 class="modal-title">Добавить тип</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('settings.task.store')}}" method="post">
+                <form action="{{route('settings.kpi.store')}}" method="post">
                     @csrf
                     <div class="modal-body">
                         <div>
                             <div>
-                                <input type="text" name="name" class="form-control">
+                                <select class="form-select" name="typetask" id="">
+                                    @foreach($taskType as $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <input type="text" name="name" class="form-control mt-2">
                             </div>
                         </div>
                         <div class="modal-footer">
