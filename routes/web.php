@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+
+\Illuminate\Support\Facades\Route::get('/', function (){
+    return view('auth.login');
+});
+
 
 require __DIR__.'/admin/admin.php';
 require __DIR__.'/user/user.php';

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->unique();
             $table->string('position');
-            $table->string('otdel_slug')->default(null);
+            $table->unsignedBigInteger('otdel_id');
             $table->string('telegram_user_id')->unique();
             $table->integer('xp')->default(50);
             $table->string('slug')->unique();
@@ -28,6 +28,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('otdel_id')->references('id')->on('otdels_models')->onDelete('cascade');
         });
     }
 
