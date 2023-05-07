@@ -45,7 +45,7 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$type->name}}</td>
                                         <td>
-                                            <a class="badge badge-primary p-2 text-primary" href="{{route('settings.kpi')}}" ><i class="nav-icon bi bi-eye"></i></a>
+                                            <a class="badge badge-primary p-2 text-primary" href="{{route('settings.kpi', $type->id)}}" ><i class="nav-icon bi bi-eye"></i></a>
                                             <a class="badge badge-primary p-2 text-success" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $type->id }}"><i class="nav-icon bi bi-pencil"></i></a>
                                             <a class="badge badge-danger p-2 text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete{{ $type->id }}"><i class="nav-icon bi bi-trash"></i></a>
 

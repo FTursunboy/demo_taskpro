@@ -49,8 +49,8 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ (request()->is('tasks') or request()->is('tasks/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Задачи</span>
                     </a>
@@ -66,7 +66,7 @@
 
                 <li
                     class="sidebar-item">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Мониторинг</span>
                     </a>
@@ -89,8 +89,8 @@
                 </li>
 
                 <li
-                    class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
+                    class="sidebar-item  {{ (request()->is('employees') or request()->is('employee/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('employee.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Сотрудники</span>
                     </a>
@@ -122,7 +122,7 @@
                     class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-pentagon-fill"></i>
-                        <span>Телеграм</span>
+                        <span>Телеграмм</span>
                     </a>
 
                 </li>
@@ -136,6 +136,13 @@
                 </li>
 
 
+                <li
+                    class="sidebar-item">
+                    <a href={{ route('logout') }} class='sidebar-link'>
+                        <i class="bi bi-door-open"></i>
+                        <span>Выход</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

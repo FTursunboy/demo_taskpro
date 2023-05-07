@@ -116,6 +116,5 @@
                 start.removeClass('border-danger')
             }
         })
-
     </script>
 @endsection
