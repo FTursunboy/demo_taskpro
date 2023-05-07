@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['role:admin']], function () {
     Route::group(['as' => 'admin.'], function () {
         Route::get('dashboard-admin', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
+        Route::get('admin/ideas', [\App\Http\Controllers\Admin\IdeaController::class, 'index'])->name('ideas');
+        Route::get('admin/ideas/show/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'show'])->name('idea.show');
+        Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
     });
 
 
@@ -55,4 +58,5 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     // for kpi ajax tasks
     Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+
 });
