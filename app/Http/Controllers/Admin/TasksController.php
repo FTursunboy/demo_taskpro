@@ -18,7 +18,7 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = TaskModel::get();
+        $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         return view('admin.tasks.index', compact('tasks'));
     }
 
@@ -26,13 +26,13 @@ class TasksController extends Controller
     {
         $types = TaskTypeModel::get();
         $projects = ProjectModel::get();
-        $users = User::role('user');
+        $users = User::role('user')->get();
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
     }
 
     public function store(Request $request)
     {
-        Artisan::call('update:task-status');
+
         if ($request->file('file') !== null) {
             $file = $request->file('file')->store('public/docs');
         } else {
@@ -54,6 +54,10 @@ class TasksController extends Controller
             'status_id' => 1,
             'client_id' => $request->client_id ?? null,
         ]);
+        ProjectModel::where('id', $request->project_id)->first()->update([
+            'pro_status' => 2,
+        ]);
+        Artisan::call('update:task-status');
         return redirect()->route('tasks.index')->with('create','Задача успешно создана');
     }
 

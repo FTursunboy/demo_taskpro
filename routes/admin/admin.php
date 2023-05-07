@@ -44,6 +44,14 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::post('/tasks/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
     });
 
+    Route::group(['as' => 'employee.'], function () {
+        Route::get('/employees', [\App\Http\Controllers\Admin\EmployeeController::class, 'index'])->name('index');
+        Route::get('/employees/create', [\App\Http\Controllers\Admin\EmployeeController::class, 'create'])->name('create');
+        Route::post('/employees/store', [\App\Http\Controllers\Admin\EmployeeController::class, 'store'])->name('store');
+        Route::get('/employees/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
+        Route::patch('/employees/update/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
+        Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
+    });
 
     // for kpi ajax tasks
     Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);

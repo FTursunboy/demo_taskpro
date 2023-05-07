@@ -37,9 +37,9 @@
                         <div class="col-4">
 
                             <div class="form-group">
-                                <label for="name">Имя проекта</label>
+                                <label for="name">Имя</label>
                                 <input type="text" id="name" name="name" class="form-control mt-3"
-                                       placeholder="Имя проекта" value="{{ old('name') }}" required>
+                                       placeholder="Имя" value="{{ old('name') }}" required>
                             </div>
 
                             <div class="form-group">
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="from">Дата начала проекта</label>
+                                <label for="from">Дата начала задача</label>
                                 <input type="date" id="from" name="from" class="form-control mt-3"
                                        value="{{ old('from') }}" required>
                             </div>
@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="to">Дата окончания проекта</label>
+                                <label for="to">Дата окончания задача</label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
                             </div>

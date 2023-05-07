@@ -25,10 +25,19 @@
         <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
             Добавить задачу
         </a>
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header">
+                        <span><i class="bi bi-circle-fill text-warning mx-2"></i>Ожидается</span>
+                        <span><i class="bi bi-circle-fill text-success mx-2"></i>Принято</span>
+                        <span><i class="bi bi-circle-fill text-danger mx-2"></i>Отклонено</span>
+                        <span><i class="bi bi-circle-fill text-primary mx-2"></i>В процессе</span>
+                        <span><i class="bi bi-circle-fill text-info mx-2"></i>Про срочное</span>
+                        <span><i class="bi bi-circle-fill text-secondary mx-2"></i>На проверку</span>
+                        <span><i class="bi bi-circle-fill mx-2" style="color: #00ff80"></i>Готов</span>
+
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
@@ -39,7 +48,31 @@
                                            id="v-pills-home-tab{{ $task->id }}" data-bs-toggle="pill"
                                            href="#v-pills-home{{ $task->id }}" role="tab"
                                            aria-controls="v-pills-home{{ $task->id }}"
-                                           aria-selected="true">{{ $task->name }}</a>
+                                           aria-selected="true">
+                                            @switch($task->status->name)
+                                                @case($task->status->name === "Ожидается")
+                                                <i class="bi bi-circle-fill text-warning mx-2"></i>
+                                                @break
+                                                @case($task->status->name === "Принято")
+                                                <i class="bi bi-circle-fill text-success mx-2"></i>
+                                                @break
+                                                @case($task->status->name === "Отклонено")
+                                                <i class="bi bi-circle-fill text-danger mx-2"></i>
+                                                @break
+                                                @case($task->status->name === "В процессе")
+                                                <i class="bi bi-circle-fill text-primary mx-2"></i>
+                                                @break
+                                                @case($task->status->name === "Готов")
+                                                <i class="bi bi-circle-fill mx-2" style="color: #00ff80"></i>
+                                                @break
+                                                @case($task->status->name === "На проверку")
+                                                <i class="bi bi-circle-fill text-secondary mx-2"></i>
+                                                @break
+                                                @case($task->status->name === "Про срочное")
+                                                    <i class="bi bi-circle-fill text-info mx-2"></i>
+                                                @break
+                                            @endswitch
+                                            {{ $task->name }}</a>
                                     @endforeach
                                 </div>
                             </div>
@@ -104,37 +137,37 @@
                                                     <div class="form-group">
                                                         <label for="sts">Статус</label>
                                                         @switch($task->status->name)
-                                                            @case($task->status->name == "Ожидается")
+                                                            @case($task->status->name === "Ожидается")
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control  bg-warning text-black" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
-                                                            @case($task->status->name == "Принято")
+                                                            @case($task->status->name === "Принято")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-success" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text" class="form-control  bg-success text-white" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
-                                                            @case($task->status->name == "Отклонено")
+                                                            @case($task->status->name === "Отклонено")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-danger" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text" class="form-control  bg-danger text-white" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
-                                                            @case($task->status->name == "В процессе")
+                                                            @case($task->status->name === "В процессе")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-primary" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text" class="form-control  bg-primary text-white" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
-                                                            @case($task->status->name == "Готов")
+                                                            @case($task->status->name === "Готов")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-success" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text" class="form-control text-white" id="sts" value="{{ $task->status->name }}" disabled style="background-color: #00ff80">
                                                             </div>
                                                             @break
-                                                            @case($task->status->name == "На проверку")
+                                                            @case($task->status->name === "На проверку")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-secondary" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text" class="form-control  bg-secondary text-white" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
-                                                            @case($task->status->name == "Про срочное")
+                                                            @case($task->status->name === "Про срочное")
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control  bg-info text-black" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>

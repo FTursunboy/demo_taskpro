@@ -66,7 +66,7 @@
 
                 <li
                     class="sidebar-item">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Мониторинг</span>
                     </a>
@@ -89,8 +89,8 @@
                 </li>
 
                 <li
-                    class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
+                    class="sidebar-item  {{ (request()->is('employees') or request()->is('employee/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('employee.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Сотрудники</span>
                     </a>
@@ -122,7 +122,7 @@
                     class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-pentagon-fill"></i>
-                        <span>Телеграм</span>
+                        <span>Телеграмм</span>
                     </a>
 
                 </li>
