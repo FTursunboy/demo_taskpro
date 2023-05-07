@@ -10,6 +10,7 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,6 +32,7 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
+        Artisan::call('update:task-status');
         if ($request->file('file') !== null) {
             $file = $request->file('file')->store('public/docs');
         } else {
