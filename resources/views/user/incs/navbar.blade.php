@@ -43,7 +43,7 @@
 
                 <li
                     class="sidebar-item {{ (request()->is('dashboard-admin') or request()->is('dashboard-admin/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('admin.index') }}" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Панель</span>
                     </a>
@@ -58,7 +58,7 @@
 
 
                 <li class="sidebar-item {{ (request()->is('projects') or request()->is('projects/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('project.index') }}" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i class="bi bi-hexagon-fill"></i>
                         <span>Проекты</span>
                     </a>
@@ -66,16 +66,8 @@
 
                 <li
                     class="sidebar-item">
-                    <a href="form-layout.html" class='sidebar-link'>
+                    <a href="{{route('user.ideas')}}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Мониторинг</span>
-                    </a>
-                </li>
-
-                <li
-                    class="sidebar-item">
-                    <a href="{{route('admin.ideas')}}" class='sidebar-link'>
-                        <i class="bi bi-journal-check"></i>
                         <span>Идеи</span>
                     </a>
                 </li>
@@ -83,55 +75,18 @@
                 <li
                     class="sidebar-item">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-pen-fill"></i>
-                        <span>Партнеры</span>
+                        <i class="bi bi-journal-check"></i>
+                        <span>Идеи</span>
                     </a>
                 </li>
 
-                <li
-                    class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Сотрудники</span>
-                    </a>
-                </li>
 
-                <li
-                    class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>Настройки</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="table-datatable.html">Роли</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="table-datatable-jquery.html">Отдел</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="{{route('settings.task')}}">Задачи</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="{{route('settings.project')}}">Проекты</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li
-                    class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-pentagon-fill"></i>
-                        <span>Телеграм</span>
-                    </a>
-
-                </li>
 
                 <li
                     class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-egg-fill"></i>
-                        <span>Профиль</span>
+                        <span>Выход</span>
                     </a>
                 </li>
 
