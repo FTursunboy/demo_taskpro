@@ -25,7 +25,7 @@ class TasksController extends Controller
     {
         $types = TaskTypeModel::get();
         $projects = ProjectModel::get();
-        $users = User::role('user')->get();
+        $users = User::role('user');
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
     }
 

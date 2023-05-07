@@ -58,9 +58,4 @@ class User extends Authenticatable
     public function otdel() {
         return $this->belongsTo(OtdelsModel::class);
     }
-
-    public function role(){
-        return $this->belongsTo(Role::class);
     }
-
-}
