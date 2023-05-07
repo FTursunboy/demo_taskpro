@@ -30,7 +30,7 @@ class TaskModel extends Model
 
     public function project()
     {
-        return $this->belongsTo(ProjectTypeModel::class);
+        return $this->belongsTo(ProjectModel::class);
     }
 
     public function type()

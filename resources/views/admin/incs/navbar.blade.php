@@ -136,6 +136,13 @@
                 </li>
 
 
+                <li
+                    class="sidebar-item">
+                    <a href={{ route('logout') }} class='sidebar-link'>
+                        <i class="bi bi-door-open"></i>
+                        <span>Выход</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
