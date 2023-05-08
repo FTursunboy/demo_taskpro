@@ -14,18 +14,12 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
-
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
                 <section class="section">
-                    @if(session('mess'))
-                        <div class="alert alert-success">
-                            {{session('mess')}}
-                        </div>
-                    @endif
                         <div class="row ">
                             <div class="row pt-4">
                                 <div class="col-md-12">
@@ -61,44 +55,63 @@
                                                         <div class="row g-3">
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Название задачи</label>
-                                                                <input type="text"
+                                                                <input disabled type="text"
                                                                        class="form-control"
-                                                                       name="name" id="name" required>
+                                                                       name="name" id="name" value="{{$offer->name}}" required>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Ответственный сотрудник</label>
+                                                                <input placeholder="Сотрудник будет установлен" disabled type="text"
+                                                                       class="form-control"
+                                                                       name="user_id" id="name" value="{{$offer->user?->name}}" required>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Ответсвенный сотрудник со стороны компании</label>
-                                                                <input type="text"
+                                                                <input value="{{$offer->author_name}}" disabled type="text"
                                                                        class="form-control"
                                                                        name="author_name" id="name" required>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Телефон ответсвенного сотрудника</label>
-                                                                <input type="text"
+                                                                <input value="{{$offer->author_phone}}" disabled type="text"
                                                                        class="form-control"
                                                                        name="author_phone" id="name" required>
                                                             </div>
+
                                                             <div class="col-md-6">
-                                                                <label class="form-label">Выберите файл</label>
-                                                                <input type="file"
-                                                                       class="form-control"
-                                                                       name="file">
+                                                                <label class="form-label">От</label>
+                                                                <input placeholder="Дата будет установлена" value="{{$offer->from}}" disabled type="date"
+                                                                        class="form-control"
+                                                                        name="from">
                                                             </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">До</label>
+                                                                <input placeholder="Дата будет установлена" value="{{$offer->to}}" disabled type="date"
+                                                                        class="form-control"
+                                                                        name="to">
+                                                            </div>
+                                                            @if($offer->file !== null)
+                                                                <div class="col-md-6">
+                                                                    <a style="margin-left: 0px" download
+                                                                       href="{{route('offers.download', $offer->id)}}">Просмотреть
+                                                                        файл</a>
+                                                                </div>
+                                                            @endif
                                                             <div class="col-12">
                                                                 <label for="your-message" class="form-label">Описание
                                                                     задачи</label>
-                                                                <textarea id="description" class="form-control"
+                                                                <textarea disabled id="description" class="form-control"
                                                                           name="description"
-                                                                          rows="5" required></textarea>
+                                                                          rows="5" required>{{$offer->description}} </textarea>
                                                             </div>
                                                             <div class="col-md-6">
                                                             </div>
                                                         </div>
                                                         <div class="row mt-4">
                                                             <div class="col-12">
-                                                                <button type="button" class="btn btn-success form-control"
-                                                                        id="btnSend">
-                                                                    Отправить
-                                                                </button>
+                                                                <a href="{{route('offers.index')}}" class="btn btn-success form-control">
+                                                                        Назад
+                                                                </a>
                                                                 <script>
                                                                     const btn = document.getElementById('btnSend')
                                                                     btn.addEventListener('click', function () {

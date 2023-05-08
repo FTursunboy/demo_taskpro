@@ -54,26 +54,27 @@
                                         <div class="container my-5">
                                             <div class="row">
                                                 <div class="col-lg-9">
-                                                    <form method="post" action="{{route('offers.store')}}"
+                                                    <form method="post" action="{{route('offers.update', $offer->id)}}"
                                                           enctype="multipart/form-data"
                                                           autocomplete="off">
                                                         @csrf
+                                                        @method('patch')
                                                         <div class="row g-3">
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Название задачи</label>
-                                                                <input type="text"
+                                                                <input value="{{$offer->name}}" type="text"
                                                                        class="form-control"
                                                                        name="name" id="name" required>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Ответсвенный сотрудник со стороны компании</label>
-                                                                <input type="text"
+                                                                <input value="{{$offer->author_name}}" type="text"
                                                                        class="form-control"
                                                                        name="author_name" id="name" required>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Телефон ответсвенного сотрудника</label>
-                                                                <input type="text"
+                                                                <input value="{{$offer->author_phone}}" type="text"
                                                                        class="form-control"
                                                                        name="author_phone" id="name" required>
                                                             </div>
@@ -88,7 +89,7 @@
                                                                     задачи</label>
                                                                 <textarea id="description" class="form-control"
                                                                           name="description"
-                                                                          rows="5" required></textarea>
+                                                                          rows="5" required>{{$offer->description}}</textarea>
                                                             </div>
                                                             <div class="col-md-6">
                                                             </div>

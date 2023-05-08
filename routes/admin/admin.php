@@ -65,6 +65,8 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::post('profile/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'password'])->name('password');
     });
 
-
+    Route::group(['as' => 'client.offers.'], function () {
+        Route::get('clients/offers', [\App\Http\Controllers\Admin\OfferController::class, 'index'])->name('index');
+    });
 
 });

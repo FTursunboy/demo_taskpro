@@ -13,7 +13,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('user.ideas')}}">Задачи</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
 
                                 </ol>
                             </nav>
@@ -21,14 +21,10 @@
                     </div>
                 </div>
                 <section class="section">
-                    @if(session('mess'))
-                        <div class="alert alert-success">
-                            {{session('mess')}}
-                        </div>
-                    @endif
                     <div class="card">
                         <div class="card-header">
                             <a href="{{route('offers.create')}}"  class="btn btn-primary">Добавить</a>
+                            @include('inc.messages')
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">
