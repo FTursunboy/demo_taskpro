@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Список задач</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('offers.index') }}">Список задач</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Добавление задачу</li>
                         </ol>
                     </nav>
@@ -26,12 +26,12 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">
+                <a href="{{ route('offers.index') }}" class="btn btn-outline-danger">
                     Назад
                 </a>
             </div>
             <div class="card-body">
-                <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('offers.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-4">

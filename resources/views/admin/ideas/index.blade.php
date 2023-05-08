@@ -25,9 +25,6 @@
                         </div>
                     @endif
                     <div class="card">
-                        <div class="card-header">
-                            <a href="{{route('user.idea.create')}}"  class="btn btn-primary">Добавить</a>
-                        </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">
                                 <thead>

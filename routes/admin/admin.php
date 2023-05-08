@@ -17,10 +17,10 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::patch('/settings/project/update/{projectTypeModel}', [\App\Http\Controllers\Admin\ProjectTypeController::class, 'update'])->name('project.update');
         Route::get('/settings/project/delete/{projectTypeModel}', [\App\Http\Controllers\Admin\ProjectTypeController::class, 'delete'])->name('project.delete');
 
-        Route::get('/settings/tasks', [\App\Http\Controllers\Admin\TaskTypeController::class, 'index'])->name('task');
-        Route::post('/settings/tasks/store', [\App\Http\Controllers\Admin\TaskTypeController::class, 'store'])->name('task.store');
-        Route::patch('/settings/tasks/update/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'update'])->name('task.update');
-        Route::get('/settings/tasks/delete/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'delete'])->name('task.delete');
+        Route::get('/settings/offers', [\App\Http\Controllers\Admin\TaskTypeController::class, 'index'])->name('task');
+        Route::post('/settings/offers/store', [\App\Http\Controllers\Admin\TaskTypeController::class, 'store'])->name('task.store');
+        Route::patch('/settings/offers/update/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'update'])->name('task.update');
+        Route::get('/settings/offers/delete/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'delete'])->name('task.delete');
         Route::get('/settings/kpi', [\App\Http\Controllers\Admin\TaskTypeController::class, 'kpi'])->name('kpi');
 
         Route::get('/settings/kpi/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'kpi'])->name('kpi');
@@ -41,10 +41,10 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::delete('/projects/destroy/{projectModel}', [\App\Http\Controllers\Admin\ProjectController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['as' => 'tasks.'], function () {
-        Route::get('/tasks', [\App\Http\Controllers\Admin\TasksController::class, 'index'])->name('index');
-        Route::get('/tasks/create', [\App\Http\Controllers\Admin\TasksController::class, 'create'])->name('create');
-        Route::post('/tasks/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
+    Route::group(['as' => 'offers.'], function () {
+        Route::get('/offers', [\App\Http\Controllers\Admin\TasksController::class, 'index'])->name('index');
+        Route::get('/offers/create', [\App\Http\Controllers\Admin\TasksController::class, 'create'])->name('create');
+        Route::post('/offers/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
     });
 
     Route::group(['as' => 'employee.'], function () {
@@ -56,7 +56,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
     });
 
-    // for kpi ajax tasks
-    Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+    // for kpi ajax offers
+    Route::get('/offers/offers/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
 });
