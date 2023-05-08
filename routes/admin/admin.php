@@ -41,10 +41,10 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::delete('/projects/destroy/{projectModel}', [\App\Http\Controllers\Admin\ProjectController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['as' => 'offers.'], function () {
-        Route::get('/offers', [\App\Http\Controllers\Admin\TasksController::class, 'index'])->name('index');
-        Route::get('/offers/create', [\App\Http\Controllers\Admin\TasksController::class, 'create'])->name('create');
-        Route::post('/offers/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
+    Route::group(['as' => 'tasks.'], function () {
+        Route::get('/tasks', [\App\Http\Controllers\Admin\TasksController::class, 'index'])->name('index');
+        Route::get('/tasks/create', [\App\Http\Controllers\Admin\TasksController::class, 'create'])->name('create');
+        Route::post('/tasks/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
     });
 
     Route::group(['as' => 'employee.'], function () {
@@ -65,8 +65,6 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::post('profile/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'password'])->name('password');
     });
 
-    // for kpi ajax tasks
-    Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
 
 });

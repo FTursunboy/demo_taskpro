@@ -22,7 +22,7 @@
 
         @include('inc.messages')
 
-        <a href="{{ route('offers.create') }}" class="btn btn-outline-primary mb-4">
+        <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
             Добавить задачу
         </a>
         <div class="row">

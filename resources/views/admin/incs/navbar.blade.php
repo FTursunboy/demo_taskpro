@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="sidebar-item {{ (request()->is('offers') or request()->is('offers/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('offers.index') }}" class='sidebar-link'>
+                    <a href="{{ route('tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Задачи</span>
                     </a>
