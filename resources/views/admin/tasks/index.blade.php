@@ -33,7 +33,7 @@
                         <span><i class="bi bi-circle-fill text-success mx-2"></i>Принято</span>
                         <span><i class="bi bi-circle-fill text-danger mx-2"></i>Отклонено</span>
                         <span><i class="bi bi-circle-fill text-primary mx-2"></i>В процессе</span>
-                        <span><i class="bi bi-circle-fill text-info mx-2"></i>Про срочное</span>
+                        <span><i class="bi bi-circle-fill text-info mx-2"></i>Просроченный</span>
                         <span><i class="bi bi-circle-fill text-secondary mx-2"></i>На проверку</span>
                         <span><i class="bi bi-circle-fill mx-2" style="color: #00ff80"></i>Готов</span>
 
@@ -68,7 +68,7 @@
                                                 @case($task->status->name === "На проверку")
                                                 <i class="bi bi-circle-fill text-secondary mx-2"></i>
                                                 @break
-                                                @case($task->status->name === "Про срочное")
+                                                @case($task->status->name === "Просроченный")
                                                     <i class="bi bi-circle-fill text-info mx-2"></i>
                                                 @break
                                             @endswitch
@@ -167,7 +167,7 @@
                                                                 <input type="text" class="form-control  bg-secondary text-white" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
-                                                            @case($task->status->name === "Про срочное")
+                                                            @case($task->status->name === "Просроченный")
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control  bg-info text-black" id="sts" value="{{ $task->status->name }}" disabled>
                                                             </div>
