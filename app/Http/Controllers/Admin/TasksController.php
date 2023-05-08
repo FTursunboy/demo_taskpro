@@ -19,7 +19,7 @@ class TasksController extends Controller
     public function index()
     {
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
-        return view('admin.tasks.index', compact('tasks'));
+        return view('admin.offers.index', compact('tasks'));
     }
 
     public function create()
@@ -27,7 +27,7 @@ class TasksController extends Controller
         $types = TaskTypeModel::get();
         $projects = ProjectModel::get();
         $users = User::role('user')->get();
-        return view('admin.tasks.create', compact('types', 'projects', 'users'));
+        return view('admin.offers.create', compact('types', 'projects', 'users'));
     }
 
     public function store(Request $request)
@@ -60,7 +60,7 @@ class TasksController extends Controller
             'pro_status' => 2,
         ]);
         Artisan::call('update:task-status');
-        return redirect()->route('tasks.index')->with('create','Задача успешно создана');
+        return redirect()->route('offers.index')->with('create','Задача успешно создана');
     }
 
 

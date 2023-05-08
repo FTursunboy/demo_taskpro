@@ -31,10 +31,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         Artisan::call('update:task-status');
         $role = Auth::user()->getRoleNames()[0];
+
         return match ($role) {
             'admin' => redirect()->intended(RouteServiceProvider::HOME),
             'user' => redirect()->intended(RouteServiceProvider::USER),
-            'incs' => redirect()->intended(RouteServiceProvider::CLIENT),
+            'client' => redirect()->intended(RouteServiceProvider::CLIENT),
             default => redirect()->back()->with('err', 'Что то пошло не так'),
         };
     }

@@ -364,7 +364,7 @@ business:
     - table
     - tag
     - tags
-    - tasks
+    - offers
     - thumbtack
     - trademark
     - wallet
@@ -750,7 +750,7 @@ editors:
     - sync
     - sync-alt
     - table
-    - tasks
+    - offers
     - text-height
     - text-width
     - th
