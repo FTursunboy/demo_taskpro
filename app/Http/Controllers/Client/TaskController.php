@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\TaskRequest;
 use App\Models\Client\Offer;
+use App\Models\SuperAdmin\TasksStageUsersModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -49,7 +50,7 @@ class TaskController extends Controller
         ]);
 
 
-        return redirect()->route('offers.index')->with('mess', 'Успешно создано');
+        return redirect()->route('offers.index')->with('create', 'Успешно создано');
 
     }
 
@@ -75,12 +76,11 @@ class TaskController extends Controller
         $offer->client_id = Auth::id();
 
         $offer->save();
-
+        return redirect()->route('offers.index')->with('update', 'Успешно обновлено');
     }
 
     public function delete(Offer $offer) {
         $offer->delete();
-
         return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
@@ -94,5 +94,18 @@ class TaskController extends Controller
         $offer->save();
 
         return redirect()->back()->with('mess', 'Успешно отправлено');
+    }
+
+    public function downloadFile(Offer $offer){
+
+
+        $path = storage_path('app/public/' . $offer->file);
+
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $offer->file_name . '"',
+        ];
+        return response()->download($path, $offer->file_name, $headers);
+
     }
 }
