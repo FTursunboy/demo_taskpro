@@ -8,6 +8,7 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
+use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -65,8 +66,13 @@ class TasksController extends Controller
 
     public function ready(TaskModel $task)
     {
+        UserTaskHistoryModel::create([
+            'user_id' => $task->user_id,
+            'task_id' => $task->id,
+            'status_id' => 3,
+        ]);
         $task->update([
-            'status_id' => 6
+            'status_id' => 3
         ]);
         return redirect()->route('tasks.index')->with('create', 'Садача готова');
     }

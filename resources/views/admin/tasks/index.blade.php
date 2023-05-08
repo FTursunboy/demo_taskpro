@@ -214,20 +214,24 @@
                                                         Изменить
                                                     </a>
                                                 </div>
-                                                <div class="col-4">
-                                                    <a href="" class="btn btn-outline-danger w-100">
-                                                        <i class="bi bi-trash mx-2"></i>
-                                                        Удалить
-                                                    </a>
-                                                </div>
+                                                    @if($task->status->name === "На проверку")
+                                                        <div class="col-4">
+                                                            <form action="{{ route('tasks.ready', $task) }}" class="w-100" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-outline-info w-100">Проверте задачу</button>
+                                                            </form>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-4">
+                                                            <a href="" class="btn btn-outline-danger w-100">
+                                                                <i class="bi bi-trash mx-2"></i>
+                                                                Удалить
+                                                            </a>
+                                                        </div>
+
+                                                    @endif
                                             </div>
-                                            @if($task->status->name === "На проверку")
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        formasd
-                                                    </div>
-                                                </div>
-                                            @endif
+
                                           </div>
                                     @endforeach
                                 </div>

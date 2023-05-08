@@ -103,7 +103,11 @@ class User extends Authenticatable
     public function countTasks($id)
     {
         $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
-        $UnSuccess = TaskModel::where('status_id', 5)->where('user_id', $id)->count();
+        $UnSuccess = TaskModel::where('status_id', 5)->where('user_id', $id)->whereIn('id', function ($query) {
+            $query->from('user_task_history_models as h')
+                ->select('h.task_id')
+                ->where('h.status_id', 5);
+        })->count();
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)->count();
         $new = TaskModel::where('status_id', 1)->where('user_id', $id)->count();
@@ -121,7 +125,11 @@ class User extends Authenticatable
         return TaskModel::where([
             'user_id' => $id,
             'status_id' => 1
-        ])
+        ])->whereNotIn('id', function ($query) {
+            $query->from('user_task_history_models as h')
+                ->select('task_id')
+                ->where('h.status_id', 4);
+        })->orWhere('status_id', 7)
             ->orderBy('created_at')
             ->get();
     }
@@ -132,8 +140,12 @@ class User extends Authenticatable
         return TaskModel::where([
             'user_id' => $id,
             'status_id' => 4
-        ])
-            ->orWhere('status_id', 7)
+        ])->whereIn('id', function ($query) {
+            $query->from('user_task_history_models as h')
+                ->select('task_id')
+                ->where('h.status_id', 4)
+                ->orWhere('status_id', 7);
+        })
             ->orderBy('status_id', 'desc')
             ->get();
     }
