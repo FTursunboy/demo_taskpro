@@ -1,4 +1,7 @@
 @extends('user.layouts.app')
+@section('title')
+    Идеи
+@endsection
 @section('content')
     <div id="app">
 
@@ -13,8 +16,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('user.ideas')}}">Идеи</a></li>
-
+                                    <li class="breadcrumb-item"><a href="{{route('idea.ideas')}}">Идеи</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -28,7 +30,7 @@
                     @endif
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{route('user.idea.create')}}"  class="btn btn-primary">Добавить</a>
+                            <a href="{{route('idea.idea.create')}}"  class="btn btn-primary">Добавить</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">
@@ -65,8 +67,8 @@
                                             </td>
                                         @endif
                                     <td>
-                                        <a class="text-success" href="{{route('user.ideas.show', $idea->id)}}"><i class="bi bi-eye p-2"></i></a>
-                                        <a class="text-primary" href="{{route('user.idea.edit', $idea->id)}}"><i class="bi bi-pencil"></i></a>
+                                        <a class="text-success" href="{{route('idea.ideas.show', $idea->id)}}"><i class="bi bi-eye p-2"></i></a>
+                                        <a class="text-primary" href="{{route('idea.idea.edit', $idea->id)}}"><i class="bi bi-pencil"></i></a>
                                     </td>
                                     </tr>
                                 @empty
@@ -80,38 +82,9 @@
 
                 </section>
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-
-                </div>
-            </footer>
         </div>
     </div>
 
-    <div class="modal" id="store" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Добавить тип</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{route('settings.project.store')}}" method="post">
-                    @csrf
-                    <div class="modal-body">
-                        <div>
-                            <div>
-                                <input type="text" name="name" class="form-control">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Отправить</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 

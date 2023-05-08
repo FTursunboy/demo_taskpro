@@ -51,9 +51,14 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/employees', [\App\Http\Controllers\Admin\EmployeeController::class, 'index'])->name('index');
         Route::get('/employees/create', [\App\Http\Controllers\Admin\EmployeeController::class, 'create'])->name('create');
         Route::post('/employees/store', [\App\Http\Controllers\Admin\EmployeeController::class, 'store'])->name('store');
-        Route::get('/employees/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
+        Route::get('/employees/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
         Route::patch('/employees/update/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
         Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['as' => 'profile.'], function () {
+        Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('index');
+        Route::post('profile/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'password'])->name('password');
     });
 
     // for kpi ajax tasks

@@ -4,10 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Admin\OtdelsModel;
+use App\Models\Admin\ProjectModel;
+use App\Models\Admin\TaskModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -55,7 +58,72 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function otdel() {
+    public function otdel()
+    {
         return $this->belongsTo(OtdelsModel::class);
     }
+
+    public function taskCount($id)
+    {
+        return TaskModel::where('user_id', $id)->count();
     }
+
+    public function taskSuccessCount($id)
+    {
+        return TaskModel::where('user_id', $id)->where('status_id', 3)->count();
+    }
+
+    public function ideaCount($id)
+    {
+        return Idea::where('user_id', $id)->count();
+    }
+
+    public function tasksSuccess($id)
+    {
+        return TaskModel::where('user_id', $id)->where('status_id', 3)->orderBy('to', 'desc')->get();
+    }
+
+    // profile
+    public function projectCount()
+    {
+        return ProjectModel::count();
+    }
+
+    public function clientCount()
+    {
+        return User::role('client')->count();
+    }
+
+    public function ideaCountProfile()
+    {
+        return Idea::count();
+    }
+
+
+    public function countTasks($id)
+    {
+        $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
+        $UnSuccess = TaskModel::where('status_id', 5)->where('user_id', $id)->count();
+        $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
+        $all = TaskModel::where('user_id', $id)->count();
+        $new = TaskModel::where('status_id', 1)->where('user_id', $id)->count();
+        return [
+            'success' => $success,
+            'unSuccess' => $UnSuccess,
+            'speed' => $speed,
+            'all' => $all,
+            'new' => $new
+        ];
+    }
+
+    public function getNewTasks($id)
+    {
+        return TaskModel::where([
+            'user_id' => $id,
+            'status_id' => 1
+        ])
+            ->orderBy('created_at')
+            ->get();
+    }
+
+}

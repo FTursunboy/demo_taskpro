@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Models\Admin\OtdelsModel;
+use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,9 +46,10 @@ class EmployeeController extends Controller
         return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан');
     }
 
-    public function show()
+    public function show(User $user)
     {
-
+        $tasks = $user->tasksSuccess($user->id);
+        return view('admin.employee.show', compact('user', 'tasks'));
     }
 
     public function update()
@@ -58,4 +60,5 @@ class EmployeeController extends Controller
     public function destroy()
     {
     }
+
 }

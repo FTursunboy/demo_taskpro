@@ -53,6 +53,8 @@ class TasksController extends Controller
             'author_id' => Auth::id(),
             'status_id' => 1,
             'client_id' => $request->client_id ?? null,
+            'cancel' => $request->cancel?? null,
+            'cancel_admin' =>$request->cancel_admin ?? null,
         ]);
         ProjectModel::where('id', $request->project_id)->first()->update([
             'pro_status' => 2,
