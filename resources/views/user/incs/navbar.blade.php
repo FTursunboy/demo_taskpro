@@ -42,7 +42,7 @@
                 <li class="sidebar-title">Меню</li>
 
                 <li
-                    class="sidebar-item {{ (request()->is('dashboard-user') or request()->is('dashboard-user/*'))  ? 'active' : '' }}">
+                    class="sidebar-item {{ (request()->is('dashboard-user') or request()->is('task-list/*'))  ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Панель</span>

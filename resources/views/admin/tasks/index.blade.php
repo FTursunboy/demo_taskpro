@@ -221,6 +221,13 @@
                                                     </a>
                                                 </div>
                                             </div>
+                                            @if($task->status->name === "На проверку")
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        formasd
+                                                    </div>
+                                                </div>
+                                            @endif
                                           </div>
                                     @endforeach
                                 </div>

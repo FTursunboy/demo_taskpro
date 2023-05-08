@@ -49,7 +49,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ (request()->is('offers') or request()->is('offers/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item {{ (request()->is('tasks') or request()->is('tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Задачи</span>
