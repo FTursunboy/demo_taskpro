@@ -27,7 +27,7 @@ class EmployeeRequest extends FormRequest
             'login' => ['required', 'unique:users,login'],
             'otdel_id' => ['required', 'exists:otdels_models,id'],
             'lastname' => ['required'],
-            'phone' => ['required'],
+            'phone' => ['required', 'unique:users,phone'],
             'password' => ['required','min:6'],
             'surname' => ['required'],
             'position' => ['required'],

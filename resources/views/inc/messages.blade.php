@@ -1,5 +1,5 @@
 @if($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mt-2">
         <ol>
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -34,6 +34,15 @@
     <script>
         setTimeout(() => {
             $('#delete').remove()
+        },2500)
+    </script>
+@elseif(\Session::has('error'))
+    <div class="alert alert-danger" id="error">
+        {{ \Session::get('error') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            $('#error').remove()
         },2500)
     </script>
 @elseif(\Session::has('warning'))

@@ -25,6 +25,8 @@ class TaskModel extends Model
         'author_id',
         'client_id',
         'status_id',
+        'cancel',
+        'cancel_admin',
     ];
 
 
@@ -40,7 +42,7 @@ class TaskModel extends Model
 
     public function typeType()
     {
-        return $this->belongsTo(TaskTypesTypeModel::class,'kpi_id');
+        return $this->belongsTo(TaskTypesTypeModel::class, 'kpi_id');
     }
 
     public function user()

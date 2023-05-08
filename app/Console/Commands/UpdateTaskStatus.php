@@ -27,7 +27,9 @@ class UpdateTaskStatus extends Command
     public function handle()
     {
         $tasks = TaskModel::where('to', '<=', now()->addWeek())
-            ->where('status_id', '!=', 7)
+            ->where('status_id', '=', 2)
+            ->where('status_id', '=', 4)
+            ->where('status_id', '=', 6)
             ->get();
         foreach ($tasks as $task) {
             $task->status_id = 7;
