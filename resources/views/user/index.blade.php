@@ -130,17 +130,43 @@
                 <div class="row">
                     <div class="col-9">
                         <h4>Список всех задач</h4>
-                        <p>
-                            <button class="btn btn-primary w-100 collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseExample" aria-expanded="false"
-                                    aria-controls="collapseExample"><span class="d-flex justify-content-start"><i class="bi bi-info-circle mx-2"></i> Информация о задача</span>
-                            </button>
-                        </p>
-                        <div class="collapse" id="collapseExample" style="">
-                            Some placeholder content for the collapse component. This panel is hidden by default but
-                            revealed when the user activates the relevant trigger.
+                        <div class="my-4">
+                            <span><i class="bi bi-circle-fill text-primary mx-2"></i>Принято</span>
+                            <span><i class="bi bi-circle-fill text-info mx-2"></i>Просроченный</span>
                         </div>
-
+                        @foreach($tasks as $task)
+                            @if($task->status->name === "Принято")
+                            <p>
+                                <button class="btn btn-primary w-100 collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
+                                        aria-controls="collapseExample"><span class="d-flex justify-content-start"><i
+                                            class="bi bi-info-circle mx-2"></i> Информация о задача</span>
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseExample{{ $task->id }}" style="background-color: rgba(38,84,236,0.24)">
+                               <div class="row p-3">
+                                   <div class="col-4">qwe</div>
+                                   <div class="col-4">qwe</div>
+                                   <div class="col-4">qweqwe</div>
+                               </div>
+                            </div>
+                            @elseif($task->status->name === "Просроченный")
+                                <p>
+                                    <button class="btn btn-info w-100 collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
+                                            aria-controls="collapseExample"><span class="d-flex justify-content-start"><i
+                                                class="bi bi-info-circle mx-2"></i> Информация о задача</span>
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseExample{{ $task->id }}" style="background-color: rgba(13,200,239,0.46)">
+                                    <div class="row p-3">
+                                        <div class="col-4">qwe</div>
+                                        <div class="col-4">qwe</div>
+                                        <div class="col-4">qweqwe</div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                     <div class="col-3">
                         <div class="card">

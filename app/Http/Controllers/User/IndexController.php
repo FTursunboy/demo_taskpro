@@ -15,7 +15,8 @@ class IndexController extends Controller
     {
         $task = User::where('id', Auth::id())->first()->countTasks(Auth::id());
         $user = User::where('id', Auth::id())->first();
-        return view('user.index', compact('task', 'user'));
+        $tasks = User::findOrFail(Auth::id())->getUsersTasks(Auth::id());
+        return view('user.index', compact('task', 'user', 'tasks'));
     }
 
 

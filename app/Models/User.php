@@ -126,4 +126,16 @@ class User extends Authenticatable
             ->get();
     }
 
+
+    public function getUsersTasks($id)
+    {
+        return TaskModel::where([
+            'user_id' => $id,
+            'status_id' => 4
+        ])
+            ->orWhere('status_id', 7)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('status_id', 'desc')
+            ->get();
+    }
 }
