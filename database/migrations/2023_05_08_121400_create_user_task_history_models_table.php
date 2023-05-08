@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('offers', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_id')->after('is_finished');
+        Schema::create('user_task_history_models', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('client_id');
-        });
+        Schema::dropIfExists('user_task_history_models');
     }
 };

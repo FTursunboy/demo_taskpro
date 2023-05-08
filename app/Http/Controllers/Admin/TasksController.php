@@ -53,16 +53,23 @@ class TasksController extends Controller
             'author_id' => Auth::id(),
             'status_id' => 1,
             'client_id' => $request->client_id ?? null,
-            'cancel' => $request->cancel?? null,
-            'cancel_admin' =>$request->cancel_admin ?? null,
+            'cancel' => $request->cancel ?? null,
+            'cancel_admin' => $request->cancel_admin ?? null,
         ]);
         ProjectModel::where('id', $request->project_id)->first()->update([
             'pro_status' => 2,
         ]);
         Artisan::call('update:task-status');
-        return redirect()->route('tasks.index')->with('create','Задача успешно создана');
+        return redirect()->route('tasks.index')->with('create', 'Задача успешно создана');
     }
 
+    public function ready(TaskModel $task)
+    {
+        $task->update([
+            'status_id' => 6
+        ]);
+        return redirect()->route('tasks.index')->with('create', 'Садача готова');
+    }
 
     public function kpi($id)
     {

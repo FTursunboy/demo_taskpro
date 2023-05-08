@@ -13,7 +13,6 @@ class TasksController extends Controller
     public function index()
     {
         $tasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
-
         return view('user.task.index', compact('tasks'));
     }
 

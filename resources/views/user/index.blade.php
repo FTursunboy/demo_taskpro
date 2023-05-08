@@ -27,7 +27,7 @@
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-4 py-4-5">
-                                <a href="#">
+                                <a href="{{ route('new-task.index') }}">
                                     <div class="row">
                                         <div
                                             class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -129,43 +129,140 @@
                 </div>
                 <div class="row">
                     <div class="col-9">
+                        @include('inc.messages')
                         <h4>Список всех задач</h4>
                         <div class="my-4">
                             <span><i class="bi bi-circle-fill text-primary mx-2"></i>Принято</span>
                             <span><i class="bi bi-circle-fill text-info mx-2"></i>Просроченный</span>
                         </div>
                         @foreach($tasks as $task)
-                            @if($task->status->name === "Принято")
                             <p>
-                                <button class="btn btn-primary w-100 collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
-                                        aria-controls="collapseExample"><span class="d-flex justify-content-start"><i
-                                            class="bi bi-info-circle mx-2"></i> Информация о задача</span>
+                                <button
+                                    class="btn btn-{{ ($task->status->name === "Принято") ? 'primary': 'info' }} w-100 collapsed"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
+                                    aria-controls="collapseExample"><span
+                                        class="d-flex justify-content-start"><i
+                                            class="bi bi-info-circle mx-2"></i> <span>{{ $task->name }}</span> </span>
                                 </button>
                             </p>
-                            <div class="collapse" id="collapseExample{{ $task->id }}" style="background-color: rgba(38,84,236,0.24)">
-                               <div class="row p-3">
-                                   <div class="col-4">qwe</div>
-                                   <div class="col-4">qwe</div>
-                                   <div class="col-4">qweqwe</div>
-                               </div>
-                            </div>
-                            @elseif($task->status->name === "Просроченный")
-                                <p>
-                                    <button class="btn btn-info w-100 collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
-                                            aria-controls="collapseExample"><span class="d-flex justify-content-start"><i
-                                                class="bi bi-info-circle mx-2"></i> Информация о задача</span>
-                                    </button>
-                                </p>
-                                <div class="collapse" id="collapseExample{{ $task->id }}" style="background-color: rgba(13,200,239,0.46)">
-                                    <div class="row p-3">
-                                        <div class="col-4">qwe</div>
-                                        <div class="col-4">qwe</div>
-                                        <div class="col-4">qweqwe</div>
+                            <div class="collapse my-3" id="collapseExample{{ $task->id }}">
+                                <div class="row p-3">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="name">Имя</label>
+                                            <input type="text" id="name" class="form-control"
+                                                   value="{{ $task->name }}" disabled>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="user">Сотрудник</label>
+                                            <input type="text" id="user" class="form-control"
+                                                   value="{{ $task->user->name }} {{ $task->user->surname }}"
+                                                   disabled>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="from">От</label>
+                                            <input type="text" id="from" class="form-control"
+                                                   value="{{ date('d-m-Y', strtotime($task->from)) }}" disabled>
+                                        </div>
+
+
+                                        @if($task->file !== null)
+                                            <div class="form-group">
+                                                <label for="file">Файл</label>
+                                                <a href="#" download class="form-control text-bold">Просмотреть
+                                                    файл</a>
+                                            </div>
+                                        @else
+                                            <div class="form-group">
+                                                <label for="to">Файл</label>
+                                                <input type="text" class="form-control" id="to"
+                                                       value="Нет файл" disabled>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="time">Время</label>
+                                            <input type="text" id="time" class="form-control"
+                                                   value="{{$task->time}}" disabled>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="project">Проект</label>
+                                            <input type="text" id="project" class="form-control"
+                                                   value="{{$task->project->name}}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="to">До</label>
+                                            <input type="text" id="to" class="form-control"
+                                                   value="{{ date('d-m-Y', strtotime($task->to)) }}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comment">Коментария</label>
+                                            <textarea type="text" id="comment" class="form-control" disabled
+                                                      rows="1">{{ $task->comment }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="sts">Статус</label>
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-{{($task->status->name === "Принято")?'success':'info'}} text-black"
+                                                       id="sts" value="{{ $task->status->name }}" disabled>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="type">Тип</label>
+                                                <input type="text" id="type" class="form-control"
+                                                       value="{{ $task->type->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
+                                                       disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="author">Автор</label>
+                                                <input type="text" id="author" class="form-control"
+                                                       value="{{ $task->author->name .' '. $task->author->surname}}"
+                                                       disabled>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            @endif
+                                <div class="row p-3">
+                                    <div class="col-6">
+                                        <a href="{{ route('task-list.show', $task->id) }}"
+                                           class="btn btn-outline-info w-100">Подробнее</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ $task->id }}">Я сделал задачу</button>
+                                    </div>
+                                   <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ $task->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <form action="{{ route('task-list.ready', $task->id) }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel{{ $task->id }}">{{ $task->name }}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Еще раз проверьте, что вы сделали задачу правильно
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, я шучу</button>
+                                                        <button type="submit" class="btn btn-primary">Да, конечна сделал</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                     <div class="col-3">
@@ -253,7 +350,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-center">
-                                    <a href="{{ route('employee.show', $user->id) }}" class="btn btn-success"><i
+                                    <a href="" class="btn btn-success"><i
                                             class="bi bi-eye"></i></a>
                                     <a href="" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
                                     <a href="" class="btn btn-danger"><i class="bi bi-trash"></i></a>

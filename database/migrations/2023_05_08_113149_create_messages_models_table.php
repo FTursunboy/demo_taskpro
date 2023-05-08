@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('offers', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_id')->after('is_finished');
+        Schema::create('messages_models', function (Blueprint $table) {
+            $table->id();
+            $table->integer('task_id');
+            $table->integer('sender_id');
+            $table->integer('user_id');
+            $table->text('message');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('client_id');
-        });
+        Schema::dropIfExists('messages_models');
     }
 };

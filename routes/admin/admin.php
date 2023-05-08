@@ -45,6 +45,8 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/tasks', [\App\Http\Controllers\Admin\TasksController::class, 'index'])->name('index');
         Route::get('/tasks/create', [\App\Http\Controllers\Admin\TasksController::class, 'create'])->name('create');
         Route::post('/tasks/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
+
+        Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
     });
 
     Route::group(['as' => 'employee.'], function () {
