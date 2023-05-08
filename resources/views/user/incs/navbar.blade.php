@@ -42,31 +42,23 @@
                 <li class="sidebar-title">Меню</li>
 
                 <li
-                    class="sidebar-item {{ (request()->is('dashboard-admin') or request()->is('dashboard-admin/*'))  ? 'active' : '' }}">
-                    <a href="" class='sidebar-link'>
+                    class="sidebar-item {{ (request()->is('dashboard-user') or request()->is('dashboard-user/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('user.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Панель</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ (request()->is('new-task') or request()->is('new-task/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('new-task.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Задачи</span>
-                    </a>
-                </li>
-
-
-                <li class="sidebar-item {{ (request()->is('projects') or request()->is('projects/*'))  ? 'active' : '' }}">
-                    <a href="" class='sidebar-link'>
-                        <i class="bi bi-hexagon-fill"></i>
-                        <span>Проекты</span>
+                        <span>Новые задачи</span>
                     </a>
                 </li>
 
                 <li
-                    class="sidebar-item">
-                    <a href="{{route('user.ideas')}}" class='sidebar-link'>
+                    class="sidebar-item {{ (request()->is('ideas') or request()->is('ideas/*'))  ? 'active' : '' }}">
+                    <a href="{{route('idea.ideas')}}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Идеи</span>
                     </a>
@@ -74,22 +66,11 @@
 
                 <li
                     class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-journal-check"></i>
-                        <span>Идеи</span>
-                    </a>
-                </li>
-
-
-
-                <li
-                    class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-egg-fill"></i>
+                    <a href="{{ route('logout') }}" class='sidebar-link'>
+                        <i class="bi bi-door-open"></i>
                         <span>Выход</span>
                     </a>
                 </li>
-
 
             </ul>
         </div>

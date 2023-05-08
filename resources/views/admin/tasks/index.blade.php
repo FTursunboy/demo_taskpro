@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    Проекты
+    Задачи
 @endsection
 @section('content')
     <div id="main">
@@ -182,39 +182,45 @@
                                                             <label for="author">Автор</label>
                                                             <input type="text" id="author" class="form-control" value="{{ $task->author->name .' '. $task->author->surname}}" disabled>
                                                         </div>
+
+                                                        @if($task->status->name === "Отклонено")
+                                                            <div class="form-group">
+                                                                <label for="cancel" class="text-danger">Причина</label>
+                                                                <textarea type="text" id="cancel" class="form-control border-danger" disabled rows="1">{{ $task->cancel }}</textarea>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mt-4">
-                                                <div class="col-4">
-                                                    <a href="" class="btn btn-outline-success w-100">
-                                                        <i class="bi bi-eye mx-2"></i>
-                                                        Подробнее
-                                                    </a>
-                                                </div>
+                                                @if($task->status->name === "Отклонено")
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-info w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Отправить занова
+                                                        </a>
+                                                    </div>
+                                                @else
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-success w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Просмотреть
+                                                        </a>
+                                                    </div>
+                                                @endif
                                                 <div class="col-4">
                                                     <a href="" class="btn btn-outline-primary w-100">
                                                         <i class="bi bi-pencil mx-2"></i>
-                                                        Подробнее
+                                                        Изменить
                                                     </a>
                                                 </div>
                                                 <div class="col-4">
                                                     <a href="" class="btn btn-outline-danger w-100">
                                                         <i class="bi bi-trash mx-2"></i>
-                                                        Подробнее
+                                                        Удалить
                                                     </a>
                                                 </div>
                                             </div>
-{{--                                                <p>--}}
-{{--                                                    <button class="btn btn-info w-100 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false" aria-controls="collapseExample">--}}
-{{--                                                        <span class="d-flex justify-content-start">--}}
-{{--                                                            <i class="bi bi-info-circle mx-2"></i> Информация о задача--}}
-{{--                                                        </span>--}}
-{{--                                                    </button>--}}
-{{--                                                </p>--}}
-{{--                                                <div class="collapse" id="collapseExample{{ $task->id }}" style="">--}}
-{{--                                                    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.--}}
-{{--                                                </div>--}}
                                           </div>
                                     @endforeach
                                 </div>

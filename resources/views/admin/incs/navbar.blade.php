@@ -89,7 +89,7 @@
                 </li>
 
                 <li
-                    class="sidebar-item  {{ (request()->is('employees') or request()->is('employee/*'))  ? 'active' : '' }}">
+                    class="sidebar-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
                     <a href="{{ route('employee.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Сотрудники</span>
@@ -104,10 +104,10 @@
                     </a>
                     <ul class="submenu ">
                         <li class="submenu-item ">
-                            <a href="table-datatable.html">Роли</a>
+                            <a href="">Роли</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="table-datatable-jquery.html">Отдел</a>
+                            <a href="">Отдел</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="{{route('settings.task')}}">Задачи</a>
@@ -128,8 +128,8 @@
                 </li>
 
                 <li
-                    class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                    class="sidebar-item {{ (request()->is('profile') or request()->is('profile/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('profile.index') }}" class='sidebar-link'>
                         <i class="bi bi-egg-fill"></i>
                         <span>Профиль</span>
                     </a>
