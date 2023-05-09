@@ -182,7 +182,7 @@
                                                             @break
                                                             @case($task->status->name === "Готов")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" id="sts"
+                                                                <input type="text" class="form-control text-black" id="sts"
                                                                        value="{{ $task->status->name }}" disabled
                                                                        style="background-color: #00ff80">
                                                             </div>
@@ -232,7 +232,8 @@
                                                 @switch($task->status->name)
                                                     @case($task->status->name === "Ожидается")
                                                     <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}"
+                                                           class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -244,15 +245,18 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100">
+                                                        <button type="button" class="btn btn-outline-danger w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     @break
                                                     @case($task->status->name === "Принято")
                                                     <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}"
+                                                           class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -264,10 +268,13 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger w-100 disabled"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     @break
                                                     @case($task->status->name === "Отклонено")
@@ -283,16 +290,19 @@
                                                             Отправить в другой сотрудник
                                                         </a>
                                                     </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100">
+                                                    <co class="col-4">
+                                                        <button type="button" class="btn btn-outline-danger w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
-                                                    </div>
+                                                        </button>
+                                                    </co>
                                                     @break
                                                     @case($task->status->name === "В процессе")
                                                     <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}"
+                                                           class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -304,15 +314,19 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger w-100 disabled"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     @break
                                                     @case($task->status->name === "Готов")
                                                     <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}"
+                                                           class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -324,10 +338,13 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger w-100 disabled"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     @break
                                                     @case($task->status->name === "На проверку")
@@ -347,15 +364,18 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100">
+                                                        <button type="button" class="btn btn-outline-danger w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     @break
                                                     @case($task->status->name === "Просроченный")
                                                     <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}"
+                                                           class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -367,13 +387,45 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger w-100 disabled"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete{{$task->id}}">
                                                             <i class="bi bi-trash mx-2"></i>
                                                             Удалить
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                     @break
                                                 @endswitch
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="delete{{$task->id}}" data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="delete{{$task->id}}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <form action="{{ route('tasks.delete', $task->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="delete{{$task->id}}">
+                                                                Предупреждение</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Точно хотите удалить задачу?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Нет
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary">Да, удалить
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach

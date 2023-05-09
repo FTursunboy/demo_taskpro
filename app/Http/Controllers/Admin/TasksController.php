@@ -96,6 +96,11 @@ class TasksController extends Controller
         return redirect()->route('tasks.index')->with('create', 'Садача готова');
     }
 
+    public function destroy(TaskModel $task)
+    {
+        $task->delete();
+        return back()->with('delete', 'Задача успешна удалена!');
+    }
 
     // For Ajax query
     public function kpi($id)

@@ -65,8 +65,8 @@
                 </li>
 
                 <li
-                    class="sidebar-item">
-                    <a href="" class='sidebar-link'>
+                    class="sidebar-item {{ (request()->is('monitoring-tasks') or request()->is('monitoring-tasks/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('mon.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Мониторинг</span>
                     </a>
