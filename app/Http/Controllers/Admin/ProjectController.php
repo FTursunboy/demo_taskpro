@@ -15,6 +15,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = ProjectModel::get();
+
+
         return view('admin.project.index', compact('projects'));
     }
 
@@ -32,6 +34,7 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $data = $request->validated();
+
         ProjectModel::create($data);
         return redirect()->route('project.index')->with('create', 'Проект успешно содань');
     }

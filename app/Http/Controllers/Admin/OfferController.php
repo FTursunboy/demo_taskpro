@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client\Offer;
-use App\Models\SuperAdmin\TasksTeamLeadModels;
 use App\Models\User;
-use App\Notifications\Telegram;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -15,11 +13,12 @@ class OfferController extends Controller
 {
     public function index() {
        $offers = Offer::where('status_id', '<>', '3')->get();
+
+
        return view('admin.offers.index', compact('offers'));
     }
 
     public function sendUser(Request $request, Offer $offer) {
-
         if ($_POST['action'] === 'decline') {
             $offer->status_id = 5;
             $offer->save();
@@ -34,8 +33,6 @@ class OfferController extends Controller
         }
         if ($_POST['action'] == 'accept') {
             $data = $request->validate([
-                'name' => 'required',
-                'description' => 'required',
                 'user_id' => 'required',
                 'from' => 'required',
                 'to' => 'required',
@@ -43,10 +40,8 @@ class OfferController extends Controller
 
             $offer->update([
                 'user_id' => $data['user_id'],
-                'description' => $data['description'],
                 'from' => $data['from'],
                 'to' => $data['to'],
-                'status_id' => 1
             ]);
 
             return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
@@ -58,4 +53,36 @@ class OfferController extends Controller
         $offer->is_finished = true;
         $offer->save();
     }
+
+
+    public function show(Offer $offer) {
+        $users = User::role('user')->get();
+
+        return view('admin.offers.show', compact('offer', 'users'));
+    }
+
+
+    public function delete(Offer $offer){
+        $offer->delete();
+
+        return redirect()->back()->with('mess', 'Успешно удалено');
+    }
+
+
+    public function update(Request $request, Offer $offer) {
+        $request->validate([
+            'from' => 'required',
+            'to' => 'required',
+            'user_id' => 'requried'
+        ]);
+
+        $offer->update([
+            'from' => $request->from,
+            'to' => $request->to,
+            'user_id' => $request->user_id
+        ]);
+
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+    }
+
 }

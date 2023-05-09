@@ -82,7 +82,7 @@
 
                 <li
                     class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                    <a href="{{route('client.offers.index')}}" class='sidebar-link'>
                         <i class="bi bi-pen-fill"></i>
                         <span>Партнеры</span>
                     </a>
