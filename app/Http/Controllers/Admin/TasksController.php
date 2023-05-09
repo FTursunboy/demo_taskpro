@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TasksRequest;
+use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
@@ -29,6 +30,24 @@ class TasksController extends Controller
         $projects = ProjectModel::get();
         $users = User::role('user')->get();
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
+    }
+
+    public function show(TaskModel $task)
+    {
+        $messages = MessagesModel::where('task_id', $task->id)->orWhere([['user_id', Auth::id()], ['sender_id', Auth::id()]])->get();
+        return view('admin.tasks.show', compact('task', 'messages'));
+    }
+
+    public function message(TaskModel $task, Request $request)
+    {
+        MessagesModel::create([
+            'task_id' => $task->id,
+            'sender_id' => Auth::id(),
+            'user_id' => $task->user_id,
+            'message' => $request->message
+        ]);
+
+        return back();
     }
 
     public function store(Request $request)

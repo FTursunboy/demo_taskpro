@@ -37,7 +37,7 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <a href="{{ route('user.ideas') }}" class="btn btn-danger">Назад</a>
+                                                <a href="{{ route('idea.ideas') }}" class="btn btn-danger">Назад</a>
                                             </div>
 
                                         </div>
@@ -51,7 +51,7 @@
                                 @endif
                                 <!-- /.card-header -->
                                     <div class="card-body">
-                                        <form method="post" action="{{route('user.idea.update', $idea->id)}}" enctype="multipart/form-data"
+                                        <form method="post" action="{{route('idea.idea.update', $idea->id)}}" enctype="multipart/form-data"
                                               autocomplete="off ">
                                             @csrf
                                             @method('patch')
