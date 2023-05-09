@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -124,14 +125,15 @@ class User extends Authenticatable
     public function getNewTasks($id)
     {
         return TaskModel::where([
-            'user_id' => $id,
-            'status_id' => 1
-        ])->whereNotIn('id', function ($query) {
-            $query->from('user_task_history_models as h')
-                ->select('task_id')
-                ->where('h.status_id', 4);
-        })->orWhere('status_id', 7)
-            ->orderBy('created_at')
+            ['task_models.user_id', $id],
+            ['task_models.status_id', 1],
+        ])->orWhere('task_models.status_id', 7)
+            ->WhereNotIn('task_models.id', function ($subquery) {
+                $subquery->from('user_task_history_models as h')
+                    ->select('h.task_id')
+                    ->where('h.user_id', '=', 'task_models.user_id');
+            })
+            ->orderBy('task_models.status_id', 'desc')
             ->get();
     }
 
@@ -147,19 +149,32 @@ class User extends Authenticatable
 
     public function getUsersTasks($id)
     {
-        return TaskModel::where([
-        'task_models.user_id' => $id
-    ])->whereNotIn('task_models.id', function ($query) {
-        $query->from('user_task_history_models as h')
-            ->select('h.task_id')
-            ->where('h.status_id', 4);
-    })
-        ->orWhereNotIn('task_models.id', function ($subquery) {
-            $subquery->from('user_task_history_models as h')
-                ->select('h.task_id')
-                ->where('h.status_id', 7);
-        })
-        ->orderBy('task_models.status_id', 'desc')
-        ->get();
+return TaskModel::where([
+            ['task_models.user_id', $id],
+            ['task_models.status_id', 4],
+        ])->orWhere('task_models.status_id', 7)
+            ->WhereNotIn('task_models.id', function ($subquery) {
+                $subquery->from('user_task_history_models as h')
+                    ->select('h.task_id')
+                    ->where('h.status_id','=', 'task_models.user_id');
+            })
+            ->orderBy('task_models.status_id', 'desc')
+            ->get();
+//            TaskModel::where([
+//            'user_id' => $id,
+//            'status_id' => 4
+//        ])->whereIn('id', function ($query) {
+//            $query->from('user_task_history_models as h')
+//                ->select('h.task_id')
+//                ->where('h.status_id', 4);
+//        })
+//            ->orWhereIn('id', function ($subquery) {
+//                $subquery->from('user_task_history_models as h')
+//                    ->select('h.task_id')
+//                    ->where('h.status_id', 7);
+//            })
+//            ->orderBy('status_id', 'desc')
+//            ->get();
+
     }
 }
