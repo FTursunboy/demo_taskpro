@@ -23,37 +23,63 @@ class MonitoringController extends Controller
 
     public function status($status, $user, $client, $project)
     {
-        if ($status !== '0' && $user === '0' && $client === '0' && $project === '0') {
-            return TaskModel::where('status_id', $status)->get();
-        } elseif ($status === '0' && $user !== '0' && $client === '0' && $project === '0') {
-            return TaskModel::where('user_id', $user)->get();
-        } elseif ($status === '0' && $user === '0' && $client !== '0' && $project === '0') {
-            return TaskModel::where('client_id', $client)->get();
-        } elseif ($status === '0' && $user === '0' && $client === '0' && $project !== '0') {
-            return TaskModel::where('project_id', $project)->get();
+        try {
+            if ($status !== '0' && $user === '0' && $client === '0' && $project === '0') {
+                return TaskModel::where('status_id', $status)->get();
+            } elseif ($status === '0' && $user !== '0' && $client === '0' && $project === '0') {
+                return TaskModel::where('user_id', $user)->get();
+            } elseif ($status === '0' && $user === '0' && $client !== '0' && $project === '0') {
+                return TaskModel::where('client_id', $client)->get();
+            } elseif ($status === '0' && $user === '0' && $client === '0' && $project !== '0') {
+                return TaskModel::where('project_id', $project)->get();
+            }
+            if ($status !== '0' && $user !== '0' && $client === '0' && $project === '0') {
+                return TaskModel::where([
+                    ['status_id', $status],
+                    ['user_id', $user],
+                ])->get();
+            } elseif ($status !== '0' && $user !== '0' && $client !== '0' && $project === '0') {
+                return TaskModel::where([
+                    ['status_id', $status],
+                    ['user_id', $user],
+                    ['client_id', $client],
+                ])->get();
+            } elseif ($status !== '0' && $user !== '0' && $client !== '0' && $project !== '0') {
+                return TaskModel::where([
+                    ['status_id', $status],
+                    ['user_id', $user],
+                    ['client_id', $client],
+                    ['project_id', $project],
+                ])->get();
+            }
+            if ($project !== '0' && $status !== '0' && $user === '0' && $client === '0') {
+                return TaskModel::where([
+                    ['project_id', $project],
+                    ['status_id', $status],
+                ])->get();
+            } elseif ($project === '0' && $status !== '0' && $user === '0' && $client !== '0') {
+                return TaskModel::where([
+                    ['client_id', $client],
+                    ['status_id', $status],
+                ])->get();
+            } elseif ($project !== '0' && $status !== '0' && $user !== '0' && $client == '0') {
+                return TaskModel::where([
+                    ['user_id', $user],
+                    ['project_id', $project],
+                    ['status_id', $status],
+                ])->get();
+            } elseif ($project !== '0' && $status === '0' && $user !== '0' && $client == '0') {
+                return TaskModel::where([
+                    ['user_id', $user],
+                    ['project_id', $project],
+                ])->get();
+            }
+            return [
+                $status, $user, $client, $project
+            ];
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
         }
 
-
-        if ($status !== '0' && $user !== '0' && $client === '0' && $project === '0') {
-            return TaskModel::where([
-                ['status_id', $status],
-                ['user_id', $user],
-            ])->get();
-        } elseif ($status !== '0' && $user !== '0' && $client !== '0' && $project === '0') {
-            return TaskModel::where([
-                ['status_id', $status],
-                ['user_id', $user],
-                ['client', $client],
-            ])->get();
-        } elseif ($status !== '0' && $user !== '0' && $client !== '0' && $project !== '0') {
-            return TaskModel::where([
-                ['status_id', $status],
-                ['user_id', $user],
-                ['client_id', $client],
-                ['project_id', $project],
-            ])->get();
-        }
-
-        return 0;
     }
 }
