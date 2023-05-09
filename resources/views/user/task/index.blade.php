@@ -101,7 +101,7 @@
                                                         <div class="form-group">
                                                             <label for="project">Проект</label>
                                                             <input type="text" id="project" class="form-control"
-                                                                   value="{{$task->project->name}}" disabled>
+                                                                   value="{{$task->project?->name}}" disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="to">До</label>
@@ -118,7 +118,6 @@
                                                     <div class="col-4">
                                                         <div class="form-group">
                                                             <label for="sts">Статус</label>
-
                                                             <div class="form-group">
                                                                 <input type="text"
                                                                        class="form-control  bg-warning text-black"
@@ -130,7 +129,7 @@
                                                             <div class="form-group">
                                                                 <label for="type">Тип</label>
                                                                 <input type="text" id="type" class="form-control"
-                                                                       value="{{ $task->type->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
+                                                                       value="{{ $task->type?->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
                                                                        disabled>
                                                             </div>
                                                             <div class="form-group">

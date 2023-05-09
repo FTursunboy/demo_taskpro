@@ -23,7 +23,7 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{route('offers.create')}}"  class="btn btn-primary">Добавить</a>
+
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
@@ -52,11 +52,11 @@
                                         @elseif($task->status->name == "Отклонено")
                                             <td><span class="badge bg-danger p-2">Отклонен</span>
                                             </td>
-                                        @elseif($task->status->name == "На доработку")
-                                            <td><span class="badge bg-primary p-2">На доработку</span>
+                                        @elseif($task->status->name == "Готов")
+                                            <td><span class="badge bg-primary p-2">Готов</span>
                                             </td>
                                         @elseif($task->status->name == "На проверку")
-                                            <td><span class="badge bg-primary p-2">На проверку</span>
+                                            <td><a href="#" data-bs-target="#send{{$task->id}}" data-bs-toggle="modal"><span class="badge bg-primary p-2">На проверку</span></a>
                                             </td>
                                         @endif
                                         <td>
@@ -64,6 +64,25 @@
                                             <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i class="bi bi-pencil"></i></a>
                                         </td>
                                     </tr>
+
+                                    <div class="modal" tabindex="-1" id="send{{$task->id}}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Убедитесь что задача выполнена</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы действительно хотите закрытть задачу</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                                    <a href="{{route('offers.ready', $task->id)}}" class="btn btn-success" >Отправить</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 @empty
                                     <td  colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
                                 @endforelse

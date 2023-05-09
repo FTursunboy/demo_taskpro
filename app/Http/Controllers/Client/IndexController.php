@@ -16,7 +16,12 @@ class IndexController extends Controller
             ['client_id', '=', Auth::id()],
             ['status_id', '=', '6'],
             ['is_finished', '=', true]
+        ])->orWhere([
+            ['client_id', '=', Auth::id()],
+            ['status_id', '=', '3'],
+            ['is_finished', '=', true]
         ])->get();
+
 
         return view('client.index', compact('tasks'));
     }

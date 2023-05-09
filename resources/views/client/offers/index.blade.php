@@ -23,8 +23,8 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{route('offers.create')}}"  class="btn btn-primary">Добавить</a>
                             @include('inc.messages')
+                            <a href="{{route('offers.create')}}"  class="btn btn-primary">Добавить</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('file_name')->nullable();
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('project_id')->nullable();
+            $table->unsignedBigInteger('type_id')->nullable();
             $table->string('kpi_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('client_id')->nullable();
