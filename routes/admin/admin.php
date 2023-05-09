@@ -60,7 +60,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
     // for kpi ajax offers
-    Route::get('/offers/offers/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+    Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
     Route::group(['as' => 'profile.'], function () {
         Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('index');

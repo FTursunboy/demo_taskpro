@@ -69,7 +69,7 @@
                                                 <i class="bi bi-circle-fill text-secondary mx-2"></i>
                                                 @break
                                                 @case($task->status->name === "Просроченный")
-                                                    <i class="bi bi-circle-fill text-info mx-2"></i>
+                                                <i class="bi bi-circle-fill text-info mx-2"></i>
                                                 @break
                                             @endswitch
                                             {{ $task->name }}</a>
@@ -87,24 +87,30 @@
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="name">Имя</label>
-                                                        <input type="text" id="name" class="form-control" value="{{ $task->name }}" disabled>
+                                                        <input type="text" id="name" class="form-control"
+                                                               value="{{ $task->name }}" disabled>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="user">Сотрудник</label>
-                                                        <input type="text" id="user" class="form-control" value="{{ $task->user->name }} {{ $task->user->surname }}" disabled>
+                                                        <input type="text" id="user" class="form-control"
+                                                               value="{{ $task->user->name }} {{ $task->user->surname }}"
+                                                               disabled>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="from">От</label>
-                                                        <input type="text" id="from" class="form-control" value="{{ date('d-m-Y', strtotime($task->from)) }}" disabled>
+                                                        <input type="text" id="from" class="form-control"
+                                                               value="{{ date('d-m-Y', strtotime($task->from)) }}"
+                                                               disabled>
                                                     </div>
 
 
                                                     @if($task->file !== null)
                                                         <div class="form-group">
                                                             <label for="file">Файл</label>
-                                                            <a href="#" download class="form-control text-bold">Просмотреть файл</a>
+                                                            <a href="#" download class="form-control text-bold">Просмотреть
+                                                                файл</a>
                                                         </div>
                                                     @else
                                                         <div class="form-group">
@@ -117,20 +123,25 @@
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="time">Время</label>
-                                                        <input type="text" id="time" class="form-control" value="{{$task->time}}" disabled>
+                                                        <input type="text" id="time" class="form-control"
+                                                               value="{{$task->time}}" disabled>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="project">Проект</label>
-                                                        <input type="text" id="project" class="form-control" value="{{$task->project->name}}" disabled>
+                                                        <input type="text" id="project" class="form-control"
+                                                               value="{{$task->project->name}}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="to">До</label>
-                                                        <input type="text" id="to" class="form-control" value="{{ date('d-m-Y', strtotime($task->to)) }}" disabled>
+                                                        <input type="text" id="to" class="form-control"
+                                                               value="{{ date('d-m-Y', strtotime($task->to)) }}"
+                                                               disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="comment">Коментария</label>
-                                                        <textarea type="text" id="comment" class="form-control" disabled rows="1">{{ $task->comment }}</textarea>
+                                                        <textarea type="text" id="comment" class="form-control" disabled
+                                                                  rows="1">{{ $task->comment }}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -139,100 +150,232 @@
                                                         @switch($task->status->name)
                                                             @case($task->status->name === "Ожидается")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-warning text-black" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text"
+                                                                       class="form-control  bg-warning text-black"
+                                                                       id="sts" value="{{ $task->status->name }}"
+                                                                       disabled>
                                                             </div>
                                                             @break
                                                             @case($task->status->name === "Принято")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-success text-white" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text"
+                                                                       class="form-control  bg-success text-white"
+                                                                       id="sts" value="{{ $task->status->name }}"
+                                                                       disabled>
                                                             </div>
                                                             @break
                                                             @case($task->status->name === "Отклонено")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-danger text-white" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text"
+                                                                       class="form-control  bg-danger text-white"
+                                                                       id="sts" value="{{ $task->status->name }}"
+                                                                       disabled>
                                                             </div>
                                                             @break
                                                             @case($task->status->name === "В процессе")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-primary text-white" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text"
+                                                                       class="form-control  bg-primary text-white"
+                                                                       id="sts" value="{{ $task->status->name }}"
+                                                                       disabled>
                                                             </div>
                                                             @break
                                                             @case($task->status->name === "Готов")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control text-white" id="sts" value="{{ $task->status->name }}" disabled style="background-color: #00ff80">
+                                                                <input type="text" class="form-control" id="sts"
+                                                                       value="{{ $task->status->name }}" disabled
+                                                                       style="background-color: #00ff80">
                                                             </div>
                                                             @break
                                                             @case($task->status->name === "На проверку")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-secondary text-white" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text"
+                                                                       class="form-control  bg-secondary text-white"
+                                                                       id="sts" value="{{ $task->status->name }}"
+                                                                       disabled>
                                                             </div>
                                                             @break
                                                             @case($task->status->name === "Просроченный")
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control  bg-info text-black" id="sts" value="{{ $task->status->name }}" disabled>
+                                                                <input type="text"
+                                                                       class="form-control  bg-info text-black" id="sts"
+                                                                       value="{{ $task->status->name }}" disabled>
                                                             </div>
                                                             @break
                                                         @endswitch
 
                                                         <div class="form-group">
                                                             <label for="type">Тип</label>
-                                                            <input type="text" id="type" class="form-control" value="{{ $task->type->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}" disabled>
+                                                            <input type="text" id="type" class="form-control"
+                                                                   value="{{ $task->type->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
+                                                                   disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="author">Автор</label>
-                                                            <input type="text" id="author" class="form-control" value="{{ $task->author->name .' '. $task->author->surname}}" disabled>
+                                                            <input type="text" id="author" class="form-control"
+                                                                   value="{{ $task->author->name .' '. $task->author->surname}}"
+                                                                   disabled>
                                                         </div>
 
                                                         @if($task->status->name === "Отклонено")
                                                             <div class="form-group">
                                                                 <label for="cancel" class="text-danger">Причина</label>
-                                                                <textarea type="text" id="cancel" class="form-control border-danger" disabled rows="1">{{ $task->cancel }}</textarea>
+                                                                <textarea type="text" id="cancel"
+                                                                          class="form-control border-danger" disabled
+                                                                          rows="1">{{ $task->cancel }}</textarea>
                                                             </div>
                                                         @endif
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mt-4">
-                                                @if($task->status->name === "Отклонено")
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-info w-100">
-                                                            <i class="bi bi-eye mx-2"></i>
-                                                            Отправить занова
-                                                        </a>
-                                                    </div>
-                                                @else
+                                            <div class="row">
+                                                @switch($task->status->name)
+                                                    @case($task->status->name === "Ожидается")
                                                     <div class="col-4">
                                                         <a href="" class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
                                                     </div>
-                                                @endif
-                                                <div class="col-4">
-                                                    <a href="" class="btn btn-outline-primary w-100">
-                                                        <i class="bi bi-pencil mx-2"></i>
-                                                        Изменить
-                                                    </a>
-                                                </div>
-                                                    @if($task->status->name === "На проверку")
-                                                        <div class="col-4">
-                                                            <form action="{{ route('tasks.ready', $task) }}" class="w-100" method="POST">
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-outline-info w-100">Проверте задачу</button>
-                                                            </form>
-                                                        </div>
-                                                    @else
-                                                        <div class="col-4">
-                                                            <a href="" class="btn btn-outline-danger w-100">
-                                                                <i class="bi bi-trash mx-2"></i>
-                                                                Удалить
-                                                            </a>
-                                                        </div>
-
-                                                    @endif
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Изменить
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                    @case($task->status->name === "Принято")
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-success w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Просмотреть
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Изменить
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                    @case($task->status->name === "Отклонено")
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-info w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Отправить занова
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Отправить в другой сотрудник
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                    @case($task->status->name === "В процессе")
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-success w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Просмотреть
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Изменить
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                    @case($task->status->name === "Готов")
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-success w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Просмотреть
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Изменить
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                    @case($task->status->name === "На проверку")
+                                                    <div class="col-4">
+                                                        <form action="{{ route('tasks.ready', $task) }}" class="w-100"
+                                                              method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-outline-info w-100">
+                                                                Проверте задачу
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Изменить
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                    @case($task->status->name === "Просроченный")
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-success w-100">
+                                                            <i class="bi bi-eye mx-2"></i>
+                                                            Просмотреть
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
+                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            Изменить
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a href="" class="btn btn-outline-danger w-100 disabled">
+                                                            <i class="bi bi-trash mx-2"></i>
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                    @break
+                                                @endswitch
                                             </div>
-
-                                          </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>

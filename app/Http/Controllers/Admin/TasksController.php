@@ -77,6 +77,8 @@ class TasksController extends Controller
         return redirect()->route('tasks.index')->with('create', 'Садача готова');
     }
 
+
+    // For Ajax query
     public function kpi($id)
     {
         return TaskTypesTypeModel::where('typeTask_id', $id)->select('id', 'name')->get();
