@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class OfferController extends Controller
 {
     public function index() {
-       $offers = Offer::where('status_id', '<>', '3')->get();
+       $offers = Offer::get();
 
 
        return view('admin.offers.index', compact('offers'));
@@ -36,14 +38,30 @@ class OfferController extends Controller
                 'user_id' => 'required',
                 'from' => 'required',
                 'to' => 'required',
-                'time' => 'required'
+                'time' => 'required',
             ]);
 
             $offer->update([
+               'from' => $data['from'],
+               'to' => $data['from'],
+               'time' => $data['time'],
+               'user_id' => $data['user_id']
+            ]);
+
+            TaskModel::create([
+                'name' => $offer->name,
                 'user_id' => $data['user_id'],
                 'from' => $data['from'],
                 'to' => $data['to'],
-                'time' => $data['time']
+                'time' => $data['time'],
+                'offer_id' => $offer->id,
+                'file' => $offer->file,
+                'file_name' => $offer->file_name,
+                'author_id' => Auth::id(),
+                'client_id' => $offer->client_id,
+                'comment' => $offer->description,
+                'status_id' => 1,
+
             ]);
 
             return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
@@ -66,6 +84,9 @@ class OfferController extends Controller
 
 
     public function delete(Offer $offer){
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+
+        $task?->delete();
         $offer->delete();
 
         return redirect()->back()->with('mess', 'Успешно удалено');

@@ -27,6 +27,8 @@ class TaskModel extends Model
         'status_id',
         'cancel',
         'cancel_admin',
+        'offer_id',
+        'comment',
     ];
 
 

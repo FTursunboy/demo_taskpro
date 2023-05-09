@@ -23,7 +23,11 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-
+                            @if(session('mess'))
+                                <div class="alert alert-success">
+                                    {{session('mess')}}
+                                </div>
+                            @endif
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
@@ -38,9 +42,12 @@
                                     <th>Действие</th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
+
                                 @forelse($offers as $offer)
                                     <tr>
+
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$offer->name}}</td>
                                         <td>{{\Illuminate\Support\Str::limit($offer->description, 20)}}</td>
@@ -49,11 +56,14 @@
                                         @else
                                             <td class="text-danger text-bold">Задача еще не распределена</td>
                                         @endif
-                                        @if($offer->status->name == "Принято")
-                                            <td><span class="badge bg-success p-2">Принят</span>
+                                        @if($offer->status->name == "В процессе")
+                                            <td><span class="badge bg-primary p-2">{{$offer->status->name}}</span>
                                             </td>
                                         @elseif($offer->status->name == "Ожидается")
-                                            <td><span class="badge bg-warning p-2">На рассмотрении</span>
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->name == "Готов")
+                                            <td><span class="badge bg-success p-2">{{$offer->status->name}}</span>
                                             </td>
                                         @elseif($offer->status->name == "Отклонено")
                                             <td><span class="badge bg-danger p-2">Отклонен</span>
@@ -64,6 +74,9 @@
                                         @elseif($offer->status->name == "На проверку")
                                             <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-primary p-2">{{$offer->status->name}}</span></a>
                                                 </td>
+                                        @elseif($offer->status->name == "Готов")
+                                            <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-primary p-2">{{$offer->status->name}}</span></a>
+                                            </td>
                                         @endif
                                         @if($offer->user_id)
                                         <td>
@@ -73,7 +86,6 @@
                                         @else
                                             <td>
                                                 <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
-                                                <a class="badge bg-primary p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
                                                 <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                             </td>
                                         @endif

@@ -137,6 +137,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-4">
+                                                                @if(!$offer->user_id)
                                                                 <div class="col-6">
                                                                     <button name="action"  value="accept" class="btn btn-success form-control">
                                                                         Отправить
@@ -147,6 +148,7 @@
                                                                         Отклонить
                                                                     </button>
                                                                 </div>
+                                                                @endif
                                                                     <script>
                                                                         const btn = document.getElementById('btnSend')
                                                                         btn.addEventListener('click', function () {

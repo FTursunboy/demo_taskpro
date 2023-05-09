@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Models\Client\Offer;
 use App\Models\SuperAdmin\TasksStageUsersModel;
@@ -53,6 +54,8 @@ class TaskController extends Controller
             'client_id' => Auth::id(),
         ]);
 
+        $mail = new MailController();
+        $mail->send();
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано');
 
@@ -111,5 +114,12 @@ class TaskController extends Controller
         ];
         return response()->download($path, $offer->file_name, $headers);
 
+    }
+
+    public function ready(Offer $offer) {
+        $offer->status_id = 3;
+        $offer->save();
+
+        return redirect()->back()->with('mess', 'Успешно удалено');
     }
 }
