@@ -23,7 +23,7 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{route('offers.create')}}" class="btn btn-primary">Добавить</a>
+
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
@@ -62,7 +62,7 @@
                                                             <div class="row g-3">
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">Название задачи</label>
-                                                                    <input type="text"
+                                                                    <input disabled type="text"
                                                                            class="form-control"
                                                                            name="name" id="name"
                                                                            value="{{$offer->name}}" required>
@@ -109,6 +109,13 @@
                                                                            value="{{$offer->to}}" type="date"
                                                                            class="form-control"
                                                                            name="to">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Время</label>
+                                                                    <input
+                                                                        value="{{$offer->time}}" type="number"
+                                                                        class="form-control"
+                                                                        name="time">
                                                                 </div>
                                                                 @if($offer->file !== null)
                                                                     <div class="col-md-6">

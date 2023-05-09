@@ -58,12 +58,12 @@
                                         @elseif($offer->status->name == "Отклонено")
                                             <td><span class="badge bg-danger p-2">Отклонен</span>
                                             </td>
-                                        @elseif($offer->status->name == "На доработку")
-                                            <td><span class="badge bg-primary p-2">На доработку</span>
-                                            </td>
+                                        @elseif($offer->status->name == "На проверку" && $offer->is_finished)
+                                           <td><span class="badge bg-primary p-2">Отправлено клиенту на проверку</span>
+                                                </td>
                                         @elseif($offer->status->name == "На проверку")
-                                            <td><span class="badge bg-primary p-2">На доработку</span>
-                                            </td>
+                                            <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-primary p-2">{{$offer->status->name}}</span></a>
+                                                </td>
                                         @endif
                                         @if($offer->user_id)
                                         <td>
@@ -92,6 +92,24 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                                                     <a href="{{route('client.offers.delete', $offer->id)}}" class="btn btn-danger" >Удалить</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal" tabindex="-1" id="send{{$offer->id}}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Отправление задачи на проверку</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы действительно хотите отправить задачу клиенту</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                    <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
                                                 </div>
                                             </div>
                                         </div>

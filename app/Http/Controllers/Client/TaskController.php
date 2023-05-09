@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Storage;
 class TaskController extends Controller
 {
     public function index() {
-        $tasks = Offer::where('client_id', Auth::id())->get();
+        $tasks = Offer::where([
+            ['client_id', '=', Auth::id()],
+            ['status_id', '<>', 6],
+            ['is_finished', '=', false ]
+        ])->get();
 
         return view('client.offers.index', compact('tasks'));
     }
