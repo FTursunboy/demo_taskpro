@@ -151,7 +151,8 @@ class User extends Authenticatable
         return $tasks;
     }
 
-    public function offers($id){
+    public function offers($id)
+    {
         $offers = Offer::where([
             'user_id' => $id,
             'status_id' => 1
@@ -163,32 +164,17 @@ class User extends Authenticatable
 
     public function getUsersTasks($id)
     {
-return TaskModel::where([
+        return TaskModel::where([
             ['task_models.user_id', $id],
             ['task_models.status_id', 4],
         ])->orWhere('task_models.status_id', 7)
             ->WhereNotIn('task_models.id', function ($subquery) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')
-                    ->where('h.status_id','=', 'task_models.user_id');
+                    ->where('h.status_id', '=', 'task_models.user_id');
             })
             ->orderBy('task_models.status_id', 'desc')
             ->get();
-//            TaskModel::where([
-//            'user_id' => $id,
-//            'status_id' => 4
-//        ])->whereIn('id', function ($query) {
-//            $query->from('user_task_history_models as h')
-//                ->select('h.task_id')
-//                ->where('h.status_id', 4);
-//        })
-//            ->orWhereIn('id', function ($subquery) {
-//                $subquery->from('user_task_history_models as h')
-//                    ->select('h.task_id')
-//                    ->where('h.status_id', 7);
-//            })
-//            ->orderBy('status_id', 'desc')
-//            ->get();
 
     }
 }

@@ -1,4 +1,4 @@
-@extends('user.layouts.app')
+@extends('admin.layouts.app')
 
 @section('title')
     {{ $task->name }}
@@ -16,7 +16,7 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Панел</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Панел</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $task->name }}</li>
                             </ol>
                         </nav>
@@ -26,45 +26,13 @@
             <div class="page-content">
                 <div class="row my-4">
                     <div class="col-6">
-                        <a href="{{ route('user.index') }}" class="btn btn-outline-danger">Назад</a>
-                    </div>
-                    <div class="col-6 d-flex justify-content-end">
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop{{ $task->id }}">Я сделал задачу
-                        </button>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static"
-                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ $task->id }}"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <form action="{{ route('task-list.ready', $task->id) }}" method="POST">
-                                    @csrf
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5"
-                                            id="staticBackdropLabel{{ $task->id }}">{{ $task->name }}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Еще раз проверьте, что вы сделали задачу правильно
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, я
-                                            шучу
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">Да, конечна сделал</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">Назад</a>
                     </div>
                 </div>
                 <div class="row">
                     <p>
                         <button
-                            class="btn btn-{{ ($task->status->name === "Принято") ? 'primary': 'info' }} w-100 collapsed"
+                            class="btn btn-primary w-100 collapsed"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
@@ -120,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="project">Проект</label>
                                     <input type="text" id="project" class="form-control"
-                                           value="{{$task->project?->name}}" disabled>
+                                           value="{{$task->project->name}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="to">До</label>
@@ -138,7 +106,7 @@
                                     <label for="sts">Статус</label>
                                     <div class="form-group">
                                         <input type="text"
-                                               class="form-control  bg-{{($task->status->name === "Принято")?'success':'info'}} text-black"
+                                               class="form-control  bg-primary text-white"
                                                id="sts" value="{{ $task->status->name }}" disabled>
                                     </div>
 
@@ -146,7 +114,7 @@
                                     <div class="form-group">
                                         <label for="type">Тип</label>
                                         <input type="text" id="type" class="form-control"
-                                               value="{{ $task->type?->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
+                                               value="{{ $task->type->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
                                                disabled>
                                     </div>
                                     <div class="form-group">
@@ -161,7 +129,8 @@
                     </div>
 
                 </div>
-                <div class="row">
+                @if($task->status->name === "Принято")
+                    <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -171,13 +140,13 @@
                                         <span class="avatar-status bg-success"></span>
                                     </div>
                                     <div class="name flex-grow-1">
-                                        <h6 class="mb-0">Admin</h6>
+                                        <h6 class="mb-0">{{ $task->user->name }} {{ $task->user->surname }}</h6>
                                         <span class="text-xs">Online</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body pt-4 bg-grey">
-                                <div class="chat-content" style="overflow-y: scroll; height: 300px" id="block">
+                                <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
                                     @foreach($messages as $mess)
                                         @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
                                             <div class="chat">
@@ -194,14 +163,14 @@
                                         @endif
                                     @endforeach
                                 </div>
-                                <script>
-                                    let block = document.getElementById("block");
-                                    block.scrollTop = block.scrollHeight;
-                                </script>
+                                        <script>
+                                            let block = document.getElementById("block");
+                                            block.scrollTop = block.scrollHeight;
+                                        </script>
                             </div>
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
-                                    <form class="w-100" action="{{ route('messages.messages', $task->id) }}"
+                                    <form class="w-100" action="{{ route('tasks.message', $task->id) }}"
                                           method="POST">
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
@@ -219,8 +188,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
-
     </div>
 @endsection

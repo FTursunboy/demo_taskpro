@@ -232,7 +232,7 @@
                                                 @switch($task->status->name)
                                                     @case($task->status->name === "Ожидается")
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -252,7 +252,7 @@
                                                     @break
                                                     @case($task->status->name === "Принято")
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -292,7 +292,7 @@
                                                     @break
                                                     @case($task->status->name === "В процессе")
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -312,7 +312,7 @@
                                                     @break
                                                     @case($task->status->name === "Готов")
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
@@ -355,7 +355,7 @@
                                                     @break
                                                     @case($task->status->name === "Просроченный")
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-success w-100">
+                                                        <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
                                                             Просмотреть
                                                         </a>
