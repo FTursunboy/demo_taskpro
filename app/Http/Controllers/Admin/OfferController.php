@@ -36,12 +36,14 @@ class OfferController extends Controller
                 'user_id' => 'required',
                 'from' => 'required',
                 'to' => 'required',
+                'time' => 'required'
             ]);
 
             $offer->update([
                 'user_id' => $data['user_id'],
                 'from' => $data['from'],
                 'to' => $data['to'],
+                'time' => $data['time']
             ]);
 
             return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
@@ -52,6 +54,7 @@ class OfferController extends Controller
     public function sendClient(Offer $offer) {
         $offer->is_finished = true;
         $offer->save();
+        return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
 

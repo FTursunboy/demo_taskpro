@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Client\Offer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -134,19 +135,31 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function offers($id){
+        $offers = Offer::where([
+            'user_id' => $id,
+            'status_id' => 1
+        ]);
+
+        return $offers;
+
+    }
 
     public function getUsersTasks($id)
     {
         return TaskModel::where([
-            'user_id' => $id,
-            'status_id' => 4
-        ])->whereIn('id', function ($query) {
-            $query->from('user_task_history_models as h')
-                ->select('task_id')
-                ->where('h.status_id', 4)
-                ->orWhere('status_id', 7);
+        'task_models.user_id' => $id
+    ])->whereNotIn('task_models.id', function ($query) {
+        $query->from('user_task_history_models as h')
+            ->select('h.task_id')
+            ->where('h.status_id', 4);
+    })
+        ->orWhereNotIn('task_models.id', function ($subquery) {
+            $subquery->from('user_task_history_models as h')
+                ->select('h.task_id')
+                ->where('h.status_id', 7);
         })
-            ->orderBy('status_id', 'desc')
-            ->get();
+        ->orderBy('task_models.status_id', 'desc')
+        ->get();
     }
 }

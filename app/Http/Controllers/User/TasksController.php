@@ -19,7 +19,6 @@ class TasksController extends Controller
 
     public function accept(TaskModel $task)
     {
-
         UserTaskHistoryModel::create([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
