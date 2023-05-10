@@ -126,13 +126,13 @@ class User extends Authenticatable
     {
         $tasks = TaskModel::where([
             ['task_models.user_id', $id],
-            ['task_models.status_id', 1],
-        ])->orWhere('task_models.status_id', 7)
+        ])->where('task_models.status_id', 1)
             ->WhereNotIn('task_models.id', function ($subquery) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')
-                    ->where('h.user_id', '=', 'task_models.user_id');
-            })
+                    ->where('h.user_id', '=', 'task_models.user_id')
+                    ->where('h.status_id', [1, 7]);
+            })->orWhere('task_models.status_id', 7)
             ->orderBy('task_models.status_id', 'desc')
             ->get();
 
@@ -144,7 +144,7 @@ class User extends Authenticatable
                 $query->from('user_task_history_models as h')
                     ->select('h.task_id')
                     ->where('h.status_id', 'user_id');
-            } )
+            })
             ->orderBy('status_id', 'desc')
             ->get();
 
@@ -167,14 +167,21 @@ class User extends Authenticatable
         return TaskModel::where([
             ['task_models.user_id', $id],
             ['task_models.status_id', 4],
-        ])->orWhere('task_models.status_id', 7)
+        ])
             ->WhereNotIn('task_models.id', function ($subquery) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')
-                    ->where('h.status_id', '=', 'task_models.user_id');
+                    ->where('h.status_id', '=', 'task_models.user_id')
+                    ->where('h.status_id', [1, 7]);
             })
             ->orderBy('task_models.status_id', 'desc')
             ->get();
 
     }
+
+    public function routeNotificationForTelegram()
+    {
+        return $this->telegram_user_id;
+    }
+
 }

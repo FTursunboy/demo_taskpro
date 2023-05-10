@@ -187,7 +187,7 @@
                         <label for="sts">Статус</label>
                         <div class="form-group">
                             <input type="text"
-                                   class="form-control  bg-secondary text-black"
+                                   class="form-control  bg-success text-black"
                                    id="sts" value="{{ $task->status->name }}" disabled>
                         </div>
 
