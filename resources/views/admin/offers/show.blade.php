@@ -39,7 +39,7 @@
                                             <div class="card-header">
                                                 <div class="row">
                                                     <div class="col-md-1">
-                                                        <a href="{{ route('offers.index') }}" class="btn btn-danger">Назад</a>
+                                                        <a href="{{ route('client.offers.index') }}" class="btn btn-danger">Назад</a>
                                                     </div>
 
                                                 </div>
