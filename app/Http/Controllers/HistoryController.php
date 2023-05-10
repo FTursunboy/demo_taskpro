@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
-use Illuminate\Http\Request;
+
 
 class HistoryController extends Controller
 {
-    public static function task($task_id, $user_id, $status_id, $type) {
+    public static function task($task_id, $user_id, $status_id) {
         History::create([
             'task_id' => $task_id,
             'user_id' => $user_id,

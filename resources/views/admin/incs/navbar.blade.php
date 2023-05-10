@@ -73,7 +73,7 @@
                 </li>
 
                 <li
-                    class="sidebar-item {{ (request()->is('admin/ideas') or request()->is('admin/ideas/*'))  ? 'active' : '' }}">
+                    class="sidebar-item">
                     <a href="{{route('admin.ideas')}}" class='sidebar-link'>
                         <i class="bi bi-journal-check"></i>
                         <span>Идеи</span>
@@ -82,15 +82,9 @@
 
 
                 <li
-
                     class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-
-                    class="sidebar-item {{ (request()->is('clients/offers') or request()->is('clients/offers/*'))  ? 'active' : '' }}">
-                    <a href="{{route('client.offers.index')}}" class='sidebar-link'>
-                        <i class="bi bi-pen-fill"></i>
-
                         <span>Партнеры</span>
                     </a>
                     <ul class="submenu ">
@@ -137,8 +131,8 @@
                 </li>
 
                 <li
-                    class="sidebar-item {{ (request()->is('telegram') or request()->is('telegram/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('telegram.index') }}" class='sidebar-link'>
+                    class="sidebar-item">
+                    <a href="#" class='sidebar-link'>
                         <i class="bi bi-pentagon-fill"></i>
                         <span>Телеграмм</span>
                     </a>

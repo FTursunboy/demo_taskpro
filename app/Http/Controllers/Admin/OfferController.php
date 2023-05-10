@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
+use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use GuzzleHttp\Client;
@@ -26,6 +28,9 @@ class OfferController extends Controller
         if ($_POST['action'] === 'decline') {
             $offer->status_id = 5;
             $offer->save();
+
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::DECLINED);
+
             return redirect()->route('client.offers.index')->with('update', 'Успешно отклонено');
         }
         if ($_POST['action'] == 'refresh') {
@@ -50,8 +55,10 @@ class OfferController extends Controller
                 'time' => $data['time'],
                 'user_id' => $data['user_id']
             ]);
+            HistoryController::client($offer->id, $data['user_id'], $offer->client_id, Statuses::ACCEPT);
 
-            TaskModel::create([
+
+            $task = TaskModel::create([
                 'name' => $offer->name,
                 'user_id' => $data['user_id'],
                 'from' => $data['from'],
@@ -67,20 +74,25 @@ class OfferController extends Controller
                 'status_id' => 1,
 
             ]);
-//            try {
-//                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
-//            } catch (\Exception $exception) {
-//            }
+
+            HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+
+            try {
+                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
+            } catch (\Exception $exception) {
+            }
         }
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
 
     }
 
-    public
-    function sendClient(Offer $offer)
+    public  function sendClient(Offer $offer)
     {
         $offer->is_finished = true;
         $offer->save();
+
+        HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+
         return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
@@ -96,10 +108,10 @@ class OfferController extends Controller
     }
 
 
-    public
-    function delete(Offer $offer)
+    public  function delete(Offer $offer)
     {
         $task = TaskModel::where('offer_id', $offer->id)->first();
+        HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::DELETE);
 
         $task?->delete();
         $offer->delete();
@@ -108,8 +120,7 @@ class OfferController extends Controller
     }
 
 
-    public
-    function update(Request $request, Offer $offer)
+    public function update(Request $request, Offer $offer)
     {
         $request->validate([
             'from' => 'required',
@@ -122,6 +133,10 @@ class OfferController extends Controller
             'to' => $request->to,
             'user_id' => $request->user_id
         ]);
+
+        HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::UPDATE);
+
+
 
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
     }

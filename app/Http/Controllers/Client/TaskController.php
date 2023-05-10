@@ -66,11 +66,10 @@ class TaskController extends Controller
 
         $user = User::role('admin')->first();
 
-
-
+        HistoryController::client($offer->id, $user->id, Auth::id(), 2);
 
         try {
-            Notification::send(User::role('admin')->first(), new TelegramClientTask($task->name, Auth::user()->name));
+            Notification::send(User::role('admin')->first()->name, new TelegramClientTask($offer->name, Auth::user()->name));
         } catch (\Exception $exception) {
         }
 
@@ -100,23 +99,31 @@ class TaskController extends Controller
         $offer->client_id = Auth::id();
 
         $offer->save();
+        $user = User::role('admin')->first();
+        HistoryController::client($offer->id, $user->id, Auth::id(), 9);
         return redirect()->route('offers.index')->with('update', 'Успешно обновлено');
     }
 
     public function delete(Offer $offer) {
         $offer->delete();
+        $user = User::role('admin')->first();
+        HistoryController::client($offer->id, $user->id, Auth::id(), 10);
         return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
     public function confirm(Offer $offer) {
         $offer->status_id = 3;
         $offer->save();
+        $user = User::role('admin')->first();
+        HistoryController::client($offer->id, $user->id, Auth::id(), 6);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
     public function decline(Offer $offer){
         $offer->status_id = 1;
         $offer->save();
 
+        $user = User::role('admin')->first();
+        HistoryController::client($offer->id, $user->id, Auth::id(), 11);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
@@ -137,6 +144,9 @@ class TaskController extends Controller
         $offer->status_id = 3;
         $offer->save();
 
-        return redirect()->back()->with('mess', 'Успешно удалено');
+        $user = User::role('admin')->first();
+        HistoryController::client($offer->id, $user->id, Auth::id(), 6);
+
+        return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 }
