@@ -70,7 +70,7 @@
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">Ответственный
                                                                         сотрудник</label>
-                                                                    <select class="form-control" name="user_id" id="">
+                                                                    <select class="form-select" name="user_id" id="">
 
                                                                         @foreach($users as $user)
                                                                             <option
@@ -116,6 +116,15 @@
                                                                         value="{{$offer->time}}" type="number"
                                                                         class="form-control"
                                                                         name="time">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Проект</label>
+                                                                    <select class="form-select" name="project_id">
+                                                                        <option value="">Выберите проект</option>
+                                                                        @foreach($projects as $project)
+                                                                            <option value="{{$project->id}}">{{$project->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 @if($offer->file !== null)
                                                                     <div class="col-md-6">

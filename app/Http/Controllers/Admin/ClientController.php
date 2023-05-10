@@ -3,47 +3,43 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ClientRequest;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Models\Admin\OtdelsModel;
-use App\Models\Admin\TaskModel;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
-class EmployeeController extends Controller
+class ClientController extends Controller
 {
     public function index()
     {
-        $users = User::role('user')->get();
-        return view('admin.employee.index', compact('users'));
+
+        $users = User::role('client')->get();
+        return view('admin.offers.clients.index', compact('users'));
     }
 
     public function create()
     {
         $roles = Role::where('name', '!=', 'admin')->get();
         $departs = OtdelsModel::get();
-        return view('admin.employee.create', compact('roles', 'departs'));
+        return view('admin.offers.clients.index', compact('roles', 'departs'));
     }
 
-    public function store(EmployeeRequest $request)
+    public function store(ClientRequest $request)
     {
         $data = $request->validated();
-        $user = User::create([
+        User::create([
             'name' => $data['name'],
-            'surname' => $data['surname'],
             'lastname' => $data['lastname'],
             'login' => $data['login'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
-            'position' => $data['position'],
-            'otdel_id' => $data['otdel_id'],
             'telegram_user_id' => $data['name'],
             'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
-        ]);
-        $user->assignRole(Role::where('id', $data['role'])->first()->name);
-        return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан');
+        ])->assignRole('client');
+        return redirect()->route('employee.index')->with('create', 'Клиент успешно создан');
     }
 
     public function show(User $user)

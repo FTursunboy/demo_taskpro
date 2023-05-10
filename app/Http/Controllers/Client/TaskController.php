@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Models\Client\Offer;
-use App\Models\SuperAdmin\TasksStageUsersModel;
+use App\Models\User;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -43,7 +46,7 @@ class TaskController extends Controller
             $file_name = null;
         }
 
-        Offer::create([
+       $offer = Offer::create([
             'name' => $request->name,
             'description' => $request->description,
             'author_name' => $request->author_name,
@@ -56,6 +59,11 @@ class TaskController extends Controller
 
         $mail = new MailController();
         $mail->send();
+
+        $user = User::role('admin')->first();
+
+
+
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано');
 

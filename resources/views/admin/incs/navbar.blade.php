@@ -80,13 +80,25 @@
                     </a>
                 </li>
 
+
                 <li
-                    class="sidebar-item">
-                    <a href="{{route('client.offers.index')}}" class='sidebar-link'>
-                        <i class="bi bi-pen-fill"></i>
+                    class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Партнеры</span>
                     </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a href="{{route('client.offers.index')}}">Список задач</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="{{route('employee.client')}}">Клиенты</a>
+                        </li>
+                    </ul>
                 </li>
+
+
+
 
                 <li
                     class="sidebar-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">

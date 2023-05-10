@@ -59,6 +59,11 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/employees/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
         Route::patch('/employees/update/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
         Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
+
+        Route::get('/client', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('client');
+        Route::post('/client/store', [\App\Http\Controllers\Admin\ClientController::class, 'store'])->name('client.store');
+        Route::patch('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
+
     });
 
 
@@ -85,5 +90,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         // get task-statuses
         Route::get('/monitoring-tasks-filter/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);
     });
+
+
 
 });
