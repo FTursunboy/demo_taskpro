@@ -84,13 +84,19 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('clients/offers/send/client/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendClient'])->name('send.client');
     });
 
-    Route::group(['as' => 'mon.'], function(){
+    Route::group(['as' => 'mon.'], function () {
         Route::get('/monitoring-tasks', [\App\Http\Controllers\Admin\MonitoringController::class, 'index'])->name('index');
 
         // get task-statuses
         Route::get('/monitoring-tasks-filter/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);
     });
 
+
+    Route::group(['as' => 'telegram.'], function () {
+        Route::get('/telegram', [\App\Http\Controllers\Admin\TelegramController::class, 'index'])->name('index');
+        Route::post('/telegram/all', [\App\Http\Controllers\Admin\TelegramController::class, 'sendAll'])->name('sendAll');
+        Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
+    });
 
 
 });

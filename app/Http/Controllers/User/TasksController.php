@@ -7,15 +7,18 @@ use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
 use App\Models\User;
+use App\Notifications\Telegram\TelegramUserAccept;
+use App\Notifications\Telegram\TelegramUserDecline;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class TasksController extends Controller
 {
     public function index()
     {
         $tasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
-
         return view('user.task.index', compact('tasks'));
 
     }
@@ -31,20 +34,21 @@ class TasksController extends Controller
             'status_id' => 4
         ]);
 
-        if ($task->offer_id){
+        if ($task->offer_id) {
             $offer = Offer::find($task->offer_id);
-
             $offer->status_id = 2;
             $offer->save();
-
         }
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramUserAccept($task->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
+        Artisan::call('update:task-status');
         return back()->with('create', 'Задача принята');
     }
 
-
-    public function decline(Request $request,TaskModel $task)
+    public function decline(Request $request, TaskModel $task)
     {
-
         UserTaskHistoryModel::create([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
@@ -55,13 +59,17 @@ class TasksController extends Controller
             'status_id' => 5,
         ]);
 
-        if ($task->offer_id){
+        if ($task->offer_id) {
             $offer = Offer::find($task->offer_id);
             $offer->cancel = $request->cancel;
             $offer->status_id = 2;
             $offer->save();
-
         }
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
+        Artisan::call('update:task-status');
         return back()->with('error', 'Задача откланена');
     }
 }

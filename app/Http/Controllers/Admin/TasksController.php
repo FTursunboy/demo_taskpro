@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\TasksRequest;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -11,10 +10,11 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\User;
+use App\Notifications\Telegram\SendNewTaskInUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
 
 class TasksController extends Controller
 {
@@ -58,7 +58,7 @@ class TasksController extends Controller
         } else {
             $file = null;
         }
-        TaskModel::create([
+        $task = TaskModel::create([
             'name' => $request->name,
             'time' => $request->time,
             'from' => $request->from,
@@ -76,10 +76,17 @@ class TasksController extends Controller
             'cancel' => $request->cancel ?? null,
             'cancel_admin' => $request->cancel_admin ?? null,
         ]);
-        ProjectModel::where('id', $request->project_id)->first()->update([
+        $project = ProjectModel::where('id', $request->project_id)->first();
+        $project->update([
             'pro_status' => 2,
         ]);
         Artisan::call('update:task-status');
+        $type = TaskTypeModel::find($request->type_id)->name;
+        try {
+            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
+        } catch (\Exception $exception) {
+
+        }
         return redirect()->route('tasks.index')->with('create', 'Задача успешно создана');
     }
 

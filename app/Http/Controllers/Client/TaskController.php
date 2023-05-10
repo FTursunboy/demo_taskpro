@@ -7,11 +7,14 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Models\Client\Offer;
+
 use App\Models\User;
 
-
+use App\Notifications\Telegram\TelegramClientTask;
+use App\Notifications\Telegram\TelegramUserAccept;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
@@ -46,6 +49,7 @@ class TaskController extends Controller
             $file_name = null;
         }
 
+
        $offer = Offer::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -64,6 +68,11 @@ class TaskController extends Controller
 
 
 
+
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramClientTask($task->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано');
 
