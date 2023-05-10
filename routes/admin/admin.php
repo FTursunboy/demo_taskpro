@@ -83,7 +83,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/monitoring-tasks', [\App\Http\Controllers\Admin\MonitoringController::class, 'index'])->name('index');
 
         // get task-statuses
-        Route::get('/monitoring-tasks-status/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'status']);
+        Route::get('/monitoring-tasks-filter/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);
     });
 
 });
