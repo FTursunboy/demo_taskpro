@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 use App\Models\User;
@@ -40,6 +41,7 @@ class OfferController extends Controller
                 'from' => 'required',
                 'to' => 'required',
                 'time' => 'required',
+                'project_id' => 'required'
             ]);
 
             $offer->update([
@@ -61,6 +63,7 @@ class OfferController extends Controller
                 'author_id' => Auth::id(),
                 'client_id' => $offer->client_id,
                 'comment' => $offer->description,
+                'project_id' => $data['project_id'],
                 'status_id' => 1,
 
             ]);
@@ -82,12 +85,14 @@ class OfferController extends Controller
     }
 
 
-    public
-    function show(Offer $offer)
-    {
+
+    public function show(Offer $offer) {
+
+        $projects = ProjectModel::where('types_id', 2)->get();
+
         $users = User::role('user')->get();
 
-        return view('admin.offers.show', compact('offer', 'users'));
+        return view('admin.offers.show', compact('offer', 'users', 'projects'));
     }
 
 

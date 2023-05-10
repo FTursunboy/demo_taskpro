@@ -37,6 +37,7 @@
                         <th>Тип</th>
                         <th>От</th>
                         <th>До</th>
+                        <th>Тип проекта</th>
                         <th>Статус</th>
                         <th class="text-center">Действия</th>
                     </tr>
@@ -50,6 +51,7 @@
                             <td>{{ $project->type->name }}</td>
                             <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->start)->format('d-m-Y') }}</td>
                             <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project->finish)->format('d-m-Y') }}</td>
+                            <td>{{ $project->types?->name }}</td>
                             <td>{{ $project->status->name }}</td>
                             <td class="text-center">
                                 <a href="{{ route('project.show', $project->id)   }}" class="badge bg-success"><i class="bi bi-eye"></i></a>

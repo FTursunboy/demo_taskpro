@@ -9,6 +9,7 @@ use App\Models\Admin\ProjectTypeModel;
 use App\Models\Admin\StatusesModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
+use App\Models\Types;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -173,5 +174,11 @@ class DatabaseSeeder extends Seeder
             'slug' => Str::slug(Str::random(6) . ' ' . "Nuriddin Shahobov " . Str::random(4), '-'),
         ])->assignRole('admin');
 
+        Types::create([
+            'name' => 'внутренный'
+        ]);
+        Types::create([
+            'name' => 'внешний'
+        ]);
     }
 }
