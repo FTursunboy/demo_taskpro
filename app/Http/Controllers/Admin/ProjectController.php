@@ -39,7 +39,10 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-        ProjectModel::create($data);
+
+        $project =  ProjectModel::create($data);
+
+        HistoryController::project($project->id, Statuses::CREATE);
 
         return redirect()->route('project.index')->with('create', 'Проект успешно содань');
     }
@@ -54,12 +57,16 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $projectModel->update($data);
+
+        HistoryController::project($projectModel->id, Statuses::UPDATE);
         return redirect()->route('project.index')->with('update', 'Проект успешно изменен');
     }
 
     public function destroy(ProjectModel $projectModel)
     {
         $projectModel->delete();
+
+        HistoryController::project($projectModel->id, Statuses::DELETE);
         return back()->with('delete', 'Проект успешна удален!');
     }
 }

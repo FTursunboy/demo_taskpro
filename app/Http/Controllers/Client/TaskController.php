@@ -9,6 +9,7 @@ use App\Http\Requests\Client\TaskRequest;
 use App\Models\Admin\EmailModel;
 use App\Models\Client\Offer;
 
+use App\Models\History;
 use App\Models\User;
 
 use App\Notifications\Telegram\TelegramClientTask;
@@ -36,9 +37,20 @@ class TaskController extends Controller
         return view('client.offers.create');
     }
 
-    public function show(Offer $offer)
-    {
-        return view('client.offers.show', compact('offer'));
+
+    public function show(Offer $offer) {
+
+        $histories = History::where([
+            ['type', '=', 'offer'],
+            ['client_id', '=', Auth::id()],
+            ['task_id', '=', $offer->id]
+        ])->orderBy('created_at')->get();
+
+
+
+        return view('client.offers.show', compact('offer', 'histories'));
+
+
     }
 
     public function store(TaskRequest $request)

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
+use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use Illuminate\Http\Request;
@@ -87,6 +89,8 @@ class TasksController extends Controller
         } catch (\Exception $exception) {
 
         }
+
+        HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
         return redirect()->route('tasks.index')->with('create', 'Задача успешно создана');
     }
 
@@ -100,12 +104,16 @@ class TasksController extends Controller
         $task->update([
             'status_id' => 3
         ]);
+        HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
+
         return redirect()->route('tasks.index')->with('create', 'Садача готова');
     }
 
     public function destroy(TaskModel $task)
     {
         $task->delete();
+        HistoryController::task($task->id, $task->user_id, Statuses::DELETE);
+
         return back()->with('delete', 'Задача успешна удалена!');
     }
 
