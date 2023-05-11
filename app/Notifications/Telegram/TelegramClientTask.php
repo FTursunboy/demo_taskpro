@@ -13,8 +13,6 @@ use NotificationChannels\Telegram\TelegramMessage;
 class TelegramClientTask extends Notification implements ShouldQueue
 {
     use Queueable;
-
-
     public string $name = '';
     public string $user = '';
 

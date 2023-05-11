@@ -17,7 +17,6 @@
             $('#create').remove()
         },2500)
     </script>
-
 @elseif(\Session::has('update'))
     <div class="alert alert-info" id="update">
         {{ \Session::get('update') }}

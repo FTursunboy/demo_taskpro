@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
+use App\Models\Admin\EmailModel;
 use App\Models\Client\Offer;
 
 use App\Models\History;
@@ -20,19 +21,22 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
             ['status_id', '<>', 6],
-            ['is_finished', '=', false ]
+            ['is_finished', '=', false]
         ])->get();
 
         return view('client.offers.index', compact('tasks'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('client.offers.create');
     }
+
 
     public function show(Offer $offer) {
 
@@ -45,9 +49,12 @@ class TaskController extends Controller
 
 
         return view('client.offers.show', compact('offer', 'histories'));
+
+
     }
 
-    public function store(TaskRequest $request){
+    public function store(TaskRequest $request)
+    {
         $request->validated();
 
         if (isset($request->file)) {
@@ -60,38 +67,40 @@ class TaskController extends Controller
         }
 
 
-       $offer = Offer::create([
+        $offer = Offer::create([
             'name' => $request->name,
             'description' => $request->description,
             'author_name' => $request->author_name,
             'author_phone' => $request->author_phone,
             'file' => $file,
             'file_name' => $file_name,
-            'status_id' => 1,
+            'status_id' => 8,
             'client_id' => Auth::id(),
         ]);
 
         $mail = new MailController();
-        $mail->send();
+        $mail->send(EmailModel::first()->email);
 
         $user = User::role('admin')->first();
 
         HistoryController::client($offer->id, $user->id, Auth::id(), 2);
 
-        try {
-            Notification::send(User::role('admin')->first()->name, new TelegramClientTask($offer->name, Auth::user()->name));
-        } catch (\Exception $exception) {
-        }
+//        try {
+//            Notification::send(User::role('admin')->first()->name, new TelegramClientTask($offer->name, Auth::user()->name));
+//        } catch (\Exception $exception) {
+//        }
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано');
 
     }
 
-    public function edit(Offer $offer){
+    public function edit(Offer $offer)
+    {
         return view('client.offers.edit', ['offer' => $offer]);
     }
 
-    public function update(TaskRequest $request, Offer $offer){
+    public function update(TaskRequest $request, Offer $offer)
+    {
         $request->validated();
 
         if (isset($request->file)) {
@@ -114,21 +123,25 @@ class TaskController extends Controller
         return redirect()->route('offers.index')->with('update', 'Успешно обновлено');
     }
 
-    public function delete(Offer $offer) {
+    public function delete(Offer $offer)
+    {
         $offer->delete();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, $user->id, Auth::id(), 10);
         return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
-    public function confirm(Offer $offer) {
+    public function confirm(Offer $offer)
+    {
         $offer->status_id = 3;
         $offer->save();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, $user->id, Auth::id(), 6);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
-    public function decline(Offer $offer){
+
+    public function decline(Offer $offer)
+    {
         $offer->status_id = 1;
         $offer->save();
 
@@ -137,7 +150,8 @@ class TaskController extends Controller
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
-    public function downloadFile(Offer $offer){
+    public function downloadFile(Offer $offer)
+    {
 
 
         $path = storage_path('app/public/' . $offer->file);
@@ -150,7 +164,8 @@ class TaskController extends Controller
 
     }
 
-    public function ready(Offer $offer) {
+    public function ready(Offer $offer)
+    {
         $offer->status_id = 3;
         $offer->save();
 

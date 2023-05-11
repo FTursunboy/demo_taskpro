@@ -62,14 +62,14 @@ class TasksController extends Controller
         ]);
         $task->update([
             'cancel' => $request->cancel,
-            'status_id' => 5,
+            'status_id' => 12,
         ]);
         HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
 
         if ($task->offer_id) {
             $offer = Offer::find($task->offer_id);
             $offer->cancel = $request->cancel;
-            $offer->status_id = 2;
+            $offer->status_id = 12;
             $offer->save();
 
             HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::DECLINED);

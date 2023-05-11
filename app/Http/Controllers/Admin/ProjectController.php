@@ -12,14 +12,13 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Statuses;
 use App\Models\Types;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
     public function index()
     {
         $projects = ProjectModel::get();
-
-
 
         return view('admin.project.index', compact('projects'));
     }
@@ -40,9 +39,11 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
+
         $project =  ProjectModel::create($data);
 
         HistoryController::project($project->id, Statuses::CREATE);
+
         return redirect()->route('project.index')->with('create', 'Проект успешно содань');
     }
 
