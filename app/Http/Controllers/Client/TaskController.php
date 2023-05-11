@@ -85,10 +85,10 @@ class TaskController extends Controller
 
         HistoryController::client($offer->id, $user->id, Auth::id(), 2);
 
-//        try {
-//            Notification::send(User::role('admin')->first()->name, new TelegramClientTask($offer->name, Auth::user()->name));
-//        } catch (\Exception $exception) {
-//        }
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramClientTask($offer->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано');
 
