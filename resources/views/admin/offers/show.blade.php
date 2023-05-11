@@ -157,6 +157,12 @@
                                                                         Отклонить
                                                                     </button>
                                                                 </div>
+                                                                @elseif($offer->status_id == 12 || $offer->status_id == 13)
+                                                                    <div class="col-6">
+                                                                        <button name="action"  value="accept" class="btn btn-success form-control">
+                                                                            Отправить Заново
+                                                                        </button>
+                                                                    </div>
                                                                 @endif
                                                                     <script>
                                                                         const btn = document.getElementById('btnSend')

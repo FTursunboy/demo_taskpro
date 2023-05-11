@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Http\Requests\Admin\ProjectRequest;
 use App\Http\Requests\Admin\ProjectUpdateRequest;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\ProjectTypeModel;
 use App\Models\Admin\TaskTypeModel;
+use App\Models\Statuses;
 use App\Models\Types;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
     public function index()
     {
         $projects = ProjectModel::get();
-
-
 
         return view('admin.project.index', compact('projects'));
     }
@@ -38,9 +39,8 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-
-
         ProjectModel::create($data);
+
         return redirect()->route('project.index')->with('create', 'Проект успешно содань');
     }
 

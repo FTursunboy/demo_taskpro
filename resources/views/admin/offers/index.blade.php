@@ -56,26 +56,47 @@
                                         @else
                                             <td class="text-danger text-bold">Задача еще не распределена</td>
                                         @endif
-                                        @if($offer->status->name == "В процессе")
-                                            <td><span class="badge bg-primary p-2">{{$offer->status->name}}</span>
-                                            </td>
-                                        @elseif($offer->status->name == "Ожидается")
-                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
-                                            </td>
-                                        @elseif($offer->status->name == "Готов")
+                                        @if($offer->status->id == 1)
                                             <td><span class="badge bg-success p-2">{{$offer->status->name}}</span>
                                             </td>
-                                        @elseif($offer->status->name == "Отклонено")
-                                            <td><span class="badge bg-danger p-2">Отклонен</span>
+                                        @elseif($offer->status->id == 2)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
                                             </td>
-                                        @elseif($offer->status->name == "На проверку" && $offer->is_finished)
-                                           <td><span class="badge bg-primary p-2">Отправлено клиенту на проверку</span>
-                                                </td>
-                                        @elseif($offer->status->name == "На проверку")
-                                            <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-primary p-2">{{$offer->status->name}}</span></a>
-                                                </td>
-                                        @elseif($offer->status->name == "Готов")
-                                            <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-primary p-2">{{$offer->status->name}}</span></a>
+                                        @elseif($offer->status->id == 3)
+                                            <td><span class="badge bg-success p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 4)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 5)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 6)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 7)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 8)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 9)
+                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 10)
+                                            <td><span class="badge bg-success p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 11)
+                                            <td><span class="badge bg-danger p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 12)
+                                            <td><span class="badge bg-danger p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 13)
+                                            <td><span class="badge bg-danger p-2">{{$offer->status->name}}</span>
+                                            </td>
+                                        @elseif($offer->status->id == 14)
+                                            <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a>
                                             </td>
                                         @endif
                                         @if($offer->user_id)

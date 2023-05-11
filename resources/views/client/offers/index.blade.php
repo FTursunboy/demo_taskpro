@@ -43,25 +43,54 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$task->name}}</td>
                                     <td>{{\Illuminate\Support\Str::limit($task->description, 20)}}</td>
-                                        @if($task->status->name == "Принято")
-                                            <td><span class="badge bg-success p-2">Принят</span>
+                                        @if($task->status->id == 1)
+                                            <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                             </td>
-                                        @elseif($task->status->name == "Ожидается")
-                                            <td><span class="badge bg-warning p-2">На рассмотрении</span>
+                                        @elseif($task->status->id == 2)
+                                            <td><span class="badge bg-primary p-2">{{$task->status->name}}</span>
                                             </td>
-                                        @elseif($task->status->name == "Отклонено")
-                                            <td><span class="badge bg-danger p-2">Отклонен</span>
+                                        @elseif($task->status->id == 3)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
                                             </td>
-                                        @elseif($task->status->name == "На доработку")
-                                            <td><span class="badge bg-primary p-2">На доработку</span>
+                                        @elseif($task->status->id == 4)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
                                             </td>
-                                        @elseif($task->status->name == "На проверку")
-                                            <td><span class="badge bg-primary p-2">На доработку</span>
+                                        @elseif($task->status->id == 5)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 6)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 7)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 8)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 9)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 10)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 11)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 12)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 13)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            </td>
+                                        @elseif($task->status->id == 14)
+                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
                                             </td>
                                         @endif
                                     <td>
-                                        <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i class="bi bi-eye p-2"></i></a>
+                                        <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i class="bi bi-eye"></i></a>
+                                        @if($task->status->id == 8)
                                         <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i class="bi bi-pencil"></i></a>
+                                        @endif
                                     </td>
                                     </tr>
                                 @empty
