@@ -126,7 +126,7 @@ class User extends Authenticatable
     {
         $tasks = TaskModel::where([
             ['task_models.user_id', $id],
-        ])->where('task_models.status_id', 1)
+        ])->where('task_models.status_id', 1)->orWhere('task_models.status_id', 9)
             ->WhereNotIn('task_models.id', function ($subquery) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')

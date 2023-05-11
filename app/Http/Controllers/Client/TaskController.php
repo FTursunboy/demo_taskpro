@@ -57,7 +57,7 @@ class TaskController extends Controller
             'author_phone' => $request->author_phone,
             'file' => $file,
             'file_name' => $file_name,
-            'status_id' => 1,
+            'status_id' => 8,
             'client_id' => Auth::id(),
         ]);
 

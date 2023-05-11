@@ -57,6 +57,27 @@ class DatabaseSeeder extends Seeder
         StatusesModel::create([
             'name' => 'Прассрочное'
         ]);
+        StatusesModel::create([
+            'name' => 'Ожидается (Админ)'
+        ]);
+        StatusesModel::create([
+            'name' => 'Ожидается (Сотрудник)'
+        ]);
+        StatusesModel::create([
+            'name' => 'На проверке (У клиента)'
+        ]);
+        StatusesModel::create([
+            'name' => 'Отклонено (Администратор)'
+        ]);
+        StatusesModel::create([
+            'name' => 'Отклонено (Сотрудник)'
+        ]);
+        StatusesModel::create([
+            'name' => 'Отклонено (Клиентом)'
+        ]);
+        StatusesModel::create([
+            'name' => 'На проверке (У админа)'
+        ]);
 
         OtdelsModel::create([
             'name' => 'FIN Group',
