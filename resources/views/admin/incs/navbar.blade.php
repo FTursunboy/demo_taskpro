@@ -134,8 +134,8 @@
                 </li>
 
                 <li
-                    class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                    class="sidebar-item {{ (request()->is('telegram') or request()->is('telegram/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('telegram.index') }}" class='sidebar-link'>
                         <i class="bi bi-pentagon-fill"></i>
                         <span>Телеграмм</span>
                     </a>
