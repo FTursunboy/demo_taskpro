@@ -21,8 +21,6 @@ class IndexController extends Controller
             ['status_id', '=', '3'],
             ['is_finished', '=', true]
         ])->get();
-
-
         return view('client.index', compact('tasks'));
     }
 

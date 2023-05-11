@@ -45,11 +45,12 @@ class TaskController extends Controller
             ['type', '=', 'offer'],
             ['client_id', '=', Auth::id()],
             ['task_id', '=', $offer->id]
+
         ])->get();
 
+        ])->orderBy('created_at')->get();
+
         return view('client.offers.show', compact('offer', 'histories'));
-
-
     }
 
     public function store(TaskRequest $request)
@@ -84,10 +85,10 @@ class TaskController extends Controller
 
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
 
-//        try {
-//            Notification::send(User::role('admin')->first()->name, new TelegramClientTask($offer->name, Auth::user()->name));
-//        } catch (\Exception $exception) {
-//        }
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramClientTask($offer->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано');
 

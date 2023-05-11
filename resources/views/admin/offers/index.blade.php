@@ -147,11 +147,9 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 @empty
                                     <td  colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
                                 @endforelse
-
                                 </tbody>
                             </table>
                         </div>

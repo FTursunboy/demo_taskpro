@@ -90,122 +90,132 @@
                                                     </div>
 
                                                 </div>
+
+                                                <div class="container my-5">
+                                                    <div class="row">
+                                                        <div class="col-lg-9">
+                                                            <form method="post" action="{{route('offers.store')}}"
+                                                                  enctype="multipart/form-data"
+                                                                  autocomplete="off">
+                                                                @csrf
+                                                                <div class="row g-3">
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-label">Название
+                                                                            задачи</label>
+                                                                        <input disabled type="text"
+                                                                               class="form-control"
+                                                                               name="name" id="name"
+                                                                               value="{{$offer->name}}"
+                                                                               required>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-label">Ответственный
+                                                                            сотрудник</label>
+                                                                        <input placeholder="Сотрудник будет установлен"
+                                                                               disabled
+                                                                               type="text"
+                                                                               class="form-control"
+                                                                               name="user_id" id="name"
+                                                                               value="{{$offer->user?->name}}" required>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-label">Ответсвенный сотрудник
+                                                                            со стороны
+                                                                            компании</label>
+                                                                        <input value="{{$offer->author_name}}" disabled
+                                                                               type="text"
+                                                                               class="form-control"
+                                                                               name="author_name" id="name" required>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-label">Телефон ответсвенного
+                                                                            сотрудника</label>
+                                                                        <input value="{{$offer->author_phone}}" disabled
+                                                                               type="text"
+                                                                               class="form-control"
+                                                                               name="author_phone" id="name" required>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-label">От</label>
+                                                                        <input placeholder="Дата будет установлена"
+                                                                               value="{{$offer->from}}" disabled
+                                                                               type="date"
+                                                                               class="form-control"
+                                                                               name="from">
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label class="form-label">До</label>
+                                                                        <input placeholder="Дата будет установлена"
+                                                                               value="{{$offer->to}}" disabled
+                                                                               type="date"
+                                                                               class="form-control"
+                                                                               name="to">
+                                                                    </div>
+                                                                    @if($offer->file !== null)
+                                                                        <div class="col-md-6">
+                                                                            <a style="margin-left: 0px" download
+                                                                               href="{{route('offers.download', $offer->id)}}">Просмотреть
+                                                                                файл</a>
+                                                                        </div>
+                                                                    @endif
+                                                                    <div class="col-12">
+                                                                        <label for="your-message" class="form-label">Описание
+                                                                            задачи</label>
+                                                                        <textarea disabled id="description"
+                                                                                  class="form-control"
+                                                                                  name="description"
+                                                                                  rows="5"
+                                                                                  required>{{$offer->description}} </textarea>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-4">
+                                                                    <div class="col-12">
+                                                                        <a href="{{route('offers.index')}}"
+                                                                           class="btn btn-success form-control">
+                                                                            Назад
+                                                                        </a>
+                                                                        <script>
+                                                                            const btn = document.getElementById('btnSend')
+                                                                            btn.addEventListener('click', function () {
+                                                                                const name = document.getElementById('name').value
+                                                                                const description = document.getElementById('description').value
+                                                                                if (name !== '' && description !== '') {
+                                                                                    btn.type = 'submit';
+                                                                                    btn.click();
+                                                                                    btn.classList.add('disabled')
+                                                                                } else {
+                                                                                    btn.classList.add('disabled')
+                                                                                }
+                                                                            })
+                                                                        </script>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    <div class="container my-5">
-                                        <div class="row">
-                                            <div class="col-lg-9">
-                                                <form method="post" action="{{route('offers.store')}}"
-                                                      enctype="multipart/form-data"
-                                                      autocomplete="off">
-                                                    @csrf
-                                                    <div class="row g-3">
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Название задачи</label>
-                                                            <input disabled type="text"
-                                                                   class="form-control"
-                                                                   name="name" id="name" value="{{$offer->name}}"
-                                                                   required>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Ответственный сотрудник</label>
-                                                            <input placeholder="Сотрудник будет установлен" disabled
-                                                                   type="text"
-                                                                   class="form-control"
-                                                                   name="user_id" id="name"
-                                                                   value="{{$offer->user?->name}}" required>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Ответсвенный сотрудник со стороны
-                                                                компании</label>
-                                                            <input value="{{$offer->author_name}}" disabled type="text"
-                                                                   class="form-control"
-                                                                   name="author_name" id="name" required>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Телефон ответсвенного
-                                                                сотрудника</label>
-                                                            <input value="{{$offer->author_phone}}" disabled type="text"
-                                                                   class="form-control"
-                                                                   name="author_phone" id="name" required>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">От</label>
-                                                            <input placeholder="Дата будет установлена"
-                                                                   value="{{$offer->from}}" disabled type="date"
-                                                                   class="form-control"
-                                                                   name="from">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">До</label>
-                                                            <input placeholder="Дата будет установлена"
-                                                                   value="{{$offer->to}}" disabled type="date"
-                                                                   class="form-control"
-                                                                   name="to">
-                                                        </div>
-                                                        @if($offer->file !== null)
-                                                            <div class="col-md-6">
-                                                                <a style="margin-left: 0px" download
-                                                                   href="{{route('offers.download', $offer->id)}}">Просмотреть
-                                                                    файл</a>
-                                                            </div>
-                                                        @endif
-                                                        <div class="col-12">
-                                                            <label for="your-message" class="form-label">Описание
-                                                                задачи</label>
-                                                            <textarea disabled id="description" class="form-control"
-                                                                      name="description"
-                                                                      rows="5"
-                                                                      required>{{$offer->description}} </textarea>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mt-4">
-                                                        <div class="col-12">
-                                                            <a href="{{route('offers.index')}}"
-                                                               class="btn btn-success form-control">
-                                                                Назад
-                                                            </a>
-                                                            <script>
-                                                                const btn = document.getElementById('btnSend')
-                                                                btn.addEventListener('click', function () {
-                                                                    const name = document.getElementById('name').value
-                                                                    const description = document.getElementById('description').value
-                                                                    if (name !== '' && description !== '') {
-                                                                        btn.type = 'submit';
-                                                                        btn.click();
-                                                                        btn.classList.add('disabled')
-                                                                    }
-                                                                })
-                                                            </script>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                </section>
-                <section>
-
                 </section>
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-
-                </div>
-            </footer>
         </div>
+    </div>
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+
+        </div>
+    </footer>
+    </div>
     </div>
 
 
