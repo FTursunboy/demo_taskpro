@@ -68,16 +68,19 @@
                                                             <thead>
                                                             <th>Дата</th>
                                                             <th>Задача</th>
-                                                            <th>Изменил</th>
+                                                            <th>Совершил действия</th>
                                                             <th>Статус</th>
                                                             </thead>
                                                             <tbody>
+
                                                             @foreach($histories as $history)
+
                                                                 <tr>
                                                                     <td>{{date('d-m-Y', strtotime($history->created_at))}}</td>
                                                                     <td>{{$history->offer->name}}</td>
-                                                                    <td>{{$history->user->name}}</td>
-                                                                    <td>{{$history->status->name}}</td>
+                                                                    <td>{{$history->user->name }}</td>
+                                                                    <td>{{$history->status->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
+                                                                    </td>
                                                                 </tr>
                                                             @endforeach
                                                             </tbody>

@@ -24,17 +24,11 @@
                     <div class="card">
                         <div class="card-header">
 
-                            @include('inc.messages')
                         </div>
                         <div class="card-body">
                             <div class="row ">
                                 <div class="row pt-4">
                                     <div class="col-md-12">
-                                        @if($errors->any())
-                                            <div class="alert alert-danger w-100 text-center">Заполните
-                                                все поля
-                                            </div>
-                                        @endif
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="row">
@@ -51,7 +45,54 @@
                                                     {{ \Session::get('err') }}
                                                 </div>
                                             @endif
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+                                                        @include('inc.messages')
 
+                                                        <p>
+                                                            <button
+                                                                class="btn btn-primary w-100"
+                                                                type="button"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseExample" aria-expanded="false"
+                                                                aria-controls="collapseExample"><span
+                                                                    class="d-flex justify-content-start"><i
+                                                                        class="bi bi-info-circle mx-2"></i> <span
+                                                                        class="text-center"> Вся история задачи </span> </span>
+                                                            </button>
+                                                        </p>
+                                                        <div class="collapse my-3" id="collapseExample">
+                                                            <div class="row p-3">
+
+                                                                <table class="table table-striped" id="table1">
+                                                                    <thead>
+                                                                    <th>Дата</th>
+                                                                    <th>Задача</th>
+                                                                    <th>Совершил действия</th>
+                                                                    <th>Статус</th>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    @foreach($histories as $history)
+                                                                        <tr>
+                                                                            <td>{{date('d-m-Y', strtotime($history->created_at))}}</td>
+                                                                            <td>{{$history->offer->name}}</td>
+                                                                            <td>{{$history->user->name }}</td>
+                                                                            <td>{{$history->status->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+
+                                                                </table>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="container my-5">
                                                 <div class="row">
                                                     <div class="col-lg-9">

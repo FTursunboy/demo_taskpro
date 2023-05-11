@@ -167,6 +167,14 @@
                                            class="form-control" placeholder="Telegram id"
                                            id="telegram_id">
                                 </div>
+                                <div class="form-group">
+                                    <select name="project_id" class="form-select" id="">
+                                        <option value="">Выберите проект</option>
+                                        @foreach($projects as $project)
+                                            <option value="{{$project->id}}">{{$project->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-6">
@@ -178,7 +186,7 @@
                                            value="{{ old('login') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="form-label">Пароль(по ум. 'password')</label>
+                                    <label for="password" class="form-label">Пароль</label>
                                     <input type="password" name="password" class="form-control" placeholder="Пароль"
                                            id="password">
                                 </div>

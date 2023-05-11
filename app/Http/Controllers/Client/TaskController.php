@@ -40,11 +40,16 @@ class TaskController extends Controller
 
     public function show(Offer $offer) {
 
+
         $histories = History::where([
             ['type', '=', 'offer'],
             ['client_id', '=', Auth::id()],
             ['task_id', '=', $offer->id]
+
+        ])->get();
+
         ])->orderBy('created_at')->get();
+
         return view('client.offers.show', compact('offer', 'histories'));
     }
 
@@ -78,7 +83,7 @@ class TaskController extends Controller
 
         $user = User::role('admin')->first();
 
-        HistoryController::client($offer->id, $user->id, Auth::id(), 2);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
 
         try {
             Notification::send(User::role('admin')->first(), new TelegramClientTask($offer->name, Auth::user()->name));
@@ -114,7 +119,7 @@ class TaskController extends Controller
 
         $offer->save();
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, $user->id, Auth::id(), 9);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 9);
         return redirect()->route('offers.index')->with('update', 'Успешно обновлено');
     }
 
@@ -122,7 +127,7 @@ class TaskController extends Controller
     {
         $offer->delete();
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, $user->id, Auth::id(), 10);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 10);
         return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
@@ -131,7 +136,7 @@ class TaskController extends Controller
         $offer->status_id = 3;
         $offer->save();
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, $user->id, Auth::id(), 6);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 6);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
@@ -141,7 +146,7 @@ class TaskController extends Controller
         $offer->save();
 
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, $user->id, Auth::id(), 11);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 11);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
@@ -165,7 +170,7 @@ class TaskController extends Controller
         $offer->save();
 
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, $user->id, Auth::id(), 6);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 6);
 
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }

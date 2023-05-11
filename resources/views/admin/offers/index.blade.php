@@ -60,7 +60,7 @@
                                             <td><span class="badge bg-success p-2">{{$offer->status->name}}</span>
                                             </td>
                                         @elseif($offer->status->id == 2)
-                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            <td><span class="badge bg-primary p-2">{{$offer->status->name}}</span>
                                             </td>
                                         @elseif($offer->status->id == 3)
                                             <td><span class="badge bg-success p-2">{{$offer->status->name}}</span>

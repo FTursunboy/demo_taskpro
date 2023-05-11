@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('task_models', function (Blueprint $table) {
-            $table->integer('type_id')->nullable()->change();
-
+        Schema::create('project_clients', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('project_id');
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('task_models', function (Blueprint $table) {
-            $table->integer('type_id')->nullable(false)->change();
-        });
+        Schema::dropIfExists('project_clients');
     }
 };
