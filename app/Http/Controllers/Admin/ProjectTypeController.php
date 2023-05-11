@@ -24,7 +24,7 @@ class ProjectTypeController extends Controller
         ProjectTypeModel::create([
             'name' => $data['name'],
         ]);
-        return redirect()->route('settings.project')->with('mess', 'Успешно добавлен!!');
+        return redirect()->route('settings.project')->with('create', 'Успешно добавлен!!');
 
     }
 
@@ -32,14 +32,13 @@ class ProjectTypeController extends Controller
         $data = $request->validate([
             'name' => 'required',
         ]);
-
         $projectTypeModel->update([
             'name' => $data['name']
         ]);
-        return redirect()->route('settings.project')->with('mess', 'Успешно обновлено');
+        return redirect()->route('settings.project')->with('update', 'Успешно обновлено');
     }
     public function delete(ProjectTypeModel $projectTypeModel) {
         $projectTypeModel->delete();
-        return redirect()->route('settings.project')->with('mess', 'Успешно удалено');
+        return redirect()->route('settings.project')->with('delete', 'Успешно удалено');
     }
 }

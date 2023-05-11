@@ -25,7 +25,7 @@ class TaskTypeController extends Controller
         TaskTypeModel::create([
             'name' => $data['name'],
         ]);
-        return redirect()->back()->with('mess', 'Операция прошло успешно!');
+        return redirect()->back()->with('create', 'Операция прошло успешно!');
     }
 
     public function update(Request $request, TaskTypeModel $taskTypeModel)
@@ -37,7 +37,7 @@ class TaskTypeController extends Controller
         $taskTypeModel->update([
             'name' => $data['name']
         ]);
-        return redirect()->back()->with('mess', 'Операция прошло успешно!');
+        return redirect()->back()->with('update', 'Операция прошло успешно!');
     }
 
 
@@ -64,16 +64,16 @@ class TaskTypeController extends Controller
                 'name' => $data['name'],
                 'typeTask_id' => $data['typetask'],
             ]);
-            return redirect()->route('settings.kpi')->with('mess', 'Операция прошло успешно!');
+            return redirect()->route('settings.kpi')->with('create', 'Операция прошло успешно!');
         } catch (\Exception $exception) {
-            return redirect()->route('settings.kpi', 1)->with('err', $exception->getMessage());
+            return redirect()->route('settings.kpi', 1)->with('error', $exception->getMessage());
         }
     }
 
     public function kpiDelete(TaskTypesTypeModel $taskTypesTypeModel)
     {
         $taskTypesTypeModel->delete();
-        return redirect()->back()->with('mess', 'Успешно обновлено');
+        return redirect()->back()->with('delete', 'Успешно обновлено');
     }
 
 
@@ -85,12 +85,12 @@ class TaskTypeController extends Controller
         $taskTypesTypeModel->update([
             'name' => $data['name']
         ]);
-        return redirect()->route('settings.kpi', $taskTypesTypeModel->typeTask_id)->with('mess', 'Успешно обновлено');
+        return redirect()->route('settings.kpi', $taskTypesTypeModel->typeTask_id)->with('create', 'Успешно обновлено');
     }
 
     public function delete(TaskTypeModel $taskTypeModel)
     {
         $taskTypeModel->delete();
-        return redirect()->back()->with('mess', 'Успешно удалено');
+        return redirect()->back()->with('delete', 'Успешно удалено');
     }
 }

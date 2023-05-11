@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+
+@section('title')
+    Тип задачи {{$taskTypeModel->name}}
+@endsection
 @section('content')
     <div id="app">
 
@@ -13,7 +17,8 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Настройки</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Настройки</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('settings.task') }}">Тип</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">{{$taskTypeModel->name}}</li>
                                 </ol>
                             </nav>
@@ -28,15 +33,16 @@
                                     {{ session('mess') }}
                                 </div>
                             @endif
+                                <a href="{{ route('settings.task') }}" class="btn btn-danger">Назад</a>
                                 <a href="#" data-bs-target="#store" data-bs-toggle="modal" class="btn btn-primary">Добавить</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th width="100">#</th>
                                     <th>Название</th>
-                                    <th>Действие</th>
+                                    <th width="150">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
