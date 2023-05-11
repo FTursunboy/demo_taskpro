@@ -109,17 +109,10 @@
                                                                            value="{{$offer->name}}" required>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <label class="form-label">Ответственный
-                                                                        сотрудник</label>
-                                                                    <select class="form-select" name="user_id" id="">
-
-                                                                        @foreach($users as $user)
-                                                                            <option
-                                                                                value="{{$user->id}}">{{$user->name}}</option>
-                                                                        @endforeach
-
-                                                                    </select>
+                                                                    <label class="form-label">Проект</label>
+                                                                    <input type="text" class="form-control" value="{{$project->projects->name}}" disabled name="project">
                                                                 </div>
+
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">Ответсвенный сотрудник со
                                                                         стороны компании</label>
@@ -139,34 +132,38 @@
 
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">От</label>
-                                                                    <input
+                                                                    <input required
                                                                            value="{{$offer->from}}" type="date"
                                                                            class="form-control"
                                                                            name="from">
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">До</label>
-                                                                    <input
+                                                                    <input required
                                                                            value="{{$offer->to}}" type="date"
                                                                            class="form-control"
                                                                            name="to">
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <label class="form-label">Время</label>
-                                                                    <input
-                                                                        value="{{$offer->time}}" type="number"
-                                                                        class="form-control"
-                                                                        name="time">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Проект</label>
-                                                                    <select class="form-select" name="project_id">
-                                                                        <option value="">Выберите проект</option>
-                                                                        @foreach($projects as $project)
-                                                                            <option value="{{$project->id}}">{{$project->name}}</option>
+                                                                    <label class="form-label">Ответственный
+                                                                        сотрудник</label>
+                                                                    <select required class="form-select" name="user_id" id="">
+                                                                        <option selected value="">Выберите сотрудника</option>
+                                                                        @foreach($users as $user)
+                                                                            <option
+                                                                                value="{{$user->id}}">{{$user->name}}</option>
                                                                         @endforeach
+
                                                                     </select>
                                                                 </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Время</label>
+                                                                    <input required
+                                                                        value="{{$offer->time}}" type="number"
+                                                                        class="form-control"
+                                                                        name="time" placeholder="Введите время">
+                                                                </div>
+
                                                                 @if($offer->file !== null)
                                                                     <div class="col-md-6">
                                                                         <a style="margin-left: 0px" download
