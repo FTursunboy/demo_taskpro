@@ -20,10 +20,10 @@
                         </div>
                     </div>
                 </div>
+                @include('inc.messages')
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            @include('inc.messages')
                             <a href="{{route('offers.create')}}"  class="btn btn-primary">Добавить</a>
                         </div>
                         <div class="card-body">
