@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    public function send(){
-        Mail::to('tfaiziev@list.ru')->send(new Send());
+    public function send($email){
+        Mail::to($email)->send(new Send());
     }
 }
