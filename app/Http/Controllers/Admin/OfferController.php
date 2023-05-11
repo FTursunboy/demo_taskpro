@@ -26,7 +26,7 @@ class OfferController extends Controller
     public function sendUser(Request $request, Offer $offer)
     {
         if ($_POST['action'] === 'decline') {
-            $offer->status_id = 5;
+            $offer->status_id = 11;
             $offer->save();
 
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::DECLINED);
@@ -53,7 +53,8 @@ class OfferController extends Controller
                 'from' => $data['from'],
                 'to' => $data['from'],
                 'time' => $data['time'],
-                'user_id' => $data['user_id']
+                'user_id' => $data['user_id'],
+                'status_id' => 9
             ]);
             HistoryController::client($offer->id, $data['user_id'], $offer->client_id, Statuses::ACCEPT);
 
@@ -71,7 +72,7 @@ class OfferController extends Controller
                 'client_id' => $offer->client_id,
                 'comment' => $offer->description,
                 'project_id' => $data['project_id'],
-                'status_id' => 1,
+                'status_id' => 9,
 
             ]);
 
@@ -89,6 +90,7 @@ class OfferController extends Controller
     public  function sendClient(Offer $offer)
     {
         $offer->is_finished = true;
+        $offer->status_id = 10;
         $offer->save();
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
@@ -135,8 +137,6 @@ class OfferController extends Controller
         ]);
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::UPDATE);
-
-
 
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
     }

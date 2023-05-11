@@ -14,7 +14,7 @@ class IndexController extends Controller
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-            ['status_id', '=', '6'],
+            ['status_id', '=', '10'],
             ['is_finished', '=', true]
         ])->orWhere([
             ['client_id', '=', Auth::id()],

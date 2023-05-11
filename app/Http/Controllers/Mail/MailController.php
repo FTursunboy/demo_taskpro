@@ -10,6 +10,6 @@ use Illuminate\Support\Facades\Mail;
 class MailController extends Controller
 {
     public function send(){
-        Mail::to('tfaiziev@list.ru')->send(new Send());
+        Mail::to('tfaiziev04@gmail.com')->send(new Send());
     }
 }

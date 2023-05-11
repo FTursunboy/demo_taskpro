@@ -56,13 +56,13 @@ class TasksController extends Controller
         ]);
         $task->update([
             'cancel' => $request->cancel,
-            'status_id' => 5,
+            'status_id' => 12,
         ]);
 
         if ($task->offer_id) {
             $offer = Offer::find($task->offer_id);
             $offer->cancel = $request->cancel;
-            $offer->status_id = 2;
+            $offer->status_id = 12;
             $offer->save();
         }
         try {
