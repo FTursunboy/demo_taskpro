@@ -28,6 +28,7 @@ class ClientRequest extends FormRequest
             'phone' => ['required', 'unique:users,phone'],
             'password' => ['required','min:6'],
             'telegram_id' => ['required'],
+            'project_id' => ['required']
         ];
     }
 }

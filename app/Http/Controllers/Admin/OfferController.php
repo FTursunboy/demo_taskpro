@@ -7,6 +7,7 @@ use App\Http\Controllers\HistoryController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
+use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -56,7 +57,8 @@ class OfferController extends Controller
                 'user_id' => $data['user_id'],
                 'status_id' => 9
             ]);
-            HistoryController::client($offer->id, $data['user_id'], $offer->client_id, Statuses::ACCEPT);
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
 
             $task = TaskModel::create([
@@ -106,7 +108,12 @@ class OfferController extends Controller
 
         $users = User::role('user')->get();
 
-        return view('admin.offers.show', compact('offer', 'users', 'projects'));
+        $histories = History::where([
+            ['type', '=', 'offer'],
+            ['task_id', '=', $offer->id]
+        ])->get();
+
+        return view('admin.offers.show', compact('offer', 'users', 'projects', 'histories'));
     }
 
 

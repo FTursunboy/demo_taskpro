@@ -9,6 +9,7 @@ use App\Models\Admin\ProjectTypeModel;
 use App\Models\Admin\StatusesModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
+use App\Models\Statuses;
 use App\Models\Types;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -200,6 +201,40 @@ class DatabaseSeeder extends Seeder
         ]);
         Types::create([
             'name' => 'внешний'
+        ]);
+
+        Statuses::create([
+            'name' => 'Создал'
+        ]);
+        Statuses::create([
+            'name' => 'Отправил'
+        ]);
+        Statuses::create([
+            'name' => 'Принял'
+        ]);
+        Statuses::create([
+            'name' => 'Отклонил'
+        ]);
+        Statuses::create([
+            'name' => 'Закончил'
+        ]);
+        Statuses::create([
+            'name' => 'Подтвердил'
+        ]);
+        Statuses::create([
+            'name' => 'Отправил на проверку'
+        ]);
+        Statuses::create([
+            'name' => 'Изменил'
+        ]);
+        Statuses::create([
+            'name' => 'Удалил'
+        ]);
+        Statuses::create([
+            'name' => 'Отправил заново'
+        ]);
+        Statuses::create([
+            'name' => 'Отправил сотруднику'
         ]);
     }
 }

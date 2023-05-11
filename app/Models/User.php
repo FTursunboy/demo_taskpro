@@ -184,4 +184,8 @@ class User extends Authenticatable
         return $this->telegram_user_id;
     }
 
+    public function projects(){
+        return $this->belongsToMany(ProjectModel::class);
+    }
+
 }
