@@ -25,10 +25,9 @@ class HistoryController extends Controller
         ]);
     }
 
-    public static function project($task_id, $user_id,  $status_id) {
+    public static function project($task_id, $status_id) {
         History::create([
             'task_id' => $task_id,
-            'user_id' => $user_id,
             'status_id' => $status_id,
             'type' => 'project'
         ]);

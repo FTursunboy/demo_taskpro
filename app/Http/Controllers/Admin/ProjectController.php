@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Http\Requests\Admin\ProjectRequest;
 use App\Http\Requests\Admin\ProjectUpdateRequest;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\ProjectTypeModel;
 use App\Models\Admin\TaskTypeModel;
+use App\Models\Statuses;
 use App\Models\Types;
 use Illuminate\Http\Request;
 
@@ -38,9 +40,9 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
+        $project =  ProjectModel::create($data);
 
-
-        ProjectModel::create($data);
+        HistoryController::project($project->id, Statuses::CREATE);
         return redirect()->route('project.index')->with('create', 'Проект успешно содань');
     }
 
@@ -54,12 +56,16 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $projectModel->update($data);
+
+        HistoryController::project($projectModel->id, Statuses::UPDATE);
         return redirect()->route('project.index')->with('update', 'Проект успешно изменен');
     }
 
     public function destroy(ProjectModel $projectModel)
     {
         $projectModel->delete();
+
+        HistoryController::project($projectModel->id, Statuses::DELETE);
         return back()->with('delete', 'Проект успешна удален!');
     }
 }
