@@ -8,6 +8,7 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 use App\Models\History;
+use App\Models\ProjectClient;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -47,7 +48,6 @@ class OfferController extends Controller
                 'from' => 'required',
                 'to' => 'required',
                 'time' => 'required',
-                'project_id' => 'required'
             ]);
 
             $offer->update([
@@ -60,6 +60,7 @@ class OfferController extends Controller
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
+            $project_id = ProjectClient::where('user_id', $offer->client_id)->first()->project_id;
 
             $task = TaskModel::create([
                 'name' => $offer->name,
@@ -73,7 +74,7 @@ class OfferController extends Controller
                 'author_id' => Auth::id(),
                 'client_id' => $offer->client_id,
                 'comment' => $offer->description,
-                'project_id' => $data['project_id'],
+                'project_id' => $project_id,
                 'status_id' => 9,
 
             ]);
@@ -104,7 +105,7 @@ class OfferController extends Controller
 
     public function show(Offer $offer) {
 
-        $projects = ProjectModel::where('types_id', 2)->get();
+        $project = ProjectClient::where('user_id', $offer->client_id)->first();
 
         $users = User::role('user')->get();
 
@@ -113,7 +114,7 @@ class OfferController extends Controller
             ['task_id', '=', $offer->id]
         ])->get();
 
-        return view('admin.offers.show', compact('offer', 'users', 'projects', 'histories'));
+        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories'));
     }
 
 
