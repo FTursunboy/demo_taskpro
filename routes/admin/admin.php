@@ -17,10 +17,10 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::patch('/settings/project/update/{projectTypeModel}', [\App\Http\Controllers\Admin\ProjectTypeController::class, 'update'])->name('project.update');
         Route::get('/settings/project/delete/{projectTypeModel}', [\App\Http\Controllers\Admin\ProjectTypeController::class, 'delete'])->name('project.delete');
 
-        Route::get('/settings/offers', [\App\Http\Controllers\Admin\TaskTypeController::class, 'index'])->name('task');
-        Route::post('/settings/offers/store', [\App\Http\Controllers\Admin\TaskTypeController::class, 'store'])->name('task.store');
-        Route::patch('/settings/offers/update/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'update'])->name('task.update');
-        Route::get('/settings/offers/delete/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'delete'])->name('task.delete');
+        Route::get('/settings/task', [\App\Http\Controllers\Admin\TaskTypeController::class, 'index'])->name('task');
+        Route::post('/settings/task/store', [\App\Http\Controllers\Admin\TaskTypeController::class, 'store'])->name('task.store');
+        Route::patch('/settings/task/update/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'update'])->name('task.update');
+        Route::get('/settings/task/delete/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'delete'])->name('task.delete');
         Route::get('/settings/kpi', [\App\Http\Controllers\Admin\TaskTypeController::class, 'kpi'])->name('kpi');
 
         Route::get('/settings/kpi/{taskTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'kpi'])->name('kpi');
@@ -28,6 +28,17 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::patch('/settings/kpi/update/{taskTypesTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'kpi_update'])->name('kpi.update');
         Route::get('/settings/kpi/delete/{taskTypesTypeModel}', [\App\Http\Controllers\Admin\TaskTypeController::class, 'kpiDelete'])->name('kpi.delete');
 
+        // role
+        Route::get('/settings/role', [\App\Http\Controllers\Admin\RoleController::class, 'index'])->name('role');
+        Route::post('/settings/store', [\App\Http\Controllers\Admin\RoleController::class, 'store'])->name('role.store');
+        Route::patch('/settings/update/{role}', [\App\Http\Controllers\Admin\RoleController::class, 'update'])->name('role.update');
+        Route::delete('/settings/destroy/{role}', [\App\Http\Controllers\Admin\RoleController::class, 'destroy'])->name('role.delete');
+
+        // otdel
+        Route::get('/settings/depart', [\App\Http\Controllers\Admin\DepartController::class, 'index'])->name('depart');
+        Route::post('/settings/depart/store', [\App\Http\Controllers\Admin\DepartController::class, 'store'])->name('depart.store');
+        Route::patch('/settings/depart/update/{depart}', [\App\Http\Controllers\Admin\DepartController::class, 'update'])->name('depart.update');
+        Route::delete('/settings/depart/destroy/{depart}', [\App\Http\Controllers\Admin\DepartController::class, 'destroy'])->name('depart.delete');
     });
 
 

@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('title')
+    Тип задачи
+@endsection
 @section('content')
     <div id="app">
 
@@ -13,8 +16,8 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Настройки</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Тип проекта</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Настройки</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Тип задачи</li>
                                 </ol>
                             </nav>
                         </div>
@@ -34,9 +37,9 @@
                             <table class="table table-striped" id="table1">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th width="100">#</th>
                                     <th>Название</th>
-                                    <th>Действие</th>
+                                    <th width="150">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,7 +51,6 @@
                                             <a class="badge badge-primary p-2 text-primary" href="{{route('settings.kpi', $type->id)}}" ><i class="nav-icon bi bi-eye"></i></a>
                                             <a class="badge badge-primary p-2 text-success" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $type->id }}"><i class="nav-icon bi bi-pencil"></i></a>
                                             <a class="badge badge-danger p-2 text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete{{ $type->id }}"><i class="nav-icon bi bi-trash"></i></a>
-
                                         </td>
                                     </tr>
 

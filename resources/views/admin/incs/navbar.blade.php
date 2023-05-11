@@ -3,7 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="#"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo" srcset=""></a>
+                    <a href="#"><img src="{{asset('assets/images/logo/logo2.svg')}}" alt="Logo" srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -73,7 +73,7 @@
                 </li>
 
                 <li
-                    class="sidebar-item">
+                    class="sidebar-item {{ (request()->is('admin/ideas') or request()->is('admin/ideas/*'))  ? 'active' : '' }}">
                     <a href="{{route('admin.ideas')}}" class='sidebar-link'>
                         <i class="bi bi-journal-check"></i>
                         <span>Идеи</span>
@@ -81,17 +81,18 @@
                 </li>
 
 
-                <li
-                    class="sidebar-item  has-sub">
+                <li class="sidebar-item  has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*')or request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Партнеры</span>
                     </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
+                    <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
+
+                        <li class="submenu-item {{ (request()->is('clients/offers') or request()->is('clients/offers/*'))  ? 'active' : '' }}">
                             <a href="{{route('client.offers.index')}}">Список задач</a>
                         </li>
-                        <li class="submenu-item ">
+
+                        <li class="submenu-item {{ (request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
                             <a href="{{route('employee.client')}}">Клиенты</a>
                         </li>
                     </ul>
@@ -108,23 +109,25 @@
                     </a>
                 </li>
 
+
+
                 <li
-                    class="sidebar-item  has-sub">
+                    class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart')or request()->is('settings/depart/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Настройки</span>
                     </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="">Роли</a>
+                    <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
+                        <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">
+                            <a href="{{ route('settings.role') }}">Роли</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="">Отдел</a>
+                        <li class="submenu-item {{ (request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
+                            <a href="{{ route('settings.depart') }}">Отдел</a>
                         </li>
-                        <li class="submenu-item ">
+                        <li class="submenu-item {{ (request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*'))  ? 'active' : '' }}">
                             <a href="{{route('settings.task')}}">Задачи</a>
                         </li>
-                        <li class="submenu-item ">
+                        <li class="submenu-item {{ (request()->is('settings/project') or request()->is('settings/project/*'))  ? 'active' : '' }}">
                             <a href="{{route('settings.project')}}">Проекты</a>
                         </li>
                     </ul>
