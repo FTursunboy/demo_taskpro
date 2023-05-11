@@ -45,12 +45,7 @@ class TaskController extends Controller
             ['client_id', '=', Auth::id()],
             ['task_id', '=', $offer->id]
         ])->orderBy('created_at')->get();
-
-
-
         return view('client.offers.show', compact('offer', 'histories'));
-
-
     }
 
     public function store(TaskRequest $request)
