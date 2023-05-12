@@ -1,4 +1,6 @@
 @extends('admin.layouts.app')
+@section('title')Список задач@endsection
+
 @section('content')
             <div class="page-heading">
                 <div class="page-title">
