@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                                        <div class="container my-5">
+                                        <div class="container">
                                             <div class="row   d-flex justify-content-center align-items-center">
                                                 <div class="col-lg-9">
                                                     <form method="post" action="{{route('offers.store')}}"

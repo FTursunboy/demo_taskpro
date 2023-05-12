@@ -128,7 +128,7 @@
                 <form action="{{ route('employee.client.store') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="employeeLabel">Добавления сотрудника</h1>
+                        <h1 class="modal-title fs-5" id="employeeLabel">Добавления клиента</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

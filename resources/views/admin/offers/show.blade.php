@@ -21,49 +21,9 @@
 
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    <div class="modal" tabindex="-1" id="send">
-                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Вся история задачи</h5>
-
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row p-3">
-
-                                        <table class="table table-striped" id="table1">
-                                            <thead>
-                                            <th>Дата</th>
-                                            <th>Совершил действия</th>
-                                            <th>Статус</th>
-                                            </thead>
-                                            <tbody>
-
-                                            @foreach($histories as $history)
-
-                                                <tr>
-                                                    <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                    <td>{{$history->user->name }}</td>
-                                                    <td>{{$history->status?->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card-body">
                     <div class="row ">
-                        <div class="row pt-4">
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -74,22 +34,14 @@
 
                                         </div>
                                     </div>
-
-
                                     @if(\Session::has('err'))
                                         <div class="alert alert-danger mt-4">
                                             {{ \Session::get('err') }}
                                         </div>
                                     @endif
-                                    <div class="container my-5">
+                                    <div class="container">
                                         <div class="row">
                                             <div class="col-lg-9">
-
-                                                @if(\Session::has('err'))
-                                                    <div class="alert alert-danger mt-4">
-                                                        {{ \Session::get('err') }}
-                                                    </div>
-                                                @endif
                                                 <div class="container">
                                                     <div class="row justify-content-center w-100">
                                                         <div class="col-lg-9">
@@ -110,7 +62,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="container my-5">
+
+
+                                                <div class="container">
                                                     <div class="row   d-flex justify-content-center align-items-center">
                                                         <div class="col-lg-9">
                                                             <form method="post"
@@ -135,7 +89,7 @@
                                                                     </div>
 
                                                                     <div class="col-md-6">
-                                                                        <label class="form-label">Ответсвенный сотрудник
+                                                                        <label class="form-label"> Сотрудник
                                                                             со
                                                                             стороны компании</label>
                                                                         <input value="{{$offer->author_name}}" disabled
@@ -143,6 +97,7 @@
                                                                                class="form-control"
                                                                                name="author_name" id="name" required>
                                                                     </div>
+
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Телефон ответсвенного
                                                                             сотрудника</label>
@@ -259,6 +214,43 @@
                     </div>
                 </div>
         </section>
+    </div>
+    <div class="modal" tabindex="-1" id="send">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Вся история задачи</h5>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row p-3">
+
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                            <th>Дата</th>
+                            <th>Совершил действия</th>
+                            <th>Статус</th>
+                            </thead>
+                            <tbody>
+
+                            @foreach($histories as $history)
+
+                                <tr>
+                                    <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
+                                    <td>{{$history->user->name }}</td>
+                                    <td>{{$history->status?->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 @endsection
 
