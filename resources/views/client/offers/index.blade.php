@@ -71,7 +71,7 @@
                                             <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
                                             </td>
                                         @elseif($task->status->id == 10)
-                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
                                             </td>
                                         @elseif($task->status->id == 11)
                                             <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
@@ -80,7 +80,7 @@
                                             <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
                                             </td>
                                         @elseif($task->status->id == 13)
-                                            <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                            <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
                                             </td>
                                         @elseif($task->status->id == 14)
                                             <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>

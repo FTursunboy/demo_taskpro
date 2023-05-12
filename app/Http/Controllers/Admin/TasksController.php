@@ -10,6 +10,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
+use App\Models\Client\Offer;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -96,6 +97,7 @@ class TasksController extends Controller
 
     public function ready(TaskModel $task)
     {
+
         UserTaskHistoryModel::create([
             'user_id' => $task->user_id,
             'task_id' => $task->id,
@@ -105,6 +107,16 @@ class TasksController extends Controller
             'status_id' => 3
         ]);
         HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
+
+        if ($task->client_id) {
+            $offer = Offer::find($task->offer_id);
+
+            $offer->is_finished = true;
+            $offer->status_id = 10;
+            $offer->save();
+
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+        }
 
         return redirect()->route('tasks.index')->with('create', 'Садача готова');
     }

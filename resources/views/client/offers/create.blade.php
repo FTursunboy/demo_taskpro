@@ -14,7 +14,6 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
-
                                 </ol>
                             </nav>
                         </div>
@@ -43,22 +42,19 @@
 
                                             </div>
                                         </div>
-
-
                                         @if(\Session::has('err'))
                                             <div class="alert alert-danger mt-4">
                                                 {{ \Session::get('err') }}
                                             </div>
                                         @endif
-
-                                        <div class="container my-5">
+                                        <div class="container mx-auto my-5">
                                             <div class="row">
                                                 <div class="col-lg-9">
                                                     <form method="post" action="{{route('offers.store')}}"
                                                           enctype="multipart/form-data"
                                                           autocomplete="off">
                                                         @csrf
-                                                        <div class="row g-3">
+                                                        <div class="row">
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Название задачи</label>
                                                                 <input type="text"

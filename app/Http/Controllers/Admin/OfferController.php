@@ -13,6 +13,7 @@ use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use GuzzleHttp\Client;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -38,7 +39,7 @@ class OfferController extends Controller
         if ($_POST['action'] == 'refresh') {
             $offer->update([
                 'user_id' => $request->user_id,
-                'status_id' => 1
+                'status_id' => 11
             ]);
             return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
         }
@@ -59,6 +60,7 @@ class OfferController extends Controller
             ]);
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
+
 
             $project_id = ProjectClient::where('user_id', $offer->client_id)->first()->project_id;
 
@@ -145,6 +147,17 @@ class OfferController extends Controller
         ]);
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::UPDATE);
+
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+    }
+
+    public function sendBack(Offer $offer){
+        $offer->status_id = 9;
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+        $task->status_id = 9;
+        $offer->save();
+        $task->save();
+        HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
     }

@@ -23,7 +23,43 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
+                            <div class="modal"  tabindex="-1" id="send">
+                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Вся история задачи</h5>
 
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row p-3">
+
+                                                <table class="table table-striped" id="table1">
+                                                    <thead>
+                                                    <th>Дата</th>
+                                                    <th>Совершил действия</th>
+                                                    <th>Статус</th>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    @foreach($histories as $history)
+
+                                                        <tr>
+                                                            <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
+                                                            <td>{{$history->user->name }}</td>
+                                                            <td>{{$history->status?->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row ">
@@ -46,7 +82,7 @@
                                                 </div>
                                             @endif
                                             <div class="container">
-                                                <div class="row">
+                                                <div class="row justify-content-center w-100">
                                                     <div class="col-lg-9">
                                                         @include('inc.messages')
 
@@ -54,47 +90,19 @@
                                                             <button
                                                                 class="btn btn-primary w-100"
                                                                 type="button"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-target="#collapseExample" aria-expanded="false"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#send" aria-expanded="false"
                                                                 aria-controls="collapseExample"><span
                                                                     class="d-flex justify-content-start"><i
                                                                         class="bi bi-info-circle mx-2"></i> <span
                                                                         class="text-center"> Вся история задачи </span> </span>
                                                             </button>
                                                         </p>
-                                                        <div class="collapse my-3" id="collapseExample">
-                                                            <div class="row p-3">
-
-                                                                <table class="table table-striped" id="table1">
-                                                                    <thead>
-                                                                    <th>Дата</th>
-                                                                    <th>Задача</th>
-                                                                    <th>Совершил действия</th>
-                                                                    <th>Статус</th>
-                                                                    </thead>
-                                                                    <tbody>
-
-                                                                    @foreach($histories as $history)
-                                                                        <tr>
-                                                                            <td>{{date('d-m-Y', strtotime($history->created_at))}}</td>
-                                                                            <td>{{$history->offer->name}}</td>
-                                                                            <td>{{$history->user->name }}</td>
-                                                                            <td>{{$history->status->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-
-                                                                </table>
-
-                                                            </div>
-
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="container my-5">
-                                                <div class="row">
+                                                <div class="row   d-flex justify-content-center align-items-center">
                                                     <div class="col-lg-9">
                                                         <form method="post" action="{{route('client.offers.send.user', $offer->id)}}"
                                                               enctype="multipart/form-data"
@@ -148,10 +156,10 @@
                                                                     <label class="form-label">Ответственный
                                                                         сотрудник</label>
                                                                     <select required class="form-select" name="user_id" id="">
-                                                                        <option selected value="">Выберите сотрудника</option>
+                                                                        <option value="">Выберите сотрудника</option>
                                                                         @foreach($users as $user)
                                                                             <option
-                                                                                value="{{$user->id}}">{{$user->name}}</option>
+                                                                                value="{{$user->id}} {{$user->id === $offer->user_id ? 'selected' : ''}} ">{{$user->name}}</option>
                                                                         @endforeach
 
                                                                     </select>
@@ -180,8 +188,17 @@
                                                                               rows="5"
                                                                               required>{{$offer->description}} </textarea>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                @if($offer->cancel)
+                                                                <div class="col-md-12">
+                                                                    <label for="">Причина отклонениня
+                                                                    </label>
+                                                                    <textarea disabled id="description"
+                                                                              class="form-control"
+                                                                              name="description"
+                                                                              rows="1"
+                                                                              required>{{$offer->cancel}} </textarea>
                                                                 </div>
+                                                                @endif
                                                             </div>
                                                             <div class="row mt-4">
                                                                 @if(!$offer->user_id)
@@ -195,12 +212,6 @@
                                                                         Отклонить
                                                                     </button>
                                                                 </div>
-                                                                @elseif($offer->status_id == 12 || $offer->status_id == 13)
-                                                                    <div class="col-6">
-                                                                        <button name="action"  value="accept" class="btn btn-success form-control">
-                                                                            Отправить Заново
-                                                                        </button>
-                                                                    </div>
                                                                 @endif
                                                                     <script>
                                                                         const btn = document.getElementById('btnSend')
