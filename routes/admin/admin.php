@@ -68,12 +68,16 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/employees/create', [\App\Http\Controllers\Admin\EmployeeController::class, 'create'])->name('create');
         Route::post('/employees/store', [\App\Http\Controllers\Admin\EmployeeController::class, 'store'])->name('store');
         Route::get('/employees/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
+        Route::get('//employees/edit/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('edit');
         Route::patch('/employees/update/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
         Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
 
         Route::get('/client', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('client');
+        Route::get('/client/show/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'show'])->name('client.show');
+        Route::get('/client/edit/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'edit'])->name('client.edit');
         Route::post('/client/store', [\App\Http\Controllers\Admin\ClientController::class, 'store'])->name('client.store');
         Route::patch('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
+        Route::delete('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
 
     });
 

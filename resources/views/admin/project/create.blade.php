@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <select id="type" name="type_id" class="form-select mt-3">
+                                <select id="type" name="type_id" class="form-select mt-3" required>
                                     <option value="" selected>Выбирите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <select id="type" name="types_id" class="form-select mt-3">
+                                <select id="type" name="types_id" class="form-select mt-3" required>
                                     <option value="" selected>Выбирите тип проекта</option>
                                     @foreach($typesOf as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -86,7 +86,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
-                                <textarea name="comment" id="comment" class="form-control mt-3">{{ old('comment') }}</textarea>
+                                <textarea name="comment" id="comment" class="form-control mt-3" required>{{ old('comment') }}</textarea>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
