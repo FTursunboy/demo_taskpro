@@ -3,9 +3,7 @@
     Идеи
 @endsection
 @section('content')
-    <div id="app">
 
-        <div id="main">
 
             <div class="page-heading">
                 <div class="page-title">
@@ -82,8 +80,6 @@
 
                 </section>
             </div>
-        </div>
-    </div>
 
 @endsection
 

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div id="main">
+    <div id="page-heading">
 
         <div class="page-title">
             <div class="row">
@@ -31,6 +31,9 @@
                 </a>
                 <a href="{{ route('project.edit', $project->id) }}" class="btn btn-outline-primary mx-2">
                     Изменить
+                </a>
+                <a role="button" class="btn btn-primary mx-2">
+                    Дата создания проекта: {{ $project->created_at->format('d-m-Y') }}
                 </a>
             </div>
             <div class="card-body">
@@ -72,12 +75,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="comment">Комментария</label>
-                                <textarea name="comment" id="comment" class="form-control mt-3" disabled>{{ $project->comment }}</textarea>
+                                <label for="type">Тип</label>
+                                <input type="text" class="form-control mt-3" id="type" value="{{ $project->types->name }}" disabled>
                             </div>
 
                         </div>
                     </div>
+                <div class="row">
+                            <div class="form-group">
+                                <label for="comment">Комментария</label>
+                                <textarea name="comment" id="comment" class="form-control mt-3" disabled>{{ $project->comment }}</textarea>
+                            </div>
+                </div>
             </div>
         </div>
     </div>

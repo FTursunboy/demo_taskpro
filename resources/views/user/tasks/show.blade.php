@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <div id="app">
 
-        <div id="main">
+
+        <div id="page-heading">
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="page-content">
+            <section class="section">
                 <div class="row my-4">
                     <div class="col-6">
                         <a href="{{ route('user.index') }}" class="btn btn-outline-danger">Назад</a>
@@ -219,8 +219,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
 
-    </div>
 @endsection

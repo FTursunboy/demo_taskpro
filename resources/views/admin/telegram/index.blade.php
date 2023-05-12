@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div id="main">
+    <div id="page-heading">
 
         @include('inc.messages')
 

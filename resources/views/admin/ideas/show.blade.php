@@ -1,9 +1,10 @@
-@extends('user.layouts.app')
+@extends('admin.layouts.app')
+@section('title')
+    Идеи
+@endsection
+
 @section('content')
-    <div id="app">
-
-        <div id="main">
-
+    <div id="page-heading">
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
@@ -13,8 +14,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Идеи</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Добавление</li>
+                                    <li class="breadcrumb-item"><a href="{{ route('admin.ideas') }}">Идеи</a></li>
                                 </ol>
                             </nav>
                         </div>

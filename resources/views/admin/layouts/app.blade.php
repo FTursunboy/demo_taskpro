@@ -20,15 +20,13 @@
 
 <div id="app">
     @include('admin.incs.navbar')
-    <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
-    </div>
 
-        @yield('content')
+    <div id="main" class='layout-navbar'>
+        @include('admin.incs.header')
+        <div id="main-content">
+            @yield('content')
+        </div>
+    </div>
 </div>
 
 

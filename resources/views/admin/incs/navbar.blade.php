@@ -3,7 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="#"><img src="{{asset('assets/images/logo/logo2.svg')}}" alt="Logo" srcset=""></a>
+                    <a href="{{ route('admin.index') }}"><img src="{{asset('assets/images/logo/logo2.svg')}}" alt="Logo" srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -11,9 +11,8 @@
                          preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                            stroke-linejoin="round">
-                            <path
-                                d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
-                                opacity=".3"></path>
+                            <path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
+                                  opacity=".3"></path>
                             <g transform="translate(-210 -1)">
                                 <path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path>
                                 <circle cx="220.5" cy="11.5" r="4"></circle>
@@ -23,7 +22,7 @@
                     </svg>
                     <div class="form-check form-switch fs-6">
                         <input class="form-check-input  me-0" type="checkbox" id="toggle-dark">
-                        <label class="form-check-label"></label>
+                        <label class="form-check-label" for="toggle-dark"></label>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                          aria-hidden="true" role="img" class="iconify iconify--mdi" width="20" height="20"
@@ -40,9 +39,7 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Меню</li>
-
-                <li
-                    class="sidebar-item {{ (request()->is('dashboard-admin') or request()->is('dashboard-admin/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item {{ (request()->is('dashboard-admin') or request()->is('dashboard-admin/*'))  ? 'active' : '' }}">
                     <a href="{{ route('admin.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Панель</span>
@@ -56,7 +53,6 @@
                     </a>
                 </li>
 
-
                 <li class="sidebar-item {{ (request()->is('projects') or request()->is('projects/*'))  ? 'active' : '' }}">
                     <a href="{{ route('project.index') }}" class='sidebar-link'>
                         <i class="bi bi-hexagon-fill"></i>
@@ -64,22 +60,19 @@
                     </a>
                 </li>
 
-                <li
-                    class="sidebar-item {{ (request()->is('monitoring-tasks') or request()->is('monitoring-tasks/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item {{ (request()->is('monitoring-tasks') or request()->is('monitoring-tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('mon.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Мониторинг</span>
                     </a>
                 </li>
 
-                <li
-                    class="sidebar-item {{ (request()->is('admin/ideas') or request()->is('admin/ideas/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item {{ (request()->is('admin/ideas') or request()->is('admin/ideas/*'))  ? 'active' : '' }}">
                     <a href="{{route('admin.ideas')}}" class='sidebar-link'>
                         <i class="bi bi-journal-check"></i>
                         <span>Идеи</span>
                     </a>
                 </li>
-
 
                 <li class="sidebar-item  has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*')or request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
@@ -87,32 +80,23 @@
                         <span>Партнеры</span>
                     </a>
                     <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
-
                         <li class="submenu-item {{ (request()->is('clients/offers') or request()->is('clients/offers/*'))  ? 'active' : '' }}">
                             <a href="{{route('client.offers.index')}}">Список задач</a>
                         </li>
-
                         <li class="submenu-item {{ (request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
                             <a href="{{route('employee.client')}}">Клиенты</a>
                         </li>
                     </ul>
                 </li>
 
-
-
-
-                <li
-                    class="sidebar-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
                     <a href="{{ route('employee.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Сотрудники</span>
                     </a>
                 </li>
 
-
-
-                <li
-                    class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart')or request()->is('settings/depart/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart')or request()->is('settings/depart/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Настройки</span>
@@ -133,32 +117,28 @@
                     </ul>
                 </li>
 
-                <li
-                    class="sidebar-item {{ (request()->is('telegram') or request()->is('telegram/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item {{ (request()->is('telegram') or request()->is('telegram/*'))  ? 'active' : '' }}">
                     <a href="{{ route('telegram.index') }}" class='sidebar-link'>
                         <i class="bi bi-pentagon-fill"></i>
                         <span>Телеграмм</span>
                     </a>
-
                 </li>
 
-                <li
-                    class="sidebar-item {{ (request()->is('profile') or request()->is('profile/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item {{ (request()->is('profile') or request()->is('profile/*'))  ? 'active' : '' }}">
                     <a href="{{ route('profile.index') }}" class='sidebar-link'>
                         <i class="bi bi-egg-fill"></i>
                         <span>Профиль</span>
                     </a>
                 </li>
 
-
-                <li
-                    class="sidebar-item">
+                <li class="sidebar-item">
                     <a href={{ route('logout') }} class='sidebar-link'>
                         <i class="bi bi-door-open"></i>
                         <span>Выход</span>
                     </a>
                 </li>
             </ul>
+
         </div>
     </div>
 </div>
