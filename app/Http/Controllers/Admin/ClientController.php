@@ -40,7 +40,7 @@ class ClientController extends Controller
             'login' => $data['login'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
-            'telegram_user_id' => $data['name'],
+            'telegram_user_id' => $data['telegram_id'],
             'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
         ])->assignRole('client');
 
