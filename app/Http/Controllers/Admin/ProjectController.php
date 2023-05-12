@@ -49,8 +49,9 @@ class ProjectController extends Controller
 
     public function edit(ProjectModel $project)
     {
-        $types = TaskTypeModel::get();
-        return view('admin.project.edit', compact('project', 'types'));
+        $types = ProjectTypeModel::get();
+        $types_project = Types::get();
+        return view('admin.project.edit', compact('project', 'types', 'types_project'));
     }
 
     public function update(ProjectUpdateRequest $request, ProjectModel $projectModel)

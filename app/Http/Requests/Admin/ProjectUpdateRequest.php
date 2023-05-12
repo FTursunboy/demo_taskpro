@@ -27,7 +27,8 @@ class ProjectUpdateRequest extends FormRequest
             'time' => ['required'],
             'start' => ['required', 'date'],
             'finish' => ['required', 'date'],
-            'comment' => ['']
+            'comment' => [''],
+            'types_id' => ['required', 'exists:types,id']
         ];
     }
 }

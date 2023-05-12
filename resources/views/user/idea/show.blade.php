@@ -3,9 +3,6 @@
 {{$idea->title}}
 @endsection
 @section('content')
-    <div id="app">
-
-        <div id="main">
 
             <div class="page-heading">
                 <div class="page-title">
@@ -134,14 +131,6 @@
 
                 </section>
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-
-                </div>
-            </footer>
-        </div>
-    </div>
-
     <div class="modal" id="store" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

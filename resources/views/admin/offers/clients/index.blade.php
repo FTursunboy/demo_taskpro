@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 
-@section('title')Сотрудники@endsection
+@section('title')Клиенты@endsection
 
 
 @section('content')
-    <div id="main">
+    <div id="page-heading">
         <a href="#" data-bs-target="#employee" data-bs-toggle="modal" class="btn btn-outline-primary mb-2">
             Добавить нового клиента
         </a>
