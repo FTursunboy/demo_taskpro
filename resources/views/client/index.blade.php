@@ -16,12 +16,9 @@
                 </div>
             </div>
         </div>
+                    @include('inc.messages')
         <section class="section">
             <div class="card">
-                <div class="card-header">
-
-                    @include('inc.messages')
-                </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
                         <thead>
@@ -36,6 +33,7 @@
                         <tbody>
                         @forelse($tasks as $task)
                             <tr>
+
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$task->name}}</td>
                                 <td>{{\Illuminate\Support\Str::limit($task->description, 20)}}</td>
@@ -92,43 +90,35 @@
                             </tr>
 
 
-                                    <div class="modal" tabindex="-1" id="send{{$task->id}}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Убедитесь что задача выполнена</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Вы действительно хотите закрыть задачу, если нет оптравить заново</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger" >Отправить заново</a>
-                                                    <a href="{{route('offers.ready', $task->id)}}" class="btn btn-success" >Отправить</a>
-                                                </div>
-                                            </div>
-
+                            <div class="modal" tabindex="-1" id="send{{$task->id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Убедитесь что задача выполнена</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Вы действительно хотите закрыть задачу, если нет оптравить заново</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
+                                                заново</a>
+                                            <a href="{{route('offers.ready', $task->id)}}" class="btn btn-success">Завершить</a>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
-
-                                @empty
-                                    <td  colspan="5"><h1 class="text-center">Пока завершенных задач</h1></td>
-                                @endforelse
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
+                        @empty
+                            <td colspan="5"><h1 class="text-center">Пока завершенных задач</h1></td>
+                        @endforelse
 
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </section>
     </div>
 @endsection
