@@ -10,6 +10,7 @@ use App\Models\Admin\EmailModel;
 use App\Models\Client\Offer;
 
 use App\Models\History;
+use App\Models\Statuses;
 use App\Models\User;
 
 use App\Notifications\Telegram\TelegramClientTask;
@@ -118,8 +119,8 @@ class TaskController extends Controller
         $offer->client_id = Auth::id();
 
         $offer->save();
-        $user = User::role('admin')->first();
-        HistoryController::client($offer->id, Auth::id(), Auth::id(), 9);
+
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 8);
         return redirect()->route('offers.index')->with('update', 'Успешно обновлено');
     }
 
@@ -127,7 +128,7 @@ class TaskController extends Controller
     {
         $offer->delete();
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, Auth::id(), Auth::id(), 10);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 9);
         return redirect()->back()->with('mess', 'Успешно удалено');
     }
 
@@ -136,17 +137,18 @@ class TaskController extends Controller
         $offer->status_id = 3;
         $offer->save();
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, Auth::id(), Auth::id(), 6);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
     public function decline(Offer $offer)
     {
-        $offer->status_id = 1;
+        $offer->status_id = 13;
+        $offer->is_finished = false;
         $offer->save();
 
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, Auth::id(), Auth::id(), 11);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
@@ -170,7 +172,7 @@ class TaskController extends Controller
         $offer->save();
 
         $user = User::role('admin')->first();
-        HistoryController::client($offer->id, Auth::id(), Auth::id(), 6);
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
 
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }

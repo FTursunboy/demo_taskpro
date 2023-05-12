@@ -15,10 +15,11 @@ class Statuses extends Model
     const DECLINED = 4;
     const FINISH = 5;
     const CONFIRM = 6;
+    const SEND_TO_TEST = 6;
     const OUT_OF_DATE = 7;
-    const SEND_TO_TEST = 8;
-    const UPDATE = 9;
-    const DELETE = 10;
-    const RESEND = 11;
-    const SEND_USER = 12;
+    const UPDATE = 8;
+    const DELETE = 9;
+    const RESEND = 10;
+    const SEND_USER = 11;
+
 }

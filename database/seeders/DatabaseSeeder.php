@@ -216,13 +216,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Отклонил'
         ]);
         Statuses::create([
-            'name' => 'Закончил'
-        ]);
-        Statuses::create([
             'name' => 'Подтвердил'
         ]);
         Statuses::create([
             'name' => 'Отправил на проверку'
+        ]);
+        Statuses::create([
+            'name' => 'Просроченное'
         ]);
         Statuses::create([
             'name' => 'Изменил'

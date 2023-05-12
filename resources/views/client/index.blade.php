@@ -91,30 +91,38 @@
                                 </td>
                             </tr>
 
-                            <div class="modal" tabindex="-1" id="send{{$task->id}}">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Убедитесь что задача выполнена</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Вы действительно хотите закрыть задачу</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Отмена
-                                            </button>
-                                            <a href="{{route('offers.ready', $task->id)}}" class="btn btn-success">Отправить</a>
+
+                                    <div class="modal" tabindex="-1" id="send{{$task->id}}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Убедитесь что задача выполнена</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы действительно хотите закрыть задачу, если нет оптравить заново</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger" >Отправить заново</a>
+                                                    <a href="{{route('offers.ready', $task->id)}}" class="btn btn-success" >Отправить</a>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                        @empty
-                            <td colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
-                        @endforelse
+
+                                @empty
+                                    <td  colspan="5"><h1 class="text-center">Пока завершенных задач</h1></td>
+                                @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
 
                         </tbody>
                     </table>

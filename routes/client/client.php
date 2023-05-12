@@ -19,6 +19,7 @@ Route::group(['middleware' => ['role:client']], function () {
        Route::get('offers/show/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'show'])->name('show');
        Route::get('offers/download/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'downloadFile'])->name('download');
        Route::get('offers/ready/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'ready'])->name('ready');
+       Route::get('offers/decline/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'decline'])->name('decline');
     });
 });
 

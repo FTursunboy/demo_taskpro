@@ -70,7 +70,7 @@
                                             <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
                                             </td>
                                         @elseif($offer->status->id == 6)
-                                            <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
+                                            <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">Проверьте и отправьте клиенту</span></a>
                                             </td>
                                         @elseif($offer->status->id == 7)
                                             <td><span class="badge bg-warning p-2">{{$offer->status->name}}</span>
@@ -88,10 +88,10 @@
                                             <td><span class="badge bg-danger p-2">{{$offer->status->name}}</span>
                                             </td>
                                         @elseif($offer->status->id == 12)
-                                            <td><span class="badge bg-danger p-2">{{$offer->status->name}}</span>
+                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status->name}}</span></a>
                                             </td>
                                         @elseif($offer->status->id == 13)
-                                            <td><span class="badge bg-danger p-2">{{$offer->status->name}}</span>
+                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status->name}}</span></a>
                                             </td>
                                         @elseif($offer->status->id == 14)
                                             <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a>
@@ -139,8 +139,25 @@
                                                     <p>Вы действительно хотите отправить задачу клиенту</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-danger" >Отклонить, Отправить заново</a>
                                                     <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal" tabindex="-1" id="sendBack{{$offer->id}}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Задача отклонена</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы действительно хотите отправить задачу обратно сотруднику <span style="font-size: 20px" class="text-success">{{$offer->user->name}}</span></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-success" >Отправить</a>
                                                 </div>
                                             </div>
                                         </div>

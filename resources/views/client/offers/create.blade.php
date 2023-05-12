@@ -2,6 +2,7 @@
 @section('content')
 
 
+
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
@@ -15,6 +16,7 @@
 
                         </ol>
                     </nav>
+
                 </div>
             </div>
         </div>
@@ -38,6 +40,7 @@
                                     <div class="col-md-1">
                                         <a href="{{ route('offers.index') }}" class="btn btn-danger">Назад</a>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -90,6 +93,7 @@
                                                               rows="5" required></textarea>
                                                 </div>
                                                 <div class="col-md-6">
+
                                                 </div>
                                             </div>
                                             <div class="row mt-4">
