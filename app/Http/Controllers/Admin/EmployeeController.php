@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmployeeRequest;
+use App\Http\Requests\Admin\UpdateEmployeeRequest;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\TaskModel;
 use App\Models\User;
@@ -22,7 +23,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        $roles = Role::where('name', '!=', 'admin')->get();
+        $roles = Role::where('name', 'user')->get();
         $departs = OtdelsModel::get();
         return view('admin.employee.create', compact('roles', 'departs'));
     }
@@ -52,13 +53,32 @@ class EmployeeController extends Controller
         return view('admin.employee.show', compact('user', 'tasks'));
     }
 
-    public function update()
+    public function edit(User $user)
     {
-
+        $roles = Role::where('name', 'user')->get();
+        $departs = OtdelsModel::get();
+        return view('admin.employee.edit', compact('user', 'roles', 'departs'));
     }
 
-    public function destroy()
+    public function update(User $employee, UpdateEmployeeRequest $request)
     {
+        $data = $request->validated();
+        $employee->update([
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'lastname' => $data['lastname'],
+            'phone' => $data['phone'],
+            'position' => $data['position'],
+            'otdel_id' => $data['otdel_id'],
+            'password' => Hash::make($data['password'] ?? 'password'),
+        ]);
+        return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен");
+    }
+
+    public function destroy(User $employee)
+    {
+        $employee->delete();
+        return redirect()->route('employee.index')->with('delete', "Сотрудник успешно удален");
     }
 
 }

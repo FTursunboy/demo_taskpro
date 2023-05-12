@@ -84,7 +84,7 @@ class OfferController extends Controller
             HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
 
             try {
-                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
+                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
             } catch (\Exception $exception) {
             }
         }
