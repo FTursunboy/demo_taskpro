@@ -14,22 +14,19 @@
     <link rel="stylesheet" href="{{asset('assets/css/widgets/chat.css')}}">
 
 
-
 </head>
 
 <body>
 <div id="app">
     @include('client.incs.navbar')
 
-    <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
+    <div id="main" class='layout-navbar'>
+        @include('client.incs.header')
+        <div id="main-content">
+            @yield('content')
+        </div>
     </div>
 
-    @yield('content')
 
 </div>
 

@@ -18,17 +18,12 @@
 <body>
 
 <div id="app">
-    @include('user.incs.navbar')
-    <div id="main">
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
-        </header>
-    </div>
-
-    <div class="page-content">
-        @yield('content')
+        @include('user.incs.navbar')
+    <div id="main" class='layout-navbar'>
+        @include('user.incs.header')
+        <div id="main-content" class="content">
+            @yield('content')
+        </div>
     </div>
 </div>
 

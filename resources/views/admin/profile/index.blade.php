@@ -4,7 +4,7 @@
 
 
 @section('content')
-    <div id="main">
+    <div id="page-heading">
 
         <div class="page-title">
             <div class="row">
@@ -126,12 +126,6 @@
 
 
     </div>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" >
-        Launch static backdrop modal
-    </button>
-
     <!-- Modal -->
     <div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePassword" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
