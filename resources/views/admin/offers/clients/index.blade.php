@@ -180,7 +180,7 @@
                                             class="text-danger">*</span></label>
                                     <input  type="text" name="lastname" class="form-control"
                                             placeholder="Введите фамилию" id="surname"
-                                            value="{{ old('surname') }}">
+                                            value="{{ old('surname') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="telegram_id" class="form-label">Телеграм id</label>
@@ -189,7 +189,7 @@
                                            id="telegram_id">
                                 </div>
                                 <div class="form-group">
-                                    <select name="project_id" class="form-select" id="">
+                                    <select name="project_id" class="form-select" id="" required>
                                         <option value="">Выберите проект</option>
                                         @foreach($projects as $project)
                                             <option value="{{$project->id}}">{{$project->name}}</option>
@@ -209,7 +209,7 @@
                                 <div class="form-group">
                                     <label for="password" class="form-label">Пароль</label>
                                     <input type="password" name="password" class="form-control" placeholder="Пароль"
-                                           id="password">
+                                           id="password" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone" class="form-label">Телефон <span
