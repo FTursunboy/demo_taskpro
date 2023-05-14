@@ -29,6 +29,9 @@
                         </div>
                     @endif
                     @include('inc.messages')
+                            <a href="{{ route('tasks_client.create') }}" class="btn btn-outline-primary">
+                                Добавить задачу
+                            </a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
@@ -36,6 +39,7 @@
                         <tr>
                             <th>#</th>
                             <th>Название</th>
+                            <th>Клиент</th>
                             <th>Описание</th>
                             <th>Статус</th>
                             <th>Действие</th>
@@ -49,9 +53,10 @@
 
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$task->name}}</td>
+                                <td>{{$task->client->name}}</td>
                                 <td>{{\Illuminate\Support\Str::limit($task->description, 20)}}</td>
                                 @if($task->status->id == 1)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                    <td><a href="#" data-bs-target="#send{{$task->id}}" data-bs-toggle="modal"><span class="badge bg-warning p-2">Ожидается </span></a>
                                     </td>
                                 @elseif($task->status->id == 2)
                                     <td><span class="badge bg-primary p-2">{{$task->status->name}}</span>
@@ -60,10 +65,10 @@
                                     <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                     </td>
                                 @elseif($task->status->id == 4)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                     </td>
                                 @elseif($task->status->id == 5)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                    <td><a data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$task->status->name}}</span></a>
                                     </td>
                                 @elseif($task->status->id == 6)
                                     <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$task->id}}"><span class="badge bg-primary p-2">Проверьте и отправьте клиенту</span></a>
@@ -95,13 +100,13 @@
                                 @endif
                                 @if($task->user_id)
                                     <td>
-                                        <a class="badge bg-success p-2" href="{{route('client.offers.show', $task->id)}}"><i class="bi bi-eye"></i></a>
+                                        <a class="badge bg-success p-2" href="{{route('tasks_client.show', $task->id)}}"><i class="bi bi-eye"></i></a>
+                                        <a href="{{ route('tasks_client.edit', $task->id) }}" class="badge bg-primary"><i class="bi bi-pencil"></i></a>
                                         <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$task->id}}"><i class="bi bi-trash"></i></a>
                                     </td>
                                 @else
                                     <td>
-                                        <a class="badge bg-success p-2" href="{{route('client.offers.show', $task->id)}}"><i class="bi bi-eye"></i></a>
-                                        <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$task->id}}"><i class="bi bi-trash"></i></a>
+                                        <a class="badge bg-success p-2" href="{{route('tasks_client.show', $task->id)}}"><i class="bi bi-eye"></i></a>
                                     </td>
                                 @endif
                             </tr>
@@ -128,15 +133,15 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Отправление задачи на проверку</h5>
+                                            <h5 class="modal-title"></h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Вы действительно хотите отправить задачу клиенту</p>
+                                            <p>Вы действительно хотите изменить задачу?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <a href="{{route('client.offers.send.back', $task->id)}}" class="btn btn-danger" >Отклонить, Отправить заново</a>
-                                            <a href="{{route('client.offers.send.client', $task->id)}}" class="btn btn-success" >Отправить</a>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                            <a href="{{route('tasks_client.edit', $task->id)}}" class="btn btn-success">Изменить</a>
                                         </div>
                                     </div>
                                 </div>
@@ -149,11 +154,15 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Вы действительно хотите отправить задачу обратно сотруднику <span style="font-size: 20px" class="text-success">{{$task->user?->name}}</span></p>
+                                            <p>Вы  хотите отправить задачу перепроверку или удалить? <span style="font-size: 20px" class="text-success">{{$task->user?->name}}</span></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                            <a href="{{route('client.offers.send.back', $task->id)}}" class="btn btn-success" >Отправить</a>
+                                            <a href="{{route('tasks_client.delete', $task->id)}}" class="btn btn-danger">Удалить</a>
+                                            <form action="tasks_client/{{$task->id}}/sendBack" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="submit" class="btn btn-success" value="Отправить">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

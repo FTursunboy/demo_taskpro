@@ -1,211 +1,119 @@
 @extends('admin.layouts.app')
-@section('content')
 
-    <div class="page-heading">
+@section('title')
+    {{ $task->name }}
+@endsection
+
+@section('content')
+    <div id="page-heading">
+
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Задачи</h3>
+                    <h3>{{ $task->name }}</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('tasks_client.index')}}">Задачи</a></li>
-
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Панель</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('tasks_client.index') }}">Список задач</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $task->name }}</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
 
-
-        <section class="section">
-            <div class="card">
-
-                <div class="card-body">
-                    <div class="row ">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <a href="{{ route('tasks_client.index') }}" class="btn btn-danger">Назад</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                @if(\Session::has('err'))
-                                    <div class="alert alert-danger mt-4">
-                                        {{ \Session::get('err') }}
-                                    </div>
-                                @endif
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-9">
-                                            <div class="container">
-                                                <div class="row justify-content-center w-100">
-                                                    <div class="col-lg-9">
-                                                        @include('inc.messages')
-
-                                                        <p>
-                                                            <button
-                                                                class="btn btn-primary w-100"
-                                                                type="button"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#send" aria-expanded="false"
-                                                                aria-controls="collapseExample"><span
-                                                                    class="d-flex justify-content-start"><i
-                                                                        class="bi bi-info-circle mx-2"></i> <span
-                                                                        class="text-center"> Вся история задачи </span> </span>
-                                                            </button>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="container">
-                                                <div class="row   d-flex justify-content-center align-items-center">
-                                                    <div class="col-lg-9">
-                                                        <form method="post"
-                                                              action="{{route('tasks_client.update', $task->id)}}"
-                                                              enctype="multipart/form-data"
-                                                              autocomplete="off">
-                                                            @csrf
-                                                            <div class="row g-3">
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Название
-                                                                        задачи</label>
-                                                                    <input disabled type="text"
-                                                                           class="form-control"
-                                                                           name="name" id="name"
-                                                                           value="{{$task->name}}" required>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">От</label>
-                                                                    <input required
-                                                                           value="{{$task->from}}" type="date"
-                                                                           class="form-control"
-                                                                           name="from">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">До</label>
-                                                                    <input required
-                                                                           value="{{$task->to}}" type="date"
-                                                                           class="form-control"
-                                                                           name="to">
-                                                                </div>
-
-                                                                @if($task->file !== null)
-                                                                    <div class="col-md-6">
-                                                                        <a style="margin-left: 0px" download
-                                                                           href="{{route('offers.download', $task->id)}}">Просмотреть
-                                                                            файл</a>
-                                                                    </div>
-                                                                @endif
-                                                                <div class="col-12">
-                                                                    <label for="your-message" class="form-label">Описание
-                                                                        задачи</label>
-                                                                    <textarea disabled id="description"
-                                                                              class="form-control"
-                                                                              name="description"
-                                                                              rows="5"
-                                                                              required>{{$task->description}} </textarea>
-                                                                </div>
-                                                                @if($task->cancel)
-                                                                    <div class="col-md-12">
-                                                                        <label for="">Причина отклонениня
-                                                                        </label>
-                                                                        <textarea disabled id="description"
-                                                                                  class="form-control"
-                                                                                  name="description"
-                                                                                  rows="1"
-                                                                                  required>{{$task->cancel}} </textarea>
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                            <div class="row mt-4">
-                                                                @if(!$task->user_id)
-                                                                    <div class="col-6">
-                                                                        <button name="action" value="accept"
-                                                                                class="btn btn-success form-control">
-                                                                            Отправить
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <button name="action" value="decline"
-                                                                                class="btn btn-danger form-control">
-                                                                            Отклонить
-                                                                        </button>
-                                                                    </div>
-                                                                @endif
-                                                                <script>
-                                                                    const btn = document.getElementById('btnSend')
-                                                                    btn.addEventListener('click', function () {
-                                                                        const name = document.getElementById('name').value
-                                                                        const description = document.getElementById('description').value
-                                                                        if (name !== '' && description !== '') {
-                                                                            btn.type = 'submit';
-                                                                            btn.click();
-                                                                            btn.classList.add('disabled')
-                                                                        }
-                                                                    })
-                                                                </script>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <div class="card">
+            <div class="card-header">
+                <a href="{{ route('tasks_client.index') }}" class="btn btn-outline-danger">
+                    Назад
+                </a>
+                <a role="button" class="btn btn-primary mx-2">
+                    Дата создания проекта: {{ $task->created_at->format('d-m-Y') }}
+                </a>
             </div>
-        </section>
-    </div>
-    <div class="modal" tabindex="-1" id="send">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Вся история задачи</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
 
-                </div>
-                <div class="modal-body">
-                    <div class="row p-3">
+                        <div class="form-group">
+                            <label for="name">Имя проекта</label>
+                            <input type="text" id="name" name="name" class="form-control mt-3"
+                                   placeholder="Имя проекта" value="{{ $task->name }}" disabled>
+                        </div>
 
-                        <table class="table table-striped" id="table1">
-                            <thead>
-                            <th>Дата</th>
-                            <th>Совершил действия</th>
-                            <th>Статус</th>
-                            </thead>
-                            <tbody>
+                        <div class="form-group">
+                            <label for="start">Дата начала проекта</label>
+                            <input type="date" id="start" name="start" class="form-control mt-3" value="{{ $task->from }}" disabled>
+                        </div>
 
-                            {{--                            @foreach($histories as $history)--}}
+                    </div>
+                    <div class="col-4">
 
-                            {{--                                <tr>--}}
-                            {{--                                    <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>--}}
-                            {{--                                    <td>{{$history->user->name }}</td>--}}
-                            {{--                                    <td>{{$history->status?->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}--}}
-                            {{--                                    </td>--}}
-                            {{--                                </tr>--}}
-                            {{--                            @endforeach--}}
-                            </tbody>
+                        <div class="form-group">
+                            <label for="finish">Дата окончания проекта</label>
+                            <input type="date" id="finish" name="finish" class="form-control mt-3" value="{{ $task->finish }}"  disabled>
+                        </div>
 
-                        </table>
+                        <div class="form-group">
+                            <label for="type">Статус</label>
+                            <input type="text" class="form-control mt-3 bg-warning" id="type" value="{{ $task->status->name }}" disabled>
+                        </div>
+
+                    </div>
+                    <div class="col-4">
+
+                        @if($task->file !== null)
+                            <div class="form-group">
+                                <label for="file">Файл</label>
+                                <a href="#" download class="form-control text-bold">Просмотреть
+                                    файл</a>
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <label for="to">Файл</label>
+                                <input type="text" class="form-control" id="to"
+                                       value="Нет файл" disabled>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="form-group">
+                        <label for="comment">Комментария</label>
+                        <textarea name="description" id="comment" class="form-control mt-3" disabled>{{ $task->description }}</textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 @endsection
 
+@section('script')
+    <script>
+        $('#start').change(function ()  {
+            const finish = $('#finish')
+            if ($(this).val() > finish.val()) {
+                $(this).addClass('border-danger')
+                finish.addClass('border-danger')
+            } else {
+                $(this).removeClass('border-danger')
+                finish.removeClass('border-danger')
+            }
+        })
+        $('#finish').change(function ()  {
+            const start = $('#start')
+            if ($(this).val() > start.val()) {
+                $(this).addClass('border-danger')
+                start.addClass('border-danger')
+            } else {
+                $(this).removeClass('border-danger')
+                start.removeClass('border-danger')
+            }
+        })
 
+    </script>
+@endsection
