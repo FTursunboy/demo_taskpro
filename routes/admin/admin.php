@@ -79,7 +79,13 @@ Route::group(['middleware' => ['role:admin']], function () {
         Route::patch('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
         Route::delete('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
 
+
     });
+
+    Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('tasks_client.index');
+    Route::get('/tasks_client/create', [\App\Http\Controllers\Admin\TasksClientController::class, 'create'])->name('tasks_client.create');
+    Route::post('/tasks_client/store', [\App\Http\Controllers\Admin\TasksClientController::class, 'store'])->name('tasks_client.store');
+    Route::get('tasks_client/delete/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'delete'])->name('tasks_client.delete');
 
 
     // for kpi ajax offers
