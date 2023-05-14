@@ -85,7 +85,11 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('tasks_client.index');
     Route::get('/tasks_client/create', [\App\Http\Controllers\Admin\TasksClientController::class, 'create'])->name('tasks_client.create');
     Route::post('/tasks_client/store', [\App\Http\Controllers\Admin\TasksClientController::class, 'store'])->name('tasks_client.store');
-    Route::get('tasks_client/delete/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'delete'])->name('tasks_client.delete');
+    Route::get('/tasks_client/show/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'show'])->name('tasks_client.show');
+    Route::get('/tasks_client/edit/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'edit'])->name('tasks_client.edit');
+    Route::patch('/tasks_client/update/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'update'])->name('tasks_client.update');
+    Route::get('/tasks_client/delete/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'delete'])->name('tasks_client.delete');
+    Route::patch('/tasks_client/{id}/sendBack', [\App\Http\Controllers\Admin\TasksClientController::class, 'sendBack'])->name('tasks_client.sendBack');
 
 
     // for kpi ajax offers

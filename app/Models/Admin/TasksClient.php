@@ -20,7 +20,8 @@ class TasksClient extends Model
         'file',
         'file_name',
         'status_id',
-        'cansel'
+        'client_id',
+        'cansel',
     ];
     protected $table = 'tasks_client';
 
@@ -28,8 +29,7 @@ class TasksClient extends Model
         return $this->belongsTo(StatusesModel::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+    public function client() {
+        return $this->belongsTo(User::class, 'client_id');
     }
 }

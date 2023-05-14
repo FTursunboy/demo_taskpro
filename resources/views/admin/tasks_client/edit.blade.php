@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    Создания новая задача
+    Изменение задачи
 @endsection
 
 @section('content')
@@ -9,13 +9,13 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Добавление задач</h3>
+                    <h3>Изменение задач</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('tasks_client.index') }}">Список задач</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Добавление задач</li>
+                            <li class="breadcrumb-item active" aria-current="page">Изменение задач</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,8 +31,9 @@
                 </a>
             </div>
             <div class="card-body">
-                <form action="{{ route('tasks_client.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('tasks_client.update', $task->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PATCH')
                     <div class="row">
                         <div class="col-4">
 
@@ -40,13 +41,13 @@
                             <div class="form-group">
                                 <label for="name">Имя</label>
                                 <input type="text" id="name" name="name" class="form-control mt-3"
-                                       placeholder="Имя" value="{{ old('name') }}" required>
+                                       placeholder="Имя" value="{{ old('name', $task->name) }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="from">Дата начала задача</label>
                                 <input type="date" id="from" name="from" class="form-control mt-3"
-                                       value="{{ old('from') }}" required>
+                                       value="{{ old('from', $task->from) }}" required>
                             </div>
                         </div>
 
@@ -55,7 +56,7 @@
                         <div class="col-4">
 
                             <div class="form-group">
-                                <label for="client_id">Кому это задача</label>
+                                <label for="client_id">Клиент</label>
                                 <select id="client_id" name="client_id" class="form-select mt-3">
                                     <option value="" selected>Выберите клиента </option>
                                     @foreach($clients as $client)
@@ -66,7 +67,7 @@
 
                             <div class="form-group">
                                 <label for="to">Дата окончания задача</label>
-                                <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
+                                <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to', $task->to) }}"
                                        required>
                             </div>
                         </div>
@@ -83,7 +84,7 @@
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
                                 <textarea name="description" id="comment"
-                                          class="form-control mt-3">{{ old('comment') }}</textarea>
+                                          class="form-control mt-3">{{ old('description', $task->description) }}</textarea>
                             </div>
 
                         </div>
@@ -100,7 +101,7 @@
                         <div class="col-6"></div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                        <button type="submit" class="btn btn-outline-primary">Обновить</button>
                     </div>
                 </form>
             </div>

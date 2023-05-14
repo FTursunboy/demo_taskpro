@@ -86,7 +86,7 @@
                         <li class="submenu-item {{ (request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
                             <a href="{{route('employee.client')}}">Клиенты</a>
                         </li>
-                        <li class="submenu-item {{ (request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
+                        <li class="submenu-item {{ (request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
                             <a href="{{route('tasks_client.index')}}">Задачи клиента</a>
                         </li>
                     </ul>
