@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('messages_models', function (Blueprint $table) {
             $table->id();
-            $table->integer('task_id');
+            $table->string('task_slug');
             $table->integer('sender_id');
             $table->integer('user_id');
             $table->text('message');
+
             $table->timestamps();
         });
     }

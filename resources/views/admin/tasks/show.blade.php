@@ -88,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="project">Проект</label>
                                     <input type="text" id="project" class="form-control"
-                                           value="{{$task->project->name}}" disabled>
+                                           value="{{$task->project?->name}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="to">До</label>
@@ -107,20 +107,20 @@
                                     <div class="form-group">
                                         <input type="text"
                                                class="form-control  bg-primary text-white"
-                                               id="sts" value="{{ $task->status->name }}" disabled>
+                                               id="sts" value="{{ $task->status?->name }}" disabled>
                                     </div>
 
 
                                     <div class="form-group">
                                         <label for="type">Тип</label>
                                         <input type="text" id="type" class="form-control"
-                                               value="{{ $task->type->name }} {{  (isset($task->typeType->name)) ? '- '.$task->typeType->name : '' }}"
+                                               value="{{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? '- '.$task->typeType?->name : '' }}"
                                                disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="author">Автор</label>
                                         <input type="text" id="author" class="form-control"
-                                               value="{{ $task->author->name .' '. $task->author->surname}}"
+                                               value="{{ $task->author?->name .' '. $task->author->surname}}"
                                                disabled>
                                     </div>
                                 </div>

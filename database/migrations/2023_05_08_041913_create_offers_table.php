@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->boolean('is_finished')->default(false);
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -77,7 +78,9 @@ class TaskController extends Controller
             'file_name' => $file_name,
             'status_id' => 8,
             'client_id' => Auth::id(),
+            'slug' => Str::slug($request->name . ' ' . Str::random(5), '-'),
         ]);
+        
 
         $mail = new MailController();
         $mail->send(EmailModel::first()->email);
