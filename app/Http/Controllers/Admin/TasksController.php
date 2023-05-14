@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class TasksController extends Controller
 {
@@ -32,6 +34,8 @@ class TasksController extends Controller
         $types = TaskTypeModel::get();
         $projects = ProjectModel::get();
         $users = User::role('user')->get();
+
+
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
     }
 
@@ -43,12 +47,15 @@ class TasksController extends Controller
 
     public function message(TaskModel $task, Request $request)
     {
+
         MessagesModel::create([
-            'task_id' => $task->id,
+            'task_slug' => $task->slug,
             'sender_id' => Auth::id(),
             'user_id' => $task->user_id,
             'message' => $request->message
         ]);
+
+
 
         return back();
     }
@@ -78,6 +85,7 @@ class TasksController extends Controller
             'client_id' => $request->client_id ?? null,
             'cancel' => $request->cancel ?? null,
             'cancel_admin' => $request->cancel_admin ?? null,
+            'slug' => Str::slug($request->name . ' ' . Str::random(5)),
         ]);
         $project = ProjectModel::where('id', $request->project_id)->first();
         $project->update([

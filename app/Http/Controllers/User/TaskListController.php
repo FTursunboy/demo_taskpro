@@ -17,10 +17,7 @@ class TaskListController extends Controller
 {
     public function show(TaskModel $task)
     {
-        $messages = MessagesModel::where('task_id', $task->id)->orWhere([
-            ['user_id', Auth::id()],
-            ['sender_id', Auth::id()],
-        ])->get();
+        $messages = MessagesModel::where('task_slug', $task->slug)->get();
         return view('user.tasks.show', compact('task', 'messages'));
     }
 

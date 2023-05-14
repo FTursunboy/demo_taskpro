@@ -182,13 +182,23 @@
                                         @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
                                             <div class="chat">
                                                 <div class="chat-body" style="margin-right: 10px">
-                                                    <div class="chat-message">{{ $mess->message }}</div>
+                                                    <div class="chat-message">
+                                                        <p>
+                                                            <span >{{$mess->sender?->name}}</span><span style="color: red; font-size: 11px"> {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}<br></span>
+                                                            {{ $mess->message }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         @else
                                             <div class="chat chat-left">
                                                 <div class="chat-body">
-                                                    <div class="chat-message">{{ $mess->message }}</div>
+                                                    <div class="chat-message">
+                                                        <p>
+                                                            <span >{{$mess->sender?->name}}</span><span style="color: red; font-size: 11px"> {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}<br></span>
+                                                            {{ $mess->message }}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endif

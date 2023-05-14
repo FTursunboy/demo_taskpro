@@ -61,8 +61,8 @@ class OfferController extends Controller
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
-
             $project_id = ProjectClient::where('user_id', $offer->client_id)->first()->project_id;
+
 
             $task = TaskModel::create([
                 'name' => $offer->name,
@@ -73,12 +73,12 @@ class OfferController extends Controller
                 'offer_id' => $offer->id,
                 'file' => $offer->file,
                 'file_name' => $offer->file_name,
-                'author_id' => Auth::id(),
+                'author_id' => $offer->client_id,
                 'client_id' => $offer->client_id,
                 'comment' => $offer->description,
                 'project_id' => $project_id,
                 'status_id' => 9,
-
+                'slug' => $offer->slug,
             ]);
 
             HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
