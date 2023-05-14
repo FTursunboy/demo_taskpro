@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('to')->nullable();
             $table->string('file');
             $table->string('file_name')->nullable();
-            $table->string('status_id')->default(1);
-            $table->string('cansel')->nullable();
+            $table->unsignedBigInteger('status_id')->default(1);
+            $table->unsignedBigInteger('client_id');
+            $table->string('cancel')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
