@@ -50,7 +50,7 @@ class ClientController extends BaseController
             'project_id' => $data['project_id']
         ]);
 
-        return redirect()->route('employee.client')->with('create', 'Клиент успешно создан');
+        return redirect()->route('employee.client')->with('create', 'Клиент успешно создан!');
     }
 
     public function show(User $user)
@@ -83,13 +83,13 @@ class ClientController extends BaseController
             'project_id' => $data['project_id']
         ]);
 
-        return redirect()->route('employee.client')->with('update', 'Клиент успешно изменён');
+        return redirect()->route('employee.client')->with('update', 'Клиент успешно изменён!');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('employee.client')->with('delete', 'Клиент успешно удален');
+        return redirect()->route('employee.client')->with('delete', 'Клиент успешно удален!');
     }
 
 }

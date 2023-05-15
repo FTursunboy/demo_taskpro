@@ -116,7 +116,7 @@
                                                     <div class="form-group">
                                                         <label>Комментарий</label>
                                                         <textarea disabled name="minuses" class="form-control" rows="3"
-                                                                  placeholder="Здесь будет комментарий..">{{ $idea->comments }}</textarea>
+                                                                  placeholder="Здесь будут комментарии..">{{ $idea->comments }}</textarea>
                                                     </div>
                                                 </div>
 

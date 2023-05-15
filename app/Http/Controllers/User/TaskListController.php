@@ -38,6 +38,6 @@ class TaskListController extends Controller
 
             HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::SEND_TO_TEST);
         }
-        return redirect()->route('user.index')->with('create', 'Задача отправлена на проверку');
+        return redirect()->route('user.index')->with('create', 'Задача отправлена на проверку!');
     }
 }

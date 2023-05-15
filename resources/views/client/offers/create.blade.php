@@ -67,7 +67,7 @@
                                                            name="name" id="name" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label">Ответсвенный сотрудник со стороны
+                                                    <label class="form-label">Ответственный сотрудник со стороны
                                                         компании</label>
                                                     <input type="text"
                                                            class="form-control"

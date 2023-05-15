@@ -31,7 +31,7 @@ class ProfileController extends Controller
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
         ]);
-        return redirect()->route('user_profile.index', $user->id)->with('update', "Данные успешно изменены");
+        return redirect()->route('user_profile.index', $user->id)->with('update', "Данные успешно изменены!");
     }
 
     public function password(Request $request)
@@ -41,7 +41,7 @@ class ProfileController extends Controller
             'password' => ['required', 'confirmed'],
         ], [
             'oldPassword.required' => 'Введите старый пароль',
-            'password.required' => 'Выедите новый пароль',
+            'password.required' => 'Введите новый пароль',
             'password.confirmed' => 'Пароли не совпадают',
         ]);
 

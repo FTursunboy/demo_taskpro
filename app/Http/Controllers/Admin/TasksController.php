@@ -102,7 +102,7 @@ class TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->route('tasks.index')->with('create', 'Задача успешно создана');
+        return redirect()->route('tasks.index')->with('create', 'Задача успешно создана!');
     }
 
     public function ready(TaskModel $task)
@@ -128,7 +128,7 @@ class TasksController extends BaseController
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
         }
 
-        return redirect()->route('tasks.index')->with('create', 'Садача готова');
+        return redirect()->route('tasks.index')->with('create', 'Задача готова!');
     }
 
     public function destroy(TaskModel $task)

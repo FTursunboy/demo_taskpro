@@ -119,7 +119,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Вы действительно хотите удалить задачу</p>
+                                            <p>Вы действительно хотите удалить задачу?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -155,7 +155,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Причина: {{$task->cancel}}</p>
-                                            <p>Вы  хотите отправить задачу перепроверку или удалить? <span style="font-size: 20px" class="text-success">{{$task->user?->name}}</span></p>
+                                            <p>Вы  хотите отправить задачу на перепроверку или удалить? <span style="font-size: 20px" class="text-success">{{$task->user?->name}}</span></p>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('tasks_client.delete', $task->id)}}" class="btn btn-danger">Удалить</a>

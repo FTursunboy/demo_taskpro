@@ -24,7 +24,7 @@ class IdeaController extends Controller
         $data['slug'] = Str::slug($data['title'], '-', '5');
         Idea::create($data);
 
-        return redirect()->route('idea.ideas')->with('mess', 'Успешно отправлено');
+        return redirect()->route('idea.ideas')->with('mess', 'Успешно отправлено!');
     }
 
     public function create(){
@@ -58,7 +58,7 @@ class IdeaController extends Controller
 
         $idea->update($data);
 
-        return redirect()->route('idea.ideas')->with('mess', 'Успешно обновлена');
+        return redirect()->route('idea.ideas')->with('mess', 'Успешно обновлено!');
     }
 
 

@@ -25,7 +25,7 @@ class ProfileController extends BaseController
             'password' => ['required', 'confirmed'],
         ], [
             'oldPassword.required' => 'Введите старый пароль',
-            'password.required' => 'Выедите новый пароль',
+            'password.required' => 'Введите новый пароль',
             'password.confirmed' => 'Пароли не совпадают',
         ]);
 
@@ -34,7 +34,7 @@ class ProfileController extends BaseController
             $user->update([
                 'password' => Hash::make($data['password'])
             ]);
-            return back()->with('success', 'Пароль был успешно изменен');
+            return back()->with('success', 'Пароль был успешно изменен!');
         } else {
             return back()->with('error', 'Старый пароль неверен!');
         }

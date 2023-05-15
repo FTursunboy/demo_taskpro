@@ -39,6 +39,6 @@ class IdeaController extends BaseController
         $idea->status_id = $statusId;
         $idea->comments = $request->comment;
         $idea->save();
-        return redirect()->route('admin.ideas')->with('mess', 'Успешно обновлено');
+        return redirect()->route('admin.ideas')->with('mess', 'Успешно обновлено!');
     }
 }

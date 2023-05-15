@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="from">Дата начала задача</label>
+                                <label for="from">Дата начала задачи</label>
                                 <input type="date" id="from" name="from" class="form-control mt-3"
                                        value="{{ old('from', $task->from) }}" required>
                             </div>
@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="to">Дата окончания задача</label>
+                                <label for="to">Дата окончания задачи</label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to', $task->to) }}"
                                        required>
                             </div>

@@ -100,7 +100,7 @@
                                                                     </div>
 
                                                                     <div class="col-md-6">
-                                                                        <label class="form-label">Телефон ответсвенного
+                                                                        <label class="form-label">Телефон ответственного
                                                                             сотрудника</label>
                                                                         <input value="{{$offer->author_phone}}" disabled
                                                                                type="text"
