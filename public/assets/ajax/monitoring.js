@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
 
     function ajaxResult(url, status_id, user_id, client_id, project_id) {
-        table.empty()
+        // table.empty()
         $.get(`tasks/public/${url}/${status_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
             .then((res) => {
                 if (res.status !== false) {
