@@ -64,6 +64,14 @@
                     </a>
                 </li>
 
+
+                <li class="sidebar-item {{ (request()->is('user/profile') or request()->is('user/profile/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('user_profile.index', auth()->id()) }}" class='sidebar-link'>
+                        <i class="bi bi-egg-fill"></i>
+                        <span>Профиль</span>
+                    </a>
+                </li>
+
                 <li
                     class="sidebar-item">
                     <a href="{{ route('logout') }}" class='sidebar-link'>
