@@ -28,7 +28,7 @@
                         @endif
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="{{ route('tasks_client.index') }}" class="btn btn-outline-danger">
+                                    <a href="{{ route('client.tasks.index') }}" class="btn btn-outline-danger">
                                         Назад
                                     </a>
                                     <a role="button" class="btn btn-primary mx-2">
