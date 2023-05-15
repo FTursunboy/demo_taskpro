@@ -118,7 +118,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <textarea name="cancel" id="" cols="30" rows="4"  class="form-control"></textarea>
+                        <textarea required name="cancel" id="" cols="30" rows="4"  class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
