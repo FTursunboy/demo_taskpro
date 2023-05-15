@@ -56,7 +56,7 @@
 
                             <div class="form-group">
                                 <label for="client_id">Кому это задача</label>
-                                <select id="client_id" name="client_id" class="form-select mt-3">
+                                <select id="client_id" name="client_id" class="form-select mt-3" required>
                                     <option value="" selected>Выберите клиента </option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -76,14 +76,13 @@
 
 
                             <div class="form-group d-none" id="type_id_group">
-                                <label for="kpi_id">Вид KPI</label>
-                                <select name="kpi_id" id="kpi_id" class="form-select mt-3"></select>
+                               
                             </div>
 
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
                                 <textarea name="description" id="comment"
-                                          class="form-control mt-3">{{ old('comment') }}</textarea>
+                                          class="form-control mt-3" required>{{ old('comment') }}</textarea>
                             </div>
 
                         </div>
@@ -129,23 +128,6 @@
             } else {
                 $(this).removeClass('border-danger')
                 from.removeClass('border-danger')
-            }
-        })
-
-        $('#type_id').change(function () {
-            let kpi = $(this).children('option:selected')
-            if (kpi.text().toLowerCase() === 'kpi') {
-                let kpiType = $('#kpi_id').empty();
-                $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
-                    for (let i = 0; i < res.length; i++) {
-                        const item = res[i]
-                        console.log(item.name)
-                        kpiType.append($('<option>').val(item.id).text(item.name))
-                    }
-                })
-                $('#type_id_group').removeClass('d-none')
-            } else {
-                $('#type_id_group').addClass('d-none')
             }
         })
     </script>

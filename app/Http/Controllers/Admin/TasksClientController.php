@@ -33,7 +33,7 @@ class TasksClientController extends BaseController
         } else {
             $file = null;
         }
-        $task = TasksClient::create([
+        TasksClient::create([
             'name' => $request->name,
             'from' => $request->from,
             'to' => $request->to,
