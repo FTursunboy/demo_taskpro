@@ -3,6 +3,7 @@ $(document).ready(function () {
     let user = $('#user_id');
     let client = $('#client_id');
     let project = $('#project_id');
+    let table = $('#tableBodyMonitoring');
 
     status.change(function () {
         ajaxResult('monitoring-tasks-filter', status, user, client, project)
@@ -23,10 +24,32 @@ $(document).ready(function () {
     });
 
     function ajaxResult(url, status_id, user_id, client_id, project_id) {
+        table.empty()
         $.get(`/${url}/${status_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
             .then((res) => {
-                console.log(res)
+                for (let i = 0; i < res.length; i++) {
+                    let item = res[i];
+                    table.append($('<tr>')
+                        .append($('<td>').text(formatDate(item.created_at)))
+                        .append($('<td>').text(item.name))
+                        .append($('<td>').text(item.time))
+                        .append($('<td>').text(formatDate(item.from)))
+                        .append($('<td>').text(formatDate(item.to)))
+                        .append($('<td>').text(item.project))
+                        .append($('<td>').text(item.author))
+                        .append($('<td>').text(item.type))
+                        .append($('<td>').text(item.sts))
+                        .append($('<td>')
+                            .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
+                            .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
+                        ).addClass('text-center'))
+                }
             });
+    }
+
+    function formatDate(param) {
+        const date = new Date(param);
+        return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     }
 
 });
