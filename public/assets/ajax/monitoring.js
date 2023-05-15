@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     function ajaxResult(url, status_id, user_id, client_id, project_id) {
         table.empty()
-        $.get(`${url}/${status_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
+        $.get(`tasks/public/${url}/${status_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
             .then((res) => {
                 for (let i = 0; i < res.length; i++) {
                     let item = res[i];
