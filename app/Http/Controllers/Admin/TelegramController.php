@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\Telegram\TelegramSendAllUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
-class TelegramController extends Controller
+class TelegramController extends BaseController
 {
     public function index()
     {

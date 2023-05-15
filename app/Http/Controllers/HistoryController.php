@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use Faker\Provider\Base;
 
 
-class HistoryController extends Controller
+class HistoryController extends BaseController
 {
     public static function task($task_id, $user_id, $status_id) {
         History::create([

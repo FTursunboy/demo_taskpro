@@ -9,6 +9,7 @@ use App\Http\Requests\Client\TaskRequest;
 use App\Models\Admin\EmailModel;
 use App\Models\Client\Offer;
 
+use App\Models\ClientNotification;
 use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
@@ -80,10 +81,14 @@ class TaskController extends Controller
             'client_id' => Auth::id(),
             'slug' => Str::slug($request->name . ' ' . Str::random(5), '-'),
         ]);
-        
+
+        ClientNotification::create([
+            'offer_id' => $offer->id
+        ]);
+
 
         $mail = new MailController();
-        $mail->send(EmailModel::first()->email);
+     ///   $mail->send(EmailModel::first()->email);
 
         $user = User::role('admin')->first();
 

@@ -9,13 +9,13 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Добавление задачу</h3>
+                    <h3>Добавление задачи</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Список задач</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Добавление задачу</li>
+                            <li class="breadcrumb-item active" aria-current="page">Добавление задачи</li>
                         </ol>
                     </nav>
                 </div>
@@ -104,15 +104,19 @@
 
                             <div class="form-group d-none" id="type_id_group">
                                 <label for="kpi_id">Вид KPI</label>
-                                <select name="kpi_id" id="kpi_id" class="form-select mt-3"></select>
+                                <select required name="kpi_id" id="kpi_id" class="form-select mt-3"></select>
+                            </div>
+                            <div class="form-group d-none" style="margin-top: 27px" id="percent">
+                                <label for="percent">Введите процент</label>
+                                <input required type="number" step="any" max="150" class="form-control" id="percent" name="percent" oninput="checkMaxValue(this)">
                             </div>
 
-                            <div class="form-group">
-                                <label for="comment">Комментария</label>
-                                <textarea name="comment" id="comment"
-                                          class="form-control mt-3">{{ old('comment') }}</textarea>
-                            </div>
 
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Комментария</label>
+                            <textarea name="comment" id="comment"
+                                      class="form-control mt-3">{{ old('comment') }}</textarea>
                         </div>
 
                     </div>
@@ -170,10 +174,21 @@
                         kpiType.append($('<option>').val(item.id).text(item.name))
                     }
                 })
+                $('#percent').removeClass('d-none')
                 $('#type_id_group').removeClass('d-none')
             } else {
                 $('#type_id_group').addClass('d-none')
+                $('#percent').addClass('d-none')
             }
         })
+        function checkMaxValue(input) {
+            var maxValue = 150;
+            if (input.value > maxValue) {
+                input.value = maxValue;
+
+            }
+        }
+
     </script>
+
 @endsection

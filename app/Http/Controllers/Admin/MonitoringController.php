@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\StatusesModel;
@@ -9,7 +10,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MonitoringController extends Controller
+class MonitoringController extends BaseController
 {
     public function index()
     {
@@ -20,7 +21,7 @@ class MonitoringController extends Controller
         $clients = User::role('client')->get();
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
     }
-    
+
     public function filter($status, $user, $client, $project)
     {
         return $status === '0' && $user === '0' && $client === '0' && $project === '0'

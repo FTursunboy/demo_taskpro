@@ -70,7 +70,7 @@
                                     </td>
                                     </tr>
                                 @empty
-                                    <td colspan="5">Пока нет идей</td>
+                                    <td colspan="6">Пока нет идей</td>
                                 @endforelse
 
                                 </tbody>

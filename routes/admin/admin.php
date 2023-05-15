@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], function () {
+    Route::get('notification/{offer}', [\App\Http\Controllers\Admin\IndexController::class, 'delete'])->name('notification');
+
     Route::group(['as' => 'admin.'], function () {
         Route::get('dashboard-admin', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
         Route::get('admin/ideas', [\App\Http\Controllers\Admin\IdeaController::class, 'index'])->name('ideas');
@@ -81,16 +83,16 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
 
     });
-
-    Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('tasks_client.index');
-    Route::get('/tasks_client/create', [\App\Http\Controllers\Admin\TasksClientController::class, 'create'])->name('tasks_client.create');
-    Route::post('/tasks_client/store', [\App\Http\Controllers\Admin\TasksClientController::class, 'store'])->name('tasks_client.store');
-    Route::get('/tasks_client/show/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'show'])->name('tasks_client.show');
-    Route::get('/tasks_client/edit/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'edit'])->name('tasks_client.edit');
-    Route::patch('/tasks_client/update/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'update'])->name('tasks_client.update');
-    Route::get('/tasks_client/delete/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'delete'])->name('tasks_client.delete');
-    Route::patch('/tasks_client/{id}/sendBack', [\App\Http\Controllers\Admin\TasksClientController::class, 'sendBack'])->name('tasks_client.sendBack');
-
+    Route::group(['as' => 'tasks_client.'], function () {
+        Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('index');
+        Route::get('/tasks_client/create', [\App\Http\Controllers\Admin\TasksClientController::class, 'create'])->name('create');
+        Route::post('/tasks_client/store', [\App\Http\Controllers\Admin\TasksClientController::class, 'store'])->name('store');
+        Route::get('/tasks_client/show/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'show'])->name('show');
+        Route::get('/tasks_client/edit/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'edit'])->name('edit');
+        Route::patch('/tasks_client/update/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'update'])->name('update');
+        Route::get('/tasks_client/delete/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'delete'])->name('delete');
+        Route::patch('/tasks_client/{id}/sendBack', [\App\Http\Controllers\Admin\TasksClientController::class, 'sendBack'])->name('sendBack');
+    });
 
     // for kpi ajax offers
     Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);

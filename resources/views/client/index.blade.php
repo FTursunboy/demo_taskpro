@@ -114,7 +114,7 @@
                             </div>
 
                         @empty
-                            <td colspan="5"><h1 class="text-center">Пока завершенных задач</h1></td>
+                            <td colspan="5"><h1 class="text-center">Пока нет завершенных задач</h1></td>
                         @endforelse
 
                         </tbody>

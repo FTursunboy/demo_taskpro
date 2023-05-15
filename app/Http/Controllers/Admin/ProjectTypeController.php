@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ProjectTypeModel;
 use Illuminate\Http\Request;
 
-class ProjectTypeController extends Controller
+class ProjectTypeController extends BaseController
 {
     public function index()
     {

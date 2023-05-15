@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Http\Requests\Admin\UpdateEmployeeRequest;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
-class EmployeeController extends Controller
+class EmployeeController extends BaseController
 {
     public function index()
     {
@@ -43,7 +44,7 @@ class EmployeeController extends Controller
             'telegram_user_id' => $data['name'],
             'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
         ]);
-        $user->assignRole(Role::where('id', $data['role'])->first()->name);
+        $user->assignRole('user');
         return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан');
     }
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 use Illuminate\Http\Request;
 
-class IdeaController extends Controller
+class IdeaController extends BaseController
 {
     public function index() {
         $ideas = Idea::get();

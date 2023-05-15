@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\StatusesModel;
 use App\Models\Admin\TasksClient;
@@ -9,7 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 
-class TasksClientController extends Controller
+class TasksClientController extends BaseController
 {
     public function index()
     {

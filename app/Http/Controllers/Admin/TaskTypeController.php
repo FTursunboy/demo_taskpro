@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use Illuminate\Http\Request;
 
-class TaskTypeController extends Controller
+class TaskTypeController extends BaseController
 {
 
     public function index()
