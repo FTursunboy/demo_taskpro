@@ -55,7 +55,12 @@
                         <span>Задачи</span>
                     </a>
                 </li>
-
+                <li class="sidebar-item {{ (request()->is('client/task') or request()->is('client/task/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('client.tasks.index') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Задачи FinGroup</span>
+                    </a>
+                </li>
 
                 <li
                     class="sidebar-item">
