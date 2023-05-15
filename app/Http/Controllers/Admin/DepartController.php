@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\OtdelsModel;
 use Illuminate\Http\Request;
 
-class DepartController extends Controller
+class DepartController extends BaseController
 {
     public function index()
     {

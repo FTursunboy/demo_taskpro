@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\MessagesModel;
 use App\Models\Client\Offer;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class ChatController extends Controller
+class ChatController extends BaseController
 {
     public function index(Offer $offer) {
 

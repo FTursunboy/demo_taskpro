@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Models\Admin\MessagesModel;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
-class TasksController extends Controller
+class TasksController extends BaseController
 {
     public function index()
     {
@@ -78,6 +79,7 @@ class TasksController extends Controller
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'project_id' => $request->project_id,
             'type_id' => $request->type_id,
+            'percent' => $request->percent,
             'kpi_id' => $request->kpi_id ?: null,
             'user_id' => $request->user_id,
             'author_id' => Auth::id(),

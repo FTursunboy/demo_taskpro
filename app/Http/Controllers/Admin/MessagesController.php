@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
@@ -10,7 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MessagesController extends Controller
+class MessagesController extends BaseController
 {
     public function message(Request $request, TaskModel $task)
     {

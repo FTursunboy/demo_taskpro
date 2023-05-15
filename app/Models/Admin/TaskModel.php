@@ -29,7 +29,8 @@ class TaskModel extends Model
         'cancel_admin',
         'offer_id',
         'comment',
-        'slug'
+        'slug',
+        'percent'
     ];
 
 

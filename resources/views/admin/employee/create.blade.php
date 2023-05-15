@@ -42,15 +42,6 @@
                                            value="{{ old('name') }}" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="role">Роль<span class="text-danger">*</span></label>
-                                    <select id="role" name="role" class="form-select mt-3" required>
-                                        <option value="" selected>Выбирите роль</option>
-                                        @foreach($roles as $role)
-                                            <option value="{{ $role->id }}" {{ ($role->name === 'user') ? 'selected' : '' }}>{{ $role->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
 
                                 <div class="form-group">
                                     <label for="login">Логин<span class="text-danger">*</span></label>

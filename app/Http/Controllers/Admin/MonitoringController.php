@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\StatusesModel;
@@ -9,7 +10,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MonitoringController extends Controller
+class MonitoringController extends BaseController
 {
     public function index()
     {
