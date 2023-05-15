@@ -30,7 +30,7 @@
                     Назад
                 </a>
                 <a role="button" class="btn btn-primary mx-2">
-                    Дата создания проекта: {{ $task->created_at->format('d-m-Y') }}
+                    Дата создания проекта: {{ date('d-m-y', $task->created_at) }}
                 </a>
             </div>
             <div class="card-body">

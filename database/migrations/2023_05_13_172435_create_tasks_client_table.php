@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('from')->nullable();
             $table->string('to')->nullable();
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->string('file_name')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
             $table->unsignedBigInteger('client_id');
