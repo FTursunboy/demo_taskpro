@@ -37,10 +37,15 @@ class MonitoringController extends BaseController
                     ->leftJoin('users as uid', 'user_id', '=', 'uid.id')
                     ->leftJoin('users as client', 'client_id', '=', 'client.id')
                     ->leftJoin('statuses_models as sts', 'status_id', '=', 'sts.id')
-                    ->select('task_models.*', 'u.name as author', 'u.surname as author_surname','p.name as project','uid.name as employee', 'uid.surname as employee_surname','client.name as client', 'client.surname as client_surname','sts.name as sts')
+                    ->leftJoin('task_type_models as t', 'type_id', '=', 't.id')
+                    ->select('task_models.*', 'u.name as author', 'u.surname as author_surname', 'p.name as project', 'uid.name as employee', 'uid.surname as employee_surname', 'client.name as client', 'client.surname as client_surname', 'sts.name as sts', 't.name as type')
+                    ->groupBy('name')
                     ->get();
         } catch (\Exception $exception) {
-            return $exception->getMessage();
+            return [
+                'error' => $exception->getMessage(),
+                'status' => false
+            ];
         }
 
     }
