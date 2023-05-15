@@ -37,7 +37,7 @@ $(document).ready(function () {
                         .append($('<td>').text(formatDate(item.to)))
                         .append($('<td>').text(item.project))
                         .append($('<td>').text(item.author))
-                        .append($('<td>').text(item.type))
+                        .append($('<td>').text((item.type === '')? 'От клиента' : item.type))
                         .append($('<td>').text(item.sts))
                         .append($('<td>')
                             .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
