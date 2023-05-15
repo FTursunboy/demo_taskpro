@@ -48,7 +48,11 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
+                                    @if(isset($user->avatar))
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}">
+                                    @else
                                     <img src="{{asset('assets/images/avatar-2.png')}}">
+                                    @endif
                                 </div>
                             </div>
                         </div>

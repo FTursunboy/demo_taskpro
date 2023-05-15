@@ -38,7 +38,7 @@ class ProfileController extends BaseController
             $file = null;
         }
         $user = User::findOrFail($id);
-        Storage::delete($user->avatar);
+        if (isset($user->avatar)) Storage::delete($user->avatar);
         $user->update([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
