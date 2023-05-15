@@ -76,7 +76,7 @@
 
 
                             <div class="form-group d-none" id="type_id_group">
-                               
+
                             </div>
 
                             <div class="form-group">
