@@ -102,6 +102,9 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::group(['as' => 'profile.'], function () {
         Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('index');
+        Route::get('/profile/edit/{id}', [\App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/profile/update/{id}', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('update');
+        Route::get('/profile/show/{id}', [\App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('show');
         Route::post('profile/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'password'])->name('password');
     });
 

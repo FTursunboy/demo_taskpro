@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="to">Дата окончания задача</label>
+                                <label for="to">Дата окончании задачи</label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
                             </div>

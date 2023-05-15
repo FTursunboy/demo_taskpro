@@ -39,13 +39,13 @@
 
                             <div class="form-group">
                                 <label for="name">Имя</label>
-                                <input type="text" id="name" name="name" class="form-control mt-3"
+                                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
                                        placeholder="Имя" value="{{ $task->name }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="user_id">Кому это задача</label>
-                                <select id="user_id" name="user_id" class="form-select mt-3">
+                                <select id="user_id" name="user_id" tabindex="4" class="form-select mt-3">
                                     <option value="" selected>Выбирите сотрудник</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user_id ) ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -55,7 +55,7 @@
 
                             <div class="form-group">
                                 <label for="from">Дата начала задача</label>
-                                <input type="date" id="from" name="from" class="form-control mt-3"
+                                <input type="date" id="from" name="from" tabindex="7" class="form-control mt-3"
                                        value="{{ $task->from }}" required>
                             </div>
 
@@ -66,14 +66,14 @@
 
                             <div class="form-group">
                                 <label for="time">Время</label>
-                                <input type="number" id="time" name="time" class="form-control mt-3"
+                                <input type="number" id="time" name="time" tabindex="2" class="form-control mt-3"
                                        value="{{ $task->time }}" placeholder="Время"
                                        required>
                             </div>
 
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
-                                <select id="project_id" name="project_id" class="form-select mt-3">
+                                <select id="project_id" name="project_id" tabindex="5" class="form-select mt-3">
                                     <option value="" selected>Выбирите проект</option>
                                     @foreach($projects as $project)
                                         <option
@@ -85,7 +85,7 @@
 
                             <div class="form-group">
                                 <label for="to">Дата окончания задача</label>
-                                <input type="date" id="to" name="to" class="form-control mt-3" value="{{ $task->to }}"
+                                <input type="date" id="to" name="to" class="form-control mt-3" tabindex="8" value="{{ $task->to }}"
                                        required>
                             </div>
 
@@ -96,7 +96,7 @@
 
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-                                <select id="type_id" name="type_id" class="form-select mt-3">
+                                <select id="type_id" name="type_id" tabindex="3" class="form-select mt-3">
                                     <option value="" selected>Выбирите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}" {{ ($type->id === old('type_id') or $type->id === $task->type_id ) ? 'selected' : '' }}>{{ $type->name }}</option>
@@ -107,7 +107,7 @@
                             @if(isset($task->kpi_id))
                                 <div class="form-group  {{ $task->kpi_id ? '' : 'd-none'  }} " id="type_id_group">
                                     <label for="kpi_id">Вид KPI</label>
-                                    <select name="kpi_id" id="kpi_id" class="form-select mt-3">
+                                    <select name="kpi_id" id="kpi_id" tabindex="6" class="form-select mt-3">
                                         @foreach($type_kpi as $types_kpi)
                                             <option value="{{ $types_kpi->id }}" {{ ($types_kpi->id === $task->typeType->id) ? 'selected' : '' }}>
                                                 {{ $types_kpi->name }}
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="form-group {{ $task->kpi_id ? '' : 'd-none'  }}" style="margin-top: 27px" id="percent">
                                     <label for="percent">Введите процент</label>
-                                    <input  type="number" step="any" max="150" class="form-control" id="percent" name="percent" value="{{ $task->percent }}" oninput="checkMaxValue(this)">
+                                    <input  type="number" step="any" max="150" class="form-control" id="percent" tabindex="9" name="percent" value="{{ $task->percent }}" oninput="checkMaxValue(this)">
                                 </div>
                             @elseif($task->kpi_id === null)
                                 <div class="form-group d-none" id="type_id_group">
@@ -135,7 +135,7 @@
                         <div class="form-group">
                             <label for="comment">Комментария</label>
                             <textarea name="comment" id="comment"
-                                      class="form-control mt-3">{{ $task->comment }}</textarea>
+                                      tabindex="10" class="form-control mt-3">{{ $task->comment }}</textarea>
                         </div>
 
                     </div>
@@ -144,14 +144,14 @@
                         @if($task->file !== null)
                             <div class="col-md-6">
                                 <a style="margin-left: 0px" download
-                                   href="{{route('tasks.download', $task->id)}}">Просмотреть
+                                   href="{{route('tasks.download', $task->id)}}" tabindex="11">Просмотреть
                                     файл</a>
                             </div>
                         @endif
                         <div class="col-6"></div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <input type="submit" class="btn btn-outline-primary" value="Обновить">
+                        <input type="submit" class="btn btn-outline-primary" tabindex="12" value="Обновить">
                     </div>
                 </form>
             </div>

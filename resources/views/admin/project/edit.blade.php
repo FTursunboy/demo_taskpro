@@ -43,12 +43,12 @@
                                 <div class="form-group">
                                     <label for="name">Имя проекта</label>
                                     <input type="text" id="name" name="name" class="form-control mt-3"
-                                           placeholder="Имя проекта" value="{{ $project->name }}" required>
+                                           placeholder="Имя проекта" tabindex="1" value="{{ $project->name }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="start">Дата начала проекта</label>
-                                    <input type="date" id="start" name="start" class="form-control mt-3"
+                                    <input type="date" id="start" name="start" tabindex="4" class="form-control mt-3"
                                            value="{{ $project->start }}" required>
                                 </div>
 
@@ -57,7 +57,7 @@
 
                                 <div class="form-group">
                                     <label for="time">Время</label>
-                                    <input type="number" id="time" name="time" class="form-control mt-3"
+                                    <input type="number" id="time" name="time" tabindex="2" class="form-control mt-3"
                                            value="{{ $project->time }}" placeholder="Время"
                                            required>
                                 </div>
@@ -65,7 +65,7 @@
 
                                 <div class="form-group">
                                     <label for="finish">Дата окончания проекта</label>
-                                    <input type="date" id="finish" name="finish" class="form-control mt-3"
+                                    <input type="date" id="finish" name="finish" tabindex="5" class="form-control mt-3"
                                            value="{{ $project->finish }}" required>
                                 </div>
 
@@ -74,7 +74,7 @@
 
                                 <div class="form-group">
                                     <label for="type">Тип</label>
-                                    <select id="type" name="type_id" class="form-select mt-3">
+                                    <select id="type" name="type_id" tabindex="3" class="form-select mt-3">
                                         <option value="" selected>Выберите тип</option>
                                         @foreach($types as $type)
                                             <option
@@ -85,7 +85,7 @@
 
                                 <div class="form-group">
                                     <label for="type">Тип</label>
-                                    <select id="type" name="types_id" class="form-select mt-3">
+                                    <select id="type" name="types_id" tabindex="6" class="form-select mt-3">
                                         <option value="" selected>Выберите тип</option>
                                         @foreach($types_project as $type)
                                             <option value="{{ $type->id }}" {{($project->types_id === $type->id)? 'selected' : ''}}>{{ $type->name }}</option>
@@ -98,12 +98,12 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="comment">Комментария</label>
-                                    <textarea name="comment" id="comment"
+                                    <textarea name="comment" tabindex="7" id="comment"
                                               class="form-control mt-3">{{ $project->comment }}</textarea>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                                <button type="submit" tabindex="8" class="btn btn-outline-primary">Сохранить</button>
                             </div>
                         </div>
                     </form>

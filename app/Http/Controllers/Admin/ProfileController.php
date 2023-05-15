@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProfileUpdateRequest;
+use App\Models\Admin\OtdelsModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends BaseController
 {
@@ -17,6 +20,46 @@ class ProfileController extends BaseController
         $employees = User::role('user')->get();
         return view('admin.profile.index', compact('user', 'employees'));
     }
+
+    public function edit(int $id)
+    {
+        $user = User::find($id);
+        $otdel = OtdelsModel::where('id', $user->otdel_id)->first();
+        $otdels = OtdelsModel::where('id', '!=', $user->otdel_id)->get();
+        return view('admin.profile.edit', compact('user', 'otdel', 'otdels'));
+    }
+
+    public function update(ProfileUpdateRequest $request, int $id){
+
+        $data = $request->validated();
+        if ($request->file('avatar') !== null) {
+            $file = $request->file('avatar')->store('public/user_img/');
+        } else {
+            $file = null;
+        }
+        $user = User::findOrFail($id);
+        Storage::delete($user->avatar);
+        $user->update([
+            'name' => $data['name'],
+            'lastname' => $data['lastname'],
+            'surname' => $data['surname'],
+            'phone' => $data['phone'],
+            'otdel_id' => $data['otdel_id'],
+            'telegram_user_id' => $data['telegram_id'],
+            'avatar' => $file
+        ]);
+
+        return redirect()->route('profile.index')->with('success', 'Данные обновлены');
+
+    }
+
+    public function show(int $id)
+    {
+        $user = User::findOrFail($id);
+        $otdel = OtdelsModel::where('id', $user->otdel_id)->first();
+        return view('admin.profile.show', compact('user','otdel'));
+    }
+
 
     public function password(Request $request)
     {
