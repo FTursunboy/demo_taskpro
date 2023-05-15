@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        
+
         <section class="section">
             <div class="row">
                 <div class="col-6 col-lg-3 col-md-6">
@@ -356,14 +356,6 @@
                                         <th><span class="mx-2"> {{ $user->ideaCount($user->id) }}</span></th>
                                     </tr>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-center">
-                                <a href="" class="btn btn-success"><i
-                                        class="bi bi-eye"></i></a>
-                                <a href="" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
-                                <a href="" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                             </div>
                         </div>
                     </div>

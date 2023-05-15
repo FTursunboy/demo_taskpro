@@ -7,6 +7,10 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('dashboard-user', [\App\Http\Controllers\User\IndexController::class, 'index'])->name('index');
     });
 
+    Route::get('/user/profile/{user}', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('user_profile.index');
+    Route::patch('/user/profile/update/{user}', [\App\Http\Controllers\User\ProfileController::class, 'update'])->name('user_profile.update.a');
+    Route::post('/user/profile/change-password', [\App\Http\Controllers\User\ProfileController::class, 'password'])->name('user_profile.password');
+
     Route::group(['as' => 'idea.'], function () {
         Route::get('ideas', [\App\Http\Controllers\User\IdeaController::class, 'index'])->name('ideas');
         Route::get('ideas/create', [\App\Http\Controllers\User\IdeaController::class, 'create'])->name('idea.create');
