@@ -87,7 +87,7 @@
                             <h6 class="dropdown-header">Привет, {{ \Illuminate\Support\Facades\Auth::user()->name }}
                                 !</h6>
                         </li>
-                        <li><a class="dropdown-item" href="#"><i
+                        <li><a class="dropdown-item" href="{{ route('edit_profile.index', auth()->id()) }}"><i
                                     class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><i

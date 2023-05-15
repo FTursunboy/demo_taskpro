@@ -61,7 +61,12 @@
                         <span>Задачи FinGroup</span>
                     </a>
                 </li>
-
+                <li class="sidebar-item {{ (request()->is('edit_profile') or request()->is('edit_profile/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('edit_profile.index', auth()->id()) }}" class='sidebar-link'>
+                        <i class="bi bi-person"></i>
+                        <span>Профиль</span>
+                    </a>
+                </li>
                 <li
                     class="sidebar-item">
                     <a href={{ route('logout') }} class='sidebar-link'>
