@@ -7,7 +7,12 @@ Route::group(['middleware' => ['role:client']], function () {
     Route::group(['as' => 'client.'], function () {
         Route::get('dashboard-client', [\App\Http\Controllers\Client\IndexController::class, 'index'])->name('index');
     });
-
+    Route::group(['as' => 'client.tasks.'], function () {
+        Route::get('client/task', [\App\Http\Controllers\TaskController::class, 'index'])->name('index');
+        Route::get('client/task/accept/{task}', [\App\Http\Controllers\TaskController::class, 'accept'])->name('accept');
+        Route::get('client/task/show/{task}', [\App\Http\Controllers\TaskController::class, 'show'])->name('show');
+        Route::post('client/task/decline/{task}', [\App\Http\Controllers\TaskController::class, 'decline'])->name('decline');
+    });
 
     Route::group(['as' => 'offers.'], function () {
        Route::get('offers', [\App\Http\Controllers\Client\TaskController::class, 'index'])->name('index');
@@ -28,5 +33,7 @@ Route::group(['middleware' => ['role:client']], function () {
        Route::post('offers/messages/store/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'store'])->name('messages.store');
 
     });
+
+
 });
 
