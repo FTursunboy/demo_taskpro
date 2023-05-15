@@ -1,0 +1,6 @@
+@media (max-width: 1024px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+
