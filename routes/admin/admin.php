@@ -60,7 +60,9 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/show-task/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'show'])->name('show');
         Route::post('/tasks/store', [\App\Http\Controllers\Admin\TasksController::class, 'store'])->name('store');
         Route::delete('/tasks/delete/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'destroy'])->name('delete');
-
+        Route::get('/tasks/download/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'downloadFile'])->name('download');
+        Route::patch('/tasks/update/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'update'])->name('update');
+        Route::get('/tasks/edit/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'edit'])->name('edit');
         Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
     });
@@ -96,6 +98,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     // for kpi ajax offers
     Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+    Route::get('/tasks/edit/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
     Route::group(['as' => 'profile.'], function () {
         Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('index');
