@@ -160,7 +160,7 @@ class TasksController extends BaseController
             'slug' => Str::slug($request->name . ' ' . Str::random(5)),
         ]);
 
-        if ($request->type_id == 1) {
+        if ($request->type_id != 2) {
             $task->update([
                 'percent' => null,
                 'kpi_id' => null,
