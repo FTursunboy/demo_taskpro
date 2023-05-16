@@ -44,7 +44,7 @@
 
                             <div class="form-group">
                                 <label for="user_id">Кому это задача</label>
-                                <select id="user_id" name="user_id" class="form-select mt-3">
+                                <select id="user_id" name="user_id" class="form-select mt-3" required>
                                     <option value="" selected>Выберите сотрудник</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
