@@ -9,12 +9,12 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Проекти</h3>
+                    <h3>Проекты</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Проекти</li>
+                            <li class="breadcrumb-item active" aria-current="page">Проекты</li>
                         </ol>
                     </nav>
                 </div>
@@ -74,7 +74,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p>
-                                                    Точно хотите удалит проект?
+                                                    Точно хотите удалить проект?
                                                 </p>
                                             </div>
                                             <div class="modal-footer">

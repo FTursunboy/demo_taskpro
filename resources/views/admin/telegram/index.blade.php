@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    Тереграм
+    Телеграмм
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@
                         <th>#</th>
                         <th>Сотрудник</th>
                         <th>Телеграм ID</th>
-                        <th class="text-center">Действия</th>
+                        <th class="text-center">Действие</th>
                     </tr>
                     </thead>
                     <tbody>

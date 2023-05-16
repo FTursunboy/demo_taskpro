@@ -99,7 +99,7 @@ class TaskController extends Controller
         } catch (\Exception $exception) {
         }
 
-        return redirect()->route('offers.index')->with('create', 'Успешно создано');
+        return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 
     }
 
@@ -129,7 +129,7 @@ class TaskController extends Controller
         $offer->save();
 
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 8);
-        return redirect()->route('offers.index')->with('update', 'Успешно обновлено');
+        return redirect()->route('offers.index')->with('update', 'Успешно обновлено!');
     }
 
     public function delete(Offer $offer)
@@ -137,7 +137,7 @@ class TaskController extends Controller
         $offer->delete();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 9);
-        return redirect()->back()->with('mess', 'Успешно удалено');
+        return redirect()->back()->with('mess', 'Успешно удалено!');
     }
 
     public function confirm(Offer $offer)
@@ -146,7 +146,7 @@ class TaskController extends Controller
         $offer->save();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
-        return redirect()->back()->with('mess', 'Успешно отправлено');
+        return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
     public function decline(Offer $offer)
@@ -157,7 +157,7 @@ class TaskController extends Controller
 
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
-        return redirect()->back()->with('mess', 'Успешно отправлено');
+        return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
     public function downloadFile(Offer $offer)
@@ -182,6 +182,6 @@ class TaskController extends Controller
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
 
-        return redirect()->back()->with('mess', 'Успешно отправлено');
+        return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 }

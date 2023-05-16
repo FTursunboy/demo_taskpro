@@ -28,7 +28,7 @@ class ProfileController extends Controller
             'phone' => $data['phone'],
             'password' => Hash::make($data['password'] ?? 'password')
         ]);
-        return redirect()->route('edit_profile.index', $client->id)->with('update', "Клиент успешно изменен");
+        return redirect()->route('edit_profile.index', $client->id)->with('update', "Клиент успешно изменен!");
     }
 
     public function password(Request $request)
@@ -38,7 +38,7 @@ class ProfileController extends Controller
             'password' => ['required', 'confirmed'],
         ], [
             'oldPassword.required' => 'Введите старый пароль',
-            'password.required' => 'Выедите новый пароль',
+            'password.required' => 'Введите новый пароль',
             'password.confirmed' => 'Пароли не совпадают',
         ]);
 
@@ -47,7 +47,7 @@ class ProfileController extends Controller
             $user->update([
                 'password' => Hash::make($data['password'])
             ]);
-            return back()->with('update', 'Пароль был успешно изменен');
+            return back()->with('update', 'Пароль был успешно изменен!');
         } else {
             return back()->with('error', 'Старый пароль неверен!');
         }

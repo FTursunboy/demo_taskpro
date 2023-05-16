@@ -299,8 +299,8 @@
                                                 <input type="password" name="password" id="password" class="form-control" placeholder="Введите новый пароль">
                                             </div>
                                             <div class="form-group">
-                                                <label for="password_confirmation">Павторите пароль <span class="text-danger">*</span></label>
-                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Павторите новый пароль">
+                                                <label for="password_confirmation">Повторите пароль <span class="text-danger">*</span></label>
+                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Повторите новый пароль">
                                             </div>
                                         </div>
                                     </div>

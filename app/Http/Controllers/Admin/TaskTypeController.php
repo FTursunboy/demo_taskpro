@@ -74,7 +74,7 @@ class TaskTypeController extends BaseController
     public function kpiDelete(TaskTypesTypeModel $taskTypesTypeModel)
     {
         $taskTypesTypeModel->delete();
-        return redirect()->back()->with('delete', 'Успешно обновлено');
+        return redirect()->back()->with('delete', 'Успешно обновлено!');
     }
 
 
@@ -86,12 +86,12 @@ class TaskTypeController extends BaseController
         $taskTypesTypeModel->update([
             'name' => $data['name']
         ]);
-        return redirect()->route('settings.kpi', $taskTypesTypeModel->typeTask_id)->with('create', 'Успешно обновлено');
+        return redirect()->route('settings.kpi', $taskTypesTypeModel->typeTask_id)->with('create', 'Успешно обновлено!');
     }
 
     public function delete(TaskTypeModel $taskTypeModel)
     {
         $taskTypeModel->delete();
-        return redirect()->back()->with('delete', 'Успешно удалено');
+        return redirect()->back()->with('delete', 'Успешно удалено!');
     }
 }

@@ -45,7 +45,7 @@ class TasksClientController extends BaseController
             'cancel' => $request->cancel ?? null,
         ]);
 
-        return redirect()->route('tasks_client.index')->with('create', 'Задача успешно создана');
+        return redirect()->route('tasks_client.index')->with('create', 'Задача успешно создана!');
     }
 
     public function show(TasksClient $task)
@@ -78,7 +78,7 @@ class TasksClientController extends BaseController
             'cancel' => $request->cancel ?? null,
         ]);
 
-        return redirect()->route('tasks_client.index')->with('mess', 'Задача успешно обновлена');
+        return redirect()->route('tasks_client.index')->with('mess', 'Задача успешно обновлена!');
 
     }
 
@@ -86,7 +86,7 @@ class TasksClientController extends BaseController
     {
         $task->delete();
 
-        return redirect()->route('tasks_client.index')->with('mess', 'Успешно удалено');
+        return redirect()->route('tasks_client.index')->with('mess', 'Успешно удалено!');
     }
 
     public function sendBack(int $id)

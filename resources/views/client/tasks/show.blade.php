@@ -113,7 +113,7 @@
                 <form action="{{route('client.tasks.decline', $task->id)}}" method="post">
                     @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Отклонения задачи</h5>
+                    <h5 class="modal-title">Отклонение задачи</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

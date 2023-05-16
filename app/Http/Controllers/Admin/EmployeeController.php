@@ -45,7 +45,7 @@ class EmployeeController extends BaseController
             'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
         ]);
         $user->assignRole('user');
-        return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан');
+        return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан!');
     }
 
     public function show(User $user)
@@ -73,13 +73,13 @@ class EmployeeController extends BaseController
             'otdel_id' => $data['otdel_id'],
             'password' => Hash::make($data['password'] ?? 'password'),
         ]);
-        return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен");
+        return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен!");
     }
 
     public function destroy(User $employee)
     {
         $employee->delete();
-        return redirect()->route('employee.index')->with('delete', "Сотрудник успешно удален");
+        return redirect()->route('employee.index')->with('delete', "Сотрудник успешно удален!");
     }
 
 }

@@ -50,7 +50,7 @@ class TasksController extends Controller
         } catch (\Exception $exception) {
         }
         Artisan::call('update:task-status');
-        return back()->with('create', 'Задача принята');
+        return back()->with('create', 'Задача принята!');
     }
 
     public function decline(Request $request, TaskModel $task)
@@ -79,6 +79,6 @@ class TasksController extends Controller
         } catch (\Exception $exception) {
         }
         Artisan::call('update:task-status');
-        return back()->with('error', 'Задача откланена');
+        return back()->with('error', 'Задача отклонена!');
     }
 }

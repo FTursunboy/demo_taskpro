@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Профил - {{ $user->surname . ' ' . $user->name.' '. $user->lastname }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">Профиль - {{ $user->surname . ' ' . $user->name.' '. $user->lastname }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -147,8 +147,8 @@
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Введите новый пароль">
                                 </div>
                                 <div class="form-group">
-                                    <label for="password_confirmation">Павторите пароль <span class="text-danger">*</span></label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Павторите новый пароль">
+                                    <label for="password_confirmation">Повторите пароль <span class="text-danger">*</span></label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Повторите новый пароль">
                                 </div>
                             </div>
                         </div>
