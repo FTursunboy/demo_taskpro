@@ -72,7 +72,7 @@
 
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
-                                <select id="project_id" name="project_id" class="form-select mt-3">
+                                <select id="project_id" name="project_id" class="form-select mt-3" required>
                                     <option value="" selected>Выберите проект</option>
                                     @foreach($projects as $project)
                                         <option
@@ -94,7 +94,7 @@
 
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-                                <select id="type_id" name="type_id" class="form-select mt-3">
+                                <select id="type_id" name="type_id" class="form-select mt-3" required>
                                     <option value="" selected>Выберите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -108,7 +108,7 @@
                             </div>
                             <div class="form-group d-none" style="margin-top: 27px" id="percent">
                                 <label for="percent">Введите процент</label>
-                                <input required type="number" step="any" max="150" class="form-control" id="percent" name="percent" oninput="checkMaxValue(this)">
+                                <input type="number" step="any" max="150" class="form-control" id="percent" name="percent" oninput="checkMaxValue(this)">
                             </div>
 
 
