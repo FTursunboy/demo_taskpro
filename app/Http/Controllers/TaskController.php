@@ -21,7 +21,7 @@ class TaskController extends Controller
         $task->status_id = 4;
         $task->save();
 
-        return redirect()->route('client.tasks.index')->with('update', 'Принято');
+        return redirect()->route('client.tasks.index')->with('update', 'Принято!');
     }
 
     public function decline(TasksClient $task, Request $request) {
@@ -29,7 +29,7 @@ class TaskController extends Controller
         $task->status_id = 5;
         $task->cancel = $request->cancel;
         $task->save();
-        return redirect()->route('client.tasks.index')->with('update', 'Отклонено');
+        return redirect()->route('client.tasks.index')->with('update', 'Отклонено!');
 
     }
 

@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label for="type">Тип</label>
                                     <select id="type" name="type_id" class="form-select mt-3">
-                                        <option value="" selected>Выбирите тип</option>
+                                        <option value="" selected>Выберите тип</option>
                                         @foreach($types as $type)
                                             <option
                                                 value="{{ $type->id }}" {{($project->type_id === $type->id)? 'selected' : ''}}>{{ $type->name }}</option>
@@ -86,7 +86,7 @@
                                 <div class="form-group">
                                     <label for="type">Тип</label>
                                     <select id="type" name="types_id" class="form-select mt-3">
-                                        <option value="" selected>Выбирите тип</option>
+                                        <option value="" selected>Выберите тип</option>
                                         @foreach($types_project as $type)
                                             <option value="{{ $type->id }}" {{($project->types_id === $type->id)? 'selected' : ''}}>{{ $type->name }}</option>
                                         @endforeach

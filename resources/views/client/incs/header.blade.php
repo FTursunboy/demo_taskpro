@@ -88,7 +88,7 @@
                                 !</h6>
                         </li>
                         <li><a class="dropdown-item" href="{{ route('edit_profile.index', auth()->id()) }}"><i
-                                    class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
+                                    class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><i
                                     class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>

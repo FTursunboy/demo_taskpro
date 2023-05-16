@@ -6,7 +6,7 @@
 @section('content')
     <div id="page-heading">
         <a href="{{ route('employee.create') }}" class="btn btn-outline-primary mb-2">
-            Добавить новый сотрудник
+            Добавить нового сотрудника
         </a>
         @include('inc.messages')
 

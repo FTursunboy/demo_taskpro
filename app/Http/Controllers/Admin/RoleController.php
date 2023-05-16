@@ -24,7 +24,7 @@ class RoleController extends BaseController
             'name' => $data['name']
         ]);
 
-        return redirect()->route('settings.role')->with('create', 'Роль успешно создань.');
+        return redirect()->route('settings.role')->with('create', 'Роль успешно создан!');
     }
 
     public function update(Role $role, Request $request)
@@ -32,11 +32,11 @@ class RoleController extends BaseController
         $role->update([
             'name' => $request->name
         ]);
-        return redirect()->route('settings.role')->with('update', 'Роль успешно изменен.');
+        return redirect()->route('settings.role')->with('update', 'Роль успешно изменен!');
     }
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('settings.role')->with('delete', 'Роль успешно удален.');
+        return redirect()->route('settings.role')->with('delete', 'Роль успешно удален!');
     }
 }

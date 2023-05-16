@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    Добавить новый сотрудник
+    Изменение сотрудника
 @endsection
 
 @section('content')

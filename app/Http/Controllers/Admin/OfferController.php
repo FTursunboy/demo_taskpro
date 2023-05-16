@@ -35,14 +35,14 @@ class OfferController extends BaseController
 
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::DECLINED);
 
-            return redirect()->route('client.offers.index')->with('update', 'Успешно отклонено');
+            return redirect()->route('client.offers.index')->with('update', 'Успешно отклонено!');
         }
         if ($_POST['action'] == 'refresh') {
             $offer->update([
                 'user_id' => $request->user_id,
                 'status_id' => 11
             ]);
-            return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+            return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
         }
         if ($_POST['action'] == 'accept') {
             $data = $request->validate([
@@ -89,7 +89,7 @@ class OfferController extends BaseController
             } catch (\Exception $exception) {
             }
         }
-        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
 
     }
 
@@ -101,7 +101,7 @@ class OfferController extends BaseController
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
 
-        return redirect()->back()->with('mess', 'Успешно удалено');
+        return redirect()->back()->with('mess', 'Успешно удалено!');
     }
 
 
@@ -129,7 +129,7 @@ class OfferController extends BaseController
         $task?->delete();
         $offer->delete();
 
-        return redirect()->back()->with('mess', 'Успешно удалено');
+        return redirect()->back()->with('mess', 'Успешно удалено!');
     }
 
 
@@ -149,7 +149,7 @@ class OfferController extends BaseController
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::UPDATE);
 
-        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
     }
 
     public function sendBack(Offer $offer){
@@ -160,7 +160,7 @@ class OfferController extends BaseController
         $task->save();
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
-        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
     }
 
 }

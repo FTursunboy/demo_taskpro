@@ -23,7 +23,7 @@ class DepartController extends BaseController
         OtdelsModel::create([
             'name' => $date['name']
         ]);
-        return redirect()->route('settings.depart')->with('create', 'Отдел успешно создан');
+        return redirect()->route('settings.depart')->with('create', 'Отдел успешно создан!');
     }
 
     public function update(OtdelsModel $depart, Request $request)
@@ -32,12 +32,12 @@ class DepartController extends BaseController
         $depart->update([
             'name' => $data['name']
         ]);
-        return redirect()->route('settings.depart')->with('update', 'Отдел успешно обнавлен');
+        return redirect()->route('settings.depart')->with('update', 'Отдел успешно обновлен!');
     }
 
     public function destroy(OtdelsModel $depart)
     {
         $depart->delete();
-        return redirect()->route('settings.depart')->with('delete', 'Отдел успешно удален');
+        return redirect()->route('settings.depart')->with('delete', 'Отдел успешно удален!');
     }
 }

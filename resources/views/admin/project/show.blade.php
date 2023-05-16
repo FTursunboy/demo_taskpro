@@ -16,7 +16,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Панел</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('project.index') }}">Срисок проектов</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('project.index') }}">Список проектов</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ $project->name }}</li>
                         </ol>
                     </nav>

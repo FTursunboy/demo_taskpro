@@ -45,7 +45,7 @@ class ProjectController extends BaseController
 
         HistoryController::project($project->id, Statuses::CREATE);
 
-        return redirect()->route('project.index')->with('create', 'Проект успешно содань');
+        return redirect()->route('project.index')->with('create', 'Проект успешно создан!');
     }
 
     public function edit(ProjectModel $project)
@@ -61,7 +61,7 @@ class ProjectController extends BaseController
         $projectModel->update($data);
 
         HistoryController::project($projectModel->id, Statuses::UPDATE);
-        return redirect()->route('project.index')->with('update', 'Проект успешно изменен');
+        return redirect()->route('project.index')->with('update', 'Проект успешно изменен!');
     }
 
     public function destroy(ProjectModel $projectModel)
@@ -69,6 +69,6 @@ class ProjectController extends BaseController
         $projectModel->delete();
 
         HistoryController::project($projectModel->id, Statuses::DELETE);
-        return back()->with('delete', 'Проект успешна удален!');
+        return back()->with('delete', 'Проект успешно удален!');
     }
 }

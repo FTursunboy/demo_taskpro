@@ -16,7 +16,7 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Панел</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Панель</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $task->name }}</li>
                             </ol>
                         </nav>
@@ -54,7 +54,7 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, я
                                             шучу
                                         </button>
-                                        <button type="submit" class="btn btn-primary">Да, конечна сделал</button>
+                                        <button type="submit" class="btn btn-primary">Да, конечно сделал</button>
                                     </div>
                                 </form>
                             </div>
@@ -128,7 +128,7 @@
                                            value="{{ date('d-m-Y', strtotime($task->to)) }}" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="comment">Коментария</label>
+                                    <label for="comment">Комментария</label>
                                     <textarea type="text" id="comment" class="form-control" disabled
                                               rows="1">{{ $task->comment }}</textarea>
                                 </div>

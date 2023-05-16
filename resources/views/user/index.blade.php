@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 
 @section('title')
-    Панел
+    Панель
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">Панел /</li>
+                            <li class="breadcrumb-item active" aria-current="page">Панель /</li>
                         </ol>
                     </nav>
                 </div>
@@ -203,7 +203,7 @@
                                                value="{{ date('d-m-Y', strtotime($task->to)) }}" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="comment">Коментария</label>
+                                        <label for="comment">Комментария</label>
                                         <textarea type="text" id="comment" class="form-control" disabled
                                                   rows="1">{{ $task->comment }}</textarea>
                                     </div>
