@@ -150,14 +150,26 @@ class TasksController extends BaseController
     public function update(Request $request, TaskModel $task)
     {
 
-        if ($request->file('file') !== null) {
-            $file = $request->file('file')->store('public/docs');
-        } else {
-            $file = null;
+        $file = $task->file;
+
+        if ($request->hasFile('file')) {
+            $newFile = $request->file('file')->store('public/docs/');
+            if ($newFile !== $file) {
+                if ($file !== null) {
+                    Storage::delete($file);
+                }
+                $file = $newFile;
+            }
         }
 
-        if ($task->file)
-            Storage::delete($task->file);
+//        if ($request->file('file') !== null) {
+//            $file = $request->file('file')->store('public/docs');
+//        } else {
+//            $file = null;
+//        }
+//
+//        if ($task->file)
+//            Storage::delete($task->file);
 
         $task->update([
             'name' => $request->name,
