@@ -30,7 +30,7 @@ class IdeaRequest extends FormRequest
             'minuses' => 'required',
             'from' => 'required',
             'to' => 'required',
-            'file' => 'required',
+            'file' => '',
 
         ];
     }

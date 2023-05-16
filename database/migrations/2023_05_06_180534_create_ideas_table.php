@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('from');
             $table->string('to');
             $table->string('user_id');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->text('comments')->nullable();
             $table->text('description');
             $table->string('status_id');

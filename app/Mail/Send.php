@@ -21,10 +21,11 @@ class Send extends Mailable implements ShouldQueue
      * @return void
      */
 
-    public $mail;
-    public function __construct()
+    public string $mail;
+    public string $client;
+    public function __construct($client)
     {
-
+        $this->client = $client;
     }
 
     /**
@@ -49,6 +50,7 @@ class Send extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'email',
+
         );
     }
 

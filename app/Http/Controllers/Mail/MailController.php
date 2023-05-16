@@ -11,7 +11,7 @@ class MailController extends Controller
 {
 
     public function send($email){
-        Mail::to($email)->send(new Send());
+//        Mail::to($email)->send(new Send());
 
     }
 }

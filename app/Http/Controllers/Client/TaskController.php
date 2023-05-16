@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
+use App\Mail\Send;
 use App\Models\Admin\EmailModel;
 use App\Models\Client\Offer;
 
@@ -18,6 +19,7 @@ use App\Notifications\Telegram\TelegramClientTask;
 use App\Notifications\Telegram\TelegramUserAccept;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -28,7 +30,6 @@ class TaskController extends Controller
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-            ['status_id', '<>', 6],
             ['is_finished', '=', false]
         ])->get();
 
@@ -86,9 +87,10 @@ class TaskController extends Controller
             'offer_id' => $offer->id
         ]);
 
+        $mail = EmailModel::first()->email;
 
-        $mail = new MailController();
-       // $mail->send(EmailModel::first()->email);
+        $name = Auth::user()->name;
+        Mail::to($mail)->send(new Send($name));
 
         $user = User::role('admin')->first();
 

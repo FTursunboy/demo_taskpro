@@ -51,17 +51,47 @@
                                     <td>{{$idea->from}}</td>
                                     <td>{{$idea->to}}</td>
                                     <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
-                                        @if($idea->status->name == "Принято")
-                                            <td><span class="badge badge-success p-2">Принят</span>
+                                        @if($idea->status->id == 1)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
                                             </td>
-                                        @elseif($idea->status->name == "Ожидается")
-                                            <td><span class="badge badge-warning p-2">На рассмотрении</span>
+                                        @elseif($idea->status->id == 2)
+                                            <td><span class="badge bg-primary p-2">{{$idea->status->name}}</span>
                                             </td>
-                                        @elseif($idea->status->name == "Отклонено")
-                                            <td><span class="badge badge-danger p-2">Отклонен</span>
+                                        @elseif($idea->status->id == 3)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
                                             </td>
-                                        @elseif($idea->status->name == "На доработку")
-                                            <td><span class="badge badge-primary p-2">На доработку</span>
+                                        @elseif($idea->status->id == 4)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 5)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 6)
+                                            <td><span class="badge bg-success p-2">На проверке (У админа)</span>
+                                            </td>
+                                        @elseif($idea->status->id == 7)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 8)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 9)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 10)
+                                            <td><span class="badge bg-danger p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 11)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 12)
+                                            <td><span class="badge bg-danger p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 13)
+                                            <td><span class="badge bg-danger p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 14)
+                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
                                             </td>
                                         @endif
                                     <td>
