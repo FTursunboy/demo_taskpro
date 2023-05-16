@@ -1,7 +1,7 @@
 @extends('client.layouts.app')
 
 @section('title')
-
+    Профиль клиента
 @endsection
 
 @section('content')
@@ -30,12 +30,12 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="name">Имя <span class="text-danger">*</span></label>
-                                            <input type="text" id="name" name="name" class="form-control mt-3"
+                                            <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
                                                    value="{{ $user->name }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Телефон<span class="text-danger">*</span></label>
-                                            <input type="text" id="phone" name="phone" class="form-control mt-3" value="{{ $user->phone }}" required>
+                                            <input type="text" id="phone" name="phone" tabindex="4" class="form-control mt-3" value="{{ $user->phone }}" required>
                                         </div>
 
                                     </div>
@@ -43,7 +43,7 @@
 
                                         <div class="form-group">
                                             <label for="surname">Фамилия<span class="text-danger">*</span></label>
-                                            <input type="text" id="surname" name="surname" class="form-control mt-3" value="{{ $user->surname }}"
+                                            <input type="text" id="surname" name="surname" tabindex="2" class="form-control mt-3" value="{{ $user->surname }}"
                                                    required>
                                         </div>
 
@@ -51,12 +51,12 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="lastname">Отчество<span class="text-danger">*</span></label>
-                                            <input type="text" id="lastname" name="lastname" class="form-control mt-3" value="{{ $user->lastname }}" required>
+                                            <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
                                         </div>
 
                                     </div>
                                     <div class="d-flex justify-content-end mt-3">
-                                        <button type="submit" class="btn btn-outline-primary">Изменить</button>
+                                        <button type="submit" tabindex="5" class="btn btn-outline-primary">Изменить</button>
                                     </div>
                                 </div>
                             </form>
@@ -83,16 +83,10 @@
                                         <th><span class="mx-2">{{ $user->projectCount() }}</span></th>
                                     </tr>
                                     <tr>
-                                        <th>Задачи :</th>
+                                        <th>Задачи: </th>
                                         <th><span class="mx-2">{{ $user->taskCount(auth()->id()) }}</span></th>
                                     </tr>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-center">
-                                <a href="" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                <a href="" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
                             </div>
                         </div>
                     </div>
