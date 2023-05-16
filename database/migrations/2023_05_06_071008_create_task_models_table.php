@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('task_models', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('time');
+            $table->string('time')->nullable();
             $table->date('from');
             $table->date('to');
             $table->string('file')->nullable();

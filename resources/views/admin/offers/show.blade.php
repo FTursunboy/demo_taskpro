@@ -10,7 +10,8 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('client.offers.index')}}">Новые задачи</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{$offer->name}}</a></li>
 
                         </ol>
                     </nav>
@@ -137,7 +138,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Время</label>
-                                                                        <input required
+                                                                        <input
                                                                                value="{{$offer->time}}" type="number"
                                                                                class="form-control"
                                                                                name="time" placeholder="Введите время">
