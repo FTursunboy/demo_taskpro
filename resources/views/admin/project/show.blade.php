@@ -78,7 +78,6 @@
                                 <label for="type">Тип</label>
                                 <input type="text" class="form-control mt-3" id="type" value="{{ $project->types->name }}" disabled>
                             </div>
-
                         </div>
                     </div>
                 <div class="row">
@@ -87,6 +86,20 @@
                                 <textarea name="comment" id="comment" class="form-control mt-3" disabled>{{ $project->comment }}</textarea>
                             </div>
                 </div>
+                @if($project->file !== null)
+                    <div class="form-group">
+                        <label for="file">Файл</label>
+                        <a href="#" download class="form-control text-bold">Просмотреть
+                            файл</a>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <label for="to">Файл</label>
+                        <input type="text" class="form-control" id="to"
+                               value="Нет файл" disabled>
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>

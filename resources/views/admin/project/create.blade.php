@@ -30,7 +30,7 @@
                 </a>
             </div>
             <div class="card-body">
-                <form action="{{ route('project.store') }}" method="POST">
+                <form action="{{ route('project.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-4">
@@ -89,8 +89,17 @@
                                 <textarea name="comment" id="comment" class="form-control mt-3" tabindex="7" required>{{ old('comment') }}</textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="file">Файл</label>
+                                    <input tabindex="7" type="file"  name="file" class="form-control mt-3" id="file">
+                                </div>
+                            </div>
+                            <div class="col-6"></div>
+                        </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" class="btn btn-outline-primary" tabindex="7">Сохранить</button>
+                            <button type="submit" class="btn btn-outline-primary" tabindex="8">Сохранить</button>
                         </div>
                     </div>
                 </form>

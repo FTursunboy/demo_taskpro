@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+
+    <div class="card-header">
+        <a href="{{ route('profile.index') }}" class="btn btn-outline-danger">
+            Назад
+        </a>
+    </div>
+
     <div id="page-heading">
         <div class="page-title">
             <div class="row">
@@ -17,6 +24,13 @@
         <button type="button" class="btn btn-outline-primary mb-2 mt-2" data-bs-toggle="modal" data-bs-target="#changePassword">
             Изменить пароль
         </button>
+
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('profile.index') }}">Профиль - {{ $user->surname . ' ' . $user->name.' '. $user->lastname }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Обновление профиля</li>
+                </ol>
+            </nav>
         @include('inc.messages')
         <section class="section">
                     <div class="card">

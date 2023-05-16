@@ -5,22 +5,21 @@
 @endsection
 
 @section('content')
-    <div id="page-heading">
-        <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>{{ $user->surname .' '.$user->name.' '.$user->lastname }}</h3>
-                </div>
-            </div>
-        </div>
 
+    <div class="card-header">
+        <a href="{{ route('profile.index') }}" class="btn btn-outline-danger">
+            Назад
+        </a>
+    </div>
+    <div id="page-heading">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('profile.index') }}">Профиль - {{ $user->surname . ' ' . $user->name.' '. $user->lastname }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Просмотр профиля</li>
+            </ol>
         @include('inc.messages')
         <section class="section">
             <div class="card">
                 <div class="card-body">
-{{--                    <form action="{{ route('profile.update', auth()->id()) }}" method="POST" enctype="multipart/form-data">--}}
-{{--                        @csrf--}}
-{{--                        @method('PATCH')--}}
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
@@ -64,7 +63,6 @@
                                 <a href="{{ route('profile.edit', $user->id) }}"><button type="submit" tabindex="8" class="btn btn-outline-primary">Изменить</button></a>
                             </div>
                         </div>
-{{--                    </form>--}}
                 </div>
             </div>
         </section>

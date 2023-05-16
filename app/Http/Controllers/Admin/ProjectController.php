@@ -39,10 +39,16 @@ class ProjectController extends BaseController
     public function store(ProjectRequest $request)
     {
         $data = $request->validated();
-
-
+        if ($request->file('file') !== null) {
+            $file = $request->file('file')->store('public/project_docs');
+        } else {
+            $file = null;
+        }
         $project =  ProjectModel::create($data);
-
+        $project->update([
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
+        ]);
         HistoryController::project($project->id, Statuses::CREATE);
 
         return redirect()->route('project.index')->with('create', 'Проект успешно создан!');

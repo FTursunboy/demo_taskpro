@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="form-group">
-                                
+
                                 <label for="to">Дата окончания задачи  <span  id="project_finish" style="display: none; color: red">({{ date('d-m-Y', strtotime($project->finish)) }})</span> </label>
                                 <input disabled tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
@@ -119,9 +119,8 @@
                             <div class="form-group"  id="percent">
                                 <label id="label1" class="d-none" for="percent">Введите процент</label>
                             </div>
-
-
                         </div>
+
                         <div class="form-group">
                             <label for="comment">Комментария</label>
                             <textarea tabindex="10" name="comment" id="comment"
@@ -284,7 +283,7 @@
         $('#file').on('change', function () {
             const file = this.files[0]; // выбранный файл
             const fileSizeInBytes = file.size; // размер файла в байтах
-            const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024); // размер файла в мегабайтах
+            const fileSizeInMegabytes = fileSizeInBytes / (1024 * 100024); // размер файла в мегабайтах
             if (fileSizeInMegabytes > 50) { // проверка на максимальный размер файла в мегабайтах
                 alert('Выбранный файл слишком большой. Максимальный размер файла - 50 МБ');
                 $(this).val('');
