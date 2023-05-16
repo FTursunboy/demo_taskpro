@@ -104,7 +104,7 @@
 
                             <div class="form-group d-none" id="type_id_group">
                                 <label for="kpi_id">Вид KPI</label>
-                                <select required name="kpi_id" id="kpi_id" class="form-select mt-3"></select>
+                                <select name="kpi_id" id="kpi_id" class="form-select mt-3"></select>
                             </div>
                             <div class="form-group d-none" style="margin-top: 27px" id="percent">
                                 <label for="percent">Введите процент</label>
