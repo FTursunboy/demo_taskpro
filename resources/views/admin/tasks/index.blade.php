@@ -256,8 +256,6 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                @switch($task->status->name)
-                                                    @case($task->status->name === "Ожидается")
                                                     <div class="col-4">
                                                         <a href="{{ route('tasks.show', $task->id) }}"
                                                            class="btn btn-outline-success w-100">
@@ -266,7 +264,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100">
+                                                        <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-outline-primary w-100">
                                                             <i class="bi bi-pencil mx-2"></i>
                                                             Изменить
                                                         </a>
@@ -279,151 +277,6 @@
                                                             Удалить
                                                         </button>
                                                     </div>
-                                                    @break
-                                                    @case($task->status->name === "Принято")
-                                                    <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}"
-                                                           class="btn btn-outline-success w-100">
-                                                            <i class="bi bi-eye mx-2"></i>
-                                                            Просмотреть
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
-                                                            <i class="bi bi-pencil mx-2"></i>
-                                                            Изменить
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <button type="button"
-                                                                class="btn btn-outline-danger w-100 disabled"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{$task->id}}">
-                                                            <i class="bi bi-trash mx-2"></i>
-                                                            Удалить
-                                                        </button>
-                                                    </div>
-                                                    @break
-                                                    @case($task->status->name === "Отклонено")
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-info w-100">
-                                                            <i class="bi bi-eye mx-2"></i>
-                                                            Отправить занова
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100">
-                                                            <i class="bi bi-pencil mx-2"></i>
-                                                            Отправить в другой сотрудник
-                                                        </a>
-                                                    </div>
-                                                    <co class="col-4">
-                                                        <button type="button" class="btn btn-outline-danger w-100"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{$task->id}}">
-                                                            <i class="bi bi-trash mx-2"></i>
-                                                            Удалить
-                                                        </button>
-                                                    </co>
-                                                    @break
-                                                    @case($task->status->name === "В процессе")
-                                                    <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}"
-                                                           class="btn btn-outline-success w-100">
-                                                            <i class="bi bi-eye mx-2"></i>
-                                                            Просмотреть
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
-                                                            <i class="bi bi-pencil mx-2"></i>
-                                                            Изменить
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <button type="button"
-                                                                class="btn btn-outline-danger w-100 disabled"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{$task->id}}">
-                                                            <i class="bi bi-trash mx-2"></i>
-                                                            Удалить
-                                                        </button>
-                                                    </div>
-                                                    @break
-                                                    @case($task->status->name === "Готов")
-                                                    <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}"
-                                                           class="btn btn-outline-success w-100">
-                                                            <i class="bi bi-eye mx-2"></i>
-                                                            Просмотреть
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
-                                                            <i class="bi bi-pencil mx-2"></i>
-                                                            Изменить
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <button type="button"
-                                                                class="btn btn-outline-danger w-100 disabled"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{$task->id}}">
-                                                            <i class="bi bi-trash mx-2"></i>
-                                                            Удалить
-                                                        </button>
-                                                    </div>
-                                                    @break
-                                                    @case($task->status->name === "На проверку")
-                                                    <div class="col-4">
-                                                        <form action="{{ route('tasks.ready', $task) }}" class="w-100"
-                                                              method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-outline-info w-100">
-                                                                Проверте задачу
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
-                                                            <i class="bi bi-pencil mx-2"></i>
-                                                            Изменить
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <button type="button" class="btn btn-outline-danger w-100"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{$task->id}}">
-                                                            <i class="bi bi-trash mx-2"></i>
-                                                            Удалить
-                                                        </button>
-                                                    </div>
-                                                    @break
-                                                    @case($task->status->name === "Просроченный")
-                                                    <div class="col-4">
-                                                        <a href="{{ route('tasks.show', $task->id) }}"
-                                                           class="btn btn-outline-success w-100">
-                                                            <i class="bi bi-eye mx-2"></i>
-                                                            Просмотреть
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a href="" class="btn btn-outline-primary w-100 disabled">
-                                                            <i class="bi bi-pencil mx-2"></i>
-                                                            Изменить
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <button type="button"
-                                                                class="btn btn-outline-danger w-100 disabled"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#delete{{$task->id}}">
-                                                            <i class="bi bi-trash mx-2"></i>
-                                                            Удалить
-                                                        </button>
-                                                    </div>
-                                                    @break
-                                                @endswitch
                                             </div>
                                         </div>
 
