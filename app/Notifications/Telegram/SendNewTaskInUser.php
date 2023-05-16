@@ -19,7 +19,7 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
      */
     public int $taskID;
     public string $taskName = '';
-    public int $taskTime;
+    public ?int $taskTime ;
     public string $taskFrom = '';
     public string $taskTo = '';
     public string $taskDeadline = '';

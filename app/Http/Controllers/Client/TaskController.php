@@ -88,7 +88,7 @@ class TaskController extends Controller
 
 
         $mail = new MailController();
-     ///   $mail->send(EmailModel::first()->email);
+       // $mail->send(EmailModel::first()->email);
 
         $user = User::role('admin')->first();
 

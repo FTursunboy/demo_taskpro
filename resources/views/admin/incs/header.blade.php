@@ -1,7 +1,7 @@
 <style>
     .highlight-icon {
         color: red; /* Цвет иконки */
-        background-color: yellow; /* Фон иконки */
+
         padding: 5px; /* Отступы вокруг иконки */
         border-radius: 50%; /* Задание круглой формы */
     }
@@ -27,7 +27,7 @@
                         <a class="nav-link active dropdown-toggle text-gray-600" href="#"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            @if(count($offers) > 0)
+                            @if(count($notifications) > 0)
                             <i class="bi bi-envelope-exclamation fs-4 highlight-icon"></i>
                             @else
                             <i class='bi bi-envelope bi-sub fs-4'></i>
@@ -38,8 +38,8 @@
                                 <h6 class="dropdown-header">Задачи</h6>
                             </li>
 
-                            @foreach($offers as $offer)
-                            <li><a class="dropdown-item" href="{{route('notification', $offer->id)}}">{{$offer->id}}</a></li>
+                            @foreach($notifications as $offer)
+                            <li><a class="dropdown-item" href="{{route('notification', $offer->id)}}">{{$offer->offer?->name}}</a></li>
                             @endforeach
                         </ul>
                     </li>

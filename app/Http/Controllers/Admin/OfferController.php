@@ -49,7 +49,7 @@ class OfferController extends BaseController
                 'user_id' => 'required',
                 'from' => 'required',
                 'to' => 'required',
-                'time' => 'required',
+                'time' => '',
             ]);
 
             $offer->update([

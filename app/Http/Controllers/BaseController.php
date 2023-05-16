@@ -10,8 +10,8 @@ class BaseController extends Controller
 {
         public function __construct()
         {
-            $offers = ClientNotification::get();
+            $notifications = ClientNotification::get();
 
-            return view()->share('offers', $offers);
+            return view()->share('notifications', $notifications);
         }
 }
