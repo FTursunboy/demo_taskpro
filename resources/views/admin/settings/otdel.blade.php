@@ -45,15 +45,15 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$depart->name}}</td>
                                         <td>
-                                            <a class="badge badge-primary p-2 text-primary"
+                                            <a class="badge bg-success p-2 text-white"
                                                href="{{route('settings.kpi', $depart->id)}}"><i
-                                                    class="nav-icon bi bi-eye"></i></a>
-                                            <a class="badge badge-primary p-2 text-success" href="#"
+                                                    class=" bi bi-eye"></i></a>
+                                            <a class="badge bg-primary p-2 text-white" href="#"
                                                data-bs-toggle="modal" data-bs-target="#update{{ $depart->id }}"><i
-                                                    class="nav-icon bi bi-pencil"></i></a>
-                                            <a class="badge badge-danger p-2 text-danger" href="#"
+                                                    class=" bi bi-pencil"></i></a>
+                                            <a class="badge bg-danger p-2 text-white" href="#"
                                                data-bs-toggle="modal" data-bs-target="#delete{{ $depart->id }}"><i
-                                                    class="nav-icon bi bi-trash"></i></a>
+                                                    class=" bi bi-trash"></i></a>
                                         </td>
                                     </tr>
 

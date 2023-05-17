@@ -46,7 +46,9 @@
 
                             <div class="form-group">
                                 <label for="user_id">Кому это задача</label>
+
                                 <select tabindex="4" id="user_id" name="user_id" class="form-select mt-3">
+
                                     <option value="" selected>Выберите сотрудник</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -74,6 +76,7 @@
 
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
+
                                 <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
                                     <option value="" selected>Выберите проект</option>
                                     @foreach($projects as $project)
@@ -98,13 +101,16 @@
 
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
+
                                 <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3">
                                     <option value="" tabindex="3" selected>Выберите тип</option>
+
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
 
                             <div class="form-group" id="type_id_group">
                                 <label id="label" class="d-none" for="kpi_id">Вид KPI</label>
