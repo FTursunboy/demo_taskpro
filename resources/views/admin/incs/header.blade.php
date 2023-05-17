@@ -33,7 +33,6 @@
                             <li>
                                 <h6 class="dropdown-header">Задачи</h6>
                             </li>
-
                             @foreach($notifications as $offer)
                             <li><a class="dropdown-item" href="{{route('notification', $offer->id)}}">{{$offer->offer?->name}}</a></li>
                             @endforeach
