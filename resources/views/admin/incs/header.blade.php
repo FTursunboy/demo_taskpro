@@ -27,7 +27,7 @@
                         <a class="nav-link active dropdown-toggle text-gray-600" href="#"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="bi bi-envelope{{ (count($notifications) > 0) ? ' -exclamation' : '' }} fs-4 {{ (count($notifications) > 0) ? 'highlight-icon' : '' }}"></i>
+                            <i class="bi bi-envelope{{ (count($notifications) > 0) ? '-exclamation' : '' }} fs-4 {{ (count($notifications) > 0) ? 'highlight-icon' : '' }}"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
