@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\EmployeeRequest;
 use App\Http\Requests\Admin\UpdateClientRequest;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectModel;
+use App\Models\Client\Offer;
 use App\Models\ProjectClient;
 
 use App\Models\User;
@@ -56,7 +57,9 @@ class ClientController extends BaseController
     public function show(User $user)
     {
         $tasks = $user->tasksSuccess($user->id);
-        return view('admin.offers.clients.show', compact('user', 'tasks'));
+        $offers = Offer::where('client_id', $user->id)->get();
+
+        return view('admin.offers.clients.show', compact('user', 'tasks', 'offers'));
     }
 
     public function edit(User $user)
