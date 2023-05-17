@@ -24,27 +24,29 @@ $(document).ready(function () {
     });
 
     function ajaxResult(url, status_id, user_id, client_id, project_id) {
-        // table.empty()
+        table.empty()
         $.get(`tasks/public/${url}/${status_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
             .then((res) => {
                 if (res.status !== false) {
-                    // for (let i = 0; i < res.length; i++) {
-                    //     let item = res[i];
-                    //     table.append($('<tr>')
-                    //         .append($('<td>').text(formatDate(item.created_at)))
-                    //         .append($('<td>').text(item.name))
-                    //         .append($('<td>').text(item.time))
-                    //         .append($('<td>').text(formatDate(item.from)))
-                    //         .append($('<td>').text(formatDate(item.to)))
-                    //         .append($('<td>').text(item.project))
-                    //         .append($('<td>').text(item.author))
-                    //         .append($('<td>').text((item.type === '') ? 'От клиента' : item.type))
-                    //         .append($('<td>').text(item.sts))
-                    //         .append($('<td>')
-                    //             .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
-                    //             .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
-                    //         ).addClass('text-center'))
-                    // }
+                    for (let i = 0; i < res.length; i++) {
+                        let item = res[i];
+                        console.log(item)
+                        table.append($('<tr>')
+                            .append($('<td>').text(formatDate(item.created_at)))
+                            .append($('<td>').text(item.name))
+                            .append($('<td>').text(item.time))
+                            .append($('<td>').text(formatDate(item.from)))
+                            .append($('<td>').text(formatDate(item.to)))
+                            .append($('<td>').text(item.project.name))
+                            .append($('<td>').text(item.author.surname + ' ' + item.author.name))
+                            .append($('<td>').text(((item.type === '') ? 'От клиента' : item.type.name) + ' ' + ((item.type_type !== null) ? ' - ' + item.type_type.name : '')))
+                            .append($('<td>').text(item.status.name))
+                            .append($('<td>')
+                                .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
+                                .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
+                            ).addClass('text-center'))
+                    }
+
                 }
 
             });
