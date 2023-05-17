@@ -41,7 +41,7 @@
                                     class="bi bi-info-circle mx-2"></i> <span>{{ $task->name }}</span> </span>
                         </button>
                     </p>
-                    <div class="collapse my-3" id="collapseExample{{ $task->id }}">
+                    <div class="collapse my-3 show" id="collapseExample{{ $task->id }}">
                         <div class="row p-3">
                             <div class="col-4">
                                 <div class="form-group">

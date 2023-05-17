@@ -2,36 +2,36 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Имя</th>
-            <th>Время</th>
-            <th>От</th>
-            <th>До</th>
-            <th>Проект</th>
-            <th>Автор</th>
-            <th>Тип</th>
-            <th>Статус</th>
+            <th class="text-center">#</th>
+            <th class="text-center">Имя</th>
+            <th class="text-center">Время</th>
+            <th class="text-center">От</th>
+            <th class="text-center">До</th>
+            <th class="text-center">Проект</th>
+            <th class="text-center">Автор</th>
+            <th class="text-center">Тип</th>
+            <th class="text-center">Статус</th>
             <th class="text-center">Действия</th>
         </tr>
         </thead>
         <tbody id="tableBodyMonitoring">
         @foreach($tasks as $task)
             <tr>
-                <td>{{ $task->created_at->format('d-m-Y') }}</td>
-                <td>{{ $task->name }}</td>
-                <td>{{ $task->time }}</td>
-                <td>{{ date('d-m-Y', strtotime($task->from))  }}</td>
-                <td>{{ date('d-m-Y', strtotime($task->to))  }}</td>
-                <td>{{ $task->project->name  }}</td>
-                <td>{{ $task->author->name  }}</td>
-                <td>
+                <td class="text-center">{{ $task->created_at->format('d-m-Y') }}</td>
+                <td class="text-center">{{ $task->name }}</td>
+                <td class="text-center">{{ $task->time }}</td>
+                <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
+                <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
+                <td class="text-center">{{ $task->project->name  }}</td>
+                <td class="text-center">{{ $task->author->name  }}</td>
+                <td class="text-center">
                     @if($task->type === null)
                         От клиента
                     @elseif($task->type !== null)
                         {{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? ' - '.$task->typeType?->name : '' }}
                     @endif
                 </td>
-                <td>{{ $task->status->name}}</td>
+                <td class="text-center">{{ $task->status->name}}</td>
                 <td class="text-center">
                     <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                     <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
