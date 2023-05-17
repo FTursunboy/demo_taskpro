@@ -140,15 +140,12 @@
 
                     </div>
 
-                    <div class="row">
-                        @if($task->file !== null)
-                            <div class="col-md-6">
-                                <a style="margin-left: 0px" download
-                                   href="{{route('tasks.download', $task->id)}}">Просмотреть
-                                    файл</a>
-                            </div>
-                        @endif
-                        <div class="col-6"></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Выберите файл</label>
+                        <input type="file"
+                               class="form-control"
+                               name="file">
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <input type="submit" class="btn btn-outline-primary" value="Обновить">

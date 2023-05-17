@@ -28,16 +28,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <span><i class="bi bi-circle-fill text-warning mx-2"></i>Ожидается</span>
-                        <span><i class="bi bi-circle-fill text-success mx-2"></i>Принято</span>
-                        <span><i class="bi bi-circle-fill text-danger mx-2"></i>Отклонено</span>
-                        <span><i class="bi bi-circle-fill text-primary mx-2"></i>В процессе</span>
-                        <span><i class="bi bi-circle-fill text-info mx-2"></i>Просроченный</span>
-                        <span><i class="bi bi-circle-fill text-secondary mx-2"></i>На проверку</span>
-                        <span><i class="bi bi-circle-fill mx-2" style="color: #00ff80"></i>Готов</span>
-
-                    </div>
+                    <div class="card-header"></div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-3">
@@ -145,7 +136,7 @@
                                                             @case($task->status->id === 3)
                                                             <div class="form-group">
                                                                 <input type="text"
-                                                                       class="form-control  bg-danger text-white"
+                                                                       class="form-control  bg-success text-white"
                                                                        id="sts" value="{{ $task->status->name }}"
                                                                        disabled>
                                                             </div>
@@ -160,9 +151,9 @@
                                                             @break
                                                             @case($task->status->id === 5)
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control text-black" id="sts"
+                                                                <input type="text" class="form-control text-white" id="sts"
                                                                        value="{{ $task->status->name }}" disabled
-                                                                       style="background-color: #00ff80">
+                                                                       style="background-color: #fc0404">
                                                             </div>
                                                             @break
                                                             @case($task->status->id === 6)
@@ -260,15 +251,44 @@
                                                         <a href="{{ route('tasks.show', $task->id) }}"
                                                            class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2"></i>
-                                                            Просмотреть
+                                                            @if($task->status->id === 6 || $task->status->id === 10 || $task->status->id === 14)
+                                                                Проверить задачу
+                                                            @else
+                                                                Просмотреть
+                                                            @endif
                                                         </a>
                                                     </div>
+                                                    @if($task->status->id === 5)
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn btn-outline-primary w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editRight{{$task->id}}">
+                                                            <i class="bi bi-pencil"></i>
+                                                            Изменить
+                                                        </button>
+                                                    </div>
+                                                    @elseif(
+                                                        $task->status->id === 3 ||
+                                                        $task->status->id === 6 ||
+                                                        $task->status->id === 10 ||
+                                                        $task->status->id === 14
+                                                    )
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn btn-outline-primary w-100"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editWrong{{$task->id}}">
+                                                            <i class="bi bi-pencil"></i>
+                                                            Изменить
+                                                        </button>
+                                                    </div>
+                                                    @else
                                                     <div class="col-4">
                                                         <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-outline-primary w-100">
-                                                            <i class="bi bi-pencil mx-2"></i>
+                                                            <i class="bi bi-pencil"></i>
                                                             Изменить
                                                         </a>
                                                     </div>
+                                                    @endif
                                                     <div class="col-4">
                                                         <button type="button" class="btn btn-outline-danger w-100"
                                                                 data-bs-toggle="modal"
@@ -287,7 +307,7 @@
                                                 <div class="modal-content">
                                                     <form action="{{ route('tasks.delete', $task->id) }}" method="POST">
                                                         @csrf
-                                                        @method('DELETE')
+                                                        @method('PATCH')
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="delete{{$task->id}}">
                                                                 Предупреждение</h1>
@@ -308,6 +328,71 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="modal fade" id="editWrong{{$task->id}}" data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="editWrong{{$task->id}}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="editWrong{{$task->id}}">
+                                                                Предупреждение</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="col-5">
+                                                                Вы не можете изменить это задание!
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Закрыть
+                                                            </button>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="editRight{{$task->id}}" data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="editRight{{$task->id}}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <form action="{{route('tasks.sendBack', $task->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="editRight{{$task->id}}">
+                                                                Предупреждение</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div>
+                                                                <div class="form-group">
+                                                                    <label for="user">Сотрудник</label>
+                                                                    <select name="user_id" id="user_id" class="form-select">
+                                                                        @foreach($users as $user)
+                                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success"
+                                                                    >Перенаправить
+                                                            </button>
+                                                            <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-primary">
+                                                                Изменить
+                                                            </a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     @endforeach
                                 </div>
                             </div>
