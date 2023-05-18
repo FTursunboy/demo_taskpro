@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\StatusesModel;
+use App\Models\Admin\TaskModel;
 use App\Models\Admin\TasksClient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class TasksClientController extends BaseController
 
         return view('admin.tasks_client.index', compact('tasks'));
     }
+
     public function create()
     {
         $clients = User::role('client')->get();
@@ -41,7 +43,7 @@ class TasksClientController extends BaseController
             'file' => $file ?? null,
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'status_id' => 1,
-            'client_id' =>$request->client_id,
+            'client_id' => $request->client_id,
             'cancel' => $request->cancel ?? null,
         ]);
 
@@ -59,6 +61,14 @@ class TasksClientController extends BaseController
         return view('admin.tasks_client.edit', compact('task', 'clients'));
     }
 
+    public function editJs($id)
+    {
+        $clients = User::role('client')->get();
+        $task = TaskModel::where('id', $id)->first();
+        return view('admin.tasks_client.edit', compact('task', 'clients'));
+    }
+
+
     public function update(Request $request, TasksClient $task)
     {
         if ($request->file('file') !== null) {
@@ -74,7 +84,7 @@ class TasksClientController extends BaseController
             'file' => $file ?? null,
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'status_id' => 1,
-            'client_id' =>$request->client_id,
+            'client_id' => $request->client_id,
             'cancel' => $request->cancel ?? null,
         ]);
 

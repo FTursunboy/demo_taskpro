@@ -43,7 +43,7 @@ $(document).ready(function () {
                             .append($('<td>').text(item.status.name))
                             .append($('<td>')
                                 .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
-                                .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
+                                .append($('<a>').attr('href', `/tasks_client/edit-js/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
                             ).addClass('text-center'))
                     }
 
