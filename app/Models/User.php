@@ -189,4 +189,10 @@ class User extends Authenticatable
         return $this->belongsToMany(ProjectModel::class);
     }
 
+
+    public function all_offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
 }

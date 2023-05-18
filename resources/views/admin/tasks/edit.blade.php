@@ -149,6 +149,12 @@
                             </div>
                         @endif
                         <div class="col-6"></div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Выберите файл</label>
+                        <input type="file"
+                               class="form-control"
+                               name="file">
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <input type="submit" class="btn btn-outline-primary" tabindex="12" value="Обновить">

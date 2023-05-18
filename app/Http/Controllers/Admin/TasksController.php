@@ -26,8 +26,9 @@ class TasksController extends BaseController
 {
     public function index()
     {
+        $users = User::role('user')->get();
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
-        return view('admin.tasks.index', compact('tasks'));
+        return view('admin.tasks.index', compact('tasks', 'users'));
     }
 
     public function create()
@@ -42,7 +43,11 @@ class TasksController extends BaseController
 
     public function show(TaskModel $task)
     {
-        $messages = MessagesModel::where('task_slug', $task->id)->orWhere([['user_id', Auth::id()], ['sender_id', Auth::id()]])->get();
+        $messages = MessagesModel::where('task_slug', $task->slug)
+            ->orWhere([
+                ['user_id', Auth::id()],
+                ['sender_id', Auth::id()]
+            ])->get();
         return view('admin.tasks.show', compact('task', 'messages'));
     }
 
@@ -63,6 +68,10 @@ class TasksController extends BaseController
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'file' => 'nullable|file|max:100',
+        ]);
 
         if ($request->file('file') !== null) {
             $file = $request->file('file')->store('public/docs');
@@ -138,7 +147,6 @@ class TasksController extends BaseController
         }
 
 
-
         $task->update([
             'name' => $request->name,
             'time' => $request->time,
@@ -181,6 +189,15 @@ class TasksController extends BaseController
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
         return redirect()->route('tasks.index')->with('update', 'Задача успешно создана');
+    }
+
+    public function sendBack(Request $request, TaskModel $task)
+    {
+        $task->update([
+            'user_id' => $request->user_id,
+        ]);
+
+        return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
     }
 
     public function ready(TaskModel $task)

@@ -15,16 +15,14 @@ class MessagesController extends BaseController
 {
     public function message(Request $request, TaskModel $task)
     {
-            $user_id = User::role('admin')->first();
+        $user_id = User::role('admin')->first();
 
-           MessagesModel::create([
-                'task_slug' => $task->slug,
-                'sender_id' => Auth::id(),
-               'user_id' => $task->offer_id !== null ? $task->client_id : $user_id,
-                'message' => $request->message
-            ]);
-
-
+        MessagesModel::create([
+            'task_slug' => $task->slug,
+            'sender_id' => Auth::id(),
+            'user_id' => ($task->offer_id !== null) ? $task->client_id : $user_id->id,
+            'message' => $request->message
+        ]);
 
         return back();
     }

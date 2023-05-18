@@ -62,6 +62,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::delete('/tasks/delete/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'destroy'])->name('delete');
         Route::get('/tasks/download/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'downloadFile'])->name('download');
         Route::patch('/tasks/update/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'update'])->name('update');
+        Route::patch('/tasks/sendBack/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'sendBack'])->name('sendBack');
         Route::get('/tasks/edit/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'edit'])->name('edit');
         Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');

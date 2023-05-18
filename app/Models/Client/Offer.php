@@ -20,5 +20,10 @@ class Offer extends Model
     public function status(){
         return $this->belongsTo(StatusesModel::class);
     }
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
 
 }
