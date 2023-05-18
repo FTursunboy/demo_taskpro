@@ -307,7 +307,7 @@
                                                 <div class="modal-content">
                                                     <form action="{{ route('tasks.delete', $task->id) }}" method="POST">
                                                         @csrf
-                                                        @method('PATCH')
+                                                        @method('DELETE')
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="delete{{$task->id}}">
                                                                 Предупреждение</h1>
@@ -359,7 +359,7 @@
                                              aria-labelledby="editRight{{$task->id}}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
-                                                    <form action="{{route('tasks.sendBack', $task->id)}}" method="POST">
+                                                    <form action="{{route('tasks.sendBack', $task->id,)}}" method="POST">
                                                         @csrf
                                                         @method('PATCH')
                                                         <div class="modal-header">
@@ -374,7 +374,7 @@
                                                                     <label for="user">Сотрудник</label>
                                                                     <select name="user_id" id="user_id" class="form-select">
                                                                         @foreach($users as $user)
-                                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                                            <option value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>

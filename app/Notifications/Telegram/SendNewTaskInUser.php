@@ -23,7 +23,7 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
     public string $taskFrom = '';
     public string $taskTo = '';
     public string $taskDeadline = '';
-    public string $tasktype = '';
+    public ?string $tasktype = '';
 
     public function __construct($id, $name, $time, $from, $to, $deadline, $type)
     {
