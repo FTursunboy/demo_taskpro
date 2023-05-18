@@ -89,7 +89,7 @@
 
                             <div class="form-group">
 
-                                <label for="to">Дата окончания задачи  <span  id="project_finish" style="display: none; color: red">({{ date('d-m-Y', strtotime($project->finish)) }})</span> </label>
+                                <label for="to">Дата окончания задачи  <span  id="project_finish" style="color: red"></span> </label>
                                 <input disabled tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
 
@@ -157,8 +157,29 @@
             const to = $('#to')
             if ($(this).val() > to.val()) {
 
+
+
+                let selectedOption = $('#project_id option:selected');
+                let selectedClass = selectedOption.attr('class');
+
+                let selectedDate = new Date(selectedClass);
+                let toDate = new Date($(this).val());
+
+                if (toDate > selectedDate) {
+                    $('#error-message').show();
+                    $(this).addClass('border-danger')
+
+
+                    let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                    $(this).val(formattedDate)
+                }
+
                 to.addClass('border-danger')
                 $('#button').attr('type', 'button');
+
+
+
 
             } else {
                 $(this).removeClass('border-danger')
@@ -278,7 +299,11 @@
             $('#from').removeAttr('disabled');
             $('#to').removeAttr('disabled');
 
-            $('#project_finish').show();
+            let selectedOption = $('#project_id option:selected');
+            let selectedClass = selectedOption.attr('class');
+            console.log(selectedClass)
+            $('#project_finish').text(selectedClass);
+
         });
 
         $('#file').on('change', function () {
