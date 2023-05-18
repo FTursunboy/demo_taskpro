@@ -33,7 +33,7 @@ class ProfileController extends BaseController
 
         $data = $request->validated();
         if ($request->file('avatar') !== null) {
-            $file = $request->file('avatar')->store('public/user_img/');
+            $file = $request->file('avatar')->store('user_img/');
         } else {
             $file = null;
         }
