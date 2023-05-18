@@ -37,13 +37,13 @@
 
                             <div class="form-group">
                                 <label for="name">Имя проекта</label>
-                                <input type="text" id="name" name="name" class="form-control mt-3"
+                                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
                                        placeholder="Имя проекта" value="{{ old('name') }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="start">Дата начала проекта</label>
-                                <input type="date" id="start" name="start" class="form-control mt-3" value="{{ old('start') }}" required>
+                                <input type="date" id="start" name="start" class="form-control mt-3" tabindex="4" value="{{ old('start') }}" required>
                             </div>
 
                         </div>
@@ -51,14 +51,14 @@
 
                             <div class="form-group">
                                 <label for="time">Время</label>
-                                <input type="number" id="time" name="time" class="form-control mt-3" value="{{ old('time') }}" placeholder="Время"
+                                <input type="number" id="time" name="time" class="form-control mt-3" tabindex="2" value="{{ old('time') }}" placeholder="Время"
                                        required>
                             </div>
 
 
                             <div class="form-group">
                                 <label for="finish">Дата окончания проекта</label>
-                                <input type="date" id="finish" name="finish" class="form-control mt-3" value="{{ old('finish') }}" required>
+                                <input type="date" id="finish" name="finish" class="form-control mt-3" tabindex="5" value="{{ old('finish') }}" required>
                             </div>
 
                         </div>
@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <select id="type" name="type_id" class="form-select mt-3" required>
+                                <select id="type" name="type_id" tabindex="3" class="form-select mt-3" required>
                                     <option value="" selected>Выберите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <select id="type" name="types_id" class="form-select mt-3" required>
+                                <select id="type" name="types_id" tabindex="6" class="form-select mt-3" required>
                                     <option value="" selected>Выберите тип проекта</option>
                                     @foreach($typesOf as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -86,11 +86,11 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
-                                <textarea name="comment" id="comment" class="form-control mt-3" required>{{ old('comment') }}</textarea>
+                                <textarea name="comment" id="comment" class="form-control mt-3" tabindex="7" required>{{ old('comment') }}</textarea>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                            <button type="submit" class="btn btn-outline-primary" tabindex="7">Сохранить</button>
                         </div>
                     </div>
                 </form>
