@@ -43,7 +43,11 @@ class TasksController extends BaseController
 
     public function show(TaskModel $task)
     {
-        $messages = MessagesModel::where('task_slug', $task->id)->orWhere([['user_id', Auth::id()], ['sender_id', Auth::id()]])->get();
+        $messages = MessagesModel::where('task_slug', $task->slug)
+            ->orWhere([
+                ['user_id', Auth::id()],
+                ['sender_id', Auth::id()]
+            ])->get();
         return view('admin.tasks.show', compact('task', 'messages'));
     }
 
