@@ -207,7 +207,7 @@
                         <section class="section">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="{{ route('user_profile.update.a', $user->id) }}" method="POST">
+                                    <form action="{{ route('user_profile.update.a', $user->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PATCH')
                                         <div class="row">
@@ -270,7 +270,7 @@
                                                     <label for="file">Изображение</label>
                                                     <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="d-flex justify-content-end mt-3">
                                                 <button type="submit" tabindex="11" class="btn btn-outline-primary">Изменить</button>
@@ -323,8 +323,11 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-center mb-3">
-                                <img src="{{ asset('assets/images/avatar-2.png') }}" alt="" width="100"
-                                     height="100">
+                                @if(isset($user->avatar))
+                                    <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" alt="" width="100" height="100">
+                                @else
+                                    <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
+                                @endif
                             </div>
 
                             @switch($user->xp)
@@ -407,4 +410,29 @@
             </div>
         </section>
     </div>
+
+    <style>
+        #avatar{
+            width: 100px;
+            transition: width 0.3s;
+            cursor: pointer;
+        }
+
+        #avatar.large{
+            width: 28%;
+            height: 72%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+    </style>
+
+    <script>
+        function img(){
+            var img = document.getElementById("avatar");
+            img.classList.toggle("large")
+        }
+    </script>
 @endsection
