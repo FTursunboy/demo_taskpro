@@ -88,8 +88,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="to">Дата окончании задачи</label>
-                                <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
+                                
                                 <label for="to">Дата окончания задачи  <span  id="project_finish" style="display: none; color: red">({{ date('d-m-Y', strtotime($project->finish)) }})</span> </label>
                                 <input disabled tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
@@ -157,7 +156,7 @@
         $('#from').change(function () {
             const to = $('#to')
             if ($(this).val() > to.val()) {
-                
+
                 to.addClass('border-danger')
                 $('#button').attr('type', 'button');
 
