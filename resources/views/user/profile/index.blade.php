@@ -214,20 +214,20 @@
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="name">Имя <span class="text-danger">*</span></label>
-                                                    <input type="text" id="name" name="name" class="form-control mt-3"
+                                                    <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
                                                            value="{{ $user->name }}" required>
                                                 </div>
 
 
                                                 <div class="form-group">
                                                     <label for="login">Логин<span class="text-danger">*</span></label>
-                                                    <input type="text" id="login" name="login" class="form-control mt-3"
+                                                    <input type="text" id="login" name="login" tabindex="4" class="form-control mt-3"
                                                            value="{{ $user->login }}" disabled>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="otdel_id">Отдел<span class="text-danger">*</span></label>
-                                                    <select id="otdel_id" name="otdel_id" class="form-select mt-3" required disabled>
+                                                    <select id="otdel_id" name="otdel_id" tabindex="7" class="form-select mt-3" required disabled>
                                                         @foreach($departs as $depart)
                                                             <option value="{{ $depart->id }}" {{ ($depart->id === $user->otdel_id) ? 'selected' : '' }}>{{ $depart->name }}</option>
                                                         @endforeach
@@ -238,37 +238,42 @@
 
                                                 <div class="form-group">
                                                     <label for="surname">Фамилия<span class="text-danger">*</span></label>
-                                                    <input type="text" id="surname" name="surname" class="form-control mt-3" value="{{ $user->surname }}"
+                                                    <input type="text" id="surname" name="surname" tabindex="2" class="form-control mt-3" value="{{ $user->surname }}"
                                                            required>
                                                 </div>
 
 
                                                 <div class="form-group">
                                                     <label for="phone">Телефон<span class="text-danger">*</span></label>
-                                                    <input type="text" id="phone" name="phone" class="form-control mt-3" value="{{ $user->phone }}" required>
+                                                    <input type="text" id="phone" name="phone" tabindex="5" class="form-control mt-3" value="{{ $user->phone }}" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="telegram_id">Телеграм ID<span class="text-danger">*</span></label>
-                                                    <input type="number" id="telegram_id" name="telegram_user_id" class="form-control mt-3" value="{{ $user->telegram_user_id }}" disabled>
+                                                    <input type="number" id="telegram_id" name="telegram_user_id" tabindex="8" class="form-control mt-3" value="{{ $user->telegram_user_id }}" disabled>
                                                 </div>
 
                                             </div>
                                             <div class="col-4">
                                                 <div class="form-group">
                                                     <label for="lastname">Отчество<span class="text-danger">*</span></label>
-                                                    <input type="text" id="lastname" name="lastname" class="form-control mt-3" value="{{ $user->lastname }}" required>
+                                                    <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
                                                 </div>
 
 
                                                 <div class="form-group">
                                                     <label for="position">Должность<span class="text-danger">*</span></label>
-                                                    <input type="text" id="position" name="position" class="form-control mt-3" value="{{ $user->position }}" disabled>
+                                                    <input type="text" id="position" name="position" tabindex="6" class="form-control mt-3" value="{{ $user->position }}" disabled>
                                                 </div>
 
+                                                <div class="form-group">
+                                                    <label for="file">Изображение</label>
+                                                    <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
+                                                </div>
+                                                
                                             </div>
                                             <div class="d-flex justify-content-end mt-3">
-                                                <button type="submit" class="btn btn-outline-primary">Изменить</button>
+                                                <button type="submit" tabindex="11" class="btn btn-outline-primary">Изменить</button>
                                             </div>
                                         </div>
                                     </form>
