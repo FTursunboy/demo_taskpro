@@ -58,7 +58,7 @@
 
                             <div class="form-group">
                                 <label for="from">Дата начала задачи</label>
-                                <input tabindex="7" type="date" id="from" name="from" class="form-control mt-3"
+                                <input disabled tabindex="7" type="date" id="from" name="from" class="form-control mt-3"
                                        value="{{ old('from') }}" required>
                             </div>
 
@@ -91,7 +91,7 @@
                                 <label for="to">Дата окончании задачи</label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                 <label for="to">Дата окончания задачи  <span  id="project_finish" style="display: none; color: red">({{ date('d-m-Y', strtotime($project->finish)) }})</span> </label>
-                                <input tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
+                                <input disabled tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
 
                                   </div>
@@ -141,7 +141,7 @@
                         <div class="col-6"></div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <button tabindex="12" type="submit" class="btn btn-outline-primary">Сохранить</button>
+                        <button tabindex="12" type="button" id="button" class="btn btn-outline-primary">Сохранить</button>
                     </div>
                 </form>
             </div>
@@ -153,14 +153,33 @@
 @section('script')
     <script>
 
+
+        $('#from').change(function () {
+            const to = $('#to')
+            if ($(this).val() > to.val()) {
+                
+                to.addClass('border-danger')
+                $('#button').attr('type', 'button');
+
+            } else {
+                $(this).removeClass('border-danger')
+                to.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
+            }
+        })
+
+
         $('#to').change(function () {
             const from = $('#from')
             if ($(this).val() < from.val()) {
                 $(this).addClass('border-danger')
                 from.addClass('border-danger')
+                $('#button').attr('type', 'button');
+
             } else {
                 $(this).removeClass('border-danger')
                 from.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
 
@@ -247,6 +266,8 @@
             } else {
                 $(this).removeClass('border-danger')
                 $('#error-message').hide();
+                $('#button').attr('type', 'submit');
+
 
             }
             let formattedDate = formatDate(toDate);
@@ -254,9 +275,11 @@
         });
 
         $('#project_id').change(function() {
+
+            $('#from').removeAttr('disabled');
+            $('#to').removeAttr('disabled');
+
             $('#project_finish').show();
-
-
         });
 
         $('#file').on('change', function () {
