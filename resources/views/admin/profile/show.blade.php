@@ -23,7 +23,11 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <img id="avatar" onclick="img()" src="{{  \Illuminate\Support\Facades\Storage::url($user->avatar)  }}" alt="{{ $user->name }}" style="border-radius: 50%">
+                                    @if(isset($user->avatar))
+                                        <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" alt="" width="100" height="100">
+                                    @else
+                                        <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-4">
@@ -68,30 +72,5 @@
         </section>
     </div>
 
-    <style>
-        #avatar{
-            width: 300px;
-            height: 300px;
-            transition: width 0.3s;
-            cursor: pointer;
-        }
-
-        #avatar.large{
-            width: 40%;
-            height: 70%;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-    </style>
-
-    <script>
-        function img(){
-            var img = document.getElementById("avatar");
-            img.classList.toggle("large")
-        }
-    </script>
 
 @endsection

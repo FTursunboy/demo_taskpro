@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Client;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProfileRequest extends FormRequest
+class WokerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'surname' => ['required'],
+            'login' => ['required', 'unique:users,login'],
             'lastname' => ['required'],
-            'phone' => ['required'],
-            'password' => [''],
-            'avatar' => [''],
+            'phone' => ['required', 'unique:users,phone'],
+            'email' => ['required'],
+            'password' => ['required','min:6'],
         ];
     }
 }

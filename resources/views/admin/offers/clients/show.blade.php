@@ -37,16 +37,22 @@
                         <div class="card-body">
                             <table class="table table-hover">
                                 <thead>
-                                <th>Название задачи</th>
-                                <th>Ответсвенный сотрудник</th>
-                                <th>Статус</th>
+                                <tr>
+                                    <th>Название задачи</th>
+                                    <th>Ответсвенный сотрудник</th>
+                                    <th>Статус</th>
+                                </tr>
                                 </thead>
+                                <tbody>
+                                    @foreach($offers as $offer)
+                                        <tr>
+                                            <td>{{ $offer->name }}</td>
+                                            <td>{{ $offer->user?->name }}</td>
+                                            <td>{{ $offer->user?->status }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
-                            @foreach($offers as $offer)
-                                <td>{{$offer->name}}</td>
-                                <td>{{$offer->user->name}}</td>
-                                <td>{{$offer->user->status}}</td>
-                            @endforeach
 
 
                         </div>

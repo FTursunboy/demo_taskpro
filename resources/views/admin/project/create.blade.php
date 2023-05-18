@@ -86,7 +86,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
-                                <textarea name="comment" id="comment" class="form-control mt-3" tabindex="7" required>{{ old('comment') }}</textarea>
+                                <textarea name="comment" id="comment" class="form-control mt-3" tabindex="7">{{ old('comment') }}</textarea>
                             </div>
                         </div>
                         <div class="row">

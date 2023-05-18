@@ -92,6 +92,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/tasks_client/store', [\App\Http\Controllers\Admin\TasksClientController::class, 'store'])->name('store');
         Route::get('/tasks_client/show/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'show'])->name('show');
         Route::get('/tasks_client/edit/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'edit'])->name('edit');
+        Route::get('/tasks_client/edit-js/{id}', [\App\Http\Controllers\Admin\TasksClientController::class, 'editJs']);
         Route::patch('/tasks_client/update/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'update'])->name('update');
         Route::get('/tasks_client/delete/{task}', [\App\Http\Controllers\Admin\TasksClientController::class, 'delete'])->name('delete');
         Route::patch('/tasks_client/{id}/sendBack', [\App\Http\Controllers\Admin\TasksClientController::class, 'sendBack'])->name('sendBack');

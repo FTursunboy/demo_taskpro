@@ -32,12 +32,33 @@
                 <div class="col-9">
                     <div class="card">
                         <div class="card-header">
-
+                            <a href="{{ route('tasks.index') }}" class="btn btn-outline-primary">
+                                Задачи
+                            </a>
                         </div>
                         <div class="card-body">
-
-
-
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Тип</th>
+                                    <th>От</th>
+                                    <th>До</th>
+                                    <th>Статус</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($project_tasks as $project_task)
+                                    <tr>
+                                        <td>{{ $project_task->name }}</td>
+                                        <td>{{ $project_task->type->name }}</td>
+                                        <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->from)->format('d-m-Y') }}</td>
+                                        <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->to)->format('d-m-Y') }}</td>
+                                        <td>{{ $project_task->status->name }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -45,7 +66,11 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-center mb-3">
-                                <img src="{{ asset('assets/images/avatar-2.png') }}" alt="" width="100" height="100">
+                                @if(isset($user->avatar))
+                                    <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" alt="" width="100" height="100">
+                                @else
+                                    <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
+                                @endif
                             </div>
 
                             @switch($user->xp)

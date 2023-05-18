@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\EmployeeRequest;
 use App\Http\Requests\Admin\UpdateEmployeeRequest;
 use App\Models\Admin\OtdelsModel;
+use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,8 +51,9 @@ class EmployeeController extends BaseController
 
     public function show(User $user)
     {
+        $project_tasks = TaskModel::where('user_id', '=', $user->id)->get();
         $tasks = $user->tasksSuccess($user->id);
-        return view('admin.employee.show', compact('user', 'tasks'));
+        return view('admin.employee.show', compact('user', 'tasks', 'project_tasks'));
     }
 
     public function edit(User $user)

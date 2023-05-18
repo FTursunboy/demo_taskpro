@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -25,11 +26,19 @@ class ProfileController extends Controller
     {
 
         $data = $request->validated();
+        if ($request->file('avatar') !== null) {
+            $file = $request->file('avatar')->store('public/user_img/');
+        } else {
+            $file = null;
+        }
+
+        if (isset($user->avatar)) Storage::delete($user->avatar);
         $user->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
+            'avatar' => $file,
         ]);
         return redirect()->route('user_profile.index', $user->id)->with('update', "Данные успешно изменены!");
     }

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('task_models', function (Blueprint $table) {
-            $table->string('description')->nullable()->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('telegram_user_id')->nullable()->change();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('task_models', function (Blueprint $table) {
-            $table->string('description')->nullable(false)->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('telegram_user_id')->nullable(false)->change();
         });
     }
 };

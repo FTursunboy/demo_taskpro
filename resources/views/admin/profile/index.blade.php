@@ -21,9 +21,6 @@
             </div>
         </div>
 
-{{--        <button type="button" class="btn btn-outline-primary mb-2 mt-2" data-bs-toggle="modal" data-bs-target="#changePassword">--}}
-{{--            Изменить пароль--}}
-{{--        </button>--}}
         @include('inc.messages')
 
         <div class="row pt-4">
@@ -129,64 +126,4 @@
         </div>
 
     </div>
-
-    <style>
-        #avatar{
-            width: 100px;
-            transition: width 0.3s;
-            cursor: pointer;
-        }
-
-        #avatar.large{
-            width: 40%;
-            height: 70%;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-    </style>
-
-    <script>
-        function img(){
-            var img = document.getElementById("avatar");
-            img.classList.toggle("large")
-        }
-    </script>
-    <!-- Modal -->
-{{--    <div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePassword" aria-hidden="true">--}}
-{{--        <div class="modal-dialog modal-dialog-centered">--}}
-{{--            <div class="modal-content">--}}
-{{--                <form action="{{ route('profile.password') }}" method="POST">--}}
-{{--                    @csrf--}}
-{{--                    <div class="modal-header">--}}
-{{--                        <h1 class="modal-title fs-5" id="changePassword">Изменить пароль</h1>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-body">--}}
-{{--                        <div class="row">--}}
-{{--                            <div class="col-12">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="oldPassword">Старый пароль <span class="text-danger">*</span></label>--}}
-{{--                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="Введите старый пароль">--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="password">Новый пароль <span class="text-danger">*</span></label>--}}
-{{--                                    <input type="password" name="password" id="password" class="form-control" placeholder="Введите новый пароль">--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="password_confirmation">Повторите пароль <span class="text-danger">*</span></label>--}}
-{{--                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Повторите новый пароль">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-footer">--}}
-{{--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>--}}
-{{--                        <button type="submit" class="btn btn-primary">Сохранить</button>--}}
-{{--                    </div>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 @endsection
