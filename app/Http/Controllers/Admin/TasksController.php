@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
+use function GuzzleHttp\Promise\all;
 
 class TasksController extends BaseController
 {
@@ -185,12 +186,24 @@ class TasksController extends BaseController
 
     public function sendBack(Request $request, TaskModel $task)
     {
+        UserTaskHistoryModel::where('task_id', $task->id)->first()->forceDelete();
+
+
         $task->update([
+            'status_id' => 1,
             'user_id' => $request->user_id,
         ]);
 
+
+        try {
+            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->to, $task->type?->name));
+        } catch (\Exception $exception) {
+
+        }
+
         return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
     }
+
 
     public function ready(TaskModel $task)
     {

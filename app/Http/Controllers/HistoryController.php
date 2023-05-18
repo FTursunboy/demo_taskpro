@@ -8,6 +8,7 @@ use Faker\Provider\Base;
 
 class HistoryController extends BaseController
 {
+
     public static function task($task_id, $user_id, $status_id) {
         History::create([
             'task_id' => $task_id,
