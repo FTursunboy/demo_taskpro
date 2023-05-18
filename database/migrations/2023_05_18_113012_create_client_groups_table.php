@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('task_models', function (Blueprint $table) {
-            $table->string('comment')->nullable()->change();
+        Schema::create('client_groups', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('client_id');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('task_models', function (Blueprint $table) {
-            $table->string('comment')->nullable(false)->change();
-        });
+        Schema::dropIfExists('client_groups');
     }
 };
