@@ -33,7 +33,7 @@ class ProfileController extends BaseController
 
         $data = $request->validated();
         if ($request->file('avatar') !== null) {
-            $file = $request->file('avatar')->store('user_img/');
+            $file = $request->file('avatar')->store('/user_img');
         } else {
             $file = null;
         }
@@ -48,9 +48,7 @@ class ProfileController extends BaseController
             'telegram_user_id' => $data['telegram_id'],
             'avatar' => $file
         ]);
-
         return redirect()->route('profile.index')->with('success', 'Данные обновлены');
-
     }
 
     public function show(int $id)
