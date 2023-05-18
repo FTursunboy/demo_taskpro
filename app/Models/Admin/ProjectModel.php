@@ -24,7 +24,9 @@ class ProjectModel extends Model
         'comment',
         'pro_status',
         'status',
-        'types_id'
+        'types_id',
+        'file',
+        'file_name'
     ];
 
     public function type(){

@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use function GuzzleHttp\Promise\all;
@@ -52,6 +53,14 @@ class TasksController extends BaseController
         return view('admin.tasks.show', compact('task', 'messages'));
     }
 
+    public function file_show($file)
+    {
+        if (Storage::disk('public')->exists($file)) {
+            $filePath = Storage::disk('public')->path($file);
+            return redirect()->file($filePath);
+        }
+    }
+
     public function message(TaskModel $task, Request $request)
     {
 
@@ -71,7 +80,7 @@ class TasksController extends BaseController
     {
 
         $request->validate([
-            'file' => 'nullable|file|max:100',
+            'file' => 'nullable|file|max:1000',
         ]);
 
         if ($request->file('file') !== null) {
@@ -147,6 +156,8 @@ class TasksController extends BaseController
             $file = null;
         }
 
+        if ($task->file)
+            Storage::delete($task->file);
 
         $task->update([
             'name' => $request->name,
@@ -189,7 +200,7 @@ class TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->route('tasks.index')->with('update', 'Задача успешно создана');
+        return redirect()->route('tasks.index')->with('update', 'Задача успешно обновлена');
     }
 
     public function sendBack(Request $request, TaskModel $task)

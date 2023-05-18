@@ -119,9 +119,8 @@
                             <div class="form-group"  id="percent">
                                 <label id="label1" class="d-none" for="percent">Введите процент</label>
                             </div>
-
-
                         </div>
+
                         <div class="form-group">
                             <label for="comment">Комментария</label>
                             <textarea tabindex="10" name="comment" id="comment"
@@ -309,7 +308,7 @@
         $('#file').on('change', function () {
             const file = this.files[0]; // выбранный файл
             const fileSizeInBytes = file.size; // размер файла в байтах
-            const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024); // размер файла в мегабайтах
+            const fileSizeInMegabytes = fileSizeInBytes / (1024 * 100024); // размер файла в мегабайтах
             if (fileSizeInMegabytes > 50) { // проверка на максимальный размер файла в мегабайтах
                 alert('Выбранный файл слишком большой. Максимальный размер файла - 50 МБ');
                 $(this).val('');

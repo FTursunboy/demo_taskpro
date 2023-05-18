@@ -77,14 +77,14 @@
                                     <option value="" selected>Выбирите проект</option>
                                     @foreach($projects as $project)
                                         <option
-                                            value="{{ $project->id }}" {{ ($project->id === old('project_id') or $project->id === $task->project_id ) ? 'selected' : '' }}>{{ $project->name }}
+                                            value="{{ $project->id }}" {{ ($project->id === old('project_id') or $project->id === $task->project_id ) ? 'selected' : '' }} class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="to">Дата окончания задача</label>
+                                <label for="to">Дата окончания задача <span  id="project_finish" style="display: none; color: red">({{ date('d-m-Y', strtotime($project->finish)) }})</span></label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" tabindex="8" value="{{ $task->to }}"
                                        required>
                             </div>
@@ -149,7 +149,7 @@
                             </div>
                         @endif
                         <div class="col-6"></div>
-
+                    </div>
                     <div class="col-md-6">
                         <label class="form-label">Выберите файл</label>
                         <input type="file"
@@ -157,7 +157,7 @@
                                name="file">
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <input type="submit" class="btn btn-outline-primary" tabindex="12" value="Обновить">
+                        <input type="submit" id="button" class="btn btn-outline-primary" tabindex="12" value="Обновить">
                     </div>
                 </form>
             </div>
@@ -167,54 +167,149 @@
 @endsection
 
 @section('script')
+
     <script>
-        $('#from').change(function () {
-            const to = $('#to')
-            if ($(this).val() > to.val()) {
-                $(this).addClass('border-danger')
-                to.addClass('border-danger')
-            } else {
-                $(this).removeClass('border-danger')
-                to.removeClass('border-danger')
-            }
-        })
-        $('#to').change(function () {
-            const from = $('#from')
-            if ($(this).val() > from.val()) {
-                $(this).addClass('border-danger')
-                from.addClass('border-danger')
-            } else {
-                $(this).removeClass('border-danger')
-                from.removeClass('border-danger')
-            }
-        })
 
-        $('#type_id').change(function () {
-            let kpi = $(this).children('option:selected')
-            if (kpi.text().toLowerCase() === 'kpi') {
-                let kpiType = $('#kpi_id').empty();
-                $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
-                    for (let i = 0; i < res.length; i++) {
-                        const item = res[i]
-                        console.log(item.name)
-                        kpiType.append($('<option>').val(item.id).text(item.name))
-                    }
-                })
-                $('#percent').removeClass('d-none')
-                $('#type_id_group').removeClass('d-none')
-            } else {
-                $('#type_id_group').addClass('d-none')
-                $('#percent').addClass('d-none')
-            }
-        })
-        function checkMaxValue(input) {
-            var maxValue = 150;
-            if (input.value > maxValue) {
-                input.value = maxValue;
 
-            }
+    $('#from').change(function () {
+        const to = $('#to')
+        if ($(this).val() > to.val()) {
+
+            to.addClass('border-danger')
+            $('#button').attr('type', 'button');
+
+        } else {
+            $(this).removeClass('border-danger')
+            to.removeClass('border-danger')
+            $('#button').attr('type', 'submit');
+           }
+    })
+
+
+    $('#to').change(function () {
+        const from = $('#from')
+        if ($(this).val() < from.val()) {
+            $(this).addClass('border-danger')
+            from.addClass('border-danger')
+            $('#button').attr('type', 'button');
+
+        } else {
+            $(this).removeClass('border-danger')
+            from.removeClass('border-danger')
+            $('#button').attr('type', 'submit');
         }
+    })
 
-    </script>
+    $('#type_id').change(function () {
+        let kpi = $(this).children('option:selected')
+        if (kpi.text().toLowerCase() === 'kpi') {
+            let kpiType = $('#kpi_id').empty();
+
+            $('#label').removeClass('d-none');
+            let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
+            $('#type_id_group').append(kpi_id);
+
+            $('#label1').removeClass('d-none');
+            let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+            $('#percent').append(percent);
+
+
+
+            $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
+                for (let i = 0; i < res.length; i++) {
+                    const item = res[i];
+                    console.log(item.name);
+                    kpi_id.append($('<option>').val(item.id).text(item.name));
+                }
+            });
+
+
+
+
+        } else {
+            $('#type_id_group').empty();
+
+            $('#percent').empty();
+
+        }
+    })
+    function checkMaxValue(input) {
+        var maxValue = 150;
+        if (input.value > maxValue) {
+            input.value = maxValue;
+
+        }
+    }
+
+    $('#project_id').change(function() {
+        let selectedOption = $('#project_id option:selected');
+        let selectedClass = selectedOption.attr('class');
+
+
+    });
+    function formatDate(date) {
+        let year = date.getFullYear();
+        let month = String(date.getMonth() + 1).padStart(2, '0');
+        let day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+    function formatDate1(dateStr) {
+        const [day, month, year] = dateStr.split('-');
+        const date = new Date(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`);
+
+
+        return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+    }
+
+    $('#to').on('input', function() {
+        let project_finish = formatDate1($('#project_finish').text());
+
+        let selectedOption = $('#project_id option:selected');
+        let selectedClass = selectedOption.attr('class');
+
+        let selectedDate = new Date(selectedClass);
+        let toDate = new Date($(this).val());
+
+        if (toDate > selectedDate) {
+            $('#error-message').show();
+            $(this).addClass('border-danger')
+
+
+            let formattedDate = selectedDate.toISOString().split('T')[0];
+
+            $(this).val(formattedDate)
+
+
+        } else {
+            $(this).removeClass('border-danger')
+            $('#error-message').hide();
+            $('#button').attr('type', 'submit');
+
+
+        }
+        let formattedDate = formatDate(toDate);
+        console.log(formattedDate);
+    });
+
+    $('#project_id').change(function() {
+
+        $('#from').removeAttr('disabled');
+        $('#to').removeAttr('disabled');
+
+        $('#project_finish').show();
+    });
+
+    $('#file').on('change', function () {
+        const file = this.files[0]; // выбранный файл
+        const fileSizeInBytes = file.size; // размер файла в байтах
+        const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024); // размер файла в мегабайтах
+        if (fileSizeInMegabytes > 50) { // проверка на максимальный размер файла в мегабайтах
+            alert('Выбранный файл слишком большой. Максимальный размер файла - 50 МБ');
+            $(this).val('');
+        }
+    });
+
+
+</script>
 
 @endsection
