@@ -22,7 +22,7 @@ class ProfileController extends Controller
         return view('user.profile.index', compact('user', 'departs', 'task', 'tasks', 'employees'));
     }
 
-    public function update(User $user, UpdateProfileRequest $request, int $id)
+    public function update(User $user, UpdateProfileRequest $request)
     {
 
         $data = $request->validated();
@@ -32,9 +32,7 @@ class ProfileController extends Controller
             $file = null;
         }
 
-        $user = User::findOrFail($id);
-        Storage::delete($user->avatar);
-
+        if (isset($user->avatar)) Storage::delete($user->avatar);
         $user->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
