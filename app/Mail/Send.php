@@ -21,7 +21,6 @@ class Send extends Mailable implements ShouldQueue
      * @return void
      */
 
-    public string $mail;
     public string $client;
     public function __construct($client)
     {
