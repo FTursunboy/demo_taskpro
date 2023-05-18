@@ -39,6 +39,12 @@ Route::group(['middleware' => ['role:client']], function () {
 
     });
 
+    Route::group(['as' => 'client.workers.'], function () {
+        Route::get('client/worker', [\App\Http\Controllers\Client\WorkerController::class, 'index'])->name('index');
+        Route::post('client/worker/store', [\App\Http\Controllers\Client\WorkerController::class, 'store'])->name('store');
+        Route::get('client/worker/show/{user}', [\App\Http\Controllers\Client\WorkerController::class, 'show'])->name('show');
+    });
+
 
 });
 
