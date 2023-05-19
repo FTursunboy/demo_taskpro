@@ -32,13 +32,19 @@ class ProfileController extends BaseController
     public function update(ProfileUpdateRequest $request, int $id){
 
         $data = $request->validated();
-        if ($request->file('avatar') !== null) {
-            $file = $request->file('avatar')->store('/user_img');
-        } else {
-            $file = null;
-        }
         $user = User::findOrFail($id);
-        if (isset($user->avatar)) Storage::delete($user->avatar);
+        $file = $user->avatar;
+
+        if ($request->hasFile('avatar')) {
+            $newFile = $request->file('avatar')->store('public/user_img/');
+            if ($newFile !== $file) {
+                if ($file !== null) {
+                    Storage::delete($file);
+                }
+                $file = $newFile;
+            }
+        }
+
         $user->update([
             'name' => $data['name'],
             'lastname' => $data['lastname'],

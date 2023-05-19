@@ -24,15 +24,19 @@ class ProfileController extends Controller
 
     public function update(User $user, UpdateProfileRequest $request)
     {
-
         $data = $request->validated();
-        if ($request->file('avatar') !== null) {
-            $file = $request->file('avatar')->store('public/user_img/');
-        } else {
-            $file = null;
+        $file = $user->avatar;
+
+        if ($request->hasFile('avatar')) {
+            $newFile = $request->file('avatar')->store('public/user_img/');
+            if ($newFile !== $file) {
+                if ($file !== null) {
+                    Storage::delete($file);
+                }
+                $file = $newFile;
+            }
         }
 
-        if (isset($user->avatar)) Storage::delete($user->avatar);
         $user->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
@@ -40,8 +44,10 @@ class ProfileController extends Controller
             'phone' => $data['phone'],
             'avatar' => $file,
         ]);
+
         return redirect()->route('user_profile.index', $user->id)->with('update', "Данные успешно изменены!");
     }
+
 
     public function password(Request $request)
     {

@@ -43,13 +43,13 @@
                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user-menu d-flex">
                             <div class="user-name text-end me-3">
-                                <h6 class="mb-0 text-gray-600">{{ \Illuminate\Support\Facades\Auth::user()->surname.' '. \Illuminate\Support\Facades\Auth::user()->name }}</h6>
-                                <p class="mb-0 text-sm text-gray-600">{{ \Illuminate\Support\Facades\Auth::user()->getRoleNames()[0] }}</p>
+                                <h6 class="mb-0 text-gray-600">{{ Auth::user()->surname.' '. Auth::user()->name }}</h6>
+                                <p class="mb-0 text-sm text-gray-600">{{ Auth::user()->getRoleNames()[0] }}</p>
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    @if(\Illuminate\Support\Facades\Auth::user()->avatar)
-                                         <img src="/storage/{{\Illuminate\Support\Facades\Auth::user()->avatar}}">
+                                    @if(Auth::user()->avatar)
+                                         <img src="{{Storage::url(Auth::user()->avatar)}}">
                                     @else
                                          <img src="{{asset('assets/images/avatar-2.png')}}">
                                     @endif
@@ -60,7 +60,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
                         <li>
-                            <h6 class="dropdown-header">Привет, {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                            <h6 class="dropdown-header">Привет, {{ Auth::user()->name }}
                                 !</h6>
                         </li>
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i

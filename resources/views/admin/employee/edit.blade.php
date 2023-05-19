@@ -32,7 +32,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('employee.update', $user->id) }}" method="POST">
+                    <form action="{{ route('employee.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="row">
@@ -88,6 +88,11 @@
                                     <input type="password" id="password" name="password" tabindex="7" class="form-control mt-3" value="">
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="file">Изображение</label>
+                                    <input type="file" name="avatar" tabindex="11" class="form-control mt-3" id="file">
+                                </div>
+
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
@@ -107,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" class="btn btn-outline-primary" tabindex="10">Изменить</button>
+                                <button type="submit" class="btn btn-outline-primary" tabindex="12">Изменить</button>
                             </div>
                         </div>
                     </form>

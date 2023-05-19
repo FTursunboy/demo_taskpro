@@ -76,8 +76,8 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    @if(\Illuminate\Support\Facades\Auth::user()->avatar)
-                                        <img src="/storage/{{\Illuminate\Support\Facades\Auth::user()->avatar}}">
+                                    @if(Auth::user()->avatar)
+                                        <img src="{{Storage::url(Auth::user()->avatar)}}">
                                     @else
                                         <img src="{{asset('assets/images/avatar-2.png')}}">
                                     @endif
