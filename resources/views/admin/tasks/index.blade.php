@@ -78,8 +78,7 @@
                                                     @if($task->file !== null)
                                                         <div class="form-group">
                                                             <label for="file">Файл</label>
-                                                            <a href="#" download class="form-control text-bold">Просмотреть
-                                                                файл</a>
+                                                            <a href="{{ \Illuminate\Support\Facades\Storage::url($task->file) }}" download class="form-control text-bold">Просмотреть файл</a>
                                                         </div>
                                                     @else
                                                         <div class="form-group">
