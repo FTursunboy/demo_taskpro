@@ -30,6 +30,7 @@ class UpdateEmployeeRequest extends FormRequest
             'password' => [''],
             'position' => ['required'],
             'telegram_id' => ['required'],
+            'avatar' => [''],
         ];
     }
 }

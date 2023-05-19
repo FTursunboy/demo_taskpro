@@ -35,7 +35,7 @@
         <section class="section">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('profile.update', auth()->id()) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="row">

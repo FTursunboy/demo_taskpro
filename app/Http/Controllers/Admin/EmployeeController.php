@@ -12,6 +12,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
@@ -42,7 +43,7 @@ class EmployeeController extends BaseController
             'phone' => $data['phone'],
             'position' => $data['position'],
             'otdel_id' => $data['otdel_id'],
-            'telegram_user_id' => $data['name'],
+            'telegram_user_id' => $data['telegram_id'],
             'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
         ]);
         $user->assignRole('user');
@@ -66,15 +67,30 @@ class EmployeeController extends BaseController
     public function update(User $employee, UpdateEmployeeRequest $request)
     {
         $data = $request->validated();
+        $file = $employee->avatar; // Use the existing file path from the database
+
+        if ($request->hasFile('avatar')) {
+            $newFile = $request->file('avatar')->store('public/user_img/');
+            if ($newFile !== $file) {
+                if ($file !== null) {
+                    Storage::delete($file);
+                }
+                $file = $newFile;
+            }
+        }
+
         $employee->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
             'position' => $data['position'],
+            'telegram_user_id' => $data['telegram_id'],
             'otdel_id' => $data['otdel_id'],
             'password' => Hash::make($data['password'] ?? 'password'),
+            'avatar' => $file,
         ]);
+
         return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен!");
     }
 
