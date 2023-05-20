@@ -56,7 +56,7 @@
 
                                 <li class="dropdown-item notification-item">
                                     <a class="d-flex align-items-center"
-                                       href="{{ route('tasks.removeNotification',($mess->tasks->offer_id !== null) ? $mess->task_id : $mess->tasks->id) }}">
+                                       href="{{ route('tasks.removeNotification',$mess->task_id) }}">
                                         <div class="notification-icon">
                                             <i class="bi bi-bell text-primary"></i>
                                         </div>
