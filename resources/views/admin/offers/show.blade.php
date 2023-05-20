@@ -82,6 +82,7 @@
                                                                                name="name" id="name"
                                                                                value="{{$offer->name}}" required>
                                                                     </div>
+
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Проект</label>
                                                                         <input type="text" class="form-control"
@@ -239,8 +240,16 @@
                                 <tr>
                                     <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
                                     <td>{{$history->user->name }}</td>
-                                    <td>{{$history->status?->name}} {{ $history->user->hasRole('admin') ? '(Админ)' : ($history->user->hasRole('user') ? '(Сотрудник)' : ($history->user->hasRole('client') ? '(Клиент)' : 'Роль не определена')) }}
-                                    </td>
+                                    <td>{{$history->status?->name}}
+                                        @if ($history->user->hasRole('admin'))
+                                            (Админ)
+                                        @elseif ($history->user->hasRole('user'))
+                                            (Сотрудник)
+                                        @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                            (Клиент)
+                                        @else
+                                            Роль не определена
+                                        @endif    </td>
                                 </tr>
                             @endforeach
                             </tbody>

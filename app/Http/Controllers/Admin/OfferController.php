@@ -17,13 +17,23 @@ use GuzzleHttp\Client;
 use Illuminate\Console\View\Components\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class OfferController extends BaseController
 {
     public function index()
     {
-        $offers = Offer::get();
+        $offers = DB::table('offers as of')
+            ->join('users as u', 'u.id', 'of.client_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'u.id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->join('statuses_models as status', 'status.id', 'of.status_id')
+            ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
+            ->get();
+
+
+
         return view('admin.offers.index', compact('offers'));
     }
 
@@ -109,6 +119,8 @@ class OfferController extends BaseController
     public function show(Offer $offer) {
 
         $project = ProjectClient::where('user_id', $offer->client_id)->first();
+
+
 
         $users = User::role('user')->get();
 

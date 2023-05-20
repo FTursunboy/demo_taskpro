@@ -26,7 +26,7 @@ class WokerRequest extends FormRequest
             'login' => ['required', 'unique:users,login'],
             'lastname' => ['required'],
             'phone' => ['required', 'unique:users,phone'],
-            'email' => ['required'],
+            'position' => ['required'],
             'password' => ['required','min:6'],
         ];
     }

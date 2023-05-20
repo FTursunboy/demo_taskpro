@@ -36,6 +36,7 @@ class AuthenticatedSessionController extends Controller
             'admin' => redirect()->intended(RouteServiceProvider::HOME),
             'user' => redirect()->intended(RouteServiceProvider::USER),
             'client' => redirect()->intended(RouteServiceProvider::CLIENT),
+            'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
             default => redirect()->back()->with('err', 'Что то пошло не так'),
         };
     }

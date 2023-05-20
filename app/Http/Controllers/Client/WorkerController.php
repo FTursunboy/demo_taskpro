@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\WokerRequest;
 use App\Models\Client\Offer;
 use App\Models\ClientGroup;
+use App\Models\ProjectClient;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
@@ -30,14 +31,21 @@ class WorkerController extends BaseController
             'name' => $request->name,
             'lastname' => $request->lastname,
             'phone' => $request->phone,
-            'email' => $request->email,
-            'slug' => Str::slug($request->name . '-' . rand(0, 5), '-'),
+
+            'position' => $request->position,
+             'slug' => Str::slug($request->name . '-' . rand(0, 5), '-'),
+
             'login' => $request->login,
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole('client-worker');
 
+        $project = ProjectClient::where('user_id', Auth::user()->id)->first();
 
+        ProjectClient::create([
+            'user_id' => $user->id,
+            'project_id' => $project->project_id,
+        ]);
         ClientGroup::create([
             'user_id' => $user->id,
             'client_id' => Auth::id(),
@@ -53,6 +61,5 @@ class WorkerController extends BaseController
 
         return view('client.workers.show', compact('tasks', 'user'));
     }
-
 
 }

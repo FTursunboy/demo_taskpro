@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['role:client']], function () {
+Route::group(['middleware' => ['role:client|client-worker']], function () {
 
     Route::group(['as' => 'client.'], function () {
         Route::get('dashboard-client', [\App\Http\Controllers\Client\IndexController::class, 'index'])->name('index');

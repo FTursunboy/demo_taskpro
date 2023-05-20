@@ -3,6 +3,7 @@
 namespace App\Models\Client;
 
 use App\Models\Admin\StatusesModel;
+use App\Models\ProjectClient;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,8 +24,10 @@ class Offer extends Model
     }
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsTo(Project::class);
     }
+
+
 
 
 }
