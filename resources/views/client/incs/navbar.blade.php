@@ -1,3 +1,4 @@
+
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
@@ -55,18 +56,22 @@
                         <span>Задачи</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ (request()->is('client/task') or request()->is('client/task/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('client.tasks.index') }}" class='sidebar-link'>
+                @role('client')
+                <li class="sidebar-item {{ (request()->is('client/task') or request()->is('client/task/*')) ? 'active' : '' }}">
+                    <a href="{{ route('client.tasks.index') }}" class="sidebar-link">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Задачи FinGroup</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ (request()->is('client/worker') or request()->is('client/worker/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('client.workers.index') }}" class='sidebar-link'>
+                @endrole
+                @role('client')
+                <li class="sidebar-item {{ (request()->is('client/worker') or request()->is('client/worker/*')) ? 'active' : '' }}">
+                    <a href="{{ route('client.workers.index') }}" class="sidebar-link">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Сотрудники</span>
                     </a>
                 </li>
+                @endrole
                 <li class="sidebar-item {{ (request()->is('edit_profile') or request()->is('edit_profile/*'))  ? 'active' : '' }}">
                     <a href="{{ route('edit_profile.index', auth()->id()) }}" class='sidebar-link'>
                         <i class="bi bi-person"></i>

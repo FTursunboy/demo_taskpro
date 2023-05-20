@@ -4,57 +4,146 @@
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
+                        <div class="col-12 col-md-12 order-md-1 order-last">
+                            <h3>Сотрудники</h3>
+                        </div>
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Задачи</h3>
+                            <a href="№" class="btn btn-outline-primary mb-2" data-bs-target="#store" data-bs-toggle="modal">
+                                Добавить нового сотрудника
+                            </a>
                         </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
-                                </ol>
-                            </nav>
-                        </div>
+
                     </div>
                 </div>
                 @include('inc.messages')
                 <section class="section">
-                    <div class="card">
-                        <div class="card-header">
-                            <button type="button" href="#" data-bs-target="#store" data-bs-toggle="modal" class="btn btn-success">Добавить</button>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-striped" id="table1">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Имя</th>
-                                    <th>Фамилия</th>
-                                    <th>Логин</th>
-                                    <th>Действие</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @forelse($users as $user)
-                                    <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->lastname}}</td>
-                                    <td>{{$user->login}}</td>
-                                    <td>
-                                        <a href="{{route('client.workers.show', $user->id)}}" class="badge bg-primary"><i class="bi bi-eye"></i></a>
-                                        <a href="" class="badge bg-success"><i class="bi bi-pencil"></i></a>
-                                        <a href="" class="badge bg-danger"><i class="bi bi-trash"></i></a>
-                                    </td>
-                                    </tr>
-                                @empty
-                                    <td  colspan="5"><h1 class="text-center">Пока нет сотрудников</h1></td>
-                                @endforelse
+                    <div class="row pt-4">
+                        @foreach($users as $user)
+                            <div class="col-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-center mb-3">
+                                            @if(isset($user->avatar))
+                                                <img style="border-radius: 50% " src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" alt="" width="100" height="100" >
+                                            @else
+                                                <img style="border-radius: 50% " src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
+                                            @endif
+                                        </div>
 
-                                </tbody>
-                            </table>
-                        </div>
+                                        @switch($user->xp)
+                                            @case($user->xp > 0 && $user->xp <= 99 )
+                                            <div>
+                                                <div class="d-flex justify-content-end">
+                                                    {{ $user->xp }} / 100
+                                                </div>
+                                            </div>
+                                            <div class="progress mt-3">
+                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                                     style="width: {{ $user->xp }}%" aria-valuenow="{{ $user->xp }}"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="300"></div>
+                                            </div>
+                                            @break
+                                            @case($user->xp > 99 && $user->xp < 299 )
+                                            <div>
+                                                <div class="d-flex justify-content-end">
+                                                    {{ $user->xp }} / 300 (xp)
+                                                </div>
+                                            </div>
+                                            <div class="progress mt-3">
+                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                                     style="width: {{$user->xp/3}}%" aria-valuenow="{{ $user->xp }}"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="300"></div>
+                                            </div>
+                                            @break
+                                            @case($user->xp > 299 && $user->xp < 700 )
+                                            <div>
+                                                <div class="d-flex justify-content-end">
+                                                    {{ $user->xp }}xp / 700 (xp)
+                                                </div>
+                                            </div>
+                                            <div class="progress mt-3">
+                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                                     style="width: {{$user->xp / 7}}%" aria-valuenow="{{ $user->xp }}"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="700"></div>
+                                            </div>
+                                            @break
+                                            @case($user->xp > 699 && $user->xp < 1000 )
+                                            <div>
+                                                <div class="d-flex justify-content-end">
+                                                    {{ $user->xp }} / 1000 (xp)
+                                                </div>
+                                            </div>
+                                            <div class="progress mt-3">
+                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                                     style="width: {{$user->xp / 10}}%" aria-valuenow="{{ $user->xp }}"
+                                                     aria-valuemin="0"
+                                                     aria-valuemax="1000"></div>
+                                            </div>
+                                            @break
+                                        @endswitch
+
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="text-center">{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</h5>
+                                        <div>
+                                            <table class="mt-3" cellpadding="5">
+                                                <tr>
+                                                    <th>Задачи:</th>
+                                                    <th><span class="mx-2">{{ $user->taskCount($user->id) }}</span></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Готовые :</th>
+                                                    <th><span class="mx-2">{{ $user->taskSuccessCount($user->id) }}</span></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Идеи :</th>
+                                                    <th><span class="mx-2"> {{ $user->ideaCount($user->id) }}</span></th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-flex justify-content-center">
+                                            <a href="{{route('client.workers.show', $user->id)}}" class="btn btn-success mx-2"><i class="bi bi-eye"></i></a>
+
+                                            <a href="{{ route('employee.edit', $user->id) }}" class="btn btn-primary mx-2"><i
+                                                    class="bi bi-pencil"></i></a>
+                                            <a role="button" class="btn btn-danger" data-bs-toggle="modal"
+                                               data-bs-target="#delete{{$user->id}}"><i class="bi bi-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="delete{{$user->id}}" tabindex="-1" aria-labelledby="delete{{$user->id}}"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <form action="{{ route('employee.destroy', $user->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="delete{{$user->id}}">Предупреждение</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Точно хотите удалить
+                                                <b>'{{ $user->surname.' '. $user->name.' '. $user->lastname }}'</b>?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет
+                                                </button>
+                                                <button type="submit" class="btn btn-danger">Да, хочу уалить</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-
                 </section>
             </div>
 
@@ -98,11 +187,11 @@
                                                     value="{{ old('surname') }}" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="surname" class="form-label">Email Сотрудника<span
+                                            <label for="surname" class="form-label">Должность Сотрудника<span
                                                     class="text-danger">*</span></label>
-                                            <input  type="email" name="email" class="form-control"
-                                                    placeholder="Введите email" id="email"
-                                                    value="{{ old('email') }}" required>
+                                            <input  type="text" name="position" class="form-control"
+                                                    placeholder="Введите должность" id="position"
+                                                    value="{{ old('position') }}" required>
                                         </div>
 
 

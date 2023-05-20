@@ -195,4 +195,11 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class);
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
+
+
 }

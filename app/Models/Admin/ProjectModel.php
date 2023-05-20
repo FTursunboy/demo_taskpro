@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use App\Http\Controllers\Admin\ProjectTypeController;
+use App\Models\Client\Offer;
 use App\Models\Types;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,6 +43,12 @@ class ProjectModel extends Model
     public function users(){
         return $this->belongsToMany(User::class);
     }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
 
 
 }

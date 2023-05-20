@@ -47,7 +47,6 @@ class TaskController extends Controller
 
         $histories = History::where([
             ['type', '=', 'offer'],
-            ['client_id', '=', Auth::id()],
             ['task_id', '=', $offer->id]
 
         ])->orderBy('created_at')->get();
