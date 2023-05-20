@@ -5,13 +5,6 @@
 @endsection
 
 @section('content')
-
-    <div class="card-header">
-        <a href="{{ route('profile.index') }}" class="btn btn-outline-danger">
-            Назад
-        </a>
-    </div>
-
     <div id="page-heading">
         <div class="page-title">
             <div class="row">
@@ -34,6 +27,11 @@
         @include('inc.messages')
         <section class="section">
                     <div class="card">
+                        <div class="card-header">
+                            <a href="{{ route('profile.index') }}" class="btn btn-outline-danger">
+                                Назад
+                            </a>
+                        </div>
                         <div class="card-body">
                             <form action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
