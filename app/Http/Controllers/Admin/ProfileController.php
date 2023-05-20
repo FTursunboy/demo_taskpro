@@ -33,6 +33,7 @@ class ProfileController extends BaseController
     {
 
         $data = $request->validated();
+
         $user = User::findOrFail(Auth::id());
         $file = $user->avatar;
 
@@ -48,8 +49,8 @@ class ProfileController extends BaseController
 
         $user->update([
             'name' => $data['name'],
-            'lastname' => $data['lastname'],
             'surname' => $data['surname'],
+            'lastname' => $data['lastname'],
             'phone' => $data['phone'],
             'otdel_id' => $data['otdel_id'],
             'telegram_user_id' => $data['telegram_id'],

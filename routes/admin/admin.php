@@ -78,11 +78,11 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
 
         Route::get('/client', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('client');
-        Route::get('/client/show/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'show'])->name('client.show');
-        Route::get('/client/edit/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'edit'])->name('client.edit');
+        Route::get('/client/show/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'show'])->name('client.show');
+        Route::get('/client/edit/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'edit'])->name('client.edit');
         Route::post('/client/store', [\App\Http\Controllers\Admin\ClientController::class, 'store'])->name('client.store');
-        Route::patch('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
-        Route::delete('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
+        Route::patch('/client/update/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
+        Route::delete('/client/update/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
 
 
     });
