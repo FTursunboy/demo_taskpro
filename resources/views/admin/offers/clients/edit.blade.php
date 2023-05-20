@@ -34,7 +34,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('employee.client.update', $user->id) }}" method="POST">
+                    <form action="{{ route('employee.client.update', $user->slug) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="row">
@@ -59,6 +59,11 @@
                                     <label for="login">Логин<span class="text-danger">*</span></label>
                                     <input type="text" id="login" tabindex="7" name="login" class="form-control mt-3"
                                            value="{{ $user->login }}" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="file">Изображение</label>
+                                    <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
                                 </div>
 
                             </div>
@@ -95,7 +100,7 @@
                                 <div class="form-group">
                                     <label for="project_id">Проект<span class="text-danger">*</span></label>
                                     <select id="project_id" name="project_id" tabindex="6" class="form-select mt-3" required>
-                                        <option value="" selected>Выбирите проект</option>
+                                        <option value="" selected>Выберите проект</option>
                                         @foreach($projects as $project)
                                             <option
                                                 value="{{ $project->id }}" {{ ($project->id === $project_id->project_id) ? 'selected' : '' }}>{{ $project->name }}</option>
@@ -110,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" tabindex="10" class="btn btn-outline-primary">Изменить</button>
+                                <button type="submit" tabindex="11" class="btn btn-outline-primary">Изменить</button>
                             </div>
                         </div>
                     </form>

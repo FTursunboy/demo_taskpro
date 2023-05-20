@@ -23,7 +23,7 @@
                 <div class="col-9">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('client_profile.update.a') }}" method="POST">
+                            <form action="{{ route('client_profile.update.a') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="row">
@@ -47,6 +47,11 @@
                                                    required>
                                         </div>
 
+                                        <div class="form-group">
+                                            <label for="file">Изображение</label>
+                                            <input type="file" name="avatar" tabindex="5" class="form-control mt-3" id="file">
+                                        </div>
+
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
@@ -56,7 +61,7 @@
 
                                     </div>
                                     <div class="d-flex justify-content-end mt-3">
-                                        <button type="submit" tabindex="5" class="btn btn-outline-primary">Изменить</button>
+                                        <button type="submit" tabindex="6" class="btn btn-outline-primary">Изменить</button>
                                     </div>
                                 </div>
                             </form>
@@ -67,7 +72,11 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-center mb-3">
-                                <img src="{{ asset('assets/images/avatar-2.png') }}" alt="" width="100" height="100">
+                                @if(isset(Auth::user()->avatar))
+                                    <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ Storage::url(Auth::user()->avatar) }}" alt="" width="100" height="100">
+                                @else
+                                    <img style="border-radius: 50% " id="avatar" onclick="img()" src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
+                                @endif
                             </div>
 
                             <div class="d-flex justify-content-center mb-3">
