@@ -77,7 +77,11 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    <img src="{{asset('assets/images/avatar-2.png')}}">
+                                    @if(Auth::user()->avatar)
+                                        <img src="{{Storage::url(Auth::user()->avatar)}}">
+                                    @else
+                                        <img src="{{asset('assets/images/avatar-2.png')}}">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -88,7 +92,7 @@
                             <h6 class="dropdown-header">Привет, {{ \Illuminate\Support\Facades\Auth::user()->name }}
                                 !</h6>
                         </li>
-                        <li><a class="dropdown-item" href="{{ route('edit_profile.index', auth()->id()) }}"><i
+                        <li><a class="dropdown-item" href="{{ route('client.index')}}"><i
                                     class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><i
