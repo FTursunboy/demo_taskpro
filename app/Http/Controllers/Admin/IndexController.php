@@ -11,7 +11,6 @@ class IndexController extends BaseController
 {
     public function index()
     {
-
         $task = $this->countTasks();
         return view('admin.index', compact('task'));
     }

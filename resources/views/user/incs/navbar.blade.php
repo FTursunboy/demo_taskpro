@@ -66,7 +66,7 @@
 
 
                 <li class="sidebar-item {{ (request()->is('user/profile') or request()->is('user/profile/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('user_profile.index', auth()->id()) }}" class='sidebar-link'>
+                    <a href="{{ route('user_profile.index') }}" class='sidebar-link'>
                         <i class="bi bi-egg-fill"></i>
                         <span>Профиль</span>
                     </a>

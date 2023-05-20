@@ -71,9 +71,10 @@
                         <span>Сотрудники</span>
                     </a>
                 </li>
-                @endrole
-                <li class="sidebar-item {{ (request()->is('edit_profile') or request()->is('edit_profile/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('edit_profile.index', auth()->id()) }}" class='sidebar-link'>
+
+                <li class="sidebar-item {{ (request()->is('client_profile') or request()->is('client_profile/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('client_profile.index') }}" class='sidebar-link'>
+
                         <i class="bi bi-person"></i>
                         <span>Профиль</span>
                     </a>

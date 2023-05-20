@@ -6,11 +6,15 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
 
     Route::group(['as' => 'client.'], function () {
         Route::get('dashboard-client', [\App\Http\Controllers\Client\IndexController::class, 'index'])->name('index');
+        Route::get('/dashboard-client/new-message/{task}', [\App\Http\Controllers\Client\IndexController::class, 'removeNotification'])->name('removeNotification');
     });
 
-    Route::get('edit_profile/{user}', [\App\Http\Controllers\Client\ProfileController::class, 'index'])->name('edit_profile.index');
-    Route::patch('edit_profile/update/{client}', [\App\Http\Controllers\Client\ProfileController::class, 'update'])->name('edit_profile.update.a');
-    Route::post('edit_profile/change_password', [\App\Http\Controllers\Client\ProfileController::class, 'password'])->name('edit_profile.password');
+    Route::group(['as' => 'client_profile.'], function () {
+        Route::get('client_profile/', [\App\Http\Controllers\Client\ProfileController::class, 'index'])->name('index');
+        Route::patch('client_profile/update/', [\App\Http\Controllers\Client\ProfileController::class, 'update'])->name('update.a');
+        Route::post('client_profile/change_password', [\App\Http\Controllers\Client\ProfileController::class, 'password'])->name('password');
+
+    });
 
     Route::group(['as' => 'client.tasks.'], function () {
         Route::get('client/task', [\App\Http\Controllers\TaskController::class, 'index'])->name('index');

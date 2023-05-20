@@ -16,7 +16,11 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-center mb-3">
-                                <img src="{{ asset('assets/images/avatar-2.png') }}" alt="" width="100" height="100">
+                                @if(isset($user->avatar))
+                                    <img style="border-radius: 50% " src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" alt="" width="100" height="100" >
+                                @else
+                                    <img style="border-radius: 50% " src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
+                                @endif
                             </div>
 
 
@@ -43,22 +47,22 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center">
-                                <a href="{{ route('employee.client.show', $user->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                <a href="{{ route('employee.client.edit', $user->id) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
-                                <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$user->id}}"><i class="bi bi-trash"></i></a>
+                                <a href="{{ route('employee.client.show', $user->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                                <a href="{{ route('employee.client.edit', $user->slug) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
+                                <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="delete{{$user->id}}" tabindex="-1" aria-labelledby="delete{{$user->id}}" aria-hidden="true">
+                <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <form action="{{ route('employee.client.destroy', $user->id) }}" method="POST">
+                            <form action="{{ route('employee.client.destroy', $user->slug) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="delete{{$user->id}}">Предупреждение</h1>
+                                    <h1 class="modal-title fs-5" id="delete{{$user->slug}}">Предупреждение</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -66,7 +70,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Да, </button>
+                                    <button type="submit" class="btn btn-danger">Да</button>
                                 </div>
                             </form>
                         </div>
@@ -123,49 +127,57 @@
                                 <div class="form-group">
                                     <label for="name" class="form-label">Имя  Клиента <span
                                             class="text-danger">*</span></label>
-                                    <input required type="text" name="name" class="form-control"
+                                    <input required type="text" name="name" tabindex="1" class="form-control"
                                            placeholder="Введите имя клиента" id="name" value="{{ old('name') }}">
                                 </div>
                                 <div class="form-group">
+                                    <label for="lastname" class="form-label">Отчество Клиента<span
+                                            class="text-danger">*</span></label>
+                                    <input  type="text" name="lastname" tabindex="3" class="form-control"
+                                            placeholder="Введите отчество" id="surname"
+                                            value="{{ old('lastname') }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="form-label">Пароль</label>
+                                    <input type="password" name="password" tabindex="5" class="form-control" placeholder="Пароль"
+                                           id="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telegram_id" class="form-label">Телеграм id</label>
+                                    <input required value="{{old('telegram_id')}}" tabindex="7" type="number" name="telegram_id"
+                                           class="form-control" placeholder="Telegram id"
+                                           id="telegram_id">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
                                     <label for="surname" class="form-label">Фамилия Клиента<span
                                             class="text-danger">*</span></label>
-                                    <input  type="text" name="lastname" class="form-control"
+                                    <input  type="text" name="surname" tabindex="2" class="form-control"
                                             placeholder="Введите фамилию" id="surname"
                                             value="{{ old('surname') }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="telegram_id" class="form-label">Телеграм id</label>
-                                    <input required value="{{old('telegram_id')}}" type="number" name="telegram_id"
-                                           class="form-control" placeholder="Telegram id"
-                                           id="telegram_id">
+                                    <label for="login" class="form-label">Логин <span
+                                            class="text-danger">*</span></label>
+                                    <input required type="text" name="login" tabindex="4" class="form-control" placeholder="Login"
+                                           id="login"
+                                           value="{{ old('login') }}">
                                 </div>
                                 <div class="form-group">
-                                    <select name="project_id" class="form-select" id="" required>
+                                    <label for="project_id" class="form-label">Проект</label>
+                                    <select name="project_id" tabindex="6" class="form-select" id="" required>
                                         <option value="">Выберите проект</option>
                                         @foreach($projects as $project)
                                             <option value="{{$project->id}}">{{$project->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="login" class="form-label">Логин <span
-                                            class="text-danger">*</span></label>
-                                    <input required type="text" name="login" class="form-control" placeholder="Login"
-                                           id="login"
-                                           value="{{ old('login') }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="form-label">Пароль</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Пароль"
-                                           id="password" required>
-                                </div>
                                 <div class="form-group">
                                     <label for="phone" class="form-label">Телефон <span
                                             class="text-danger">*</span></label>
-                                    <input required type="text" name="phone" class="form-control" placeholder="Телефон"
+                                    <input required type="text" tabindex="8" name="phone" class="form-control" placeholder="Телефон"
                                            id="phone" value="{{ old('phone') }}">
                                 </div>
 
@@ -174,8 +186,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                        <button type="submit" class="btn btn-primary" id="create">Добавить</button>
+                        <button type="button" tabindex="9" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" tabindex="10" class="btn btn-primary" id="create">Добавить</button>
 
                     </div>
                 </form>

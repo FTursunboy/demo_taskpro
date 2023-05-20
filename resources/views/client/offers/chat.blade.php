@@ -53,8 +53,11 @@
                                                 <div class="chat-body" style="margin-right: 10px">
                                                     <div class="chat-message">
                                                         <p>
-                                                            <span >{{$mess->sender?->name}}</span><span style="color: red; font-size: 11px"> {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}<br></span>
-                                                            {{ $mess->message }}
+                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            </span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -64,8 +67,11 @@
                                                 <div class="chat-body">
                                                     <div class="chat-message">
                                                         <p>
-                                                            <span >{{$mess->sender?->name}}</span><span style="color: red; font-size: 11px"> {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}<br></span>
-                                                            {{ $mess->message }}
+                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            </span>
                                                         </p>
                                                     </div>
                                                 </div>
