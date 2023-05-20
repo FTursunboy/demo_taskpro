@@ -51,7 +51,7 @@
                                 @foreach($project_tasks as $project_task)
                                     <tr>
                                         <td>{{ $project_task->name }}</td>
-                                        <td>{{ $project_task->type->name }}</td>
+                                        <td>{{ ($project_task->type === null) ? "От клиента" : $project_task->type->name }}</td>
                                         <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->from)->format('d-m-Y') }}</td>
                                         <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->to)->format('d-m-Y') }}</td>
                                         <td>{{ $project_task->status->name }}</td>
