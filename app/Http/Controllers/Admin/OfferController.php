@@ -25,10 +25,10 @@ class OfferController extends BaseController
     public function index()
     {
         $offers = DB::table('offers as of')
-            ->join('users as u', 'u.id', 'of.client_id')
-            ->leftJoin('project_clients as pc', 'pc.user_id', 'u.id')
+            ->leftJoin('users as u', 'u.id', 'of.user_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
             ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
-            ->join('statuses_models as status', 'status.id', 'of.status_id')
+            ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
             ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
             ->get();
 
