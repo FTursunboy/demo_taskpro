@@ -52,6 +52,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/projects/edit/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'edit'])->name('edit');
         Route::patch('/projects/edit/{projectModel}/update', [\App\Http\Controllers\Admin\ProjectController::class, 'update'])->name('update');
         Route::delete('/projects/destroy/{projectModel}', [\App\Http\Controllers\Admin\ProjectController::class, 'destroy'])->name('destroy');
+        Route::get('/projects/download/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'downloadFile'])->name('download');
     });
 
     Route::group(['as' => 'tasks.'], function () {

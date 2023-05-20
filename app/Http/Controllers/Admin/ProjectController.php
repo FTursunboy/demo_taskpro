@@ -14,6 +14,7 @@ use App\Models\Statuses;
 use App\Models\Types;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends BaseController
 {
@@ -63,8 +64,33 @@ class ProjectController extends BaseController
 
     public function update(ProjectUpdateRequest $request, ProjectModel $projectModel)
     {
-        $data = $request->validated();
-        $projectModel->update($data);
+        $file = $projectModel->file;
+
+        if ($request->hasFile('file')) {
+            $newFile = $request->file('file')->store('public/project_docs/');
+            if ($newFile !== $file) {
+                if ($file !== null) {
+                    Storage::delete($file);
+                }
+                $file = $newFile;
+            }
+        }
+
+
+
+//        $data = $request->validated();
+
+        $projectModel->update([
+            'name' => $request['name'],
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
+            'type_id' => $request['type_id'],
+            'time' => $request['time'],
+            'start' => $request['start'],
+            'finish' => $request['finish'],
+            'comment' => $request['comment'],
+            'types_id' => $request['types_id'],
+        ]);
 
         HistoryController::project($projectModel->id, Statuses::UPDATE);
         return redirect()->route('project.index')->with('update', 'Проект успешно изменен!');
@@ -76,5 +102,19 @@ class ProjectController extends BaseController
 
         HistoryController::project($projectModel->id, Statuses::DELETE);
         return back()->with('delete', 'Проект успешно удален!');
+    }
+
+    public function downloadFile(ProjectModel $project)
+    {
+
+
+        $path = storage_path('app/' . $project->file);
+
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $project->file_name . '"',
+        ];
+        return response()->download($path, $project->file_name, $headers);
+
     }
 }

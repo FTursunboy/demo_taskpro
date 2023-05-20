@@ -128,7 +128,7 @@ class TasksController extends BaseController
     {
 
 
-        $path = storage_path('app/public/' . $task->file);
+        $path = storage_path('app/' . $task->file);
 
         $headers = [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -161,15 +161,6 @@ class TasksController extends BaseController
                 $file = $newFile;
             }
         }
-
-//        if ($request->file('file') !== null) {
-//            $file = $request->file('file')->store('public/docs');
-//        } else {
-//            $file = null;
-//        }
-//
-//        if ($task->file)
-//            Storage::delete($task->file);
 
         $task->update([
             'name' => $request->name,
