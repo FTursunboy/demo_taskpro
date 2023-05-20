@@ -21,18 +21,19 @@ class ProfileController extends BaseController
         return view('admin.profile.index', compact('user', 'employees'));
     }
 
-    public function edit(int $id)
+    public function edit()
     {
-        $user = User::find($id);
+        $user = User::findOrFail(Auth::id());
         $otdel = OtdelsModel::where('id', $user->otdel_id)->first();
         $otdels = OtdelsModel::where('id', '!=', $user->otdel_id)->get();
         return view('admin.profile.edit', compact('user', 'otdel', 'otdels'));
     }
 
-    public function update(ProfileUpdateRequest $request, int $id){
+    public function update(ProfileUpdateRequest $request)
+    {
 
         $data = $request->validated();
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(Auth::id());
         $file = $user->avatar;
 
         if ($request->hasFile('avatar')) {
@@ -57,11 +58,11 @@ class ProfileController extends BaseController
         return redirect()->route('profile.index')->with('success', 'Данные обновлены');
     }
 
-    public function show(int $id)
+    public function show()
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(Auth::id());
         $otdel = OtdelsModel::where('id', $user->otdel_id)->first();
-        return view('admin.profile.show', compact('user','otdel'));
+        return view('admin.profile.show', compact('user', 'otdel'));
     }
 
 
@@ -77,7 +78,7 @@ class ProfileController extends BaseController
         ]);
 
         $user = User::where('id', Auth::id())->first();
-        if (Hash::check($data['oldPassword'] ,$user->password)) {
+        if (Hash::check($data['oldPassword'], $user->password)) {
             $user->update([
                 'password' => Hash::make($data['password'])
             ]);

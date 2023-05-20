@@ -45,7 +45,7 @@
                             @foreach($employees as $employee)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $employee->surname. ' '. $employee->name.' '. $employee->lastname }}</td>
+                                    <td>{{ \Str::limit($employee->surname. ' '. $employee->name.' '. $employee->lastname, 20)  }}</td>
                                     <td>{{ $employee->position }}</td>
                                     <td>{{ $employee->phone }}</td>
                                     <td>
@@ -97,7 +97,7 @@
 
                     </div>
                     <div class="card-body">
-                        <h5 class="text-center">{{ $user->surname . ' ' .$user->name .' '. $user->lastname}}.</h5>
+                        <h5 class="text-center">{{ $user->surname . ' ' .$user->name}}</h5>
                         <div>
                             <table class="mt-3" cellpadding="5">
                                 <tr>
@@ -117,8 +117,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center">
-                            <a href="{{ route('profile.show', $user->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                            <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ route('profile.show') }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                            <a href="{{ route('profile.edit') }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
                         </div>
                     </div>
                 </div>
