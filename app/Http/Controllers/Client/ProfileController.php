@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function index(User $user)
+    public function index()
     {
-        //$user = User::findOrFail(Auth::id());
+        $user = User::findOrFail(Auth::id());
 
         return view('client.profile.index', compact('user'));
     }
 
-    public function update(User $client, UpdateClientRequest $request)
+    public function update(UpdateClientRequest $request)
     {
         $data = $request->validated();
+
+        $client = User::findOrFail(Auth::id());
         $client->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
@@ -28,7 +30,7 @@ class ProfileController extends Controller
             'phone' => $data['phone'],
             'password' => Hash::make($data['password'] ?? 'password')
         ]);
-        return redirect()->route('edit_profile.index', $client->id)->with('update', "Клиент успешно изменен!");
+        return redirect()->route('client_profile.index')->with('update', "Клиент успешно изменен!");
     }
 
     public function password(Request $request)

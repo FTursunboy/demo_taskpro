@@ -23,7 +23,7 @@
                 <div class="col-9">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('edit_profile.update.a', $user->id) }}" method="POST">
+                            <form action="{{ route('client_profile.update.a') }}" method="POST">
                                 @csrf
                                 @method('PATCH')
                                 <div class="row">
@@ -97,7 +97,7 @@
     <div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePassword" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form action="{{ route('edit_profile.password') }}" method="POST">
+                <form action="{{ route('client_profile.password') }}" method="POST">
                     @csrf
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="changePassword">Изменить пароль</h1>
