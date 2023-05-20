@@ -50,24 +50,30 @@ class EmployeeController extends BaseController
         return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан!');
     }
 
-    public function show(User $user)
+    public function show($slug)
     {
+        $user = User::where('slug', $slug)->firstOrFail();
+
         $project_tasks = TaskModel::where('user_id', '=', $user->id)->get();
         $tasks = $user->tasksSuccess($user->id);
         return view('admin.employee.show', compact('user', 'tasks', 'project_tasks'));
     }
 
-    public function edit(User $user)
+    public function edit($slug)
     {
+        $user = User::where('slug', $slug)->firstOrFail();
+
         $roles = Role::where('name', 'user')->get();
         $departs = OtdelsModel::get();
         return view('admin.employee.edit', compact('user', 'roles', 'departs'));
     }
 
-    public function update(User $employee, UpdateEmployeeRequest $request)
+    public function update($slug, UpdateEmployeeRequest $request)
     {
         $data = $request->validated();
-        $file = $employee->avatar; // Use the existing file path from the database
+
+        $employee = User::where('slug', $slug)->firstOrFail();
+        $file = $employee->avatar;
 
         if ($request->hasFile('avatar')) {
             $newFile = $request->file('avatar')->store('public/user_img/');
@@ -94,8 +100,10 @@ class EmployeeController extends BaseController
         return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен!");
     }
 
-    public function destroy(User $employee)
+    public function destroy($slug)
     {
+        $employee = User::where('slug', $slug)->firstOrFail();
+
         $employee->delete();
         return redirect()->route('employee.index')->with('delete', "Сотрудник успешно удален!");
     }

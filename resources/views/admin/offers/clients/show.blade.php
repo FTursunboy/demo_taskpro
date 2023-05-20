@@ -143,20 +143,20 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center">
-                                <a href="{{ route('employee.client.edit', $user->id) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
-                                <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$user->id}}"><i class="bi bi-trash"></i></a>
+                                <a href="{{ route('employee.client.edit', $user->slug) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
+                                <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal fade" id="delete{{$user->id}}" tabindex="-1" aria-labelledby="delete{{$user->id}}" aria-hidden="true">
+                    <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                                <form action="{{ route('employee.client.destroy', $user->id) }}" method="POST">
+                                <form action="{{ route('employee.client.destroy', $user->slug) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="delete{{$user->id}}">Предупреждение</h1>
+                                        <h1 class="modal-title fs-5" id="delete{{$user->slug}}">Предупреждение</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">

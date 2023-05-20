@@ -32,7 +32,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('employee.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('employee.update', $user->slug) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="row">
