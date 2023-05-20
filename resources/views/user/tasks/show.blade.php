@@ -222,8 +222,7 @@
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
-                                                <textarea name="message" class="form-control" rows="1" id="message"
-                                                          placeholder="Сообщение..." required></textarea>
+                                                <input type="text" name="message" class="form-control" placeholder="Сообщение..." required>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>

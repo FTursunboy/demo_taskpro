@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
+use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,6 +25,12 @@ class MessagesController extends BaseController
             'message' => $request->message
         ]);
 
+        ChatMessageModel::create([
+            'task_id' => $task->id,
+            'message' => $request->message,
+            'user_id' => $user_id->id,
+            'offer_id' => ($task->offer_id !== null) ? $task->client_id : null,
+        ]);
         return back();
     }
 }

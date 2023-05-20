@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\WokerRequest;
 use App\Models\Client\Offer;
@@ -14,21 +15,23 @@ use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class WorkerController extends Controller
+class WorkerController extends BaseController
 {
-    public function index() {
+    public function index()
+    {
         $users = User::role('client-worker')->get();
 
         return view('client.workers.index', compact('users'));
     }
 
-    public function store(WokerRequest $request) {
-       $user = User::create([
+    public function store(WokerRequest $request)
+    {
+        $user = User::create([
             'name' => $request->name,
             'lastname' => $request->lastname,
             'phone' => $request->phone,
             'email' => $request->email,
-           'slug' => Str::slug($request->name . '-' . rand(0, 5), '-'),
+            'slug' => Str::slug($request->name . '-' . rand(0, 5), '-'),
             'login' => $request->login,
             'password' => Hash::make($request->password),
         ]);
@@ -44,14 +47,12 @@ class WorkerController extends Controller
 
     }
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
         $tasks = Offer::where('client_id', $user->id)->get();
 
         return view('client.workers.show', compact('tasks', 'user'));
     }
-
-
-
 
 
 }

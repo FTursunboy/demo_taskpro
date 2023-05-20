@@ -6,6 +6,7 @@ Route::group(['middleware' => ['role:client']], function () {
 
     Route::group(['as' => 'client.'], function () {
         Route::get('dashboard-client', [\App\Http\Controllers\Client\IndexController::class, 'index'])->name('index');
+        Route::get('/dashboard-client/new-message/{task}', [\App\Http\Controllers\Client\IndexController::class, 'removeNotification'])->name('removeNotification');
     });
 
     Route::get('edit_profile/{user}', [\App\Http\Controllers\Client\ProfileController::class, 'index'])->name('edit_profile.index');

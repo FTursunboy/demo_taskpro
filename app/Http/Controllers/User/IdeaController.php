@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\IdeaRequest;
 use App\Models\Idea;
@@ -9,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class IdeaController extends Controller
+class IdeaController extends BaseController
 {
     public function index(){
         $ideas = Idea::where('user_id', Auth::user()->id)->get();

@@ -26,7 +26,7 @@
         <div class="page-content">
             <div class="row my-4">
                 <div class="col-6">
-                    <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">Назад</a>
+                    <a href="{{ route('client.offers.index') }}" class="btn btn-outline-danger">Назад</a>
                 </div>
             </div>
             <div class="row">
@@ -53,8 +53,11 @@
                                                 <div class="chat-body" style="margin-right: 10px">
                                                     <div class="chat-message">
                                                         <p>
-                                                            <span >{{$mess->sender?->name}}</span><span style="color: red; font-size: 11px"> {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}<br></span>
-                                                            {{ $mess->message }}
+                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            </span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -62,10 +65,15 @@
                                         @else
                                             <div class="chat chat-left id">
                                                 <div class="chat-body">
-                                                    <div class="chat-message"><p>
-                                                            <span >{{$mess->sender?->name}}</span><span style="color: red; font-size: 11px"> {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}<br></span>
-                                                            {{ $mess->message }}
-                                                        </p></div>
+                                                    <div class="chat-message">
+                                                        <p>
+                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            </span>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endif
@@ -83,8 +91,7 @@
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
-                                                <textarea name="message" class="form-control" rows="1" id="message"
-                                                          placeholder="Сообщение..." required></textarea>
+                                                <input type="text" name="message" class="form-control" placeholder="Сообщение..." required>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>

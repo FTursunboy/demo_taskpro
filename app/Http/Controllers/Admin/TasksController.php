@@ -11,6 +11,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
+use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\Statuses;
 use App\Models\User;
@@ -39,7 +40,6 @@ class TasksController extends BaseController
         $projects = ProjectModel::get();
         $users = User::role('user')->get();
 
-
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
     }
 
@@ -53,26 +53,39 @@ class TasksController extends BaseController
         return view('admin.tasks.show', compact('task', 'messages'));
     }
 
+    public function removeNotification(TaskModel $task)
+    {
+        $mess = ChatMessageModel::where('task_id', $task->id)->first();
+        $mess?->delete();
+        if ($task->offer_id !== null) {
+            return redirect()->route('offers.chat', $task->offer_id);
+        }
+        return redirect()->route('tasks.show', $task->id);
+    }
+
     public function file_show($file)
     {
         if (Storage::disk('public')->exists($file)) {
             $filePath = Storage::disk('public')->path($file);
-            return redirect()->file($filePath);
         }
+        return redirect()->file($filePath);
     }
 
     public function message(TaskModel $task, Request $request)
     {
+        ChatMessageModel::create([
+            'task_id' => $task->id,
+            'user_id' => $task->user_id,
+            'message' => $request->message,
+            'offer_id' => ($task->offer_id !== null) ? $task->offer_id : null,
+        ]);
 
         MessagesModel::create([
             'task_slug' => $task->slug,
             'sender_id' => Auth::id(),
             'user_id' => $task->user_id,
-            'message' => $request->message
+            'message' => $request->message,
         ]);
-
-
-
         return back();
     }
 
