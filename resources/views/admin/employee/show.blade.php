@@ -54,7 +54,50 @@
                                         <td>{{ ($project_task->type === null) ? "От клиента" : $project_task->type->name }}</td>
                                         <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->from)->format('d-m-Y') }}</td>
                                         <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->to)->format('d-m-Y') }}</td>
-                                        <td>{{ $project_task->status->name }}</td>
+                                        @switch($project_task->status->id)
+                                            @case($project_task->status->id === 1)
+                                                <td><span class="badge bg-warning">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 2)
+                                                <td><span class="badge bg-success">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 3)
+                                                <td><span class="badge bg-success">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 4)
+                                                <td><span class="badge bg-primary">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 5)
+                                                <td><span class="badge bg-danger">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 6)
+                                                <td><span class="badge bg-light-info">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 7)
+                                                <td><span class="badge bg-secondary">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 8)
+                                                <td><span class="badge bg-warning">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 9)
+                                                <td><span class="badge bg-warning">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 10)
+                                                <td><span class="badge bg-light-info">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 11)
+                                                <td><span class="badge bg-danger">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 12)
+                                                <td><span class="badge bg-danger">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 13)
+                                                <td><span class="badge bg-danger">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                            @case($project_task->status->id === 14)
+                                                <td><span class="badge bg-light-info">{{ $project_task->status->name }}</span></td>
+                                            @break
+                                        @endswitch
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -147,22 +190,22 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center">
-                                <a href="{{ route('employee.edit', $user->id) }}" class="btn btn-primary mx-2"><i
+                                <a href="{{ route('employee.edit', $user->slug) }}" class="btn btn-primary mx-2"><i
                                         class="bi bi-pencil"></i></a>
                                 <a role="button" class="btn btn-danger" data-bs-toggle="modal"
-                                   data-bs-target="#delete{{$user->id}}"><i class="bi bi-trash"></i></a>
+                                   data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="delete{{$user->id}}" tabindex="-1" aria-labelledby="delete{{$user->id}}"
+                    <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}"
                          aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                                <form action="{{ route('employee.destroy', $user->id) }}" method="POST">
+                                <form action="{{ route('employee.destroy', $user->slug) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="delete{{$user->id}}">Предупреждение</h1>
+                                        <h1 class="modal-title fs-5" id="delete{{$user->slug}}">Предупреждение</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
@@ -195,7 +238,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($tasks as $task)
+                                @foreach($project_tasks as $task)
                                     <tr>
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $task->to }}</td>
