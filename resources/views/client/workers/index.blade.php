@@ -8,7 +8,7 @@
                             <h3>Сотрудники</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <a href="№" class="btn btn-outline-primary mb-2" data-bs-target="#store" data-bs-toggle="modal">
+                            <a href="#" class="btn btn-outline-primary mb-2" data-bs-target="#store" data-bs-toggle="modal">
                                 Добавить нового сотрудника
                             </a>
                         </div>
