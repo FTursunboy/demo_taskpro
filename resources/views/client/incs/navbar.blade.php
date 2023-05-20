@@ -71,7 +71,7 @@
                         <span>Сотрудники</span>
                     </a>
                 </li>
-
+@endrole
                 <li class="sidebar-item {{ (request()->is('client_profile') or request()->is('client_profile/*'))  ? 'active' : '' }}">
                     <a href="{{ route('client_profile.index') }}" class='sidebar-link'>
 

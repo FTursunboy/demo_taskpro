@@ -6,7 +6,7 @@ use App\Models\Admin\TasksClient;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class TaskController extends BaseController
 {
     public function index() {
         $tasks = TasksClient::get();
