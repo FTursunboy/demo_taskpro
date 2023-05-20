@@ -87,13 +87,13 @@
                             </div>
                 </div>
                 @if($project->file !== null)
-                    <div class="form-group">
+                    <div class="form-group col-4">
                         <label for="file">Файл</label>
-                        <a href="#" download class="form-control text-bold">Просмотреть
+                        <a href="{{ route('project.download', $project->id) }}" download class="form-control text-bold">Просмотреть
                             файл</a>
                     </div>
                 @else
-                    <div class="form-group">
+                    <div class="form-group col-4">
                         <label for="to">Файл</label>
                         <input type="text" class="form-control" id="to"
                                value="Нет файл" disabled>

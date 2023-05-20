@@ -143,8 +143,7 @@
                     <div class="row">
                         @if($task->file !== null)
                             <div class="col-md-6">
-                                <a style="margin-left: 0px" download
-                                   href="{{ \Illuminate\Support\Facades\Storage::url($task->file) }}" tabindex="11">Просмотреть
+                                <a href="{{ route('tasks.download', $task->id) }}" style="margin-left: 0px" download class="form-control text-bold">Просмотреть
                                     файл</a>
                             </div>
                         @endif

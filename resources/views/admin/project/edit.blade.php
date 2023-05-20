@@ -34,7 +34,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('project.update', $project->id) }}" method="POST">
+                    <form action="{{ route('project.update', $project->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="row">
@@ -102,8 +102,21 @@
                                               class="form-control mt-3">{{ $project->comment }}</textarea>
                                 </div>
                             </div>
+                            <div class="row">
+                                @if($project->file !== null)
+                                    <div class="col-md-6">
+                                        <a href="{{ route('project.download', $project->id) }}" style="margin-left: 0px" download class="form-control text-bold">Просмотреть
+                                            файл</a>
+                                    </div>
+                                @endif
+                                <div class="col-6"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Выберите файл</label>
+                                <input type="file" class="form-control" tabindex="8" name="file">
+                            </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" tabindex="8" class="btn btn-outline-primary">Сохранить</button>
+                                <button type="submit" tabindex="9" class="btn btn-outline-primary">Обновить</button>
                             </div>
                         </div>
                     </form>
