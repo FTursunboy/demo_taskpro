@@ -24,7 +24,7 @@ class ProjectUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'min:3', 'max:150'],
             'type_id' => ['required', 'exists:project_type_models,id'],
-            'time' => ['required'],
+            'time' => [''],
             'start' => ['required', 'date'],
             'finish' => ['required', 'date'],
             'comment' => [''],

@@ -53,7 +53,7 @@
 
                         <div class="form-group">
                             <label for="finish">Дата окончания проекта</label>
-                            <input type="date" id="finish" name="finish" class="form-control mt-3" value="{{ $task->finish }}"  disabled>
+                            <input type="date" id="finish" name="finish" class="form-control mt-3" value="{{ $task->to }}"  disabled>
                         </div>
 
                         <div class="form-group">

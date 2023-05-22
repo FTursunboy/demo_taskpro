@@ -40,23 +40,21 @@
                             <div class="form-group">
                                 <label for="name">Имя</label>
                                 <input type="text" id="name" name="name" class="form-control mt-3"
-                                       placeholder="Имя" value="{{ old('name') }}" required>
+                                       placeholder="Имя" value="{{ old('name') }}" tabindex="1" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="from">Дата начала задачи</label>
                                 <input type="date" id="from" name="from" class="form-control mt-3"
-                                       value="{{ old('from') }}" required>
+                                       value="{{ old('from') }}" required tabindex="4">
                             </div>
                         </div>
-
-
 
                         <div class="col-4">
 
                             <div class="form-group">
                                 <label for="client_id">Кому это задача</label>
-                                <select id="client_id" name="client_id" class="form-select mt-3" required>
+                                <select id="client_id" name="client_id" class="form-select mt-3" tabindex="2" required>
                                     <option value="" selected>Выберите клиента </option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -67,22 +65,18 @@
                             <div class="form-group">
                                 <label for="to">Дата окончания задачи</label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
-                                       required>
+                                       required tabindex="5">
                             </div>
                         </div>
 
-
                         <div class="col-4">
 
-
                             <div class="form-group d-none" id="type_id_group">
-
                             </div>
-
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
                                 <textarea name="description" id="comment"
-                                          class="form-control mt-3" required>{{ old('comment') }}</textarea>
+                                          class="form-control mt-3" tabindex="3" required>{{ old('comment') }}</textarea>
                             </div>
 
                         </div>
@@ -93,13 +87,13 @@
                         <div class="col-6">
                                 <div class="form-group">
                                 <label for="file">Файл</label>
-                                <input type="file" name="file" class="form-control mt-3" id="file">
+                                <input type="file" name="file" class="form-control mt-3" tabindex="6" id="file">
                             </div>
                         </div>
                         <div class="col-6"></div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                        <button type="button" id="button" class="btn btn-outline-primary" tabindex="7">Сохранить</button>
                     </div>
                 </form>
             </div>
@@ -115,19 +109,23 @@
             if ($(this).val() > to.val()) {
                 $(this).addClass('border-danger')
                 to.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 to.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
         $('#to').change(function () {
             const from = $('#from')
-            if ($(this).val() > from.val()) {
+            if ($(this).val() < from.val()) {
                 $(this).addClass('border-danger')
                 from.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 from.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
     </script>
