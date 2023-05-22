@@ -14,19 +14,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
-                    <li class="nav-item dropdown me-1">
-                        <a class="nav-link active dropdown-toggle text-gray-600" href="#"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class='bi bi-envelope bi-sub fs-4'></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li>
-                                <h6 class="dropdown-header">Задачи</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Нет новая задача</a></li>
-                        </ul>
-                    </li>
+
 
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link active dropdown-toggle text-gray-600" href="#"
@@ -36,7 +24,7 @@
                         <ul class="dropdown-menu dropdown-menu-end notification-dropdown"
                             aria-labelledby="dropdownMenuButton">
                             <li class="dropdown-header">
-                                <h6>Дейсвия</h6>
+                                <h6></h6>
                             </li>
                             {{--                                <li class="dropdown-item notification-item">--}}
                             {{--                                    <a class="d-flex align-items-center" href="#">--}}
@@ -62,7 +50,7 @@
                             {{--                                    </a>--}}
                             {{--                                </li>--}}
                             <li>
-                                <p class="text-center py-2 mb-0"><a href="#">See all notification</a></p>
+
                             </li>
                         </ul>
                     </li>
