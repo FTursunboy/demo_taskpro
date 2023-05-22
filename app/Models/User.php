@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TasksClient;
 use App\Models\Client\Offer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -70,10 +71,19 @@ class User extends Authenticatable
     {
         return TaskModel::where('user_id', $id)->count();
     }
-
     public function taskSuccessCount($id)
     {
         return TaskModel::where('user_id', $id)->where('status_id', 3)->count();
+    }
+
+    public function taskClientCount($id)
+    {
+        return Offer::where('client_id', $id)->count();
+    }
+
+    public function taskClientSuccessCount($id)
+    {
+        return TasksClient::where('client_id', $id)->where('status_id', 3)->count();
     }
 
     public function ideaCount($id)
