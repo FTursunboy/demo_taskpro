@@ -73,16 +73,12 @@ class EmployeeController extends BaseController
         $data = $request->validated();
 
         $employee = User::where('slug', $slug)->firstOrFail();
-        $file = $employee->avatar;
 
-        if ($request->hasFile('avatar')) {
-            $newFile = $request->file('avatar')->store('public/user_img');
-            if ($newFile !== $file) {
-                if ($file !== null) {
-                    Storage::delete($file);
-                }
-                $file = $newFile;
-            }
+        if ($request->file('avatar') !== null) {
+            Storage::disk('public')->delete($employee->avatar);
+            $file = Storage::disk('public')->put('/user_img', $request->file('avatar'));
+        } else {
+            $file = $employee->avatar;
         }
 
         $employee->update([
