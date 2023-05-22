@@ -66,23 +66,24 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/edit/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'edit'])->name('edit');
         Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
+        Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
     });
 
     Route::group(['as' => 'employee.'], function () {
         Route::get('/employees', [\App\Http\Controllers\Admin\EmployeeController::class, 'index'])->name('index');
         Route::get('/employees/create', [\App\Http\Controllers\Admin\EmployeeController::class, 'create'])->name('create');
         Route::post('/employees/store', [\App\Http\Controllers\Admin\EmployeeController::class, 'store'])->name('store');
-        Route::get('/employees/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
-        Route::get('//employees/edit/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('edit');
-        Route::patch('/employees/update/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
-        Route::delete('/employees/destroy/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
+        Route::get('/employees/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
+        Route::get('//employees/edit/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('edit');
+        Route::patch('/employees/update/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
+        Route::delete('/employees/destroy/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
 
         Route::get('/client', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('client');
-        Route::get('/client/show/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'show'])->name('client.show');
-        Route::get('/client/edit/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'edit'])->name('client.edit');
+        Route::get('/client/show/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'show'])->name('client.show');
+        Route::get('/client/edit/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'edit'])->name('client.edit');
         Route::post('/client/store', [\App\Http\Controllers\Admin\ClientController::class, 'store'])->name('client.store');
-        Route::patch('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
-        Route::delete('/client/update/{user}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
+        Route::patch('/client/update/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'update'])->name('client.update');
+        Route::delete('/client/update/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
 
 
     });

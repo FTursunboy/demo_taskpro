@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\Admin\OtdelsModel;
@@ -11,10 +12,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
-    public function index(User $user)
+    public function index()
     {
+        $user = User::findOrFail(Auth::id());
         $employees = User::role('user')->get();
         $task = User::where('id', Auth::id())->first()->countTasks(Auth::id());
         $tasks = User::findOrFail(Auth::id())->getUsersTasks(Auth::id());
@@ -22,10 +24,10 @@ class ProfileController extends Controller
         return view('user.profile.index', compact('user', 'departs', 'task', 'tasks', 'employees'));
     }
 
-    public function update(User $user, UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
         $data = $request->validated();
-        $file = $user->avatar;
+        $file = Auth::user()->avatar;
 
         if ($request->hasFile('avatar')) {
             $newFile = $request->file('avatar')->store('public/user_img/');
@@ -37,7 +39,7 @@ class ProfileController extends Controller
             }
         }
 
-        $user->update([
+        Auth::user()->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'lastname' => $data['lastname'],
@@ -45,7 +47,7 @@ class ProfileController extends Controller
             'avatar' => $file,
         ]);
 
-        return redirect()->route('user_profile.index', $user->id)->with('update', "Данные успешно изменены!");
+        return redirect()->route('user_profile.index')->with('update', "Данные успешно изменены!");
     }
 
 

@@ -1,3 +1,12 @@
+<style>
+    .highlight-icon {
+        color: red; /* Цвет иконки */
+
+        padding: 5px; /* Отступы вокруг иконки */
+        border-radius: 50%; /* Задание круглой формы */
+    }
+</style>
+
 <header class='mb-3'>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
@@ -19,11 +28,12 @@
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link active dropdown-toggle text-gray-600" href="#"
                            data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                            <i class='bi bi-bell bi-sub fs-4'></i>
+                            <i class='bi bi-bell{{ (count($newMessage) > 0) ? '-fill' : '' }} fs-4 {{ (count($newMessage) > 0) ? 'highlight-icon' : '' }}'></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end notification-dropdown"
                             aria-labelledby="dropdownMenuButton">
                             <li class="dropdown-header">
+
                                 <h6></h6>
                             </li>
                             {{--                                <li class="dropdown-item notification-item">--}}
@@ -51,7 +61,28 @@
                             {{--                                </li>--}}
                             <li>
 
+
+                                <h6>Новые сообщение</h6>
+
                             </li>
+                            @foreach($newMessage as $mess)
+
+                                <li class="dropdown-item notification-item">
+                                    <a class="d-flex align-items-center"
+                                       href="{{ route('client.removeNotification',$mess->task_id) }}">
+                                        <div class="notification-icon">
+                                            <i class="bi bi-bell text-primary"></i>
+                                        </div>
+                                        <div class="notification-text ms-4">
+                                            <p class="notification-title font-bold">
+                                                <b>SMS:</b>{{ \Str::limit($mess->message, 10)  }}</p>
+                                            <p class="notification-subtitle font-thin text-sm d-flex">
+                                                <b>Задача:</b>{{ $mess->tasks->name }}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+
                         </ul>
                     </li>
                 </ul>
@@ -64,7 +95,11 @@
                             </div>
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
-                                    <img src="{{asset('assets/images/avatar-2.png')}}">
+                                    @if(Auth::user()->avatar)
+                                        <img src="{{Storage::url(Auth::user()->avatar)}}">
+                                    @else
+                                        <img src="{{asset('assets/images/avatar-2.png')}}">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -75,7 +110,7 @@
                             <h6 class="dropdown-header">Привет, {{ \Illuminate\Support\Facades\Auth::user()->name }}
                                 !</h6>
                         </li>
-                        <li><a class="dropdown-item" href="{{ route('edit_profile.index', auth()->id()) }}"><i
+                        <li><a class="dropdown-item" href="{{ route('client.index')}}"><i
                                     class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><i

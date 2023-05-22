@@ -27,6 +27,7 @@ class UpdateClientRequest extends FormRequest
             'surname' => ['required'],
             'phone' => ['required'],
             'password' => [''],
+            'avatar' => [''],
         ];
     }
 }

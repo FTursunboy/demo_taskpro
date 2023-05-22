@@ -7,8 +7,8 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('dashboard-user', [\App\Http\Controllers\User\IndexController::class, 'index'])->name('index');
     });
 
-        Route::get('/user/profile/{user}', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('user_profile.index');
-        Route::patch('/user/profile/update/{user}', [\App\Http\Controllers\User\ProfileController::class, 'update'])->name('user_profile.update.a');
+        Route::get('/user/profile/', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('user_profile.index');
+        Route::patch('/user/profile/update/', [\App\Http\Controllers\User\ProfileController::class, 'update'])->name('user_profile.update.a');
         Route::post('/user/profile/change-password', [\App\Http\Controllers\User\ProfileController::class, 'password'])->name('user_profile.password');
 
     Route::group(['as' => 'idea.'], function () {
@@ -23,6 +23,7 @@ Route::group(['middleware' => ['role:user']], function () {
 
     Route::group(['as' => 'task-list.'], function () {
         Route::get('/task-list/{task}', [\App\Http\Controllers\User\TaskListController::class, 'show'])->name('show');
+        Route::get('/task-list/new-message/{task}', [\App\Http\Controllers\User\TaskListController::class, 'removeNotification'])->name('removeNotification');
 
         Route::post('/task-list/ready/{task}', [\App\Http\Controllers\User\TaskListController::class, 'ready'])->name('ready');
     });
