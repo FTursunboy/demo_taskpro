@@ -156,8 +156,6 @@
             const to = $('#to')
             if ($(this).val() > to.val()) {
 
-
-
                 let selectedOption = $('#project_id option:selected');
                 let selectedClass = selectedOption.attr('class');
 
@@ -167,7 +165,6 @@
                 if (toDate > selectedDate) {
                     $('#error-message').show();
                     $(this).addClass('border-danger')
-
 
                     let formattedDate = selectedDate.toISOString().split('T')[0];
 

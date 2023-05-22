@@ -51,8 +51,7 @@
 
                             <div class="form-group">
                                 <label for="time">Время</label>
-                                <input type="number" id="time" name="time" class="form-control mt-3" tabindex="2" value="{{ old('time') }}" placeholder="Время"
-                                       required>
+                                <input type="number" id="time" name="time" class="form-control mt-3" tabindex="2" value="{{ old('time') }}" placeholder="Время">
                             </div>
 
 
@@ -99,7 +98,7 @@
                             <div class="col-6"></div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" class="btn btn-outline-primary" tabindex="8">Сохранить</button>
+                            <button type="submit" id="button" class="btn btn-outline-primary" tabindex="8">Сохранить</button>
                         </div>
                     </div>
                 </form>
@@ -116,19 +115,23 @@
             if ($(this).val() > finish.val()) {
                 $(this).addClass('border-danger')
                 finish.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 finish.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
         $('#finish').change(function ()  {
             const start = $('#start')
-            if ($(this).val() > start.val()) {
+            if ($(this).val() < start.val()) {
                 $(this).addClass('border-danger')
                 start.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 start.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
     </script>
