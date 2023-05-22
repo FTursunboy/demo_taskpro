@@ -88,7 +88,7 @@
                                 <div class="avatar avatar-md">
                                     @if(Auth::user()->avatar)
                                         <img
-                                            src="{{ asset('storage/'.\Illuminate\Support\Facades\Auth::user()->avatar)}}">
+                                            src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
                                     @else
                                         <img src="{{asset('assets/images/avatar-2.png')}}">
                                     @endif
