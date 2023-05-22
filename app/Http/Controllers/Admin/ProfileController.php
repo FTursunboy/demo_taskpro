@@ -38,7 +38,7 @@ class ProfileController extends BaseController
         $file = $user->avatar;
 
         if ($request->hasFile('avatar')) {
-            $newFile = $request->file('avatar')->store('public/user_img/');
+            $newFile = $request->file('avatar')->store('user_img');
             if ($newFile !== $file) {
                 if ($file !== null) {
                     Storage::delete($file);
