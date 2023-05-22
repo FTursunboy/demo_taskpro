@@ -55,7 +55,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Обноавление типа</h5>
+                                                    <h5 class="modal-title">Обновление типа</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <form action="{{route('settings.project.update', $type->id)}}" method="post">
@@ -68,7 +68,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                                                             <button type="submit" class="btn btn-primary">Отправить</button>
                                                         </div>
                                                     </div>
@@ -81,7 +81,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Вы действительно хотите удалить?</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Отмена"></button>
                                                 </div>
                                                 <form action="{{route('settings.project.delete', $type->id)}}" method="get">
                                                     <div class="modal-body">
@@ -91,7 +91,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                                                             <button type="submit" class="btn btn-primary">Отправить</button>
                                                         </div>
                                                     </div>
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                             <button type="submit" class="btn btn-primary">Отправить</button>
                         </div>
                     </div>

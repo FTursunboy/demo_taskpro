@@ -69,7 +69,7 @@
                                     Точно хотите удалить <b>'{{ $user->surname . ' ' .$user->name.' ' .$user->lastname  }}'</b>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                                     <button type="submit" class="btn btn-danger">Да</button>
                                 </div>
                             </form>
