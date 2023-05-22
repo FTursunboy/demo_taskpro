@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
                                 <select id="project_id" name="project_id" tabindex="5" class="form-select mt-3">
-                                    <option value="" selected>Выбирите проект</option>
+                                    <option value="" selected disabled>Выбирите проект</option>
                                     @foreach($projects as $project)
                                         <option
                                             value="{{ $project->id }}" {{ ($project->id === old('project_id') or $project->id === $task->project_id ) ? 'selected' : '' }} class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}

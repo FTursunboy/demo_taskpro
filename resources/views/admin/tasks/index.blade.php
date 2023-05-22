@@ -380,9 +380,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-success"
-                                                                    >Перенаправить
-                                                            </button>
+                                                            <button type="submit" class="btn btn-success">Перенаправить</button>
                                                             <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-primary">
                                                                 Изменить
                                                             </a>
@@ -391,7 +389,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     @endforeach
                                 </div>
                             </div>
