@@ -58,10 +58,8 @@
                                 <div class="form-group">
                                     <label for="time">Время</label>
                                     <input type="number" id="time" name="time" tabindex="2" class="form-control mt-3"
-                                           value="{{ $project->time }}" placeholder="Время"
-                                           required>
+                                           value="{{ $project->time }}" placeholder="Время">
                                 </div>
-
 
                                 <div class="form-group">
                                     <label for="finish">Дата окончания проекта</label>
@@ -116,7 +114,7 @@
                                 <input type="file" class="form-control" tabindex="8" name="file">
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" tabindex="9" class="btn btn-outline-primary">Обновить</button>
+                                <button type="button" tabindex="9" id="button" class="btn btn-outline-primary">Обновить</button>
                             </div>
                         </div>
                     </form>
@@ -130,24 +128,28 @@
 
 @section('script')
     <script>
-        $('#start').change(function () {
+        $('#start').change(function ()  {
             const finish = $('#finish')
             if ($(this).val() > finish.val()) {
                 $(this).addClass('border-danger')
                 finish.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 finish.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
-        $('#finish').change(function () {
+        $('#finish').change(function ()  {
             const start = $('#start')
-            if ($(this).val() > start.val()) {
+            if ($(this).val() < start.val()) {
                 $(this).addClass('border-danger')
                 start.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 start.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
     </script>

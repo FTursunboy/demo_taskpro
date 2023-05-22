@@ -51,13 +51,11 @@
                             </div>
                         </div>
 
-
-
                         <div class="col-4">
 
                             <div class="form-group">
                                 <label for="client_id">Клиент</label>
-                                <select id="client_id" name="client_id" class="form-select mt-3">
+                                <select id="client_id" name="client_id" class="form-select mt-3" required>
                                     <option value="" selected>Выберите клиента </option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -86,9 +84,7 @@
                                 <textarea name="description" id="comment"
                                           class="form-control mt-3">{{ old('description', $task->description) }}</textarea>
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -101,7 +97,7 @@
                         <div class="col-6"></div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" class="btn btn-outline-primary">Обновить</button>
+                        <button type="submit" id="button" class="btn btn-outline-primary">Обновить</button>
                     </div>
                 </form>
             </div>
@@ -117,19 +113,23 @@
             if ($(this).val() > to.val()) {
                 $(this).addClass('border-danger')
                 to.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 to.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
         $('#to').change(function () {
             const from = $('#from')
-            if ($(this).val() > from.val()) {
+            if ($(this).val() < from.val()) {
                 $(this).addClass('border-danger')
                 from.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger')
                 from.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
         })
 
