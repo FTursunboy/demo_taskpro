@@ -23,11 +23,11 @@ class WokerRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'login' => ['required', 'unique:users,login'],
             'lastname' => ['required'],
-            'phone' => ['required', 'unique:users,phone'],
-            'position' => ['required'],
-            'password' => ['required','min:6'],
+            'phone' => ['required'],
+            'surname' => ['required'],
+            'password' => [''],
+            'avatar' => [''],
         ];
     }
 }

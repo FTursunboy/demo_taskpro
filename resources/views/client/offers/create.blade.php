@@ -1,8 +1,5 @@
 @extends('client.layouts.app')
 @section('content')
-
-
-
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
@@ -26,7 +23,7 @@
                     {{session('mess')}}
                 </div>
             @endif
-            <div class="row ">
+            <div class="row">
                 <div class="row pt-4">
                     <div class="col-md-12">
                         @if($errors->any())
@@ -39,9 +36,8 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <a href="{{ route('offers.index') }}" class="btn btn-danger">Назад</a>
+
                                     </div>
-
-
                                 </div>
                             </div>
 
