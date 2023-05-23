@@ -153,7 +153,7 @@
                             <a href="">События</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="">Клиентҷ</a>
+                            <a href="">Клиенты</a>
                         </li>
                     </ul>
                 </li>
