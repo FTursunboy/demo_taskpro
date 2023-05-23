@@ -71,6 +71,7 @@ class User extends Authenticatable
     {
         return TaskModel::where('user_id', $id)->count();
     }
+
     public function taskSuccessCount($id)
     {
         return TaskModel::where('user_id', $id)->where('status_id', 3)->count();
@@ -123,7 +124,14 @@ class User extends Authenticatable
         })->count();
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)->count();
-        $new = TaskModel::where('status_id', 1)->where('user_id', $id)->count();
+        $new = TaskModel::where('task_models.user_id', $id)
+            ->whereIn('task_models.status_id', [1, 7, 9])
+            ->whereNotIn('task_models.id', function ($subquery) use ($id) {
+                $subquery->select('h.task_id')
+                    ->from('user_task_history_models as h')
+                    ->where('h.user_id', $id);
+            })
+            ->count();
         return [
             'success' => $success,
             'unSuccess' => $UnSuccess,
@@ -135,28 +143,14 @@ class User extends Authenticatable
 
     public function getNewTasks($id)
     {
-        $tasks = TaskModel::where([
-            ['task_models.user_id', $id],
-        ])->where('task_models.status_id', 1)->orWhere('task_models.status_id', 9)
-            ->WhereNotIn('task_models.id', function ($subquery) {
-                $subquery->from('user_task_history_models as h')
-                    ->select('h.task_id')
-                    ->where('h.user_id', '=', 'task_models.user_id')
-                    ->where('h.status_id', [1, 7]);
-            })->orWhere('task_models.status_id', 7)
-            ->orderBy('task_models.status_id', 'desc')
-            ->get();
-
-        $offers = Offer::where([
-            ['user_id', $id],
-            ['status_id', 1],
-        ])->orWhere('status_id', 7)
-            ->whereNotIn('id', function ($query) {
-                $query->from('user_task_history_models as h')
-                    ->select('h.task_id')
-                    ->where('h.status_id', 'user_id');
+        $tasks = TaskModel::where('task_models.user_id', $id)
+            ->whereIn('task_models.status_id', [1, 7, 9])
+            ->whereNotIn('task_models.id', function ($subquery) use ($id) {
+                $subquery->select('h.task_id')
+                    ->from('user_task_history_models as h')
+                    ->where('h.user_id', $id);
             })
-            ->orderBy('status_id', 'desc')
+            ->orderBy('task_models.status_id', 'desc')
             ->get();
 
         return $tasks;
@@ -179,11 +173,11 @@ class User extends Authenticatable
             ['task_models.user_id', $id],
             ['task_models.status_id', 4],
         ])
-            ->WhereNotIn('task_models.id', function ($subquery) {
+            ->WhereNotIn('task_models.id', function ($subquery) use ($id) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')
-                    ->where('h.status_id', '=', 'task_models.user_id')
-                    ->where('h.status_id', [1, 7]);
+                    ->where('h.status_id', '=', $id)
+                    ->where('h.status_id', [4, 7]);
             })
             ->orderBy('task_models.status_id', 'desc')
             ->get();
@@ -195,7 +189,8 @@ class User extends Authenticatable
         return $this->telegram_user_id;
     }
 
-    public function projects(){
+    public function projects()
+    {
         return $this->belongsToMany(ProjectModel::class);
     }
 
@@ -209,7 +204,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Offer::class);
     }
-
 
 
 }
