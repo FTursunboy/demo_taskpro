@@ -34,7 +34,9 @@ class ProfileController extends BaseController
         $data = $request->validated();
         $user = User::findOrFail(Auth::id());
         if ($request->file('avatar') !== null) {
-            Storage::disk('public')->delete($user->avatar);
+            if ($user->avatar !== null) {
+                Storage::disk('public')->delete($user->avatar);
+            }
             $file = Storage::disk('public')->put('/user_img', $request->file('avatar'));
         } else {
             $file = $user->avatar;

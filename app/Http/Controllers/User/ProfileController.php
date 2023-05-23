@@ -27,19 +27,18 @@ class ProfileController extends BaseController
     public function update(UpdateProfileRequest $request)
     {
         $data = $request->validated();
-        $file = Auth::user()->avatar;
+        $user = User::findOrFail(Auth::id());
 
-        if ($request->hasFile('avatar')) {
-            $newFile = $request->file('avatar')->store('public/user_img/');
-            if ($newFile !== $file) {
-                if ($file !== null) {
-                    Storage::delete($file);
-                }
-                $file = $newFile;
+        if ($request->file('avatar') !== null) {
+            if ($user->avatar !== null) {
+                Storage::disk('public')->delete($user->avatar);
             }
+            $file = Storage::disk('public')->put('/user_img', $request->file('avatar'));
+        } else {
+            $file = $user->avatar;
         }
 
-        Auth::user()->update([
+        $user->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'lastname' => $data['lastname'],
@@ -63,7 +62,7 @@ class ProfileController extends BaseController
         ]);
 
         $user = User::where('id', Auth::id())->first();
-        if (Hash::check($data['oldPassword'] ,$user->password)) {
+        if (Hash::check($data['oldPassword'], $user->password)) {
             $user->update([
                 'password' => Hash::make($data['password'])
             ]);
