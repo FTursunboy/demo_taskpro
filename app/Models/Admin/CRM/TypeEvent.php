@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TypeEvent extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
 }
