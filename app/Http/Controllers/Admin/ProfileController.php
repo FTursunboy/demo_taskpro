@@ -44,7 +44,7 @@ class ProfileController extends BaseController
         $user->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
-            'lastname' => $data['lastname'],
+            'lastname' => $data['lastname'] ?? null,
             'phone' => $data['phone'],
             'otdel_id' => $data['otdel_id'],
             'telegram_user_id' => $data['telegram_id'],

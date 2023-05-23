@@ -37,7 +37,7 @@ class EmployeeController extends BaseController
         $user = User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
-            'lastname' => $data['lastname'],
+            'lastname' => $data['lastname'] ?? null,
             'login' => $data['login'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],

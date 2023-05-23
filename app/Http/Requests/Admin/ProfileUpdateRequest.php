@@ -23,7 +23,7 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'lastname' => ['required'],
+            'lastname' => [''],
             'surname' => ['required'],
             'phone' => ['required'],
             'otdel_id' => ['required'],
