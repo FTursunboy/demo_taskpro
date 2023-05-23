@@ -147,7 +147,7 @@
                             <a href="">Лиды</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="">Контакты</a>
+                            <a href="{{ route('contact.index') }}">Контакты</a>
                         </li>
                         <li class="submenu-item ">
                             <a href="">События</a>
