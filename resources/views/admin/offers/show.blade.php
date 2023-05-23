@@ -126,16 +126,14 @@
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Ответственный
                                                                             сотрудник</label>
-                                                                        <select required class="form-select"
-                                                                                name="user_id" id="">
-                                                                            <option value="">Выберите сотрудника
-                                                                            </option>
+                                                                        <select class="form-control" name="user_id" id="">
                                                                             @foreach($users as $user)
-                                                                                <option
-                                                                                    value="{{$user->id}} {{$user->id === $offer->user_id ? 'selected' : ''}} ">{{$user->name}}</option>
+                                                                                <option value="{{$user->id}}" {{ $offer->user_id == $user->id ? 'selected' : '' }}>
+                                                                                    {{$user->name}}
+                                                                                </option>
                                                                             @endforeach
-
                                                                         </select>
+
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Время</label>

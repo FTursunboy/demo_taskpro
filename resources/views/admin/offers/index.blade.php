@@ -104,13 +104,15 @@
                                             <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
                                             <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                             <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
+                                            <a class="badge bg-success p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
                                         </td>
                                         @else
                                             <td>
                                                 <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
                                                 <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
-                                                <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
 
+                                                <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
+                                                <a class="badge bg-success p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
                                             </td>
                                         @endif
                                     </tr>

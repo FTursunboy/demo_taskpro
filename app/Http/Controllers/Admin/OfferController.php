@@ -147,10 +147,11 @@ class OfferController extends BaseController
 
     public function update(Request $request, Offer $offer)
     {
+
         $request->validate([
             'from' => 'required',
             'to' => 'required',
-            'user_id' => 'requried'
+            'user_id' => 'required'
         ]);
 
         $offer->update([
@@ -173,6 +174,12 @@ class OfferController extends BaseController
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
+    }
+
+    public function edit(Offer $offer ) {
+
+        $users = User::role('user')->get();
+        return view('admin.offers.edit', compact('offer', 'users'));
     }
 
 }
