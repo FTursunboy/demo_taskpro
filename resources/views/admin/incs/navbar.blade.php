@@ -137,6 +137,8 @@
                 </li>
 
 
+
+
                 <li class="sidebar-item  has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*')or request()->is('client')or request()->is('client/*')or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
