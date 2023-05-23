@@ -14,7 +14,8 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('employee.index') }}">Список сотрудников</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('employee.index') }}">Список сотрудников</a>
+                            </li>
                             <li class="breadcrumb-item active" aria-current="page">Добавление нового сотрудника</li>
                         </ol>
                     </nav>
@@ -51,49 +52,56 @@
 
                                 <div class="form-group">
                                     <label for="otdel_id">Отдел<span class="text-danger">*</span></label>
-                                    <select id="otdel_id" tabindex="7" name="otdel_id" class="form-select mt-3" required>
+                                    <select id="otdel_id" tabindex="7" name="otdel_id" class="form-select mt-3"
+                                            required>
                                         <option value="" selected>Выбирите отдел</option>
                                         @foreach($departs as $depart)
-                                            <option value="{{ $depart->id }}">{{ $depart->name }}</option>
+                                            <option
+                                                value="{{ $depart->id }}">{{ $depart->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-4">
-
                                 <div class="form-group">
                                     <label for="surname">Фамилия<span class="text-danger">*</span></label>
-                                    <input type="text" tabindex="2" id="surname" name="surname" class="form-control mt-3" value="{{ old('surname') }}"
+                                    <input type="text" tabindex="2" id="surname" name="surname"
+                                           class="form-control mt-3" value="{{ old('surname') }}"
                                            required>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="phone">Телефон<span class="text-danger">*</span></label>
-                                    <input type="text" id="phone" name="phone" tabindex="5" class="form-control mt-3" value="{{ old('phone') }}" required>
+                                    <input type="text" id="phone" name="phone" tabindex="5" class="form-control mt-3"
+                                           value="{{ old('phone') }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">Пароль<span class="text-danger">*</span></label>
-                                    <input type="password" id="password" tabindex="8" name="password" class="form-control mt-3" value="{{ old('password') }}" required>
+                                    <input type="password" id="password" tabindex="8" name="password"
+                                           class="form-control mt-3" value="{{ old('password') }}" required>
                                 </div>
 
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="lastname">Отчество<span class="text-danger">*</span></label>
-                                    <input type="text" tabindex="3" id="lastname" name="lastname" class="form-control mt-3" value="{{ old('lastname') }}" required>
+                                    <label for="lastname">Отчество</label>
+                                    <input type="text" tabindex="3" id="lastname" name="lastname"
+                                           class="form-control mt-3" value="{{ old('lastname') }}">
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="position">Должность<span class="text-danger">*</span></label>
-                                    <input type="text" id="position" name="position" class="form-control mt-3" tabindex="6" value="{{ old('position') }}" required>
+                                    <input type="text" id="position" name="position" class="form-control mt-3"
+                                           tabindex="6" value="{{ old('position') }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="telegram_id">Телеграм ID<span class="text-danger">*</span></label>
-                                    <input type="number" id="telegram_id" name="telegram_id" tabindex="9" class="form-control mt-3" value="{{ old('telegram_id') }}" required>
+                                    <input type="number" id="telegram_id" name="telegram_id" tabindex="9"
+                                           class="form-control mt-3" value="{{ old('telegram_id') }}" required>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-3">

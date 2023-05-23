@@ -25,12 +25,31 @@ class EmployeeRequest extends FormRequest
             'name' => ['required'],
             'login' => ['required', 'unique:users,login'],
             'otdel_id' => ['required', 'exists:otdels_models,id'],
-            'lastname' => ['required'],
+            'lastname' => [''],
             'phone' => ['required', 'unique:users,phone'],
             'password' => ['required','min:6'],
             'surname' => ['required'],
             'position' => ['required'],
             'telegram_id' => ['required'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Введите имя',
+            'login.required' => 'Введите имя',
+            'login.unique' => 'Такой логин уже существует',
+            'otdel_id.required' => 'Введите имя',
+            'otdel_id.exists' => 'Такой отдел не существует',
+            'phone.unique' => 'Такой телефон уже существует',
+            'phone.required' => 'Введите имя',
+            'password.required' => 'Введите имя',
+            'password.min' => 'Пароль должен быть минимум 6 символов',
+            'surname.required' => 'Введите имя',
+            'position.required' => 'Введите имя',
+            'telegram_id.required' => 'Введите имя',
+            'telegram_id.unique' => 'Такой тереграмм ID уже существует',
         ];
     }
 }
