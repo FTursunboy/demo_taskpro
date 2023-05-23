@@ -29,62 +29,6 @@
                                                 <img style="border-radius: 50% " src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
                                             @endif
                                         </div>
-
-                                        @switch($user->xp)
-                                            @case($user->xp > 0 && $user->xp <= 99 )
-                                            <div>
-                                                <div class="d-flex justify-content-end">
-                                                    {{ $user->xp }} / 100
-                                                </div>
-                                            </div>
-                                            <div class="progress mt-3">
-                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                                     style="width: {{ $user->xp }}%" aria-valuenow="{{ $user->xp }}"
-                                                     aria-valuemin="0"
-                                                     aria-valuemax="300"></div>
-                                            </div>
-                                            @break
-                                            @case($user->xp > 99 && $user->xp < 299 )
-                                            <div>
-                                                <div class="d-flex justify-content-end">
-                                                    {{ $user->xp }} / 300 (xp)
-                                                </div>
-                                            </div>
-                                            <div class="progress mt-3">
-                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                                     style="width: {{$user->xp/3}}%" aria-valuenow="{{ $user->xp }}"
-                                                     aria-valuemin="0"
-                                                     aria-valuemax="300"></div>
-                                            </div>
-                                            @break
-                                            @case($user->xp > 299 && $user->xp < 700 )
-                                            <div>
-                                                <div class="d-flex justify-content-end">
-                                                    {{ $user->xp }}xp / 700 (xp)
-                                                </div>
-                                            </div>
-                                            <div class="progress mt-3">
-                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                                     style="width: {{$user->xp / 7}}%" aria-valuenow="{{ $user->xp }}"
-                                                     aria-valuemin="0"
-                                                     aria-valuemax="700"></div>
-                                            </div>
-                                            @break
-                                            @case($user->xp > 699 && $user->xp < 1000 )
-                                            <div>
-                                                <div class="d-flex justify-content-end">
-                                                    {{ $user->xp }} / 1000 (xp)
-                                                </div>
-                                            </div>
-                                            <div class="progress mt-3">
-                                                <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                                     style="width: {{$user->xp / 10}}%" aria-valuenow="{{ $user->xp }}"
-                                                     aria-valuemin="0"
-                                                     aria-valuemax="1000"></div>
-                                            </div>
-                                            @break
-                                        @endswitch
-
                                     </div>
                                     <div class="card-body">
                                         <h5 class="text-center">{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</h5>
@@ -92,15 +36,7 @@
                                             <table class="mt-3" cellpadding="5">
                                                 <tr>
                                                     <th>Задачи:</th>
-                                                    <th><span class="mx-2">{{ $user->taskCount($user->id) }}</span></th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Готовые :</th>
-                                                    <th><span class="mx-2">{{ $user->taskSuccessCount($user->id) }}</span></th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Идеи :</th>
-                                                    <th><span class="mx-2"> {{ $user->ideaCount($user->id) }}</span></th>
+                                                    <th><span class="mx-2">{{ $user->taskClientCount($user->id) }}</span></th>
                                                 </tr>
                                             </table>
                                         </div>
@@ -109,23 +45,23 @@
                                         <div class="d-flex justify-content-center">
                                             <a href="{{route('client.workers.show', $user->id)}}" class="btn btn-success mx-2"><i class="bi bi-eye"></i></a>
 
-                                            <a href="{{ route('employee.edit', $user->id) }}" class="btn btn-primary mx-2"><i
-                                                    class="bi bi-pencil"></i></a>
+                                            <a href="{{ route('client.workers.edit', $user->slug) }}" class="btn btn-primary mx-2">
+                                                <i class="bi bi-pencil"></i></a>
                                             <a role="button" class="btn btn-danger" data-bs-toggle="modal"
-                                               data-bs-target="#delete{{$user->id}}"><i class="bi bi-trash"></i></a>
+                                               data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="delete{{$user->id}}" tabindex="-1" aria-labelledby="delete{{$user->id}}"
+                            <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
-                                        <form action="{{ route('employee.destroy', $user->id) }}" method="POST">
+                                        <form action="{{ route('client.workers.destroy', $user->slug) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="delete{{$user->id}}">Предупреждение</h1>
+                                                <h1 class="modal-title fs-5" id="delete{{$user->slug}}">Предупреждение</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -182,21 +118,18 @@
                                         <div class="form-group">
                                             <label for="surname" class="form-label">Фамилия Сотрудника<span
                                                     class="text-danger">*</span></label>
-                                            <input  type="text" name="lastname" class="form-control"
+                                            <input  type="text" name="surname" class="form-control"
                                                     placeholder="Введите фамилию" id="surname"
                                                     value="{{ old('surname') }}" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="surname" class="form-label">Должность Сотрудника<span
+                                            <label for="lastname" class="form-label">Отчество Сотрудника<span
                                                     class="text-danger">*</span></label>
-                                            <input  type="text" name="position" class="form-control"
-                                                    placeholder="Введите должность" id="position"
-                                                    value="{{ old('position') }}" required>
+                                            <input  type="text" name="lastname" class="form-control"
+                                                    placeholder="Введите отчество" id="lastname"
+                                                    value="{{ old('lastname') }}" required>
                                         </div>
-
-
                                     </div>
-
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="login" class="form-label">Логин <span

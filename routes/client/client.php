@@ -47,6 +47,11 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::get('client/worker', [\App\Http\Controllers\Client\WorkerController::class, 'index'])->name('index');
         Route::post('client/worker/store', [\App\Http\Controllers\Client\WorkerController::class, 'store'])->name('store');
         Route::get('client/worker/show/{user}', [\App\Http\Controllers\Client\WorkerController::class, 'show'])->name('show');
+        Route::get('/client/worker/edit/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'edit'])->name('edit');
+        Route::post('/client/worker/store', [\App\Http\Controllers\Client\WorkerController::class, 'store'])->name('store');
+        Route::patch('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'update'])->name('update');
+        Route::delete('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'destroy'])->name('destroy');
+
     });
 
 

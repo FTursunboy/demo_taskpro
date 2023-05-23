@@ -216,7 +216,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет
                                         </button>
-                                        <button type="submit" class="btn btn-danger">Да, хочу уалить</button>
+                                        <button type="submit" class="btn btn-danger">Да, хочу удалить</button>
                                     </div>
                                 </form>
                             </div>

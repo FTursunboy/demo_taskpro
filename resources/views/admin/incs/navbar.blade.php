@@ -96,7 +96,7 @@
 
                 <li class="sidebar-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
                     <a href="{{ route('employee.index') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-1x2-fill"></i>
+                        <i class="bi bi-people"></i>
                         <span>Сотрудники</span>
                     </a>
                 </li>

@@ -80,16 +80,7 @@
                                             </td>
                                         @endif
                                     <td>
-
                                         <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i class="bi bi-eye"></i></a>
-                                        @if($task->status->id == 8)
-                                            <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i class="bi bi-pencil"></i></a>
-                                        @endif
-
-                                        @if($task->user_id)
-                                            <a class=" badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i class="bi bi-chat"></i></a>
-
-                                        @endif
                                     </td>
                                     </tr>
                                 @empty
