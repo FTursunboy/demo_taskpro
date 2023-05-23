@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->timestamps('time');
+            $table->timestamp('time');
             $table->unsignedBigInteger('contact_id');
             $table->unsignedBigInteger('type_event_id');
             $table->timestamps();

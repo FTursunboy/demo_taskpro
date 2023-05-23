@@ -138,5 +138,13 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
     });
 
+    Route::group(['as' => 'contact.'], function (){
+       Route::get('/contact', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'index'])->name('index');
+       Route::post('/contact/store', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'store'])->name('store');
+        Route::get('/contact/edit/{contact}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'edit'])->name('edit');
+        Route::patch('/contact/update/{contact}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'update'])->name('update');
+        Route::get('/contact/delete/{contact}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'delete'])->name('delete');
+    });
+
 
 });
