@@ -41,39 +41,39 @@
                     </li>
 
 
-                    <li class="nav-item dropdown me-3">
-                        <a class="nav-link active dropdown-toggle text-gray-600" href="#"
-                           data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                            <i class='bi bi-bell{{ (count($newMessage) > 0) ? '-fill' : '' }} fs-4 {{ (count($newMessage) > 0) ? 'highlight-icon' : '' }}'></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown"
-                            aria-labelledby="dropdownMenuButton">
-                            <li class="dropdown-header">
-                                <h6>Новые сообщение</h6>
-                            </li>
+{{--                    <li class="nav-item dropdown me-3">--}}
+{{--                        <a class="nav-link active dropdown-toggle text-gray-600" href="#"--}}
+{{--                           data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">--}}
+{{--                            <i class='bi bi-bell{{ (count($newMessage) > 0) ? '-fill' : '' }} fs-4 {{ (count($newMessage) > 0) ? 'highlight-icon' : '' }}'></i>--}}
+{{--                        </a>--}}
+{{--                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown"--}}
+{{--                            aria-labelledby="dropdownMenuButton">--}}
+{{--                            <li class="dropdown-header">--}}
+{{--                                <h6>Новые сообщение</h6>--}}
+{{--                            </li>--}}
 
-                            @foreach($newMessage as $mess)
+{{--                            @foreach($newMessage as $mess)--}}
 
-                                <li class="dropdown-item notification-item">
-                                    <a class="d-flex align-items-center"
-                                       href="{{ route('tasks.removeNotification',$mess->task_id) }}">
-                                        <div class="notification-icon">
-                                            <i class="bi bi-bell text-primary"></i>
-                                        </div>
-                                        <div class="notification-text ms-4">
-                                            <p class="notification-title font-bold">
-                                                <b>SMS:</b>{{ \Str::limit($mess->message, 10)  }}</p>
-                                            <p class="notification-subtitle font-thin text-sm d-flex">
-                                                <b>Задача:</b>{{ $mess->tasks->name }}</p>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                            {{--                            <li>--}}
-                            {{--                                <p class="text-center py-2 mb-0"><a href="#">See all notification</a></p>--}}
-                            {{--                            </li>--}}
-                        </ul>
-                    </li>
+{{--                                <li class="dropdown-item notification-item">--}}
+{{--                                    <a class="d-flex align-items-center"--}}
+{{--                                       href="{{ route('tasks.removeNotification',$mess->task_id) }}">--}}
+{{--                                        <div class="notification-icon">--}}
+{{--                                            <i class="bi bi-bell text-primary"></i>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="notification-text ms-4">--}}
+{{--                                            <p class="notification-title font-bold">--}}
+{{--                                                <b>SMS:</b>{{ \Str::limit($mess->message, 10)  }}</p>--}}
+{{--                                            <p class="notification-subtitle font-thin text-sm d-flex">--}}
+{{--                                                <b>Задача:</b>{{ $mess->tasks->name }}</p>--}}
+{{--                                        </div>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            @endforeach--}}
+{{--                            --}}{{--                            <li>--}}
+{{--                            --}}{{--                                <p class="text-center py-2 mb-0"><a href="#">See all notification</a></p>--}}
+{{--                            --}}{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </li>--}}
 
 
                 </ul>
