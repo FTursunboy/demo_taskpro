@@ -75,7 +75,9 @@ class EmployeeController extends BaseController
         $employee = User::where('slug', $slug)->firstOrFail();
 
         if ($request->file('avatar') !== null) {
-            Storage::disk('public')->delete($employee->avatar);
+            if ($employee->avatar !== null) {
+                Storage::disk('public')->delete($employee->avatar);
+            }
             $file = Storage::disk('public')->put('/user_img', $request->file('avatar'));
         } else {
             $file = $employee->avatar;
@@ -99,7 +101,6 @@ class EmployeeController extends BaseController
     public function destroy($slug)
     {
         $employee = User::where('slug', $slug)->firstOrFail();
-
         $employee->delete();
         return redirect()->route('employee.index')->with('delete', "Сотрудник успешно удален!");
     }
