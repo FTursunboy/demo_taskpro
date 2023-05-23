@@ -152,12 +152,14 @@ class OfferController extends BaseController
             'from' => 'required',
             'to' => 'required',
             'user_id' => 'required'
+
         ]);
 
         $offer->update([
             'from' => $request->from,
             'to' => $request->to,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'status_id' => 9
         ]);
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::UPDATE);
