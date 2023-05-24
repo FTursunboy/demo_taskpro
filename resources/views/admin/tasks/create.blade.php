@@ -287,7 +287,6 @@
 
             }
             let formattedDate = formatDate(toDate);
-            console.log(formattedDate);
         });
 
         $('#project_id').change(function() {
@@ -297,7 +296,6 @@
 
             let selectedOption = $('#project_id option:selected');
             let selectedClass = selectedOption.attr('class');
-            console.log(selectedClass)
             $('#project_finish').text(selectedClass);
 
         });

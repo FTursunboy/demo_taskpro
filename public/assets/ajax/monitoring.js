@@ -30,7 +30,6 @@ $(document).ready(function () {
                 if (res.status !== false) {
                     for (let i = 0; i < res.length; i++) {
                         let item = res[i];
-                        console.log(item)
                         table.append($('<tr>')
                             .append($('<td>').text(formatDate(item.created_at)))
                             .append($('<td>').text(item.name))
