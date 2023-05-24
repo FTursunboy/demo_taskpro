@@ -33,6 +33,7 @@ $(document).ready(function () {
                         table.append($('<tr>')
                             .append($('<td>').text(formatDate(item.created_at)))
                             .append($('<td>').text(item.name))
+                            .append($('<td>').text(item.user.name + ' ' + item.user.surname))
                             .append($('<td>').text(item.time))
                             .append($('<td>').text(formatDate(item.from)))
                             .append($('<td>').text(formatDate(item.to)))
