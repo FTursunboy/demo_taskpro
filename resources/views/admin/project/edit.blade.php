@@ -114,7 +114,7 @@
                                 <input type="file" class="form-control" tabindex="8" name="file">
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="button" tabindex="9" id="button" class="btn btn-outline-primary">Обновить</button>
+                                <button type="submit" tabindex="9" id="button" class="btn btn-outline-primary">Обновить</button>
                             </div>
                         </div>
                     </form>
