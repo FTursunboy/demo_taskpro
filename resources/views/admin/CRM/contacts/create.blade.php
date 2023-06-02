@@ -35,7 +35,8 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group">
-                                <label for="fio">ФИО</label>
+                                <label for="fio">ФИО <span
+                                            class="text-danger">*</span></label>
                                 <input type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
                                        placeholder="Введите ФИО" value="{{ old('fio') }}" required>
                                 @if($errors->has('fio')) <p

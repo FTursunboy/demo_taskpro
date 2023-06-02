@@ -48,11 +48,8 @@
                                 <td>{{ $contact?->fio }}</td>
                                 <td>{{ $contact?->phone }}</td>
                                 <td>{{ $contact?->address }}</td>
-                                <td>@if($contact->client)
+                                <td>
                                     {{ $contact?->client?->name }}
-                                    @else
-                                    {{$contact->fio}}
-                                    @endif
                                 </td>
 
                                 <td class="text-center">
