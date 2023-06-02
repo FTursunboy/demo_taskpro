@@ -194,7 +194,7 @@
                 let state = $('#state').val();
                 let source = $('#source').val();
 
-                $.get(`/tasks/public/lead/filter-leads/${status}/${state}/${source}`, function(responce) {
+                $.get(`/tasks/public/filter-leads/${status}/${state}/${source}`, function(responce) {
                     let table = $('#tbody').empty();
                     buildTable(responce.data, table)
                 });
