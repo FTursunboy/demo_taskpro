@@ -36,7 +36,6 @@
                             <th>Телефон</th>
                             <th>Адрес</th>
                             <th>Клиент</th>
-                            <th>Источник лида</th>
 
                             <th class="text-center">Действия</th>
                         </tr>
@@ -55,7 +54,6 @@
                                     {{$contact->fio}}
                                     @endif
                                 </td>
-                                <td>{{ $contact?->leadSource?->name }}</td>
 
                                 <td class="text-center">
                                     <a href="{{ route('contact.show', $contact->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
