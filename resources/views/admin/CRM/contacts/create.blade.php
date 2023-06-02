@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label for="client_id">Клиенты</label>
                                 <select class="form-select mt-3" name="client_id" id="clientId" tabindex="6" onchange="showModal()">
-                                    <option selected disabled>Выберите клиента</option>
+                                    <option selected>Выберите клиента</option>
 {{--                                    <option value="0">Добавить нового клиента</option>--}}
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->name }}</option>
