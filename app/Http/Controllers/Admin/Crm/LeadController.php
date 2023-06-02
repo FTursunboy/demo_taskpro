@@ -35,7 +35,7 @@ class LeadController extends BaseController
         $states = LeadState::get();
         $sources = LeadSource::get();
 
-        return view('admin.crm.leads.create', compact('statuses', 'states', 'sources'));
+        return view('admin.CRM.leads.create', compact('statuses', 'states', 'sources'));
     }
 
     public function store(LeadRequest $request) {
@@ -81,7 +81,7 @@ class LeadController extends BaseController
         $statuses = LeadStatus::get();
         $states = LeadState::get();
         $sources = LeadSource::get();
-        return view('admin.crm.leads.edit', compact('lead', 'states', 'statuses', 'sources'));
+        return view('admin.CRM.leads.edit', compact('lead', 'states', 'statuses', 'sources'));
     }
 
     public function update(LeadUpdateRequest $request, Lead $lead) {
@@ -126,7 +126,7 @@ class LeadController extends BaseController
     }
 
     public function show(Lead $lead) {
-        return view('admin.crm.leads.show', compact('lead'));
+        return view('admin.CRM.leads.show', compact('lead'));
     }
 
 
