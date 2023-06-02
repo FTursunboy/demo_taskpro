@@ -25,7 +25,7 @@ class ContactController extends BaseController
      */
     public function index()
     {
-        $contacts = Contact::orderBy('created_at')->where('is_client', true)->get();
+        $contacts = Contact::orderBy('created_at', 'desc')->where('is_client', true)->get();
 
         return view('admin.CRM.contacts.index', compact('contacts'));
     }
