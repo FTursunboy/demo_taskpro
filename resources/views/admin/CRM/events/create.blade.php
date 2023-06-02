@@ -55,15 +55,16 @@
                                     style="color: red;">{{ $errors->first('date') }}</p> @endif
                             </div>
                             <div class="form-group mt-1">
-                                <label for="contact_id" class="mb-3">Контакт <span
+                                <label for="lead_id" class="mb-3">Лид <span
                                         class="text-danger">*</span></label>
-                                <select tabindex="5" id="select" name="contact_id" class="select" multiple required>
-                                    @foreach($contacts as $contact)
-                                        <option value="{{ $contact->id }}">{{ $contact->fio . " - " . $contact->phone}}</option>
+                                <select tabindex="5" id="select" name="lead_id" class="select" multiple required>
+                                    @foreach($leads as $lead)
+                                        <option value="{{ $lead->id }}">{{ $lead->contact->fio}}</option>
                                     @endforeach
                                 </select>
-                                @if($errors->has('contact_id')) <p
-                                    style="color: red;">{{ $errors->first('contact_id') }}</p> @endif
+                                @if($errors->has('lead_id')) <p
+                                    style="color: red;">{{ $errors->first('lead_id') }}</p>
+                                @endif
                             </div>
                         </div>
                         <div class="col-6">

@@ -56,15 +56,15 @@
                                         style="color: red;">{{ $errors->first('themeEvent_id') }}</p> @endif
                                 </div>
                                 <div class="form-group mt-3">
-                                    <label for="contact_id" class="mb-2">Контакт <span
+                                    <label for="lead_id" class="mb-2">Лид <span
                                             class="text-danger">*</span></label>
-                                    <select tabindex="3" id="contact_id" name="contact_id" class="select" multiple>
-                                        @foreach($contacts as $contact)
-                                            <option value="{{ $contact->id }}" {{($contact->id === $event->contact?->id) ? 'selected' : ''}} >{{ $contact->fio}}</option>
+                                    <select tabindex="3" id="lead_id" name="lead_id" class="select" multiple>
+                                        @foreach($leads as $lead)
+                                            <option value="{{ $lead->id }}" {{($lead->id === $event->leads?->id) ? 'selected' : ''}} >{{ $lead->contact->fio}}</option>
                                         @endforeach
                                     </select>
-                                    @if($errors->has('contact_id')) <p
-                                        style="color: red;">{{ $errors->first('contact_id') }}</p> @endif
+                                    @if($errors->has('lead_id')) <p
+                                        style="color: red;">{{ $errors->first('lead_id') }}</p> @endif
                                 </div>
                             </div>
                             <div class="col-6">

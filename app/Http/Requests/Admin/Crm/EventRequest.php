@@ -25,7 +25,7 @@ class EventRequest extends FormRequest
             'themeEvent_id' => ['required'],
             'description' => ['required'],
             'date' => ['required'],
-            'contact_id' => ['required'],
+            'lead_id' => ['required'],
             'type_event_id' => ['required'],
         ];
     }

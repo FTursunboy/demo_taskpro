@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\ClientRequest;
 use App\Http\Requests\Admin\Crm\ContactRequest;
 use App\Http\Requests\Admin\Crm\UpdateContactRequest;
 use App\Models\Admin\CRM\Contact;
+use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
 use App\Models\Admin\ProjectModel;
 use App\Models\ProjectClient;
@@ -26,8 +27,9 @@ class ContactController extends BaseController
     public function index()
     {
         $contacts = Contact::orderBy('created_at', 'desc')->where('is_client', true)->get();
+        $lead = Lead::all();
 
-        return view('admin.CRM.contacts.index', compact('contacts'));
+        return view('admin.CRM.contacts.index', compact('contacts', 'lead'));
     }
 
     /**
@@ -35,10 +37,10 @@ class ContactController extends BaseController
      */
     public function create()
     {
-        $clients = User::role('client')->get();
+        $leads = Lead::all();
         $projects = ProjectModel::where('types_id', 2)->get();
 
-        return view('admin.CRM.contacts.create', compact('clients', 'projects'));
+        return view('admin.CRM.contacts.create', compact('leads', 'projects'));
     }
 
     /**
@@ -46,25 +48,25 @@ class ContactController extends BaseController
      */
     public function store(ContactRequest $request)
     {
-        if (session('client')){
-            $clientData = session('client');
-
-            $client = User::create([
-                'name' => $clientData['name2'],
-                'surname' => $clientData['surname2'],
-                'lastname' => $clientData['lastname2'],
-                'login' => $clientData['login'],
-                'password' =>  Hash::make($clientData['password']),
-                'phone' => $clientData['phone2'],
-                'telegram_id' => $clientData['telegram_id'],
-                'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
-            ])->assignRole('client');
-        }
-        if ($request->input('client_id') == 0 && isset($client)){
-            $client_id = $client->id;
-        }else{
-            $client_id = $request->input('client_id');
-        }
+//        if (session('client')){
+//            $clientData = session('client');
+//
+//            $client = User::create([
+//                'name' => $clientData['name2'],
+//                'surname' => $clientData['surname2'],
+//                'lastname' => $clientData['lastname2'],
+//                'login' => $clientData['login'],
+//                'password' =>  Hash::make($clientData['password']),
+//                'phone' => $clientData['phone2'],
+//                'telegram_id' => $clientData['telegram_id'],
+//                'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
+//            ])->assignRole('client');
+//        }
+//        if ($request->input('client_id') == 0 && isset($client)){
+//            $client_id = $client->id;
+//        }else{
+//            $client_id = $request->input('client_id');
+//        }
 
         Contact::create([
             'fio' => $request->fio,
@@ -72,17 +74,17 @@ class ContactController extends BaseController
             'email' => $request->email,
             'position' => $request->position,
             'address' => $request->address,
-            'client_id' => $client_id,
+            'lead_id' => $request->input('lead_id'),
         ]);
 
-        if (isset($client)) {
-            ProjectClient::create([
-                'user_id' => $client->id,
-                'project_id' => $clientData['project_id'],
-            ]);
-        }
+//        if (isset($client)) {
+//            ProjectClient::create([
+//                'user_id' => $client->id,
+//                'project_id' => $clientData['project_id'],
+//            ]);
+//        }
 
-        session()->forget("client");
+//        session()->forget("client");
         return redirect()->route('contact.index')->with('create', 'Контакт успешно создан!');
     }
 
@@ -102,10 +104,10 @@ class ContactController extends BaseController
     public function edit(string $id)
     {
         $contact = Contact::findOrFail($id);
-        $clients = User::role('client')->get();
+        $leads = Lead::all();
         $projects = ProjectModel::where('types_id', 2)->get();
 
-        return view('admin.CRM.contacts.edit', compact('contact',  'clients', 'projects'));
+        return view('admin.CRM.contacts.edit', compact('contact',  'leads', 'projects'));
     }
 
     /**
@@ -127,18 +129,18 @@ class ContactController extends BaseController
 //                'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
 //            ])->assignRole('client');
 //        }
-        if ($request->input('client_id') == 0 && isset($client)){
-            $client_id = $client->id;
-        }else{
-            $client_id = $request->input('client_id');
-        }
+//        if ($request->input('client_id') == 0 && isset($client)){
+//            $client_id = $client->id;
+//        }else{
+//            $client_id = $request->input('client_id');
+//        }
 
         $contact->update([
             'fio' => $request['fio'],
             'phone' => $request['phone'],
             'email' => $request['email'],
             'position' => $request['position'],
-            'client_id' => $request['client_id'],
+            'lead_id' => $request['lead_id'],
             'address' => $request['address'],
         ]);
 //
