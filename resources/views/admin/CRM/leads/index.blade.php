@@ -196,6 +196,7 @@
 
                 $.get(`tasks/public/filter-leads/${status}/${state}/${source}`, function(responce) {
                     let table = $('#tbody').empty();
+                    console.log(responce)
                     buildTable(responce.data, table)
                 });
 
