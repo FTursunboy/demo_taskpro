@@ -24,7 +24,6 @@ class CalendarController extends BaseController
             $dates[] = [
                 'title' => $event->themeEvent->theme,
                 'start' => $event->date,
-                'end' => $event->date,
             ];
         }
 
