@@ -128,6 +128,7 @@
 @section('script')
     <script src="{{asset('assets/js/search.js')}}"></script>
     <script src="{{asset('assets/js/datatable.js')}}"></script>
+    @routes
     <script>
         $(document).ready(function () {
 
