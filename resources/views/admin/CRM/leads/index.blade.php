@@ -174,11 +174,11 @@
         });
         };
     </script>
-
+    @routes
     <script>
 
         $(document).ready(function () {
-            @routes
+
             var table = $('#example').DataTable({
                 initComplete: function () {
 
