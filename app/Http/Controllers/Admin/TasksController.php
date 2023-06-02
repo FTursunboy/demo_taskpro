@@ -25,7 +25,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use function GuzzleHttp\Promise\all;
 
-class TasksController extends BaseController
+class   TasksController extends BaseController
 {
     public function index()
     {
@@ -238,6 +238,47 @@ class TasksController extends BaseController
 
         return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
     }
+
+    public function sendBack1(Request $request, TaskModel $task)
+    {
+        $u = UserTaskHistoryModel::where('task_id', $task->id)->first();
+        if ($u) {
+            $u->forceDelete();
+        }
+
+        if($request->employee == 0){
+            $task->update(
+                [
+                    'status_id' => 3,
+                ]
+            );
+            return redirect()->back();
+        }else {
+            $task->update([
+                'status_id' => 1,
+                'user_id' => $request->employee,
+            ]);
+        }
+
+        try {
+            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->to, $task->type?->name));
+        } catch (\Exception $exception) {
+
+        }
+
+        return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
+    }
+
+//    public function done(int $id)
+//    {
+//        $task = TaskModel::find($id);
+//        $task->update(
+//            [
+//                'status_id' => 3,
+//            ]
+//        );
+//        return redirect()->back();
+//    }
 
 
     public function ready(TaskModel $task)

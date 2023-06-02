@@ -137,6 +137,26 @@
                 </li>
 
 
+                <li class="sidebar-item  has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*')or request()->is('client')or request()->is('client/*')or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                        <span>CRM</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href="{{route('lead.index')}}">Лиды</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('contact.index') }}">Контакты</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="{{ route('event.index') }}">События</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="{{route('calendar')}}">Календарь</a>
+                        </li>
+                    </ul>
+                </li>
 
 
                 <li class="sidebar-item">

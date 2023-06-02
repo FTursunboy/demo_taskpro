@@ -120,13 +120,11 @@
                                     <input  type="number" step="any" max="150" class="form-control" id="percent" tabindex="9" name="percent" value="{{ $task->percent }}" oninput="checkMaxValue(this)">
                                 </div>
                             @elseif($task->kpi_id === null)
-                                <div class="form-group d-none" id="type_id_group">
-                                    <label for="kpi_id">Вид KPI</label>
-                                    <select name="kpi_id" id="kpi_id" class="form-select mt-3"></select>
+                                <div class="form-group" id="type_id_group" style="margin-top: 51px">
+
                                 </div>
-                                <div class="form-group d-none" style="margin-top: 27px" id="percent">
-                                    <label for="percent">Введите процент</label>
-                                    <input  type="number" step="any" max="150" class="form-control" id="percent" name="percent"  oninput="checkMaxValue(this)">
+                                <div class="form-group" style="margin-top: 50px" id="percent">
+
                                 </div>
                             @endif
 

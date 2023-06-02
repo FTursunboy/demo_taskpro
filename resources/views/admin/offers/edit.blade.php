@@ -18,6 +18,10 @@
         </div>
         <section class="section">
             <div class="card">
+                <div class="card-header">
+                    <a href="{{route('offers.create')}}" class="btn btn-primary">Добавить</a>
+                    @include('inc.messages')
+                </div>
                 <div class="card-body">
                     <div class="row ">
                         <div class="row pt-4">
@@ -31,7 +35,7 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <a href="{{ route('client.offers.index') }}" class="btn btn-danger">Назад</a>
+                                                <a href="{{ route('offers.index') }}" class="btn btn-danger">Назад</a>
                                             </div>
 
                                         </div>
@@ -48,11 +52,10 @@
                                         <div class="row">
                                             <div class="col-lg-9">
                                                 <form method="post"
-                                                      action="{{route('client.offers.update', $offer->id)}}"
+                                                      action="{{route('client.offers.send.user', $offer->id)}}"
                                                       enctype="multipart/form-data"
                                                       autocomplete="off">
                                                     @csrf
-                                                    @method('patch')
                                                     <div class="row g-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label">Название задачи</label>
@@ -65,13 +68,13 @@
                                                             <label class="form-label">Ответственный
                                                                 сотрудник</label>
                                                             <select class="form-control" name="user_id" id="">
-                                                                @foreach($users as $user)
-                                                                    <option value="{{$user->id}}" {{ $offer->user_id == $user->id ? 'selected' : '' }}>
-                                                                        {{$user->name}}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
 
+                                                                @foreach($users as $user)
+                                                                    <option
+                                                                        value="{{$user->id}}">{{$user->name}}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="form-label">Ответсвенный сотрудник со

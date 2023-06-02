@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('lead_source_id');
             $table->unsignedBigInteger('lead_state_id');
             $table->timestamps();
-            $table->softDeletes();
+
         });
     }
 

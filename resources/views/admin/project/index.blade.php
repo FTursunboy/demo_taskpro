@@ -55,7 +55,7 @@
                                 <td>{{ $project->types?->name }}</td>
                                 <td>{{ $project->status->name }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('project.show', $project->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('project.show', $project->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('project.edit', $project->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                                     <a class="btn btn-danger" data-bs-toggle="modal"
                                        data-bs-target="#delete{{$project->id}}"><i class="bi bi-trash"></i></a>

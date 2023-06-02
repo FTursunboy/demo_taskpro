@@ -64,10 +64,13 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/download/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'downloadFile'])->name('download');
         Route::patch('/tasks/update/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'update'])->name('update');
         Route::patch('/tasks/sendBack/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'sendBack'])->name('sendBack');
+        Route::patch('/tasks/sendBack1/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'sendBack1'])->name('sendBack1');
         Route::get('/tasks/edit/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'edit'])->name('edit');
         Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
+//        Route::get('/tasks/done/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'done'])->name('done');
+
     });
 
     Route::group(['as' => 'employee.'], function () {
@@ -122,7 +125,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
         Route::get('clients/offers/chat/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'index'])->name('chat');
         Route::post('clients/offers/chat/store/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'store'])->name('chat.store');
-        Route::patch('clients/offers/update/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'update'])->name('update');
     });
 
     Route::group(['as' => 'mon.'], function () {
@@ -137,14 +139,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/telegram', [\App\Http\Controllers\Admin\TelegramController::class, 'index'])->name('index');
         Route::post('/telegram/all', [\App\Http\Controllers\Admin\TelegramController::class, 'sendAll'])->name('sendAll');
         Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
-    });
-
-    Route::group(['as' => 'contact.'], function (){
-       Route::get('/contact', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'index'])->name('index');
-       Route::post('/contact/store', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'store'])->name('store');
-        Route::get('/contact/edit/{contact}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'edit'])->name('edit');
-        Route::patch('/contact/update/{contact}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'update'])->name('update');
-        Route::get('/contact/delete/{contact}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'delete'])->name('delete');
     });
 
 

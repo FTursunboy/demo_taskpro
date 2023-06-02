@@ -236,5 +236,9 @@ class DatabaseSeeder extends Seeder
         Statuses::create([
             'name' => 'Отправил сотруднику'
         ]);
+        $this->call(LeadSeeder::class);
+        $this->call(ThemeEventSeeder::class);
+        $this->call(TypeEventSeeder::class);
+
     }
 }

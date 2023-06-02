@@ -98,8 +98,6 @@
 
                 </section>
             </div>
-
-
 @endsection
 
 

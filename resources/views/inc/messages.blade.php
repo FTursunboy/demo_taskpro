@@ -15,7 +15,7 @@
     <script>
         setTimeout(() => {
             $('#create').remove()
-        },2500)
+        },4500)
     </script>
 @elseif(\Session::has('update'))
     <div class="alert alert-info" id="update">
@@ -24,7 +24,7 @@
     <script>
         setTimeout(() => {
             $('#update').remove()
-        },2500)
+        },4500)
     </script>
 @elseif(\Session::has('delete'))
     <div class="alert alert-danger" id="delete">
@@ -33,7 +33,7 @@
     <script>
         setTimeout(() => {
             $('#delete').remove()
-        },2500)
+        },4500)
     </script>
 @elseif(\Session::has('error'))
     <div class="alert alert-danger" id="error">
@@ -42,7 +42,7 @@
     <script>
         setTimeout(() => {
             $('#error').remove()
-        },2500)
+        },4500)
     </script>
 @elseif(\Session::has('warning'))
     <div class="alert alert-warning" id="warning">
@@ -51,6 +51,6 @@
     <script>
         setTimeout(() => {
             $('#warning').remove()
-        },2500)
+        },4500)
     </script>
 @endif

@@ -4,11 +4,13 @@ namespace App\Models\Admin\CRM;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
     use HasFactory;
-    protected $fillable = ['contact_id', 'lead_status_id', 'lead_source_id', 'lead_state_id'];
+    protected $fillable = ['contact_id', 'lead_status_id', 'lead_source_id', 'lead_state_id', 'author', 'description', 'is_client'];
+
 
     public function leadSource() {
         return $this->belongsTo(LeadSource::class, 'lead_source_id');

@@ -30,16 +30,16 @@ $(document).ready(function () {
                 if (res.status !== false) {
                     for (let i = 0; i < res.length; i++) {
                         let item = res[i];
+                        console.log(item)
                         table.append($('<tr>')
                             .append($('<td>').text(formatDate(item.created_at)))
                             .append($('<td>').text(item.name))
-                            .append($('<td>').text(item.user.name + ' ' + item.user.surname))
                             .append($('<td>').text(item.time))
                             .append($('<td>').text(formatDate(item.from)))
                             .append($('<td>').text(formatDate(item.to)))
                             .append($('<td>').text(item.project.name))
                             .append($('<td>').text(item.author.surname + ' ' + item.author.name))
-                            .append($('<td>').text(((item.type === '') ? 'От клиента' : ((item.type !== null) ? (item.type.name + ' ' + ((item.type_type !== null) ? ' - ' + item.type_type.name : '')) : 'От клиента'))))
+                            .append($('<td>').text(((item.type === '') ? 'От клиента' : item.type.name) + ' ' + ((item.type_type !== null) ? ' - ' + item.type_type.name : '')))
                             .append($('<td>').text(item.status.name))
                             .append($('<td>')
                                 .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))

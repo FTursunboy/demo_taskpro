@@ -90,10 +90,10 @@
                                             <td><span class="badge bg-danger p-2">{{$offer->status_name}}</span>
                                             </td>
                                         @elseif($offer->status == 12)
-                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status_name}}</span></a>
+                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status->name}}</span></a>
                                             </td>
                                         @elseif($offer->status == 13)
-                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status_name}}</span></a>
+                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status->name}}</span></a>
                                             </td>
                                         @elseif($offer->status == 14)
                                             <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a>
@@ -104,15 +104,13 @@
                                             <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
                                             <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                             <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
-                                            <a class="badge bg-success p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
                                         </td>
                                         @else
                                             <td>
                                                 <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
                                                 <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
-
                                                 <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
-                                                <a class="badge bg-success p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
+
                                             </td>
                                         @endif
                                     </tr>

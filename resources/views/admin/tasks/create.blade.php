@@ -29,21 +29,17 @@
                 <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">
                     Назад
                 </a>
-
-
             </div>
             <div class="card-body">
                 <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-4">
-
                             <div class="form-group">
                                 <label for="name">Имя</label>
                                 <input tabindex="1" type="text" id="name" name="name" class="form-control mt-3"
                                        placeholder="Имя" value="{{ old('name') }}" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="user_id">Кому это задача</label>
 
@@ -55,28 +51,21 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="from">Дата начала задачи</label>
                                 <input disabled tabindex="7" type="date" id="from" name="from" class="form-control mt-3"
                                        value="{{ old('from') }}" required>
                             </div>
-
                         </div>
-
-
                         <div class="col-4">
-
                             <div class="form-group">
                                 <label for="time">Время</label>
                                 <input tabindex="2" type="number" id="time" name="time" class="form-control mt-3"
                                        value="{{ old('time') }}" placeholder="Время"
                                        required>
                             </div>
-
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
-
                                 <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
                                     <option value="" selected disabled>Выберите проект</option>
                                     @foreach($projects as $project)
@@ -84,25 +73,16 @@
                                             value="{{ $project->id }}" class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}</option>
                                     @endforeach
                                 </select>
-
                             </div>
-
                             <div class="form-group">
-
                                 <label for="to">Дата окончания задачи  <span  id="project_finish" style="color: red"></span> </label>
                                 <input disabled tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
                                        required>
-
                                   </div>
-
                         </div>
-
-
                         <div class="col-4">
-
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-
                                 <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3">
                                     <option value="" tabindex="3" selected>Выберите тип</option>
 
@@ -111,8 +91,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
-
                             <div class="form-group" id="type_id_group">
                                 <label id="label" class="d-none" for="kpi_id">Вид KPI</label>
                                 </div>
@@ -120,15 +98,12 @@
                                 <label id="label1" class="d-none" for="percent">Введите процент</label>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="comment">Комментария</label>
                             <textarea tabindex="10" name="comment" id="comment"
                                       class="form-control mt-3">{{ old('comment') }}</textarea>
                         </div>
-
                     </div>
-
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
@@ -287,6 +262,7 @@
 
             }
             let formattedDate = formatDate(toDate);
+            console.log(formattedDate);
         });
 
         $('#project_id').change(function() {
@@ -296,6 +272,7 @@
 
             let selectedOption = $('#project_id option:selected');
             let selectedClass = selectedOption.attr('class');
+            console.log(selectedClass)
             $('#project_finish').text(selectedClass);
 
         });
