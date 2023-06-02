@@ -77,6 +77,9 @@
                                         <option value="{{ $client->id }}">{{ $client->name }}</option>
                                     @endforeach
                                 </select>
+
+
+
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">

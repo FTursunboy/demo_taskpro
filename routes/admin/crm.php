@@ -15,8 +15,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::get('calendar-event', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'index']);
     Route::post('calendar-crud-ajax', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'calendarEvents']);
-    Route::get('/filter-leads/{status}/{state}/{source}', [\App\Http\Controllers\Admin\Crm\LeadController::class, 'filter']);
-    Route::get('/filter-events/{theme}/{type}', [\App\Http\Controllers\Admin\Crm\EventController::class, 'filter']);
+    Route::get('/tasks/public/lead/filter-leads/{status}/{state}/{source}', [\App\Http\Controllers\Admin\Crm\LeadController::class, 'filter']);
+    Route::get('/tasks/public/lead/filter-events/{theme}/{type}', [\App\Http\Controllers\Admin\Crm\EventController::class, 'filter']);
 
     Route::get('calendar', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'index'])->name('calendar');
     Route::post('calendar/store', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'store'])->name('calendar.store');

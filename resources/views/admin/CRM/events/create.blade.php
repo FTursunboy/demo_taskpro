@@ -57,7 +57,7 @@
                             <div class="form-group mt-1">
                                 <label for="contact_id" class="mb-3">Контакт <span
                                         class="text-danger">*</span></label>
-                                <select tabindex="5" id="select" name="contact_id" class="select" multiple required>
+                                <select tabindex="5" id="select" name="contact_id" class="select" multiple required onchange="limitSelection(this, 1)">
                                     @foreach($contacts as $contact)
                                         <option value="{{ $contact->id }}">{{ $contact->fio . " - " . $contact->phone}}</option>
                                     @endforeach
@@ -132,4 +132,21 @@
     <script src="{{ asset('/assets/js/select/app.js') }}"></script>
     <script src="{{ asset('/assets/js/select/moment.min.js') }}"></script>
     <script src="{{ asset('/assets/js/select/bootstrap-datetimepicker.min.js') }}"></script>
+
+
+    <script>
+        function limitSelection(limit) {
+            let element = $('#select')
+            console.log(element)
+            let selectedOptions = Array.from(element.selectedOptions);
+
+
+            if (selectedOptions.length > limit) {
+
+                selectedOptions[selectedOptions.length - 1].selected = false;
+            }
+        }
+    </script>
+
+
 @endsection
