@@ -147,7 +147,7 @@
                 let theme = $('#theme').val();
                 let type = $('#type').val();
 
-                $.get(`/filter-events/${theme}/${type}`, function(responce) {
+                $.get(`tasks/public/filter-events/${theme}/${type}`, function(responce) {
                     let table = $('#tbody').empty();
                     buildTable(responce.data, table)
                 });
