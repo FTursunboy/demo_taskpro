@@ -208,8 +208,8 @@
             function buildTable(data, table) {
                 $.each(data, function(i, item) {
 
-                    let show = route('lead.show', item.id);
-                    let edit = route('lead.edit', item.id)
+                    let show = route('show', item.id);
+                    let edit = route('edit', item.id)
 
 
                     let row = `<tr>
