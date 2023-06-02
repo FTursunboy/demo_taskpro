@@ -46,10 +46,6 @@
                                 <input type="text" id="position" name="position" tabindex="4" class="form-control mt-3"
                                        placeholder="Должность" value="{{ old('position') }}">
                             </div>
-                            <div class="form-group">
-                                <label for="type">Адрес</label>
-                                <input type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" tabindex="7" class="form-control mt-3">
-                            </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
@@ -59,17 +55,10 @@
                                 @if($errors->has('phone')) <p
                                     style="color: red;">{{ $errors->first('phone') }}</p> @endif
                             </div>
+
                             <div class="form-group">
-                                <label for="">Источник лида <span
-                                        class="text-danger">*</span></label>
-                                <select id="source" name="source_id" tabindex="5" class="form-select mt-3" required>
-                                    <option selected disabled>Выберите источник</option>
-                                    @foreach($sources as $source)
-                                        <option value="{{ $source->id }}">{{ $source->name }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('source_id')) <p
-                                    style="color: red;">{{ $errors->first('source_id') }}</p> @endif
+                                <label for="type">Адрес</label>
+                                <input type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" tabindex="7" class="form-control mt-3">
                             </div>
                         </div>
                         <div class="col-4">
