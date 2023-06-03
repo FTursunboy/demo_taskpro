@@ -156,7 +156,7 @@
                             <a href="{{route('calendar')}}">Календарь</a>
                         </li>
                         <li class="submenu-item {{( request()->is('settings') or request()->is('settings/*')) ? 'active' : ''}} ">
-                            <a href="{{route('setting.index')}}">Настройка</a>
+                            <a href="{{route('setting.index')}}">Настройки</a>
                         </li>
                     </ul>
                 </li>

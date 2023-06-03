@@ -54,19 +54,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Тема события</td>
+                                <td>Тема событий</td>
                                 <td class="text-center">
                                     <a href="{{route('setting.theme-event.index')}}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Тип события</td>
+                                <td>Тип событий</td>
                                 <td class="text-center">
                                     <a href="{{route('setting.type-event.index')}}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Статус события</td>
+                                <td>Статус событий</td>
                                 <td class="text-center">
                                     <a href="{{route('setting.event-status.index')}}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                 </td>
