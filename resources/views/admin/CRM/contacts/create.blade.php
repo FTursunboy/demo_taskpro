@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="client_id">Лиды</label>
-                                @if($leades)
+                                @if(isset($leades))
                                     <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6">
                                         <option value="{{$leades->id}}" selected>{{$leades->contact->fio}}</option>
                                     </select>
