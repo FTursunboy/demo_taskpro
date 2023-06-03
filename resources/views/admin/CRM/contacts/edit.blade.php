@@ -46,10 +46,6 @@
                                 <input type="text" id="position" name="position" tabindex="4" class="form-control mt-3"
                                        value="{{ $contact->position }}">
                             </div>
-                            <div class="form-group">
-                                <label for="type">Адрес</label>
-                                <input type="text" name="address" value="{{ $contact->address }}" tabindex="7" class="form-control mt-3">
-                            </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
@@ -57,17 +53,10 @@
                                         class="text-danger">*</span></label>
                                 <input type="text" id="phone" name="phone" class="form-control mt-3" tabindex="2" value="{{ $contact->phone }}" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="type">Источник лида <span
-                                        class="text-danger">*</span></label>
-                                <select id="type" name="source_id" tabindex="5" class="form-select mt-3" required>
-                                    <option value="" selected>Выберите источник</option>
-                                    @foreach($sources as $source)
-                                        <option value="{{ $source->id }}" {{ $source->id === $contact->lead_source_id  ? 'selected' : '' }}>{{ $source->name }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('source_id')) <p
-                                    style="color: red;">{{ $errors->first('source_id') }}</p> @endif
+                                <label for="type">Адрес</label>
+                                <input type="text" name="address" value="{{ $contact->address }}" tabindex="7" class="form-control mt-3">
                             </div>
                         </div>
                         <div class="col-4">

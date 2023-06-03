@@ -43,10 +43,6 @@
                                 <label for="name">Должность</label>
                                 <input class="form-control mt-3" value="{{ $contact->position }}" disabled>
                             </div>
-                            <div class="form-group">
-                                <label for="type">Адрес</label>
-                                <input value="{{ $contact->address }}" class="form-control mt-3" disabled>
-                            </div>
                         </div>
                         <div class="col-4">
 
@@ -54,9 +50,10 @@
                                 <label for="start">Телефон</label>
                                 <input class="form-control mt-3" value="{{ $contact->phone }}" disabled>
                             </div>
+
                             <div class="form-group">
-                                <label for="time">Источник лида</label>
-                                <input class="form-control mt-3" value="{{ $contact->leadSource->name }}" disabled>
+                                <label for="type">Адрес</label>
+                                <input value="{{ $contact->address }}" class="form-control mt-3" disabled>
                             </div>
                         </div>
                         <div class="col-4">

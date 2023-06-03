@@ -63,6 +63,8 @@
                     </div>
                 </div>
 
+
+
                 <div class="card-body">
                     <table id="example" style="width: 100%" class="table table-hover">
                         <thead>
@@ -106,6 +108,7 @@
                                 </td>
                             </tr>
 
+
                             <div class="modal fade text-left" id="delete{{$lead->id}}" tabindex="-1" role="dialog"
                                  aria-labelledby="delete{{$lead->id}}" data-bs-backdrop="false" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -148,7 +151,32 @@
 @section('script')
     <script src="{{asset('assets/js/search.js')}}"></script>
     <script src="{{asset('assets/js/datatable.js')}}"></script>
+
+        <script>
+            window.onload = function() {
+            var selectElement = document.getElementById("status");
+            var optionElements = selectElement.getElementsByTagName("option");
+
+            for (var i = 0; i < optionElements.length; i++) {
+            var option = optionElements[i];
+            if (option.value === "0" && option.selected) {
+            option.style.color = "red"; // Change the color to your desired color
+        }
+        }
+
+            selectElement.addEventListener("change", function() {
+            for (var i = 0; i < optionElements.length; i++) {
+            var option = optionElements[i];
+            if (option.value === "0") {
+            option.style.color = option.selected ? "red" : "";
+        }
+        }
+        });
+        };
+    </script>
+    @routes
     <script>
+
         $(document).ready(function () {
 
             var table = $('#example').DataTable({
@@ -166,8 +194,9 @@
                 let state = $('#state').val();
                 let source = $('#source').val();
 
-                $.get(`/filter-leads/${status}/${state}/${source}`, function(responce) {
+                $.get(`tasks/public/filter-leads/${status}/${state}/${source}`, function(responce) {
                     let table = $('#tbody').empty();
+                    console.log(responce)
                     buildTable(responce.data, table)
                 });
 

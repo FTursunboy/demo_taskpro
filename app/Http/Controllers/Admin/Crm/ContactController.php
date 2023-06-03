@@ -25,7 +25,7 @@ class ContactController extends BaseController
      */
     public function index()
     {
-        $contacts = Contact::orderBy('created_at')->where('is_client', true)->get();
+        $contacts = Contact::orderBy('created_at', 'desc')->where('is_client', true)->get();
 
         return view('admin.CRM.contacts.index', compact('contacts'));
     }
@@ -35,11 +35,10 @@ class ContactController extends BaseController
      */
     public function create()
     {
-        $sources = LeadSource::all();
         $clients = User::role('client')->get();
         $projects = ProjectModel::where('types_id', 2)->get();
 
-        return view('admin.CRM.contacts.create', compact('sources', 'clients', 'projects'));
+        return view('admin.CRM.contacts.create', compact('clients', 'projects'));
     }
 
     /**
@@ -72,7 +71,6 @@ class ContactController extends BaseController
             'phone' => $request->phone,
             'email' => $request->email,
             'position' => $request->position,
-            'lead_source_id' => $request->source_id,
             'address' => $request->address,
             'client_id' => $client_id,
         ]);
@@ -104,11 +102,10 @@ class ContactController extends BaseController
     public function edit(string $id)
     {
         $contact = Contact::findOrFail($id);
-        $sources = LeadSource::all();
         $clients = User::role('client')->get();
         $projects = ProjectModel::where('types_id', 2)->get();
 
-        return view('admin.CRM.contacts.edit', compact('contact', 'sources', 'clients', 'projects'));
+        return view('admin.CRM.contacts.edit', compact('contact',  'clients', 'projects'));
     }
 
     /**
@@ -142,7 +139,6 @@ class ContactController extends BaseController
             'email' => $request['email'],
             'position' => $request['position'],
             'client_id' => $request['client_id'],
-            'lead_source_id' => $request['source_id'],
             'address' => $request['address'],
         ]);
 //

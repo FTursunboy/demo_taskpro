@@ -26,14 +26,13 @@ class CalendarController extends BaseController
             $dates[] = [
                 'title' => $event->themeEvent->theme,
                 'start' => $event->date,
-                'end' => $event->date,
             ];
         }
 
 
 
 
-        return view('admin.crm.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'contacts'));
+        return view('admin.CRM.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'contacts'));
 
     }
 
@@ -77,13 +76,13 @@ class CalendarController extends BaseController
 
         $events = Event::whereDate('date', '=', $date)->get();
 
-        return view('admin.crm.events.show_all', ['events' => $events]);
+        return view('admin.CRM.events.show_all', ['events' => $events]);
     }
 
     public function show_all($date) {
         $events = Event::whereDate('date', '=', $date)->get();
 
-        return view('admin.crm.events.show_all', ['events' => $events]);
+        return view('admin.CRM.events.show_all', ['events' => $events]);
     }
 
 }

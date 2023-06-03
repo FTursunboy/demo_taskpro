@@ -28,7 +28,6 @@ class UpdateContactRequest extends FormRequest
             'phone' => 'required',
             'email' => '',
             'position' => '',
-            'source_id' => 'required',
         ];
     }
 }

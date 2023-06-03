@@ -113,30 +113,15 @@
 
 @section('script')
     <script>
-        $('#start').change(function ()  {
-            const finish = $('#finish')
-            if ($(this).val() > finish.val()) {
-                $(this).addClass('border-danger')
-                finish.addClass('border-danger')
-                $('#button').attr('type', 'button');
-            } else {
-                $(this).removeClass('border-danger')
-                finish.removeClass('border-danger')
-                $('#button').attr('type', 'submit');
-            }
-        })
-        $('#finish').change(function ()  {
-            const start = $('#start')
-            if ($(this).val() < start.val()) {
-                $(this).addClass('border-danger')
-                start.addClass('border-danger')
-                $('#button').attr('type', 'button');
-            } else {
-                $(this).removeClass('border-danger')
-                start.removeClass('border-danger')
-                $('#button').attr('type', 'submit');
-            }
-        })
+        $(document).ready(function() {
+            $('#select').on('change', function() {
+                if ($('#select option:selected').length > 0) {
+                    $('#select').removeAttr('multiple');
+                } else {
+                    $('#select').attr('multiple', 'multiple');
+                }
+            });
+        });
     </script>
     <script src="{{ asset('/assets/js/select/jquery.slimscroll.js') }}"></script>
     <script src="{{ asset('/assets/js/select/jquery-3.2.1.min.js') }}"></script>

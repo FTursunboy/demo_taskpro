@@ -137,22 +137,22 @@
                 </li>
 
 
-                <li class="sidebar-item  has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*')or request()->is('client')or request()->is('client/*')or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item  has-sub {{ (request()->is('lead') or request()->is('lead/*')or request()->is('contact')or request()->is('contact/*')or request()->is('event')or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>CRM</span>
                     </a>
-                    <ul class="submenu">
-                        <li class="submenu-item">
+                    <ul class="submenu {{ (request()->is('lead') or request()->is('lead/*') or request()->is('contact') or request()->is('contact/*') or request()->is('event') or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*'))  ? 'active' : '' }}">
+                        <li class="submenu-item {{( request()->is('lead') or request()->is('lead/*')) ? 'active' : ''}} " >
                             <a href="{{route('lead.index')}}">Лиды</a>
                         </li>
-                        <li class="submenu-item">
+                        <li class="submenu-item {{( request()->is('contact') or request()->is('contact/*')) ? 'active' : ''}}">
                             <a href="{{ route('contact.index') }}">Контакты</a>
                         </li>
-                        <li class="submenu-item ">
+                        <li class="submenu-item {{( request()->is('event') or request()->is('event/*')) ? 'active' : ''}}">
                             <a href="{{ route('event.index') }}">События</a>
                         </li>
-                        <li class="submenu-item ">
+                        <li class="submenu-item {{( request()->is('calendar') or request()->is('calendar/*')) ? 'active' : ''}} ">
                             <a href="{{route('calendar')}}">Календарь</a>
                         </li>
                     </ul>

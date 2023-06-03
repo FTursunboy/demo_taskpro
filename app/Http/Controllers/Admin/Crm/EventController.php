@@ -17,7 +17,7 @@ class EventController extends BaseController
     public function index()
     {
         $typeEvents = TypeEvent::get();
-        $events = Event::get();
+        $events = Event::orderBy('created_at', 'desc')->get();
         $themeEvents = ThemeEvent::get();
         $contacts = Contact::get();
 
@@ -38,7 +38,6 @@ class EventController extends BaseController
             'themeEvent_id' => $request->themeEvent_id,
             'description' => $request->description,
             'date' => $request->date,
-//            'time' => $request->time,
             'contact_id' => $request->contact_id,
             'type_event_id' => $request->type_event_id,
         ]);
@@ -101,7 +100,7 @@ class EventController extends BaseController
         $filteredContacts = $events->join( 'type_events as type', 'type.id', '=', 'events.type_event_id')
             ->join('theme_events as th', 'th.id', '=', 'events.themeEvent_id')
             ->join('contacts as c', 'events.contact_id', '=', 'c.id')
-            ->select('th.theme', 'c.phone', 'events.description', 'events.date', 'type.name as type')
+            ->select('th.theme', 'c.phone', 'events.description', 'events.date', 'type.name as type', 'events.id')
             ->get();
 
 

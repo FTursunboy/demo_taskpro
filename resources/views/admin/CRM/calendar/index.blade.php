@@ -43,7 +43,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="themeEvent_id">Тема событие</label>
-                        <select tabindex="3" id="themeEvent_id" name="themeEvent_id" class="form-select mt-3">
+                        <select required tabindex="3" id="themeEvent_id" name="themeEvent_id" class="form-select mt-3">
                             <option value="" tabindex="3" selected>Выберите тему событие</option>
                             @foreach($themeEvents as $themeEvent)
                                 <option value="{{ $themeEvent->id }}">{{ $themeEvent->theme }}</option>
@@ -53,16 +53,16 @@
                     </div>
                     <div class="form-group mt-1">
                         <label for="contact_id" class="mb-3">Контакт</label>
-                        <select tabindex="3" id="contact_id" name="contact_id" class="form-select">
+                        <select required tabindex="3" id="contact_id" name="contact_id" class="form-select">
                             @foreach($contacts as $contact)
                                 <option
-                                    value="{{ $contact->id }}">{{ $contact->name . " " . $contact->surname . " - " . $contact->phone}}</option>
+                                    value="{{ $contact->id }}">{{ $contact->fio . " - " . $contact->phone}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="type">Тип</label>
-                        <select id="type_event_id" name="type_event_id" tabindex="4" class="form-select mt-3" required>
+                        <select required id="type_event_id" name="type_event_id" tabindex="4" class="form-select mt-3" required>
                             <option value="" selected>Выберите тип</option>
                             @foreach($typeEvents as $typeEvent)
                                 <option value="{{ $typeEvent->id }}">{{ $typeEvent->name }}</option>
@@ -71,12 +71,12 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Описание</label>
-                        <textarea id="description" name="description" class="form-control mt-3"
+                        <textarea required id="description" name="description" class="form-control mt-3"
                                   tabindex="3">{{ old('description') }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">Время</label>
-                        <input id="time" type="time" name="time" class="form-control" >
+                        <input required id="time" type="time" name="time" class="form-control" >
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -159,7 +159,7 @@
                                     url: "{{route('calendar.store')}}",
                                     type: "POST",
                                     dataType: "json",
-                                    data: {start_date, end_date, themeEvent_id, contact_id, type_event_id, description, time},
+                                    data: {start_date, themeEvent_id, contact_id, type_event_id, description, time},
                                     success: function(response) {
                                         location.reload()
                                     },

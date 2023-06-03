@@ -57,9 +57,9 @@
                         <thead>
                         <tr>
                             <th>№</th>
+                            <th>Описание</th>
                             <th>Тема</th>
                             <th>Контакт</th>
-                            <th>Описание</th>
                             <th>Дата</th>
                             <th>Время</th>
                             <th>Тип</th>
@@ -70,9 +70,9 @@
                         @foreach($events as $event)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ Str::limit($event->description, 6)}}</td>
                                 <td>{{ $event->themeEvent?->theme }}</td>
                                 <td>{{ $event->contact?->phone }}</td>
-                                <td>{{ Str::limit($event->description, 6)}}</td>
                                 <td>{{ date('d.m.Y', strtotime($event->date)) }}</td>
                                 <td>{{ date('H:i', strtotime($event->date)) }}</td>
                                 <td>{{ $event->typeEvent?->name }}</td>
@@ -128,6 +128,7 @@
 @section('script')
     <script src="{{asset('assets/js/search.js')}}"></script>
     <script src="{{asset('assets/js/datatable.js')}}"></script>
+    @routes
     <script>
         $(document).ready(function () {
 
@@ -147,7 +148,7 @@
                 let theme = $('#theme').val();
                 let type = $('#type').val();
 
-                $.get(`/filter-events/${theme}/${type}`, function(responce) {
+                $.get(`tasks/public/filter-events/${theme}/${type}`, function(responce) {
                     let table = $('#tbody').empty();
                     buildTable(responce.data, table)
                 });
@@ -160,8 +161,9 @@
             function buildTable(data, table) {
                 $.each(data, function(i, item) {
 
-                    let show = 123
-                    let edit = 123
+                    let show = route('event.show', item.id);
+                    let edit = route('event.edit', item.id)
+
 
                     let date = new Date(item.date);
 
@@ -171,9 +173,10 @@
 
                     let row = `<tr>
                   <td>${i + 1}</td>
+                   <td>${item.description}</td>
                   <td>${item.theme}</td>
                   <td>${item.phone}</td>
-                  <td>${item.description}</td>
+
                   <td>${day}</td>
                   <td>${time}</td>
                   <td>${item.type}</td>
