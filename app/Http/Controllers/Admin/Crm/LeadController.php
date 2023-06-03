@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Crm\LeadRequest;
 use App\Http\Requests\Admin\Crm\LeadUpdateRequest;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Event;
+use App\Models\Admin\CRM\EventStatus;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
 use App\Models\Admin\CRM\LeadState;
@@ -182,16 +183,17 @@ class LeadController extends BaseController
         $events = Event::where('lead_id', $lead->id)->get();
         $themeEvents = ThemeEvent::get();
         $typeEvents = TypeEvent::get();
+        $eventStatuses = EventStatus::get();
 
-        return view('admin.CRM.events.index', compact('events', 'themeEvents', 'typeEvents', 'lead'));
+        return view('admin.CRM.events.index', compact('events', 'themeEvents', 'typeEvents', 'lead', 'eventStatuses'));
     }
 
     public function createEvent(Lead $lead)
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
-
-        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'lead'));
+        $eventStatuses = EventStatus::get();
+        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'lead', 'eventStatuses'));
     }
 
 }
