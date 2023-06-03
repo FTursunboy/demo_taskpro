@@ -54,18 +54,23 @@
                                 @if($errors->has('date')) <p
                                     style="color: red;">{{ $errors->first('date') }}</p> @endif
                             </div>
-                            <div class="form-group mt-1">
-                                <label for="lead_id" class="mb-3">Лид <span
-                                        class="text-danger">*</span></label>
-                                <select tabindex="5" id="select" name="lead_id" class="select" multiple required>
-                                    @foreach($leads as $lead)
-                                        <option value="{{ $lead->id }}">{{ $lead->contact->fio}}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('lead_id')) <p
-                                    style="color: red;">{{ $errors->first('lead_id') }}</p>
-                                @endif
-                            </div>
+                            @if(isset($lead))
+                                <input type="hidden" value="{{ $lead->id }}" name="lead_id">
+                                <input type="hidden" name="redirect" value="0">
+                            @else
+                                <div class="form-group mt-1">
+                                    <label for="lead_id" class="mb-3">Лид <span
+                                            class="text-danger">*</span></label>
+                                    <select tabindex="5" id="select" name="lead_id" class="select" multiple required>
+                                        @foreach($leads as $lead)
+                                            <option value="{{ $lead->id }}">{{ $lead->contact->fio}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('lead_id')) <p
+                                        style="color: red;">{{ $errors->first('lead_id') }}</p>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                         <div class="col-6">
                             <div class="form-group">

@@ -12,6 +12,8 @@ use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
 use App\Models\Admin\CRM\LeadState;
 use App\Models\Admin\CRM\LeadStatus;
+use App\Models\Admin\CRM\ThemeEvent;
+use App\Models\Admin\CRM\TypeEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +32,7 @@ class LeadController extends BaseController
 
         return view('admin.CRM.leads.index', compact('leads', 'statuses', 'states', 'sources'));
     }
+
 
     public function create() {
         $statuses = LeadStatus::get();
@@ -177,9 +180,18 @@ class LeadController extends BaseController
 
     public function events(Lead $lead) {
         $events = Event::where('lead_id', $lead->id)->get();
+        $themeEvents = ThemeEvent::get();
+        $typeEvents = TypeEvent::get();
 
-        return view('admin.crm.events.index', compact('events'));
+        return view('admin.crm.events.index', compact('events', 'themeEvents', 'typeEvents', 'lead'));
     }
 
+    public function createEvent(Lead $lead)
+    {
+        $typeEvents = TypeEvent::get();
+        $themeEvents = ThemeEvent::get();
+
+        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'lead'));
+    }
 
 }

@@ -9,6 +9,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::resource('contact', \App\Http\Controllers\Admin\Crm\ContactController::class);
 
     Route::get('lead/{lead}/contact', [\App\Http\Controllers\Admin\Crm\LeadController::class, 'contact']);
+    Route::get('lead/{lead}/events', [\App\Http\Controllers\Admin\Crm\LeadController::class, 'events'])->name('lead.events');
+    Route::get('lead/{lead}/events/create', [\App\Http\Controllers\Admin\Crm\LeadController::class, 'createEvent'])->name('lead.event.create');
 
     Route::get('contact/client/addClient', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'addClient'])->name('contact.client.addClient');
 

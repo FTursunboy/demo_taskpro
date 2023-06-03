@@ -35,6 +35,8 @@
                 <a href="{{ route('contact.lead.create', $lead->id) }}" class="btn btn-outline-primary mx-2">
                     Добавить контакт
                 </a>
+
+                <a href="{{ route('lead.events', $lead->id) }}" class="btn btn-outline-primary mx-2">
                 <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-outline-primary mx-2">
                     Событие
                 </a>
