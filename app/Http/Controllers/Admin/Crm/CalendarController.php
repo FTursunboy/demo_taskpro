@@ -10,6 +10,8 @@ use App\Models\Admin\CRM\ThemeEvent;
 use App\Models\Admin\CRM\TypeEvent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CalendarController extends BaseController
 {
@@ -46,15 +48,19 @@ class CalendarController extends BaseController
 
         ]);
 
+        DB::table('events')
+            ->insertOrIgnore([
+                'contact_id' => $request->contact_id,
+                'type_event_id' => $request->type_event_id,
+                'themeEvent_id' => $request->themeEvent_id,
+                'description' => $request->description,
+                'date' => $request->start_date . " " . $request->time,
+                'slug' => Str::slug(str_replace(' ', '_', $request->description) . '-', '5')
+            ]);
+
+        $event = Event::orderBy('id', 'desc')->first();
 
 
-        $event =  Event::create([
-           'contact_id' => $request->contact_id,
-           'type_event_id' => $request->type_event_id,
-           'themeEvent_id' => $request->themeEvent_id,
-           'description' => $request->description,
-           'date' => $request->start_date . " " . $request->time,
-        ]);
 
         return response()->json($event);
     }

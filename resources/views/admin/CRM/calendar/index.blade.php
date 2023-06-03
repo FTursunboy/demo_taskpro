@@ -161,7 +161,7 @@
                                     dataType: "json",
                                     data: {start_date, end_date, themeEvent_id, contact_id, type_event_id, description, time},
                                     success: function(response) {
-                                        location.reload();
+                                        location.reload()
                                     },
                                     error: function(xhr) {
                                         if (xhr.responseJSON.errors) {
