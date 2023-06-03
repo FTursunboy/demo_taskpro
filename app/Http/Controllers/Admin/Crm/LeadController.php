@@ -173,7 +173,7 @@ class LeadController extends BaseController
     public function contact(Lead $lead) {
         $contacts = Contact::where('contact_id', $lead->id)->get();
 
-        return view('admin.crm.contacts.index', compact('contacts'));
+        return view('admin.CRM.contacts.index', compact('contacts'));
 
 
     }
@@ -183,7 +183,7 @@ class LeadController extends BaseController
         $themeEvents = ThemeEvent::get();
         $typeEvents = TypeEvent::get();
 
-        return view('admin.crm.events.index', compact('events', 'themeEvents', 'typeEvents', 'lead'));
+        return view('admin.CRM.events.index', compact('events', 'themeEvents', 'typeEvents', 'lead'));
     }
 
     public function createEvent(Lead $lead)
