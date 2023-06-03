@@ -53,7 +53,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="contact_id">Контакт</label>
-                                <input type="text" id="contact_id" name="contact_id" class="form-control mt-3" value="{{ $event->contact?->fio . " - " . $event->contact?->phone}}" disabled>
+                                <input type="text" id="contact_id" name="contact_id" class="form-control mt-3" value="{{ $event->leads->contact?->fio . " - " . $event->leads->contact?->phone}}" disabled>
                             </div>
                         </div>
 

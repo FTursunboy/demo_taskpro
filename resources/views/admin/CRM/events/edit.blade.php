@@ -67,7 +67,7 @@
                                             class="text-danger">*</span></label>
                                     <select tabindex="3" id="lead_id" name="lead_id" class="select" multiple>
                                         @foreach($leads as $lead)
-                                            <option value="{{ $lead->id }}" {{($lead->id === $event->contact?->id) ? 'selected' : ''}} >{{ $lead->contact->fio}}</option>
+                                            <option value="{{ $lead->id }}" {{($lead->id === $event->leads->contact?->id) ? 'selected' : ''}} >{{ $lead->contact->fio}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('lead_id')) <p
