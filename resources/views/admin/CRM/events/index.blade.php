@@ -50,6 +50,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <select class="form-select" name="statuses" id="statuses">
+                                    <option value="0">Фильтр по статусу</option>
+                                    @foreach($eventStatuses as $eventStatus)
+                                        <option value="{{$eventStatus->id}}">{{$eventStatus->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -73,7 +83,7 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ Str::limit($event->description, 6)}}</td>
                                 <td>{{ $event->themeEvent?->theme }}</td>
-                                <td>{{ $event->contact?->phone }}</td>
+                                <td>{{ $event->leads?->contact->fio }}</td>
                                 <td>{{ date('d.m.Y', strtotime($event->date)) }}</td>
                                 <td>{{ date('H:i', strtotime($event->date)) }}</td>
                                 <td>{{ $event->typeEvent?->name }}</td>
@@ -142,15 +152,16 @@
                 },
             });
 
-            $('#theme, #type').on('change', function() {
+            $('#theme, #type, #statuses').on('change', function() {
                 filterLeads()
             });
 
             function filterLeads() {
                 let theme = $('#theme').val();
                 let type = $('#type').val();
+                let statuses = $('#statuses').val();
 
-                $.get(`tasks/public/filter-events/${theme}/${type}`, function(responce) {
+                $.get(`tasks/public/filter-events/${theme}/${type}/${statuses}`, function(responce) {
                     let table = $('#tbody').empty();
                     buildTable(responce.data, table)
                 });
@@ -177,6 +188,7 @@
                   <td>${i + 1}</td>
                   <td>${item.description}</td>
                   <td>${item.theme}</td>
+                  <td>${item.fio}</td>
                   <td>${day}</td>
                   <td>${time}</td>
                   <td>${item.type}</td>

@@ -87,9 +87,8 @@ class EventController extends BaseController
         return redirect()->route('event.index')->with('delete', 'Событие успешно удалён!');
     }
 
-    public function filter($theme, $type) {
+    public function filter($theme, $type, $statuses) {
         $events = Event::query();
-
 
         if ($theme) {
             $events->whereHas('themeEvent', function ($query) use ($theme) {
@@ -103,12 +102,19 @@ class EventController extends BaseController
             });
         }
 
+        if ($statuses) {
+            $events->whereHas('eventStatus', function ($query) use ($statuses) {
+                $query->where('id', $statuses);
+            });
+        }
+
 
         $filteredContacts = $events->join( 'type_events as type', 'type.id', '=', 'events.type_event_id')
             ->join('theme_events as th', 'th.id', '=', 'events.themeEvent_id')
             ->join('event_statuses as es', 'es.id', '=', 'events.event_status_id')
-            ->join('event_statuses as es', 'es.id', '=', 'events.event_status_id')
-            ->select('th.theme', 'events.description', 'events.date', 'es.name as status' , 'type.name as type', 'events.id')
+            ->join('leads', 'events.lead_id', '=', 'leads.id')
+            ->join('contacts', 'leads.contact_id', '=', 'contacts.id')
+            ->select('th.theme', 'events.description', 'events.date', 'es.name as status', 'contacts.fio', 'type.name as type', 'events.id')
             ->get();
 
 

@@ -25,12 +25,12 @@ class Event extends Model
 
     public function leads()
     {
-        return $this->belongsTo(Lead::class);
+        return $this->belongsTo(Lead::class, 'lead_id');
     }
 
     public function eventStatus()
     {
-        return $this->belongsTo(EventStatus::class);
+        return $this->belongsTo(EventStatus::class, 'event_status_id');
     }
 
 }
