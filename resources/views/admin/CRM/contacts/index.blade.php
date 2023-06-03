@@ -32,6 +32,7 @@
                     <table id="example" class="table table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th>ФИО</th>
                             <th>Телефон</th>
                             <th>Адрес</th>
@@ -43,11 +44,12 @@
                         <tbody>
                         @foreach($contacts as $contact)
                             <tr>
+                                <td>{{ $loop->iteration}}</td>
                                 <td>{{ $contact?->fio }}</td>
                                 <td>{{ $contact?->phone }}</td>
                                 <td>{{ $contact?->address }}</td>
                                 <td>
-                                    {{ $contact->lead_id }}
+                                    {{ $contact?->fio }}
                                 </td>
 
                                 <td class="text-center">

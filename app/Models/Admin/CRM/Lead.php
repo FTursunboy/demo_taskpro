@@ -18,6 +18,9 @@ class Lead extends Model
     public function status(){
         return $this->belongsTo(LeadStatus::class, 'lead_status_id');
     }
+    public function contacts(){
+        return $this->hasMany(Contact::class, 'lead_id');
+    }
     public function contact(){
         return $this->belongsTo(Contact::class, 'contact_id');
     }

@@ -14,6 +14,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::get('contact/client/addClient', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'addClient'])->name('contact.client.addClient');
 
+    Route::get('contact/create/{leades}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'createLead'])->name('contact.lead.create');
 
     Route::get('calendar-event', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'index']);
     Route::post('calendar-crud-ajax', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'calendarEvents']);
@@ -53,5 +54,10 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::post('setting/type-event', [\App\Http\Controllers\Admin\Crm\TypeEventController::class, 'store'])->name('setting.type-event.store');
     Route::patch('setting/type-event/{typeEvent}', [\App\Http\Controllers\Admin\Crm\TypeEventController::class, 'update'])->name('setting.type-event.update');
     Route::delete('setting/type-event/{typeEvent}', [\App\Http\Controllers\Admin\Crm\TypeEventController::class, 'destroy'])->name('setting.type-event.destroy');
+
+    Route::get('setting/event-status', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'index'])->name('setting.event-status.index');
+    Route::post('setting/event-status', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'store'])->name('setting.event-status.store');
+    Route::patch('setting/event-status/{eventStatus}', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'update'])->name('setting.event-status.update');
+    Route::delete('setting/event-status/{eventStatus}', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'destroy'])->name('setting.event-status.destroy');
 
 });

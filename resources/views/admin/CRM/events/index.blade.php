@@ -67,6 +67,7 @@
                             <th>Дата</th>
                             <th>Время</th>
                             <th>Тип</th>
+                            <th>Статус</th>
                             <th class="text-center">Действия</th>
                         </tr>
                         </thead>
@@ -80,6 +81,7 @@
                                 <td>{{ date('d.m.Y', strtotime($event->date)) }}</td>
                                 <td>{{ date('H:i', strtotime($event->date)) }}</td>
                                 <td>{{ $event->typeEvent?->name }}</td>
+                                <td>{{ $event->eventStatus?->name }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('event.show', $event->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('event.edit', $event->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
@@ -177,10 +179,10 @@
                   <td>${i + 1}</td>
                   <td>${item.description}</td>
                   <td>${item.theme}</td>
-                  <td>${item.phone}</td>
                   <td>${day}</td>
                   <td>${time}</td>
                   <td>${item.type}</td>
+                  <td>${item.status}</td>
                   <td class="text-center">
                     <a href="${show}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                    <a href="${edit}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>

@@ -86,16 +86,28 @@
                                     style="color: red;">{{ $errors->first('type_event_id') }}</p> @endif
                             </div>
                             <div class="form-group">
+                                <label for="type">Статус <span
+                                        class="text-danger">*</span></label>
+                                <select id="type" name="event_status_id" tabindex="4" class="form-select mt-3" required>
+                                    <option value="" selected>Выберите статус</option>
+                                    @foreach($eventStatuses as $eventStatus)
+                                        <option value="{{ $eventStatus->id }}">{{ $eventStatus->name }}</option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('type_event_id')) <p
+                                    style="color: red;">{{ $errors->first('type_event_id') }}</p> @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="description">Описание <span
                                         class="text-danger">*</span></label>
-                                <textarea id="description" name="description" class="form-control mt-3" tabindex="4" required>{{ old('description') }}</textarea>
+                                <textarea id="description" name="description" class="form-control mt-3" tabindex="6" required>{{ old('description') }}</textarea>
                             </div>
                             @if($errors->has('description')) <p
                                 style="color: red;">{{ $errors->first('description') }}</p> @endif
                         </div>
 
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" id="button" class="btn btn-outline-primary" tabindex="6">Сохранить</button>
+                            <button type="submit" id="button" class="btn btn-outline-primary" tabindex="7">Сохранить</button>
                         </div>
                     </div>
                 </form>

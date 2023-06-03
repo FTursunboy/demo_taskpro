@@ -55,20 +55,27 @@
                                     @if($errors->has('themeEvent_id')) <p
                                         style="color: red;">{{ $errors->first('themeEvent_id') }}</p> @endif
                                 </div>
+                                <div class="form-group">
+                                    <label for="date">Время <span
+                                            class="text-danger">*</span></label>
+                                    <input type="datetime-local" id="date" name="date" class="form-control mt-3" tabindex="2" value="{{date('Y-m-d H:i:s', strtotime($event->date)) }}" required>
+                                    @if($errors->has('date')) <p
+                                        style="color: red;">{{ $errors->first('date') }}</p> @endif
+                                </div>
                                 <div class="form-group mt-3">
                                     <label for="lead_id" class="mb-2">Лид <span
                                             class="text-danger">*</span></label>
                                     <select tabindex="3" id="lead_id" name="lead_id" class="select" multiple>
                                         @foreach($leads as $lead)
-                                            <option value="{{ $lead->id }}" {{($lead->id === $event->leads?->id) ? 'selected' : ''}} >{{ $lead->contact->fio}}</option>
+                                            <option value="{{ $lead->id }}" {{($lead->id === $event->contact?->id) ? 'selected' : ''}} >{{ $lead->contact->fio}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->has('lead_id')) <p
                                         style="color: red;">{{ $errors->first('lead_id') }}</p> @endif
                                 </div>
+
                             </div>
                             <div class="col-6">
-
                                 <div class="form-group">
                                     <label for="type">Тип <span
                                             class="text-danger">*</span></label>
@@ -83,14 +90,18 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="date">Время <span
+                                    <label for="type">Статус <span
                                             class="text-danger">*</span></label>
-                                    <input type="datetime-local" id="date" name="date" class="form-control mt-3" tabindex="2" value="{{date('Y-m-d H:i:s', strtotime($event->date)) }}" required>
+                                    <select id="type" name="event_status_id" tabindex="4" class="form-select mt-3" required>
+                                        <option value="" selected>Выберите статус</option>
+                                        @foreach($eventStatuses as $eventStatus)
+                                            <option value="{{ $eventStatus?->id }}" {{ $eventStatus?->id === $event?->eventStatus?->id  ? 'selected' : '' }} >{{ $eventStatus?->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('type_event_id')) <p
+                                        style="color: red;">{{ $errors->first('type_event_id') }}</p> @endif
                                 </div>
-                                @if($errors->has('date')) <p
-                                    style="color: red;">{{ $errors->first('date') }}</p> @endif
-                            </div>
-                            <div class="row">
+
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="description">Описание</label>
@@ -98,6 +109,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="d-flex justify-content-end mt-3">
                                 <button type="submit" tabindex="9" id="button" class="btn btn-outline-primary">Обновить</button>
                             </div>

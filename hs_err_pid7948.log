@@ -1,0 +1,205 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes for AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:44), pid=7948, tid=1556
+#
+# JRE version:  (17.0.4.1+7) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.4.1+7-b469.62, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dawt.toolkit=com.intellij.desktop.DesktopActionsToolkit -Djava.rmi.server.hostname=127.0.0.1 -Duser.timezone=UTC -Xmx1024m -Xms128m --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED -Dfile.encoding=UTF-8 com.intellij.database.remote.RemoteJdbcServer com.mysql.cj.jdbc.Driver
+
+Host: Intel(R) Core(TM) i5-2410M CPU @ 2.30GHz, 4 cores, 9G,  Windows 10 , 64 bit Build 18362 (10.0.18362.329)
+Time: Sat Jun  3 16:18:17 2023 Западная Азия (зима) elapsed time: 0.019645 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001b90bff3000):  JavaThread "Unknown thread" [_thread_in_vm, id=1556, stack(0x00000055b3600000,0x00000055b3700000)]
+
+Stack: [0x00000055b3600000,0x00000055b3700000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x68356a]
+V  [jvm.dll+0x83fab4]
+V  [jvm.dll+0x84125e]
+V  [jvm.dll+0x8418c3]
+V  [jvm.dll+0x249735]
+V  [jvm.dll+0xa64cf]
+V  [jvm.dll+0x2db324]
+V  [jvm.dll+0x81126c]
+V  [jvm.dll+0x36e6f1]
+V  [jvm.dll+0x7f076c]
+V  [jvm.dll+0x3f180f]
+V  [jvm.dll+0x3f3351]
+C  [jli.dll+0x526b]
+C  [ucrtbase.dll+0x20e72]
+C  [KERNEL32.DLL+0x17bd4]
+C  [ntdll.dll+0x6ced1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffe547a7f58, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x000001b90bff3000 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=1556, stack(0x00000055b3600000,0x00000055b3700000)]
+
+Threads with active compile tasks:
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap address: 0x0000000000000000, size: 0 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 0.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (1 events):
+Event: 0.009 Loaded shared library D:\PhpStorm 2022.2.3\jbr\bin\java.dll
+
+
+Dynamic libraries:
+0x00007ff731fd0000 - 0x00007ff731fda000 	D:\PhpStorm 2022.2.3\jbr\bin\java.exe
+0x00007ffe83740000 - 0x00007ffe83930000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ffe82e70000 - 0x00007ffe82f22000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ffe812c0000 - 0x00007ffe81563000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ffe80730000 - 0x00007ffe8082a000 	C:\Windows\System32\ucrtbase.dll
+0x00007ffe7c890000 - 0x00007ffe7c8a7000 	D:\PhpStorm 2022.2.3\jbr\bin\jli.dll
+0x00007ffe82b00000 - 0x00007ffe82c94000 	C:\Windows\System32\USER32.dll
+0x00007ffe80830000 - 0x00007ffe80851000 	C:\Windows\System32\win32u.dll
+0x00007ffe830f0000 - 0x00007ffe83116000 	C:\Windows\System32\GDI32.dll
+0x00007ffe815a0000 - 0x00007ffe81734000 	C:\Windows\System32\gdi32full.dll
+0x00007ffe81790000 - 0x00007ffe8182e000 	C:\Windows\System32\msvcp_win.dll
+0x00007ffe6f7c0000 - 0x00007ffe6f7db000 	D:\PhpStorm 2022.2.3\jbr\bin\VCRUNTIME140.dll
+0x00007ffe71a70000 - 0x00007ffe71cf5000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.535_none_e6c3b34713100821\COMCTL32.dll
+0x00007ffe83150000 - 0x00007ffe831ee000 	C:\Windows\System32\msvcrt.dll
+0x00007ffe831f0000 - 0x00007ffe83526000 	C:\Windows\System32\combase.dll
+0x00007ffe822e0000 - 0x00007ffe82400000 	C:\Windows\System32\RPCRT4.dll
+0x00007ffe80860000 - 0x00007ffe808e0000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007ffe83120000 - 0x00007ffe8314e000 	C:\Windows\System32\IMM32.DLL
+0x00007ffe74bc0000 - 0x00007ffe74bcc000 	D:\PhpStorm 2022.2.3\jbr\bin\vcruntime140_1.dll
+0x00007ffe56290000 - 0x00007ffe5631d000 	D:\PhpStorm 2022.2.3\jbr\bin\msvcp140.dll
+0x00007ffe53c70000 - 0x00007ffe548d9000 	D:\PhpStorm 2022.2.3\jbr\bin\server\jvm.dll
+0x00007ffe82a50000 - 0x00007ffe82af3000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ffe81ff0000 - 0x00007ffe82087000 	C:\Windows\System32\sechost.dll
+0x00007ffe82160000 - 0x00007ffe82168000 	C:\Windows\System32\PSAPI.DLL
+0x00007ffe7cfe0000 - 0x00007ffe7cfe9000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ffe82e00000 - 0x00007ffe82e6f000 	C:\Windows\System32\WS2_32.dll
+0x00007ffe7e5d0000 - 0x00007ffe7e5f4000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ffe73090000 - 0x00007ffe7309a000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ffe7e5a0000 - 0x00007ffe7e5cd000 	C:\Windows\SYSTEM32\WINMMBASE.dll
+0x00007ffe81740000 - 0x00007ffe8178a000 	C:\Windows\System32\cfgmgr32.dll
+0x00007ffe80660000 - 0x00007ffe80671000 	C:\Windows\System32\kernel.appcore.dll
+0x00007ffe7cd40000 - 0x00007ffe7cd4a000 	D:\PhpStorm 2022.2.3\jbr\bin\jimage.dll
+0x00007ffe62450000 - 0x00007ffe62644000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007ffe7d130000 - 0x00007ffe7d15a000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007ffe7cc60000 - 0x00007ffe7cc85000 	D:\PhpStorm 2022.2.3\jbr\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;D:\PhpStorm 2022.2.3\jbr\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.535_none_e6c3b34713100821;D:\PhpStorm 2022.2.3\jbr\bin\server
+
+VM Arguments:
+jvm_args: -Dawt.toolkit=com.intellij.desktop.DesktopActionsToolkit -Djava.rmi.server.hostname=127.0.0.1 -Duser.timezone=UTC -Xmx1024m -Xms128m --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED -Dfile.encoding=UTF-8 
+java_command: com.intellij.database.remote.RemoteJdbcServer com.mysql.cj.jdbc.Driver
+java_class_path (initial): D:\PhpStorm 2022.2.3\lib\util_rt.jar;D:\PhpStorm 2022.2.3\lib\util.jar;D:\PhpStorm 2022.2.3\lib\groovy.jar;D:\PhpStorm 2022.2.3\plugins\DatabaseTools\lib\jdbc-console.jar;C:\Users\Рустамчон\AppData\Roaming\JetBrains\PhpStorm2022.2\jdbc-drivers\MySQL ConnectorJ\8.0.25\mysql-connector-java-8.0.25.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 134217728                                 {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 1073741824                                {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 134217728                                 {product} {command line}
+    uintx NonNMethodCodeHeapSize                   = 5832780                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122912730                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122912730                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 1073741824                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\7-Zip;C:\Program Files\Git\cmd;D:\putty\;D:\ComposerSetup;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\dotnet\;D:\php-8.2.1-nts-Win32-vs16-x64;C:\Users\Рустамчон\AppData\Local\Microsoft\WindowsApps;D:\PhpStorm 2022.2.3\bin;;C:\Users\Рустамчон\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Рустамчон\AppData\Roaming\Composer\vendor\bin;D:\IntelliJ IDEA 2022.1.4\bin;;C:\Users\Рустамчон\AppData\Roaming\npm;D:\JetBrains Rider 2023.1.1\bin;;C:\Users\Рустамчон\.dotnet\tools;C:\Users\Рустамчон\AppData\Local\GitHubDesktop\bin
+USERNAME=Рустамчон
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+TMP=C:\Temp
+TEMP=C:\Temp
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 18362 (10.0.18362.329)
+OS uptime: 0 days 5:47 hours
+
+CPU: total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 42 stepping 7 microcode 0x2e, cx8, cmov, fxsr, ht, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, tsc, tscinvbit, avx, clmul, vzeroupper, clflush
+
+Memory: 4k page, system-wide physical 10018M (2205M free)
+TotalPageFile size 10018M (AvailPageFile size 5M)
+current process WorkingSet (physical memory assigned to process): 9M, peak: 9M
+current process commit charge ("private bytes"): 12M, peak: 13M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.4.1+7-b469.62) for windows-amd64 JRE (17.0.4.1+7-b469.62), built on 2022-09-22 by "builduser" with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.

@@ -130,6 +130,8 @@ class LeadController extends BaseController
     }
 
     public function show(Lead $lead) {
+
+
         return view('admin.CRM.leads.show', compact('lead'));
     }
 
