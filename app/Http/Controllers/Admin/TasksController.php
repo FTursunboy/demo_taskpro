@@ -218,7 +218,7 @@ class   TasksController extends BaseController
             'pro_status' => 2,
         ]);
         Artisan::call('update:task-status');
-        $type = TaskTypeModel::find($request->type_id)->name;
+        $type = TaskTypeModel::find($request->type_id)?->name;
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
         } catch (\Exception $exception) {
