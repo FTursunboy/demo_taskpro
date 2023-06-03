@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Crm\LeadRequest;
 use App\Http\Requests\Admin\Crm\LeadUpdateRequest;
 use App\Models\Admin\CRM\Contact;
+use App\Models\Admin\CRM\Event;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
 use App\Models\Admin\CRM\LeadState;
@@ -164,7 +165,19 @@ class LeadController extends BaseController
         ]);
     }
 
+    public function contact(Lead $lead) {
+        $contacts = Contact::where('contact_id', $lead->id)->get();
 
+        return view('admin.crm.contacts.index', compact('contacts'));
+
+
+    }
+
+    public function events(Lead $lead) {
+        $events = Event::where('lead_id', $lead->id)->get();
+
+        return view('admin.crm.events.index', compact('events'));
+    }
 
 
 }
