@@ -53,4 +53,9 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::patch('setting/type-event/{typeEvent}', [\App\Http\Controllers\Admin\Crm\TypeEventController::class, 'update'])->name('setting.type-event.update');
     Route::delete('setting/type-event/{typeEvent}', [\App\Http\Controllers\Admin\Crm\TypeEventController::class, 'destroy'])->name('setting.type-event.destroy');
 
+    Route::get('setting/event-status', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'index'])->name('setting.event-status.index');
+    Route::post('setting/event-status', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'store'])->name('setting.event-status.store');
+    Route::patch('setting/event-status/{eventStatus}', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'update'])->name('setting.event-status.update');
+    Route::delete('setting/event-status/{eventStatus}', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'destroy'])->name('setting.event-status.destroy');
+
 });

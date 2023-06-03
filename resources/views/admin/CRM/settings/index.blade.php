@@ -65,6 +65,12 @@
                                     <a href="{{route('setting.type-event.index')}}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>Статус события</td>
+                                <td class="text-center">
+                                    <a href="{{route('setting.event-status.index')}}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

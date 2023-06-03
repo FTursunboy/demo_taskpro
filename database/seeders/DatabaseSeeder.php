@@ -239,6 +239,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LeadSeeder::class);
         $this->call(ThemeEventSeeder::class);
         $this->call(TypeEventSeeder::class);
+        $this->call(EventStatusSeeder::class);
 
     }
 }
