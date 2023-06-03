@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Crm\EventRequest;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Event;
+use App\Models\Admin\CRM\EventStatus;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\ThemeEvent;
 use App\Models\Admin\CRM\TypeEvent;
@@ -20,26 +21,30 @@ class EventController extends BaseController
         $events = Event::orderBy('created_at', 'desc')->get();
         $themeEvents = ThemeEvent::get();
         $contacts = Contact::get();
+        $eventStatuses = EventStatus::get();
 
-        return view('admin.CRM.events.index', compact('typeEvents', 'events', 'themeEvents', 'contacts'));
+        return view('admin.CRM.events.index', compact('typeEvents', 'events', 'themeEvents', 'contacts', 'eventStatuses'));
     }
 
     public function create()
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
+        $eventStatuses = EventStatus::get();
         $leads = Lead::all();
-        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'leads'));
+        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'leads', 'eventStatuses'));
     }
 
     public function store(EventRequest $request)
     {
+
         Event::create([
             'themeEvent_id' => $request->themeEvent_id,
             'description' => $request->description,
             'date' => $request->date,
             'lead_id' => $request->input('lead_id'),
             'type_event_id' => $request->type_event_id,
+            'event_status_id' => $request->event_status_id,
         ]);
 
         return redirect()->route('event.index')->with('create', 'Событие успешно создан!');
@@ -54,8 +59,9 @@ class EventController extends BaseController
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
+        $eventStatuses = EventStatus::get();
         $leads = Lead::get();
-        return view('admin.CRM.events.edit', compact('event', 'typeEvents', 'leads', 'themeEvents'));
+        return view('admin.CRM.events.edit', compact('event', 'typeEvents', 'leads', 'themeEvents', 'eventStatuses'));
     }
 
     public function update(EventRequest $request, int $id)
@@ -68,6 +74,7 @@ class EventController extends BaseController
            'date' => $request->date,
            'lead_id' => $request->lead_id,
            'type_event_id' => $request->type_event_id,
+           'event_status_id' => $request->event_status_id,
         ]);
 
         return redirect()->route('event.index')->with('update', 'Событие успешно обновлён!');
