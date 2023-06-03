@@ -52,11 +52,11 @@
                         <span id="titleError" class="text-danger"></span>
                     </div>
                     <div class="form-group mt-1">
-                        <label for="contact_id" class="mb-3">Контакт</label>
-                        <select required tabindex="3" id="contact_id" name="contact_id" class="form-select">
-                            @foreach($contacts as $contact)
+                        <label for="lead_id" class="mb-3">Лид</label>
+                        <select required tabindex="3" id="lead_id" name="lead_id" class="form-select">
+                            @foreach($leads as $lead)
                                 <option
-                                    value="{{ $contact->id }}">{{ $contact->fio . " - " . $contact->phone}}</option>
+                                    value="{{ $lead->id }}">{{ $lead->contact->fio}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -150,7 +150,7 @@
                                 let end_date = moment(end).format('YYYY-MM-DD');
 
                                 let themeEvent_id = $('#themeEvent_id').val();
-                                let contact_id = $('#contact_id').val();
+                                let lead_id = $('#lead_id').val();
                                 let type_event_id = $('#type_event_id').val();
                                 let description = $('#description').val();
                                 let time = $('#time').val();
@@ -159,7 +159,7 @@
                                     url: "{{route('calendar.store')}}",
                                     type: "POST",
                                     dataType: "json",
-                                    data: {start_date, themeEvent_id, contact_id, type_event_id, description, time},
+                                    data: {start_date, themeEvent_id, lead_id, type_event_id, description, time},
                                     success: function(response) {
                                         location.reload()
                                     },

@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Event;
+use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\ThemeEvent;
 use App\Models\Admin\CRM\TypeEvent;
 use Carbon\Carbon;
@@ -19,7 +20,7 @@ class CalendarController extends BaseController
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
-        $contacts = Contact::get();
+        $leads = Lead::get();
         $dates = array();
         $events = Event::get();
         foreach ($events as $event) {
@@ -32,14 +33,14 @@ class CalendarController extends BaseController
 
 
 
-        return view('admin.CRM.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'contacts'));
+        return view('admin.CRM.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'leads'));
 
     }
 
     public function store(Request $request) {
 
         $request->validate([
-            'contact_id' => ['required'],
+            'lead_id' => ['required'],
             'type_event_id' => ['required'],
             'themeEvent_id' => ['required'],
             'description' => ['required'],
@@ -49,7 +50,7 @@ class CalendarController extends BaseController
 
         DB::table('events')
             ->insertOrIgnore([
-                'contact_id' => $request->contact_id,
+                'lead_id' => $request->lead_id,
                 'type_event_id' => $request->type_event_id,
                 'themeEvent_id' => $request->themeEvent_id,
                 'description' => $request->description,
