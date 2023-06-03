@@ -18,11 +18,9 @@ class IndexController extends BaseController
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
             ['status_id', '=', '10'],
-            ['is_finished', '=', true]
         ])->orWhere([
             ['client_id', '=', Auth::id()],
-            ['status_id', '=', '3'],
-            ['is_finished', '=', true]
+            ['status_id', '=', '6'],
         ])->get();
         return view('client.index', compact('tasks'));
     }

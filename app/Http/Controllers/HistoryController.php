@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use Faker\Provider\Base;
+use Illuminate\Support\Facades\Auth;
 
 
 class HistoryController extends BaseController
@@ -14,7 +15,8 @@ class HistoryController extends BaseController
             'task_id' => $task_id,
             'user_id' => $user_id,
             'status_id' => $status_id,
-            'type' => 'task'
+            'type' => 'task',
+            'sender_id' => Auth::id(),
         ]);
     }
     public static function client($task_id, $user_id, $client_id, $status_id) {

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
-    protected $fillable = ['task_id', 'user_id', 'client_id', 'status_id', 'type'];
+    protected $fillable = ['task_id', 'user_id', 'client_id', 'status_id', 'type', 'sender_id'];
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
@@ -33,5 +33,9 @@ class History extends Model
 
     public function offer() {
         return $this->belongsTo(Offer::class, 'task_id');
+    }
+
+    public function sender() {
+        return $this->belongsTo(User::class, 'sender_id');
     }
 }

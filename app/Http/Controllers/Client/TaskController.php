@@ -18,6 +18,7 @@ use App\Models\User;
 
 use App\Notifications\Telegram\TelegramClientTask;
 use App\Notifications\Telegram\TelegramUserAccept;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -145,6 +146,7 @@ class TaskController extends BaseController
     public function confirm(Offer $offer)
     {
         $offer->status_id = 3;
+        $offer->finish = Carbon::now();
         $offer->save();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
