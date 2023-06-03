@@ -176,61 +176,64 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body pt-4 bg-grey">
-                                <div class="chat-content" style="overflow-y: scroll; height: 300px" id="block">
-                                    @foreach($messages as $mess)
-                                        @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
-                                            <div class="chat">
-                                                <div class="chat-body" style="margin-right: 10px">
-                                                    <div class="chat-message">
-                                                        <p>
-                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
-                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
-                                                            <span class="d-flex justify-content-end" style="font-size: 8px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                <div class="card-body pt-4 bg-grey" >
+                                    <div class="chat-content" style="overflow-y: scroll; height: 300px" id="block">
+                                        @foreach($messages as $mess)
+                                            @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
+                                                <div class="chat">
+                                                    <div class="chat-body" style="margin-right: 10px">
+                                                        <div class="chat-message">
+                                                            <p>
+                                                                <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                                <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                                <span class="d-flex justify-content-end" style="font-size: 11px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
-                                                        </p>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @else
-                                            <div class="chat chat-left">
-                                                <div class="chat-body">
-                                                    <div class="chat-message">
-                                                        <p>
-                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
-                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
-                                                            <span class="d-flex justify-content-end" style="font-size: 8px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                            @else
+                                                <div class="chat chat-left">
+                                                    <div class="chat-body">
+                                                        <div class="chat-message">
+                                                            <p>
+                                                                <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                                <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                                <span class="d-flex justify-content-end" style="font-size: 11px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
-                                                        </p>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <script>
+                                        let block = document.getElementById("block");
+                                        block.scrollTop = block.scrollHeight;
+                                    </script>
                                 </div>
-                                <script>
-                                    let block = document.getElementById("block");
-                                    block.scrollTop = block.scrollHeight;
-                                </script>
-                            </div>
-                            <div class="card-footer">
-                                <div class="message-form d-flex flex-direction-column align-items-center">
-                                    <form class="w-100" action="{{ route('messages.messages', $task->id) }}"
-                                          method="POST">
-                                        @csrf
-                                        <div class="d-flex flex-grow-1 ml-4">
-                                            <div class="input-group mb-3">
-                                                <input type="text" name="message" class="form-control" placeholder="Сообщение..." required>
-                                                <button type="submit" class="btn btn-primary" id="messageBTN">
-                                                    Отправить
-                                                </button>
+                            @if($task->status->id !== 3)
+                                <div class="card-footer">
+                                    <div class="message-form d-flex flex-direction-column align-items-center">
+                                        <form class="w-100" action="{{ route('messages.messages', $task->id) }}"
+                                              method="POST">
+                                            @csrf
+                                            <div class="d-flex flex-grow-1 ml-4">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="message" class="form-control"
+                                                           placeholder="Сообщение..." required>
+                                                    <button type="submit" class="btn btn-primary" id="messageBTN">
+                                                        Отправить
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
