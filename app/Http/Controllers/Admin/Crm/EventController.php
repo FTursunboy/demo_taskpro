@@ -42,7 +42,11 @@ class EventController extends BaseController
             'type_event_id' => $request->type_event_id,
         ]);
 
-        return redirect()->route('event.index')->with('create', 'Событие успешно создан!');
+        if ($request->input('redirect') == 0){
+            return redirect()->route('lead.events', $request->input('lead_id'))->with('create', 'Событие успешно добавлено!');
+        }else {
+            return redirect()->route('event.index')->with('create', 'Событие успешно создан!');
+        }
     }
 
     public function show(Event $event, TypeEvent $typeEvent)

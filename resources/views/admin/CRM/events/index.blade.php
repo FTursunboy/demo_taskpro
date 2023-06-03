@@ -26,9 +26,13 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
+                            @if(isset($lead))
+                                <a href="{{route('lead.event.create', $lead->id)}}" class="btn btn-outline-primary">Добавить событие для выбранного лида</a>
+                                @else
                             <a href="{{ route('event.create') }}" class="btn btn-outline-primary">
                                 Добавить событие
                             </a>
+                                @endif
                         </div>
                         <div class="col">
                             <div class="form-group">
@@ -112,10 +116,8 @@
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
-
                         @endforeach
                         </tbody>
                     </table>

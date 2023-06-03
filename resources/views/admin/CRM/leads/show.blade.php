@@ -37,7 +37,7 @@
                     Контакты
                 </a>
 
-                <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-outline-primary mx-2">
+                <a href="{{ route('lead.events', $lead->id) }}" class="btn btn-outline-primary mx-2">
                     Событие
                 </a>
             </div>
