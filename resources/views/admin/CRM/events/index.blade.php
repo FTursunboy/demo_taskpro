@@ -173,10 +173,9 @@
 
                     let row = `<tr>
                   <td>${i + 1}</td>
-                   <td>${item.description}</td>
+                  <td>${item.description}</td>
                   <td>${item.theme}</td>
                   <td>${item.phone}</td>
-
                   <td>${day}</td>
                   <td>${time}</td>
                   <td>${item.type}</td>

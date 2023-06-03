@@ -155,6 +155,9 @@
                         <li class="submenu-item {{( request()->is('calendar') or request()->is('calendar/*')) ? 'active' : ''}} ">
                             <a href="{{route('calendar')}}">Календарь</a>
                         </li>
+                        <li class="submenu-item {{( request()->is('settings') or request()->is('settings/*')) ? 'active' : ''}} ">
+                            <a href="{{route('setting.index')}}">Настройка</a>
+                        </li>
                     </ul>
                 </li>
 

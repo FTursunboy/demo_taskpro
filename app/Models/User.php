@@ -171,13 +171,12 @@ class User extends Authenticatable
     {
         return TaskModel::where([
             ['task_models.user_id', $id],
-            ['task_models.status_id', 4],
-        ])
+        ])->orderByRaw('task_models.status_id = 3 ASC')
             ->WhereNotIn('task_models.id', function ($subquery) use ($id) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')
                     ->where('h.status_id', '=', $id)
-                    ->where('h.status_id', [4, 7]);
+                    ->where('h.status_id', [3, 7]);
             })
             ->orderBy('task_models.status_id', 'desc')
             ->get();
