@@ -9,6 +9,17 @@
     transition: width 0.3s;
     cursor: pointer;
 }
+.event-completed {
+    background-color: green;
+}
+
+.event-pending {
+    background-color: yellow;
+}
+
+.event-canceled {
+    background-color: red;
+}
 
 .create-event-icon,
 .go-to-day-icon {

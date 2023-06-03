@@ -6,9 +6,11 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Event;
+use App\Models\Admin\CRM\EventStatus;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\ThemeEvent;
 use App\Models\Admin\CRM\TypeEvent;
+use App\Models\Statuses;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +22,7 @@ class CalendarController extends BaseController
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
+        $statuses = EventStatus::get();
         $leads = Lead::get();
         $dates = array();
         $events = Event::get();
@@ -27,13 +30,14 @@ class CalendarController extends BaseController
             $dates[] = [
                 'title' => $event->themeEvent->theme,
                 'start' => $event->date,
+                'status' => $event->eventStatus->name
             ];
         }
 
 
 
 
-        return view('admin.CRM.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'leads'));
+        return view('admin.CRM.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'leads', 'statuses'));
 
     }
 
@@ -45,19 +49,21 @@ class CalendarController extends BaseController
             'themeEvent_id' => ['required'],
             'description' => ['required'],
             'time' => '',
+            'status_id' => ''
 
         ]);
 
-        DB::table('events')
+        $event = DB::table('events')
             ->insertOrIgnore([
                 'lead_id' => $request->lead_id,
                 'type_event_id' => $request->type_event_id,
                 'themeEvent_id' => $request->themeEvent_id,
                 'description' => $request->description,
+                'event_status_id' => $request->status_id,
                 'date' => $request->start_date . " " . $request->time,
                 'slug' => Str::slug(str_replace(' ', '_', $request->description) . '-', '5')
             ]);
-        $event = Event::orderBy('id', 'desc')->first();
+
 
 
 
