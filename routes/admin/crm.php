@@ -12,7 +12,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::get('contact/client/addClient', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'addClient'])->name('contact.client.addClient');
 
-
+    Route::get('contact/create/{leades}', [\App\Http\Controllers\Admin\Crm\ContactController::class, 'createLead'])->name('contact.lead.create');
 
     Route::get('calendar-event', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'index']);
     Route::post('calendar-crud-ajax', [\App\Http\Controllers\Admin\Crm\CalendarController::class, 'calendarEvents']);

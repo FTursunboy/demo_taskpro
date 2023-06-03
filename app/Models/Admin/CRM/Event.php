@@ -23,8 +23,6 @@ class Event extends Model
         return $this->belongsTo(ThemeEvent::class, 'themeEvent_id');
     }
 
-
-
     public function leads()
     {
         return $this->belongsTo(Lead::class);

@@ -38,9 +38,14 @@ class ContactController extends BaseController
     public function create()
     {
         $leads = Lead::all();
-        $projects = ProjectModel::where('types_id', 2)->get();
 
-        return view('admin.CRM.contacts.create', compact('leads', 'projects'));
+
+        return view('admin.CRM.contacts.create', compact('leads', ));
+    }
+
+    public function createLead(Lead $leades) {
+
+        return view('admin.CRM.contacts.create', compact('leades' ));
     }
 
     /**

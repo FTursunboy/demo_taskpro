@@ -70,13 +70,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="client_id">Лиды</label>
+                                @if($leades)
+                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6">
+                                        <option value="{{$leades->id}}" selected>{{$leades->contact->fio}}</option>
+                                    </select>
+                                @else
                                 <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6">
                                     <option selected>Выберите лида</option>
-{{--                                    <option value="0">Добавить нового клиента</option>--}}
-                                    @foreach($leads as $lead)
-                                        <option value="{{ $lead->id }}">{{ $lead->contact->fio }}</option>
+                                    {{--                                    <option value="0">Добавить нового клиента</option>--}}
+                                @foreach($leads as $lead)
+                                        <option value="{{ $lead->id }}" >{{ $lead->contact->fio }}</option>
                                     @endforeach
                                 </select>
+                                @endif
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
