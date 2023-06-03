@@ -147,6 +147,7 @@ class TaskController extends BaseController
     {
         $offer->status_id = 3;
         $offer->finish = Carbon::now();
+        dd($offer);
         $offer->save();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
@@ -184,6 +185,7 @@ class TaskController extends BaseController
         $user = User::find($offer->user_id);
         $user->xp += 20;
         $user->save();
+        $offer->finish = Carbon::now();
         $offer->save();
 
         $user = User::role('admin')->first();

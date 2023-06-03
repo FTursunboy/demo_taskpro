@@ -101,7 +101,7 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Вы действительно хотите закрыть задачу, если нет оптравить заново</p>
+                                            <p>Вы действительно хотите закрыть задачу, если нет оптравьте заново</p>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
