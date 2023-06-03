@@ -39,21 +39,21 @@
                             <div class="form-group">
                                 <label for="theme">Имя проекта</label>
                                 <input type="text" id="theme" name="theme" class="form-control mt-3"
-                                        value="{{ $event->themeEvent->theme }}" disabled>
+                                        value="{{ $event->themeEvent?->theme }}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="date">Дата/Время</label>
-                                <input type="text" id="date" name="date" class="form-control mt-3" value="{{ date('d.m.Y H:i', strtotime($event->date)) }}" disabled>
+                                <input type="text" id="date" name="date" class="form-control mt-3" value="{{ date('d.m.Y H:i', strtotime($event?->date)) }}" disabled>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <input type="text" class="form-control mt-3" id="type" value="{{ $event->typeEvent->name }}" disabled>
+                                <input type="text" class="form-control mt-3" id="type" value="{{ $event->typeEvent?->name }}" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="contact_id">Контакт</label>
-                                <input type="text" id="contact_id" name="contact_id" class="form-control mt-3" value="{{ $event->contact->fio . " - " . $event->contact->phone}}" disabled>
+                                <input type="text" id="contact_id" name="contact_id" class="form-control mt-3" value="{{ $event->contact?->fio . " - " . $event->contact?->phone}}" disabled>
                             </div>
                         </div>
 
@@ -61,7 +61,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="description">Описание</label>
-                                    <textarea id="description" name="description" class="form-control mt-3" tabindex="3" disabled>{{ $event->description }}</textarea>
+                                    <textarea id="description" name="description" class="form-control mt-3" tabindex="3" disabled>{{ $event?->description }}</textarea>
                                 </div>
                             </div>
                         </div>
