@@ -106,8 +106,9 @@ class EventController extends BaseController
 
         $filteredContacts = $events->join( 'type_events as type', 'type.id', '=', 'events.type_event_id')
             ->join('theme_events as th', 'th.id', '=', 'events.themeEvent_id')
-            ->join('contacts as c', 'events.contact_id', '=', 'c.id')
-            ->select('th.theme', 'c.phone', 'events.description', 'events.date', 'type.name as type', 'events.id')
+            ->join('event_statuses as es', 'es.id', '=', 'events.event_status_id')
+            ->join('event_statuses as es', 'es.id', '=', 'events.event_status_id')
+            ->select('th.theme', 'events.description', 'events.date', 'es.name as status' , 'type.name as type', 'events.id')
             ->get();
 
 

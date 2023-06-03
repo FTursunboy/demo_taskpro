@@ -177,10 +177,10 @@
                   <td>${i + 1}</td>
                   <td>${item.description}</td>
                   <td>${item.theme}</td>
-                  <td>${item.phone}</td>
                   <td>${day}</td>
                   <td>${time}</td>
                   <td>${item.type}</td>
+                  <td>${item.status}</td>
                   <td class="text-center">
                     <a href="${show}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                    <a href="${edit}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
