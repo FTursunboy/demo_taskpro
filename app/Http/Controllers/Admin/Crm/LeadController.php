@@ -72,7 +72,7 @@ class LeadController extends BaseController
             'author' => Auth::user()->name,
         ]);
 
-        $contact->client_id = $lead->id;
+        $contact->lead_id = $lead->id;
         $contact->save();
         return redirect()->route('lead.index')->with('create', 'Лид успешно создан!');
 

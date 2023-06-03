@@ -28,8 +28,8 @@ class EventController extends BaseController
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
-        $contacts = Contact::get();
-        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'contacts'));
+        $leads = Lead::all();
+        return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'leads'));
     }
 
     public function store(EventRequest $request)
@@ -38,7 +38,7 @@ class EventController extends BaseController
             'themeEvent_id' => $request->themeEvent_id,
             'description' => $request->description,
             'date' => $request->date,
-            'contact_id' => $request->contact_id,
+            'lead_id' => $request->input('lead_id'),
             'type_event_id' => $request->type_event_id,
         ]);
 
@@ -54,8 +54,8 @@ class EventController extends BaseController
     {
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
-        $contacts = Contact::get();
-        return view('admin.CRM.events.edit', compact('event', 'typeEvents', 'contacts', 'themeEvents'));
+        $leads = Lead::get();
+        return view('admin.CRM.events.edit', compact('event', 'typeEvents', 'leads', 'themeEvents'));
     }
 
     public function update(EventRequest $request, int $id)
@@ -66,7 +66,7 @@ class EventController extends BaseController
            'themeEvent_id' => $request->themeEvent_id,
            'description' => $request->description,
            'date' => $request->date,
-           'contact_id' => $request->contact_id,
+           'lead_id' => $request->lead_id,
            'type_event_id' => $request->type_event_id,
         ]);
 

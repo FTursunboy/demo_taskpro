@@ -11,7 +11,7 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fio', 'description', 'date', 'time', 'type_event_id', 'themeEvent_id', 'contact_id', 'slug'];
+    protected $fillable = ['fio', 'description', 'date', 'time', 'type_event_id', 'themeEvent_id', 'lead_id', 'slug'];
 
     public function typeEvent()
     {
@@ -24,5 +24,10 @@ class Event extends Model
     }
 
 
+
+    public function leads()
+    {
+        return $this->belongsTo(Lead::class);
+    }
 
 }

@@ -35,7 +35,7 @@
                             <th>ФИО</th>
                             <th>Телефон</th>
                             <th>Адрес</th>
-                            <th>Клиент</th>
+                            <th>Лид</th>
 
                             <th class="text-center">Действия</th>
                         </tr>
@@ -43,13 +43,11 @@
                         <tbody>
                         @foreach($contacts as $contact)
                             <tr>
-
-
                                 <td>{{ $contact?->fio }}</td>
                                 <td>{{ $contact?->phone }}</td>
                                 <td>{{ $contact?->address }}</td>
                                 <td>
-                                    {{ $contact?->client?->name }}
+                                    {{ $contact->lead_id }}
                                 </td>
 
                                 <td class="text-center">
