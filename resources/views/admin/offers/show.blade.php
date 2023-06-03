@@ -225,42 +225,82 @@
                 </div>
                 <div class="modal-body">
                     <div class="row p-3">
+                        <div class="card-header p-0 pt-1">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="border-radius: 20px">
+                                <li class="nav-item">
+                                    <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
+                                       id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
+                                       role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История задачи</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
+                                       data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
+                                       aria-controls="custom-tabs-one-profile" aria-selected="false">Время задачи</a>
+                                </li>
+                            </ul>
+                        </div>
 
-                        <table class="table table-striped" id="table1">
-                            <thead>
-                            <th>Дата</th>
-                            <th>Совершил действия</th>
-                            <th>Статус</th>
-                            </thead>
-                            <tbody>
-
-                            @foreach($histories as $history)
-
-                                <tr>
-                                    <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                    <td>{{$history->user->name }}</td>
-                                    <td>{{$history->status?->name}}
-                                        @if ($history->user->hasRole('admin'))
-                                            (Админ)
-                                        @elseif ($history->user->hasRole('user'))
-                                            (Сотрудник)
-                                        @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
-                                            (Клиент)
-                                        @else
-                                            Роль не определена
-                                        @endif    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-
-                        </table>
-
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+                                     aria-labelledby="custom-tabs-one-home-tab">
+                                    <table class="table mb-0 table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="">#</th>
+                                            <th class="">Дата</th>
+                                            <th class="">Совершил действия</th>
+                                            <th class="">Статус</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($histories as $history)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
+                                                <td>{{$history->user?->name }}
+                                                    @if ($history->user->hasRole('admin'))
+                                                        (Админ)
+                                                    @elseif ($history->user->hasRole('user'))
+                                                        (Сотрудник)
+                                                    @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                                        (Клиент)
+                                                    @else
+                                                        Роль не определена
+                                                    @endif
+                                                </td>
+                                                <td>{{$history->status?->name}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+                                     aria-labelledby="custom-tabs-one-profile-tab">
+                                    <table class="table mb-0 table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Дата начала задачи</th>
+                                            <th class="text-center">Дата окончание задачи</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">{{$offer->created_at}}</td>
+                                            <td class="text-center">{{$offer->finish}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 

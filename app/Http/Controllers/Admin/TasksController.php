@@ -13,9 +13,11 @@ use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
+use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +52,16 @@ class   TasksController extends BaseController
                 ['user_id', Auth::id()],
                 ['sender_id', Auth::id()]
             ])->get();
-        return view('admin.tasks.show', compact('task', 'messages'));
+
+        $histories = History::where([
+            ['task_id', '=', $task->id],
+            ['type', '=', 'task']
+        ])->get();
+
+
+
+
+        return view('admin.tasks.show', compact('task', 'messages', 'histories'));
     }
 
     public function removeNotification(TaskModel $task)
@@ -162,7 +173,6 @@ class   TasksController extends BaseController
 
     public function update(Request $request, TaskModel $task)
     {
-
         $file = $task->file;
 
         if ($request->hasFile('file')) {
@@ -215,7 +225,7 @@ class   TasksController extends BaseController
 
         }
 
-        HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+        HistoryController::task($task->id, $task->user_id, Statuses::UPDATE);
         return redirect()->route('tasks.index')->with('update', 'Задача успешно обновлена');
     }
 
@@ -229,6 +239,7 @@ class   TasksController extends BaseController
             'user_id' => $request->user_id,
         ]);
 
+        HistoryController::task($task->id, $task->user_id, Statuses::RESEND);
 
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->to, $task->type?->name));
@@ -250,6 +261,7 @@ class   TasksController extends BaseController
             $task->update(
                 [
                     'status_id' => 3,
+                    'finish' => Carbon::now(),
                 ]
             );
             return redirect()->back();
@@ -259,6 +271,7 @@ class   TasksController extends BaseController
                 'user_id' => $request->employee,
             ]);
         }
+        HistoryController::task($task->id, $task->user_id, Statuses::RESEND);
 
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->to, $task->type?->name));
@@ -269,18 +282,6 @@ class   TasksController extends BaseController
         return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
     }
 
-//    public function done(int $id)
-//    {
-//        $task = TaskModel::find($id);
-//        $task->update(
-//            [
-//                'status_id' => 3,
-//            ]
-//        );
-//        return redirect()->back();
-//    }
-
-
     public function ready(TaskModel $task)
     {
 
@@ -290,8 +291,10 @@ class   TasksController extends BaseController
             'status_id' => 3,
         ]);
         $task->update([
-            'status_id' => 3
+            'status_id' => 3,
+            'finish' => Carbon::now(),
         ]);
+
         HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
 
         if ($task->client_id) {

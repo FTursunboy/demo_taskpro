@@ -30,7 +30,8 @@ class TaskModel extends Model
         'offer_id',
         'comment',
         'slug',
-        'percent'
+        'percent',
+        'finish'
     ];
 
 

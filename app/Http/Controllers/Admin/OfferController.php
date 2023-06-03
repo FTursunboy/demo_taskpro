@@ -129,6 +129,7 @@ class OfferController extends BaseController
             ['task_id', '=', $offer->id]
         ])->get();
 
+
         return view('admin.offers.show', compact('offer', 'users', 'project', 'histories'));
     }
 

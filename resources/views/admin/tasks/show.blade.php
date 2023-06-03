@@ -25,9 +25,13 @@
             </div>
             <div class="page-content">
                 <div class="row my-4">
-                    <div class="col-6">
+                    <div class="col-1">
                         <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">Назад</a>
                     </div>
+                    <div class="col-md-2">
+                        <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
+                    </div>
+
                 </div>
                 <div class="row">
                     <p>
@@ -206,5 +210,90 @@
                 @endif
             </div>
         </div>
+        <div class="modal" tabindex="-1" id="history">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Вся история задачи</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row p-3">
+                            <div class="card-header p-0 pt-1">
+                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="border-radius: 20px">
+                                    <li class="nav-item">
+                                        <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
+                                           id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
+                                           role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История задачи</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
+                                           data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
+                                           aria-controls="custom-tabs-one-profile" aria-selected="false">Время задачи</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+                                         aria-labelledby="custom-tabs-one-home-tab">
+                                        <table class="table mb-0 table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="">#</th>
+                                                <th class="">Дата</th>
+                                                <th class="">Совершил действия</th>
+                                                <th class="">Статус</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($histories as $history)
+                                                <tr>
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
+                                                    <td>{{$history->sender?->name }}
+                                                        @if ($history->sender->hasRole('admin'))
+                                                            (Админ)
+                                                        @elseif ($history->sender->hasRole('user'))
+                                                            (Сотрудник)
+                                                        @elseif ($history->sender->hasRole('client') || $history->sender->hasRole('client-worker'))
+                                                            (Клиент)
+                                                        @else
+                                                            Роль не определена
+                                                        @endif
+                                                    </td>
+                                                    <td>{{$history->status?->name}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+                                         aria-labelledby="custom-tabs-one-profile-tab">
+                                        <table class="table mb-0 table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">Дата начала задачи</th>
+                                                <th class="text-center">Дата окончание задачи</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="text-center">{{$task->created_at}}</td>
+                                                <td class="text-center">{{$task->finish}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 @endsection

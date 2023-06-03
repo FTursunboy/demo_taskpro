@@ -25,6 +25,7 @@ class ClientController extends BaseController
     {
         $users = User::role('client')->get();
         $projects = ProjectModel::where('types_id', 2)->get();
+
         return view('admin.offers.clients.index', compact('users', 'projects'));
     }
 

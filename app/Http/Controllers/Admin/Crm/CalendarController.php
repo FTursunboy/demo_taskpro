@@ -56,8 +56,8 @@ class CalendarController extends BaseController
                 'date' => $request->start_date . " " . $request->time,
                 'slug' => Str::slug(str_replace(' ', '_', $request->description) . '-', '5')
             ]);
-
         $event = Event::orderBy('id', 'desc')->first();
+
 
 
 
