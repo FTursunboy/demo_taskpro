@@ -60,6 +60,15 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group mt-1">
+                        <label for="status_id" class="mb-3">Статус</label>
+                        <select required tabindex="3" id="status_id" name="status_id" class="form-select">
+                            @foreach($statuses as $status)
+                                <option
+                                    value="{{ $status->id }}">{{ $status->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="type">Тип</label>
                         <select required id="type_event_id" name="type_event_id" tabindex="4" class="form-select mt-3" required>
@@ -117,6 +126,26 @@
                 timeFormat: 'HH:mm',
                 selectHelper: true,
 
+                eventContent: function(info) {
+
+                    var status = info.event.extendedProps.status;
+                    var backgroundColor = '';
+                    console.log(status)
+
+                    if (status === 1) {
+                        backgroundColor = 'green';
+                    } else if (status === 3) {
+                        backgroundColor = 'yellow';
+                    } else if (status === 4) {
+                        backgroundColor = 'red';
+                    }
+
+                    return {
+                        html: '<div class="fc-content" style="background-color: ' + backgroundColor + ';">' +
+                            '<span class="fc-title">' + info.event.title + '</span>' +
+                            '</div>'
+                    };
+                },
 
                 dayClick: function(start, end, allDay, jsEvent, view) {
                     var clickedDate = start.format('YYYY-MM-DD');
@@ -148,7 +177,7 @@
                             $('#save').click(function() {
                                 let start_date = moment(start).format('YYYY-MM-DD');
                                 let end_date = moment(end).format('YYYY-MM-DD');
-
+                               let  status_id = $('#status_id').val();
                                 let themeEvent_id = $('#themeEvent_id').val();
                                 let lead_id = $('#lead_id').val();
                                 let type_event_id = $('#type_event_id').val();
@@ -159,7 +188,7 @@
                                     url: "{{route('calendar.store')}}",
                                     type: "POST",
                                     dataType: "json",
-                                    data: {start_date, themeEvent_id, lead_id, type_event_id, description, time},
+                                    data: {start_date, status_id, themeEvent_id, lead_id, type_event_id, description, time},
                                     success: function(response) {
                                         location.reload()
                                     },
@@ -174,8 +203,11 @@
 
                         $(this).data('doubleClickTimeout', timeout);
                     }
+
                 }
+
             });
+            calendar.render();
             $('.create-event-icon').click(function() {
                 var day = $(this).closest('.day');
                 var date = day.find('.day-number').text(); // Получение даты выбранного дня
