@@ -32,6 +32,14 @@
                 <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-outline-primary mx-2">
                     Изменить
                 </a>
+
+                <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-outline-primary mx-2">
+                    Контакты
+                </a>
+
+                <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-outline-primary mx-2">
+                    Событие
+                </a>
             </div>
             @if($errors->any())
                 @foreach($errors as $error)

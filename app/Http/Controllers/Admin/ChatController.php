@@ -37,6 +37,7 @@ class ChatController extends BaseController
             'offer_id' => $offer->client_id,
         ]);
 
+
         MessagesModel::create([
             'message' => $data['message'],
             'task_slug' => $offer->slug,

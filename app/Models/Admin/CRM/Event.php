@@ -23,9 +23,6 @@ class Event extends Model
         return $this->belongsTo(ThemeEvent::class, 'themeEvent_id');
     }
 
-    public function contact()
-    {
-        return $this->belongsTo(Contact::class);
-    }
+
 
 }

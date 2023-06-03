@@ -31,6 +31,7 @@ class MonitoringController extends BaseController
                 ->when($client !== '0', fn($query) => $query->where('client_id', $client))
                 ->when($project !== '0', fn($query) => $query->where('project_id', $project))
                 ->get();
+            
             return $query;
 
         } catch (\Exception $exception) {
