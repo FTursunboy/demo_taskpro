@@ -190,12 +190,11 @@
                             </div>
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
-                                    <form class="w-100" action="{{ route('tasks.message', $task->id) }}"
-                                          method="POST">
+                                    <form id="formMessage" class="w-100" method="post">
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
-                                                <input type="text" name="message" class="form-control" placeholder="Сообщение..." required>
+                                                <input type="text" id="message" name="message" class="form-control" placeholder="Сообщение..." required>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>
@@ -294,6 +293,63 @@
                 </div>
             </div>
         </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#formMessage').submit(function(e) {
+                e.preventDefault();
+
+                let message = $('#message').val();
+
+                $.ajax({
+                    url: "{{route('tasks.message', $task->id)}}",
+                    method: "POST",
+                    data: {message},
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response.messages);
+
+                        $('#message').val('');
+
+                        let newMessage = `
+                        <div class="chat">
+                            <div class="chat-body" style="margin-right: 10px">
+                                <div class="chat-message">
+                                    <p>
+                                        <span><b>${response.name}</b><br></span>
+                                        <span style="margin-top: 10px">${response.messages.message}</span>
+                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                            ${response.created_at}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                        $('#block').append(newMessage);
+
+                        let block = document.getElementById("block");
+                        block.scrollTop = block.scrollHeight;
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        alert('Ошибка при отправке сообщения');
+                    }
+                });
+            });
+        });
+    </script>
 
 
 @endsection
+

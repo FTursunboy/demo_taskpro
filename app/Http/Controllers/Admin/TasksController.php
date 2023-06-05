@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -84,21 +85,27 @@ class   TasksController extends BaseController
 
     public function message(TaskModel $task, Request $request)
     {
-        ChatMessageModel::create([
-            'task_id' => $task->id,
-            'user_id' => $task->user_id,
-            'message' => $request->message,
-            'offer_id' => ($task->offer_id !== null) ? $task->offer_id : null,
-        ]);
-
-        MessagesModel::create([
+        $messages_models = MessagesModel::create([
             'task_slug' => $task->slug,
             'sender_id' => Auth::id(),
             'user_id' => $task->user_id,
             'message' => $request->message,
         ]);
-        return back();
+
+
+//      $messages =  $messages_models->join('users as u', 'u.id', 'messages_models.user_id')
+//          ->select('u.name', 'messages_models.message')
+//          ->get();
+
+        return response([
+            'messages' => $messages_models,
+            'name' => $messages_models->sender->name,
+            'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))
+        ]);
     }
+
+
+
 
     public function store(Request $request)
     {

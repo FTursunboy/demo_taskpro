@@ -42,7 +42,6 @@
                                     <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
                                            value="{{ $user->name }}" required>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="role">Роль<span class="text-danger">*</span></label>
                                     <select id="role" name="role" class="form-select mt-3" tabindex="4" required>
