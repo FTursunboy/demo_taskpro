@@ -137,12 +137,12 @@
                 </li>
 
 
-                <li class="sidebar-item  has-sub {{ (request()->is('lead') or request()->is('lead/*')or request()->is('contact')or request()->is('contact/*')or request()->is('event')or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item  has-sub {{ (request()->is('lead') or request()->is('lead/*')or request()->is('contact')or request()->is('contact/*')or request()->is('event')or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>CRM</span>
                     </a>
-                    <ul class="submenu {{ (request()->is('lead') or request()->is('lead/*') or request()->is('contact') or request()->is('contact/*') or request()->is('event') or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*'))  ? 'active' : '' }}">
+                    <ul class="submenu {{ (request()->is('lead') or request()->is('lead/*') or request()->is('contact') or request()->is('contact/*') or request()->is('event') or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
                         <li class="submenu-item {{( request()->is('lead') or request()->is('lead/*')) ? 'active' : ''}} " >
                             <a href="{{route('lead.index')}}">Лиды</a>
                         </li>
@@ -155,7 +155,7 @@
                         <li class="submenu-item {{( request()->is('calendar') or request()->is('calendar/*')) ? 'active' : ''}} ">
                             <a href="{{route('calendar')}}">Календарь</a>
                         </li>
-                        <li class="submenu-item {{( request()->is('settings') or request()->is('settings/*')) ? 'active' : ''}} ">
+                        <li class="submenu-item {{( request()->is('setting') or request()->is('setting/*')) ? 'active' : ''}} ">
                             <a href="{{route('setting.index')}}">Настройки</a>
                         </li>
                     </ul>
