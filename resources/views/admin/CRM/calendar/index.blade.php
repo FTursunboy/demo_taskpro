@@ -20,9 +20,15 @@
                 <div class="container">
                     <h2 class="h2 text-center mb-5 border-bottom pb-3"></h2>
                     <style>
+                        .statuses {
+                            display: flex;
+                            align-items: center;
+                        }
+
                         .status {
                             display: flex;
                             align-items: center;
+                            margin-right: 20px;
                         }
 
                         .status .circle {
@@ -44,19 +50,24 @@
                             background-color: green;
                         }
                     </style>
-                    <p class="status in-progress">
-                        <span class="circle"></span>
-                        В работе
-                    </p>
-                    <p class="status scheduled">
-                        <span class="circle"></span>
-                        Запланированный
-                    </p>
 
-                    <p class="status overdue">
-                        <span class="circle"></span>
-                        Просроченный
-                    </p>
+                    <div class="statuses">
+                        <div class="status in-progress">
+                            <span class="circle"></span>
+                            В работе
+                        </div>
+                        <div class="status scheduled">
+                            <span class="circle"></span>
+                            Запланированный
+                        </div>
+
+                        <div class="status overdue">
+                            <span class="circle"></span>
+                            Просроченный
+                        </div>
+
+                    </div>
+
 
 
                     <div id="calendar">
