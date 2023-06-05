@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\ProjectClient;
@@ -175,15 +176,20 @@ class OfferController extends BaseController
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
     }
 
-    public function sendBack(Offer $offer){
+    public function sendBack(Offer $offer, Request $request){
         $offer->status_id = 9;
+        $offer->cancel_admin = $request->reason;
         $task = TaskModel::where('offer_id', $offer->id)->first();
-        $task->status_id = 9;
+        $task->status_id = 1;
+        $task->cancel_admin = $request->reason;
         $offer->save();
         $task->save();
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
+        $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
 
-        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
+        $history->delete();
+
+        return redirect()->back()->with('mess', 'Успешно отправлено обратно ');
     }
 
 }

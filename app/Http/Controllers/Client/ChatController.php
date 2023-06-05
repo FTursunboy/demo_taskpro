@@ -36,7 +36,7 @@ class ChatController extends BaseController
         $messages_models =  MessagesModel::create([
             'message' => $data['message'],
             'task_slug' => $offer->slug,
-            'user_id' => $offer->user_id,
+            'user_id' => $offer->user_id ?: null,
             'file' => $file ?? null,
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'sender_id' => Auth::id(),

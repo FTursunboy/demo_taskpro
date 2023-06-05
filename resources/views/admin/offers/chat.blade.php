@@ -97,7 +97,7 @@
                                 </script>
                             </div>
 
-                            @if($offer->user_id && $offer->status_id != 3)
+                            @if($offer->status_id != 3)
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
                                     <form class="w-100" action="{{ route('client.offers.chat.store', $offer->id) }}"

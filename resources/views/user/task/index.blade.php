@@ -135,6 +135,14 @@
                                                                        value="{{ $task->author->name .' '. $task->author->surname}}"
                                                                        disabled>
                                                             </div>
+                                                            @if($task->cancel_admin)
+                                                            <div class="form-group">
+                                                                <label for="author">Автор</label>
+                                                                <input type="text" id="author" class="form-control"
+                                                                       value="{{ $task->cancel_admin}}"
+                                                                       disabled>
+                                                            </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -182,10 +190,10 @@
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary"
-                                                                                    data-bs-dismiss="modal">Close
+                                                                                    data-bs-dismiss="modal">Отмена
                                                                             </button>
                                                                             <button type="submit" class="btn btn-primary">
-                                                                                Understood
+                                                                                Отправить
                                                                             </button>
                                                                         </div>
                                                                     </form>

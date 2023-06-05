@@ -122,7 +122,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])->name('send.user');
         Route::get('clients/offers/edit/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'edit'])->name('edit');
         Route::get('clients/offers/send/client/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendClient'])->name('send.client');
-        Route::get('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
+        Route::post('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
         Route::get('clients/offers/chat/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'index'])->name('chat');
         Route::post('clients/offers/chat/store/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'store'])->name('chat.store');
         Route::get('clients/offers/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
