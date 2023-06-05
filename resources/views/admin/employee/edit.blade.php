@@ -96,8 +96,8 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="lastname">Отчество<span class="text-danger">*</span></label>
-                                    <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
+                                    <label for="lastname">Отчество</label>
+                                    <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}">
                                 </div>
 
 

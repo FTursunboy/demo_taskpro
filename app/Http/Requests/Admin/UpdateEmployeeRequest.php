@@ -24,7 +24,7 @@ class UpdateEmployeeRequest extends FormRequest
         return [
             'name' => ['required'],
             'surname' => ['required'],
-            'lastname' => ['required'],
+            'lastname' => [''],
             'phone' => ['required'],
             'otdel_id' => ['required'],
             'password' => [''],
