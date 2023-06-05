@@ -237,6 +237,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Отправил сотруднику'
         ]);
         $this->call(LeadSeeder::class);
+        $this->call(CreateRoleSeeder::class);
         $this->call(ThemeEventSeeder::class);
         $this->call(TypeEventSeeder::class);
         $this->call(EventStatusSeeder::class);
