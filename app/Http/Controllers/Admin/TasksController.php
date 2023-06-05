@@ -92,11 +92,6 @@ class   TasksController extends BaseController
             'message' => $request->message,
         ]);
 
-
-//      $messages =  $messages_models->join('users as u', 'u.id', 'messages_models.user_id')
-//          ->select('u.name', 'messages_models.message')
-//          ->get();
-
         return response([
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,
