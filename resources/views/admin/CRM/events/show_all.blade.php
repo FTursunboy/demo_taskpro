@@ -21,6 +21,7 @@
                         <th>Описание</th>
                         <th>Дата</th>
                         <th>Тип</th>
+                        <th>Статус</th>
                         <th class="text-center">Действия</th>
                     </tr>
                     </thead>
@@ -29,10 +30,11 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $event->themeEvent?->theme }}</td>
-                            <td>{{ $event->contact?->phone }}</td>
+                            <td>{{ $event->leads->contact?->fio }}</td>
                             <td>{{ $event->description}}</td>
                             <td>{{ date('d.m.Y', strtotime($event->date)) }}</td>
                             <td>{{ $event->typeEvent?->name }}</td>
+                            <td>{{ $event->eventStatus?->name }}</td>
                             <td class="text-center">
                                 <a href="{{ route('event.show', $event->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                 <a href="{{ route('event.edit', $event->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
