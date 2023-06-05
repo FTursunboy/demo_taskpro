@@ -21,6 +21,9 @@ class IndexController extends BaseController
         ])->orWhere([
             ['client_id', '=', Auth::id()],
             ['status_id', '=', '6'],
+        ])->orWhere([
+            ['client_id', '=', Auth::id()],
+            ['status_id', '=', '3'],
         ])->get();
         return view('client.index', compact('tasks'));
     }
