@@ -167,8 +167,6 @@ class TaskController extends BaseController
 
     public function downloadFile(Offer $offer)
     {
-
-
         $path = storage_path('app/public/' . $offer->file);
 
         $headers = [

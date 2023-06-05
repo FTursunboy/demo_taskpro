@@ -150,16 +150,13 @@ class   TasksController extends BaseController
 
     public function downloadFile(TaskModel $task)
     {
-
-
         $path = storage_path('app/' . $task->file);
-
         $headers = [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'Content-Disposition' => 'attachment; filename="' . $task->file_name . '"',
         ];
-        return response()->download($path, $task->file_name, $headers);
 
+        return response()->download($path, $task->file_name, $headers);
     }
 
     public function edit(TaskModel $task)

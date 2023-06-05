@@ -55,6 +55,12 @@
                                                         <p>
                                                             <span><b>{{$mess->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -69,6 +75,12 @@
                                                         <p>
                                                             <span><b>{{$mess->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -87,12 +99,15 @@
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
                                     <form class="w-100" action="{{ route('offers.message', $offer->id) }}"
-                                          method="POST">
+                                          method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
                                                 <input name="message" class="form-control"  id="message"
                                                           placeholder="Сообщение..." required>
+                                                <div class="col-3">
+                                                    <input type="file" name="file" class="form-control" id="fileInput">
+                                                </div>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>
@@ -104,64 +119,22 @@
                         </div>
                     </div>
                 </div>
-
         </div>
     </div>
 
 @endsection
 @section('script')
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
-                // Функция для получения сообщений с сервера
-                function fetchMessages() {
-                    $.ajax({
-                        url: '{{ route('offers.messages', $offer->id) }}',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(messages) {
-                            // Очистка содержимого чата
-                            $('#chat').empty();
-
-                            // Добавление сообщений в чат
-                            messages.forEach(function(message) {
-                                $('#chat').append('<div>' + message.message + '</div>');
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                }
-
-                // Обработчик отправки сообщения
-                $('#message-form').submit(function(event) {
-                    event.preventDefault();
-
-                    var message = $('#message-input').val();
-
-                    // Отправка сообщения через AJAX
-                    $.ajax({
-                        url: '{{ route('offers.messages.store', $offer->id) }}',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            message: message
-                        },
-                        success: function(response) {
-                            // Очистка поля ввода после успешной отправки
-                            $('#message-input').val('');
-
-                            // Обновление чата для отображения нового сообщения
-                            fetchMessages();
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                });
-
-                // Загрузка сообщений при загрузке страницы
                 $(document).ready(function() {
-                    fetchMessages();
+                    $('#fileInput').change(function() {
+                        const selectedFile = $(this).prop('files')[0];
+                        if (selectedFile) {
+                            $('#message').val('Файл');
+                        } else {
+                            $('#message').val('');
+                        }
+                    });
                 });
             </script>
 @endsection

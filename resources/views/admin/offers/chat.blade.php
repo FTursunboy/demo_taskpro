@@ -55,6 +55,12 @@
                                                         <p>
                                                             <span><b>{{$mess->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('client.offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -69,6 +75,12 @@
                                                         <p>
                                                             <span><b>{{$mess->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('client.offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -89,11 +101,14 @@
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
                                     <form class="w-100" action="{{ route('client.offers.chat.store', $offer->id) }}"
-                                          method="POST">
+                                          method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
-                                                <input type="text" name="message" class="form-control" placeholder="Сообщение..." required>
+                                                <input type="text" name="message" class="form-control" placeholder="Сообщение..." id="message" required>
+                                                <div class="col-3">
+                                                    <input type="file" name="file" class="form-control" id="fileInput">
+                                                </div>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>
@@ -110,4 +125,20 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#fileInput').change(function() {
+                        const selectedFile = $(this).prop('files')[0];
+                        if (selectedFile) {
+                            $('#message').val('Файл');
+                        } else {
+                            $('#message').val('');
+                        }
+                    });
+                });
+            </script>
 @endsection
