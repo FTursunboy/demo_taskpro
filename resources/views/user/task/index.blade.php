@@ -182,10 +182,10 @@
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary"
-                                                                                    data-bs-dismiss="modal">Close
+                                                                                    data-bs-dismiss="modal">Отмена
                                                                             </button>
                                                                             <button type="submit" class="btn btn-primary">
-                                                                                Understood
+                                                                                Потвердить
                                                                             </button>
                                                                         </div>
                                                                     </form>

@@ -72,7 +72,7 @@
                                             <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
                                             </td>
                                         @elseif($offer->status == 6)
-                                            <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">Проверьте и отправьте клиенту</span></a>
+                                            <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">В ожидании проверки администратора</span></a>
                                             </td>
                                         @elseif($offer->status == 7)
                                             <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>

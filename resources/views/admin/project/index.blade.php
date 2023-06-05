@@ -81,7 +81,7 @@
                                                 <button type="button" class="btn btn-light-secondary"
                                                         data-bs-dismiss="modal">
                                                     <i class="bx bx-x d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Нет, я пошутил</span>
+                                                    <span class="d-none d-sm-block">Отмена</span>
                                                 </button>
                                                 <button type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
                                                     <i class="bx bx-check d-block d-sm-none"></i>
