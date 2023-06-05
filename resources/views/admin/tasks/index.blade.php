@@ -224,7 +224,7 @@
                                                         <div class="form-group">
                                                             <label for="type">Тип</label>
                                                             <input type="text" id="type" class="form-control"
-                                                                   value="{{ $task->type?->name }} {{  (isset($task->typeType->name)) ? ' - '.$task->typeType->name . ' - ' . $task->percent . '%' : 'От клиента' }}"
+                                                                   value="{{ $task->type->name ?? 'От клиента'  }} {{  (isset($task->typeType->name)) ? ' - '.$task->typeType->name . ' - ' . $task->percent . '%' : '' }}"
                                                                    disabled>
                                                         </div>
                                                         <div class="form-group">
