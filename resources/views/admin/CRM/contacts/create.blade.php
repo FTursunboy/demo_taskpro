@@ -69,20 +69,23 @@
                                 <input placeholder="Введите Email" type="text" id="email" name="email" class="form-control mt-3" tabindex="3" value="{{ old('email') }}" >
                             </div>
                             <div class="form-group">
-                                <label for="client_id">Лиды</label>
+                                <label for="client_id">Лиды <span
+                                        class="text-danger">*</span></label>
                                 @if(isset($leades))
-                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6">
-                                        <option value="{{$leades->id}}" selected>{{$leades->contact->fio}}</option>
+                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6" required>
+                                        <option value="{{$leades?->id}}" selected>{{$leades?->contact?->fio}}</option>
                                     </select>
                                 @else
-                                <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6">
+                                <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6" required>
                                     <option selected>Выберите лида</option>
                                     {{--                                    <option value="0">Добавить нового клиента</option>--}}
-                                @foreach($leads as $lead)
-                                        <option value="{{ $lead->id }}" >{{ $lead->contact->fio }}</option>
+                                    @foreach($leads as $lead)
+                                        <option value="{{ $lead?->id }}">{{ $lead?->contact?->fio }}</option>
                                     @endforeach
                                 </select>
                                 @endif
+                                @if($errors->has('lead_id')) <p
+                                    style="color: red;">{{ $errors->first('lead_id') }}</p> @endif
                             </div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">

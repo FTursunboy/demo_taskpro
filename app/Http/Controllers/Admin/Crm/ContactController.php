@@ -166,10 +166,16 @@ class ContactController extends BaseController
      */
     public function destroy(Contact $contact)
     {
-        $contact->delete();
-
-        return redirect()->route('contact.index')->with('delete', 'Контакт успешно удален!');
+        if ($contact->lead_id !== null) {
+            return redirect()->route('contact.index')->with('delete', 'Нельзя удалить контакт, в нём есть лид!');
+        } else {
+            $contact->delete();
+            return redirect()->route('contact.index')->with('delete', 'Контакт успешно удален!');
+        }
     }
+
+
+
 
     public function addClient(Request $request)
     {
