@@ -21,7 +21,7 @@ class ChatController extends BaseController
         return view('client.offers.chat', compact('messages', 'offer'));
     }
 
-    public function store(\Symfony\Component\HttpFoundation\Request $request, Offer $offer)
+    public function store(Request $request, Offer $offer)
     {
         $data = $request->validate([
             'message' => 'required',
@@ -33,7 +33,7 @@ class ChatController extends BaseController
             $file = null;
         }
 
-        MessagesModel::create([
+        $messages_models =  MessagesModel::create([
             'message' => $data['message'],
             'task_slug' => $offer->slug,
             'user_id' => $offer->user_id,
@@ -42,7 +42,11 @@ class ChatController extends BaseController
             'sender_id' => Auth::id(),
         ]);
 
-        return redirect()->back();
+        return response([
+            'messages' => $messages_models,
+            'name' => $messages_models->sender->name,
+            'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))
+        ]);
     }
 
     public function downloadFile(MessagesModel $mess)
