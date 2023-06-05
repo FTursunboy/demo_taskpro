@@ -120,25 +120,6 @@ class ContactController extends BaseController
      */
     public function update(UpdateContactRequest $request, Contact $contact)
     {
-//        if (session('client')){
-//            $clientData = session('client');
-//
-//            $client = User::create([
-//                'name' => $clientData['name2'],
-//                'surname' => $clientData['surname2'],
-//                'lastname' => $clientData['lastname2'],
-//                'login' => $clientData['login'],
-//                'password' =>  Hash::make($clientData['password']),
-//                'phone' => $clientData['phone2'],
-//                'telegram_id' => $clientData['telegram_id'],
-//                'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
-//            ])->assignRole('client');
-//        }
-//        if ($request->input('client_id') == 0 && isset($client)){
-//            $client_id = $client->id;
-//        }else{
-//            $client_id = $request->input('client_id');
-//        }
 
         $contact->update([
             'fio' => $request['fio'],
@@ -167,7 +148,7 @@ class ContactController extends BaseController
     public function destroy(Contact $contact)
     {
         if ($contact->lead_id !== null) {
-            return redirect()->route('contact.index')->with('delete', 'Нельзя удалить контакт, в нём есть лид!');
+            return redirect()->route('contact.index')->with('delete', 'Контакт не может быть удален, так как он связан с лидом.');
         } else {
             $contact->delete();
             return redirect()->route('contact.index')->with('delete', 'Контакт успешно удален!');
