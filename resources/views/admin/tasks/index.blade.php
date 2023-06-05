@@ -167,7 +167,7 @@
                                                                 <div class="form-group">
                                                                     <input type="text"
                                                                            class="form-control  bg-info text-black" id="sts"
-                                                                           value="{{ $task->status->name }}" disabled>
+                                                                           value="Просроченный" disabled>
                                                                 </div>
                                                                 @break
                                                             @case($task->status->id === 8)
