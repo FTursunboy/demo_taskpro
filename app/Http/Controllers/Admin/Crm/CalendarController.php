@@ -27,10 +27,22 @@ class CalendarController extends BaseController
         $dates = array();
         $events = Event::get();
         foreach ($events as $event) {
+            $color = null;
+            if ($event->eventStatus->id == 1) {
+                $color = '#580CF2';
+            }
+            elseif($event->eventStatus->id == 2) {
+                $color = 'green';
+            }
+            elseif($event->eventStatus->id == 3) {
+                $color = 'red';
+            }
+
+
             $dates[] = [
                 'title' => $event->themeEvent->theme,
                 'start' => $event->date,
-                'status' => $event->eventStatus->name
+                'color' => $color
             ];
         }
 

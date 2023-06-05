@@ -19,13 +19,54 @@
             <div class="row">
                 <div class="container">
                     <h2 class="h2 text-center mb-5 border-bottom pb-3"></h2>
+                    <style>
+                        .status {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .status .circle {
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 50%;
+                            margin-right: 5px;
+                        }
+
+                        .scheduled .circle {
+                            background-color: #580CF2;
+                        }
+
+                        .overdue .circle {
+                            background-color: red;
+                        }
+
+                        .in-progress .circle {
+                            background-color: green;
+                        }
+                    </style>
+                    <p class="status in-progress">
+                        <span class="circle"></span>
+                        В работе
+                    </p>
+                    <p class="status scheduled">
+                        <span class="circle"></span>
+                        Запланированный
+                    </p>
+
+                    <p class="status overdue">
+                        <span class="circle"></span>
+                        Просроченный
+                    </p>
+
+
                     <div id="calendar">
+
                         <div class="day">
                             <div class="icons">
                                 <span class="create-event-icon"></span>
                                 <span class="go-to-day-icon"></span>
                             </div>
-                            <span class="day-number">1</span>
+
                         </div>
 
                     </div>
@@ -207,6 +248,12 @@
                 }
 
             });
+
+            $('#myModal').on("hidden.bs.modal", function() {
+                $('#save').unbind();
+            });
+
+
             calendar.render();
             $('.create-event-icon').click(function() {
                 var day = $(this).closest('.day');
