@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['role:user']], function () {
     Route::group(['as' => 'user.'], function () {
         Route::get('dashboard-user', [\App\Http\Controllers\User\IndexController::class, 'index'])->name('index');
+        Route::get('dashboard-user/download/{task}', [\App\Http\Controllers\User\IndexController::class, 'downloadFile'])->name('download');
     });
 
     Route::get('/user/profile/', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('user_profile.index');
