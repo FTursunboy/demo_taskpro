@@ -39,7 +39,7 @@ $(document).ready(function () {
                             .append($('<td>').text(formatDate(item.to)))
                             .append($('<td>').text(item.project.name))
                             .append($('<td>').text(item.author.surname + ' ' + item.author.name))
-                            .append($('<td>').text(((item.type === '') ? 'От клиента' : (item.type !== null ? item.type.name : '')) + ' ' + ((item.type_type !== null && item.type_type.name !== null) ? ' - ' + item.type_type.name : '')))
+                            .append($('<td>').text(((item.type === '') ? 'От клиента' : (item.type && item.type.name ? item.type.name : '')) + ' ' + ((item.type_type && item.type_type.name) ? ' - ' + item.type_type.name : '')))
                             .append($('<td>').text(item.status.name))
                             .append($('<td>')
                                 .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
