@@ -133,7 +133,7 @@
                     </div>
 
                 </div>
-                @if($task->status->name === "Принято")
+
                     <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -206,7 +206,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
+                
             </div>
         </div>
         <div class="modal" tabindex="-1" id="history">

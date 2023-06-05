@@ -144,7 +144,7 @@
                                                                 <div class="form-group">
                                                                     <input type="text"
                                                                            class="form-control  bg-primary text-white"
-                                                                           id="sts" value="{{ $task->status->name }}"
+                                                                           id="sts" value="В процессе"
                                                                            disabled>
                                                                 </div>
                                                                 @break
