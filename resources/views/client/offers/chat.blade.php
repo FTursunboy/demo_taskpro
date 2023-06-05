@@ -146,18 +146,18 @@
                     $('#formMessage').submit(function (e) {
                         e.preventDefault();
 
-                        let formData = new FormData(this); // Создаем объект FormData с данными формы
-                        let fileInput = $('#file')[0]; // Получить элемент input[type="file"]
-                        let selectedFile = fileInput.files[0]; // Получить выбранный файл
-                        formData.append('file', selectedFile); // Добавить файл в объект FormData
+                        let formData = new FormData(this);
+                        let fileInput = $('#file')[0];
+                        let selectedFile = fileInput.files[0];
+                        formData.append('file', selectedFile);
 
                         $.ajax({
                             url: "{{ route('offers.message', $offer->id) }}",
                             method: "POST",
                             data: formData,
                             dataType: 'json',
-                            contentType: false, // Не устанавливать Content-Type автоматически
-                            processData: false, // Не обрабатывать данные автоматически
+                            contentType: false,
+                            processData: false,
                             success: function (response) {
 
                                 $('#message').val('');

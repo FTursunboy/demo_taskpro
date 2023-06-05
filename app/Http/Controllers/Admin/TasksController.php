@@ -101,11 +101,23 @@ class   TasksController extends BaseController
 
     public function message(TaskModel $task, Request $request)
     {
+        $data = $request->validate([
+            'message' => 'required',
+        ]);
+
+        if ($request->file('file') !== null) {
+            $file = $request->file('file')->store('public/chat_docs');
+        } else {
+            $file = null;
+        }
+
         $messages_models = MessagesModel::create([
             'task_slug' => $task->slug,
             'sender_id' => Auth::id(),
             'user_id' => $task->user_id,
             'message' => $request->message,
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
         ]);
 
         return response([
@@ -178,6 +190,8 @@ class   TasksController extends BaseController
 
         return response()->download($path, $task->file_name, $headers);
     }
+
+
 
     public function edit(TaskModel $task)
     {
