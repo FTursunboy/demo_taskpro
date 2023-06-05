@@ -20,5 +20,15 @@ class IndexController extends BaseController
         return view('user.index', compact('task', 'user', 'tasks'));
     }
 
+    public function downloadFile(TaskModel $task)
+    {
+        $path = storage_path('app/' . $task->file);
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $task->file_name . '"',
+        ];
+
+        return response()->download($path, $task->file_name, $headers);
+    }
 
 }
