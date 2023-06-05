@@ -47,8 +47,6 @@ class CalendarController extends BaseController
         }
 
 
-
-
         return view('admin.CRM.calendar.index', compact('dates', 'typeEvents', 'themeEvents', 'leads', 'statuses'));
 
     }
