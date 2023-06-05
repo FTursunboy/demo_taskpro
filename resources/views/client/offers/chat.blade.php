@@ -107,7 +107,7 @@
                                                 <div class="col-3">
                                                     <input type="file" name="file" class="form-control" id="file">
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" id="messageBTN">
+                                                <button type="button" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>
                                             </div>
@@ -159,7 +159,6 @@
                             contentType: false, // Не устанавливать Content-Type автоматически
                             processData: false, // Не обрабатывать данные автоматически
                             success: function (response) {
-                            console.log(response.messages);
 
                                 $('#message').val('');
                                 $('#file').val('');
@@ -172,11 +171,11 @@
                                             <p>
                                                 <span><b>${response.name}</b><br></span>
                                                 <span style="margin-top: 10px">${response.messages.message}</span>
-                                                ${response.file !== null ? `
-                                                    <div class="form-group">
-                                                        <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
-                                                    </div>
-                                                ` : ''}
+                                                ${response.messages.file !== null ? `
+                                                        <div class="form-group">
+                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                        </div>
+                                                    ` : ''}
                                                 <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                     ${response.created_at}
                                                 </span>
@@ -195,7 +194,6 @@
 
                             },
                             error: function (xhr, status, error) {
-                                console.log(xhr.responseText);
                                 alert('Ошибка при отправке сообщения');
                             }
                         });
