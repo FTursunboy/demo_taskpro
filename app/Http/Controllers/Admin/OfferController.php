@@ -34,11 +34,6 @@ class OfferController extends BaseController
             ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
             ->get();
 
-
-
-
-
-
         return view('admin.offers.index', compact('offers'));
     }
 

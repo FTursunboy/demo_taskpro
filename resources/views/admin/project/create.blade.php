@@ -52,6 +52,8 @@
                             <div class="form-group">
                                 <label for="time">Время</label>
                                 <input type="number" id="time" name="time" class="form-control mt-3" tabindex="2" value="{{ old('time') }}" placeholder="Время">
+                                @if($errors->has('time')) <p
+                                    style="color: red;">{{ $errors->first('time') }}</p> @endif
                             </div>
 
 

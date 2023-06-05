@@ -24,7 +24,7 @@ class ProjectRequest extends FormRequest
         return [
             'name' => ['required', 'min:3', 'max:150'],
             'type_id' => ['required', 'exists:project_type_models,id'],
-            'time' => [''],
+            'time' => ['required', 'gte:0'],
             'start' => ['required', 'date'],
             'finish' => ['required', 'date'],
             'types_id' => ['required'],
@@ -32,5 +32,6 @@ class ProjectRequest extends FormRequest
             'file' => [''],
             'file_name' => ['']
         ];
+
     }
 }

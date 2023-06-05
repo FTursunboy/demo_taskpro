@@ -108,12 +108,111 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="sts">Статус</label>
-                                    <div class="form-group">
-                                        <input type="text"
-                                               class="form-control  bg-primary text-white"
-                                               id="sts" value="{{ $task->status?->name }}" disabled>
-                                    </div>
-
+                                    @switch($task->status->id)
+                                        @case($task->status->id === 1)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-warning text-black"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 2)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-success text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 3)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-success text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 4)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-primary text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 5)
+                                            <div class="form-group">
+                                                <input type="text" class="form-control text-white" id="sts"
+                                                       value="{{ $task->status->name }}" disabled
+                                                       style="background-color: #fc0404">
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 6)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-secondary text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 7)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 8)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 9)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-warning text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 10)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 11)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 12)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 13)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 14)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                    @endswitch
 
                                     <div class="form-group">
                                         <label for="type">Тип</label>
@@ -159,6 +258,12 @@
                                                         <p>
                                                             <span><b>{{$mess->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -173,6 +278,12 @@
                                                         <p>
                                                             <span><b>{{$mess->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -190,11 +301,14 @@
                             </div>
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
-                                    <form id="formMessage" class="w-100" method="post">
+                                    <form id="formMessage" class="w-100" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
                                                 <input type="text" id="message" name="message" class="form-control" placeholder="Сообщение..." required>
+                                                <div class="col-3">
+                                                    <input type="file" name="file" class="form-control" id="file">
+                                                </div>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>
@@ -296,60 +410,81 @@
 @endsection
 
 @section('script')
+    @routes
     <script>
         $(document).ready(function() {
+            $('#file').change(function() {
+                const selectedFile = $(this).prop('files')[0];
+                if (selectedFile) {
+                    $('#message').val('Файл');
+                } else {
+                    $('#message').val('');
+                }
+            });
+        });
+
+        $(document).ready(function () {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            $('#formMessage').submit(function(e) {
+            $('#formMessage').submit(function (e) {
                 e.preventDefault();
 
-                let message = $('#message').val();
+                let formData = new FormData(this);
+                let fileInput = $('#file')[0];
+                let selectedFile = fileInput.files[0];
+                formData.append('file', selectedFile);
 
                 $.ajax({
-                    url: "{{route('tasks.message', $task->id)}}",
+                    url: "{{ route('tasks.message', $task->id) }}",
                     method: "POST",
-                    data: {message},
+                    data: formData,
                     dataType: 'json',
-                    success: function(response) {
-                        console.log(response.messages);
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
 
                         $('#message').val('');
+                        $('#file').val('');
 
+                        let fileUrl = route('tasks.messages.download', { mess: response.messages.id });
                         let newMessage = `
-                        <div class="chat">
-                            <div class="chat-body" style="margin-right: 10px">
-                                <div class="chat-message">
-                                    <p>
-                                        <span><b>${response.name}</b><br></span>
-                                        <span style="margin-top: 10px">${response.messages.message}</span>
-                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                            ${response.created_at}
-                                        </span>
-                                    </p>
+                                <div class="chat">
+                                    <div class="chat-body" style="margin-right: 10px">
+                                        <div class="chat-message">
+                                            <p>
+                                                <span><b>${response.name}</b><br></span>
+                                                <span style="margin-top: 10px">${response.messages.message}</span>
+                                                ${response.messages.file !== null ? `
+                                                        <div class="form-group">
+                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                        </div>
+                                                    ` : ''}
+                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                    ${response.created_at}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    `;
+                        `;
 
                         $('#block').append(newMessage);
+
+
 
                         let block = document.getElementById("block");
                         block.scrollTop = block.scrollHeight;
 
                     },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
+                    error: function (xhr, status, error) {
                         alert('Ошибка при отправке сообщения');
                     }
                 });
             });
         });
     </script>
-
-
 @endsection
-

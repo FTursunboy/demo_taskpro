@@ -193,7 +193,9 @@
                                                                                     data-bs-dismiss="modal">Отмена
                                                                             </button>
                                                                             <button type="submit" class="btn btn-primary">
-                                                                                Отправить
+
+                                                                                Потвердить
+
                                                                             </button>
                                                                         </div>
                                                                     </form>
