@@ -72,7 +72,9 @@
                                             <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
                                             </td>
                                         @elseif($offer->status == 6)
+
                                             <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">В ожидании проверки администратора</span></a>
+
                                             </td>
                                         @elseif($offer->status == 7)
                                             <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
@@ -90,7 +92,7 @@
                                             <td><span class="badge bg-danger p-2">{{$offer->status_name}}</span>
                                             </td>
                                         @elseif($offer->status == 12)
-                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status->name}}</span></a>
+                                            <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a>
                                             </td>
                                         @elseif($offer->status == 13)
                                             <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">{{$offer->status->name}}</span></a>
@@ -136,17 +138,21 @@
                                     <div class="modal" tabindex="-1" id="send{{$offer->id}}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
+                                                <form action="{{route('client.offers.send.back', $offer->id)}}" method="post">
+                                                    @csrf
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Отправление задачи на проверку</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Вы действительно хотите отправить задачу клиенту</p>
+                                                    <textarea required name="reason" class="form-control" id="" cols="30" rows="2"></textarea>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-danger" >Отклонить, Отправить заново</a>
+                                                    <button  id="reason" type="submit" class="btn btn-danger">Отклонить, Отправить заново</button>
                                                     <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
                                                 </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +166,7 @@
                                                 <div class="modal-body">
                                                     <p>Вы действительно хотите отправить задачу обратно сотруднику <span style="font-size: 20px" class="text-success">{{$offer->username}}</span></p>
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div class="modal-footer" id="parent">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                                                     <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-success" >Отправить</a>
                                                 </div>
@@ -176,6 +182,30 @@
                     </div>
                 </section>
             </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#parent').on('click', '#reason', function() {
+                let reason = $('#reason').val();
+
+                $.ajax({
+                    url: "{{route('client.offers.send.back', $offer->id)}}",
+                    type: "POST",
+                    dataType: "json",
+                    data: {reason},
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        if (xhr.responseJSON.errors) {
+                            $('#titleError').html(xhr.responseJSON.errors.title);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
 
 

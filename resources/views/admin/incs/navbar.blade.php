@@ -1,4 +1,4 @@
-<div id="sidebar" class="{{ (request()->is('monitoring-tasks') ? '': 'active') }}">
+<div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
@@ -76,12 +76,57 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item  has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*')or request()->is('client')or request()->is('client/*')or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client') or request()->is('client/*') or request()->is('tasks_client') or request()->is('tasks_client/*')) ? 'active' : '' }}">
+                    <a href="#" class="sidebar-link">
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>Партнеры</span>
+                        <span>Партнеры
+                            @if($offers_count > 0)
+            <span class="offers-count">
+                <span style="font-size: 13px; color: red">{{$offers_count}}</span>
+            </span>
+                            @endif
+        </span>
+                        @if($offers_count > 0)
+                        <div class="notification-dot"></div>
+                        @endif
                     </a>
-                    <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*') or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
+
+
+                <style>
+                    .sidebar-link {
+                        position: relative;
+                    }
+
+                    .notification-dot {
+                        position: absolute;
+                        top: 50%;
+                        right: -10px;
+                        transform: translate(50%, -50%);
+                        width: 10px;
+                        height: 10px;
+                        background-color: red;
+                        border-radius: 50%;
+                        animation: blink-animation 1s infinite;
+                    }
+
+                    @keyframes blink-animation {
+                        0% {
+                            opacity: 1;
+                        }
+                        50% {
+                            opacity: 0;
+                        }
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+
+                    .offers-count {
+                        margin-left: 5px;
+                    }
+                </style>
+
+                <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*') or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
                         <li class="submenu-item {{ (request()->is('clients/offers') or request()->is('clients/offers/*'))  ? 'active' : '' }}">
                             <a href="{{route('client.offers.index')}}">Список задач</a>
                         </li>

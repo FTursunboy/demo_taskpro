@@ -273,7 +273,7 @@
             let selectedOption = $('#project_id option:selected');
             let selectedClass = selectedOption.attr('class');
             console.log(selectedClass)
-            $('#project_finish').text(selectedClass);
+            $('#project_finish').text("Дата окончания выбранного проекта " +  selectedClass);
 
         });
 

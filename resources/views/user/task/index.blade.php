@@ -135,6 +135,14 @@
                                                                        value="{{ $task->author->name .' '. $task->author->surname}}"
                                                                        disabled>
                                                             </div>
+                                                            @if($task->cancel_admin)
+                                                            <div class="form-group">
+                                                                <label for="author">Автор</label>
+                                                                <input type="text" id="author" class="form-control"
+                                                                       value="{{ $task->cancel_admin}}"
+                                                                       disabled>
+                                                            </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,7 +193,9 @@
                                                                                     data-bs-dismiss="modal">Отмена
                                                                             </button>
                                                                             <button type="submit" class="btn btn-primary">
+
                                                                                 Потвердить
+
                                                                             </button>
                                                                         </div>
                                                                     </form>

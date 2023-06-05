@@ -25,13 +25,25 @@
 
                 <div class="card-body">
                     <div class="row ">
+                        @if(session('mess'))
+                            <div class="alert alert-success">
+                                Успешно отправлено!
+                            </div>
+                        @endif
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="row">
-                                            <div class="col-md-1">
-                                                <a href="{{ route('client.offers.index') }}" class="btn btn-danger">Назад</a>
+                                            <div class="col-md-6">
+
+                                                    <a href="{{ route('client.offers.index') }}" class="btn btn-danger">Назад</a>
+
+                                                    @if($offer->status->id == 6)
+                                                        <a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal" class="btn btn-success">Принять и отправить клиенту</a>
+                                                    @endif
+
                                             </div>
+
 
                                         </div>
                                     </div>
@@ -40,6 +52,8 @@
                                             {{ \Session::get('err') }}
                                         </div>
                                     @endif
+
+
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-lg-9">
@@ -131,7 +145,7 @@
                                                                             <option value="">Выберите сотрудника
                                                                             </option>
                                                                             @foreach($users as $user)
-                                                                                <option value="{{$user->id}} {{$user->id === $offer->user_id ? 'selected' : ''}} ">{{$user->name}}</option>
+                                                                                <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->name}}</option>
                                                                             @endforeach
 
                                                                         </select>
@@ -300,7 +314,23 @@
             </div>
         </div>
     </div>
-
+    <div class="modal" tabindex="-1" id="send{{$offer->id}}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Отправление задачи на проверку</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы действительно хотите отправить задачу клиенту</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-danger" >Отклонить, Отправить заново</a>
+                    <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
