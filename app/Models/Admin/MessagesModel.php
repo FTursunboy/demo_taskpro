@@ -11,7 +11,7 @@ class MessagesModel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['task_slug', 'user_id', 'sender_id', 'message'];
+    protected $fillable = ['task_slug', 'user_id', 'sender_id', 'message', 'file', 'file_name'];
 
 
 
