@@ -23,6 +23,7 @@
                     {{session('mess')}}
                 </div>
             @endif
+
             <div class="row">
                 <div class="row pt-4">
                     <div class="col-md-12">
@@ -48,8 +49,9 @@
                                 </div>
                             @endif
 
+
                             <div class="container my-5">
-                                <div class="row">
+                                <div class="row d-flex justify-content-center">
                                     <div class="col-lg-9">
                                         <form method="post" action="{{route('offers.store')}}"
                                               enctype="multipart/form-data"
