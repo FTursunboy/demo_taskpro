@@ -26,8 +26,12 @@ class CalendarController extends BaseController
         $leads = Lead::get();
         $dates = array();
         $events = Event::get();
+
+
+
         foreach ($events as $event) {
             $color = null;
+
             if ($event->eventStatus->id == 1) {
                 $color = '#580CF2';
             }

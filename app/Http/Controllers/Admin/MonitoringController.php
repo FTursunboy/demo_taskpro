@@ -14,7 +14,12 @@ class MonitoringController extends BaseController
 {
     public function index()
     {
+        $task = new TasksController();
+
+        $task->check();
         $tasks = TaskModel::get();
+
+
         $statuses = StatusesModel::get();
         $projects = ProjectModel::get();
         $users = User::role('user')->get();
@@ -31,7 +36,7 @@ class MonitoringController extends BaseController
                 ->when($client !== '0', fn($query) => $query->where('client_id', $client))
                 ->when($project !== '0', fn($query) => $query->where('project_id', $project))
                 ->get();
-            
+
             return $query;
 
         } catch (\Exception $exception) {

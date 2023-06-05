@@ -9,6 +9,7 @@ use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Mail\Send;
 use App\Models\Admin\EmailModel;
+use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 
 use App\Models\ClientNotification;
@@ -147,7 +148,11 @@ class TaskController extends BaseController
     {
         $offer->status_id = 3;
         $offer->finish = Carbon::now();
-        dd($offer);
+        $tasks = TaskModel::where('offer_id', $offer->id)->first();
+        if ($tasks !== null) {
+            $tasks->status_id = 3;
+            $tasks->save();
+        }
         $offer->save();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
@@ -159,7 +164,11 @@ class TaskController extends BaseController
         $offer->status_id = 13;
         $offer->is_finished = false;
         $offer->save();
-
+        $tasks = TaskModel::where('offer_id', $offer->id)->first();
+        if ($tasks !== null) {
+            $tasks->status_id = 13;
+            $tasks->save();
+        }
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
         return redirect()->back()->with('mess', 'Успешно отправлено!');
@@ -185,6 +194,12 @@ class TaskController extends BaseController
         $user->save();
         $offer->finish = Carbon::now();
         $offer->save();
+
+        $tasks = TaskModel::where('offer_id', $offer->id)->first();
+        if ($tasks !== null) {
+            $tasks->status_id = 3;
+            $tasks->save();
+        }
 
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);

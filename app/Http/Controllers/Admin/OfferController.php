@@ -113,6 +113,12 @@ class OfferController extends BaseController
         $offer->status_id = 10;
         $offer->save();
 
+        $tasks = TaskModel::where('offer_id', $offer->id)->first();
+        if ($tasks !== null) {
+            $tasks->status_id = 10;
+            $tasks->save();
+        }
+
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
 
         return redirect()->back()->with('mess', 'Успешно удалено!');

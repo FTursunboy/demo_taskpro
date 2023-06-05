@@ -169,16 +169,22 @@ class User extends Authenticatable
 
     public function getUsersTasks($id)
     {
-        return TaskModel::where([
-            ['task_models.user_id', $id],
-        ])->orderByRaw('task_models.status_id = 3 ASC')
-            ->WhereNotIn('task_models.id', function ($subquery) use ($id) {
+         TaskModel::where('task_models.user_id', $id)
+            ->orderByRaw('task_models.status_id = 3 ASC')
+            ->whereNotIn('task_models.id', function ($subquery) use ($id) {
                 $subquery->from('user_task_history_models as h')
                     ->select('h.task_id')
-                    ->where('h.status_id', '=', $id)
-                    ->where('h.status_id', [3, 7]);
+                    ->where('h.status_id', '=', 3);
             })
             ->orderBy('task_models.status_id', 'desc')
+            ->get();
+
+        return TaskModel::whereIn('id', function ($query) use ($id) {
+            $query->select('task_id')
+                ->from('user_task_history_models')
+                ->where('user_id', '=', $id);
+        })
+            ->whereIn('status_id', [4, 7])
             ->get();
 
     }

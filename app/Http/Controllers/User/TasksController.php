@@ -36,6 +36,10 @@ class TasksController extends BaseController
         $task->update([
             'status_id' => 4
         ]);
+        if ($task->to < now()->toDateString()) {
+                $task->status_id = 7;
+                $task->save();
+        }
 
         HistoryController::task($task->id, $task->user_id, Statuses::ACCEPT);
 

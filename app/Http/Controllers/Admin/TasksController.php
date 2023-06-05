@@ -34,7 +34,24 @@ class   TasksController extends BaseController
     {
         $users = User::role('user')->get();
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
+        $this->check();
+
+
+
         return view('admin.tasks.index', compact('tasks', 'users'));
+    }
+
+    public function check(){
+        $tasks = TaskModel::orderBy('created_at', 'desc')->get();
+        foreach ($tasks as $task) {
+            if ($task->to < now()->toDateString()) {
+                if ($task->status_id !== 3 && $task->status_id !== 6) {
+                    $task->status_id = 7;
+                    $task->save();
+                }
+            }
+        }
+        return $tasks;
     }
 
     public function create()
@@ -58,7 +75,6 @@ class   TasksController extends BaseController
             ['task_id', '=', $task->id],
             ['type', '=', 'task']
         ])->get();
-
 
 
 
@@ -143,7 +159,9 @@ class   TasksController extends BaseController
         $project->update([
             'pro_status' => 2,
         ]);
-        Artisan::call('update:task-status');
+
+
+        $this->check();
         $type = TaskTypeModel::find($request->type_id)->name;
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
@@ -221,7 +239,7 @@ class   TasksController extends BaseController
         $project->update([
             'pro_status' => 2,
         ]);
-        Artisan::call('update:task-status');
+
         $type = TaskTypeModel::find($request->type_id)?->name;
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
@@ -230,6 +248,10 @@ class   TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::UPDATE);
+
+        $task1 = new TasksController();
+
+        $task1->check();
         return redirect()->route('tasks.index')->with('update', 'Задача успешно обновлена');
     }
 

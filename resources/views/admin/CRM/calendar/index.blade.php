@@ -177,6 +177,7 @@
                 eventLimit: 3,
                 timeFormat: 'HH:mm',
                 selectHelper: true,
+                editable: true,
 
                 eventContent: function(info) {
 
@@ -199,6 +200,25 @@
                     };
                 },
 
+                eventDrop: function (event) {
+                    var id = event.id;
+                    var start_date = moment(start).format('YYYY-MM-DD');
+                    var end_date = moment(end).format('YYYY-MM-DD');
+                    $.ajax({
+                        url: "{{route('calendar.store')}}",
+                        type: "DELETE",
+                        dataType: "json",
+                        data: {start_date, end_date},
+                        success: function(response) {
+                            location.reload()
+                        },
+                        error: function(xhr) {
+                            if (xhr.responseJSON.errors) {
+                                $('#titleError').html(xhr.responseJSON.errors.title);
+                            }
+                        }
+                    });
+                },
                 dayClick: function(start, end, allDay, jsEvent, view) {
                     var clickedDate = start.format('YYYY-MM-DD');
                     var lastClickTime = $(this).data('lastClickTime');
