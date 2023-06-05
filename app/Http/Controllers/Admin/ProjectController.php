@@ -93,7 +93,7 @@ class ProjectController extends BaseController
         ]);
 
         HistoryController::project($projectModel->id, Statuses::UPDATE);
-        return redirect()->route('project.index')->with('update', 'Проект успешно изменен!');
+        return redirect()->route('project.index')->with('create', 'Проект успешно изменен!');
     }
 
     public function destroy(ProjectModel $projectModel)
@@ -101,7 +101,7 @@ class ProjectController extends BaseController
         $projectModel->delete();
 
         HistoryController::project($projectModel->id, Statuses::DELETE);
-        return back()->with('delete', 'Проект успешно удален!');
+        return back()->with('create', 'Проект успешно удален!');
     }
 
     public function downloadFile(ProjectModel $project)

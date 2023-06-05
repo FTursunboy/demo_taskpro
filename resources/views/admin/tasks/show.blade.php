@@ -108,12 +108,111 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="sts">Статус</label>
-                                    <div class="form-group">
-                                        <input type="text"
-                                               class="form-control  bg-primary text-white"
-                                               id="sts" value="{{ $task->status?->name }}" disabled>
-                                    </div>
-
+                                    @switch($task->status->id)
+                                        @case($task->status->id === 1)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-warning text-black"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 2)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-success text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 3)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-success text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 4)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-primary text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 5)
+                                            <div class="form-group">
+                                                <input type="text" class="form-control text-white" id="sts"
+                                                       value="{{ $task->status->name }}" disabled
+                                                       style="background-color: #fc0404">
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 6)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-secondary text-white"
+                                                       id="sts" value="{{ $task->status->name }}"
+                                                       disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 7)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 8)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 9)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-warning text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 10)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 11)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 12)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 13)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                        @case($task->status->id === 14)
+                                            <div class="form-group">
+                                                <input type="text"
+                                                       class="form-control  bg-info text-black" id="sts"
+                                                       value="{{ $task->status->name }}" disabled>
+                                            </div>
+                                            @break
+                                    @endswitch
 
                                     <div class="form-group">
                                         <label for="type">Тип</label>
