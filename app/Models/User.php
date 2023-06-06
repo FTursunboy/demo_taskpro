@@ -41,6 +41,7 @@ class User extends Authenticatable
         'xp',
         'slug',
         'avatar',
+        'role',
     ];
 
     /**

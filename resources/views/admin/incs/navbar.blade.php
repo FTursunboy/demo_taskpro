@@ -1,3 +1,4 @@
+
 <div id="sidebar" class="{{ request()->is('monitoring-tasks') ? '':'active'}}">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">

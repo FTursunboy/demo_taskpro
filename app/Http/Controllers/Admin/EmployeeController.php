@@ -11,6 +11,7 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -61,11 +62,13 @@ class EmployeeController extends BaseController
 
     public function edit($slug)
     {
-        $user = User::where('slug', $slug)->firstOrFail();
 
+        $user = User::where('slug', $slug)->firstOrFail();
         $roles = Role::where('name', 'user')->get();
         $departs = OtdelsModel::get();
-        return view('admin.employee.edit', compact('user', 'roles', 'departs'));
+
+        $getRoles = Role::whereNot('name', 'client')->whereNot('name', 'admin')->get();
+        return view('admin.employee.edit', compact('user', 'roles', 'departs', 'getRoles'));
     }
 
     public function update($slug, UpdateEmployeeRequest $request)
@@ -98,7 +101,16 @@ class EmployeeController extends BaseController
         return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен!");
     }
 
+    public function addRole($slug, Request $request)
+    {
+        $user = User::where('slug', $slug)->first();
+        $role = Role::where('id', $request->role)->first();
+        $user->assignRole($role);
+        return redirect()->route('employee.index')->with('update', 'Роль добавлен!');
+    }
+
     public function destroy($slug)
+
     {
         $employee = User::where('slug', $slug)->firstOrFail();
         $employee->delete();
