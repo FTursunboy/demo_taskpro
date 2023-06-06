@@ -31,12 +31,19 @@ class TaskListController extends BaseController
         return redirect()->route('task-list.show', $task->id);
     }
 
-    public function ready(TaskModel $task)
+    public function ready(TaskModel $task, Request $request)
     {
+        $request->validate([
+           'success_desc' => 'required',
+        ]);
+
+        $successDesc = $request->input('success_desc');
 
         $task->update([
-            'status_id' => 6
+            'status_id' => 6,
+            'success_desc' => $successDesc,
         ]);
+
         HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
 
         if ($task->offer_id) {

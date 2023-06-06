@@ -31,7 +31,8 @@ class TaskModel extends Model
         'comment',
         'slug',
         'percent',
-        'finish'
+        'finish',
+        'success_desc'
     ];
 
 
