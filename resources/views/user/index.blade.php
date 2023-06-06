@@ -256,13 +256,13 @@
                                                             aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Еще раз проверьте, что вы сделали задачу правильно
+                                                    <textarea class="form-control" name="success_desc" placeholder="Отчёт проделанной работы"></textarea>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Нет
+                                                            data-bs-dismiss="modal">Отмена
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">Да, конечно сделал!
+                                                    <button type="submit" class="btn btn-primary">Отправить!
                                                     </button>
                                                 </div>
                                             </form>

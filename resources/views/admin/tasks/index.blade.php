@@ -294,6 +294,9 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="form-group">
+                                                                <label for="employee">Отчёт о проделанной работе</label>
+                                                                <textarea class="form-control" disabled>{{ $task->success_desc }} </textarea>
+                                                            </div>  <div class="form-group">
                                                                 <label for="employee">Сотрудники</label>
                                                                 <select name="employee" id="employee" class="form-control">
                                                                     <option disabled value="0" selected>Выберите сотрудника</option>
