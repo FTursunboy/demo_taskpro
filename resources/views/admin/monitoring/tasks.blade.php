@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th class="text-center">#</th>
-            <th class="text-center">Имя</th>
+            <th >Имя</th>
             <th class="text-center">Время</th>
             <th class="text-center">От</th>
             <th class="text-center">До</th>
@@ -18,7 +18,7 @@
         @foreach($tasks as $task)
             <tr>
                 <td class="text-center">{{ $task->created_at->format('d-m-Y') }}</td>
-                <td class="text-center">{{ $task->name }}</td>
+                <td >{{ $task->name }}hsdfdgsdfd</td>
                 <td class="text-center">{{ $task->time }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
