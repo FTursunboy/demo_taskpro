@@ -25,7 +25,7 @@
         </div>
 
         <section class="section">
-            <h3 class="text-center">В обработке</h3>
+            <h3 class="text-center">В разработке</h3>
 {{--            <table class="table table-striped" id="table1">--}}
 {{--                <thead>--}}
 {{--                <tr>--}}
