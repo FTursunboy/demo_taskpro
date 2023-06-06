@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], function () {
+Route::group(['middleware' => ['role:development|admin', 'redirectIfUnauthorized']], function () {
 
     Route::resource('lead', \App\Http\Controllers\Admin\Crm\LeadController::class);
     Route::resource('event', \App\Http\Controllers\Admin\Crm\EventController::class);
