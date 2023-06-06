@@ -6,6 +6,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::group(['as' => 'user.'], function () {
         Route::get('dashboard-user', [\App\Http\Controllers\User\IndexController::class, 'index'])->name('index');
         Route::get('dashboard-user/download/{task}', [\App\Http\Controllers\User\IndexController::class, 'downloadFile'])->name('download');
+        Route::get('dashboard-user/downloadChat/{task}', [\App\Http\Controllers\User\IndexController::class, 'downloadFileChat'])->name('downloadChat');
     });
 
     Route::get('/user/profile/', [\App\Http\Controllers\User\ProfileController::class, 'index'])->name('user_profile.index');
@@ -31,11 +32,11 @@ Route::group(['middleware' => ['role:user']], function () {
 
     Route::group(['as' => 'messages.'], function () {
         Route::post('/messages/{task}', [\App\Http\Controllers\Admin\MessagesController::class, 'message'])->name('messages');
+        Route::post('/messages/download/{mess}', [\App\Http\Controllers\Admin\MessagesController::class, 'downloadFile'])->name('download');
     });
 
     Route::group(['as' => 'new-task.'], function () {
         Route::get('/new-task', [\App\Http\Controllers\User\TasksController::class, 'index'])->name('index');
-
         Route::post('/new-task/accept/{task}', [\App\Http\Controllers\User\TasksController::class, 'accept'])->name('accept');
         Route::post('/new-task/decline/{task}', [\App\Http\Controllers\User\TasksController::class, 'decline'])->name('decline');
 

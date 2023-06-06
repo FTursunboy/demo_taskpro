@@ -37,7 +37,6 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::get('offers/chat/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'index'])->name('chat');
         Route::post('offers/chat/store/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'store'])->name('message');
 
-
         Route::get('offers/messages/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'index'])->name('messages');
         Route::post('offers/messages/store/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'store'])->name('messages.store');
         Route::get('offers/messages/download/{mess}', [\App\Http\Controllers\Client\ChatController::class, 'downloadFile'])->name('messages.download');
@@ -52,7 +51,6 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::post('/client/worker/store', [\App\Http\Controllers\Client\WorkerController::class, 'store'])->name('store');
         Route::patch('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'update'])->name('update');
         Route::delete('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'destroy'])->name('destroy');
-
     });
 
 

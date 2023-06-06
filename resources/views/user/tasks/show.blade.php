@@ -48,11 +48,10 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Еще раз проверьте, что вы сделали задачу правильно
+                                        Еще раз проверьте, что вы сделали задачу правильно!
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, я
-                                            шучу
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена
                                         </button>
                                         <button type="submit" class="btn btn-primary">Да, конечно сделал</button>
                                     </div>
@@ -186,6 +185,12 @@
                                                             <p>
                                                                 <span><b>{{$mess->sender?->name}}</b><br></span>
                                                                 <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            @if($mess->file !== null)
+                                                                <div class="form-group">
+                                                                    <a href="{{ route('user.download', $task) }}" download class="form-control text-bold">Просмотреть
+                                                                        файл</a>
+                                                                </div>
+                                                            @endif
                                                                 <span class="d-flex justify-content-end" style="font-size: 11px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -200,6 +205,12 @@
                                                             <p>
                                                                 <span><b>{{$mess->sender?->name}}</b><br></span>
                                                                 <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            @if($mess->file !== null)
+                                                                <div class="form-group">
+                                                                    <a href="{{ route('user.download', $task) }}" download class="form-control text-bold">Просмотреть
+                                                                        файл</a>
+                                                                </div>
+                                                            @endif
                                                                 <span class="d-flex justify-content-end" style="font-size: 11px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
@@ -218,13 +229,15 @@
                             @if($task->status->id !== 3)
                                 <div class="card-footer">
                                     <div class="message-form d-flex flex-direction-column align-items-center">
-                                        <form class="w-100" action="{{ route('messages.messages', $task->id) }}"
-                                              method="POST">
+                                        <form id="formMessage" class="w-100" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="d-flex flex-grow-1 ml-4">
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="message" class="form-control"
                                                            placeholder="Сообщение..." required>
+                                                    <div class="col-3">
+                                                        <input type="file" name="file" class="form-control" id="file">
+                                                    </div>
                                                     <button type="submit" class="btn btn-primary" id="messageBTN">
                                                         Отправить
                                                     </button>
@@ -239,5 +252,85 @@
                 </div>
             </section>
         </div>
-
 @endsection
+
+@section('script')
+    @routes
+    <script>
+        $(document).ready(function() {
+            $('#file').change(function() {
+                const selectedFile = $(this).prop('files')[0];
+                if (selectedFile) {
+                    $('#message').val('Файл');
+                } else {
+                    $('#message').val('');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#formMessage').submit(function (e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+                let fileInput = $('#file')[0];
+                let selectedFile = fileInput.files[0];
+                formData.append('file', selectedFile);
+
+                $.ajax({
+                    url: "{{ route('messages.messages', $task->id) }}",
+                    method: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                        $('#message').val('');
+                        $('#file').val('');
+
+                        let fileUrl = route('user.downloadChat', { task: response.messages.id });
+                        let newMessage = `
+                                <div class="chat">
+                                    <div class="chat-body" style="margin-right: 10px">
+                                        <div class="chat-message">
+                                            <p>
+                                                <span><b>${response.name}</b><br></span>
+                                                <span style="margin-top: 10px">${response.messages.message}</span>
+                                                ${response.messages.file !== null ? `
+                                                        <div class="form-group">
+                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                        </div>
+                                                    ` : ''}
+                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                    ${response.created_at}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                        `;
+
+                        $('#block').append(newMessage);
+
+
+
+                        let block = document.getElementById("block");
+                        block.scrollTop = block.scrollHeight;
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Ошибка при отправке сообщения');
+                    }
+                });
+            });
+        });
+    </script>
+@endsection
+
