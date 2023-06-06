@@ -69,13 +69,15 @@
                                                         компании</label>
                                                     <input type="text"
                                                            class="form-control"
-                                                           name="author_name" id="author_name" value="{{ old('author_name') }}" required>
+                                                           name="author_name" id="author_name"
+                                                           value="{{ old('author_name') }}" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Телефон ответсвенного сотрудника</label>
                                                     <input type="text"
                                                            class="form-control"
-                                                           name="author_phone" id="author_phone" value="{{ old('author_phone') }}" required>
+                                                           name="author_phone" id="author_phone"
+                                                           value="{{ old('author_phone') }}" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Выберите файл</label>
@@ -96,10 +98,28 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-success form-control">
+                                                    <button type="button" class="btn btn-success form-control"
+                                                            id="btnSend">
                                                         Отправить
                                                     </button>
                                                 </div>
+                                                <script>
+                                                    const btn = document.getElementById('btnSend')
+                                                    btn.addEventListener('click', function () {
+                                                        const name = document.getElementById('name')
+                                                        const author_name = document.getElementById('author_name')
+                                                        const phone = document.getElementById('author_phone')
+                                                        if (name.value !== '' && author_name.value !== '' && phone.value !== '') {
+                                                            btn.type = 'submit';
+                                                            btn.click();
+                                                            btn.classList.add('disabled')
+                                                        } else {
+                                                            name.classList.add('border-danger')
+                                                            author_name.classList.add('border-danger')
+                                                            phone.classList.add('border-danger')
+                                                        }
+                                                    })
+                                                </script>
                                             </div>
                                         </form>
                                     </div>

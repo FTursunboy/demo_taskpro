@@ -15,7 +15,6 @@ return new class extends Migration
             $table->longText('description')->nullable()->change();
         });
     }
-
     /**
      * Reverse the migrations.
      */

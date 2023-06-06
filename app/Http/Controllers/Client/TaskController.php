@@ -72,10 +72,9 @@ class TaskController extends BaseController
             $file_name = null;
         }
 
-
         $offer = Offer::create([
             'name' => $request->name,
-            'description' => $request->description ?? null,
+            'description' => ($request->description === null)? null:$request->description,
             'author_name' => $request->author_name,
             'author_phone' => $request->author_phone,
             'file' => $file,
