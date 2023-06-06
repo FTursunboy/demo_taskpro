@@ -132,6 +132,9 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::group(['as' => 'mon.'], function () {
         Route::get('/monitoring-tasks', [\App\Http\Controllers\Admin\MonitoringController::class, 'index'])->name('index');
+        Route::get('/monitoring/show-task/{task}', [\App\Http\Controllers\Admin\MonitoringController::class, 'show'])->name('show');
+        Route::get('/monitoring/edit/{task}', [\App\Http\Controllers\Admin\MonitoringController::class, 'edit'])->name('edit');
+        Route::patch('/monitoring/update/{task}', [\App\Http\Controllers\Admin\MonitoringController::class, 'update'])->name('update');
 
         // get task-statuses
         Route::get('/tasks/public/monitoring-tasks-filter/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);
