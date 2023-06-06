@@ -48,7 +48,7 @@
                                     <tr>
 
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$offer->name}}</td>
+                                        <td>{{\Illuminate\Support\Str::limit($offer->name,60)}}</td>
                                         <td>{{\Illuminate\Support\Str::limit($offer->description, 20)}}</td>
                                         @if($offer->user_id)
                                             <td>{{$offer->username}}</td>
