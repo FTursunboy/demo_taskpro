@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-hover">
+    <table id="example" class="table table-hover">
         <thead>
         <tr>
             <th class="text-center">#</th>
