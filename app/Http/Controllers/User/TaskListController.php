@@ -11,9 +11,13 @@ use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\Statuses;
+use App\Models\User;
+use App\Notifications\Telegram\TelegramReady;
+use App\Notifications\Telegram\TelegramUserAccept;
 use Database\Factories\UserFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class TaskListController extends BaseController
 {
@@ -44,6 +48,7 @@ class TaskListController extends BaseController
             'success_desc' => $successDesc,
         ]);
 
+
         HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
 
         if ($task->offer_id) {
@@ -54,6 +59,10 @@ class TaskListController extends BaseController
             $offer->save();
 
             HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::SEND_TO_TEST);
+        }
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramReady($task->name, Auth::user()->name));
+        } catch (\Exception $exception) {
         }
         return redirect()->route('user.index')->with('create', 'Задача отправлена на проверку!');
     }

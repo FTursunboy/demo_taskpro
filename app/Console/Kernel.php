@@ -14,8 +14,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('update:task-status')
-            ->dailyAt('00:00');
+        $schedule->command('report:send')->dailyAt('12:00')->twiceDaily(18, 0);
+
+        $schedule->command('report:send')->twiceDaily(12, 18);
     }
 
     /**
@@ -24,6 +25,8 @@ class Kernel extends ConsoleKernel
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__.'/Commands/ReportSendCommand.php');
+
 
         require base_path('routes/console.php');
     }
