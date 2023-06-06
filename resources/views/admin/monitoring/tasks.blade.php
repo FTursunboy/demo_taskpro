@@ -33,8 +33,8 @@
                 </td>
                 <td class="text-center">{{ $task->status->name}}</td>
                 <td class="text-center">
-                    <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                    <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
 {{--                    <a role="button"  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{ $task->id }}"><i class="bi bi-trash"></i></a>--}}
                 </td>
             </tr>
