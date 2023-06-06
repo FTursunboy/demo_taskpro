@@ -41,7 +41,7 @@
                                            aria-controls="v-pills-home{{ $task->id }}"
                                            aria-selected="true">
 
-                                            {{ $task->name }}</a>
+                                            {{ \Illuminate\Support\Str::limit($task->name,20) }}</a>
                                     @endforeach
                                 </div>
                             </div>
