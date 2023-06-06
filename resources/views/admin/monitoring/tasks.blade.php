@@ -11,6 +11,7 @@
             <th class="text-center">Автор</th>
             <th class="text-center">Тип</th>
             <th class="text-center">Статус</th>
+            <th class="text-center">Сотрудник</th>
             <th class="text-center">Действия</th>
         </tr>
         </thead>
@@ -32,6 +33,7 @@
                     @endif
                 </td>
                 <td class="text-center">{{ $task->status->name}}</td>
+                <td class="text-center">{{ $task->user?->name}}</td>
                 <td class="text-center">
                     <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                     <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
