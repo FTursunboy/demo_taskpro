@@ -51,35 +51,12 @@
                                         <div class="tab-pane fade {{( $loop->index === 0) ? 'active show' : '' }}"
                                              id="v-pills-home{{ $task->id }}" role="tabpanel"
                                              aria-labelledby="v-pills-home-tab{{ $task->id }}">
-
                                             <div class="row mb-4">
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="name">Имя</label>
                                                         <input type="text" id="name" class="form-control" value="{{ $task->name }}" disabled>
                                                     </div>
-
-
-                                                    <div class="form-group">
-                                                        <label for="from">От</label>
-                                                        <input type="text" id="from" class="form-control"
-                                                               value="{{ date('d-m-Y', strtotime($task->from)) }}"
-                                                               disabled>
-                                                    </div>
-
-                                                    @if($task->file !== null)
-                                                        <div class="form-group">
-                                                            <label for="file">Файл</label>
-                                                            <a href="{{ route('tasks.download', $task->id) }}" download class="form-control text-bold">Просмотреть файл</a>
-                                                        </div>
-                                                    @else
-                                                        <div class="form-group">
-                                                            <label for="to">Файл</label>
-                                                            <input type="text" class="form-control" id="to"
-                                                                   value="Нет файл" disabled>
-                                                        </div>
-                                                    @endif
-
                                                 </div>
                                                 <div class="col-4">
 

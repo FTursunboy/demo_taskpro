@@ -35,9 +35,6 @@ class   TasksController extends BaseController
         $users = User::role('user')->get();
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         $this->check();
-
-
-
         return view('admin.tasks.index', compact('tasks', 'users'));
     }
 
