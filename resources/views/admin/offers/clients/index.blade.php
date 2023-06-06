@@ -131,8 +131,7 @@
                                            placeholder="Введите имя клиента" id="name" value="{{ old('name') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastname" class="form-label">Отчество Клиента<span
-                                            class="text-danger">*</span></label>
+                                    <label for="lastname" class="form-label">Отчество Клиента</label>
                                     <input  type="text" name="lastname" tabindex="3" class="form-control"
                                             placeholder="Введите отчество" id="surname"
                                             value="{{ old('lastname') }}">
