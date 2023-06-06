@@ -18,7 +18,7 @@
         @foreach($tasks as $task)
             <tr>
                 <td class="text-center">{{ $task->created_at->format('d-m-Y') }}</td>
-                <td >{{ $task->name }}hsdfdgsdfd</td>
+                <td >{{ $task->name }}</td>
                 <td class="text-center">{{ $task->time }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
