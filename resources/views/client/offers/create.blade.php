@@ -62,20 +62,20 @@
                                                     <label class="form-label">Название задачи</label>
                                                     <textarea id="name" class="form-control"
                                                               name="name"
-                                                              rows="5" required></textarea>
+                                                              rows="5" required>{{ old('name') }}</textarea>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Ответственный сотрудник со стороны
                                                         компании</label>
                                                     <input type="text"
                                                            class="form-control"
-                                                           name="author_name" id="name" required>
+                                                           name="author_name" id="author_name" value="{{ old('author_name') }}" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Телефон ответсвенного сотрудника</label>
                                                     <input type="text"
                                                            class="form-control"
-                                                           name="author_phone" id="name" required>
+                                                           name="author_phone" id="author_phone" value="{{ old('author_phone') }}" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Выберите файл</label>
@@ -88,7 +88,7 @@
                                                         задачи</label>
                                                     <textarea id="description" class="form-control"
                                                               name="description"
-                                                              rows="5"></textarea>
+                                                              rows="5">{{ old('description') }}</textarea>
                                                 </div>
                                                 <div class="col-md-6">
 
@@ -99,7 +99,6 @@
                                                     <button type="submit" class="btn btn-success form-control">
                                                         Отправить
                                                     </button>
-
                                                 </div>
                                             </div>
                                         </form>
