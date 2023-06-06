@@ -1,24 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Console\Commands;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Mail\MailController;
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Report;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-use Box\Spout\Common\Entity\Row;
 use Box\Spout\Common\Type;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-class ExcelController extends Controller
+class ReportSendCommand extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'report:send';
 
-    public function index() {
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
         $tasks = TaskModel::all();
 
         $fileName = uniqid();
@@ -59,5 +73,6 @@ class ExcelController extends Controller
         });
 
 
+        $this->info('Отчет отправлен.');
     }
 }
