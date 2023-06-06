@@ -31,12 +31,11 @@
                     @include('admin.monitoring.users')
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3">
-                    @include('admin.monitoring.clients')
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-3">
                     @include('admin.monitoring.projects')
                 </div>
-
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    @include('admin.monitoring.clients')
+                </div>
             </div>
         </div>
 
