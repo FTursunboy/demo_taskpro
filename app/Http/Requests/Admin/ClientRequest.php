@@ -25,7 +25,7 @@ class ClientRequest extends FormRequest
             'name' => ['required'],
             'login' => ['required', 'unique:users,login'],
             'surname' => ['required'],
-            'lastname' => ['required'],
+            'lastname' => [''],
             'phone' => ['required', 'unique:users,phone'],
             'password' => ['required','min:6'],
             'telegram_id' => ['required'],
