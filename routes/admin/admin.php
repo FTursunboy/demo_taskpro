@@ -137,7 +137,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::patch('/monitoring/update/{task}', [\App\Http\Controllers\Admin\MonitoringController::class, 'update'])->name('update');
 
         // get task-statuses
-        Route::get('/tasks/public/monitoring-tasks-filter/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);
+        Route::get('/tasks/public/monitoring-tasks-filter/{status}/{unstatus}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);
     });
 
 
