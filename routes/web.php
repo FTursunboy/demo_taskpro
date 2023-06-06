@@ -1,9 +1,11 @@
 <?php
+
 use \Illuminate\Support\Facades\Route;
 
-Route::get('/', function (){
+Route::get('/', function () {
     return view('auth.login');
 })->name('login');
+
 
 Route::group(['middleware' => 'redirectIfUnauthorized'], function () {
     require __DIR__ . '/admin/admin.php';
@@ -14,7 +16,13 @@ Route::group(['middleware' => 'redirectIfUnauthorized'], function () {
 });
 require __DIR__ . '/auth.php';
 
-Route::get('/logout', function (){
-   \Illuminate\Support\Facades\Auth::logout();
-   return redirect()->route('login');
+Route::get('/logout', function () {
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect()->route('login');
 })->name('logout');
+
+
+Route::group(['as', 'forgot.'], function () {
+    Route::get('/forgot-password', [\App\Http\Controllers\ForgotController::class, 'index'])->name('index');
+    Route::post('/forgot-password/update', [\App\Http\Controllers\ForgotController::class, 'update'])->name('update');
+});

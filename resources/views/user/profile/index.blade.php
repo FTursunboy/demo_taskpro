@@ -50,7 +50,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($employees as $employee)
-                                    <tr>
+                                    <tr style=" {{ ($employee->id === \Illuminate\Support\Facades\Auth::user()->id) ? "background-color: rgba(66,93,190,0.27)" : ''  }}" >
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $employee->surname. ' '. $employee->name.' '. $employee->lastname }}</td>
                                         <td>{{ $employee->position }}</td>

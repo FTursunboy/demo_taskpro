@@ -207,14 +207,34 @@
                 </li>
 
 
-                <li class="sidebar-item">
-                    <a href={{ route('logout') }} class='sidebar-link'>
+                <li
+                        class="sidebar-item">
+                    <a role="button" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="bi bi-door-open"></i>
                         <span>Выход</span>
                     </a>
                 </li>
 
             </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Предупреждение</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Точно хотите выйти?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <a href="{{ route('logout') }}" class="btn btn-danger">Да</a>
+            </div>
         </div>
     </div>
 </div>
