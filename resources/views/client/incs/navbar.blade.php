@@ -60,18 +60,18 @@
                 <li class="sidebar-item {{ (request()->is('client/task') or request()->is('client/task/*')) ? 'active' : '' }}">
                     <a href="{{ route('client.tasks.index') }}" class="sidebar-link">
                         <i class="bi bi-journal-text"></i>
-                        <span>Задачи FinGroup</span>
+                        <span>Входящие задачи</span>
                     </a>
                 </li>
                 @endrole
-                @role('client')
-                <li class="sidebar-item {{ (request()->is('client/worker') or request()->is('client/worker/*')) ? 'active' : '' }}">
-                    <a href="{{ route('client.workers.index') }}" class="sidebar-link">
-                        <i class="bi bi-people"></i>
-                        <span>Сотрудники</span>
-                    </a>
-                </li>
-                @endrole
+{{--                @role('client')--}}
+{{--                <li class="sidebar-item {{ (request()->is('client/worker') or request()->is('client/worker/*')) ? 'active' : '' }}">--}}
+{{--                    <a href="{{ route('client.workers.index') }}" class="sidebar-link">--}}
+{{--                        <i class="bi bi-people"></i>--}}
+{{--                        <span>Сотрудники</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                @endrole--}}
                 <li class="sidebar-item {{ (request()->is('client_profile') or request()->is('client_profile/*'))  ? 'active' : '' }}">
                     <a href="{{ route('client_profile.index') }}" class='sidebar-link'>
                         <i class="bi bi-person"></i>
