@@ -69,7 +69,7 @@ class TelegramClientTask extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Здравствуйте, наш клиен $this->user, паставил(а) вам задачу.
+            ->content("Здравствуйте, наш клиент $this->user, паставил(а) вам задачу.
             \n Названия: $this->name");
 
     }
