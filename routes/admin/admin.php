@@ -147,5 +147,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
     });
 
+    Route::get('/excel', [\App\Http\Controllers\Admin\ExcelController::class, 'index']);
+
 
 });
