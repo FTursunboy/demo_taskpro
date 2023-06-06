@@ -29,7 +29,7 @@
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-body">
-                            @if(count($tasks) > 1)
+                            @if(count($tasks) > 0)
                             <div class="row">
                                 <div class="col-3">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"

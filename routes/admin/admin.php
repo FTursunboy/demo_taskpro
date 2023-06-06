@@ -81,6 +81,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/employees/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'show'])->name('show');
         Route::get('//employees/edit/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('edit');
         Route::patch('/employees/update/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
+        Route::patch('/employees/addRole/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'addRole'])->name('addRole');
         Route::delete('/employees/destroy/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
 
         Route::get('/client', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('client');
@@ -146,6 +147,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/telegram/all', [\App\Http\Controllers\Admin\TelegramController::class, 'sendAll'])->name('sendAll');
         Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
     });
+
+    Route::get('/excel', [\App\Http\Controllers\Admin\ExcelController::class, 'index']);
 
 
 });
