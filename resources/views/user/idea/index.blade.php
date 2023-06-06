@@ -100,7 +100,7 @@
                                     </td>
                                     </tr>
                                 @empty
-                                    <td colspan="6">Пока нет идей</td>
+                                    <td colspan="7" class="text-center">Пока нет идей</td>
                                 @endforelse
 
                                 </tbody>
