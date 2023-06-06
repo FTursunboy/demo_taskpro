@@ -13,8 +13,8 @@
                         <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
                            stroke-linejoin="round">
                             <path
-                                    d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
-                                    opacity=".3"></path>
+                                d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
+                                opacity=".3"></path>
                             <g transform="translate(-210 -1)">
                                 <path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path>
                                 <circle cx="220.5" cy="11.5" r="4"></circle>
@@ -81,52 +81,52 @@
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Партнеры
                             @if($offers_count > 0)
-                                <span class="offers-count">
+            <span class="offers-count">
                 <span style="font-size: 13px; color: red">{{$offers_count}}</span>
             </span>
                             @endif
         </span>
                         @if($offers_count > 0)
-                            <div class="notification-dot"></div>
+                        <div class="notification-dot"></div>
                         @endif
                     </a>
 
 
-                    <style>
-                        .sidebar-link {
-                            position: relative;
-                        }
+                <style>
+                    .sidebar-link {
+                        position: relative;
+                    }
 
-                        .notification-dot {
-                            position: absolute;
-                            top: 50%;
-                            right: -10px;
-                            transform: translate(50%, -50%);
-                            width: 10px;
-                            height: 10px;
-                            background-color: red;
-                            border-radius: 50%;
-                            animation: blink-animation 1s infinite;
-                        }
+                    .notification-dot {
+                        position: absolute;
+                        top: 50%;
+                        right: -10px;
+                        transform: translate(50%, -50%);
+                        width: 10px;
+                        height: 10px;
+                        background-color: red;
+                        border-radius: 50%;
+                        animation: blink-animation 1s infinite;
+                    }
 
-                        @keyframes blink-animation {
-                            0% {
-                                opacity: 1;
-                            }
-                            50% {
-                                opacity: 0;
-                            }
-                            100% {
-                                opacity: 1;
-                            }
+                    @keyframes blink-animation {
+                        0% {
+                            opacity: 1;
                         }
-
-                        .offers-count {
-                            margin-left: 5px;
+                        50% {
+                            opacity: 0;
                         }
-                    </style>
+                        100% {
+                            opacity: 1;
+                        }
+                    }
 
-                    <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*') or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
+                    .offers-count {
+                        margin-left: 5px;
+                    }
+                </style>
+
+                <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*') or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
                         <li class="submenu-item {{ (request()->is('clients/offers') or request()->is('clients/offers/*'))  ? 'active' : '' }}">
                             <a href="{{route('client.offers.index')}}">Список задач</a>
                         </li>
@@ -152,9 +152,9 @@
                         <span>Настройки</span>
                     </a>
                     <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
-                        {{--                        <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">--}}
-                        {{--                            <a href="{{ route('settings.role') }}">Роли</a>--}}
-                        {{--                        </li>--}}
+{{--                        <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">--}}
+{{--                            <a href="{{ route('settings.role') }}">Роли</a>--}}
+{{--                        </li>--}}
                         <li class="submenu-item {{ (request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
                             <a href="{{ route('settings.depart') }}">Отдел</a>
                         </li>
@@ -188,7 +188,7 @@
                         <span>CRM</span>
                     </a>
                     <ul class="submenu {{ (request()->is('lead') or request()->is('lead/*') or request()->is('contact') or request()->is('contact/*') or request()->is('event') or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
-                        <li class="submenu-item {{( request()->is('lead') or request()->is('lead/*')) ? 'active' : ''}} ">
+                        <li class="submenu-item {{( request()->is('lead') or request()->is('lead/*')) ? 'active' : ''}} " >
                             <a href="{{route('lead.index')}}">Лиды</a>
                         </li>
                         <li class="submenu-item {{( request()->is('contact') or request()->is('contact/*')) ? 'active' : ''}}">
