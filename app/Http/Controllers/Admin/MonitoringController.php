@@ -43,7 +43,7 @@ class MonitoringController extends BaseController
         try {
             $query = TaskModel::with(['author', 'project', 'user', 'client', 'status', 'type', 'typeType'])
                 ->when($status !== '0', fn($query) => $query->where('status_id', $status))
-                ->when($unstatus !== '0', fn($query) => $query->where('status_id', '!=', $unstatus))
+//                ->when($unstatus !== '0', fn($query) => $query->where('status_id', '!=', $unstatus))
                 ->when($user !== '0', fn($query) => $query->where('user_id', $user))
                 ->when($client !== '0', fn($query) => $query->where('client_id', $client))
                 ->when($project !== '0', fn($query) => $query->where('project_id', $project))
