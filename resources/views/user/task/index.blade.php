@@ -29,6 +29,7 @@
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-body">
+                            @if(count($tasks) > 1)
                             <div class="row">
                                 <div class="col-3">
                                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
@@ -210,6 +211,9 @@
                                     </div>
                                 </div>
                             </div>
+                            @else
+                                <h3 class="text-center">Пока нету задач</h3>
+                            @endif
                         </div>
                     </div>
                 </div>
