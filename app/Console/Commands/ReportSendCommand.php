@@ -67,7 +67,7 @@ class ReportSendCommand extends Command
         $files = storage_path('app/public/' . $report->file);
         $email = EmailModel::first()->email;
         Mail::send([], [], function ($message) use ($files) {
-            $message->to('tfaiziev04@gmail.com')
+            $message->to('amr_1990@mail.ru')
                 ->subject('Отчет')
                 ->attach($files, ['as' => 'Отчет_этого_дня.xlsx', 'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']);
         });
