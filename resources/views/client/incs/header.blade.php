@@ -116,7 +116,7 @@
 
                                     class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
-                        <li><a class="dropdown-item" href="{{ route('logout') }}"><i
+                        <li><a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
                                     class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
                     </ul>
                 </div>

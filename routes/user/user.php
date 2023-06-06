@@ -41,4 +41,8 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::post('/new-task/decline/{task}', [\App\Http\Controllers\User\TasksController::class, 'decline'])->name('decline');
 
     });
+
+    Route::group(['as' => 'all-tasks.'], function () {
+        Route::get('my-all-tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'index'])->name('index');
+    });
 });
