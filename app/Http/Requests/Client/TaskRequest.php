@@ -23,7 +23,7 @@ class TaskRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'required',
+            'description' => '',
             'file' => '',
             'author_name' => 'required',
             'author_phone' => 'required'
