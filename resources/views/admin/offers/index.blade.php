@@ -185,26 +185,26 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('#parent').on('click', '#reason', function() {
-                let reason = $('#reason').val();
+        {{--$(document).ready(function() {--}}
+        {{--    $('#parent').on('click', '#reason', function() {--}}
+        {{--        let reason = $('#reason').val();--}}
 
-                $.ajax({
-                    url: "{{route('client.offers.send.back', $offer->id)}}",
-                    type: "POST",
-                    dataType: "json",
-                    data: {reason},
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(xhr) {
-                        if (xhr.responseJSON.errors) {
-                            $('#titleError').html(xhr.responseJSON.errors.title);
-                        }
-                    }
-                });
-            });
-        });
+        {{--        $.ajax({--}}
+        {{--            url: "{{route('client.offers.send.back', $offer->id)}}",--}}
+        {{--            type: "POST",--}}
+        {{--            dataType: "json",--}}
+        {{--            data: {reason},--}}
+        {{--            success: function(response) {--}}
+        {{--                console.log(response);--}}
+        {{--            },--}}
+        {{--            error: function(xhr) {--}}
+        {{--                if (xhr.responseJSON.errors) {--}}
+        {{--                    $('#titleError').html(xhr.responseJSON.errors.title);--}}
+        {{--                }--}}
+        {{--            }--}}
+        {{--        });--}}
+        {{--    });--}}
+        {{--});--}}
     </script>
 @endsection
 
