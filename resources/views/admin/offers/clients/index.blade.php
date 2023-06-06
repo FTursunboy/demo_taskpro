@@ -135,7 +135,7 @@
                                             class="text-danger">*</span></label>
                                     <input  type="text" name="lastname" tabindex="3" class="form-control"
                                             placeholder="Введите отчество" id="surname"
-                                            value="{{ old('lastname') }}" required>
+                                            value="{{ old('lastname') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="form-label">Пароль</label>
