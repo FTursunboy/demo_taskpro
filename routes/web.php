@@ -25,5 +25,4 @@ Route::get('/logout', function () {
 Route::group(['as' => 'forgot.'], function () {
     Route::get('/forgot-password', [\App\Http\Controllers\ForgotController::class, 'index'])->name('index');
     Route::post('/forgot-password/update', [\App\Http\Controllers\ForgotController::class, 'update'])->name('update');
-
 });

@@ -75,11 +75,9 @@
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Название
                                                                     задачи</label>
-                                                                <input disabled type="text"
-                                                                       class="form-control"
-                                                                       name="name" id="name"
-                                                                       value="{{$offer->name}}"
-                                                                       required>
+                                                                <textarea id="description" class="form-control"
+                                                                          name="description"
+                                                                          rows="5" disabled>{{$offer->name}}</textarea>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Ответственный

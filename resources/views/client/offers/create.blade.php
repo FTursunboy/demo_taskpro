@@ -60,9 +60,9 @@
                                             <div class="row g-3">
                                                 <div class="col-md-6">
                                                     <label class="form-label">Название задачи</label>
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           name="name" id="name" required>
+                                                    <textarea id="name" class="form-control"
+                                                              name="name"
+                                                              rows="5" required></textarea>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Ответственный сотрудник со стороны
@@ -88,7 +88,7 @@
                                                         задачи</label>
                                                     <textarea id="description" class="form-control"
                                                               name="description"
-                                                              rows="5" required></textarea>
+                                                              rows="5"></textarea>
                                                 </div>
                                                 <div class="col-md-6">
 
@@ -96,22 +96,10 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-12">
-                                                    <button type="button" class="btn btn-success form-control"
-                                                            id="btnSend">
+                                                    <button type="submit" class="btn btn-success form-control">
                                                         Отправить
                                                     </button>
-                                                    <script>
-                                                        const btn = document.getElementById('btnSend')
-                                                        btn.addEventListener('click', function () {
-                                                            const name = document.getElementById('name').value
-                                                            const description = document.getElementById('description').value
-                                                            if (name !== '' && description !== '') {
-                                                                btn.type = 'submit';
-                                                                btn.click();
-                                                                btn.classList.add('disabled')
-                                                            }
-                                                        })
-                                                    </script>
+
                                                 </div>
                                             </div>
                                         </form>
