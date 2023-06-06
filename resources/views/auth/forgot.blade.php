@@ -20,11 +20,15 @@
                 </div>
                 <h1 class="auth-title">Забыли пароль</h1>
                 <p class="auth-subtitle mb-5">Для восстановление пароля введите логин </p>
-
+                @if(\Session::has('error'))
+                    <div class="alert alert-danger">
+                        <p class="text-center">{{ \Session::get('error') }}</p>
+                    </div>
+                @endif
                 <form action="{{ route('forgot.update') }}" method="POST">
                     @csrf
                     <div class="form-group position-relative has-icon-left mb-4">
-                        <input type="text" class="form-control form-control-xl" placeholder="Логин" required name="login"   >
+                        <input type="text" class="form-control form-control-xl" placeholder="Логин" required name="login"   value="{{ old('login') }}">
                         <div class="form-control-icon">
                             <i class="bi bi-person"></i>
                         </div>
