@@ -203,9 +203,9 @@
                         <span>Настройки</span>
                     </a>
                     <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
-                        <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">
-                            <a href="{{ route('settings.role') }}">Роли</a>
-                        </li>
+{{--                        <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">--}}
+{{--                            <a href="{{ route('settings.role') }}">Роли</a>--}}
+{{--                        </li>--}}
                         <li class="submenu-item {{ (request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
                             <a href="{{ route('settings.depart') }}">Отдел</a>
                         </li>
