@@ -107,7 +107,7 @@
                                                 <div class="col-3">
                                                     <input type="file" name="file" class="form-control" id="file">
                                                 </div>
-                                                <button type="button" class="btn btn-primary" id="messageBTN">
+                                                <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
                                                 </button>
                                             </div>
