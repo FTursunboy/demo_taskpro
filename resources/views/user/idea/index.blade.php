@@ -47,7 +47,7 @@
                                 @forelse($ideas as $idea)
                                     <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$idea->title}}</td>
+                                    <td>{{ \Str::limit($idea->title, 60)}}</td>
                                     <td>{{$idea->from}}</td>
                                     <td>{{$idea->to}}</td>
                                     <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
