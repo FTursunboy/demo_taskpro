@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectTypeModel;
@@ -35,6 +34,13 @@ class DatabaseSeeder extends Seeder
         ]);
         Role::create([
             'name' => 'client'
+        ]);
+
+        Role::create([
+            'name' => 'client-worker'
+        ]);
+        Role::create([
+            'name' => 'team-lead'
         ]);
 
         StatusesModel::create([
@@ -237,7 +243,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Отправил сотруднику'
         ]);
         $this->call(LeadSeeder::class);
-        $this->call(CreateRoleSeeder::class);
         $this->call(ThemeEventSeeder::class);
         $this->call(TypeEventSeeder::class);
         $this->call(EventStatusSeeder::class);
