@@ -87,6 +87,11 @@
                                                                         class="bi bi-info-circle mx-2"></i> <span>{{ \Illuminate\Support\Str::limit($offer->name, 15) }}</span> </span>
                                                             </button>
                                                         </p>
+                                                        <form method="post"
+                                                              action="{{route('client.offers.send.user', $offer->id)}}"
+                                                              enctype="multipart/form-data"
+                                                              autocomplete="off">
+                                                            @csrf
                                                         <div class="collapse my-3 show" id="collapseExample">
                                                             <div class="row g-3">
                                                                 <div class="col-md-6">
@@ -192,11 +197,7 @@
                                                     </div>
                                                     <div class="row   d-flex justify-content-center align-items-center">
                                                         <div class="col-lg-9">
-                                                            <form method="post"
-                                                                  action="{{route('client.offers.send.user', $offer->id)}}"
-                                                                  enctype="multipart/form-data"
-                                                                  autocomplete="off">
-                                                                @csrf
+
                                                                 <div class="row mt-4">
                                                                     @if(!$offer->user_id)
                                                                         <div class="col-6">
