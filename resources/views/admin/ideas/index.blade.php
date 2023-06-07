@@ -49,52 +49,64 @@
                                     <td>{{$idea->from}}</td>
                                     <td>{{$idea->to}}</td>
                                     <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
-                                    @if($idea->status->id == 1)
-                                        <td><span class="badge bg-success p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 2)
-                                        <td><span class="badge bg-primary p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 3)
-                                        <td><span class="badge bg-success p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 4)
-                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 5)
-                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 6)
+                                    @switch($idea->status->id)
+                                        @case($idea->status->id === 1)
+                                        <input type="text" class="form-control bg-warning text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
 
-                                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">В ожидании проверки администратора</span></a>
+                                        @case($idea->status->id === 2)
+                                        <input type="text" class="form-control bg-success text-white" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
 
-                                        </td>
-                                    @elseif($idea->status->id == 7)
-                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 8)
-                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 9)
-                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 10)
-                                        <td><span class="badge bg-success p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 11)
-                                        <td><span class="badge bg-danger p-2">{{$offer->status_name}}</span>
-                                        </td>
-                                    @elseif($idea->status->id == 12)
-                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a>
-                                        </td>
-                                    @elseif($idea->status->id == 13)
-                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Клиент)</span></a>
-                                        </td>
-                                    @elseif($idea->status->id == 14)
-                                        <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a>
-                                        </td>
-                                    @endif
-                                   
+                                        @case($idea->status->id === 3)
+                                        <input type="text" class="form-control bg-success text-white" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 4)
+                                        <input type="text" class="form-control bg-primary text-white" id="sts" value="В процессе" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 5)
+                                        <input type="text" class="form-control text-white" id="sts" value="{{ $idea->status->name }}" disabled style="background-color: #fc0404">
+                                        @break
+
+                                        @case($idea->status->id === 6)
+                                        <input type="text" class="form-control bg-secondary text-white" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 7)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="Просроченный" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 8)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 9)
+                                        <input type="text" class="form-control bg-warning text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 10)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 11)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 12)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 13)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+
+                                        @case($idea->status->id === 14)
+                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        @break
+                                    @endswitch
+
                                     <td>
                                         <a class="text-primary" href="{{route('admin.idea.show', $idea->id)}}"><i
                                                 class="bi bi-pencil"></i></a>
