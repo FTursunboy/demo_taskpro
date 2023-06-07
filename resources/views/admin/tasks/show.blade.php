@@ -31,7 +31,9 @@
                     <div class="col-md-2">
                         <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                     </div>
-
+                    <div class="col-1">
+                        <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готова</a>
+                    </div>
                 </div>
                 <div class="row">
                     <p>
@@ -301,20 +303,22 @@
                             </div>
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
-                                    <form id="formMessage" class="w-100" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="d-flex flex-grow-1 ml-4">
-                                            <div class="input-group mb-3">
-                                                <input type="text" id="message" name="message" class="form-control" placeholder="Сообщение..." required>
-                                                <div class="col-3">
-                                                    <input type="file" name="file" class="form-control" id="file">
+                                    @if($task->status_id !== 3)
+                                        <form id="formMessage" class="w-100" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="d-flex flex-grow-1 ml-4">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" id="message" name="message" class="form-control" placeholder="Сообщение..." required>
+                                                    <div class="col-3">
+                                                        <input type="file" name="file" class="form-control" id="file">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" id="messageBTN">
+                                                        Отправить
+                                                    </button>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" id="messageBTN">
-                                                    Отправить
-                                                </button>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -404,6 +408,27 @@
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" id="ready">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Подтверждение</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Вы уверены?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-success">Подтвердить!</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

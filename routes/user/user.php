@@ -43,7 +43,11 @@ Route::group(['middleware' => ['role:user']], function () {
     });
 
     Route::group(['as' => 'all-tasks.'], function () {
-        Route::get('my-all-tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'index'])->name('index');
+        Route::get('/my-all-tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'index'])->name('index');
+    });
+
+    Route::group(['as' => 'my-command.'], function () {
+        Route::get('/my-command', [\App\Http\Controllers\User\MyCommandController::class, 'index'])->name('index');
     });
 
     Route::get('user/offers/file/download/chat/{mess}', [\App\Http\Controllers\User\TasksController::class, 'download_file_chat'])->name('user.download.file.chat');

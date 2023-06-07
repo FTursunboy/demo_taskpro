@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="mt-4 d-flex justify-content-end">
-                        <a href="{{ route('forgot.index') }}" class="text-danger">Забыли пароль?</a>
+                        <a href="{{ route('forgot.index') }}" class="text-primary">Забыли пароль?</a>
                     </div>
 
                     <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Вход</button>
