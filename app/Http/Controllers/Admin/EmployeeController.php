@@ -90,6 +90,7 @@ class EmployeeController extends BaseController
             'name' => $data['name'],
             'surname' => $data['surname'],
             'lastname' => $data['lastname'],
+            'login' => $data['login'],
             'phone' => $data['phone'],
             'position' => $data['position'],
             'telegram_user_id' => $data['telegram_id'],
