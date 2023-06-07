@@ -151,5 +151,5 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::get('/excel', [\App\Http\Controllers\Admin\ExcelController::class, 'index']);
 
-
+    Route::post('offers/chat/message/store/{offer}', [\App\Http\Controllers\Admin\TasksController::class, 'message_offer'])->name('offers.chat.message.store');
 });

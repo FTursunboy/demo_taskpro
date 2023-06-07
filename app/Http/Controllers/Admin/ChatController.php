@@ -36,7 +36,7 @@ class ChatController extends BaseController
             $file = null;
         }
 
-        MessagesModel::create([
+        $messages =  MessagesModel::create([
             'message' => $data['message'],
             'task_slug' => $offer->slug,
             'user_id' => $offer->user_id,
@@ -46,7 +46,11 @@ class ChatController extends BaseController
 
         ]);
 
-        return redirect()->back();
+        return response([
+            'messages' => $messages,
+            'name' => $messages->sender->name,
+            'created_at' => date('d.m.Y H:i:s', strtotime($messages->created_at))
+        ]);
     }
 
     public function downloadFile(MessagesModel $mess)

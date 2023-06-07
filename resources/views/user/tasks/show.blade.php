@@ -235,7 +235,7 @@
                                             @csrf
                                             <div class="d-flex flex-grow-1 ml-4">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="message" class="form-control"
+                                                    <input id="message" type="text" name="message" class="form-control"
                                                            placeholder="Сообщение..." required>
                                                     <div class="col-3">
                                                         <input type="file" name="file" class="form-control" id="file">
@@ -294,7 +294,7 @@
                     processData: false,
                     success: function (response) {
 
-                        $('#message').val('');
+                        $('#message').val(' ');
                         $('#file').val('');
 
                         let fileUrl = route('user.downloadChat', { task: response.messages.id });
@@ -320,6 +320,7 @@
                         `;
 
                         $('#block').append(newMessage);
+
 
 
 
