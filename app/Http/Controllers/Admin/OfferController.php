@@ -69,6 +69,12 @@ class OfferController extends BaseController
                 'user_id' => $data['user_id'],
                 'status_id' => 9
             ]);
+
+            if ($offer->user_id == Auth::id()) {
+                $offer->user_id = Auth::id();
+                $offer->status_id = 2;
+                $offer->save();
+            }
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 
@@ -91,6 +97,12 @@ class OfferController extends BaseController
                 'status_id' => 9,
                 'slug' => $offer->slug,
             ]);
+
+            if ($task->user_id == Auth::id()) {
+                $task->user_id = Auth::id();
+                $task->status_id = 2;
+                $task->save();
+            }
 
             HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
 
@@ -128,7 +140,7 @@ class OfferController extends BaseController
 
 
 
-        $users = User::role('user')->get();
+        $users = User::role(['user', 'admin'])->get();
 
         $histories = History::where([
             ['type', '=', 'offer'],
