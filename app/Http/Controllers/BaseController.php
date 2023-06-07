@@ -32,7 +32,7 @@ class BaseController extends Controller
                 'ready' => $ready,
                 'all_tasks' => $all_tasks,
                 'out_of_date' => $out_of_date,
-                'rejected' => $rejected
+                'rejected' => $rejected,
             ]);
             return $next($request);
 

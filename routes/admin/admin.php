@@ -77,7 +77,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::group(['as' => 'mytasks.'], function () {
        Route::get('/mytasks', [\App\Http\Controllers\Admin\MyTasksController::class, 'index'])->name('index');
-       Route::post('/mytasks/done/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'done'])->name('done');
+       Route::post('/mytasks/done/{task}', [\App\Http\Controllers\Admin\MyTasksController::class, 'done'])->name('done');
 
     });
 
