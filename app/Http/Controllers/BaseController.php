@@ -6,6 +6,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
+use App\Models\Idea;
 use Illuminate\Support\Facades\Auth;
 
 class BaseController extends Controller
@@ -14,6 +15,7 @@ class BaseController extends Controller
     {
         $this->middleware(function ($request, $next) {
             $offers_count = Offer::where('user_id', null)->get()->count();
+            $ideas_count = Idea::where('status_id', 1)->get()->count();
 
             $ready = TaskModel::where('status_id', 3)->get()->count();
             $all_tasks = TaskModel::get()->count();
@@ -26,6 +28,7 @@ class BaseController extends Controller
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
                 'offers_count' => $offers_count,
+                'ideas_count' => $ideas_count,
                 'ready' => $ready,
                 'all_tasks' => $all_tasks,
                 'out_of_date' => $out_of_date,

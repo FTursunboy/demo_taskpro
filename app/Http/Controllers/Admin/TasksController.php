@@ -124,6 +124,35 @@ class   TasksController extends BaseController
         ]);
     }
 
+    public function message_offer(Offer $offer, Request $request)
+    {
+        $data = $request->validate([
+            'message' => 'required',
+        ]);
+
+        if ($request->file('file') !== null) {
+            $file = $request->file('file')->store('public/chat_docs');
+        } else {
+            $file = null;
+        }
+
+        $messages_models = MessagesModel::create([
+            'task_slug' => $offer->slug,
+            'sender_id' => Auth::id(),
+            'user_id' => $offer->user_id,
+            'message' => $request->message,
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
+        ]);
+
+        return response([
+            'messages' => $messages_models,
+            'name' => $messages_models->sender->name,
+            'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))
+        ]);
+    }
+
+
 
 
 

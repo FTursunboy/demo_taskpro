@@ -49,17 +49,63 @@
                                     <td>{{$idea->from}}</td>
                                     <td>{{$idea->to}}</td>
                                     <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
-                                    @if($idea->status->name == "Принято")
-                                        <td><span class="badge badge-success p-2">Принят</span>
+                                    @if($idea->status == 1)
+                                        <td><span class="badge bg-success p-2">{{$offer->status_name}}</span>
                                         </td>
-                                    @elseif($idea->status->name == "Ожидается")
-                                        <td><span class="badge badge-warning p-2">На рассмотрении</span>
+                                    @elseif($idea->status == 2)
+                                        <td><span class="badge bg-primary p-2">{{$offer->status_name}}</span>
                                         </td>
-                                    @elseif($idea->status->name == "Отклонено")
-                                        <td><span class="badge badge-danger p-2">Отклонен</span>
+                                    @elseif($idea->status == 3)
+                                        <td><span class="badge bg-success p-2">{{$offer->status_name}}</span>
                                         </td>
-                                    @elseif($idea->status->name == "На доработку")
-                                        <td><span class="badge badge-primary p-2">На доработку</span>
+                                    @elseif($idea->status == 4)
+                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 5)
+                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 6)
+
+                                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">В ожидании проверки администратора</span></a>
+
+                                        </td>
+                                    @elseif($idea->status == 7)
+                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 8)
+                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 9)
+                                        <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 10)
+                                        <td><span class="badge bg-success p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 11)
+                                        <td><span class="badge bg-danger p-2">{{$offer->status_name}}</span>
+                                        </td>
+                                    @elseif($idea->status == 12)
+                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a>
+                                        </td>
+                                    @elseif($idea->status == 13)
+                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Клиент)</span></a>
+                                        </td>
+                                    @elseif($idea->status == 14)
+                                        <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a>
+                                        </td>
+                                    @endif
+                                    @if($idea->user_id)
+                                        <td>
+                                            <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
+                                            <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
+                                            <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
+                                        </td>
+                                    @else
+                                        <td class="text-center">
+                                            <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
+                                            <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
+                                            <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
+
                                         </td>
                                     @endif
                                     <td>
