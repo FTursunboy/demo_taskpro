@@ -89,7 +89,7 @@
                                 <div class="form-group">
                                     <label for="login">Логин<span class="text-danger">*</span></label>
                                     <input type="text" id="login" name="login" class="form-control mt-3"
-                                           value="{{ $user->login }}" disabled>
+                                           value="{{ $user->login }}" required>
                                 </div>
 
                                 <div class="form-group">
