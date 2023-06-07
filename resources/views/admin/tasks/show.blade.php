@@ -31,9 +31,11 @@
                     <div class="col-md-2">
                         <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                     </div>
-                    <div class="col-1">
-                        <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готова</a>
-                    </div>
+                    @if($task->user->position === 'Admin')
+                        <div class="col-1">
+                            <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готова</a>
+                        </div>
+                    @endif
                 </div>
                 <div class="row">
                     <p>
