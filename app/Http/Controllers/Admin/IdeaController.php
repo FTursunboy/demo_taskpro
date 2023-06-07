@@ -12,6 +12,7 @@ class IdeaController extends BaseController
     public function index() {
         $ideas = Idea::get();
 
+
         return view('admin.ideas.index', compact('ideas'));
     }
 

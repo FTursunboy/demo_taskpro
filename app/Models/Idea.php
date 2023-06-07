@@ -19,6 +19,6 @@ class Idea extends Model
     }
 
     public function status(){
-        return $this->belongsTo(StatusesModel::class);
+        return $this->belongsTo(StatusesModel::class, 'status_id');
     }
 }

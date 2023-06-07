@@ -44,68 +44,61 @@
                             <tbody>
                             @forelse($ideas as $idea)
                                 <tr>
+
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{\Str::limit($idea->title, 60)}}</td>
                                     <td>{{$idea->from}}</td>
                                     <td>{{$idea->to}}</td>
                                     <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
+                                    <td>
                                     @switch($idea->status->id)
                                         @case($idea->status->id === 1)
-                                        <input type="text" class="form-control bg-warning text-black" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        {{$idea->status->name}}
                                         @break
 
                                         @case($idea->status->id === 2)
-                                        <input type="text" class="form-control bg-success text-white" id="sts" value="{{ $idea->status->name }}" disabled>
+                                        {{$idea->status->name}}
                                         @break
 
                                         @case($idea->status->id === 3)
-                                        <input type="text" class="form-control bg-success text-white" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                            {{$idea->status->name}}
+                                            @break
 
                                         @case($idea->status->id === 4)
-                                        <input type="text" class="form-control bg-primary text-white" id="sts" value="В процессе" disabled>
+                                        {{$idea->status->name}}
                                         @break
 
                                         @case($idea->status->id === 5)
-                                        <input type="text" class="form-control text-white" id="sts" value="{{ $idea->status->name }}" disabled style="background-color: #fc0404">
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 6)
-                                        <input type="text" class="form-control bg-secondary text-white" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 7)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="Просроченный" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 8)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 9)
-                                        <input type="text" class="form-control bg-warning text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 10)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 11)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 12)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}} @break
 
                                         @case($idea->status->id === 13)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}}@break
 
                                         @case($idea->status->id === 14)
-                                        <input type="text" class="form-control bg-info text-black" id="sts" value="{{ $idea->status->name }}" disabled>
-                                        @break
+                                        {{$idea->status->name}} @break
                                     @endswitch
+                                </td>
 
                                     <td>
                                         <a class="text-primary" href="{{route('admin.idea.show', $idea->id)}}"><i
