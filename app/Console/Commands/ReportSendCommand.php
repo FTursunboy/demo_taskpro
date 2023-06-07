@@ -44,7 +44,7 @@ class ReportSendCommand extends Command
         $writer->openToFile(storage_path("app/public/{$storagePath}"));
 
 // First Sheet
-        $headerRow = WriterEntityFactory::createRowFromArray(['#', 'Имя', 'Время (в часах)', 'От', 'До', 'Проект', 'Автор', 'Тип', 'Статус', 'Coтрудник']);
+        $headerRow = WriterEntityFactory::createRowFromArray(['#', 'Имя', 'Время (в часах)', 'От', 'До', 'Проект', 'Автор', 'Тип', 'kpi', 'Процент', 'Статус', 'Coтрудник']);
         $writer->addRow($headerRow);
 
         foreach ($tasks as $task) {
@@ -56,7 +56,9 @@ class ReportSendCommand extends Command
                 $task->to,
                 $task->project?->name,
                 $task->author?->name,
-                ($task->type == null) ? 'От клиента' : ($task->type?->name ?? '') . ' ' . (($task->typeType?->name == null) ? '' : '--' . $task->typeType?->name) . ' ' . $task->percent,
+                $task->type == null ? 'От клиента' : ($task->type?->name ?? ''),
+                $task->typeType?->name == null ? '' : $task->typeType?->name,
+                $task->percent,
                 $task->status?->name,
                 $task->user?->name . ' ' . $task->user?->surname
             ]);
@@ -68,12 +70,19 @@ class ReportSendCommand extends Command
         $writer->addNewSheetAndMakeItCurrent(); // Add a new sheet and make it the active sheet
 
 
-        $secondSheetHeaderRow = WriterEntityFactory::createRowFromArray(['Column 1', 'Column 2', 'Column 3']);
+        $secondSheetHeaderRow = WriterEntityFactory::createRowFromArray(['#', 'Название задачи', 'От', 'До', 'Статус', 'Ответсвенный сотрудник', 'Клиент']);
         $writer->addRow($secondSheetHeaderRow);
 
         foreach ($offers as $offer) {
 
             $secondSheetData = WriterEntityFactory::createRowFromArray([
+                $offer->id,
+                $offer->name,
+                ($offer->from == null) ? 'Задача еще не распределена' : $offer->from,
+                ($offer->to == null) ? 'Задача еще не распределена' : $offer->to,
+                ($offer->user?->name == null) ? 'Задача еще не распределена' : $offer->user?->name,
+                $offer->status?->name,
+                $offer->client?->name,
 
             ]);
             $writer->addRow($secondSheetData);
