@@ -111,6 +111,43 @@
 @endsection
 
 @section('script')
+
+
+    <script>
+        const fromInput = document.getElementById('start');
+        let prevValue = fromInput.value;
+
+        fromInput.addEventListener('input', function() {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue = this.value; // Сохраняем текущее значение
+            }
+        });
+    </script>
+    <script>
+        const toInput = document.getElementById('finish');
+        let prevValue1 = toInput.value;
+
+        toInput.addEventListener('input', function() {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue1; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue1 = this.value; // Сохраняем текущее значение
+            }
+        });
+    </script>
+
+
+
     <script>
         $('#start').change(function ()  {
             const finish = $('#finish')
