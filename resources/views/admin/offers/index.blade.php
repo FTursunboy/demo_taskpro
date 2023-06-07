@@ -29,7 +29,7 @@
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
-                            
+
                             <table class="table table-striped" id="example">
 
                                 <thead>
