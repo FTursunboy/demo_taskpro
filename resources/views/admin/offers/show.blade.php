@@ -161,7 +161,7 @@
                                                                     @if($offer->file !== null)
                                                                         <div class="col-md-6">
                                                                             <a style="margin-left: 0px" download
-                                                                               href="{{route('offers.download', $offer->id)}}">Просмотреть
+                                                                               href="{{route('offer.file.download', $offer->id)}}">Просмотреть
                                                                                 файл</a>
                                                                         </div>
                                                                     @endif

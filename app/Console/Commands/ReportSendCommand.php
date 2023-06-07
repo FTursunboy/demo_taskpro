@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Client\Offer;
 use App\Models\Report;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
@@ -34,6 +35,7 @@ class ReportSendCommand extends Command
     public function handle()
     {
         $tasks = TaskModel::all();
+        $offers = Offer::get();
 
         $fileName = uniqid();
         $storagePath = "report/{$fileName}.xlsx";
@@ -41,14 +43,41 @@ class ReportSendCommand extends Command
         $writer = WriterEntityFactory::createWriter(Type::XLSX);
         $writer->openToFile(storage_path("app/public/{$storagePath}"));
 
+// First Sheet
         $headerRow = WriterEntityFactory::createRowFromArray(['#', 'Имя', 'Время (в часах)', 'От', 'До', 'Проект', 'Автор', 'Тип', 'Статус', 'Coтрудник']);
         $writer->addRow($headerRow);
 
         foreach ($tasks as $task) {
-            $rowData = WriterEntityFactory::createRowFromArray([$task->id, $task->name, $task->time, $task->from, $task->to, $task->project?->name, $task->author?->name, ($task->type == null) ? 'От клиента' : $task->type?->name, $task->status?->name, $task->user?->name . " " . $task->user?->surname]);
+            $rowData = WriterEntityFactory::createRowFromArray([
+                $task->id,
+                $task->name,
+                $task->time,
+                $task->from,
+                $task->to,
+                $task->project?->name,
+                $task->author?->name,
+                ($task->type == null) ? 'От клиента' : ($task->type?->name ?? '') . ' ' . (($task->typeType?->name == null) ? '' : '--' . $task->typeType?->name) . ' ' . $task->percent,
+                $task->status?->name,
+                $task->user?->name . ' ' . $task->user?->surname
+            ]);
+
             $writer->addRow($rowData);
         }
 
+
+        $writer->addNewSheetAndMakeItCurrent(); // Add a new sheet and make it the active sheet
+
+
+        $secondSheetHeaderRow = WriterEntityFactory::createRowFromArray(['Column 1', 'Column 2', 'Column 3']);
+        $writer->addRow($secondSheetHeaderRow);
+
+        foreach ($offers as $offer) {
+
+            $secondSheetData = WriterEntityFactory::createRowFromArray([
+
+            ]);
+            $writer->addRow($secondSheetData);
+        }
         $writer->close();
 
         $currentDate = Carbon::now()->format('Y-m-d');
@@ -66,8 +95,8 @@ class ReportSendCommand extends Command
 
         $files = storage_path('app/public/' . $report->file);
         $email = EmailModel::first()->email;
-        Mail::send([], [], function ($message) use ($files) {
-            $message->to('amr_1990@mail.ru')
+        Mail::send([], [], function ($message) use ($files, $email) {
+            $message->to($email)
                 ->subject('Отчет')
                 ->attach($files, ['as' => 'Отчет_этого_дня.xlsx', 'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']);
         });
