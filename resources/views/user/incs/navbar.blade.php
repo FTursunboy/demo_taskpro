@@ -78,33 +78,14 @@
                         <span>Все задачи</span>
                     </a>
                 </li>
-
-                @role('development')
-                <li class="sidebar-item  has-sub {{ (request()->is('lead') or request()->is('lead/*')or request()->is('contact')or request()->is('contact/*')or request()->is('event')or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>CRM</span>
+                @role('team-lead')
+                <li class="sidebar-item {{ (request()->is('my-command') or request()->is('my-command/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('my-command.index') }}" class='sidebar-link'>
+                        <i class="bi bi-people"></i>
+                        <span>Моя команда</span>
                     </a>
-                    <ul class="submenu {{ (request()->is('lead') or request()->is('lead/*') or request()->is('contact') or request()->is('contact/*') or request()->is('event') or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
-                        <li class="submenu-item {{( request()->is('lead') or request()->is('lead/*')) ? 'active' : ''}} " >
-                            <a href="{{route('lead.index')}}">Лиды</a>
-                        </li>
-                        <li class="submenu-item {{( request()->is('contact') or request()->is('contact/*')) ? 'active' : ''}}">
-                            <a href="{{ route('contact.index') }}">Контакты</a>
-                        </li>
-                        <li class="submenu-item {{( request()->is('event') or request()->is('event/*')) ? 'active' : ''}}">
-                            <a href="{{ route('event.index') }}">События</a>
-                        </li>
-                        <li class="submenu-item {{( request()->is('calendar') or request()->is('calendar/*')) ? 'active' : ''}} ">
-                            <a href="{{route('calendar')}}">Календарь</a>
-                        </li>
-                        <li class="submenu-item {{( request()->is('setting') or request()->is('setting/*')) ? 'active' : ''}} ">
-                            <a href="{{route('setting.index')}}">Настройки</a>
-                        </li>
-                    </ul>
                 </li>
                 @endrole
-
                 <li class="sidebar-item">
                     <a role="button" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="bi bi-door-open"></i>

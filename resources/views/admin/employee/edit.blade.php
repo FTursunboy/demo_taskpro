@@ -22,36 +22,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="addRole{{$user->slug}}" tabindex="-1" aria-labelledby="addRole{{$user->slug}}"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <form action="{{ route('employee.addRole', $user->slug) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="addRole{{$user->slug}}">Предупреждение</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body mb-10">
-                            <select class="form-control p-20" name="role" id="" >
-                                <option value="">Выберите роль</option>
-                                @foreach($getRoles as $getRole)
-                                    <option value="{{ $getRole->id }}">{{ $getRole->name }}</option>
-                                @endforeach
-                            </select>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена
-                            </button>
-                            <button type="submit" class="btn btn-success">Добавить</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
         @include('inc.messages')
         <section class="section">
@@ -59,10 +30,6 @@
                 <div class="card-header">
                     <a href="{{ route('employee.index') }}" class="btn btn-outline-danger">
                         Назад
-                    </a>
-                    <a href="#" data-bs-toggle="modal"
-                       data-bs-target="#addRole{{$user->slug}}" class="btn btn-outline-success">
-                        Добавить роль
                     </a>
                 </div>
                 <div class="card-body">

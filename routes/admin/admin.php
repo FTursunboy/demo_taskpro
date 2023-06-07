@@ -71,7 +71,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
-
     });
 
     Route::group(['as' => 'employee.'], function () {
@@ -92,6 +91,11 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::delete('/client/update/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'destroy'])->name('client.destroy');
 
 
+        // teamLead
+        Route::post('/team-lead/{employee}',[\App\Http\Controllers\Admin\EmployeeController::class, 'makeTeamLead'])->name('teamLead');
+        Route::post('/team-lead/{employee}/{project}/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteFromCommand'])->name('delete-from-command');
+        Route::post('/team-lead/add-user-in-command/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'addUserInCommand'])->name('add-user-in-command');
+        Route::post('/team-lead/delete-command/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteCommand'])->name('delete-command');
     });
     Route::group(['as' => 'tasks_client.'], function () {
         Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('index');

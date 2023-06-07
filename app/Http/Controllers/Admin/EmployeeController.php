@@ -12,6 +12,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -57,18 +58,22 @@ class EmployeeController extends BaseController
 
         $project_tasks = TaskModel::where('user_id', '=', $user->id)->get();
         $tasks = $user->tasksSuccess($user->id);
-        return view('admin.employee.show', compact('user', 'tasks', 'project_tasks'));
+
+        // for team-lead command
+        $roles = Role::where('name', '=', 'team-lead')->get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role(['user'])->where('slug', '!=', $slug)->get();
+        $userCommand = new User\TeamLeadCommandModel();
+        return view('admin.employee.show', compact('user', 'tasks', 'project_tasks', 'roles', 'projects', 'users', 'userCommand'));
     }
 
     public function edit($slug)
     {
-
         $user = User::where('slug', $slug)->firstOrFail();
         $roles = Role::where('name', 'user')->get();
         $departs = OtdelsModel::get();
 
-        $getRoles = Role::whereNot('name', 'client')->whereNot('name', 'admin')->get();
-        return view('admin.employee.edit', compact('user', 'roles', 'departs', 'getRoles'));
+        return view('admin.employee.edit', compact('user', 'roles', 'departs'));
     }
 
     public function update($slug, UpdateEmployeeRequest $request)
@@ -110,11 +115,75 @@ class EmployeeController extends BaseController
     }
 
     public function destroy($slug)
-
     {
         $employee = User::where('slug', $slug)->firstOrFail();
         $employee->delete();
         return redirect()->route('employee.index')->with('delete', "Сотрудник успешно удален!");
+    }
+
+
+    // for team-lead command
+    public function makeTeamLead(Request $request, User $employee)
+    {
+        $data = $request->validate([
+            'role' => ['required', 'exists:roles,id'],
+            'project' => ['required', 'exists:project_models,id'],
+            'users' => ['required']
+        ]);
+//        dd($data);
+        User\TeamLeadCommandModel::create([
+            'user_id' => $employee->id,
+            'project_id' => $data['project'],
+            'teamLead_id' => $employee->id
+        ]);
+        foreach ($data['users'] as $u) {
+            User\TeamLeadCommandModel::create([
+                'user_id' => $u,
+                'project_id' => $data['project'],
+                'teamLead_id' => $employee->id
+            ]);
+        }
+        $role = Role::where('id', $data['role'])->first();
+        $employee->assignRole($role->name);
+        $project = ProjectModel::where('id', $data['project'])->first()->name;
+        return redirect()->route('employee.show', $employee->slug)->with('create', "Сотрудник успешно стал тимлидом проекта '$project'. ");
+    }
+
+    public function deleteFromCommand(User $employee, ProjectModel $project, User $teamLead)
+    {
+        User\TeamLeadCommandModel::where([
+            ['teamLead_id', $teamLead->id],
+            ['user_id', $employee->id],
+            ['project_id', $project->id],
+        ])->first()->delete();
+        return redirect()->route('employee.show', $teamLead->slug)->with('delete', "Успешно удалено");
+    }
+
+
+    public function addUserInCommand(User $teamLead, Request $request)
+    {
+        $data = $request->validate(['users' => ['required']]);
+        $team = User\TeamLeadCommandModel::where('teamLead_id', $teamLead->id)->first();
+        foreach ($data['users'] as $u) {
+            User\TeamLeadCommandModel::create([
+                'user_id' => $u,
+                'project_id' => $team->project_id,
+                'teamLead_id' => $teamLead->id
+            ]);
+        }
+        return redirect()->route('employee.show', $teamLead->slug)->with('create', "Успешно добавлен");
+    }
+
+    public function deleteCommand(User $employee)
+    {
+        $userCommand = new User\TeamLeadCommandModel();
+        $commands = $userCommand->myCommand($employee->id);
+        foreach ($commands as $user) {
+            $commandModel = User\TeamLeadCommandModel::where('user_id','=', $user->id)->first();
+            $commandModel?->delete();
+        }
+        $employee->removeRole('team-lead');
+        return redirect()->route('employee.show', $employee->slug)->with('delete', "Успешно удалено");
     }
 
 }

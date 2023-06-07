@@ -43,6 +43,10 @@ Route::group(['middleware' => ['role:user']], function () {
     });
 
     Route::group(['as' => 'all-tasks.'], function () {
-        Route::get('my-all-tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'index'])->name('index');
+        Route::get('/my-all-tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'index'])->name('index');
+    });
+
+    Route::group(['as' => 'my-command.'], function () {
+        Route::get('/my-command', [\App\Http\Controllers\User\MyCommandController::class, 'index'])->name('index');
     });
 });
