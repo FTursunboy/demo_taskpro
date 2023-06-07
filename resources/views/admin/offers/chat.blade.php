@@ -129,7 +129,7 @@
 
 @section('script')
     @routes
-            
+
             <script>
                 $(document).ready(function() {
                     $('#fileInput').change(function() {

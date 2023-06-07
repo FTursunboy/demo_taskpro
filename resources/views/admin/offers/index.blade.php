@@ -29,7 +29,7 @@
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped" id="table1">
+                            <table class="table table-striped" id="example">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -46,13 +46,13 @@
 
                                 @forelse($offers as $offer)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{\Illuminate\Support\Str::limit($offer->name,60)}}</td>
-                                        <td>{{\Illuminate\Support\Str::limit($offer->description, 20)}}</td>
+                                        <td >{{$loop->iteration}}</td>
+                                        <td width="20%">{{\Illuminate\Support\Str::limit($offer->name,60)}}</td>
+                                        <td width="15%">{{\Illuminate\Support\Str::limit($offer->description, 20)}}</td>
                                         @if($offer->user_id)
                                             <td>{{$offer->username}}</td>
                                         @else
-                                            <td class="text-danger text-bold">Задача еще не распределена</td>
+                                            <td width="12%" class="text-danger text-bold">Не распределен</td>
                                         @endif
                                             <td>{{$offer->project_name}}</td>
                                         @if($offer->status == 1)
@@ -183,27 +183,19 @@
             </div>
 @endsection
 @section('script')
-    <script>
-        {{--$(document).ready(function() {--}}
-        {{--    $('#parent').on('click', '#reason', function() {--}}
-        {{--        let reason = $('#reason').val();--}}
+    <script src="{{asset('assets/js/search.js')}}"></script>
+    <script src="{{asset('assets/js/datatable.js')}}"></script>
 
-        {{--        $.ajax({--}}
-        {{--            url: "{{route('client.offers.send.back', $offer->id)}}",--}}
-        {{--            type: "POST",--}}
-        {{--            dataType: "json",--}}
-        {{--            data: {reason},--}}
-        {{--            success: function(response) {--}}
-        {{--                console.log(response);--}}
-        {{--            },--}}
-        {{--            error: function(xhr) {--}}
-        {{--                if (xhr.responseJSON.errors) {--}}
-        {{--                    $('#titleError').html(xhr.responseJSON.errors.title);--}}
-        {{--                }--}}
-        {{--            }--}}
-        {{--        });--}}
-        {{--    });--}}
-        {{--});--}}
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example').DataTable({
+                initComplete: function () {
+
+                },
+            });
+        });
+
     </script>
 @endsection
 
