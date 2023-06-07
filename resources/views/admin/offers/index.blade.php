@@ -29,7 +29,9 @@
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
+
                             <table class="table table-striped" id="example">
+
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -180,7 +182,7 @@
             </div>
 @endsection
 @section('script')
-    <script src="{{asset('assets/js/search.js')}}"></script>
+
     <script src="{{asset('assets/js/datatable.js')}}"></script>
 
     <script>
@@ -192,6 +194,8 @@
                 },
             });
         });
+
+
 
     </script>
 @endsection
