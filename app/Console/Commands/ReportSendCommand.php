@@ -67,10 +67,10 @@ class ReportSendCommand extends Command
         }
 
 
-        $writer->addNewSheetAndMakeItCurrent(); // Add a new sheet and make it the active sheet
+        $writer->addNewSheetAndMakeItCurrent();
 
 
-        $secondSheetHeaderRow = WriterEntityFactory::createRowFromArray(['#', 'Название задачи', 'От', 'До', 'Статус', 'Ответсвенный сотрудник', 'Клиент']);
+        $secondSheetHeaderRow = WriterEntityFactory::createRowFromArray(['#', 'Название задачи', 'От', 'До',  'Ответсвенный сотрудник', 'Статус', 'Клиент']);
         $writer->addRow($secondSheetHeaderRow);
 
         foreach ($offers as $offer) {
