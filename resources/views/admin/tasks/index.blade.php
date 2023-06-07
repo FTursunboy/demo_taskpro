@@ -74,7 +74,7 @@
                                                             @break
 
                                                             @case($task->status->id === 2)
-                                                            <input type="text" class="form-control bg-success text-white" id="sts" value="{{ $task->status->name }}" disabled>
+                                                            <input type="text" class="form-control bg-primary text-white" id="sts" value="{{ $task->status->name }}" disabled>
                                                             @break
 
                                                             @case($task->status->id === 3)

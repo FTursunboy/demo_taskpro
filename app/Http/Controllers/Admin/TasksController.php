@@ -55,7 +55,7 @@ class  TasksController extends BaseController
     {
         $types = TaskTypeModel::get();
         $projects = ProjectModel::get();
-        $users = User::role('user')->get();
+        $users = User::role(['user', 'admin'])->get();
 
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
     }
@@ -191,6 +191,12 @@ class  TasksController extends BaseController
             'pro_status' => 2,
         ]);
 
+        if($request->user_id == Auth::id()) {
+            $task->update([
+                'status_id' => 2,
+            ]);
+
+        }
 
         $this->check();
         $type = TaskTypeModel::find($request->type_id)->name;
