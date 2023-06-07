@@ -131,7 +131,6 @@ class EmployeeController extends BaseController
             'project' => ['required', 'exists:project_models,id'],
             'users' => ['required']
         ]);
-//        dd($data);
         User\TeamLeadCommandModel::create([
             'user_id' => $employee->id,
             'project_id' => $data['project'],
