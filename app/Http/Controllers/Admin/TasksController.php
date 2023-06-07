@@ -326,10 +326,17 @@ class  TasksController extends BaseController
         if ($request->employee == 0) {
             $task->update(
                 [
-                    'status_id' => 3,
+                    'status_id' => 10,
                     'finish' => Carbon::now(),
                 ]
             );
+
+            $offer = Offer::find($task->offer_id);
+
+            if($offer !== null) {
+                $offer->status_id = 10;
+                $offer->save();
+            }
 
             if ($task->client_id == 0) {
                 $user = User::where('id', $task->user_id)->first();

@@ -132,7 +132,7 @@
 
                                             <div class="row">
                                                 <div class="col-4">
-                                                    @if($task->status->id === 6 || $task->status->id === 10 || $task->status->id === 14)
+                                                    @if($task->status->id === 6 || $task->status->id === 14)
                                                         <a href=""
                                                            class="btn btn-outline-success w-100"   data-bs-toggle="modal"
                                                            data-bs-target="#check{{$task->id}}">

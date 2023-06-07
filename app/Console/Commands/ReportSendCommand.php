@@ -43,7 +43,6 @@ class ReportSendCommand extends Command
         $writer = WriterEntityFactory::createWriter(Type::XLSX);
         $writer->openToFile(storage_path("app/public/{$storagePath}"));
 
-// First Sheet
         $headerRow = WriterEntityFactory::createRowFromArray(['#', 'Имя', 'Время (в часах)', 'От', 'До', 'Проект', 'Автор', 'Тип', 'kpi', 'Процент', 'Статус', 'Coтрудник']);
         $writer->addRow($headerRow);
 
