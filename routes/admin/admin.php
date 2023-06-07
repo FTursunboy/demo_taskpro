@@ -153,7 +153,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
     });
 
-    Route::get('/excel', [\App\Http\Controllers\Admin\ExcelController::class, 'index']);
+    Route::get('/excel', [\App\Http\Controllers\Admin\ExelController::class, 'index'])->name('exel');
+    Route::get('excel/download/', [\App\Http\Controllers\Admin\ExelController::class, 'downloadFile'])->name('exel.download');
 
     Route::post('offers/chat/message/store/{offer}', [\App\Http\Controllers\Admin\TasksController::class, 'message_offer'])->name('offers.chat.message.store');
 });

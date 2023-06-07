@@ -216,7 +216,6 @@ class  TasksController extends BaseController
     }
 
 
-
     public function edit(TaskModel $task)
     {
         $types = TaskTypeModel::get();

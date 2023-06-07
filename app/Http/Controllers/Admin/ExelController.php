@@ -1,39 +1,21 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\EmailModel;
+use App\Http\Controllers\Controller;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 use App\Models\Report;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Carbon\Carbon;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ReportSendCommand extends Command
+class ExelController extends Controller
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'report:send';
+    public function index() {
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
-    public function handle()
-    {
         $tasks = TaskModel::all();
         $offers = Offer::get();
 
@@ -43,7 +25,7 @@ class ReportSendCommand extends Command
         $writer = WriterEntityFactory::createWriter(Type::XLSX);
         $writer->openToFile(storage_path("app/public/{$storagePath}"));
 
-// First Sheet
+        // First Sheet
         $headerRow = WriterEntityFactory::createRowFromArray(['#', 'Имя', 'Время (в часах)', 'От', 'До', 'Проект', 'Автор', 'Тип', 'kpi', 'Процент', 'Статус', 'Coтрудник']);
         $writer->addRow($headerRow);
 
@@ -99,19 +81,26 @@ class ReportSendCommand extends Command
         $report = new Report();
         $report->name = $fileNameWithDate;
         $report->file = $storagePath;
+        $report->file_name = $fileName;
 
         $report->save();
 
 
-        $files = storage_path('app/public/' . $report->file);
-
-        Mail::send([], [], function ($message) use ($files) {
-            $message->to('fsdfsd')
-                ->subject('Отчет')
-                ->attach($files, ['as' => 'Отчет_этого_дня.xlsx', 'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']);
-        });
-
-
-        $this->info('Отчет отправлен.');
     }
+
+    public function downloadFile()
+    {
+        $report = Report::latest()->first();
+
+        $path = storage_path('app/public/' . $report->file);
+        $fileName = $report->file_name . '.xlsx'; // Добавляем расширение к имени файла
+
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ];
+
+        return response()->download($path, $fileName, $headers);
+    }
+
 }
