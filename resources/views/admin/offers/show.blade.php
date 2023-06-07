@@ -125,7 +125,7 @@
                                                                            value="{{$offer->to}}" type="date"
                                                                            class="form-control"
                                                                            name="to" id="to">
-                                                                          >
+                                                                          
                                                                     <span id="error-message" class="d-none text-center mt-3" style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
 
                                                                 </div>
