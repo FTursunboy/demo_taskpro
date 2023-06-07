@@ -152,7 +152,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            @if($task->status_id === 5)
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label for="cancel">Причина</label>
+                                                        <textarea id="cancel" class="form-control">{{ $task->cancel }}</textarea>
+                                                    </div>
+                                                </div>
+                                            @endif
 
                                             <div class="row">
                                                 <div class="col-4">
