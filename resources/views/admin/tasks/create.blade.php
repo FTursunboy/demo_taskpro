@@ -47,7 +47,7 @@
 
                                     <option value="" selected>Выберите сотрудник</option>
                                     @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
                                     @endforeach
                                 </select>
                             </div>

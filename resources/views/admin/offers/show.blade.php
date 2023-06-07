@@ -151,7 +151,7 @@
                                                                         <option value="">Выберите исполнителя
                                                                         </option>
                                                                         @foreach($users as $user)
-                                                                            <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->name}}</option>
+                                                                            <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->surname .' ' . $user->name .' '.$user->lastname}}</option>
                                                                         @endforeach
 
                                                                     </select>
