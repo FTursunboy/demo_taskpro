@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TaskModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class MyTasksController extends BaseController
@@ -29,6 +30,16 @@ class MyTasksController extends BaseController
             }
         }
         return $tasks;
+    }
+
+    public function done(TaskModel $task)
+    {
+        $task->update([
+            'status_id' => 3,
+            'finish' => Carbon::now(),
+        ]);
+
+        return redirect()->route('tasks.index')->with('update', 'Задача успешно завершена!');
     }
 
 
