@@ -9,6 +9,7 @@ use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Mail\Send;
 use App\Models\Admin\EmailModel;
+use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 
@@ -183,6 +184,18 @@ class TaskController extends BaseController
         ];
 
         return response()->download($path, $offer->file_name, $headers);
+
+    }
+
+    public function download_file_chat(MessagesModel $messagesModel)  {
+        $path = storage_path('app/public/' . $messagesModel->file);
+
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $messagesModel->file_name . '"',
+        ];
+
+        return response()->download($path, $messagesModel->file_name, $headers);
 
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
@@ -84,5 +85,16 @@ class TasksController extends BaseController
         }
         Artisan::call('update:task-status');
         return back()->with('error', 'Задача отклонена!');
+    }
+    public function download_file_chat(MessagesModel $mess)  {
+        $path = storage_path('app/public/' . $mess->file);
+
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $mess->file_name . '"',
+        ];
+
+        return response()->download($path, $mess->file_name, $headers);
+
     }
 }
