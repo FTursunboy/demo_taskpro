@@ -23,9 +23,12 @@
         </div>
         @include('inc.messages')
         <div class="container mt-2">
+
             <div class="row d-flex justify-content-center">
                 <div class="col-sm-10 col-md-2 col-lg-2">
-                           <a href="{{ route('exel.download') }}" download class="btn btn-success"> Excel</a>
+                
+                        <a href="{{ route('exel') }}" download class="btn btn-success"> Excel</a>
+
                 </div>
                 <div class="col-sm-10 col-md-2 col-lg-2">
                     @include('admin.monitoring.statuses')
