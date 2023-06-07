@@ -38,6 +38,7 @@
                                 <th>До</th>
                                 <th>Описание</th>
                                 <th>Статус</th>
+                                <th>Сотрудник</th>
                                 <th>Действие</th>
                             </tr>
                             </thead>
@@ -97,12 +98,15 @@
 
                                         @case($idea->status->id === 14)
                                         {{$idea->status->name}} @break
+                                            @case($idea->status->id === 15)
+                                            {{$idea->status->name}} @break
                                     @endswitch
                                 </td>
+                                    <td>{{$idea->user->name}}</td>
 
                                     <td>
-                                        <a class="text-primary" href="{{route('admin.idea.show', $idea->id)}}"><i
-                                                class="bi bi-pencil"></i></a>
+                                        <a class="badge bg-primary" href="{{route('admin.idea.show', $idea->id)}}"><i
+                                                class="bi bi-eye"></i></a>
                                     </td>
                                 </tr>
                             @empty

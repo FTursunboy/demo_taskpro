@@ -52,7 +52,7 @@
                                         @if($offer->user_id)
                                             <td>{{$offer->username}}</td>
                                         @else
-                                            <td width="12%" class="text-danger text-bold">Не распределен</td>
+                                            <td class="text-danger text-bold">Не распределен</td>
                                         @endif
                                             <td>{{$offer->project_name}}</td>
                                         @if($offer->status == 1)
@@ -104,15 +104,12 @@
                                         <td>
                                             <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
                                             <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
-                                            <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
-                                        </td>
+                                            </td>
                                         @else
                                             <td class="text-center">
                                                 <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
                                                 <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
-                                                <a class="badge bg-primary p-2" href="{{route('client.offers.chat', $offer->id)}}"><i class="bi bi-chat"></i></a>
-
-                                            </td>
+                                                                                           </td>
                                         @endif
                                     </tr>
 

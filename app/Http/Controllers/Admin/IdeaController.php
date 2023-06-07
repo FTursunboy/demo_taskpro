@@ -31,7 +31,7 @@ class IdeaController extends BaseController
                 $statusId = 5;
                 break;
             case 'update':
-                $statusId = 8;
+                $statusId = 15;
                 break;
             default:
                 return back()->with('mess', 'Что-то пошло не так');

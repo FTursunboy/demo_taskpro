@@ -34,10 +34,16 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-10">
+                                                <div class="row my-4">
+                                                    <div class="col-md-2">
+                                                        <a href="{{ route('client.offers.index') }}" class="btn btn-outline-danger">Назад</a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button data-bs-target="#send" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
+                                                    </div>
 
-                                                    <a href="{{ route('client.offers.index') }}" class="btn btn-danger">Назад</a>
-
+                                                </div>
                                                     @if($offer->status->id == 6)
                                                         <a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal" class="btn btn-success">Принять и отправить клиенту</a>
                                                     @endif
@@ -62,24 +68,128 @@
                                                         <div class="col-lg-9">
                                                             @include('inc.messages')
 
-                                                            <p>
-                                                                <button
-                                                                    class="btn btn-primary w-100"
-                                                                    type="button"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#send" aria-expanded="false"
-                                                                    aria-controls="collapseExample"><span
-                                                                        class="d-flex justify-content-start"><i
-                                                                            class="bi bi-info-circle mx-2"></i> <span
-                                                                            class="text-center"> Вся история задачи </span> </span>
-                                                                </button>
-                                                            </p>
+
                                                         </div>
                                                     </div>
                                                 </div>
 
 
                                                 <div class="container">
+                                                    <div class="row">
+                                                        <p>
+                                                            <button
+                                                                class="btn btn-primary w-100 collapsed"
+                                                                type="button"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseExample" aria-expanded="false"
+                                                                aria-controls="collapseExample"><span
+                                                                    class="d-flex justify-content-start"><i
+                                                                        class="bi bi-info-circle mx-2"></i> <span>{{ \Illuminate\Support\Str::limit($offer->name, 15) }}</span> </span>
+                                                            </button>
+                                                        </p>
+                                                        <div class="collapse my-3 show" id="collapseExample">
+                                                            <div class="row g-3">
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Название
+                                                                        задачи</label>
+                                                                    <input disabled type="text"
+                                                                           class="form-control"
+                                                                           name="name" id="name"
+                                                                           value="{{$offer->name}}" required>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Проект</label>
+                                                                    <input type="text" class="form-control"
+                                                                           value="{{$project->projects?->name}}"
+                                                                           disabled name="project">
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label"> Сотрудник
+                                                                        со
+                                                                        стороны компании</label>
+                                                                    <input value="{{$offer->author_name}}" disabled
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="author_name" id="name" required>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Телефон ответственного
+                                                                        сотрудника</label>
+                                                                    <input value="{{$offer->author_phone}}" disabled
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="author_phone" id="name" required>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">От</label>
+                                                                    <input required
+                                                                           value="{{$offer->from}}" type="date"
+                                                                           class="form-control"
+                                                                           name="from">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">До</label>
+                                                                    <input required
+                                                                           value="{{$offer->to}}" type="date"
+                                                                           class="form-control"
+                                                                           name="to">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Ответственный
+                                                                        исполнитель</label>
+                                                                    <select required class="form-select"
+                                                                            name="user_id" id="">
+                                                                        <option value="">Выберите исполнителя
+                                                                        </option>
+                                                                        @foreach($users as $user)
+                                                                            <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->name}}</option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Время</label>
+                                                                    <input
+                                                                        value="{{$offer->time}}" type="number"
+                                                                        class="form-control"
+                                                                        name="time" placeholder="Введите время">
+                                                                </div>
+
+                                                                @if($offer->file !== null)
+                                                                    <div class="col-md-6">
+                                                                        <a style="margin-left: 0px" download
+                                                                           href="{{route('offer.file.download', $offer->id)}}">Просмотреть
+                                                                            файл</a>
+                                                                    </div>
+                                                                @endif
+                                                                <div class="col-12">
+                                                                    <label for="your-message" class="form-label">Описание
+                                                                        задачи</label>
+                                                                    <textarea disabled id="description"
+                                                                              class="form-control"
+                                                                              name="description"
+                                                                              rows="5"
+                                                                              required>{{$offer->description}} </textarea>
+                                                                </div>
+                                                                @if($offer->cancel)
+                                                                    <div class="col-md-12">
+                                                                        <label for="">Причина отклонениня
+                                                                        </label>
+                                                                        <textarea disabled id="description"
+                                                                                  class="form-control"
+                                                                                  name="description"
+                                                                                  rows="1"
+                                                                                  required>{{$offer->cancel}} </textarea>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                     <div class="row   d-flex justify-content-center align-items-center">
                                                         <div class="col-lg-9">
                                                             <form method="post"
@@ -87,105 +197,6 @@
                                                                   enctype="multipart/form-data"
                                                                   autocomplete="off">
                                                                 @csrf
-                                                                <div class="row g-3">
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">Название
-                                                                            задачи</label>
-                                                                        <input disabled type="text"
-                                                                               class="form-control"
-                                                                               name="name" id="name"
-                                                                               value="{{$offer->name}}" required>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">Проект</label>
-                                                                        <input type="text" class="form-control"
-                                                                               value="{{$project->projects?->name}}"
-                                                                               disabled name="project">
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label"> Сотрудник
-                                                                            со
-                                                                            стороны компании</label>
-                                                                        <input value="{{$offer->author_name}}" disabled
-                                                                               type="text"
-                                                                               class="form-control"
-                                                                               name="author_name" id="name" required>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">Телефон ответственного
-                                                                            сотрудника</label>
-                                                                        <input value="{{$offer->author_phone}}" disabled
-                                                                               type="text"
-                                                                               class="form-control"
-                                                                               name="author_phone" id="name" required>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">От</label>
-                                                                        <input required
-                                                                               value="{{$offer->from}}" type="date"
-                                                                               class="form-control"
-                                                                               name="from">
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">До</label>
-                                                                        <input required
-                                                                               value="{{$offer->to}}" type="date"
-                                                                               class="form-control"
-                                                                               name="to">
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">Ответственный
-                                                                            исполнитель</label>
-                                                                        <select required class="form-select"
-                                                                                name="user_id" id="">
-                                                                            <option value="">Выберите исполнителя
-                                                                            </option>
-                                                                            @foreach($users as $user)
-                                                                                <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->name}}</option>
-                                                                            @endforeach
-
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">Время</label>
-                                                                        <input
-                                                                               value="{{$offer->time}}" type="number"
-                                                                               class="form-control"
-                                                                               name="time" placeholder="Введите время">
-                                                                    </div>
-
-                                                                    @if($offer->file !== null)
-                                                                        <div class="col-md-6">
-                                                                            <a style="margin-left: 0px" download
-                                                                               href="{{route('offer.file.download', $offer->id)}}">Просмотреть
-                                                                                файл</a>
-                                                                        </div>
-                                                                    @endif
-                                                                    <div class="col-12">
-                                                                        <label for="your-message" class="form-label">Описание
-                                                                            задачи</label>
-                                                                        <textarea disabled id="description"
-                                                                                  class="form-control"
-                                                                                  name="description"
-                                                                                  rows="5"
-                                                                                  required>{{$offer->description}} </textarea>
-                                                                    </div>
-                                                                    @if($offer->cancel)
-                                                                        <div class="col-md-12">
-                                                                            <label for="">Причина отклонениня
-                                                                            </label>
-                                                                            <textarea disabled id="description"
-                                                                                      class="form-control"
-                                                                                      name="description"
-                                                                                      rows="1"
-                                                                                      required>{{$offer->cancel}} </textarea>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
                                                                 <div class="row mt-4">
                                                                     @if(!$offer->user_id)
                                                                         <div class="col-6">
@@ -225,7 +236,97 @@
                                 </div>
                             </div>
                         </div>
+                    <div class="row" style="border-top: 1px solid gray">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="media d-flex align-items-center">
+                                        <div class="avatar me-3">
+                                            <img src="{{ asset('assets/images/faces/1.jpg')}}" alt="" srcset="">
+                                            <span class="avatar-status bg-success"></span>
+                                        </div>
+                                        <div class="name flex-grow-1">
+                                            <h6 class="mb-0">{{ $offer->user?->name }} {{ $offer->user?->surname }}</h6>
+                                            <span class="text-xs">Online</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-4 bg-grey" >
+                                    <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
+                                        @foreach($messages as $mess)
+                                            @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
+                                                <div class="chat id">
+                                                    <div class="chat-body" style="margin-right: 10px">
+                                                        <div class="chat-message">
+                                                            <p>
+                                                                <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                                <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            @if($mess->file !== null)
+                                                                <div class="form-group">
+                                                                    <a href="{{ route('client.offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                        файл</a>
+                                                                </div>
+                                                            @endif
+                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="chat chat-left id">
+                                                    <div class="chat-body">
+                                                        <div class="chat-message">
+                                                            <p>
+                                                                <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                                <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                            @if($mess->file !== null)
+                                                                <div class="form-group">
+                                                                    <a href="{{ route('client.offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                        файл</a>
+                                                                </div>
+                                                            @endif
+                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <script>
+                                        let block = document.getElementById("block");
+                                        block.scrollTop = block.scrollHeight;
+                                    </script>
+                                </div>
 
+                                @if($offer->status_id != 3)
+                                    <div class="card-footer">
+                                        <div class="message-form d-flex flex-direction-column align-items-center">
+                                            <form class="w-100" id="formMessage"
+                                                  method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="d-flex flex-grow-1 ml-4">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" name="message" class="form-control" placeholder="Сообщение..." id="message" required>
+                                                        <div class="col-3">
+                                                            <input type="file" name="file" class="form-control" id="file">
+                                                        </div>
+                                                        <button  type="submit" class="btn btn-primary" id="messageBTN">
+                                                            Отправить
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
         </section>
@@ -331,6 +432,100 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    @routes
+
+    <script>
+        $(document).ready(function() {
+            $('#fileInput').change(function() {
+                const selectedFile = $(this).prop('files')[0];
+                if (selectedFile) {
+                    $('#message').val('Файл');
+                } else {
+                    $('#message').val('');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#file').change(function() {
+                const selectedFile = $(this).prop('files')[0];
+                if (selectedFile) {
+                    $('#message').val('Файл');
+                } else {
+                    $('#message').val('');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#formMessage').submit(function (e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+                let fileInput = $('#file')[0];
+                let selectedFile = fileInput.files[0];
+                formData.append('file', selectedFile);
+
+                $.ajax({
+                    url: "{{ route('offers.chat.message.store', $offer->id) }}",
+                    method: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                        $('#message').val(' ');
+                        $('#file').val('');
+
+                        let fileUrl = route('user.downloadChat', { task: response.messages.id });
+                        let newMessage = `
+                                <div class="chat">
+                                    <div class="chat-body" style="margin-right: 10px">
+                                        <div class="chat-message">
+                                            <p>
+                                                <span><b>${response.name}</b><br></span>
+                                                <span style="margin-top: 10px">${response.messages.message}</span>
+                                                ${response.messages.file !== null ? `
+                                                        <div class="form-group">
+                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                        </div>
+                                                    ` : ''}
+                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                    ${response.created_at}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                        `;
+
+                        $('#block').append(newMessage);
+
+
+
+
+                        let block = document.getElementById("block");
+                        block.scrollTop = block.scrollHeight;
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Ошибка при отправке сообщения');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
@@ -138,6 +139,7 @@ class OfferController extends BaseController
 
         $project = ProjectClient::where('user_id', $offer->client_id)->first();
 
+        $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
 
         $users = User::role(['user', 'admin'])->get();
@@ -148,7 +150,7 @@ class OfferController extends BaseController
         ])->get();
 
 
-        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories'));
+        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages'));
     }
 
 
