@@ -33,7 +33,7 @@
                     </div>
                     @if($task->user->position === 'Admin')
                         <div class="col-1">
-                            <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готова</a>
+                            <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готово</a>
                         </div>
                     @endif
                 </div>
