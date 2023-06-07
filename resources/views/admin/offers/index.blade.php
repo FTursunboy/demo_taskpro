@@ -29,12 +29,14 @@
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
+
                             <table class="table table-striped" id="example">
+
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Название</th>
-                                    <th>Описание</th>
+                                    <th>Oписание</th>
                                     <th>Исполнитель</th>
                                     <th>Проект</th>
                                     <th>Статус</th>
@@ -180,7 +182,7 @@
             </div>
 @endsection
 @section('script')
-    <script src="{{asset('assets/js/search.js')}}"></script>
+
     <script src="{{asset('assets/js/datatable.js')}}"></script>
 
     <script>
@@ -192,6 +194,8 @@
                 },
             });
         });
+
+
 
     </script>
 @endsection

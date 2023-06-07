@@ -2,10 +2,8 @@
 
 @section('title'){{ $user->surname . ' ' . $user->name.' '. $user->lastname }}@endsection
 
-
 @section('content')
-    <link rel="stylesheet" href="{{asset('assets/css/select/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/select/style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <div id="page-heading">
 
         <div class="page-title">
@@ -66,16 +64,18 @@
                                 </div>
 
                                 <div class="form-group mt-4">
-                                    <label for="select_users_command">Выберите участники команда <span
-                                                class="text-danger">*</span></label>
-                                    <select tabindex="5" id="select_users_command" name="users[]" class="select"
-                                            multiple required>
-                                        @foreach($users as $u)
-                                            @if($u->id !== \Illuminate\Support\Facades\Auth::user()->id)
-                                                <option value="{{ $u->id }}">{{ $u->surname . ' ' . $u->name . ' ' . $u->lastname}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <div>
+                                        <label for="users">Выберите участники команда <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="mt-4 w-100">
+                                        <select multiple id="users" class="" name="users[]" class="form-select">
+                                            @foreach($users as $u)
+                                                @if($u->id !== \Illuminate\Support\Facades\Auth::user()->id)
+                                                    <option value="{{ $u->id }}">{{ $u->surname . ' ' . $u->name . ' ' . $u->lastname}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
                             </div>
@@ -88,7 +88,8 @@
                 </div>
             </div>
         @else
-            <a role="button" class="btn btn-outline-danger mb-2 mx-2" data-bs-toggle="modal" data-bs-target="#deleteCommand">
+            <a role="button" class="btn btn-outline-danger mb-2 mx-2" data-bs-toggle="modal"
+               data-bs-target="#deleteCommand">
                 Удалить с группу тимлидом
             </a>
             <div class="modal fade" id="deleteCommand" data-bs-backdrop="static"
@@ -153,9 +154,7 @@
                                                             <label for="select_users_command">Выберите участники команда
                                                                 <span
                                                                         class="text-danger">*</span></label>
-                                                            <select tabindex="5" id="select_users_command"
-                                                                    name="users[]" class="select"
-                                                                    multiple required>
+                                                            <select multiple id="users" class="" name="users[]" class="form-select">
                                                                 @foreach ($users as $u)
                                                                     @php
                                                                         $isInCommand = false;
@@ -209,42 +208,42 @@
                             <tbody>
                             @foreach($userCommand->myCommand($user->id) as $use)
                                 @if($use->id !== $user->id)
-                                <tr class="text-center">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $use->surname . ' ' . $use->name . ' ' . $use->lastname }}</td>
-                                    <td>{{ $use->project }}</td>
-                                    <td>
-                                        <a role="button" data-bs-toggle="modal" data-bs-target="#deleteFromCommand"
-                                           class="badge bg-danger"><i class="bi bi-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <!-- Modal -->
-                                <div class="modal fade" id="deleteFromCommand" data-bs-backdrop="static"
-                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteFromCommand"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="deleteFromCommand">Modal title</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                    <tr class="text-center">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $use->surname . ' ' . $use->name . ' ' . $use->lastname }}</td>
+                                        <td>{{ $use->project }}</td>
+                                        <td>
+                                            <a role="button" data-bs-toggle="modal" data-bs-target="#deleteFromCommand"
+                                               class="badge bg-danger"><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="deleteFromCommand" data-bs-backdrop="static"
+                                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteFromCommand"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="deleteFromCommand">Modal title</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{ route('employee.delete-from-command', [$use->id, $use->pro_id,$user->id]) }}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        Точно хотите удалить из камандой?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Отмена
+                                                        </button>
+                                                        <button type="submit" class="btn btn-danger">Да</button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <form action="{{ route('employee.delete-from-command', [$use->id, $use->pro_id,$user->id]) }}"
-                                                  method="POST">
-                                                @csrf
-                                                <div class="modal-body">
-                                                    Точно хотите удалить из камандой?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Отмена
-                                                    </button>
-                                                    <button type="submit" class="btn btn-danger">Да</button>
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
-                                </div>
                                 @endif
                             @endforeach
                             </tbody>
@@ -252,8 +251,7 @@
                     @endif
 
 
-
-                        <div class="card mt-4">
+                    <div class="card mt-4">
                         <div class="card-header">
                             <a href="{{ route('tasks.index') }}" class="btn btn-outline-primary">
                                 Задачи
@@ -345,7 +343,6 @@
                             </table>
                         </div>
                     </div>
-
 
 
                 </div>
@@ -512,24 +509,10 @@
 
 @endsection
 @section('script')
-
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#select_users_command').on('change', function () {
-                if ($('#select option:selected').length > 0) {
-                    $('#select').removeAttr('multiple');
-                } else {
-                    $('#select').attr('multiple', 'multiple');
-                }
-            });
-        });
+        new MultiSelectTag('users', {
+            rounded: true,    // default true
+        })
     </script>
-    <script src="{{ asset('/assets/js/select/jquery.slimscroll.js') }}"></script>
-    <script src="{{ asset('/assets/js/select/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/select/select2.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/select/app.js') }}"></script>
-    <script src="{{ asset('/assets/js/select/moment.min.js') }}"></script>
-    <script src="{{ asset('/assets/js/select/bootstrap-datetimepicker.min.js') }}"></script>
-
-
 @endsection

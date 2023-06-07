@@ -109,19 +109,27 @@
                                                                            class="form-control"
                                                                            name="author_phone" id="name" required>
                                                                 </div>
-
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">От</label>
-                                                                    <input required value="{{$offer->from}}" type="date" class="form-control" name="from" id="fromInput">
+                                                                                                                                        <input required
+                                                                           id="from"
+                                                                           value="{{$offer->from}}" type="date"
+                                                                           class="form-control"
+                                                                           name="from">
 
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">До</label>
                                                                     <input required
+                                                                           id="to"
                                                                            value="{{$offer->to}}" type="date"
                                                                            class="form-control"
-                                                                           name="to" id="toInput">
+                                                                           name="to" id="to">
+                                                                          >
+                                                                    <span id="error-message" class="d-none text-center mt-3" style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
+
                                                                 </div>
+
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">Ответственный
                                                                         исполнитель</label>
@@ -182,7 +190,7 @@
                                                             @if(!$offer->user_id)
                                                                 <div class="col-6">
                                                                     <button name="action" value="accept"
-                                                                            class="btn btn-success form-control">
+                                                                            class="btn btn-success form-control" type="button" id="button">
                                                                         Отправить
                                                                     </button>
                                                                 </div>
@@ -427,7 +435,7 @@
 @section('script')
 
     <script>
-        const fromInput = document.getElementById('fromInput');
+        const fromInput = document.getElementById('from');
         let prevValue = fromInput.value;
 
         fromInput.addEventListener('input', function() {
@@ -443,7 +451,7 @@
         });
     </script>
     <script>
-        const toInput = document.getElementById('toInput');
+        const toInput = document.getElementById('to');
         let prevValue1 = toInput.value;
 
         toInput.addEventListener('input', function() {
@@ -548,6 +556,102 @@
             });
         });
     </script>
+
+    <script>
+        $('#from').change(function () {
+            const to = $('#to')
+            if ($(this).val() > to.val()) {
+
+                let selectedOption = $('#project_id option:selected');
+                let selectedClass = selectedOption.attr('class');
+
+                let selectedDate = new Date(selectedClass);
+                let toDate = new Date($(this).val());
+
+                if (toDate > selectedDate) {
+                    $('#error-message').show();
+                    $(this).addClass('border-danger')
+
+                    let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                    $(this).val(formattedDate)
+                }
+
+                to.addClass('border-danger')
+                $('#button').attr('type', 'button');
+            } else {
+                $(this).removeClass('border-danger')
+                to.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
+            }
+            updateErrorMessageVisibility();
+        })
+
+        $('#to').change(function () {
+            const from = $('#from')
+            if ($(this).val() < from.val()) {
+                $(this).addClass('border-danger')
+                from.addClass('border-danger')
+                $('#button').attr('type', 'button');
+            } else {
+                $(this).removeClass('border-danger')
+                from.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
+            }
+            updateErrorMessageVisibility();
+        })
+
+        function formatDate(date) {
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatDate1(dateStr) {
+            const [day, month, year] = dateStr.split('-');
+            const date = new Date(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`);
+            return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+        }
+
+        $('#to').on('input', function() {
+            let project_finish = formatDate1($('#project_finish').text());
+
+            let selectedOption = $('#project_id option:selected');
+            let selectedClass = selectedOption.attr('class');
+
+            let selectedDate = new Date(selectedClass);
+            let toDate = new Date($(this).val());
+
+            if (toDate > selectedDate) {
+                $('#error-message').show();
+                $(this).addClass('border-danger')
+
+                let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                $(this).val(formattedDate)
+            } else {
+                $(this).removeClass('border-danger')
+                $('#error-message').hide();
+                $('#button').attr('type', 'submit');
+            }
+            updateErrorMessageVisibility();
+            let formattedDate = formatDate(toDate);
+            console.log(formattedDate);
+        });
+
+        function updateErrorMessageVisibility() {
+            const errorMessage = $('#error-message');
+            const from = $('#from');
+            const to = $('#to');
+            if (from.hasClass('border-danger') || to.hasClass('border-danger')) {
+                errorMessage.removeClass('d-none');
+            } else {
+                errorMessage.addClass('d-none');
+            }
+        }
+    </script>
+
 @endsection
 
 
