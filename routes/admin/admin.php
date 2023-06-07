@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], function () {
     Route::get('notification/{offer}', [\App\Http\Controllers\Admin\IndexController::class, 'delete'])->name('notification');
+    Route::get('offers/file/download/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'downloadFile'])->name('offer.file.download');
 
     Route::group(['as' => 'admin.'], function () {
         Route::get('dashboard-admin', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');

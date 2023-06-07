@@ -181,6 +181,7 @@ class TaskController extends BaseController
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'Content-Disposition' => 'attachment; filename="' . $offer->file_name . '"',
         ];
+        
         return response()->download($path, $offer->file_name, $headers);
 
     }
