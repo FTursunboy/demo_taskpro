@@ -169,7 +169,7 @@
                                                         <div class="modal fade" id="cancel" data-bs-backdrop="static"
                                                              data-bs-keyboard="false" tabindex="-1"
                                                              aria-labelledby="cancel" aria-hidden="true">
-                                                            <div class="modal-dialog">
+                                                            <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <form action="{{ route('new-task.decline',$task->id) }}"
                                                                           method="POST">
@@ -194,9 +194,7 @@
                                                                                     data-bs-dismiss="modal">Отмена
                                                                             </button>
                                                                             <button type="submit" class="btn btn-primary">
-
                                                                                 Потвердить
-
                                                                             </button>
                                                                         </div>
                                                                     </form>
