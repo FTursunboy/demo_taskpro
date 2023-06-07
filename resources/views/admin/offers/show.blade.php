@@ -30,54 +30,35 @@
                                 Успешно отправлено!
                             </div>
                         @endif
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="row my-4">
-                                                    <div class="col-md-2">
-                                                        <a href="{{ route('client.offers.index') }}" class="btn btn-outline-danger">Назад</a>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <button data-bs-target="#send" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
-                                                    </div>
-
-                                                </div>
-                                                    @if($offer->status->id == 6)
-                                                        <a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal" class="btn btn-success">Принять и отправить клиенту</a>
-                                                    @endif
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    @if(\Session::has('err'))
-                                        <div class="alert alert-danger mt-4">
-                                            {{ \Session::get('err') }}
-                                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="{{ route('client.offers.index') }}"
+                                       class="btn btn-outline-danger">Назад</a>
+                                    <a role="button" data-bs-target="#send" data-bs-toggle="modal"
+                                       class="btn btn-outline-success text-left">История
+                                        задачи
+                                    </a>
+                                    @if($offer->status->id == 6)
+                                        <a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"
+                                           class="btn btn-success">Принять и отправить клиенту</a>
                                     @endif
+                                </div>
+                                @if(\Session::has('err'))
+                                    <div class="alert alert-danger mt-4">
+                                        {{ \Session::get('err') }}
+                                    </div>
+                                @endif
 
+                                @include('inc.messages')
 
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-9">
-                                                <div class="container">
-                                                    <div class="row justify-content-center w-100">
-                                                        <div class="col-lg-9">
-                                                            @include('inc.messages')
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <p>
-                                                            <button
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <p>
+                                                        <button
                                                                 class="btn btn-primary w-100 collapsed"
                                                                 type="button"
                                                                 data-bs-toggle="collapse"
@@ -85,13 +66,13 @@
                                                                 aria-controls="collapseExample"><span
                                                                     class="d-flex justify-content-start"><i
                                                                         class="bi bi-info-circle mx-2"></i> <span>{{ \Illuminate\Support\Str::limit($offer->name, 15) }}</span> </span>
-                                                            </button>
-                                                        </p>
-                                                        <form method="post"
-                                                              action="{{route('client.offers.send.user', $offer->id)}}"
-                                                              enctype="multipart/form-data"
-                                                              autocomplete="off">
-                                                            @csrf
+                                                        </button>
+                                                    </p>
+                                                    <form method="post"
+                                                          action="{{route('client.offers.send.user', $offer->id)}}"
+                                                          enctype="multipart/form-data"
+                                                          autocomplete="off">
+                                                        @csrf
                                                         <div class="collapse my-3 show" id="collapseExample">
                                                             <div class="row g-3">
                                                                 <div class="col-md-6">
@@ -151,17 +132,18 @@
                                                                         <option value="">Выберите исполнителя
                                                                         </option>
                                                                         @foreach($users as $user)
-                                                                            <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->surname .' ' . $user->name .' '.$user->lastname}}</option>
+                                                                            @if($user->login !== 'z1ntel2001')
+                                                                                <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->surname .' ' . $user->name .' '.$user->lastname}}</option>
+                                                                            @endif
                                                                         @endforeach
-
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">Время</label>
                                                                     <input
-                                                                        value="{{$offer->time}}" type="number"
-                                                                        class="form-control"
-                                                                        name="time" placeholder="Введите время">
+                                                                            value="{{$offer->time}}" type="number"
+                                                                            class="form-control"
+                                                                            name="time" placeholder="Введите время">
                                                                 </div>
 
                                                                 @if($offer->file !== null)
@@ -194,49 +176,49 @@
                                                             </div>
                                                         </div>
 
-                                                    </div>
-                                                    <div class="row   d-flex justify-content-center align-items-center">
-                                                        <div class="col-lg-9">
+                                                </div>
+                                                <div class="row   d-flex justify-content-center align-items-center">
+                                                    <div class="col-lg-9">
 
-                                                                <div class="row mt-4">
-                                                                    @if(!$offer->user_id)
-                                                                        <div class="col-6">
-                                                                            <button name="action" value="accept"
-                                                                                    class="btn btn-success form-control">
-                                                                                Отправить
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <button name="action" value="decline"
-                                                                                    class="btn btn-danger form-control">
-                                                                                Отклонить
-                                                                            </button>
-                                                                        </div>
-                                                                    @endif
-                                                                    <script>
-                                                                        const btn = document.getElementById('btnSend')
-                                                                        btn.addEventListener('click', function () {
-                                                                            const name = document.getElementById('name').value
-                                                                            const description = document.getElementById('description').value
-                                                                            if (name !== '' && description !== '') {
-                                                                                btn.type = 'submit';
-                                                                                btn.click();
-                                                                                btn.classList.add('disabled')
-                                                                            }
-                                                                        })
-                                                                    </script>
+                                                        <div class="row mt-4">
+                                                            @if(!$offer->user_id)
+                                                                <div class="col-6">
+                                                                    <button name="action" value="accept"
+                                                                            class="btn btn-success form-control">
+                                                                        Отправить
+                                                                    </button>
                                                                 </div>
-                                                            </form>
+                                                                <div class="col-6">
+                                                                    <button name="action" value="decline"
+                                                                            class="btn btn-danger form-control">
+                                                                        Отклонить
+                                                                    </button>
+                                                                </div>
+                                                            @endif
+                                                            <script>
+                                                                const btn = document.getElementById('btnSend')
+                                                                btn.addEventListener('click', function () {
+                                                                    const name = document.getElementById('name').value
+                                                                    const description = document.getElementById('description').value
+                                                                    if (name !== '' && description !== '') {
+                                                                        btn.type = 'submit';
+                                                                        btn.click();
+                                                                        btn.classList.add('disabled')
+                                                                    }
+                                                                })
+                                                            </script>
                                                         </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     <div class="row" style="border-top: 1px solid gray">
                         <div class="col-md-12">
                             <div class="card">
@@ -252,7 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body pt-4 bg-grey" >
+                                <div class="card-body pt-4 bg-grey">
                                     <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
                                         @foreach($messages as $mess)
                                             @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
@@ -264,11 +246,13 @@
                                                                 <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                             @if($mess->file !== null)
                                                                 <div class="form-group">
-                                                                    <a href="{{ route('client.offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    <a href="{{ route('client.offers.messages.download', $mess) }}"
+                                                                       download class="form-control text-bold">Просмотреть
                                                                         файл</a>
                                                                 </div>
                                                             @endif
-                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                            <span class="d-flex justify-content-end"
+                                                                  style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
                                                             </p>
@@ -284,11 +268,13 @@
                                                                 <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                             @if($mess->file !== null)
                                                                 <div class="form-group">
-                                                                    <a href="{{ route('client.offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    <a href="{{ route('client.offers.messages.download', $mess) }}"
+                                                                       download class="form-control text-bold">Просмотреть
                                                                         файл</a>
                                                                 </div>
                                                             @endif
-                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                            <span class="d-flex justify-content-end"
+                                                                  style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
                                                                 {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                             </span>
                                                             </p>
@@ -312,11 +298,13 @@
                                                 @csrf
                                                 <div class="d-flex flex-grow-1 ml-4">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" name="message" class="form-control" placeholder="Сообщение..." id="message" required>
+                                                        <input type="text" name="message" class="form-control"
+                                                               placeholder="Сообщение..." id="message" required>
                                                         <div class="col-3">
-                                                            <input type="file" name="file" class="form-control" id="file">
+                                                            <input type="file" name="file" class="form-control"
+                                                                   id="file">
                                                         </div>
-                                                        <button  type="submit" class="btn btn-primary" id="messageBTN">
+                                                        <button type="submit" class="btn btn-primary" id="messageBTN">
                                                             Отправить
                                                         </button>
                                                     </div>
@@ -328,8 +316,8 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+            </div>
         </section>
     </div>
     <div class="modal" tabindex="-1" id="send">
@@ -342,11 +330,13 @@
                 <div class="modal-body">
                     <div class="row p-3">
                         <div class="card-header p-0 pt-1">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="border-radius: 20px">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist"
+                                style="border-radius: 20px">
                                 <li class="nav-item">
                                     <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
                                        id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
-                                       role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История задачи</a>
+                                       role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История
+                                        задачи</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
@@ -427,8 +417,9 @@
                     <p>Вы действительно хотите отправить задачу клиенту</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-danger" >Отклонить, Отправить заново</a>
-                    <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
+                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-danger">Отклонить,
+                        Отправить заново</a>
+                    <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success">Отправить</a>
                 </div>
             </div>
         </div>
@@ -439,8 +430,8 @@
     @routes
 
     <script>
-        $(document).ready(function() {
-            $('#fileInput').change(function() {
+        $(document).ready(function () {
+            $('#fileInput').change(function () {
                 const selectedFile = $(this).prop('files')[0];
                 if (selectedFile) {
                     $('#message').val('Файл');
@@ -451,8 +442,8 @@
         });
     </script>
     <script>
-        $(document).ready(function() {
-            $('#file').change(function() {
+        $(document).ready(function () {
+            $('#file').change(function () {
                 const selectedFile = $(this).prop('files')[0];
                 if (selectedFile) {
                     $('#message').val('Файл');
@@ -489,7 +480,7 @@
                         $('#message').val(' ');
                         $('#file').val('');
 
-                        let fileUrl = route('user.downloadChat', { task: response.messages.id });
+                        let fileUrl = route('user.downloadChat', {task: response.messages.id});
                         let newMessage = `
                                 <div class="chat">
                                     <div class="chat-body" style="margin-right: 10px">
@@ -512,8 +503,6 @@
                         `;
 
                         $('#block').append(newMessage);
-
-
 
 
                         let block = document.getElementById("block");
