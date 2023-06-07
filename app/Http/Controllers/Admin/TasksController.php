@@ -28,11 +28,11 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use function GuzzleHttp\Promise\all;
 
-class   TasksController extends BaseController
+class  TasksController extends BaseController
 {
     public function index()
     {
-        $users = User::role('user')->get();
+        $users = User::role(['user', 'admin'])->get();
         $tasks = TaskModel::orderBy('created_at', 'desc')->where('status_id', '!=', 3)->get();
         $this->check();
         return view('admin.tasks.index', compact('tasks', 'users'));
@@ -125,8 +125,6 @@ class   TasksController extends BaseController
     }
 
 
-
-
     public function store(Request $request)
     {
 
@@ -194,7 +192,7 @@ class   TasksController extends BaseController
     {
         $types = TaskTypeModel::get();
         $projects = ProjectModel::get();
-        $users = User::role('user')->get();
+        $users = User::role(['user', 'admin'])->get();
         $type_kpi = TaskTypesTypeModel::get();
         return view('admin.tasks.edit', compact('types', 'projects', 'users', 'task', 'type_kpi'));
     }
@@ -234,6 +232,14 @@ class   TasksController extends BaseController
             'slug' => Str::slug($request->name . ' ' . Str::random(5)),
         ]);
 
+        if($request->user_id == Auth::id()) {
+            $task->update([
+               'status_id' => 2,
+            ]);
+
+        }
+
+
         if ($request->type_id != 2) {
             $task->update([
                 'percent' => null,
@@ -265,7 +271,6 @@ class   TasksController extends BaseController
     {
         UserTaskHistoryModel::where('task_id', $task->id)->first()->forceDelete();
 
-
         $task->update([
             'status_id' => 1,
             'user_id' => $request->user_id,
@@ -289,7 +294,7 @@ class   TasksController extends BaseController
             $u->forceDelete();
         }
 
-        if($request->employee == 0){
+        if ($request->employee == 0) {
             $task->update(
                 [
                     'status_id' => 3,
@@ -302,15 +307,23 @@ class   TasksController extends BaseController
                 $user->xp += 20;
                 $user->save();
             }
+
             return redirect()->back();
-
-        }else {
-
-            $task->update([
-                'status_id' => 1,
-                'user_id' => $request->employee,
-            ]);
+        } else {
+            $user = User::where('id', $request->employee)->first();
+            if ($user->position === 'Admin') {
+                $task->update([
+                    'status_id' => 2,
+                    'user_id' => $request->employee,
+                ]);
+            } else {
+                $task->update([
+                    'status_id' => 1,
+                    'user_id' => $request->employee,
+                ]);
+            }
         }
+
         HistoryController::task($task->id, $task->user_id, Statuses::RESEND);
 
         try {
@@ -321,6 +334,8 @@ class   TasksController extends BaseController
 
         return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
     }
+
+
 
     public function ready(TaskModel $task)
     {
