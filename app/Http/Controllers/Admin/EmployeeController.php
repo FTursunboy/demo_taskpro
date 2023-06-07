@@ -179,11 +179,26 @@ class EmployeeController extends BaseController
         $userCommand = new User\TeamLeadCommandModel();
         $commands = $userCommand->myCommand($employee->id);
         foreach ($commands as $user) {
-            $commandModel = User\TeamLeadCommandModel::where('user_id','=', $user->id)->first();
+            $commandModel = User\TeamLeadCommandModel::where('user_id', '=', $user->id)->first();
             $commandModel?->delete();
         }
         $employee->removeRole('team-lead');
         return redirect()->route('employee.show', $employee->slug)->with('delete', "Успешно удалено");
+    }
+
+
+    // role to CRM functions
+    public function roleToCRM(User $employee)
+    {
+        $employee->assignRole('crm');
+        return redirect()->route('employee.show', $employee->slug)->with('create', "Теперь у $employee->surname $employee->name $employee->lastname есть доступ к CRM");
+    }
+
+    public function removeRoleToCRM(User $employee)
+    {
+        $employee->removeRole('crm');
+        return redirect()->route('employee.show', $employee->slug)->with('delete', "Теперь у $employee->surname $employee->name $employee->lastname нет доступ к CRM");
+
     }
 
 }

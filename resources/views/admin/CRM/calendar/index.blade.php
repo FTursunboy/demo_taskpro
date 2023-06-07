@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends(auth()->user()->hasRole('crm') ? 'user.layouts.app' : 'admin.layouts.app')
 
 @section('title')
     События
@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
     <link rel="stylesheet" href="{{asset('assets/css/select/select2.min.css')}}" >
     <link rel="stylesheet" href="{{asset('assets/css/select/style.css')}}" >
-
 @endsection
 
 @section('content')

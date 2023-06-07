@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
         EmailModel::create([
             'email' => 'fingroup.task@gmail.com',
         ]);
+
+
         Role::create([
             'name' => 'admin'
         ]);
@@ -41,6 +43,9 @@ class DatabaseSeeder extends Seeder
         ]);
         Role::create([
             'name' => 'team-lead'
+        ]);
+        Role::create([
+            'name' => 'crm'
         ]);
 
         StatusesModel::create([

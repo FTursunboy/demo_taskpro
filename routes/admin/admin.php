@@ -103,6 +103,10 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/team-lead/{employee}/{project}/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteFromCommand'])->name('delete-from-command');
         Route::post('/team-lead/add-user-in-command/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'addUserInCommand'])->name('add-user-in-command');
         Route::post('/team-lead/delete-command/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteCommand'])->name('delete-command');
+
+        // role in CRM
+        Route::post('/employee/role-in-crm/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'roleToCRM'])->name('roleToCrm');
+        Route::post('/employee/куьщму-role-in-crm/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'removeRoleToCRM'])->name('removeRoleToCrm');
     });
     Route::group(['as' => 'tasks_client.'], function () {
         Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('index');

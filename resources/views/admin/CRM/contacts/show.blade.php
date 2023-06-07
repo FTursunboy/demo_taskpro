@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends(auth()->user()->hasRole('crm') ? 'user.layouts.app' : 'admin.layouts.app')
 
 @section('title')
     Просмотр контакта
