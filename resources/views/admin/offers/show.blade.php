@@ -111,7 +111,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">От</label>
-                                                                    <input required
+                                                                                                                                        <input required
                                                                            id="from"
                                                                            value="{{$offer->from}}" type="date"
                                                                            class="form-control"
@@ -124,7 +124,8 @@
                                                                            id="to"
                                                                            value="{{$offer->to}}" type="date"
                                                                            class="form-control"
-                                                                           name="to">
+                                                                           name="to" id="to">
+                                                                          >
                                                                     <span id="error-message" class="d-none text-center mt-3" style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
 
                                                                 </div>
@@ -432,6 +433,40 @@
 @endsection
 
 @section('script')
+
+    <script>
+        const fromInput = document.getElementById('from');
+        let prevValue = fromInput.value;
+
+        fromInput.addEventListener('input', function() {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue = this.value; // Сохраняем текущее значение
+            }
+        });
+    </script>
+    <script>
+        const toInput = document.getElementById('to');
+        let prevValue1 = toInput.value;
+
+        toInput.addEventListener('input', function() {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue1; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue1 = this.value; // Сохраняем текущее значение
+            }
+        });
+    </script>
+
     @routes
 
     <script>
