@@ -46,7 +46,6 @@
 
                                 @forelse($offers as $offer)
                                     <tr>
-
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{\Illuminate\Support\Str::limit($offer->name,60)}}</td>
                                         <td>{{\Illuminate\Support\Str::limit($offer->description, 20)}}</td>
@@ -174,7 +173,7 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <td  colspan="6"><h1 class="text-center">Пока нет задач</h1></td>
+                                    <td  colspan="7"><h1 class="text-center">Пока нет задач</h1></td>
                                 @endforelse
                                 </tbody>
                             </table>

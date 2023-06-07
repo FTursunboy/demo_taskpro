@@ -56,6 +56,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item {{ (request()->is('mytasks') or request()->is('mytasks/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('mytasks.index') }}" class='sidebar-link'>
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Мои задачи</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-item {{ (request()->is('projects') or request()->is('projects/*'))  ? 'active' : '' }}">
                     <a href="{{ route('project.index') }}" class='sidebar-link'>
                         <i class="bi bi-hexagon-fill"></i>
@@ -125,11 +132,11 @@
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Партнеры
                             @if($offers_count > 0)
-            <span class="offers-count">
-                <span style="font-size: 13px; color: red">{{$offers_count}}</span>
-            </span>
+                                <span class="offers-count">
+                                    <span style="font-size: 13px; color: red">{{$offers_count}}</span>
+                                </span>
                             @endif
-        </span>
+                        </span>
                         @if($offers_count > 0)
                         <div class="notification-dot"></div>
                         @endif
