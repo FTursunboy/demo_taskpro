@@ -209,7 +209,7 @@
                                                                 <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                             @if($mess->file !== null)
                                                                 <div class="form-group">
-                                                                    <a href="{{ route('user.download.file.chat', $mess->id) }}" download class="form-control text-bold">Просмотреть
+                                                                    <a href="{{ route('user.download', $task) }}" download class="form-control text-bold">Просмотреть
                                                                         файл</a>
                                                                 </div>
                                                             @endif
@@ -297,7 +297,7 @@
                         $('#message').val(' ');
                         $('#file').val('');
 
-                        let fileUrl = route('user.download.file.chat', { task: response.messages.id });
+                        let fileUrl = route('user.downloadChat', { task: response.messages.id });
                         let newMessage = `
                                 <div class="chat">
                                     <div class="chat-body" style="margin-right: 10px">
