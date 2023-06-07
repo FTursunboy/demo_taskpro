@@ -345,6 +345,7 @@ class  TasksController extends BaseController
             }
 
             if ($task->client_id == 0) {
+
                 $user = User::where('id', $task->user_id)->first();
                 $user->xp += 20;
                 $user->save();

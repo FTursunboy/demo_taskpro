@@ -29,7 +29,19 @@
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <!-- Add the search input here -->
+                                    <div class="input-group">
+                                        <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <table class="table table-striped" id="example">
+
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -180,8 +192,8 @@
             </div>
 @endsection
 @section('script')
-    <script src="{{asset('assets/js/search.js')}}"></script>
-    <script src="{{asset('assets/js/datatable.js')}}"></script>
+
+    <script src="{{asset('assets/js/datatable1.js')}}"></script>
 
     <script>
         $(document).ready(function () {
@@ -192,6 +204,8 @@
                 },
             });
         });
+
+
 
     </script>
 @endsection
