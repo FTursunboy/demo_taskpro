@@ -17,10 +17,11 @@ class ProfileController extends BaseController
     public function index()
     {
         $user = User::findOrFail(Auth::id());
-        $employees = User::role('user')->get();
+        $employees = User::role('user')->orderBy('xp', 'desc')->get();
         $task = User::where('id', Auth::id())->first()->countTasks(Auth::id());
         $tasks = User::findOrFail(Auth::id())->getUsersTasks(Auth::id());
         $departs = OtdelsModel::get();
+
         return view('user.profile.index', compact('user', 'departs', 'task', 'tasks', 'employees'));
     }
 
