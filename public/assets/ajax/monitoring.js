@@ -37,8 +37,8 @@ $(document).ready(function () {
                 if (res.status !== false) {
                     for (let i = 0; i < res.length; i++) {
                         let item = res[i];
-                        let show = route('lead.show', item.id);
-                        let edit = route('lead.edit', item.id)
+                        let show = route('mon.show', item.id);
+                        let edit = route('mon.edit', item.id)
 
                         table.append($('<tr>')
                             .append($('<td>').text(formatDate(item.created_at)))
