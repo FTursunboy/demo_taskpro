@@ -1,4 +1,4 @@
-<div id="sidebar" class="active">
+<div id="sidebar" class="{{ request()->is('my-all-tasks') ? '':'active'}}">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
@@ -66,6 +66,12 @@
 
 
 
+{{--                <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">--}}
+{{--                    <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>--}}
+{{--                        <i class="bi bi-bookmark"></i>--}}
+{{--                        <span>Все задачи</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-bookmark"></i>
