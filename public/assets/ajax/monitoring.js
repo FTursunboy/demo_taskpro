@@ -53,7 +53,7 @@ $(document).ready(function () {
                             .append($('<td>').text((item.user !== null) ? item.user.surname + ' ' + item.user.name  : '') )
                             .append($('<td>')
                                 .append($('<a>').attr('href', show).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
-                                .append($('<a>').attr('href', show).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
+                                .append($('<a>').attr('href', edit).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
                             ).addClass('text-center'))
                     }
 

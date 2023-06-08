@@ -33,7 +33,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="{{ route('client.offers.index') }}"
+                                    <a href="#" onclick="history.back()"
                                        class="btn btn-outline-danger">Назад</a>
                                     <a role="button" data-bs-target="#send" data-bs-toggle="modal"
                                        class="btn btn-outline-success text-left">История
@@ -59,151 +59,186 @@
                                                 <div class="row">
                                                     <p>
                                                         <button
-                                                                class="btn btn-primary w-100 collapsed"
-                                                                type="button"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-target="#collapseExample" aria-expanded="false"
-                                                                aria-controls="collapseExample"><span
-                                                                    class="d-flex justify-content-start"><i
-                                                                        class="bi bi-info-circle mx-2"></i> <span>{{ \Illuminate\Support\Str::limit($offer->name, 15) }}</span> </span>
+                                                            class="btn btn-primary w-100 collapsed"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#collapseExample" aria-expanded="false"
+                                                            aria-controls="collapseExample"><span
+                                                                class="d-flex justify-content-start"><i
+                                                                    class="bi bi-info-circle mx-2"></i> <span>{{ \Illuminate\Support\Str::limit($offer->name, 15) }}</span> </span>
                                                         </button>
                                                     </p>
-                                                    <form method="post"
-                                                          action="{{route('client.offers.send.user', $offer->id)}}"
-                                                          enctype="multipart/form-data"
-                                                          autocomplete="off">
-                                                        @csrf
-                                                        <div class="collapse my-3 show" id="collapseExample">
-                                                            <div class="row g-3">
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Название
-                                                                        задачи</label>
-                                                                    <input disabled type="text"
-                                                                           class="form-control"
-                                                                           name="name" id="name"
-                                                                           value="{{$offer->name}}" required>
-                                                                </div>
+                                                    @if(isset($search))
 
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Проект</label>
-                                                                    <input type="text" class="form-control"
-                                                                           value="{{$project->projects?->name}}"
-                                                                           disabled name="project">
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label"> Сотрудник
-                                                                        со
-                                                                        стороны компании</label>
-                                                                    <input value="{{$offer->author_name}}" disabled
-                                                                           type="text"
-                                                                           class="form-control"
-                                                                           name="author_name" id="name" required>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Телефон ответственного
-                                                                        сотрудника</label>
-                                                                    <input value="{{$offer->author_phone}}" disabled
-                                                                           type="text"
-                                                                           class="form-control"
-                                                                           name="author_phone" id="name" required>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">От</label>
-                                                                    <input required
-                                                                           id="from"
-                                                                           value="{{$offer->from}}" type="date"
-                                                                           class="form-control"
-                                                                           name="from">
-
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">До</label>
-                                                                    <input required
-                                                                           id="to"
-                                                                           value="{{$offer->to}}" type="date"
-                                                                           class="form-control"
-                                                                           name="to" id="to">
-
-                                                                    <span id="error-message" class="d-none text-center mt-3" style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
-
-                                                                </div>
+                                                        <form method="post"
+                                                              action="{{ route('client.offers.send.user.search', ['offer' => $offer->id, 'search' => $search]) }}"
+                                                              enctype="multipart/form-data" autocomplete="off">
+                                                            @else
+                                                                <form method="post"
+                                                                      action="{{ route('client.offers.send.user', ['offer' => $offer->id]) }}"
+                                                                      enctype="multipart/form-data" autocomplete="off">
+                                                                    @endif
 
 
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Ответственный
-                                                                        исполнитель</label>
-                                                                    <select required class="form-select"
-                                                                            name="user_id" id="">
-                                                                        <option value="">Выберите исполнителя
-                                                                        </option>
-                                                                        @foreach($users as $user)
-                                                                            @if($user->login !== 'z1ntel2001')
-                                                                                <option value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->surname .' ' . $user->name .' '.$user->lastname}}</option>
+                                                                    @csrf
+                                                                    <div class="collapse my-3 show"
+                                                                         id="collapseExample">
+                                                                        <div class="row g-3">
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Название
+                                                                                    задачи</label>
+                                                                                <input disabled type="text"
+                                                                                       class="form-control"
+                                                                                       name="name" id="name"
+                                                                                       value="{{$offer->name}}"
+                                                                                       required>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Проект</label>
+                                                                                <input type="text" class="form-control"
+                                                                                       value="{{$project->projects?->name}}"
+                                                                                       disabled name="project">
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label"> Сотрудник
+                                                                                    со
+                                                                                    стороны компании</label>
+                                                                                <input value="{{$offer->author_name}}"
+                                                                                       disabled
+                                                                                       type="text"
+                                                                                       class="form-control"
+                                                                                       name="author_name" id="name"
+                                                                                       required>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Телефон
+                                                                                    ответственного
+                                                                                    сотрудника</label>
+                                                                                <input value="{{$offer->author_phone}}"
+                                                                                       disabled
+                                                                                       type="text"
+                                                                                       class="form-control"
+                                                                                       name="author_phone" id="name"
+                                                                                       required>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">От</label>
+                                                                                <input required
+                                                                                       id="from"
+                                                                                       value="{{$offer->from}}"
+                                                                                       type="date"
+                                                                                       class="form-control"
+                                                                                       name="from">
+
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">До</label>
+                                                                                <input required
+                                                                                       id="to"
+                                                                                       value="{{$offer->to}}"
+                                                                                       type="date"
+                                                                                       class="form-control"
+                                                                                       name="to" id="to">
+
+                                                                                <span id="error-message"
+                                                                                      class="d-none text-center mt-3"
+                                                                                      style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
+
+                                                                            </div>
+
+
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Ответственный
+                                                                                    исполнитель</label>
+                                                                                <select required class="form-select"
+                                                                                        name="user_id" id="">
+                                                                                    <option value="">Выберите
+                                                                                        исполнителя
+                                                                                    </option>
+                                                                                    @foreach($users as $user)
+                                                                                        @if($user->login !== 'z1ntel2001')
+                                                                                            <option
+                                                                                                value="{{$user->id}}" {{$user->id === $offer->user_id ? 'selected' : ''}} >{{$user->surname .' ' . $user->name .' '.$user->lastname}}</option>
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Время</label>
+                                                                                <input
+                                                                                    value="{{$offer->time}}"
+                                                                                    type="number"
+                                                                                    class="form-control"
+                                                                                    name="time"
+                                                                                    placeholder="Введите время">
+                                                                            </div>
+
+                                                                            @if($offer->file !== null)
+                                                                                <div class="col-md-6">
+                                                                                    <a style="margin-left: 0px" download
+                                                                                       href="{{route('offer.file.download', $offer->id)}}">Просмотреть
+                                                                                        файл</a>
+                                                                                </div>
                                                                             @endif
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Время</label>
-                                                                    <input
-                                                                            value="{{$offer->time}}" type="number"
-                                                                            class="form-control"
-                                                                            name="time" placeholder="Введите время">
-                                                                </div>
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Тип</label>
+                                                                                <select name="type_id"
+                                                                                        class="form-control"
+                                                                                        id="type_id">
+                                                                                    @foreach($types as $type)
+                                                                                        <option
+                                                                                            value="{{$type->id}}">{{$type->name}}</option>
+                                                                                    @endforeach
+                                                                                </select>
 
-                                                                @if($offer->file !== null)
-                                                                    <div class="col-md-6">
-                                                                        <a style="margin-left: 0px" download
-                                                                           href="{{route('offer.file.download', $offer->id)}}">Просмотреть
-                                                                            файл</a>
+                                                                                <span id="error-message"
+                                                                                      class="d-none text-center mt-3"
+                                                                                      style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
+
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group"
+                                                                                     id="type_id_group">
+                                                                                    <label id="label"
+                                                                                           class="d-none mb-2"
+                                                                                           for="kpi_id">Вид KPI</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group" id="percent">
+                                                                                    <label id="label1"
+                                                                                           class="d-none mb-2"
+                                                                                           for="percent">Введите
+                                                                                        процент</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-12">
+                                                                                <label for="your-message"
+                                                                                       class="form-label">Описание
+                                                                                    задачи</label>
+                                                                                <textarea disabled id="description"
+                                                                                          class="form-control"
+                                                                                          name="description"
+                                                                                          rows="5"
+                                                                                          required>{{$offer->description}} </textarea>
+                                                                            </div>
+
+                                                                            @if($offer->cancel)
+                                                                                <div class="col-md-12">
+                                                                                    <label for="">Причина отклонениня
+                                                                                    </label>
+                                                                                    <textarea disabled id="description"
+                                                                                              class="form-control"
+                                                                                              name="description"
+                                                                                              rows="1"
+                                                                                              required>{{$offer->cancel}} </textarea>
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
                                                                     </div>
-                                                                @endif
-                                                                <div class="col-md-6">
-                                                                    <label class="form-label">Тип</label>
-                                                                    <select  name="type_id" class="form-control" id="type_id">
-                                                                        @foreach($types as $type)
-                                                                            <option value="{{$type->id}}">{{$type->name}}</option>
-                                                                        @endforeach
-                                                                    </select>
-
-                                                                    <span id="error-message" class="d-none text-center mt-3" style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
-
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                <div class="form-group" id="type_id_group">
-                                                                    <label id="label" class="d-none mb-2" for="kpi_id">Вид KPI</label>
-                                                                </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                <div class="form-group"  id="percent">
-                                                                    <label id="label1" class="d-none mb-2" for="percent">Введите процент</label>
-                                                                </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <label for="your-message" class="form-label">Описание
-                                                                        задачи</label>
-                                                                    <textarea disabled id="description"
-                                                                              class="form-control"
-                                                                              name="description"
-                                                                              rows="5"
-                                                                              required>{{$offer->description}} </textarea>
-                                                                </div>
-
-                                                                @if($offer->cancel)
-                                                                    <div class="col-md-12">
-                                                                        <label for="">Причина отклонениня
-                                                                        </label>
-                                                                        <textarea disabled id="description"
-                                                                                  class="form-control"
-                                                                                  name="description"
-                                                                                  rows="1"
-                                                                                  required>{{$offer->cancel}} </textarea>
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                        </div>
 
                                                 </div>
                                                 <div class="row   d-flex justify-content-center align-items-center">
@@ -213,7 +248,8 @@
                                                             @if(!$offer->user_id)
                                                                 <div class="col-6">
                                                                     <button name="action" value="accept"
-                                                                            class="btn btn-success form-control" type="button" id="button">
+                                                                            class="btn btn-success form-control"
+                                                                            type="button" id="button">
                                                                         Отправить
                                                                     </button>
                                                                 </div>
@@ -272,7 +308,8 @@
                                                         <div class="chat-message">
                                                             <p>
                                                                 <span><b>{{$mess->sender?->name}}</b><br></span>
-                                                                <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                                <span
+                                                                    style="margin-top: 10px">{{ $mess->message }}</span>
                                                             @if($mess->file !== null)
                                                                 <div class="form-group">
                                                                     <a href="{{ route('client.offers.messages.download', $mess) }}"
@@ -294,7 +331,8 @@
                                                         <div class="chat-message">
                                                             <p>
                                                                 <span><b>{{$mess->sender?->name}}</b><br></span>
-                                                                <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                                <span
+                                                                    style="margin-top: 10px">{{ $mess->message }}</span>
                                                             @if($mess->file !== null)
                                                                 <div class="form-group">
                                                                     <a href="{{ route('client.offers.messages.download', $mess) }}"
@@ -474,7 +512,6 @@
                 $('#percent').append(percent);
 
 
-
                 $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
@@ -484,8 +521,6 @@
                 });
 
 
-
-
             } else {
                 $('#type_id_group').empty();
 
@@ -493,6 +528,7 @@
 
             }
         })
+
         function checkMaxValue(input) {
             var maxValue = 150;
             if (input.value > maxValue) {
@@ -505,7 +541,7 @@
         const fromInput = document.getElementById('from');
         let prevValue = fromInput.value;
 
-        fromInput.addEventListener('input', function() {
+        fromInput.addEventListener('input', function () {
             const dateValue = new Date(this.value);
             const year = dateValue.getFullYear();
             const maxLength = 4;
@@ -521,7 +557,7 @@
         const toInput = document.getElementById('to');
         let prevValue1 = toInput.value;
 
-        toInput.addEventListener('input', function() {
+        toInput.addEventListener('input', function () {
             const dateValue = new Date(this.value);
             const year = dateValue.getFullYear();
             const maxLength = 4;
@@ -681,7 +717,7 @@
             return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
         }
 
-        $('#to').on('input', function() {
+        $('#to').on('input', function () {
             let project_finish = formatDate1($('#project_finish').text());
 
             let selectedOption = $('#project_id option:selected');
@@ -717,8 +753,6 @@
                 errorMessage.addClass('d-none');
             }
         }
-
-
 
 
     </script>

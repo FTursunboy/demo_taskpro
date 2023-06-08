@@ -143,14 +143,22 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::group(['as' => 'client.offers.'], function () {
         Route::get('clients/offers', [\App\Http\Controllers\Admin\OfferController::class, 'index'])->name('index');
         Route::get('clients/offers/show/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'show'])->name('show');
+        Route::get('clients/offers/show/{offer}/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'showSearch'])->name('show.search');
         Route::get('clients/offers/delete/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'delete'])->name('delete');
-        Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])->name('send.user');
+        Route::post('clients/offers/send/user/{offer}/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])
+            ->name('send.user.search');
+        Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])
+            ->name('send.user');
+
         Route::get('clients/offers/edit/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'edit'])->name('edit');
         Route::get('clients/offers/send/client/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendClient'])->name('send.client');
         Route::post('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
         Route::get('clients/offers/chat/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'index'])->name('chat');
         Route::post('clients/offers/chat/store/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'store'])->name('chat.store');
         Route::get('clients/offers/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
+        Route::post('clients/offers/search', [\App\Http\Controllers\Admin\OfferController::class, 'search'])->name('search');
+        Route::get('clients/offers/search/results', [\App\Http\Controllers\Admin\OfferController::class, 'searchResults'])->name('search.results');
+        Route::get('clients/offers/search/results/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'searchResultsWithparametr'])->name('search.results.parameter');
 
     });
 
