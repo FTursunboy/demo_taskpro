@@ -178,7 +178,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                 <div class="form-group"  id="percent">
-                                                                    <label id="label1" class="d-none" for="percent">Введите процент</label>
+                                                                    <label id="label1" class="d-none mb-2" for="percent">Введите процент</label>
                                                                 </div>
                                                                 </div>
                                                                 <div class="col-12">
@@ -470,7 +470,7 @@
                 $('#type_id_group').append(kpi_id);
 
                 $('#label1').removeClass('d-none');
-                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control">');
                 $('#percent').append(percent);
 
 
