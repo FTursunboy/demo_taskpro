@@ -202,7 +202,8 @@ class EmployeeController extends BaseController
     {
         $users = User::role('user')->get();
         $userCommand = new User\TeamLeadCommandModel();
-        return view('admin.employee.command.command_show', compact('user', 'users', 'userCommand', 'project'));
+        $commands = $userCommand->myCommand($user->id, $project->id);
+        return view('admin.employee.command.command_show', compact('user', 'users', 'commands', 'project'));
     }
 
     public function addUserInCommand(User $teamLead, ProjectModel $project, Request $request)
