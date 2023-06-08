@@ -29,7 +29,7 @@
                 <a href="{{ route('tasks_client.index') }}" class="btn btn-outline-danger">
                     Назад
                 </a>
-                <a role="button" class="btn btn-primary mx-2">
+                <a role="button" class="btn btn-primary mx-2" style="cursor: default">
                     Дата создания задача: {{ date('d.m.Y', strtotime($task->created_at)) }}
                 </a>
             </div>

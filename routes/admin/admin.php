@@ -12,6 +12,11 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('admin/ideas', [\App\Http\Controllers\Admin\IdeaController::class, 'index'])->name('ideas');
         Route::get('admin/ideas/show/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'show'])->name('idea.show');
         Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
+
+        Route::get('tasks/speed-tasks', [\App\Http\Controllers\Admin\IndexController::class, 'speed'])->name('speed');
+        Route::get('tasks/success', [\App\Http\Controllers\Admin\IndexController::class, 'success'])->name('success');
+        Route::get('tasks/inprogress', [\App\Http\Controllers\Admin\IndexController::class, 'progress'])->name('progress');
+
     });
 
 
@@ -72,6 +77,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
+
     });
 
     Route::group(['as' => 'mytasks.'], function () {
@@ -143,14 +149,22 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::group(['as' => 'client.offers.'], function () {
         Route::get('clients/offers', [\App\Http\Controllers\Admin\OfferController::class, 'index'])->name('index');
         Route::get('clients/offers/show/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'show'])->name('show');
+        Route::get('clients/offers/show/{offer}/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'showSearch'])->name('show.search');
         Route::get('clients/offers/delete/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'delete'])->name('delete');
-        Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])->name('send.user');
+        Route::post('clients/offers/send/user/{offer}/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])
+            ->name('send.user.search');
+        Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])
+            ->name('send.user');
+
         Route::get('clients/offers/edit/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'edit'])->name('edit');
         Route::get('clients/offers/send/client/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendClient'])->name('send.client');
         Route::post('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
         Route::get('clients/offers/chat/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'index'])->name('chat');
         Route::post('clients/offers/chat/store/{offer}', [\App\Http\Controllers\Admin\ChatController::class, 'store'])->name('chat.store');
         Route::get('clients/offers/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
+        Route::post('clients/offers/search', [\App\Http\Controllers\Admin\OfferController::class, 'search'])->name('search');
+        Route::get('clients/offers/search/results', [\App\Http\Controllers\Admin\OfferController::class, 'searchResults'])->name('search.results');
+        Route::get('clients/offers/search/results/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'searchResultsWithparametr'])->name('search.results.parameter');
 
     });
 

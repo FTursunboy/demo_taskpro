@@ -5,6 +5,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TaskModel;
 use App\Models\ClientNotification;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IndexController extends BaseController
@@ -23,14 +24,42 @@ class IndexController extends BaseController
     public function countTasks()
     {
         $success = TaskModel::where('status_id', 3)->count();
-        $UnSuccess = TaskModel::where('status_id', 5)->count();
+        $inProgress = TaskModel::where('status_id', 6)
+            ->orWhere('status_id', 10)
+            ->orWhere('status_id', 14)->count();
         $speed = TaskModel::where('status_id', 7)->count();
         $all = TaskModel::count();
         return [
             'success' => $success,
-            'unSuccess' => $UnSuccess,
+            'inProgress' => $inProgress,
             'speed' => $speed,
             'all' => $all
         ];
     }
+
+    public function speed()
+    {
+        $speeds = TaskModel::where('status_id', 7)->get();
+        $users = User::role(['user', 'admin'])->get();
+
+        return view('admin.tasks.speed', compact('speeds', 'users'));
+    }
+
+    public function success()
+    {
+        $success = TaskModel::where('status_id', 3)->get();
+
+        return view('admin.tasks.success', compact('success'));
+    }
+
+    public function progress()
+    {
+        $inProgress = TaskModel::where('status_id', 6)
+            ->orWhere('status_id', 10)
+            ->orWhere('status_id', 14)->get();
+        $users = User::role(['user', 'admin'])->get();
+
+        return view('admin.tasks.inProgress', compact('inProgress', 'users'));
+    }
+
 }

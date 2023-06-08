@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'На проверку'
         ]);
         StatusesModel::create([
-            'name' => 'Прассрочное'
+            'name' => 'Проссроченное'
         ]);
         StatusesModel::create([
             'name' => 'Ожидается (Админ)'
