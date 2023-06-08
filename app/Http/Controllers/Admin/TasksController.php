@@ -42,7 +42,7 @@ class  TasksController extends BaseController
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
-                if ($task->status_id !== 3 && $task->status_id !== 6) {
+                if ($task->status_id !== 3 && $task->status_id !== 6 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13) {
                     $task->status_id = 7;
                     $task->save();
                 }
@@ -331,7 +331,7 @@ class  TasksController extends BaseController
         if ($request->employee == 0) {
             $task->update(
                 [
-                    'status_id' => 10,
+                    'status_id' => 3,
                     'finish' => Carbon::now(),
                 ]
             );
@@ -341,6 +341,8 @@ class  TasksController extends BaseController
             if($offer !== null) {
                 $offer->status_id = 10;
                 $offer->save();
+                $task->status_id = 10;
+                $task->save();
             }
 
             if ($task->client_id == 0) {
