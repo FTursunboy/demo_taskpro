@@ -58,7 +58,7 @@
                                             $isInCommand = false;
                                         @endphp
 
-                                        @foreach ($userCommand->myCommand($user->id) as $use)
+                                        @foreach ($commands as $use)
                                             @if ($u->id === $use->id)
                                                 @php
                                                     $isInCommand = true;
@@ -104,7 +104,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($userCommand->myCommand($user->id) as $use)
+                            @foreach($commands as $use)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $use->surname . ' ' . $use->name . ' ' . $use->lastname }}{{ ($use->id === $user->id) ? ' - (Тимлид)' : '' }}</td>
