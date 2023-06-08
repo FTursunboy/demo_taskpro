@@ -63,6 +63,7 @@
 @endsection
 
 @section('script')
+    @routes
     <script src="{{ asset('assets/ajax/monitoring.js') }}"></script>
 
     <script src="{{asset('assets/js/search.js')}}"></script>

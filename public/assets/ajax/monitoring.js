@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     // let unstatus = $('#unstatus_id');
     let status = $('#status_id');
@@ -31,10 +32,14 @@ $(document).ready(function () {
     function ajaxResult(url, status_id, user_id, client_id, project_id) {
         table.empty();
         $.get(`tasks/public/${url}/${status_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
+
             .then((res) => {
                 if (res.status !== false) {
                     for (let i = 0; i < res.length; i++) {
                         let item = res[i];
+                        let show = route('lead.show', item.id);
+                        let edit = route('lead.edit', item.id)
+
                         table.append($('<tr>')
                             .append($('<td>').text(formatDate(item.created_at)))
                             .append($('<td>').text(item.name))
@@ -47,8 +52,8 @@ $(document).ready(function () {
                             .append($('<td>').text(item.status.name))
                             .append($('<td>').text((item.user !== null) ? item.user.surname + ' ' + item.user.name  : '') )
                             .append($('<td>')
-                                .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
-                                .append($('<a>').attr('href', `/tasks_client/edit-js/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
+                                .append($('<a>').attr('href', show).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
+                                .append($('<a>').attr('href', show).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
                             ).addClass('text-center'))
                     }
 
