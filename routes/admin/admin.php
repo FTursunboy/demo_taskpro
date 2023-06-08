@@ -125,7 +125,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
 
 
-    Route::get('/tasks/clients/offers/show/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+    Route::get('/tasks/public/clients/offers/show/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
 
     Route::get('/tasks/edit/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
