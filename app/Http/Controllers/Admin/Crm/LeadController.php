@@ -23,12 +23,11 @@ class LeadController extends BaseController
 {
     public function index() {
 
-
         $statuses = LeadStatus::get();
         $states = LeadState::get();
         $sources = LeadSource::get();
 
-        $leads = Lead::orderBy('updated_at', 'desc')->get();
+        $leads = Lead::orderBy('created_at', 'desc')->get();
 
 
         return view('admin.CRM.leads.index', compact('leads', 'statuses', 'states', 'sources'));

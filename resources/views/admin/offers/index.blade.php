@@ -44,6 +44,11 @@
                                     {{$mess}}
                                 </div>
                             @endif
+                                @if(session('mess'))
+                                    <div class="alert alert-success">
+                                        Успешно отправлено
+                                    </div>
+                                @endif
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
