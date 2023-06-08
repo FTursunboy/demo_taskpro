@@ -100,13 +100,15 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
         // teamLead
         Route::post('/team-lead/{employee}',[\App\Http\Controllers\Admin\EmployeeController::class, 'makeTeamLead'])->name('teamLead');
-        Route::post('/team-lead/{employee}/{project}/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteFromCommand'])->name('delete-from-command');
-        Route::post('/team-lead/add-user-in-command/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'addUserInCommand'])->name('add-user-in-command');
-        Route::post('/team-lead/delete-command/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteCommand'])->name('delete-command');
+        Route::post('/team-lead/{project}/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteFromCommand'])->name('delete-from-command');
+        Route::get('/team-lead/delete-command/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteAllCommand'])->name('deleteCommand');
+        Route::get('/team-lead/command-show/{user}/{project}',[\App\Http\Controllers\Admin\EmployeeController::class, 'showCommand'])->name('command-show');
+        Route::post('/team-lead/add-user-in-command/{teamLead}/{project}/', [\App\Http\Controllers\Admin\EmployeeController::class, 'addUserInCommand'])->name('addUserInCommand');
+        Route::post('/team-lead/delete-user-in-command/{teamLead}/{project}/{user}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteUserInGroup'])->name('deleteUserInGroup');
 
         // role in CRM
         Route::post('/employee/role-in-crm/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'roleToCRM'])->name('roleToCrm');
-        Route::post('/employee/куьщму-role-in-crm/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'removeRoleToCRM'])->name('removeRoleToCrm');
+        Route::post('/employee/remove-role-in-crm/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'removeRoleToCRM'])->name('removeRoleToCrm');
     });
     Route::group(['as' => 'tasks_client.'], function () {
         Route::get('/tasks_client', [\App\Http\Controllers\Admin\TasksClientController::class, 'index'])->name('index');
