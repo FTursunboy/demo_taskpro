@@ -188,11 +188,11 @@ class EmployeeController extends BaseController
 
     public function deleteAllCommand(User $employee)
     {
-        $userCommand = new User\TeamLeadCommandModel();
-        $commands = $userCommand->myCommand($employee->id);
-        foreach ($commands as $user) {
-            $commandModel = User\TeamLeadCommandModel::where('user_id', '=', $user->id)->first();
-            $commandModel?->delete();
+        $command = User\TeamLeadCommandModel::where([
+            ['teamLead_id', $employee->id]
+        ])->get();
+        foreach ($command as $user) {
+            $user?->delete();
         }
         $employee->removeRole('team-lead');
         return redirect()->route('employee.show', $employee->slug)->with('delete', "Успешно удалено");

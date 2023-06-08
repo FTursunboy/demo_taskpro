@@ -40,7 +40,7 @@
                                                href="#v-pills-home{{ $task->id }}" role="tab"
                                                aria-controls="v-pills-home{{ $task->id }}"
                                                aria-selected="true">
-                                                <i class="bi bi-circle-fill text-warning mx-2"></i>
+                                                <i class="bi bi-circle-fill {{ ($task->status_id === 1) ? 'text-warning' : 'text-info' }} mx-2"></i>
                                                 {{ $task->name }}</a>
                                         @endforeach
                                     </div>
@@ -118,7 +118,7 @@
                                                             <label for="sts">Статус</label>
                                                             <div class="form-group">
                                                                 <input type="text"
-                                                                       class="form-control  bg-warning text-black"
+                                                                       class="form-control  {{ ($task->status_id === 1) ? 'bg-warning' : 'bg-info'}} text-black"
                                                                        id="sts" value="{{ $task->status->name }}"
                                                                        disabled>
                                                             </div>

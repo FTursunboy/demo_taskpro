@@ -1,5 +1,5 @@
 
-<div id="sidebar" class="{{ request()->is('my-command') ? '':'active'}}">
+<div id="sidebar" class="{{ (request()->is('my-command') or request()->is('my-all-tasks') or request()->is('my-all-tasks/*')) ? '':'active'}}">
 
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">

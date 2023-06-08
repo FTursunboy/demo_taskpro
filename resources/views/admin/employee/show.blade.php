@@ -281,7 +281,7 @@
         <section class="section">
             <div class="row pt-4">
                 <div class="col-9">
-                    @if(!empty($user->getRoleNames()[1]))
+                    @if($user->getRoleNames()->contains('team-lead'))
                         <h4>Группы</h4>
 
                         <table class="table table-hover bg-white rounded-4 mt-3">
