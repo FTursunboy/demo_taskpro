@@ -10555,7 +10555,7 @@
                  * * `\_PAGES\_` - Total number of pages of data in the table
                  *
                  *  @type string
-                 *  @default Showing _START_ to _END_ of _TOTAL_ entries
+                 *  @default Показ от _START_ до _END_ от _TOTAL_ данных
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.info
@@ -10569,14 +10569,14 @@
                  *      } );
                  *    } );
                  */
-                "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "sInfo": "Показ от _START_ до _END_ от _TOTAL_ данных",
 
 
                 /**
                  * Display information string for when the table is empty. Typically the
                  * format of this string should match `info`.
                  *  @type string
-                 *  @default Showing 0 to 0 of 0 entries
+                 *  @default Показ от 0 дo 0 of 0 данных
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.infoEmpty
@@ -10590,7 +10590,7 @@
                  *      } );
                  *    } );
                  */
-                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                "sInfoEmpty": "Показ от 0 дo 0 of 0 данных",
 
 
                 /**
@@ -10598,7 +10598,7 @@
                  * to the information (`info`) to give an idea of how strong the filtering
                  * is. The variable _MAX_ is dynamically updated.
                  *  @type string
-                 *  @default (filtered from _MAX_ total entries)
+                 *  @default (Фильтровано из _MAX_ данных)
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.infoFiltered
@@ -10612,7 +10612,7 @@
                  *      } );
                  *    } );
                  */
-                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                "sInfoFiltered": "(фильтровано из  _MAX_ данных)",
 
 
                 /**
