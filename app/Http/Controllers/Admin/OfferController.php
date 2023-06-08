@@ -8,6 +8,7 @@ use App\Http\Controllers\HistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
 use App\Models\History;
@@ -97,6 +98,9 @@ class OfferController extends BaseController
                 'comment' => $offer->description,
                 'project_id' => $project_id,
                 'status_id' => 9,
+                'type_id' => $request->type_id,
+                'percent' => $request->percent,
+                'kpi_id' => $request->kpi_id ?: null,
                 'slug' => $offer->slug,
             ]);
 
@@ -145,13 +149,16 @@ class OfferController extends BaseController
 
         $users = User::role(['user', 'admin'])->get();
 
+        $types = TaskTypeModel::get();
+
+
         $histories = History::where([
             ['type', '=', 'offer'],
             ['task_id', '=', $offer->id]
         ])->get();
 
 
-        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages'));
+        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types'));
     }
 
 

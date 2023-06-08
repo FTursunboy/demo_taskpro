@@ -130,6 +130,7 @@
 
                                                                 </div>
 
+
                                                                 <div class="col-md-6">
                                                                     <label class="form-label">Ответственный
                                                                         исполнитель</label>
@@ -159,6 +160,27 @@
                                                                             файл</a>
                                                                     </div>
                                                                 @endif
+                                                                <div class="col-md-6">
+                                                                    <label class="form-label">Тип</label>
+                                                                    <select  name="type_id" class="form-control" id="type_id">
+                                                                        @foreach($types as $type)
+                                                                            <option value="{{$type->id}}">{{$type->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+
+                                                                    <span id="error-message" class="d-none text-center mt-3" style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                <div class="form-group" id="type_id_group">
+                                                                    <label id="label" class="d-none mb-2" for="kpi_id">Вид KPI</label>
+                                                                </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                <div class="form-group"  id="percent">
+                                                                    <label id="label1" class="d-none" for="percent">Введите процент</label>
+                                                                </div>
+                                                                </div>
                                                                 <div class="col-12">
                                                                     <label for="your-message" class="form-label">Описание
                                                                         задачи</label>
@@ -168,6 +190,7 @@
                                                                               rows="5"
                                                                               required>{{$offer->description}} </textarea>
                                                                 </div>
+
                                                                 @if($offer->cancel)
                                                                     <div class="col-md-12">
                                                                         <label for="">Причина отклонениня
@@ -435,6 +458,50 @@
 @section('script')
 
     <script>
+
+        $('#type_id').change(function () {
+            let kpi = $(this).children('option:selected')
+            if (kpi.text().toLowerCase() === 'kpi') {
+                console.log(1);
+                let kpiType = $('#kpi_id').empty();
+
+                $('#label').removeClass('d-none');
+                let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select"><option value="">Выберите месяц</option></select>');
+                $('#type_id_group').append(kpi_id);
+
+                $('#label1').removeClass('d-none');
+                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+                $('#percent').append(percent);
+
+
+
+                $.get('/kpi/' + kpi.val() + '/').then((res) => {
+                    for (let i = 0; i < res.length; i++) {
+                        const item = res[i];
+                        console.log(item.name);
+                        kpi_id.append($('<option>').val(item.id).text(item.name));
+                    }
+                });
+
+
+
+
+            } else {
+                $('#type_id_group').empty();
+
+                $('#percent').empty();
+
+            }
+        })
+        function checkMaxValue(input) {
+            var maxValue = 150;
+            if (input.value > maxValue) {
+                input.value = maxValue;
+
+            }
+        }
+
+
         const fromInput = document.getElementById('from');
         let prevValue = fromInput.value;
 
@@ -650,6 +717,10 @@
                 errorMessage.addClass('d-none');
             }
         }
+
+
+
+
     </script>
 
 @endsection
