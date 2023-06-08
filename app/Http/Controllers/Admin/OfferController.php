@@ -44,7 +44,7 @@ class OfferController extends BaseController
         return view('admin.offers.index', compact('offers', 'users', 'statuses', 'projects'));
     }
 
-    public function sendUser(Request $request, Offer $offer, $search)
+    public function sendUserSearch(Request $request, Offer $offer, $search)
     {
         if ($_POST['action'] === 'decline') {
             $offer->status_id = 11;
@@ -128,6 +128,92 @@ class OfferController extends BaseController
 
     }
 
+
+
+
+    public function sendUser(Request $request, Offer $offer)
+    {
+        if ($_POST['action'] === 'decline') {
+            $offer->status_id = 11;
+            $offer->save();
+
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::DECLINED);
+
+            return redirect()->route('client.offers.index')->with('update', 'Успешно отклонено!');
+        }
+        if ($_POST['action'] == 'refresh') {
+            $offer->update([
+                'user_id' => $request->user_id,
+                'status_id' => 11
+            ]);
+            return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
+        }
+        if ($_POST['action'] == 'accept') {
+            $data = $request->validate([
+                'user_id' => 'required',
+                'from' => 'required',
+                'to' => 'required',
+                'time' => '',
+            ]);
+
+            $offer->update([
+                'from' => $data['from'],
+                'to' => $data['from'],
+                'time' => $data['time'],
+                'user_id' => $data['user_id'],
+                'status_id' => 9
+            ]);
+
+            if ($offer->user_id == Auth::id()) {
+                $offer->user_id = Auth::id();
+                $offer->status_id = 2;
+                $offer->save();
+            }
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
+
+            $project_id = ProjectClient::where('user_id', $offer->client_id)->first()->project_id;
+
+
+            $task = TaskModel::create([
+                'name' => $offer->name,
+                'user_id' => $data['user_id'],
+                'from' => $data['from'],
+                'to' => $data['to'],
+                'time' => $data['time'],
+                'offer_id' => $offer->id,
+                'file' => $offer->file,
+                'file_name' => $offer->file_name,
+                'author_id' => $offer->client_id,
+                'client_id' => $offer->client_id,
+                'comment' => $offer->description,
+                'project_id' => $project_id,
+                'status_id' => 9,
+                'type_id' => $request->type_id,
+                'percent' => $request->percent,
+                'kpi_id' => $request->kpi_id ?: null,
+                'slug' => $offer->slug,
+            ]);
+
+            if ($task->user_id == Auth::id()) {
+                $task->user_id = Auth::id();
+                $task->status_id = 2;
+                $task->save();
+            }
+
+            HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+
+            try {
+                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
+            } catch (\Exception $exception) {
+            }
+        }
+        if (isset($search)) {
+            return redirect()->route('client.offers.search.results.parameter', $search);
+        }
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
+
+    }
     public  function sendClient(Offer $offer)
     {
         $offer->is_finished = true;
@@ -256,7 +342,9 @@ class OfferController extends BaseController
             ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
             ->where(function ($query) use ($searchTerm) {
                 $query->where('of.name', 'like', '%'.$searchTerm.'%')
-                    ->orWhere('p.name', 'like', '%'.$searchTerm.'%');
+                    ->orWhere('p.name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('u.name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('of.description', 'like', '%'.$searchTerm.'%');
             })
             ->whereNull('of.deleted_at')
             ->orderBy('of.created_at', 'desc')
@@ -274,7 +362,6 @@ class OfferController extends BaseController
         $searchTerm = $search;
 
 
-        // Выполнение поиска в таблице
         $offers = DB::table('offers as of')
             ->leftJoin('users as u', 'u.id', 'of.user_id')
             ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
@@ -283,11 +370,13 @@ class OfferController extends BaseController
             ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
             ->where(function ($query) use ($searchTerm) {
                 $query->where('of.name', 'like', '%'.$searchTerm.'%')
-                    ->orWhere('p.name', 'like', '%'.$searchTerm.'%');
+                    ->orWhere('p.name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('u.name', 'like', '%'.$searchTerm.'%');
             })
             ->whereNull('of.deleted_at')
             ->orderBy('of.created_at', 'desc')
             ->get();
+
 
 
 

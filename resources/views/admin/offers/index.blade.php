@@ -44,6 +44,11 @@
                                     {{$mess}}
                                 </div>
                             @endif
+                                @if(session('mess'))
+                                    <div class="alert alert-success">
+                                        Успешно отправлено
+                                    </div>
+                                @endif
                             @include('inc.messages')
                         </div>
                         <div class="card-body">
@@ -264,16 +269,16 @@
                     // Add default option of "Все" (All)
                     $('<option value="" selected>Все</option>').appendTo(select);
 
-                    // Get unique options for the column
+
                     var options = table.column(i).data().unique().sort().toArray();
 
-                    // Remove HTML tags from options
+
                     options = options.map(function (option) {
                         var tempElement = $('<div>').html(option);
                         return tempElement.text();
                     });
 
-                    // Remove duplicate options
+
                     var uniqueOptions = [];
                     options.forEach(function (option) {
                         if (!uniqueOptions.includes(option)) {
