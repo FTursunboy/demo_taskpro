@@ -284,21 +284,7 @@
             });
 
 
-            calendar.render();
-            $('.create-event-icon').click(function() {
-                var day = $(this).closest('.day');
-                var date = day.find('.day-number').text(); // Получение даты выбранного дня
-                // Логика создания события для выбранной даты
-                console.log('Создание события для дня ' + date);
-            });
-
-            $('.go-to-day-icon').click(function() {
-                var day = $(this).closest('.day');
-                var date = day.find('.day-number').text(); // Получение даты выбранного дня
-                // Логика перехода на выбранный день
-                console.log('Переход на день ' + date);
-            });
-
+           
         });
 
 
