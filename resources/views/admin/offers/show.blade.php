@@ -475,7 +475,7 @@
 
 
 
-                $.get('/tasks/public/kpi/' + kpi.val() + '/').then((res) => {
+                $.get(`/tasks/clients/offers/show/kpi/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
                         console.log(item.name);
