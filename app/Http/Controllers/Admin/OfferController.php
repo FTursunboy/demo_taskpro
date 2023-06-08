@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class OfferController extends BaseController
 {
@@ -37,10 +38,13 @@ class OfferController extends BaseController
             ->orderBy('of.created_at', 'desc')
             ->get();
 
-        return view('admin.offers.index', compact('offers'));
+        $users = User::role('user')->get();
+        $statuses = Statuses::get();
+        $projects = ProjectModel::where('type_id', 2)->get();
+        return view('admin.offers.index', compact('offers', 'users', 'statuses', 'projects'));
     }
 
-    public function sendUser(Request $request, Offer $offer)
+    public function sendUser(Request $request, Offer $offer, $search)
     {
         if ($_POST['action'] === 'decline') {
             $offer->status_id = 11;
@@ -117,6 +121,9 @@ class OfferController extends BaseController
             } catch (\Exception $exception) {
             }
         }
+        if (isset($search)) {
+            return redirect()->route('client.offers.search.results.parameter', $search);
+        }
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
 
     }
@@ -159,6 +166,25 @@ class OfferController extends BaseController
 
 
         return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types'));
+    }
+
+    public function showSearch(Offer $offer, $search) {
+        $project = ProjectClient::where('user_id', $offer->client_id)->first();
+
+        $messages = MessagesModel::where('task_slug', $offer->slug)->get();
+
+
+        $users = User::role(['user', 'admin'])->get();
+
+        $types = TaskTypeModel::get();
+
+
+        $histories = History::where([
+            ['type', '=', 'offer'],
+            ['task_id', '=', $offer->id]
+        ])->get();
+        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types', 'search'));
+
     }
 
 
@@ -208,5 +234,80 @@ class OfferController extends BaseController
 
         return redirect()->back()->with('mess', 'Успешно отправлено обратно ');
     }
+
+    public function search(Request $request) {
+
+        return redirect()->route('client.offers.search.results')->withInput();
+
+    }
+
+    public function searchResults(Request $request)
+    {
+        // Получение данных поиска
+        $searchTerm = $request->old('search');
+
+
+        // Выполнение поиска в таблице
+        $offers = DB::table('offers as of')
+            ->leftJoin('users as u', 'u.id', 'of.user_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
+            ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('of.name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('p.name', 'like', '%'.$searchTerm.'%');
+            })
+            ->whereNull('of.deleted_at')
+            ->orderBy('of.created_at', 'desc')
+            ->get();
+
+
+
+
+        return view('admin.offers.index', ['offers' => $offers, 'search' => $searchTerm]);
+    }
+
+    public function searchResultsWithparametr($search)
+    {
+
+        $searchTerm = $search;
+
+
+        // Выполнение поиска в таблице
+        $offers = DB::table('offers as of')
+            ->leftJoin('users as u', 'u.id', 'of.user_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
+            ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('of.name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('p.name', 'like', '%'.$searchTerm.'%');
+            })
+            ->whereNull('of.deleted_at')
+            ->orderBy('of.created_at', 'desc')
+            ->get();
+
+
+
+
+        return view('admin.offers.index', ['offers' => $offers, 'search' => $searchTerm, 'mess' => 'Успешно отправлено']);
+    }
+
+
+    public function filter($user, $status, $project) {
+        $offers = DB::table('offers as of')
+            ->leftJoin('users as u', 'u.id', 'of.user_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
+            ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
+            ->whereNull('of.deleted_at')
+            ->orderBy('of.created_at', 'desc')
+            ->get();
+
+    }
+
 
 }
