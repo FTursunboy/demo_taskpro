@@ -22,4 +22,15 @@ class TeamLeadCommandModel extends Model
             ->where('tm.teamLead_id', $userID)
             ->get();
     }
+
+    public function commandProjects($userID)
+    {
+        return DB::table('team_lead_command_models as tm')
+            ->join('project_models as p', 'tm.project_id', '=', 'p.id')
+            ->where('tm.teamLead_id', $userID)
+            ->groupBy('p.name')
+            ->select('p.name',  DB::raw('MAX(p.id) as project_id'))
+            ->get();
+    }
+
 }
