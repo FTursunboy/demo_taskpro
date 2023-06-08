@@ -93,37 +93,37 @@
 
                                         @switch($offer->status)
                                             @case(1)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-success p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(2)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-primary p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(3)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-success p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(4)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(5)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(6)
                                             <td><a href="#" data-bs-toggle="modal" data-bs-target="#send{{$offer->id}}"><span class="badge bg-primary p-2">В ожидании проверки администратора</span></a></td>
                                             @break
                                             @case(7)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(8)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(9)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-warning p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(10)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-success p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(11)
-                                            <td>{{$offer->status_name}}</td>
+                                            <td><span class="badge bg-danger p-2">{{$offer->status_name}}</span></td>
                                             @break
                                             @case(12)
                                             <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a></td>
@@ -135,6 +135,7 @@
                                             <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a></td>
                                             @break
                                         @endswitch
+
 
                                     @if($offer->user_id)
                                             @if(isset($search))
@@ -243,15 +244,10 @@
     <script src="{{asset('assets/js/filter2.js')}}"></script>
 
     <script>
-        $(document).ready( function () {
-            $('#example').dataTable( {
-                "processing": true
-            } );
-        } );
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#example').DataTable();
 
-            $("#example thead th").each(function(i) {
+            $("#example thead th").each(function (i) {
                 var th = $(this);
                 var filterColumns = ['Исполнитель', 'Проект', 'Статус']; // Columns to add filters for
 
@@ -259,7 +255,7 @@
                     var select = $('<select></select>')
                         .appendTo(th.empty())
                         .addClass('form-control')
-                        .on('change', function() {
+                        .on('change', function () {
                             table.column(i)
                                 .search($(this).val())
                                 .draw();
@@ -271,18 +267,29 @@
                     // Get unique options for the column
                     var options = table.column(i).data().unique().sort().toArray();
 
-                    // Populate the options
-                    options.forEach(function(option) {
-                        var optionText = option === null ? 'Нет данных' : option;
-                        var optionElement = $('<option></option>').attr('value', option).text(optionText);
-                        select.append(optionElement);
+                    // Remove HTML tags from options
+                    options = options.map(function (option) {
+                        var tempElement = $('<div>').html(option);
+                        return tempElement.text();
+                    });
+
+                    // Remove duplicate options
+                    var uniqueOptions = [];
+                    options.forEach(function (option) {
+                        if (!uniqueOptions.includes(option)) {
+                            uniqueOptions.push(option);
+                            var optionText = option === null ? 'Нет данных' : option;
+                            var optionElement = $('<option></option>').attr('value', option).text(optionText);
+                            select.append(optionElement);
+                        }
                     });
                 }
             });
+        });
 
 
 
-        } );
+
     </script>
 @endsection
 
