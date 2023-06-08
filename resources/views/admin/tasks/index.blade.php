@@ -156,7 +156,7 @@
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <label for="cancel">Причина</label>
-                                                        <textarea id="cancel" class="form-control">{{ $task->cancel }}</textarea>
+                                                        <textarea id="cancel" class="form-control" disabled>{{ $task->cancel }}</textarea>
                                                     </div>
                                                 </div>
                                             @endif

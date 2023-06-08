@@ -357,6 +357,7 @@
                                         <th>От</th>
                                         <th>До</th>
                                         <th>Статус</th>
+                                        <th>Действие</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -442,6 +443,9 @@
                                                 </td>
                                                 @break
                                             @endswitch
+                                            <td class="">
+                                                <a href="{{ route('tasks.show', $project_task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
