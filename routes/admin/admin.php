@@ -12,6 +12,11 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('admin/ideas', [\App\Http\Controllers\Admin\IdeaController::class, 'index'])->name('ideas');
         Route::get('admin/ideas/show/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'show'])->name('idea.show');
         Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
+
+        Route::get('tasks/speed-tasks', [\App\Http\Controllers\Admin\IndexController::class, 'speed'])->name('speed');
+        Route::get('tasks/success', [\App\Http\Controllers\Admin\IndexController::class, 'success'])->name('success');
+        Route::get('tasks/inprogress', [\App\Http\Controllers\Admin\IndexController::class, 'progress'])->name('progress');
+
     });
 
 
@@ -72,6 +77,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
+
     });
 
     Route::group(['as' => 'mytasks.'], function () {

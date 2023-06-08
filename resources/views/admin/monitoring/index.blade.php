@@ -33,9 +33,6 @@
                 <div class="col-sm-10 col-md-2 col-lg-2">
                     @include('admin.monitoring.statuses')
                 </div>
-                {{--                <div class="col-sm-10 col-md-2 col-lg-2">--}}
-                {{--                    @include('admin.monitoring.unstatuses')--}}
-                {{--                </div>--}}
                 <div class="col-sm-10 col-md-2 col-lg-2">
                     @include('admin.monitoring.users')
                 </div>
