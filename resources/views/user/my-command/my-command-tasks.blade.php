@@ -17,7 +17,7 @@
                 <td>{{ $task->task }}</td>
                 <td>{{ $task->sts }}</td>
                 <td>{{ $task->surname . ' ' . $task->name. ' '. $task->lastname}}</td>
-                <td>{{ $task->project}}</td>
+                <td>{{ $task->group}}</td>
                 <td>
                     <a href="#" class="btn btn-success"><i class="bi bi-eye"></i></a>
                     <a href="#" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
