@@ -207,7 +207,7 @@ class  TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->route('tasks.index')->with('create', 'Задача успешно создана!');
+        return redirect()->route('tasks.index')->with('mess', 'Задача успешно создана!');
     }
 
     public function downloadFile(TaskModel $task)
@@ -244,6 +244,7 @@ class  TasksController extends BaseController
                 $file = $newFile;
             }
         }
+
 
         $task->update([
             'name' => $request->name,
@@ -345,14 +346,14 @@ class  TasksController extends BaseController
                 $task->save();
             }
 
-            if ($task->client_id == 0) {
+            if ($task->client_id == null) {
 
                 $user = User::where('id', $task->user_id)->first();
                 $user->xp += 20;
                 $user->save();
             }
 
-            return redirect()->back();
+            return redirect()->back()->with('mess', 'Успешно отправлено');
         } else {
             $user = User::where('id', $request->employee)->first();
             if ($user->position === 'Admin') {
@@ -376,7 +377,7 @@ class  TasksController extends BaseController
 
         }
 
-        return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
+        return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
 
