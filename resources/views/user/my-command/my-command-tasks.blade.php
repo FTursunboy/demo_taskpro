@@ -20,10 +20,8 @@
                 <td>{{ $task->group}}</td>
                 <td>
                     <a href="#" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                    <a href="#" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                 </td>
             </tr>
-
         @endforeach
         </tbody>
     </table>
