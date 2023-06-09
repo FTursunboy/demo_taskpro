@@ -141,7 +141,7 @@
                         return tempElement.text();
                     });
 
-              
+
                     var uniqueOptions = [];
                     options.forEach(function (option) {
                         if (!uniqueOptions.includes(option)) {
