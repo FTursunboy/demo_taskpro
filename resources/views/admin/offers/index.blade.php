@@ -53,20 +53,6 @@
                         </div>
                         <div class="card-body">
 
-                                <form action="{{ route('client.offers.search') }}" method="post">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <input type="text" value="{{ isset($search) ? $search : '' }}" name="search" id="searchInput" class="form-control" placeholder="Поиск...">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="{{ route('client.offers.index') }}" class="btn btn-secondary">X</a>
-                                        </div>
-                                    </div>
-                                </form>
-
-
-
                             <table class="table table-striped table-responsive" id="example">
 
                                 <thead>
@@ -245,13 +231,26 @@
 
 @endsection
 @section('script')
-    <script src="{{asset('assets/js/filter1.js')}}"></script>
-    <script src="{{asset('assets/js/filter2.js')}}"></script>
+    <script src="{{asset('assets/js/filter3.js')}}"></script>
 
     <script>
         $(document).ready(function () {
-            var table = $('#example').DataTable();
+            var table = $('#example').DataTable({
+                "processing": true,
+                "stateSave": true // Включаем сохранение состояния
+            });
 
+            // Apply filters from localStorage on page load
+            var filters = JSON.parse(localStorage.getItem('datatableFilters'));
+            if (filters) {
+                for (var i = 0; i < filters.length; i++) {
+                    var filter = filters[i];
+                    table.column(filter.columnIndex).search(filter.value);
+                }
+                table.draw();
+            }
+
+            // Add event listeners to update filters and save them in localStorage
             $("#example thead th").each(function (i) {
                 var th = $(this);
                 var filterColumns = ['Исполнитель', 'Проект', 'Статус']; // Columns to add filters for
@@ -261,24 +260,35 @@
                         .appendTo(th.empty())
                         .addClass('form-control')
                         .on('change', function () {
-                            table.column(i)
-                                .search($(this).val())
-                                .draw();
+                            var columnIndex = i;
+                            var value = $(this).val();
+                            table.column(columnIndex).search(value).draw();
+
+                            // Save filters in localStorage
+                            var filters = [];
+                            $("#example thead select").each(function () {
+                                var filter = {
+                                    columnIndex: $(this).closest('th').index(),
+                                    value: $(this).val()
+                                };
+                                filters.push(filter);
+                            });
+                            localStorage.setItem('datatableFilters', JSON.stringify(filters));
                         });
 
                     // Add default option of "Все" (All)
                     $('<option value="" selected>Все</option>').appendTo(select);
 
-
+                    // Get unique options for the column
                     var options = table.column(i).data().unique().sort().toArray();
 
-
+                    // Remove HTML tags from options
                     options = options.map(function (option) {
                         var tempElement = $('<div>').html(option);
                         return tempElement.text();
                     });
 
-
+                    // Remove duplicate options
                     var uniqueOptions = [];
                     options.forEach(function (option) {
                         if (!uniqueOptions.includes(option)) {
@@ -288,6 +298,17 @@
                             select.append(optionElement);
                         }
                     });
+
+                    // Set the selected option based on the stored filter value
+                    var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));
+                    if (storedFilters) {
+                        var storedFilter = storedFilters.find(function (filter) {
+                            return filter.columnIndex === i;
+                        });
+                        if (storedFilter) {
+                            select.val(storedFilter.value);
+                        }
+                    }
                 }
             });
         });
