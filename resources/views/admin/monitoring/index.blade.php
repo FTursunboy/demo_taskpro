@@ -28,9 +28,12 @@
         @endif
         <div class="row mt-4">
             <div class="col-md-3">
-            <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
-                Добавить задачу
-            </a>
+                <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
+                    Добавить задачу
+                </a>
+
+                <a href="{{ route('exel') }}" download class="btn btn-success mb-4"> Excel</a>
+
             </div>
             <div class="col-12">
                 <div class="table-responsive">
@@ -38,14 +41,14 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th >Имя</th>
+                            <th>Имя</th>
                             <th class="text-center">Время</th>
                             <th class="text-center">От</th>
                             <th class="text-center">До</th>
                             <th class="text-center">Проект</th>
                             <th class="text-center">Автор</th>
                             <th class="text-center">Тип</th>
-                            <th class="text-center"> Статус </th>
+                            <th class="text-center"> Статус</th>
                             <th class="text-center">Сотрудник</th>
                             <th class="text-center">Действия</th>
                         </tr>
@@ -54,7 +57,7 @@
                         @foreach($tasks as $task)
                             <tr>
                                 <td class="text-center">{{$loop->iteration }}</td>
-                                <td >{{ $task->name }}</td>
+                                <td>{{ $task->name }}</td>
                                 <td class="text-center">{{ $task->time }}</td>
                                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                                 <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
@@ -70,8 +73,10 @@
                                 <td class="text-center">{{ $task->status->name}}</td>
                                 <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                    <a  href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                    <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
+                                            class="bi bi-eye"></i></a>
+                                    <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i
+                                            class="bi bi-pencil"></i></a>
                                 </td>
                             </tr>
 
@@ -191,10 +196,7 @@
             resetButton.appendTo(searchWrapper);
 
 
-
         });
-
-
 
 
     </script>
