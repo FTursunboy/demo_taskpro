@@ -24,9 +24,7 @@
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
                     <li class="nav-item dropdown me-1">
-                        <a class="nav-link active dropdown-toggle text-gray-600" href="#"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
+                        <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-envelope{{ (count($notifications) > 0) ? '-exclamation' : '' }} fs-4 {{ (count($notifications) > 0) ? 'highlight-icon' : '' }}"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
@@ -34,14 +32,23 @@
                                 <h6 class="dropdown-header">Задачи</h6>
                             </li>
                             @foreach($notifications as $offer)
-                                <li><a class="dropdown-item"
-                                       href="{{route('notification', $offer->id)}}">{{$offer->offer?->name}}</a></li>
+                                <li><a class="dropdown-item" href="{{route('notification', $offer->id)}}">{{$offer->offer?->name}}</a></li>
                             @endforeach
                         </ul>
+
+                        <style>
+                            .dropdown-menu {
+                                max-height: 300px;
+                                width: 300px;
+                                overflow-y: auto;
+                            }
+                        </style>
+
                     </li>
 
 
-{{--                    <li class="nav-item dropdown me-3">--}}
+
+                    {{--                    <li class="nav-item dropdown me-3">--}}
 {{--                        <a class="nav-link active dropdown-toggle text-gray-600" href="#"--}}
 {{--                           data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">--}}
 {{--                            <i class='bi bi-bell{{ (count($newMessage) > 0) ? '-fill' : '' }} fs-4 {{ (count($newMessage) > 0) ? 'highlight-icon' : '' }}'></i>--}}
