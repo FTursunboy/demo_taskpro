@@ -339,10 +339,14 @@ class  TasksController extends BaseController
                 ]
             );
 
+            try {
                 $user = User::find($task->client_id);
                 $email = $user->clientEmail->email;
                 $taskName = $task->name;
                 MailToSendClientController::send($email, $taskName);
+            } catch (\Exception $exception) {
+
+            }
 
 
             $offer = Offer::find($task->offer_id);
@@ -362,7 +366,7 @@ class  TasksController extends BaseController
             }
 
             return redirect()->back()->with('mess', 'Успешно отправлено');
-          
+
         } else {
             $user = User::where('id', $request->employee)->first();
             if ($user->position === 'Admin') {

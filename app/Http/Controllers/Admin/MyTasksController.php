@@ -58,6 +58,7 @@ class MyTasksController extends BaseController
             $offer->status_id = 10;
             $offer->save();
 
+            try {
                 $client = User::find($offer->client_id);
                 $email = $client->clientEmail->email;
 
@@ -65,6 +66,9 @@ class MyTasksController extends BaseController
 
 
                 MailToSendClientController::send($email, $taskName);
+            } catch (\Exception $exception) {
+
+            }
 
 
 
