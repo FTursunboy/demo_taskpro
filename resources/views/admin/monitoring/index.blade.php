@@ -21,7 +21,11 @@
                 </div>
             </div>
         </div>
-        @include('inc.messages')
+        @if(session('mess'))
+            <div class="alert alert-success">
+                {{session('mess')}}
+            </div>
+        @endif
         <div class="row mt-4">
             <div class="col-md-3">
             <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">

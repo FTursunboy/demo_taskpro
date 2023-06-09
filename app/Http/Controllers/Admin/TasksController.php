@@ -207,7 +207,7 @@ class  TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->route('tasks.index')->with('mess', 'Задача успешно создана!');
+        return redirect()->route('mon.index')->with('mess', 'Задача успешно создана!');
     }
 
     public function downloadFile(TaskModel $task)
