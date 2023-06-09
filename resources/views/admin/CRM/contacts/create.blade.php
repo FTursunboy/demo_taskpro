@@ -77,8 +77,7 @@
                                     </select>
                                 @else
                                 <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6" required>
-                                    <option selected>Выберите лида</option>
-                                    {{--                                    <option value="0">Добавить нового клиента</option>--}}
+                                    <option disabled selected>Выберите лида</option>
                                     @foreach($leads as $lead)
                                         <option value="{{ $lead?->id }}">{{ $lead?->contact?->fio }}</option>
                                     @endforeach

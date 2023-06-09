@@ -67,7 +67,8 @@ class TaskController extends BaseController
         if (isset($request->file)) {
             $upload_file = $request->file('file');
             $file_name = $upload_file->getClientOriginalName();
-            $file = Storage::disk('public')->put('/docs', $upload_file);
+            $file = $request->file('file')->store('public/docs');
+            //            $file = Storage::disk('public')->put('/docs', $upload_file);
         } else {
             $file = null;
             $file_name = null;
@@ -119,7 +120,8 @@ class TaskController extends BaseController
         if (isset($request->file)) {
             $upload_file = $request->file('file');
             $file_name = $upload_file->getClientOriginalName();
-            $file = Storage::disk('public')->put('/docs', $upload_file);
+//            $file = Storage::disk('public')->put('public/docs', $upload_file);
+            $file = $request->file('file')->store('public/docs');
             $offer->file = $file;
             $offer->file_name = $file_name;
         }
@@ -176,7 +178,7 @@ class TaskController extends BaseController
 
     public function downloadFile(Offer $offer)
     {
-        $path = storage_path('app/public/' . $offer->file);
+        $path = storage_path('app/' . $offer->file);
 
         $headers = [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
