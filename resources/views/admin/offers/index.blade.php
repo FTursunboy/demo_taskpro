@@ -252,7 +252,7 @@
 
                             $("#example thead th").each(function (i) {
                                 var th = $(this);
-                                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
+                                var filterColumns = ['Проект', 'Статус', 'Исполнитель'];
 
                                 if (filterColumns.includes(th.text().trim())) {
                                     var select = $('<select></select>')
