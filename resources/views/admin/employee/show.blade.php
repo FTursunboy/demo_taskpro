@@ -276,6 +276,7 @@
 
             {{--     Remove role to CRM end     --}}
         @endif
+
         @include('inc.messages')
 
         <section class="section">
@@ -357,29 +358,11 @@
                                 </thead>
                                 <tbody>
                                 @foreach($project_tasks as $project_task)
-                                    <tr>
-                                        <th>Имя</th>
-                                        <th>Тип</th>
-                                        <th>От</th>
-                                        <th>До</th>
-                                        <th>Статус</th>
-                                        <th>Действие</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($project_tasks as $project_task)
                                         <tr>
                                             <td>{{ $project_task->name }}</td>
                                             <td>{{ ($project_task->type === null) ? "От клиента" : $project_task->type->name }}</td>
                                             <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->from)->format('d-m-Y') }}</td>
                                             <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->to)->format('d-m-Y') }}</td>
-                                            @switch($project_task->status->id)
-                                                @case($project_task->status->id === 1)
-                                                <td><span
-                                        <td>{{ $project_task->name }}</td>
-                                        <td>{{ ($project_task->type === null) ? "От клиента" : $project_task->type->name }}</td>
-                                        <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->from)->format('d-m-Y') }}</td>
-                                        <td>{{  \Carbon\Carbon::createFromFormat('Y-m-d', $project_task->to)->format('d-m-Y') }}</td>
                                         @switch($project_task->status->id)
                                             @case($project_task->status->id === 1)
                                             <td><span
@@ -460,15 +443,6 @@
                                                 <a href="{{ route('tasks.show', $project_task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div><span
-                                                            class="badge bg-light-info">{{ $project_task->status->name }}</span>
-                                            </td>
-                                            @break
-                                        @endswitch
-                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -634,10 +608,7 @@
                 </div>
             </div>
         </section>
-
-
     </div>
-
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
