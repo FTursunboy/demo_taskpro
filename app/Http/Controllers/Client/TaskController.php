@@ -186,8 +186,8 @@ class TaskController extends BaseController
         ];
 
         return response()->download($path, $offer->file_name, $headers);
-
     }
+
 
     public function download_file_chat(MessagesModel $messagesModel)  {
         $path = storage_path('app/public/' . $messagesModel->file);
