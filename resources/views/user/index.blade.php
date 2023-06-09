@@ -339,7 +339,7 @@
                             <div>
                                 <table class="mt-3" cellpadding="5">
                                     <tr>
-                                        <th>Задачи:</th>
+                                        <th>Все задачи:</th>
                                         <th><span class="mx-2">{{ $user->taskCount($user->id) }}</span></th>
                                     </tr>
                                     <tr>
