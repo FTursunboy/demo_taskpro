@@ -34,7 +34,9 @@ class TeamLeadCommandModel extends Model
             ->get();
 
     }
-    public function userInCommand($userID){
+
+    public function userInCommand($userID)
+    {
         return DB::table('team_lead_command_models AS tm')
             ->join('users AS u', 'tm.user_id', '=', 'u.id')
             ->select('u.id', 'u.name', 'u.surname', 'u.lastname')
@@ -43,36 +45,24 @@ class TeamLeadCommandModel extends Model
             ->get();
     }
 
-    public function userTaskList($teamLeadID){
-         DB::table('team_lead_command_models AS tlc')
-            ->join('users AS u', 'tlc.user_id', '=', 'u.id')
-            ->join('task_models AS t', 'u.id', '=', 't.user_id')
-            ->join('statuses_models AS sts', 't.status_id', '=', 'sts.id')
-            ->join('project_models AS p', 't.project_id', '=', 'p.id')
-            ->select('u.id AS user_id', 'u.name', 'u.surname', 'u.lastname', 't.id AS task_id', 't.name AS task', 'sts.name AS sts', 'p.name AS project')
-            ->where('tlc.teamLead_id', $teamLeadID)
-//            ->groupBy('tlc.user_id')
-            ->groupBy('u.id', 'u.name', 'u.surname', 'u.lastname', 't.id', 't.name', 'sts.name', 'p.name')
-            ->distinct()
-            ->get();
-        $userTasks = DB::table('task_models as t')
+    public function userTaskList($teamLeadID)
+    {
+        return DB::table('task_models as t')
             ->select('u.id as user_id', 'u.name', 'u.surname', 'u.lastname', 't.id as task_id', 't.name as task', 'sts.name as sts', 'p.name as group')
             ->join('project_models as p', 't.project_id', '=', 'p.id')
             ->join('statuses_models as sts', 't.status_id', '=', 'sts.id')
             ->join('users as u', 't.user_id', '=', 'u.id')
-            ->whereIn('t.user_id', function ($query) {
+            ->whereIn('t.user_id', function ($query) use   ($teamLeadID) {
                 $query->select('tlc.user_id')
                     ->from('team_lead_command_models as tlc')
-                    ->where('tlc.teamLead_id', 4);
+                    ->where('tlc.teamLead_id', $teamLeadID);
             })
-            ->whereIn('t.project_id', function ($query) {
+            ->whereIn('t.project_id', function ($query) use ($teamLeadID) {
                 $query->select('tlc.project_id')
                     ->from('team_lead_command_models as tlc')
-                    ->where('tlc.teamLead_id', 4);
+                    ->where('tlc.teamLead_id', $teamLeadID);
             })
             ->get();
-return $userTasks;
-
     }
 
 }
