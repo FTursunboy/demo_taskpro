@@ -70,7 +70,9 @@ class MonitoringController extends BaseController
             ['type', '=', 'task']
         ])->get();
 
-        return view('admin.monitoring.show', compact('task', 'messages', 'histories'));
+        $users = User::role('user')->get();
+
+        return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
     }
 
     public function edit(TaskModel $task)
@@ -143,6 +145,11 @@ class MonitoringController extends BaseController
 
         $task1->check();
         return redirect()->route('mon.index')->with('update', 'Задача успешно обновлена');
+    }
+
+    public function delete(TaskModel $task) {
+        $task->delete();
+        return redirect()->route('mon.index')->with('mess', 'Успешно удалено');
     }
 
 }

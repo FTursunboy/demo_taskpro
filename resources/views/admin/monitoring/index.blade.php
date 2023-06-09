@@ -67,7 +67,7 @@
                                 <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                    <a  href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                                 </td>
                             </tr>
 
@@ -94,7 +94,7 @@
                 "stateSave": true // Включаем сохранение состояния
             });
 
-            // Apply filters from localStorage on page load
+
             var filters = JSON.parse(localStorage.getItem('datatableFilters'));
             if (filters) {
                 for (var i = 0; i < filters.length; i++) {
@@ -103,7 +103,6 @@
                 }
                 table.draw();
             }
-
 
             $("#example thead th").each(function (i) {
                 var th = $(this);
@@ -118,7 +117,7 @@
                             var value = $(this).val();
                             table.column(columnIndex).search(value).draw();
 
-                            // Save filters in localStorage
+
                             var filters = [];
                             $("#example thead select").each(function () {
                                 var filter = {
@@ -130,9 +129,8 @@
                             localStorage.setItem('datatableFilters', JSON.stringify(filters));
                         });
 
-                    // Add default option of "Все" (All)
-                    $('<option value="" selected>Все</option>').appendTo(select);
 
+                    $('<option value="" selected>Все</option>').appendTo(select);
 
                     var options = table.column(i).data().unique().sort().toArray();
 
@@ -140,7 +138,6 @@
                         var tempElement = $('<div>').html(option);
                         return tempElement.text();
                     });
-
 
                     var uniqueOptions = [];
                     options.forEach(function (option) {
@@ -151,7 +148,6 @@
                             select.append(optionElement);
                         }
                     });
-
 
                     var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));
                     if (storedFilters) {
@@ -164,6 +160,30 @@
                     }
                 }
             });
+
+            var resetButton = $('<button></button>')
+                .addClass('btn btn-success')
+                .text('Обнулить')
+                .on('click', function () {
+
+                    table
+                        .search('')
+                        .columns()
+                        .search('')
+                        .draw();
+
+
+                    localStorage.removeItem('datatableFilters');
+
+                    $("#example thead select").val('');
+
+                    $('#example_filter input').val('');
+                });
+
+            var searchWrapper = $('#example_filter');
+            resetButton.insertBefore(searchWrapper);
+
+
         });
 
 
