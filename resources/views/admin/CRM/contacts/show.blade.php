@@ -37,7 +37,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="fio">ФИО</label>
-                                <input class="form-control mt-3" value="{{ $contact->fio }}" disabled>
+                                <textarea cols="10" rows="3" class="form-control mt-3" disabled>{{ $contact->fio }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="name">Должность</label>
@@ -48,7 +48,7 @@
 
                             <div class="form-group">
                                 <label for="start">Телефон</label>
-                                <input class="form-control mt-3" value="{{ $contact->phone }}" disabled>
+                                <textarea cols="10" rows="3" class="form-control mt-3" disabled>{{ $contact->phone }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -59,7 +59,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="finish">Email</label>
-                                <input class="form-control mt-3" tabindex="6" value="{{ $contact->email }}" disabled>
+                                <textarea cols="10" rows="3" class="form-control mt-3" disabled >{{ $contact->email }}</textarea>
                             </div>
                             @if(isset($contact->client->name))
                             <div class="form-group">
