@@ -305,7 +305,8 @@ class OfferController extends BaseController
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
     }
 
-    public function sendBack(Offer $offer, Request $request){
+    public function sendBack(Offer $offer, Request $request)
+    {
         $offer->status_id = 9;
         $offer->cancel_admin = $request->reason;
         $task = TaskModel::where('offer_id', $offer->id)->first();
@@ -313,6 +314,7 @@ class OfferController extends BaseController
         $task->cancel_admin = $request->reason;
         $offer->save();
         $task->save();
+
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
         $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
 

@@ -66,3 +66,104 @@ tfoot input {
 .custom-label {
     font-size: 20px;
 }
+
+
+
+/*                          РЕЙТИНГ ОЦЕНОК                             */
+
+
+.ponavues {
+    width: fit-content;
+    margin: 0 auto;
+    line-height: 50px;
+    cursor: pointer;
+}
+.gasedun {
+    color: #fff300 !important;
+}
+.eysan {
+    height: 50px;
+    margin-left: -5px;
+    padding: 5px;
+    font-size: 25px;
+    position: relative;
+    cursor: pointer;
+    margin-top: -5px;
+}
+.eysan input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    pointer-events: none;
+}
+.star-over::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 22px;
+    content: "\f005";
+    display: inline-block;
+    color: #fff300;
+    z-index: 1;
+    position: absolute;
+    top: 18px;
+    left: 7px;
+}
+
+.eysan:nth-child(1) .face::after {
+    content: "\f119"; /* ☹ */
+}
+.eysan:nth-child(2) .face::after {
+    content: "\f11a"; /* */
+}
+.eysan:nth-child(3) .face::after {
+    content: "\f118"; /* */
+}
+.eysan:nth-child(4) .face::after {
+    content: "\f580"; /* */
+}
+.eysan:nth-child(5) .face::after {
+    content: "\f59a"; /* */
+}
+.face {
+    opacity: 0;
+    position: absolute;
+    width: 35px;
+    height: 45px;
+    background: #0a49a7;
+    border-radius: 5px;
+    top: -70px;
+    line-height: 45px;
+    left: 0px;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+.face::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "\f0dd";
+    display: inline-block;
+    color: #0a49a7;
+    z-index: 1;
+    position: absolute;
+    left: 9px;
+    bottom: -20px;
+}
+.face::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    display: inline-block;
+    color: #fff;
+    z-index: 1;
+    position: absolute;
+    left: 5px;
+    top: -1px;
+}
+
+.eysan:hover .face {
+    opacity: 1;
+}
+/*                          Конец                             */
+

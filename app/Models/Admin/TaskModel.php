@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Client\Offer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -70,6 +71,11 @@ class TaskModel extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
     }
 
 

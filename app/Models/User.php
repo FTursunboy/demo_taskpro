@@ -42,6 +42,7 @@ class User extends Authenticatable
         'slug',
         'avatar',
         'role',
+        'email',
     ];
 
     /**
@@ -209,6 +210,11 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Offer::class);
+    }
+
+    public function clientEmail()
+    {
+        return $this->hasOne(ClientMail::class, 'user_id');
     }
 
 
