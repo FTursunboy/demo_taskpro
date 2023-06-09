@@ -162,26 +162,31 @@
             });
 
             var resetButton = $('<button></button>')
-                .addClass('btn btn-success')
+                .addClass('btn btn-primary')
                 .text('Обнулить')
                 .on('click', function () {
-
+                    // Сбрасываем фильтры и поиск
                     table
                         .search('')
                         .columns()
                         .search('')
                         .draw();
 
-
+                    // Сбрасываем сохраненные фильтры в localStorage
                     localStorage.removeItem('datatableFilters');
 
+                    // Сбрасываем выбранные значения в select фильтрах
                     $("#example thead select").val('');
 
+                    // Сбрасываем значение инпута поиска
                     $('#example_filter input').val('');
                 });
 
             var searchWrapper = $('#example_filter');
-            resetButton.insertBefore(searchWrapper);
+            searchWrapper.addClass('d-flex align-items-center');
+            resetButton.addClass('ml-2');
+            resetButton.appendTo(searchWrapper);
+
 
 
         });
