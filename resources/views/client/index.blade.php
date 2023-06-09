@@ -102,6 +102,37 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Вы действительно хотите закрыть задачу, если нет оптравьте заново</p>
+                                            <hr>
+                                            <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
+                                            <div class="gezdvu">
+                                                <div class="ponavues">
+                                                    <label class="eysan">
+                                                        <input type="radio" name="radio1" id="star1" value="star1">
+                                                        <div class="face"></div>
+                                                        <i class="far fa-star gasedun one-star"></i>
+                                                    </label>
+                                                    <label class="eysan">
+                                                        <input type="radio" name="radio1" id="star2" value="star2">
+                                                        <div class="face"></div>
+                                                        <i class="far fa-star gasedun two-star"></i>
+                                                    </label>
+                                                    <label class="eysan">
+                                                        <input type="radio" name="radio1" id="star3" value="star3">
+                                                        <div class="face"></div>
+                                                        <i class="far fa-star gasedun three-star"></i>
+                                                    </label>
+                                                    <label class="eysan">
+                                                        <input type="radio" name="radio1" id="star4" value="star4">
+                                                        <div class="face"></div>
+                                                        <i class="far fa-star gasedun four-star"></i>
+                                                    </label>
+                                                    <label class="eysan">
+                                                        <input type="radio" name="radio1" id="star5" value="star5">
+                                                        <div class="face"></div>
+                                                        <i class="far fa-star gasedun five-star"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
@@ -123,6 +154,37 @@
             </div>
         </section>
     </div>
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+
+    <script>
+        $(function() {
+            $(document).on({
+                mouseover: function(event) {
+                    $(this).find('.far').addClass('star-over');
+                    $(this).prevAll().find('.far').addClass('star-over');
+                },
+                mouseleave: function(event) {
+                    $(this).find('.far').removeClass('star-over');
+                    $(this).prevAll().find('.far').removeClass('star-over');
+                }
+            }, '.eysan');
+
+            $(document).on('click', '.eysan', function() {
+                if ( !$(this).find('.gasedun').hasClass('eysan-active') ) {
+                    $(this).siblings().find('.star').addClass('far').removeClass('fas eysan-active');
+                    $(this).find('.gasedun').addClass('eysan-active fas').removeClass('far star-over');
+                    $(this).prevAll().find('.gasedun').addClass('fas').removeClass('far star-over');
+                } else {
+                    console.log('has');
+                }
+            });
+
+        });
+    </script>
 @endsection
 
 

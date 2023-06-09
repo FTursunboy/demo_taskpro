@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mail;
 use App\Http\Controllers\Controller;
 use App\Mail\Send;
 use App\Mail\SendReportToAdmin;
+use App\Mail\SendReportToClient;
 use App\Models\Admin\EmailModel;
 use App\Models\Report;
 use Illuminate\Http\Request;
@@ -23,4 +24,6 @@ class MailController extends Controller
 
         Mail::to($email)->send(new SendReportToAdmin($report));
     }
+
+
 }

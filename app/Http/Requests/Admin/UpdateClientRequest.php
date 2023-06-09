@@ -28,6 +28,7 @@ class UpdateClientRequest extends FormRequest
             'phone' => ['required'],
             'password' => [''],
             'telegram_id' => ['required'],
+            'client_email' => [''],
             'project_id' => ['required'],
             'avatar' => [''],
         ];

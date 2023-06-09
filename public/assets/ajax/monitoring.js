@@ -61,34 +61,6 @@ $(document).ready(function () {
 
             });
     }
-    // function ajaxResult(url, status_id, unstatus_id, user_id, client_id, project_id) {
-    //     table.empty();
-    //     $.get(`tasks/public/${url}/${status_id.val()}/${unstatus_id.val()}/${user_id.val()}/${client_id.val()}/${project_id.val()}/`)
-    //         .then((res) => {
-    //             if (res.status !== false) {
-    //                 for (let i = 0; i < res.length; i++) {
-    //                     let item = res[i];
-    //                     table.append($('<tr>')
-    //                         .append($('<td>').text(formatDate(item.created_at)))
-    //                         .append($('<td>').text(item.name))
-    //                         .append($('<td>').text(item.time))
-    //                         .append($('<td>').text(formatDate(item.from)))
-    //                         .append($('<td>').text(formatDate(item.to)))
-    //                         .append($('<td>').text(item.project.name))
-    //                         .append($('<td>').text(item.author.surname + ' ' + item.author.name))
-    //                         .append($('<td>').text(((item.type === '') ? 'От клиента' : (item.type !== null ? item.type.name : 'От клиента')) + ' ' + ((item.type_type !== null && item.type_type.name !== null) ? ' - ' + item.type_type.name : '')))
-    //                         .append($('<td>').text(item.status.name))
-    //                         .append($('<td>').text(item.unstatus.name)) // Добавьте эту строку для отображения названия unstatus
-    //                         .append($('<td>')
-    //                             .append($('<a>').attr('href', `/tasks/show-task/${item.id}`).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
-    //                             .append($('<a>').attr('href', `/tasks_client/edit-js/${item.id}`).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
-    //                         ).addClass('text-center'))
-    //                 }
-    //             }
-    //         });
-    // }
-
-
     function formatDate(param) {
         const date = new Date(param);
         return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;

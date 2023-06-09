@@ -204,17 +204,20 @@
                                     <div class="modal" tabindex="-1" id="sendBack{{$offer->id}}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Задача отклонена</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Вы действительно хотите отправить задачу обратно сотруднику <span style="font-size: 20px" class="text-success">{{$offer->username}}</span></p>
-                                                </div>
-                                                <div class="modal-footer" id="parent">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-success" >Отправить</a>
-                                                </div>
+                                                <form action="{{route('client.offers.send.back', $offer->id)}}" method="post">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Задача отклонена</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Вы действительно хотите отправить задачу обратно сотруднику <span style="font-size: 20px" class="text-success">{{$offer->username}}</span></p>
+                                                    </div>
+                                                    <div class="modal-footer" id="parent">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                        <button type="submit" class="btn btn-success" >Отправить</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

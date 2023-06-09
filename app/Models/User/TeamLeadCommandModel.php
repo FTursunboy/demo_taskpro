@@ -62,6 +62,7 @@ class TeamLeadCommandModel extends Model
                     ->from('team_lead_command_models as tlc')
                     ->where('tlc.teamLead_id', $teamLeadID);
             })
+            ->where('t.deleted_at', '=', null)
             ->get();
     }
 

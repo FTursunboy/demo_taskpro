@@ -61,9 +61,17 @@
                                            value="{{ $user->login }}" disabled>
                                 </div>
 
+
+                                <div class="form-group">
+                                    <label for="client_email" class="form-label">Почта</label>
+                                    <input value="{{ $user?->clientEmail?->email }}" tabindex="10" type="text" name="client_email"
+                                           class="form-control" placeholder="Почта"
+                                           id="client_email">
+                                </div>
+
                                 <div class="form-group">
                                     <label for="file">Изображение</label>
-                                    <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
+                                    <input type="file" name="avatar" tabindex="11" class="form-control mt-3" id="file">
                                 </div>
 
                             </div>
@@ -115,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-3">
-                                <button type="submit" tabindex="11" class="btn btn-outline-primary">Изменить</button>
+                                <button type="submit" tabindex="12" class="btn btn-outline-primary">Изменить</button>
                             </div>
                         </div>
                     </form>

@@ -142,13 +142,13 @@
                                            id="password" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="telegram_id" class="form-label">Телеграм id</label>
+                                    <label for="telegram_id" class="form-label">Телеграм id <span
+                                            class="text-danger">*</span></label>
                                     <input required value="{{old('telegram_id')}}" tabindex="7" type="number" name="telegram_id"
                                            class="form-control" placeholder="Telegram id"
                                            id="telegram_id">
                                 </div>
                             </div>
-
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="surname" class="form-label">Фамилия Клиента<span
@@ -185,8 +185,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" tabindex="9" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                        <button type="submit" tabindex="10" class="btn btn-primary" id="create">Добавить</button>
+                        <button type="button" tabindex="10" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" tabindex="11" class="btn btn-primary" id="create">Добавить</button>
 
                     </div>
                 </form>

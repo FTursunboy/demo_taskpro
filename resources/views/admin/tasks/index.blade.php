@@ -126,6 +126,13 @@
                                                     <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+                                            </div>
+                                            @if($task->status_id === 5)
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label for="cancel">Причина</label>
+                                                        <textarea id="cancel" class="form-control" disabled>{{ $task->cancel }}</textarea>
+                                                    </div>
                                                 <div class="modal-body">
                                                     Точно хотите удалить задачу?
                                                 </div>

@@ -126,6 +126,62 @@
                     </a>
                 </li>
 
+
+
+
+
+
+                <li class="sidebar-item {{ (request()->is('tasks-team/leads') or request()->is('tasks-team/leads/*')) ? 'active' : '' }}">
+                    <a href="{{ route('tasks-team-leads.all-tasks') }}" class='sidebar-link'>
+                        <i class="bi bi-people"></i>
+                        <span>Задача с тимлидом
+                            @if($command_task > 0)
+                                <span class="offers-count"></span>
+                            @endif
+                        </span>
+                        @if($command_task > 0)
+                            <div class="notification-dot"></div>
+                        @endif
+                    </a>
+
+
+                    <style>
+                        .sidebar-link {
+                            position: relative;
+                        }
+
+                        .notification-dot {
+                            position: absolute;
+                            top: 50%;
+                            right: -10px;
+                            transform: translate(50%, -50%);
+                            width: 10px;
+                            height: 10px;
+                            background-color: red;
+                            border-radius: 50%;
+                            animation: blink-animation 1s infinite;
+                        }
+
+                        @keyframes blink-animation {
+                            0% {
+                                opacity: 1;
+                            }
+                            50% {
+                                opacity: 0;
+                            }
+                            100% {
+                                opacity: 1;
+                            }
+                        }
+
+                        .offers-count {
+                            margin-left: 5px;
+                        }
+                    </style> </span>
+                    </a>
+                </li>
+
+
                 <li class="sidebar-item has-sub {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client') or request()->is('client/*') or request()->is('tasks_client') or request()->is('tasks_client/*')) ? 'active' : '' }}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>

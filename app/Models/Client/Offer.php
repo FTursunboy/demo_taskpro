@@ -2,6 +2,7 @@
 
 namespace App\Models\Client;
 
+use App\Models\Admin\ProjectModel;
 use App\Models\Admin\StatusesModel;
 use App\Models\ProjectClient;
 use App\Models\User;
@@ -25,7 +26,7 @@ class Offer extends Model
 
     public function projects()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(ProjectModel::class, 'project_id');
     }
 
     public function client() {
