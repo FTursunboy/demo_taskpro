@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use mysql_xdevapi\Exception;
 use Spatie\Permission\Models\Role;
 use function GuzzleHttp\Promise\all;
 
@@ -336,6 +338,12 @@ class  TasksController extends BaseController
                 ]
             );
 
+                $user = User::find($task->client_id);
+                $email = $user->clientEmail->email;
+                $taskName = $task->name;
+                MailToSendClientController::send($email, $taskName);
+
+
             $offer = Offer::find($task->offer_id);
 
             if($offer !== null) {
@@ -350,7 +358,7 @@ class  TasksController extends BaseController
                 $user->save();
             }
 
-            return redirect()->back();
+            return redirect()->back()->with('update', 'Задача успешно перенаправлена');
         } else {
             $user = User::where('id', $request->employee)->first();
             if ($user->position === 'Admin') {

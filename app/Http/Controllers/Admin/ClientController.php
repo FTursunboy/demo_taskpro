@@ -10,6 +10,7 @@ use App\Http\Requests\Admin\UpdateClientRequest;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Client\Offer;
+use App\Models\ClientMail;
 use App\Models\ProjectClient;
 
 use App\Models\User;
@@ -54,6 +55,8 @@ class ClientController extends BaseController
             'user_id' => $user->id,
             'project_id' => $data['project_id']
         ]);
+
+
 
         return redirect()->route('employee.client')->with('create', 'Клиент успешно создан!');
     }
@@ -107,6 +110,18 @@ class ClientController extends BaseController
         ProjectClient::where('user_id', $user->id)->first()->update([
             'project_id' => $data['project_id']
         ]);
+
+        $clientMail = ClientMail::where('user_id', $user->id)->first();
+        if ($clientMail) {
+            $clientMail->update([
+                'email' => $data['client_email'],
+            ]);
+        } else {
+            ClientMail::create([
+                'user_id' => $user->id,
+                'email' => $data['client_email'],
+            ]);
+        }
 
         return redirect()->route('employee.client')->with('update', 'Клиент успешно изменён!');
     }

@@ -4,11 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Mail\MailController;
+use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Mail\SendReportToClient;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
+use App\Models\Report;
 use App\Models\User;
+use App\Notifications\Telegram\SendNewTaskInUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Request;
 
 class MyTasksController extends BaseController
@@ -36,23 +42,36 @@ class MyTasksController extends BaseController
 
     public function done(TaskModel $task)
     {
-        if($task->client_id == null) {
+
+        if ($task->client_id == null) {
             $task->update([
                 'status_id' => 3,
                 'finish' => Carbon::now(),
             ]);
+
+            return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
         } else {
             $task->update([
                 'status_id' => 10,
             ]);
             $offer = Offer::find($task->offer_id);
-            if ($offer) {
-                $offer->status_id = 10;
-                $offer->save();
-            }
+            $offer->status_id = 10;
+            $offer->save();
+
+                $client = User::find($offer->client_id);
+                $email = $client->clientEmail->email;
+
+                $taskName = $task->name;
+
+
+                MailToSendClientController::send($email, $taskName);
+
+
+
+            return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
         }
 
-        return redirect()->route('tasks.index')->with('update', 'Задача успешно завершена!');
     }
+
 
 }
