@@ -10480,7 +10480,7 @@
                      * Text to use for the 'next' pagination button (to take the user to the
                      * next page).
                      *  @type string
-                     *  @default Next
+                     *  @default Следующий
                      *
                      *  @dtopt Language
                      *  @name DataTable.defaults.language.paginate.next
@@ -10496,14 +10496,14 @@
                      *      } );
                      *    } );
                      */
-                    "sNext": "Next",
+                    "sNext": "Следующий",
 
 
                     /**
                      * Text to use for the 'previous' pagination button (to take the user to
                      * the previous page).
                      *  @type string
-                     *  @default Previous
+                     *  @default Предедущий
                      *
                      *  @dtopt Language
                      *  @name DataTable.defaults.language.paginate.previous
@@ -10519,7 +10519,7 @@
                      *      } );
                      *    } );
                      */
-                    "sPrevious": "Previous"
+                    "sPrevious": "Предедущий"
                 },
 
                 /**
@@ -10560,7 +10560,7 @@
                  * * `\_PAGES\_` - Total number of pages of data in the table
                  *
                  *  @type string
-                 *  @default Showing _START_ to _END_ of _TOTAL_ entries
+                 *  @default Показ от _START_ до _END_ от _TOTAL_ всех данных
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.info
@@ -10574,14 +10574,14 @@
                  *      } );
                  *    } );
                  */
-                "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "sInfo": "Показ от _START_ до _END_ от _TOTAL_ всех данных",
 
 
                 /**
                  * Display information string for when the table is empty. Typically the
                  * format of this string should match `info`.
                  *  @type string
-                 *  @default Showing 0 to 0 of 0 entries
+                 *  @default Показ 0 до 0 от 0 данных
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.infoEmpty
@@ -10595,7 +10595,7 @@
                  *      } );
                  *    } );
                  */
-                "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                "sInfoEmpty": "Показ 0 до 0 от 0 данных",
 
 
                 /**
@@ -10603,7 +10603,7 @@
                  * to the information (`info`) to give an idea of how strong the filtering
                  * is. The variable _MAX_ is dynamically updated.
                  *  @type string
-                 *  @default (filtered from _MAX_ total entries)
+                 *  @default (Отфильтровано от _MAX_ данных)
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.infoFiltered
@@ -10617,7 +10617,7 @@
                  *      } );
                  *    } );
                  */
-                "sInfoFiltered": "(filtered from _MAX_ total entries)",
+                "sInfoFiltered": "(Отфильтровано от _MAX_ данных)",
 
 
                 /**
@@ -10817,7 +10817,7 @@
                  * displayed after filtering. `emptyTable` is shown when there is simply no
                  * information in the table at all (regardless of filtering).
                  *  @type string
-                 *  @default No matching records found
+                 *  @default Нет данных на таблице
                  *
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.zeroRecords
@@ -10831,7 +10831,7 @@
                  *      } );
                  *    } );
                  */
-                "sZeroRecords": "No matching records found"
+                "sZeroRecords": "Нет данных на таблице"
             },
 
 
