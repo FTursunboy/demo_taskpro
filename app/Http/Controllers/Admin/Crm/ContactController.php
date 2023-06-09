@@ -53,43 +53,15 @@ class ContactController extends BaseController
      */
     public function store(ContactRequest $request)
     {
-//        if (session('client')){
-//            $clientData = session('client');
-//
-//            $client = User::create([
-//                'name' => $clientData['name2'],
-//                'surname' => $clientData['surname2'],
-//                'lastname' => $clientData['lastname2'],
-//                'login' => $clientData['login'],
-//                'password' =>  Hash::make($clientData['password']),
-//                'phone' => $clientData['phone2'],
-//                'telegram_id' => $clientData['telegram_id'],
-//                'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
-//            ])->assignRole('client');
-//        }
-//        if ($request->input('client_id') == 0 && isset($client)){
-//            $client_id = $client->id;
-//        }else{
-//            $client_id = $request->input('client_id');
-//        }
-
         Contact::create([
             'fio' => $request->fio,
             'phone' => $request->phone,
             'email' => $request->email,
             'position' => $request->position,
             'address' => $request->address,
-            'lead_id' => $request->input('lead_id'),
+            'lead_id' => $request->input('lead_id') ? $request->input('lead_id') : null,
         ]);
 
-//        if (isset($client)) {
-//            ProjectClient::create([
-//                'user_id' => $client->id,
-//                'project_id' => $clientData['project_id'],
-//            ]);
-//        }
-
-//        session()->forget("client");
         return redirect()->route('contact.index')->with('create', 'Контакт успешно создан!');
     }
 

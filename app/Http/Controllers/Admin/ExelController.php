@@ -84,13 +84,6 @@ class ExelController extends Controller
         $report->file_name = $fileName;
 
         $report->save();
-//        $this->downloadFile($report);
-//
-//    }
-//
-//    public function downloadFile(Report $report)
-//    {
-
 
         $path = storage_path('app/public/' . $report->file);
         $fileName = $report->file_name . '.xlsx'; // Добавляем расширение к имени файла

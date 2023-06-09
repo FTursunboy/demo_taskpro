@@ -44,7 +44,7 @@ class  TasksController extends BaseController
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
-                if ($task->status_id !== 3 && $task->status_id !== 6) {
+                if ($task->status_id !== 3 && $task->status_id !== 6 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13) {
                     $task->status_id = 7;
                     $task->save();
                 }
@@ -209,7 +209,7 @@ class  TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->route('tasks.index')->with('create', 'Задача успешно создана!');
+        return redirect()->route('mon.index')->with('mess', 'Задача успешно создана!');
     }
 
     public function downloadFile(TaskModel $task)
@@ -246,6 +246,7 @@ class  TasksController extends BaseController
                 $file = $newFile;
             }
         }
+
 
         $task->update([
             'name' => $request->name,
@@ -333,7 +334,7 @@ class  TasksController extends BaseController
         if ($request->employee == 0) {
             $task->update(
                 [
-                    'status_id' => 10,
+                    'status_id' => 3,
                     'finish' => Carbon::now(),
                 ]
             );
@@ -349,16 +350,19 @@ class  TasksController extends BaseController
             if($offer !== null) {
                 $offer->status_id = 10;
                 $offer->save();
+                $task->status_id = 10;
+                $task->save();
             }
 
-            if ($task->client_id == 0) {
+            if ($task->client_id == null) {
 
                 $user = User::where('id', $task->user_id)->first();
                 $user->xp += 20;
                 $user->save();
             }
 
-            return redirect()->back()->with('update', 'Задача успешно перенаправлена');
+            return redirect()->back()->with('mess', 'Успешно отправлено');
+          
         } else {
             $user = User::where('id', $request->employee)->first();
             if ($user->position === 'Admin') {
@@ -382,7 +386,7 @@ class  TasksController extends BaseController
 
         }
 
-        return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
+        return redirect()->back()->with('mess', 'Успешно отправлено');
     }
 
 

@@ -41,7 +41,7 @@
                                 <label for="fio">ФИО <span
                                         class="text-danger">*</span></label>
                                 <input type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
-                                       placeholder="Введите ФИО" value="{{ old('fio') }}" required>
+                                       placeholder="Введите ФИО" value="{{ old('fio') }}"  required>
                                 @if($errors->has('fio')) <p
                                     style="color: red;">{{ $errors->first('fio') }}</p> @endif
                             </div>

@@ -59,6 +59,7 @@ class EmployeeController extends BaseController
         $project_tasks = TaskModel::where('user_id', '=', $user->id)->get();
         $tasks = $user->tasksSuccess($user->id);
 
+
         // for team-lead command
         $roles = Role::where('name', '=', 'team-lead')->get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -123,7 +124,8 @@ class EmployeeController extends BaseController
     }
 
 
-    // for team-lead command
+
+    // for team-lead command function
     public function makeTeamLead(Request $request, User $employee)
     {
         $data = $request->validate([
@@ -131,11 +133,23 @@ class EmployeeController extends BaseController
             'project' => ['required', 'exists:project_models,id'],
             'users' => ['required']
         ]);
-        User\TeamLeadCommandModel::create([
-            'user_id' => $employee->id,
-            'project_id' => $data['project'],
-            'teamLead_id' => $employee->id
-        ]);
+
+        $my = User\TeamLeadCommandModel::where([
+            ['user_id', '=', $employee->id],
+            ['project_id', '=', $data['project']],
+            ['teamLead_id', '=', $employee->id]
+        ])->first();
+
+        if ($my === null) {
+            User\TeamLeadCommandModel::create([
+                'user_id' => $employee->id,
+                'project_id' => $data['project'],
+                'teamLead_id' => $employee->id
+            ]);
+        } else {
+            return redirect()->route('employee.show', $employee->slug)->with('update', "Такая группа уже есть.");
+        }
+
         foreach ($data['users'] as $u) {
             User\TeamLeadCommandModel::create([
                 'user_id' => $u,
@@ -149,45 +163,76 @@ class EmployeeController extends BaseController
         return redirect()->route('employee.show', $employee->slug)->with('create', "Сотрудник успешно стал тимлидом проекта '$project'. ");
     }
 
-    public function deleteFromCommand(User $employee, ProjectModel $project, User $teamLead)
+    public function deleteFromCommand(ProjectModel $project, User $teamLead)
     {
-        User\TeamLeadCommandModel::where([
+        $my = User\TeamLeadCommandModel::where([
+            ['user_id', '=', $teamLead->id],
+            ['project_id', '=', $project->id],
+            ['teamLead_id', '=', $teamLead->id]
+        ])->first();
+        $my?->delete();
+        $command = User\TeamLeadCommandModel::where([
             ['teamLead_id', $teamLead->id],
-            ['user_id', $employee->id],
             ['project_id', $project->id],
-        ])->first()->delete();
-        return redirect()->route('employee.show', $teamLead->slug)->with('delete', "Успешно удалено");
-    }
-
-
-    public function addUserInCommand(User $teamLead, Request $request)
-    {
-        $data = $request->validate(['users' => ['required']]);
-        $team = User\TeamLeadCommandModel::where('teamLead_id', $teamLead->id)->first();
-        foreach ($data['users'] as $u) {
-            User\TeamLeadCommandModel::create([
-                'user_id' => $u,
-                'project_id' => $team->project_id,
-                'teamLead_id' => $teamLead->id
-            ]);
-        }
-        return redirect()->route('employee.show', $teamLead->slug)->with('create', "Успешно добавлен");
-    }
-
-    public function deleteCommand(User $employee)
-    {
-        $userCommand = new User\TeamLeadCommandModel();
-        $commands = $userCommand->myCommand($employee->id);
-        foreach ($commands as $user) {
-            $commandModel = User\TeamLeadCommandModel::where('user_id', '=', $user->id)->first();
+        ])->get();
+        foreach ($command as $value) {
+            $commandModel = User\TeamLeadCommandModel::where([
+                ['teamLead_id', $teamLead->id],
+                ['project_id', $project->id],
+                ['id', $value->id]
+            ])->first();
             $commandModel?->delete();
+        }
+        return redirect()->route('employee.show', $teamLead->slug)->with('delete', "Группа успешна удалено");
+    }
+
+    public function deleteAllCommand(User $employee)
+    {
+        $command = User\TeamLeadCommandModel::where([
+            ['teamLead_id', $employee->id]
+        ])->get();
+        foreach ($command as $user) {
+            $user?->delete();
         }
         $employee->removeRole('team-lead');
         return redirect()->route('employee.show', $employee->slug)->with('delete', "Успешно удалено");
     }
 
+    public function showCommand(User $user, ProjectModel $project)
+    {
+        $users = User::role('user')->get();
+        $userCommand = new User\TeamLeadCommandModel();
+        $commands = $userCommand->myCommand($user->id, $project->id);
+        return view('admin.employee.command.command_show', compact('user', 'users', 'commands', 'project'));
+    }
 
-    // role to CRM functions
+    public function addUserInCommand(User $teamLead, ProjectModel $project, Request $request)
+    {
+        $data = $request->validate(['users' => ['required']]);;
+        foreach ($data['users'] as $u) {
+            User\TeamLeadCommandModel::create([
+                'user_id' => $u,
+                'project_id' => $project->id,
+                'teamLead_id' => $teamLead->id
+            ]);
+        }
+        return redirect()->route('employee.command-show', [$teamLead->id, $project->id])->with('create', "$teamLead->surname $teamLead->name $teamLead->lastname успешно добавлено в группу.");
+    }
+
+    public function deleteUserInGroup(User $teamLead, ProjectModel $project, User $user)
+    {
+        $info = User\TeamLeadCommandModel::where([
+            ['user_id', $user->id],
+            ['project_id', $project->id],
+            ['teamLead_id', $teamLead->id]
+        ])->first();
+        $info?->delete();
+        return redirect()->route('employee.command-show', [$teamLead->id, $project->id])->with('delete', "$user->surname $user->name $user->lastname успешна удалено из группы.");
+    }
+
+
+
+    // fro role to CRM functions
     public function roleToCRM(User $employee)
     {
         $employee->assignRole('crm');

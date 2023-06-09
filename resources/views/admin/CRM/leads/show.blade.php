@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     <div id="page-heading">
         <div class="page-title">
             <div class="row">
@@ -21,7 +22,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="card">
             <div class="card-header">
@@ -53,8 +53,7 @@
 
                             <div class="form-group">
                                 <label for="fio">ФИО</label>
-                                <input disabled type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
-                                        value="{{ $lead->contact?->fio }}" required>
+                                <textarea cols="10" rows="3" class="form-control mt-3" disabled>{{ $lead->contact?->fio }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -72,7 +71,7 @@
 
                             <div class="form-group">
                                 <label for="finish">Email</label>
-                                <input disabled  type="text" id="email" name="email" class="form-control mt-3" tabindex="5" value="{{ $lead->contact->email  }}" required>
+                                <textarea cols="10" rows="3" class="form-control mt-3" disabled>{{ $lead->contact->email }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -90,7 +89,8 @@
 
                             <div class="form-group">
                                 <label for="type">Адрес</label>
-                                <input disabled type="text" name="address"  value="{{ $lead->contact?->address  }}" class="form-control mt-3" tabindex="6">
+{{--                                <input disabled type="text" name="address"  value="{{ $lead->contact?->address  }}" class="form-control mt-3" tabindex="6">--}}
+                                <textarea cols="10" rows="3" disabled class="form-control mt-3">{{ $lead->contact?->address }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -101,7 +101,7 @@
                     </div>
                 </form>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="overflow: auto;">
                 <h2 class="text-center">Список контактов лида</h2>
                 <table id="example" class="table table-hover">
                     <thead>
@@ -119,12 +119,10 @@
                     @foreach($lead->contacts as $contact)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $contact?->fio }}</td>
+                            <td>{{ Str::limit($contact?->fio, 20) }}</td>
                             <td>{{ $contact?->phone }}</td>
                             <td>{{ $contact?->address }}</td>
-                            <td>
-                                {{ $contact?->fio }}
-                            </td>
+                            <td>{{ Str::limit($contact?->fio, 20) }}</td>
 
                             <td class="text-center">
                                 <a href="{{ route('contact.show', $contact->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>

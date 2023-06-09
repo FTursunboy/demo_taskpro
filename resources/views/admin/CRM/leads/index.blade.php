@@ -65,7 +65,7 @@
 
 
 
-                <div class="card-body">
+                <div class="card-body" style="overflow: auto;">
                     <table id="example" style="width: 100%" class="table table-hover">
                         <thead>
                         <tr>
@@ -85,7 +85,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>
                                     @if ($lead->contact?->fio)
-                                             {{ $lead->contact?->fio }}
+                                             {{ Str::limit($lead->contact?->fio, 20) }}
                                     @else
                                         <span style='color: lightcoral;'>Удалённый аккаунт</span>
                                     @endif

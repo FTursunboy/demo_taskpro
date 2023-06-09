@@ -28,8 +28,8 @@
                         Добавить контакт
                     </a>
                 </div>
-                <div class="card-body">
-                    <table id="example" class="table table-hover">
+                <div class="card-body" style="overflow: auto;">
+                    <table id="example" style="width: 100%" class="table table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -45,12 +45,10 @@
                         @foreach($contacts as $contact)
                             <tr>
                                 <td>{{ $loop->iteration}}</td>
-                                <td>{{ $contact?->fio }}</td>
+                                <td>{{ Str::limit($contact?->fio, 20) }}</td>
                                 <td>{{ $contact?->phone }}</td>
                                 <td>{{ $contact?->address }}</td>
-                                <td>
-                                    {{ $contact?->fio }}
-                                </td>
+                                <td>{{ Str::limit($contact?->fio, 20) }}</td>
 
                                 <td class="text-center">
                                     <a href="{{ route('contact.show', $contact->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>

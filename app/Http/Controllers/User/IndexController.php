@@ -31,6 +31,7 @@ class IndexController extends BaseController
 
         return response()->download($path, $task->file_name, $headers);
     }
+
     public function downloadFileChat(MessagesModel $task)
     {
         $path = storage_path('app/' . $task->file);
