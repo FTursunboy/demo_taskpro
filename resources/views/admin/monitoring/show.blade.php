@@ -24,6 +24,11 @@
                     </div>
                 </div>
             </div>
+            @if(session('mess'))
+                <div class="alert alert-success">
+                    Успешно изменено
+                </div>
+            @endif
             <div class="page-content">
                 <div class="row my-4">
                     <div class="col-1">
@@ -32,8 +37,21 @@
                     <div class="col-md-2">
                         <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                     </div>
-
+                    @if($task->status->id == 6)
+                        <div class="col-md-2">
+                            <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
+                        </div>
+                    @endif
+                    @if($task->status->id == 5)
+                        <div class="col-md-2">
+                            <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
+                        </div>
+                    @endif
+                    <div class="col-md-2 ms-auto">
+                        <button data-bs-target="#delete{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger">Удалить</button>
+                    </div>
                 </div>
+
                 <div class="row">
                     <p>
                         <button
@@ -405,6 +423,114 @@
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="check{{$task->id}}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" style="z-index: 9994"
+             aria-labelledby="check{{$task->id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{route('tasks.sendBack1', $task->id,)}}"
+                          method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-header">
+                            <h1>Проверка</h1>
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="employee">Отчёт о проделанной работе</label>
+                                <textarea class="form-control"
+                                          disabled>{{ $task->success_desc }} </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="employee">Исполнители</label>
+                                <select name="employee" id="employee"
+                                        class="form-control">
+                                    <option disabled value="0" selected>Выберите
+                                        исполнители
+                                    </option>
+                                    @foreach($users as $user)
+                                        <option
+                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning">
+                                Перенаправить
+                            </button>
+                            <button type="submit" class="btn btn-success">Готово
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="delete{{$task->id}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Удадения задачи</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Действительно хотите удалить задачу</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{route('mon.delete', $task->id)}}" class="btn btn-danger" >Удалить задачу</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="sendBack{{$task->id}}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" style="z-index: 9992"
+             aria-labelledby="editRight{{$task->id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{route('tasks.sendBack', $task->id,)}}"
+                          method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editRight{{$task->id}}">
+                                Предупреждение</h1>
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div class="form-group">
+                                    <label for="user">Сотрудник</label>
+                                    <select name="user_id" id="user_id"
+                                            class="form-select">
+                                        @foreach($users as $user)
+                                            <option
+                                                value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">
+                                Перенаправить
+                            </button>
+                            <a href="{{route('mon.edit', $task->id)}}"
+                               class="btn btn-primary">
+                                Изменить
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

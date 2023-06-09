@@ -341,7 +341,7 @@
                         }
                     });
 
-                    // Set the selected option based on the stored filter value
+
                     var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));
                     if (storedFilters) {
                         var storedFilter = storedFilters.find(function (filter) {
