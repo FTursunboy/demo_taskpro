@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label for="user">Члени команда</label>
                         <select name="users" id="user" class="form-select">
-                            <option value="">Все</option>
+                            <option value="0">Все</option>
                             @foreach($myCommand as $command)
                                 @if($command->id !== \Illuminate\Support\Facades\Auth::id())
                                     <option value="{{ $command->id }}">{{ $command->surname . ' ' . $command->name . ' ' . $command->lastname }}</option>
@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <label for="project">Проекты</label>
                         <select name="project" id="project" class="form-select">
-                            <option value="">Все</option>
+                            <option value="0">Все</option>
                             @foreach($myProject as $project)
                                 <option value="{{ $project->project_id }}">{{ $project->name }}</option>
                             @endforeach
@@ -66,6 +66,56 @@
 
 
 @section('script')
+
+    <script>
+
+        $(document).ready(function () {
+            let user = $('#user');
+            let project = $('#project');
+            let table = $('#tableBodyMonitoringCommand');
+
+            user.change(function () {
+                ajaxResult('my-command', user, project)
+            });
+            project.change(function () {
+                ajaxResult('my-command', user, project)
+            });
+
+            function ajaxResult(url, user_id, project_id) {
+                table.empty();
+                $.get(`tasks/public/${url}/${user_id.val()}/${project_id.val()}/`)
+                    .then((res) => {
+                        console.log(res)
+                        console.log(`tasks/public/${url}/${user_id.val()}/${project_id.val()}/`)
+                        if (res.status !== false) {
+                            for (let i = 0; i < res.length; i++) {
+                                let item = res[i];
+                                table.append($('<tr>')
+                                    .append($('<td>').text(item.id))
+                                    .append($('<td>').text(item.name))
+                                    .append($('<td>').text(item.status.name))
+                                    .append($('<td>').text((item.user !== null) ? item.user.surname + ' ' + item.user.name  : ''))
+                                    .append($('<td>').text(item.project.name))
+                                    .append($('<td>')
+                                        // .append($('<a>').attr('href', show).addClass('btn btn-success').append($('<i>').addClass('bi bi-eye')))
+                                        // .append($('<a>').attr('href', edit).addClass('btn btn-primary mx-1').append($('<i>').addClass('bi bi-pencil ')))
+                                    ).addClass('text-center'))
+                            }
+
+                        }
+
+                    });
+            }
+            function formatDate(param) {
+                const date = new Date(param);
+                return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+            }
+
+        });
+
+    </script>
+
+
 
     <script src="{{asset('assets/js/search.js')}}"></script>
     <script src="{{asset('assets/js/datatable.js')}}"></script>

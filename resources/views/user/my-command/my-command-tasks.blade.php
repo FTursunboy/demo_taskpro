@@ -10,7 +10,7 @@
             <th>Действия</th>
         </tr>
         </thead>
-        <tbody id="tableBodyMonitoring">
+        <tbody id="tableBodyMonitoringCommand">
         @foreach($userListTasks as $task)
             <tr class="text-center">
                 <td>{{ $loop->iteration }}</td>
