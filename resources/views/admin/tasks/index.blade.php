@@ -21,8 +21,6 @@
         </div>
 
 
-
-
         <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
             Добавить задачу
         </a>
@@ -72,7 +70,9 @@
                                         <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
                                         @break
                                         @case(6)
-                                        <td><a href="#" data-bs-toggle="modal" data-bs-target="#check{{$task->id}}"><span class="badge bg-primary p-2">На проверку</span></a></td>
+                                        <td><a href="#" data-bs-toggle="modal"
+                                               data-bs-target="#check{{$task->id}}"><span class="badge bg-primary p-2">На проверку</span></a>
+                                        </td>
                                         @break
                                         @case(7)
                                         <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
@@ -90,21 +90,26 @@
                                         <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
                                         @break
                                         @case(12)
-                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a></td>
+                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span
+                                                        class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a>
+                                        </td>
                                         @break
                                         @case(13)
-                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span class="badge bg-danger p-2">Отклонено (Клиент)</span></a></td>
+                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span
+                                                        class="badge bg-danger p-2">Отклонено (Клиент)</span></a></td>
                                         @break
                                         @case(14)
-                                        <td><a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2"></span>На проверку</a></td>
+                                        <td><a href="#" data-bs-target="#send{{$offer->id}}"
+                                               data-bs-toggle="modal"><span class="badge bg-success p-2"></span>На
+                                                проверку</a></td>
                                         @break
                                     @endswitch
                                     <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                     <td class="text-center">
                                         <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-success"><i
-                                                class="bi bi-eye"></i></a>
+                                                    class="bi bi-eye"></i></a>
                                         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-primary"><i
-                                                class="bi bi-pencil"></i></a>
+                                                    class="bi bi-pencil"></i></a>
 
                                     </td>
                                 </tr>
@@ -126,23 +131,25 @@
                                                     <button type="button" class="btn-close"
                                                             data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                            </div>
-                                            @if($task->status_id === 5)
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="cancel">Причина</label>
-                                                        <textarea id="cancel" class="form-control" disabled>{{ $task->cancel }}</textarea>
+                                                @if($task->status_id === 5)
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label for="cancel">Причина</label>
+                                                            <textarea id="cancel" class="form-control"
+                                                                      disabled>{{ $task->cancel }}</textarea>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Точно хотите удалить задачу?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Нет
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary">Да, удалить
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                <div class="modal-body">
-                                                    Точно хотите удалить задачу?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Нет
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary">Да, удалить
-                                                    </button>
-                                                </div>
+                                                @endif
                                             </form>
                                         </div>
                                     </div>
@@ -197,7 +204,7 @@
                                                                     class="form-select">
                                                                 @foreach($users as $user)
                                                                     <option
-                                                                        value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                                                            value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -245,7 +252,7 @@
                                                             </option>
                                                             @foreach($users as $user)
                                                                 <option
-                                                                    value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                                                        value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
