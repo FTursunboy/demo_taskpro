@@ -172,13 +172,12 @@
                         .search('')
                         .draw();
 
-                    // Сбрасываем сохраненные фильтры в localStorage
+
                     localStorage.removeItem('datatableFilters');
 
-                    // Сбрасываем выбранные значения в select фильтрах
                     $("#example thead select").val('');
 
-                    // Сбрасываем значение инпута поиска
+
                     $('#example_filter input').val('');
                 });
 

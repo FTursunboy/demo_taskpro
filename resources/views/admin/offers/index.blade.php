@@ -308,10 +308,10 @@
                             });
 
                             var resetButton = $('<button></button>')
-                                .addClass('btn btn-success')
+                                .addClass('btn btn-primary')
                                 .text('Обнулить')
                                 .on('click', function () {
-
+                                    // Сбрасываем фильтры и поиск
                                     table
                                         .search('')
                                         .columns()
@@ -323,11 +323,14 @@
 
                                     $("#example thead select").val('');
 
+
                                     $('#example_filter input').val('');
                                 });
 
                             var searchWrapper = $('#example_filter');
-                            resetButton.insertBefore(searchWrapper);
+                            searchWrapper.addClass('d-flex align-items-center');
+                            resetButton.addClass('ml-2');
+                            resetButton.appendTo(searchWrapper);
 
 
                         });
