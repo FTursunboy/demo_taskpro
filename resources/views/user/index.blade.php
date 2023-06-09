@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-9">
                     @include('inc.messages')
-                    <h4>Список всех задач</h4>
+                    <h4>Список активных задач</h4>
                     <div class="my-4"></div>
                     @foreach($tasks as $task)
                         <p>
