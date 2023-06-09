@@ -81,8 +81,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     });
 
     Route::group(['as' => 'mytasks.'], function () {
-       Route::get('/mytasks', [\App\Http\Controllers\Admin\MyTasksController::class, 'index'])->name('index');
-       Route::post('/mytasks/done/{task}', [\App\Http\Controllers\Admin\MyTasksController::class, 'done'])->name('done');
+        Route::get('/mytasks', [\App\Http\Controllers\Admin\MyTasksController::class, 'index'])->name('index');
+        Route::post('/mytasks/done/{task}', [\App\Http\Controllers\Admin\MyTasksController::class, 'done'])->name('done');
 
     });
 
@@ -105,12 +105,12 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
 
         // teamLead
-        Route::post('/team-lead/{employee}',[\App\Http\Controllers\Admin\EmployeeController::class, 'makeTeamLead'])->name('teamLead');
-        Route::post('/team-lead/{project}/{teamLead}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteFromCommand'])->name('delete-from-command');
+        Route::post('/team-lead/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'makeTeamLead'])->name('teamLead');
+        Route::post('/team-lead/{project}/{teamLead}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteFromCommand'])->name('delete-from-command');
         Route::get('/team-lead/delete-command/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteAllCommand'])->name('deleteCommand');
-        Route::get('/team-lead/command-show/{user}/{project}',[\App\Http\Controllers\Admin\EmployeeController::class, 'showCommand'])->name('command-show');
+        Route::get('/team-lead/command-show/{user}/{project}', [\App\Http\Controllers\Admin\EmployeeController::class, 'showCommand'])->name('command-show');
         Route::post('/team-lead/add-user-in-command/{teamLead}/{project}/', [\App\Http\Controllers\Admin\EmployeeController::class, 'addUserInCommand'])->name('addUserInCommand');
-        Route::post('/team-lead/delete-user-in-command/{teamLead}/{project}/{user}',[\App\Http\Controllers\Admin\EmployeeController::class,'deleteUserInGroup'])->name('deleteUserInGroup');
+        Route::post('/team-lead/delete-user-in-command/{teamLead}/{project}/{user}', [\App\Http\Controllers\Admin\EmployeeController::class, 'deleteUserInGroup'])->name('deleteUserInGroup');
 
         // role in CRM
         Route::post('/employee/role-in-crm/{employee}', [\App\Http\Controllers\Admin\EmployeeController::class, 'roleToCRM'])->name('roleToCrm');
@@ -130,7 +130,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     // for kpi ajax offers
     Route::get('/tasks/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
-
 
 
     Route::get('/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
@@ -190,4 +189,11 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 //    Route::get('excel/download/', [\App\Http\Controllers\Admin\ExelController::class, 'downloadFile'])->name('exel.download');
 
     Route::post('offers/chat/message/store/{offer}', [\App\Http\Controllers\Admin\TasksController::class, 'message_offer'])->name('offers.chat.message.store');
+
+
+    Route::group(['as' => 'tasks-team-leads.'], function () {
+        Route::get('/tasks-team/leads', [\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'index'])->name('all-tasks');
+        Route::get('/tasks-team/leads/accept/{slug}',[\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'acceptTaskCommand'])->name('acceptTaskCommand');
+        Route::get('/tasks-team/leads/decline/{slug}',[\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'declineTaskCommand'])->name('declineTaskCommand');
+    });
 });

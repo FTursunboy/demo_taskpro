@@ -11,7 +11,7 @@
                 <h1 class="modal-title fs-5" id="create-task">Создать задачу</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('my-command.createTaskInCommand') }}" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                         @csrf
                         <div class="row">
@@ -65,27 +65,20 @@
                                     <label for="type_id">Тип</label>
                                     <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3">
                                         <option value="" tabindex="3" selected>Выберите тип</option>
-
                                         @foreach($types as $type)
                                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group" id="type_id_group">
-                                    <label id="label" class="d-none" for="kpi_id">Вид KPI</label>
+                                <div class="form-group">
+                                    <label for="comment">Комментария</label>
+                                    <textarea tabindex="10" name="comment" id="comment" rows="4"
+                                              class="form-control mt-3">{{ old('comment') }}</textarea>
                                 </div>
-                                <div class="form-group"  id="percent">
-                                    <label id="label1" class="d-none" for="percent">Введите процент</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="comment">Комментария</label>
-                                <textarea tabindex="10" name="comment" id="comment"
-                                          class="form-control mt-3">{{ old('comment') }}</textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="file">Файл</label>
                                     <input tabindex="11" type="file"  name="file" class="form-control mt-3" id="file">
@@ -96,7 +89,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                    <button type="submit" class="btn btn-primary">Understood</button>
                 </div>
             </form>
         </div>
