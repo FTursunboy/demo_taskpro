@@ -117,4 +117,13 @@ class ProjectController extends BaseController
         return response()->download($path, $project->file_name, $headers);
 
     }
+
+
+    public function close(ProjectModel $project)
+    {
+        $project->pro_status = 3;
+        $project->save();
+
+        return redirect()->back();
+    }
 }

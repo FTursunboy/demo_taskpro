@@ -25,7 +25,8 @@ class ClientController extends BaseController
     public function index()
     {
         $users = User::role('client')->get();
-        $projects = ProjectModel::where('types_id', 2)->get();
+        $projects = ProjectModel::where('types_id', 2)
+            ->where('pro_status', '!=', 3)->get();
 
         return view('admin.offers.clients.index', compact('users', 'projects'));
     }
@@ -75,7 +76,8 @@ class ClientController extends BaseController
     {
         $user = User::where('slug', $slug)->firstOrFail();
         $roles = Role::where('name', 'client')->get();
-        $projects = ProjectModel::where('types_id', 2)->get();
+        $projects = ProjectModel::where('types_id', 2)
+            ->where('pro_status', '!=', 3)->get();
         $project_id = ProjectClient::where('user_id', $user->id)->first();
         return view('admin.offers.clients.edit', compact('user', 'roles', 'projects', 'project_id'));
     }
