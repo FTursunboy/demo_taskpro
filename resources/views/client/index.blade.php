@@ -188,6 +188,59 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+
+    <script>
+        $(function() {
+            $(document).on({
+                mouseover: function (event) {
+                    $(this).find('.far').addClass('star-over');
+                    $(this).prevAll().find('.far').addClass('star-over');
+                },
+                mouseleave: function (event) {
+                    $(this).find('.far').removeClass('star-over');
+                    $(this).prevAll().find('.far').removeClass('star-over');
+                }
+            }, '.eysan');
+
+            $(document).on('click', '.eysan', function () {
+                if (!$(this).find('.gasedun').hasClass('eysan-active')) {
+                    $(this).siblings().find('.star').addClass('far').removeClass('fas eysan-active');
+                    $(this).find('.gasedun').addClass('eysan-active fas').removeClass('far star-over');
+                    $(this).prevAll().find('.gasedun').addClass('fas').removeClass('far star-over');
+                } else {
+                }
+            });
+
+
+            $(document).ready(function () {
+                $('.eysan  input[type="radio"]').on('click', function () {
+                    $('#scoreForm').submit();
+                });
+            });
+            $(document).ready(function () {
+                $('.eysan input[type="radio"]').on('click', function () {
+                    $('#scoreForm2').submit();
+                });
+            });
+            $(document).ready(function () {
+                $('.eysan input[type="radio"]').on('click', function () {
+                    $('#scoreForm3').submit();
+                });
+            });
+            $(document).ready(function () {
+                $('.eysan input[type="radio"]').on('click', function () {
+                    $('#scoreForm4').submit();
+                });
+            });
+            $(document).ready(function () {
+                $('.eysan input[type="radio"]').on('click', function () {
+                    $('#scoreForm5').submit();
+                });
+            });
+        });
+
+    </script>
+
     <script src="{{asset('assets/js/filter3.js')}}"></script>
 
 
@@ -292,58 +345,6 @@
 
 
         });
-
-
-    </script>
-    <script>
-        $(function() {
-            $(document).on({
-                mouseover: function(event) {
-                    $(this).find('.far').addClass('star-over');
-                    $(this).prevAll().find('.far').addClass('star-over');
-                },
-                mouseleave: function(event) {
-                    $(this).find('.far').removeClass('star-over');
-                    $(this).prevAll().find('.far').removeClass('star-over');
-                }
-            }, '.eysan');
-
-            $(document).on('click', '.eysan', function() {
-                if ( !$(this).find('.gasedun').hasClass('eysan-active') ) {
-                    $(this).siblings().find('.star').addClass('far').removeClass('fas eysan-active');
-                    $(this).find('.gasedun').addClass('eysan-active fas').removeClass('far star-over');
-                    $(this).prevAll().find('.gasedun').addClass('fas').removeClass('far star-over');
-                } else {
-                }
-            });
-
-
-
-        // $(document).ready(function() {
-        //     $('.eysan  input[type="radio"]').on('click', function() {
-        //         $('#scoreForm').submit();
-        //     });
-        // });
-        // $(document).ready(function() {
-        //     $('.eysan input[type="radio"]').on('click', function() {
-        //         $('#scoreForm2').submit();
-        //     });
-        // });
-        // $(document).ready(function() {
-        //     $('.eysan input[type="radio"]').on('click', function() {
-        //         $('#scoreForm3').submit();
-        //     });
-        // });
-        // $(document).ready(function() {
-        //     $('.eysan input[type="radio"]').on('click', function() {
-        //         $('#scoreForm4').submit();
-        //     });
-        // });
-        // $(document).ready(function() {
-        //     $('.eysan input[type="radio"]').on('click', function() {
-        //         $('#scoreForm5').submit();
-        //     });
-        // });
 
 
     </script>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\RatingRequest;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 use App\Models\Client\Rating;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class RatingController extends Controller
 {
