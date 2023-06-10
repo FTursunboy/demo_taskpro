@@ -16,11 +16,11 @@
                 </div>
             </div>
         </div>
-                    @include('inc.messages')
+        @include('inc.messages')
         <section class="section">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-striped" id="table1">
+                    <table class="table table-striped" id="example">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -106,28 +106,56 @@
                                             <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
                                             <div class="gezdvu">
                                                 <div class="ponavues">
+
                                                     <label class="eysan">
-                                                        <input type="radio" name="radio1" id="star1" value="star1">
+                                                        <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
+                                                            @csrf
+                                                            <input type="radio"  name="rating" id="star1" value="1">
+                                                            <input type="hidden" name="rating" id="star1" value="1">
+                                                        </form>
                                                         <div class="face"></div>
                                                         <i class="far fa-star gasedun one-star"></i>
                                                     </label>
+
+
                                                     <label class="eysan">
-                                                        <input type="radio" name="radio1" id="star2" value="star2">
+                                                        <form id="scoreForm2" action="{{route('score', $task->id)}}" method="post">
+                                                            @csrf
+                                                            <input type="radio" name="rating" id="star2" value="2">
+                                                            <input type="hidden" name="rating" id="star2" value="2">
+                                                        </form>
                                                         <div class="face"></div>
                                                         <i class="far fa-star gasedun two-star"></i>
                                                     </label>
+
+
                                                     <label class="eysan">
-                                                        <input type="radio" name="radio1" id="star3" value="star3">
+                                                        <form id="scoreForm3" action="{{route('score', $task->id)}}" method="post">
+                                                            @csrf
+                                                            <input type="radio" name="rating" id="star3" value="3">
+                                                            <input type="hidden" name="rating" id="star3" value="3">
+                                                        </form>
                                                         <div class="face"></div>
                                                         <i class="far fa-star gasedun three-star"></i>
                                                     </label>
+
                                                     <label class="eysan">
-                                                        <input type="radio" name="radio1" id="star4" value="star4">
+                                                        <form id="scoreForm4" action="{{route('score', $task->id)}}" method="post">
+                                                            @csrf
+                                                            <input type="radio" name="rating" id="star4" value="4">
+                                                            <input type="hidden" name="rating" id="star4" value="4">
+                                                        </form>
                                                         <div class="face"></div>
                                                         <i class="far fa-star gasedun four-star"></i>
                                                     </label>
+
+
                                                     <label class="eysan">
-                                                        <input type="radio" name="radio1" id="star5" value="star5">
+                                                        <form id="scoreForm5" action="{{route('score', $task->id)}}" method="post">
+                                                            @csrf
+                                                            <input type="radio" name="rating" id="star5" value="5">
+                                                            <input type="hidden" name="rating" id="star5" value="5">
+                                                        </form>
                                                         <div class="face"></div>
                                                         <i class="far fa-star gasedun five-star"></i>
                                                     </label>
@@ -157,9 +185,116 @@
 @endsection
 
 @section('script')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <script src="{{asset('assets/js/filter3.js')}}"></script>
 
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                "processing": true,
+                "stateSave": true // Включаем сохранение состояния
+            });
+
+
+            var filters = JSON.parse(localStorage.getItem('datatableFilters'));
+            if (filters) {
+                for (var i = 0; i < filters.length; i++) {
+                    var filter = filters[i];
+                    table.column(filter.columnIndex).search(filter.value);
+                }
+                table.draw();
+            }
+
+            $("#example thead th").each(function (i) {
+                var th = $(this);
+                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
+
+                if (filterColumns.includes(th.text().trim())) {
+                    var select = $('<select></select>')
+                        .appendTo(th.empty())
+                        .addClass('form-control')
+                        .on('change', function () {
+                            var columnIndex = i;
+                            var value = $(this).val();
+                            table.column(columnIndex).search(value).draw();
+
+
+                            var filters = [];
+                            $("#example thead select").each(function () {
+                                var filter = {
+                                    columnIndex: $(this).closest('th').index(),
+                                    value: $(this).val()
+                                };
+                                filters.push(filter);
+                            });
+                            localStorage.setItem('datatableFilters', JSON.stringify(filters));
+                        });
+
+
+                    $('<option value="" selected>Все</option>').appendTo(select);
+
+                    var options = table.column(i).data().unique().sort().toArray();
+
+                    options = options.map(function (option) {
+                        var tempElement = $('<div>').html(option);
+                        return tempElement.text();
+                    });
+
+                    var uniqueOptions = [];
+                    options.forEach(function (option) {
+                        if (!uniqueOptions.includes(option)) {
+                            uniqueOptions.push(option);
+                            var optionText = option === null ? 'Нет данных' : option;
+                            var optionElement = $('<option></option>').attr('value', option).text(optionText);
+                            select.append(optionElement);
+                        }
+                    });
+
+                    var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));
+                    if (storedFilters) {
+                        var storedFilter = storedFilters.find(function (filter) {
+                            return filter.columnIndex === i;
+                        });
+                        if (storedFilter) {
+                            select.val(storedFilter.value);
+                        }
+                    }
+                }
+            });
+
+            var resetButton = $('<button></button>')
+                .addClass('btn btn-primary')
+                .text('Обнулить')
+                .on('click', function () {
+                    // Сбрасываем фильтры и поиск
+                    table
+                        .search('')
+                        .columns()
+                        .search('')
+                        .draw();
+
+
+                    localStorage.removeItem('datatableFilters');
+
+                    $("#example thead select").val('');
+
+
+                    $('#example_filter input').val('');
+                });
+
+            var searchWrapper = $('#example_filter');
+            searchWrapper.addClass('d-flex align-items-center');
+            resetButton.addClass('ml-2');
+            resetButton.appendTo(searchWrapper);
+
+
+        });
+
+
+    </script>
     <script>
         $(function() {
             $(document).on({
@@ -179,12 +314,41 @@
                     $(this).find('.gasedun').addClass('eysan-active fas').removeClass('far star-over');
                     $(this).prevAll().find('.gasedun').addClass('fas').removeClass('far star-over');
                 } else {
-                    console.log('has');
                 }
             });
 
-        });
+
+
+        // $(document).ready(function() {
+        //     $('.eysan  input[type="radio"]').on('click', function() {
+        //         $('#scoreForm').submit();
+        //     });
+        // });
+        // $(document).ready(function() {
+        //     $('.eysan input[type="radio"]').on('click', function() {
+        //         $('#scoreForm2').submit();
+        //     });
+        // });
+        // $(document).ready(function() {
+        //     $('.eysan input[type="radio"]').on('click', function() {
+        //         $('#scoreForm3').submit();
+        //     });
+        // });
+        // $(document).ready(function() {
+        //     $('.eysan input[type="radio"]').on('click', function() {
+        //         $('#scoreForm4').submit();
+        //     });
+        // });
+        // $(document).ready(function() {
+        //     $('.eysan input[type="radio"]').on('click', function() {
+        //         $('#scoreForm5').submit();
+        //     });
+        // });
+
+
     </script>
+
+
 @endsection
 
 
