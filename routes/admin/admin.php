@@ -60,7 +60,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::patch('/projects/edit/{projectModel}/update', [\App\Http\Controllers\Admin\ProjectController::class, 'update'])->name('update');
         Route::delete('/projects/destroy/{projectModel}', [\App\Http\Controllers\Admin\ProjectController::class, 'destroy'])->name('destroy');
         Route::get('/projects/download/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'downloadFile'])->name('download');
-        Route::get('/progect/show/close{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'close'])->name('close');
+        Route::post('/projects/show/close{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'close'])->name('close');
     });
 
     Route::group(['as' => 'tasks.'], function () {

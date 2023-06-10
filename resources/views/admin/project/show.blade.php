@@ -35,9 +35,32 @@
                 <a role="button" class="btn btn-primary mx-2">
                     Дата создания проекта: {{ $project->created_at->format('d-m-Y') }}
                 </a>
-                <a href="{{ route('project.close', $project->id) }}" class="btn btn-danger">
+                <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#proReady" role="button">
                     Завершить проект
                 </a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="proReady" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proReady" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="proReady">Предупреждение</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('project.close', $project->id) }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    ТОчно хотите закрыт проект?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                    <button type="submit" class="btn btn-primary">Да закрыт проект</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="card-body">
                     <div class="row">

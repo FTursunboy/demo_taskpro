@@ -20,7 +20,7 @@ class ProjectController extends BaseController
 {
     public function index()
     {
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::where('pro_status', '!=',3)->get();
 
         return view('admin.project.index', compact('projects'));
     }
@@ -123,7 +123,6 @@ class ProjectController extends BaseController
     {
         $project->pro_status = 3;
         $project->save();
-
-        return redirect()->back();
+        return redirect()->route('project.index')->with('create', 'Проект успешно закрылось');
     }
 }
