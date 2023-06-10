@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class MonitoringController extends BaseController
+class  MonitoringController extends BaseController
 {
     public function index()
     {

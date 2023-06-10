@@ -36,6 +36,11 @@
                             <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готово</a>
                         </div>
                     @endif
+                    @if($task->status->id == 5)
+                        <div class="col-md-2">
+                            <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
+                        </div>
+                    @endif
                 </div>
                 <div class="row">
                     <p>
@@ -230,6 +235,18 @@
                                                value="{{ $task->author?->name .' '. $task->author->surname}}"
                                                disabled>
                                     </div>
+                                    @if($task->status_id === 5 || $task->status_id === 12)
+                                        <div class="form-group">
+                                            <label for="reason">Причина</label>
+                                            <textarea
+                                                id="reason"
+                                                class="form-control"
+                                                style="color: white;
+                                                background: red;"
+                                                disabled
+                                            >{{ $task->cancel }}</textarea>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -429,6 +446,49 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                             <button type="submit" class="btn btn-success">Подтвердить!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="sendBack{{$task->id}}" data-bs-backdrop="static"
+             data-bs-keyboard="false" tabindex="-1" style="z-index: 9992"
+             aria-labelledby="editRight{{$task->id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{route('tasks.sendBack', $task->id,)}}"
+                          method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editRight{{$task->id}}">
+                                Предупреждение</h1>
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div class="form-group">
+                                    <label for="user">Сотрудник</label>
+                                    <select name="user_id" id="user_id"
+                                            class="form-select">
+                                        @foreach($users as $user)
+                                            <option
+                                                value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">
+                                Перенаправить
+                            </button>
+                            <a href="{{route('mon.edit', $task->id)}}"
+                               class="btn btn-primary">
+                                Изменить
+                            </a>
                         </div>
                     </form>
                 </div>
