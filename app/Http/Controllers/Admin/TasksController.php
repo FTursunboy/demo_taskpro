@@ -75,9 +75,9 @@ class  TasksController extends BaseController
             ['type', '=', 'task']
         ])->get();
 
+        $users = User::role('user')->get();
 
-
-        return view('admin.tasks.show', compact('task', 'messages', 'histories'));
+        return view('admin.tasks.show', compact('task', 'messages', 'histories', 'users'));
     }
 
     public function removeNotification(TaskModel $task)
@@ -306,7 +306,11 @@ class  TasksController extends BaseController
 
     public function sendBack(Request $request, TaskModel $task)
     {
-        UserTaskHistoryModel::where('task_id', $task->id)->first()->forceDelete();
+        $taskHistory = UserTaskHistoryModel::where('task_id', $task->id)->first();
+
+        if ($taskHistory) {
+            $taskHistory->delete();
+        }
 
         $task->update([
             'status_id' => 1,
@@ -321,14 +325,14 @@ class  TasksController extends BaseController
 
         }
 
-        return redirect()->route('tasks.index')->with('update', 'Задача успешно перенаправлена');
+        return redirect()->route('mon.index')->with('mess', 'Задача успешно перенаправлена');
     }
 
     public function sendBack1(Request $request, TaskModel $task)
     {
         $u = UserTaskHistoryModel::where('task_id', $task->id)->first();
         if ($u) {
-            $u->forceDelete();
+            $u->delete();
         }
 
         if ($request->employee == null) {

@@ -245,6 +245,18 @@
                                                value="{{ $task->author?->name .' '. $task->author->surname}}"
                                                disabled>
                                     </div>
+                                    @if($task->status_id === 5 || $task->status_id === 12)
+                                        <div class="form-group">
+                                            <label for="reason">Причина</label>
+                                            <textarea
+                                                id="reason"
+                                                class="form-control"
+                                                style="color: white;
+                                                background: red;"
+                                                disabled
+                                            >{{ $task->cancel }}</textarea>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

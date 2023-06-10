@@ -367,6 +367,30 @@
                     }
                 }
             });
+            var resetButton = $('<button></button>')
+                .addClass('btn btn-primary')
+                .text('Обнулить')
+                .on('click', function () {
+                    // Сбрасываем фильтры и поиск
+                    table
+                        .search('')
+                        .columns()
+                        .search('')
+                        .draw();
+
+
+                    localStorage.removeItem('datatableFilters');
+
+                    $("#example thead select").val('');
+
+
+                    $('#example_filter input').val('');
+                });
+
+            var searchWrapper = $('#example_filter');
+            searchWrapper.addClass('d-flex align-items-center');
+            resetButton.addClass('ml-2');
+            resetButton.appendTo(searchWrapper);
         });
 
     </script>

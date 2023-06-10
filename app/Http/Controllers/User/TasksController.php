@@ -59,17 +59,19 @@ class TasksController extends BaseController
         return redirect()->route('task-list.show', $task->id)->with('create', 'Задача принята!');
     }
 
-    public function decline(Request $request, TaskModel $task)
+    public function decline(TaskModel $task, Request $request)
     {
         UserTaskHistoryModel::create([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
             'status_id' => 5,
         ]);
+
         $task->update([
             'cancel' => $request->cancel,
             'status_id' => 5,
         ]);
+
         HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
 
         if ($task->offer_id) {
