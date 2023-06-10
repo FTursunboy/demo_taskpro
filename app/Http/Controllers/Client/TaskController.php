@@ -219,6 +219,6 @@ class TaskController extends BaseController
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
 
-        return redirect()->back()->with('mess', 'Успешно отправлено!');
+        return redirect()->back()->with('create', 'Задача успешно завершена!');
     }
 }

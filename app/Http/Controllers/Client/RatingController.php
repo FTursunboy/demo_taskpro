@@ -14,7 +14,7 @@ class RatingController extends Controller
     public function score(Offer $offer, RatingRequest $request)
     {
         $rating = $request->input('rating');
-        dd($rating);
+//        dd($rating);
         $user = User::find($offer->user_id);
         $task = TaskModel::find($offer->id);
         $client = User::find($offer->client_id);

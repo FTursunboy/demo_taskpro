@@ -102,65 +102,65 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Вы действительно хотите закрыть задачу, если нет оптравьте заново</p>
-                                            <hr>
-                                            <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
-                                            <div class="gezdvu">
-                                                <div class="ponavues">
+{{--                                            <hr>--}}
+{{--                                            <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>--}}
+{{--                                            <div class="gezdvu">--}}
+{{--                                                <div class="ponavues">--}}
 
-                                                    <label class="eysan">
-                                                        <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
-                                                            @csrf
-                                                            <input type="radio"  name="rating" id="star1" value="1">
-                                                            <input type="hidden" name="rating" id="star1" value="1">
-                                                        </form>
-                                                        <div class="face"></div>
-                                                        <i class="far fa-star gasedun one-star"></i>
-                                                    </label>
-
-
-                                                    <label class="eysan">
-                                                        <form id="scoreForm2" action="{{route('score', $task->id)}}" method="post">
-                                                            @csrf
-                                                            <input type="radio" name="rating" id="star2" value="2">
-                                                            <input type="hidden" name="rating" id="star2" value="2">
-                                                        </form>
-                                                        <div class="face"></div>
-                                                        <i class="far fa-star gasedun two-star"></i>
-                                                    </label>
+{{--                                                    <label class="eysan">--}}
+{{--                                                        <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">--}}
+{{--                                                            @csrf--}}
+{{--                                                            <input type="radio"  name="rating" id="star1" value="1">--}}
+{{--                                                            <input type="hidden" name="rating" id="star1" value="1">--}}
+{{--                                                        </form>--}}
+{{--                                                        <div class="face"></div>--}}
+{{--                                                        <i class="far fa-star gasedun one-star"></i>--}}
+{{--                                                    </label>--}}
 
 
-                                                    <label class="eysan">
-                                                        <form id="scoreForm3" action="{{route('score', $task->id)}}" method="post">
-                                                            @csrf
-                                                            <input type="radio" name="rating" id="star3" value="3">
-                                                            <input type="hidden" name="rating" id="star3" value="3">
-                                                        </form>
-                                                        <div class="face"></div>
-                                                        <i class="far fa-star gasedun three-star"></i>
-                                                    </label>
-
-                                                    <label class="eysan">
-                                                        <form id="scoreForm4" action="{{route('score', $task->id)}}" method="post">
-                                                            @csrf
-                                                            <input type="radio" name="rating" id="star4" value="4">
-                                                            <input type="hidden" name="rating" id="star4" value="4">
-                                                        </form>
-                                                        <div class="face"></div>
-                                                        <i class="far fa-star gasedun four-star"></i>
-                                                    </label>
+{{--                                                    <label class="eysan">--}}
+{{--                                                        <form id="scoreForm2" action="{{route('score', $task->id)}}" method="post">--}}
+{{--                                                            @csrf--}}
+{{--                                                            <input type="radio" name="rating" id="star2" value="2">--}}
+{{--                                                            <input type="hidden" name="rating" id="star2" value="2">--}}
+{{--                                                        </form>--}}
+{{--                                                        <div class="face"></div>--}}
+{{--                                                        <i class="far fa-star gasedun two-star"></i>--}}
+{{--                                                    </label>--}}
 
 
-                                                    <label class="eysan">
-                                                        <form id="scoreForm5" action="{{route('score', $task->id)}}" method="post">
-                                                            @csrf
-                                                            <input type="radio" name="rating" id="star5" value="5">
-                                                            <input type="hidden" name="rating" id="star5" value="5">
-                                                        </form>
-                                                        <div class="face"></div>
-                                                        <i class="far fa-star gasedun five-star"></i>
-                                                    </label>
-                                                </div>
-                                            </div>
+{{--                                                    <label class="eysan">--}}
+{{--                                                        <form id="scoreForm3" action="{{route('score', $task->id)}}" method="post">--}}
+{{--                                                            @csrf--}}
+{{--                                                            <input type="radio" name="rating" id="star3" value="3">--}}
+{{--                                                            <input type="hidden" name="rating" id="star3" value="3">--}}
+{{--                                                        </form>--}}
+{{--                                                        <div class="face"></div>--}}
+{{--                                                        <i class="far fa-star gasedun three-star"></i>--}}
+{{--                                                    </label>--}}
+
+{{--                                                    <label class="eysan">--}}
+{{--                                                        <form id="scoreForm4" action="{{route('score', $task->id)}}" method="post">--}}
+{{--                                                            @csrf--}}
+{{--                                                            <input type="radio" name="rating" id="star4" value="4">--}}
+{{--                                                            <input type="hidden" name="rating" id="star4" value="4">--}}
+{{--                                                        </form>--}}
+{{--                                                        <div class="face"></div>--}}
+{{--                                                        <i class="far fa-star gasedun four-star"></i>--}}
+{{--                                                    </label>--}}
+
+
+{{--                                                    <label class="eysan">--}}
+{{--                                                        <form id="scoreForm5" action="{{route('score', $task->id)}}" method="post">--}}
+{{--                                                            @csrf--}}
+{{--                                                            <input type="radio" name="rating" id="star5" value="5">--}}
+{{--                                                            <input type="hidden" name="rating" id="star5" value="5">--}}
+{{--                                                        </form>--}}
+{{--                                                        <div class="face"></div>--}}
+{{--                                                        <i class="far fa-star gasedun five-star"></i>--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
