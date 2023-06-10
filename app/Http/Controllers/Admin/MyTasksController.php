@@ -27,11 +27,12 @@ class MyTasksController extends BaseController
         return view('admin.tasks.index', compact('tasks', 'users'));
     }
 
-    public function check(){
+    public function check()
+    {
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
-                if ($task->status_id !== 3 && $task->status_id !== 6) {
+                if ($task->status_id !== 3 && $task->status_id !== 5 && $task->status_id !== 6 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13 && $task->status_id !== 14) {
                     $task->status_id = 7;
                     $task->save();
                 }

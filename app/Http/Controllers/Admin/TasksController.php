@@ -331,7 +331,7 @@ class  TasksController extends BaseController
             $u->forceDelete();
         }
 
-        if ($request->employee == 0) {
+        if ($request->employee == null) {
             $task->update(
                 [
                     'status_id' => 3,
@@ -359,7 +359,6 @@ class  TasksController extends BaseController
             }
 
             if ($task->client_id == null) {
-
                 $user = User::where('id', $task->user_id)->first();
                 $user->xp += 20;
                 $user->save();
