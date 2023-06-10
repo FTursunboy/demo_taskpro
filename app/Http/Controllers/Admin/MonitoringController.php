@@ -29,7 +29,7 @@ class MonitoringController extends BaseController
         $task->check();
         $tasks = TaskModel::get();
         $statuses = StatusesModel::get();
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
         $clients = User::role('client')->get();
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
@@ -78,7 +78,7 @@ class MonitoringController extends BaseController
     public function edit(TaskModel $task)
     {
         $types = TaskTypeModel::get();
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
         $type_kpi = TaskTypesTypeModel::get();
 

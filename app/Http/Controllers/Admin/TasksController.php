@@ -56,7 +56,7 @@ class  TasksController extends BaseController
     public function create()
     {
         $types = TaskTypeModel::get();
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role(['user', 'admin'])->get();
 
         return view('admin.tasks.create', compact('types', 'projects', 'users'));
@@ -227,7 +227,7 @@ class  TasksController extends BaseController
     public function edit(TaskModel $task)
     {
         $types = TaskTypeModel::get();
-        $projects = ProjectModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role(['user', 'admin'])->get();
         $type_kpi = TaskTypesTypeModel::get();
         return view('admin.tasks.edit', compact('types', 'projects', 'users', 'task', 'type_kpi'));

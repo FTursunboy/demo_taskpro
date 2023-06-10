@@ -35,6 +35,9 @@
                 <a role="button" class="btn btn-primary mx-2">
                     Дата создания проекта: {{ $project->created_at->format('d-m-Y') }}
                 </a>
+                <a href="{{ route('project.close', $project->id) }}" class="btn btn-danger">
+                    Завершить проект
+                </a>
             </div>
             <div class="card-body">
                     <div class="row">
