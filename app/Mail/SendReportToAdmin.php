@@ -19,9 +19,11 @@ class SendReportToAdmin extends Mailable
      * Create a new message instance.
      */
     public $report;
-    public function __construct(Report $report)
+    public $name;
+    public function __construct(Report $report, $name)
     {
         $this->report = $report;
+        $this->name = $name;
     }
 
     /**

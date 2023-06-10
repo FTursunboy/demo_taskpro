@@ -41,6 +41,7 @@ class SendReportToClient extends Mailable implements ShouldQueue
     /**
      * Get the message content definition.
      */
+
     public function content(): Content
     {
         return new Content(
