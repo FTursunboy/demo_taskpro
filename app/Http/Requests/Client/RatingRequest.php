@@ -22,7 +22,7 @@ class RatingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rating' => '',
+            'rating' => 'required',
             'user_id' => '',
             'task_id' => '',
             'client_id' => '',

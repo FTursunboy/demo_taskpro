@@ -102,76 +102,46 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Вы действительно хотите закрыть задачу, если нет оптравьте заново</p>
-{{--                                            <hr>--}}
-{{--                                            <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>--}}
-{{--                                            <div class="gezdvu">--}}
-{{--                                                <div class="ponavues">--}}
-
-{{--                                                    <label class="eysan">--}}
-{{--                                                        <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">--}}
-{{--                                                            @csrf--}}
-{{--                                                            <input type="radio"  name="rating" id="star1" value="1">--}}
-{{--                                                            <input type="hidden" name="rating" id="star1" value="1">--}}
-{{--                                                        </form>--}}
-{{--                                                        <div class="face"></div>--}}
-{{--                                                        <i class="far fa-star gasedun one-star"></i>--}}
-{{--                                                    </label>--}}
-
-
-{{--                                                    <label class="eysan">--}}
-{{--                                                        <form id="scoreForm2" action="{{route('score', $task->id)}}" method="post">--}}
-{{--                                                            @csrf--}}
-{{--                                                            <input type="radio" name="rating" id="star2" value="2">--}}
-{{--                                                            <input type="hidden" name="rating" id="star2" value="2">--}}
-{{--                                                        </form>--}}
-{{--                                                        <div class="face"></div>--}}
-{{--                                                        <i class="far fa-star gasedun two-star"></i>--}}
-{{--                                                    </label>--}}
-
-
-{{--                                                    <label class="eysan">--}}
-{{--                                                        <form id="scoreForm3" action="{{route('score', $task->id)}}" method="post">--}}
-{{--                                                            @csrf--}}
-{{--                                                            <input type="radio" name="rating" id="star3" value="3">--}}
-{{--                                                            <input type="hidden" name="rating" id="star3" value="3">--}}
-{{--                                                        </form>--}}
-{{--                                                        <div class="face"></div>--}}
-{{--                                                        <i class="far fa-star gasedun three-star"></i>--}}
-{{--                                                    </label>--}}
-
-{{--                                                    <label class="eysan">--}}
-{{--                                                        <form id="scoreForm4" action="{{route('score', $task->id)}}" method="post">--}}
-{{--                                                            @csrf--}}
-{{--                                                            <input type="radio" name="rating" id="star4" value="4">--}}
-{{--                                                            <input type="hidden" name="rating" id="star4" value="4">--}}
-{{--                                                        </form>--}}
-{{--                                                        <div class="face"></div>--}}
-{{--                                                        <i class="far fa-star gasedun four-star"></i>--}}
-{{--                                                    </label>--}}
-
-
-{{--                                                    <label class="eysan">--}}
-{{--                                                        <form id="scoreForm5" action="{{route('score', $task->id)}}" method="post">--}}
-{{--                                                            @csrf--}}
-{{--                                                            <input type="radio" name="rating" id="star5" value="5">--}}
-{{--                                                            <input type="hidden" name="rating" id="star5" value="5">--}}
-{{--                                                        </form>--}}
-{{--                                                        <div class="face"></div>--}}
-{{--                                                        <i class="far fa-star gasedun five-star"></i>--}}
-{{--                                                    </label>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
                                                 заново</a>
-                                            <a href="{{route('offers.ready', $task->id)}}" class="btn btn-success">Завершить</a>
+                                            <a href="#" class="btn btn-success" role="button"  data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
 
+                            <!-- Modal -->
+                            <div class="modal fade" id="ready{{ $task->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready{{ $task->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="ready{{ $task->id }}">Поставте оценку исполнителю</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
+                                            <div class="gezdvu">
+                                                <div class="ponavues">
+
+                                                    <label class="eysan">
+                                                        <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
+                                                            @csrf
+                                                            <input type="submit" name="rating" class="star" value="1">
+                                                            <input type="submit" name="rating" class="star2" value="2">
+                                                            <input type="submit" name="rating" class="star3" value="3">
+                                                            <input type="submit" name="rating" class="star4" value="4">
+                                                            <input type="submit" name="rating" class="star5" value="5">
+                                                        </form>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         @empty
                             <td colspan="5"><h1 class="text-center">Пока нет завершенных задач</h1></td>
                         @endforelse
@@ -191,53 +161,10 @@
 
     <script>
         $(function() {
-            $(document).on({
-                mouseover: function (event) {
-                    $(this).find('.far').addClass('star-over');
-                    $(this).prevAll().find('.far').addClass('star-over');
-                },
-                mouseleave: function (event) {
-                    $(this).find('.far').removeClass('star-over');
-                    $(this).prevAll().find('.far').removeClass('star-over');
-                }
-            }, '.eysan');
-
-            $(document).on('click', '.eysan', function () {
-                if (!$(this).find('.gasedun').hasClass('eysan-active')) {
-                    $(this).siblings().find('.star').addClass('far').removeClass('fas eysan-active');
-                    $(this).find('.gasedun').addClass('eysan-active fas').removeClass('far star-over');
-                    $(this).prevAll().find('.gasedun').addClass('fas').removeClass('far star-over');
-                } else {
-                }
-            });
-
-
-            $(document).ready(function () {
-                $('.eysan  input[type="radio"]').on('click', function () {
-                    $('#scoreForm').submit();
-                });
-            });
-            $(document).ready(function () {
-                $('.eysan input[type="radio"]').on('click', function () {
-                    $('#scoreForm2').submit();
-                });
-            });
-            $(document).ready(function () {
-                $('.eysan input[type="radio"]').on('click', function () {
-                    $('#scoreForm3').submit();
-                });
-            });
-            $(document).ready(function () {
-                $('.eysan input[type="radio"]').on('click', function () {
-                    $('#scoreForm4').submit();
-                });
-            });
-            $(document).ready(function () {
-                $('.eysan input[type="radio"]').on('click', function () {
-                    $('#scoreForm5').submit();
-                });
-            });
-        });
+            $('#readyBTN').click(function (){
+                alert("Hello")
+            })
+        })
 
     </script>
 
