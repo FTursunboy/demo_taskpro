@@ -70,8 +70,6 @@ class MyTasksController extends BaseController
 
             }
 
-
-
             return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
         }
 
