@@ -53,6 +53,6 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::delete('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'destroy'])->name('destroy');
     });
 
-    Route::post('score/{offer}', [\App\Http\Controllers\RatingController::class, 'score'])->name('score');
+    Route::post('score/{offer}', [\App\Http\Controllers\Client\RatingController::class, 'score'])->name('score');
 });
 
