@@ -14,7 +14,6 @@ class RatingController extends Controller
     public function score(Offer $offer, RatingRequest $request)
     {
         $rating = $request->input('rating');
-//        dd($rating);
         $user = User::find($offer->user_id);
         $task = TaskModel::find($offer->id);
         $client = User::find($offer->client_id);
@@ -26,7 +25,7 @@ class RatingController extends Controller
             'client_id' => $client->id,
         ]);
 
-        return redirect()->route('client.index')->with('update', 'Спасибо за отзыв');
+        return redirect()->route('offers.ready', $task->id)->with('update', 'Спасибо за отзыв');
     }
 
 }
