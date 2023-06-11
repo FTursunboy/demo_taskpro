@@ -51,10 +51,10 @@ class TasksTeamLeadController extends BaseController
         }
         try {
             $teamLead = User::find($task->author_id);
-            Notification::send(User::find($task->user_id), new TelegramTeamLeadSendTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->project->finish, $task->type->name,$teamLead->surname . ' ' .$teamLead->name));
+            Notification::send(User::find($task->user_id), new TelegramTeamLeadSendTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->project->finish, $task->type->name, $teamLead->surname . ' ' . $teamLead->name));
         } catch (\Exception $exception) {
         }
-        return back()->with('create', 'Задача успешно создана!');
+        return redirect()->route('tasks-team-leads.all-tasks')->with('create', 'Задача успешно создана!');
     }
 
 
@@ -75,6 +75,13 @@ class TasksTeamLeadController extends BaseController
         } catch (\Exception $exception) {
 
         }
-        return back()->with('delete', 'Задача успешно удалено!');
+        return redirect()->route('tasks-team-leads.all-tasks')->with('delete', 'Задача успешно удалено!');
+    }
+
+    public function show($slug)
+    {
+        $task = TaskModel::withTrashed()
+            ->where('slug', $slug)->first();
+        return view('admin.tasks-team-lead.show', compact('task'));
     }
 }
