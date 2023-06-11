@@ -61,6 +61,12 @@ class TasksController extends BaseController
 
     public function decline(TaskModel $task, Request $request)
     {
+        if ($task->status_id === 7){
+            $task->update([
+                'status_id' => 1,
+            ]);
+        }
+
         UserTaskHistoryModel::create([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
