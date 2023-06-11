@@ -95,8 +95,6 @@
                                     <input type="text" id="from" class="form-control"
                                            value="{{ date('d-m-Y', strtotime($task->from)) }}" disabled>
                                 </div>
-
-
                                 @if($task->file !== null)
                                     <div class="form-group">
                                         <label for="file">Файл</label>
