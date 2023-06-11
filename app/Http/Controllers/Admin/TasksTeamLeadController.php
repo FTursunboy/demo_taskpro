@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TaskModel;
+use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
+use App\Notifications\Telegram\SendNewTaskInUser;
+use App\Notifications\Telegram\TelegramTeamLeadSendTaskInUser;
+use App\Notifications\Telegram\TelegramTeamLeadTaskAccept;
+use App\Notifications\Telegram\TelegramTeamLeadTaskDecline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class TasksTeamLeadController extends BaseController
 {
@@ -38,8 +44,20 @@ class TasksTeamLeadController extends BaseController
             ['user_id', $task->user_id],
         ])->first();
         $my->delete();
+        try {
+            Notification::send(User::find($task->author_id), new TelegramTeamLeadTaskAccept($task->name));
+        } catch (\Exception $exception) {
+
+        }
+        try {
+            $teamLead = User::find($task->author_id);
+            Notification::send(User::find($task->user_id), new TelegramTeamLeadSendTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->project->finish, $task->type->name,$teamLead->surname . ' ' .$teamLead->name));
+        } catch (\Exception $exception) {
+        }
         return back()->with('create', 'Задача успешно создана!');
     }
+
+
     public function declineTaskCommand($slug)
     {
         $task = TaskModel::withTrashed()
@@ -52,6 +70,11 @@ class TasksTeamLeadController extends BaseController
             ['user_id', $task->user_id],
         ])->first();
         $my?->delete();
+        try {
+            Notification::send(User::find($task->author_id), new TelegramTeamLeadTaskDecline($task->name));
+        } catch (\Exception $exception) {
+
+        }
         return back()->with('delete', 'Задача успешно удалено!');
     }
 }

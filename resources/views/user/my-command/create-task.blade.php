@@ -3,6 +3,8 @@
     Создать задачу
 </button>
 
+<a href="{{ route('my-command.taskInQuery')}}" class="btn btn-outline-warning">Мои отправленные задачи</a>
+
 <!-- Modal -->
 <div class="modal fade" id="create-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="create-task" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -88,8 +90,8 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Understood</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
             </form>
         </div>
