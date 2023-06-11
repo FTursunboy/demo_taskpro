@@ -11,12 +11,11 @@ use App\Models\Types;
 use App\Models\User;
 use App\Notifications\Telegram\TelegramSendTaskInAdmin;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use function MongoDB\BSON\fromJSON;
 
 class MyCommandController extends Controller
 {

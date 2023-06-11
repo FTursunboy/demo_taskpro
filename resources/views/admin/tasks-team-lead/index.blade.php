@@ -45,6 +45,7 @@
                             <td>{{ $task->author_task_surname . ' ' . $task->author_task_name }}</td>
                             <td>{{ $task->author_surname . ' ' . $task->author_name }}</td>
                             <td>
+                                <a href="{{ route('tasks-team-leads.show', $task->task_slug) }}" class="btn btn-success "><i class="bi bi-eye"></i></a>
                                 <a href="{{ route('tasks-team-leads.acceptTaskCommand', $task->task_slug) }}" class="btn btn-primary"><i class="bi bi-check"></i></a>
                                 <a href="{{ route('tasks-team-leads.declineTaskCommand', $task->task_slug) }}" class="btn btn-danger"><i class="bi bi-x"></i></a>
                             </td>
