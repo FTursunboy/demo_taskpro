@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                                 <label for="user_id">Кому это задача</label>
-                                <select id="user_id" name="user_id" tabindex="4" class="form-select mt-3">
+                                <select id="user_id" name="user_id" tabindex="4" class="form-select mt-3" required>
                                     <option value="" selected>Выбирите сотрудник</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user_id ) ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -74,7 +74,7 @@
 
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
-                                <select id="project_id" name="project_id" tabindex="5" class="form-select mt-3">
+                                <select id="project_id" name="project_id" tabindex="5" class="form-select mt-3" required>
                                     <option value="" selected disabled>Выбирите проект</option>
                                     @foreach($projects as $project)
                                         <option
@@ -97,7 +97,7 @@
 
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-                                <select id="type_id" name="type_id" tabindex="3" class="form-select mt-3">
+                                <select id="type_id" name="type_id" tabindex="3" class="form-select mt-3" required>
                                     <option value="" selected>Выбирите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}" {{ ($type->id === old('type_id') or $type->id === $task->type_id ) ? 'selected' : '' }}>{{ $type->name }}</option>
