@@ -9,7 +9,9 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Types;
 use App\Models\User;
+use App\Notifications\Telegram\TelegramSendTaskInAdmin;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +58,12 @@ class MyCommandController extends Controller
             'task_id' => $task->id
         ]);
         $task->delete();
-        return redirect()->route('my-command.index')->with('create', 'Задача отправлено на рассмотрение админа');
+        $admin = User::role('admin')->first();
+        try {
+            Notification::send($admin, new TelegramSendTaskInAdmin($task->name,Auth::user()->surname .' '. Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
+        return redirect()->route('my-command.index')->with('create', 'Задача отправлена на рассмотрение Админа');
     }
 
     public function filter($user, $project)

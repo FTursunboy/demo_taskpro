@@ -10,12 +10,13 @@ use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
 
-class TelegramTeamLeadTaskAccept extends Notification implements ShouldQueue
+class TelegramSendTaskInAdmin extends Notification implements ShouldQueue
 {
     use Queueable;
 
 
     public string $name = '';
+    public string $user = '';
 
 
     /**
@@ -23,9 +24,10 @@ class TelegramTeamLeadTaskAccept extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($name)
+    public function __construct($name, $user)
     {
         $this->name = $name;
+        $this->user = $user;
     }
 
     /**
@@ -69,7 +71,7 @@ class TelegramTeamLeadTaskAccept extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Здравствуйте, Админ принял вашу задачу и отправил его сотруднику
+            ->content("Здравствуйте пользователь, {$this->user} поставил(а) задачу сотруднику
                 \n Названия : {$this->name}
                 ");
 

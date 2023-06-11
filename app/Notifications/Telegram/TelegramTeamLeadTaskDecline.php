@@ -69,7 +69,7 @@ class TelegramTeamLeadTaskDecline extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Здравствуйте, Пользователь Админ откланил вашу задачу
+            ->content("Здравствуйте, Админ откланил вашу задачу
                 \n Названия : {$this->name}
                 ");
 
