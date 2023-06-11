@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use function MongoDB\BSON\fromJSON;
 
 class MyCommandController extends Controller
 {
@@ -60,58 +61,52 @@ class MyCommandController extends Controller
 
     public function filter($user, $project)
     {
-        try {
-            $tasks = TaskModel::with(['author', 'project', 'user', 'status'])
-                ->whereIn('id', function ($query) {
-                    $query->select('tlc.user_id')
-                        ->from('team_lead_command_models AS tlc')
-                        ->where('tlc.teamLead_id', Auth::id());
-                });
-
-            if ($user === '0' && $project === '0') {
-                $tasks = $tasks->get();
-            } elseif ($user !== '0' && $project === '0') {
-                $tasks = $tasks->where('user_id', $user)->get();
-            } elseif ($user === '0' && $project !== '0') {
-                $tasks = $tasks->where('project_id', $project)->get();
-            } elseif ($user !== '0' && $project !== '0') {
-                $tasks = $tasks->where('project_id', $project)->where('user_id', $user)->get();
-            }
-
-            return $tasks;
-        } catch (\Exception $exception) {
-            return [
-                'error' => $exception->getMessage(),
-                'status' => false
-            ];
-        }
-
-
-
 //        try {
-//            $tasks = TaskModel::with(['author', 'project', 'user', 'client', 'status', 'type', 'typeType'])
+//
+//            $tasks = TaskModel::with(['author', 'project', 'user', 'status'])
 //                ->whereIn('id', function ($query) {
 //                    $query->select('tlc.user_id')
 //                        ->from('team_lead_command_models AS tlc')
 //                        ->where('tlc.teamLead_id', Auth::id());
 //                });
 //
-//            if ($user === '0' && $project === '0') {
-//                $task = $tasks->get();
+//            if ($user !== '0' && $project === '0') {
+//                $tasks = $tasks->whereIn('project_id', $project)->get();
+//                dd($tasks);
 //            } elseif ($user !== '0' && $project === '0') {
-//                $task = $tasks->where('user_id', $user)->get();
+//                $tasks = $tasks->where('user_id', $user)->get();
 //            } elseif ($user === '0' && $project !== '0') {
-//                $task = $tasks->where('project_id', $project)->get();
-//            } elseif($user !== '0' && $project !== '0') {
-//                $task = $tasks->where('project_id', $project)->where('user_id', $user)->get();
+//                $tasks = $tasks->where('project_id', $project)->get();
+//            } elseif ($user !== '0' && $project !== '0') {
+//                $tasks = $tasks->where('project_id', $project)->where('user_id', $user)->get();
 //            }
-//            return $task;
+//            return response()->json($tasks);
 //        } catch (\Exception $exception) {
 //            return [
 //                'error' => $exception->getMessage(),
 //                'status' => false
 //            ];
 //        }
+    }
 
+    public function taskInQuery()
+    {
+        $TasksInQuery = TaskModel::withTrashed()
+            ->where('author_id', Auth::id())
+            ->whereNotNull('deleted_at')
+            ->get();
+        return view('user.my-command.task-in-query', compact('TasksInQuery'));
+    }
+
+    public function taskInQueryDelete($slug)
+    {
+        $task = TaskModel::withTrashed()->where('slug', $slug)->first();
+        $copy = User\CreateMyCommandTaskModel::where([
+            ['user_id', $task->user_id],
+            ['task_id', $task->id]
+        ])->first();
+        $copy?->delete();
+        $task->forceDelete();
+        return back()->with('delete', 'Задача успешно удалено');
     }
 }

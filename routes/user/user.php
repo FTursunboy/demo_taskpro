@@ -51,7 +51,12 @@ Route::group(['middleware' => ['role:user']], function () {
 
     Route::group(['as' => 'my-command.'], function () {
         Route::get('/my-command', [\App\Http\Controllers\User\MyCommandController::class, 'index'])->name('index');
+
+
         Route::post('/my-command/create-task', [\App\Http\Controllers\User\MyCommandController::class, 'createTaskInCommand'])->name('createTaskInCommand');
+        Route::get('/my-command/tasks-in-query/', [\App\Http\Controllers\User\MyCommandController::class, 'taskInQuery'])->name('taskInQuery');
+
+        Route::get('/my-command/tasks-in-query/delete/{id}', [\App\Http\Controllers\User\MyCommandController::class, 'taskInQueryDelete'])->name('taskInQueryDelete');
     });
 
     Route::get('user/offers/file/download/chat/{mess}', [\App\Http\Controllers\User\TasksController::class, 'download_file_chat'])->name('user.download.file.chat');

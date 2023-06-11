@@ -197,13 +197,12 @@ class  TasksController extends BaseController
             $task->update([
                 'status_id' => 2,
             ]);
-
         }
 
         $this->check();
         $type = TaskTypeModel::find($request->type_id)->name;
         try {
-            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
+            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $project->finish, $type));
         } catch (\Exception $exception) {
 
         }
