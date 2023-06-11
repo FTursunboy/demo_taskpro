@@ -82,7 +82,7 @@ class TelegramTeamLeadSendTaskInUser extends Notification implements ShouldQueue
                 \n До : {$this->taskTo}
                 \n Дедлайн : {$this->taskDeadline}
                 \n Тип : {$this->tasktype}
-                \n Вам ваш тимлид {$this->teamLead} поставила вам новая задача и админ приял ее.
+                \n Ваш тимлид {$this->teamLead}, поставил(а) вам новую задачу, админ принял её.
                 ");
     }
 }
