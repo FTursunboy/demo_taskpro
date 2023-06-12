@@ -57,10 +57,10 @@
                         @foreach($tasks as $task)
                             <tr>
                                 <td class="text-center">{{$loop->iteration }}</td>
-                                <td>{{ $task->name }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
                                 <td class="text-center">{{ $task->time }}</td>
-                                <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
-                                <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
+                                <td width="10%" class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
+                                <td width="10%" class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
                                 <td class="text-center">{{ $task->project->name  }}</td>
                                 <td class="text-center">{{ $task->author->name  }}</td>
                                 <td class="text-center">
