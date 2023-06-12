@@ -122,6 +122,9 @@ class  TasksController extends BaseController
 
         try {
             Notification::send(User::find($task->user_id), new Chat($messages_models, $task->name));
+            $user = User::find($task->client_id);
+            $email = $user?->clientEmail?->email;
+            MailToSendClientController::chat($email, $task->name, $messages_models->message);
         } catch (\Exception $exception) {
 
         }

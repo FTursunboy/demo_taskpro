@@ -161,7 +161,7 @@
                                                                     <img src="{{asset('assets/images/avatar-2.png')}}" width="50">
                                                                 @endif
                                                             </td>
-                                                            <td>{{ $user->name . " " . $user->surname . " " . $user->lastname }}</td>
+                                                            <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
                                                             <td class="text-center">{{ round($user->average_rating, 1) }}</td>
                                                         </tr>
                                                     @endforeach

@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\User;
+use App\Notifications\Telegram\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class   MessagesController extends BaseController
 {
@@ -33,7 +36,14 @@ class   MessagesController extends BaseController
             'message' => $request->message
         ]);
 
+        try {
+            Notification::send(User::find(1), new Chat($messages_models, $task->name));
+            $user = User::find($task->client_id);
+            $email = $user?->clientEmail?->email;
+            MailToSendClientController::chat($email, $task->name, $messages_models->message);
+        } catch (\Exception $exception) {
 
+        }
         return response([
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,
