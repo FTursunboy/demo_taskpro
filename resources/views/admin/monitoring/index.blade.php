@@ -75,10 +75,6 @@
                                 <td class="text-center">
                                     <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
                                             class="bi bi-eye"></i></a>
-                                    <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i
-                                            class="bi bi-pencil"></i></a>
-                                    <a href="{{ route('mon.delete', $task->id) }}" class="btn btn-danger"><i
-                                            class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
 
@@ -102,7 +98,7 @@
         $(document).ready(function () {
             var table = $('#example').DataTable({
                 "processing": true,
-                "stateSave": true // Включаем сохранение состояния
+                "stateSave": true
             });
 
 

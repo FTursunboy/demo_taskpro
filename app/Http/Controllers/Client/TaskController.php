@@ -159,6 +159,12 @@ class TaskController extends BaseController
         $offer->save();
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+        if ($task) {
+            dd(1);
+
+            HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
+        }
         return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
@@ -174,6 +180,12 @@ class TaskController extends BaseController
         }
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+        if ($task) {
+            HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
+        }
+        HistoryController::task($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
+
         return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
@@ -215,10 +227,14 @@ class TaskController extends BaseController
         if ($tasks !== null) {
             $tasks->status_id = 3;
             $tasks->save();
+            HistoryController::task($tasks->id, $tasks->user_id, Statuses::FINISH);
         }
+
+
 
         $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
+
 
         return redirect()->back()->with('create', 'Задача успешно завершена!');
     }

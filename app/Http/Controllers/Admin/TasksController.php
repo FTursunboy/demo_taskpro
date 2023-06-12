@@ -359,12 +359,18 @@ class  TasksController extends BaseController
                 $offer->save();
                 $task->status_id = 10;
                 $task->save();
+                HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+                HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
             }
+            else {
 
-            if ($task->client_id == null) {
                 $user = User::where('id', $task->user_id)->first();
                 $user->xp += 20;
                 $user->save();
+                HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
+                $task->finish = Carbon::now();
+                $task->save();
+
             }
 
             return redirect()->back()->with('mess', 'Успешно отправлено');
@@ -381,10 +387,11 @@ class  TasksController extends BaseController
                     'status_id' => 1,
                     'user_id' => $request->employee,
                 ]);
+                HistoryController::task($task->id, $task->user_id, Statuses::RESEND);
             }
         }
 
-        HistoryController::task($task->id, $task->user_id, Statuses::RESEND);
+
 
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->to, $task->type?->name));
