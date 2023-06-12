@@ -7,7 +7,6 @@
             <th>Статус</th>
             <th>Исполнитель</th>
             <th>Проект</th>
-            <th>Действия</th>
         </tr>
         </thead>
         <tbody id="tableBodyMonitoringCommand">
@@ -18,9 +17,6 @@
                 <td>{{ $task->sts }}</td>
                 <td>{{ $task->surname . ' ' . $task->name. ' '. $task->lastname}}</td>
                 <td>{{ $task->group}}</td>
-                <td>
-                    <a href="#" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                </td>
             </tr>
         @endforeach
         </tbody>
