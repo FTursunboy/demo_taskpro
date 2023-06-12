@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -168,7 +169,7 @@ class User extends Authenticatable
 
     public function getUsersTasks($id)
     {
-         TaskModel::where('task_models.user_id', $id)
+        TaskModel::where('task_models.user_id', $id)
             ->orderByRaw('task_models.status_id = 3 ASC')
             ->whereNotIn('task_models.id', function ($subquery) use ($id) {
                 $subquery->from('user_task_history_models as h')
@@ -214,4 +215,14 @@ class User extends Authenticatable
         return $this->hasOne(ClientMail::class, 'user_id');
     }
 
+
+    public function UserSumKPI($userID)
+    {
+        $result = DB::table('task_models')
+            ->where('user_id', $userID)
+            ->select(DB::raw('COALESCE(SUM(percent), 0)'))
+            ->first();
+
+        return $result->{'COALESCE(SUM(percent), 0)'};
+    }
 }

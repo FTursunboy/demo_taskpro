@@ -58,11 +58,10 @@
                                 <select id="client_id" name="client_id" class="form-select mt-3" required>
                                     <option value="" selected>Выберите клиента </option>
                                     @foreach($clients as $client)
-                                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                        <option value="{{ $client->id }}" {{ ($client->id === $task->client_id) ? 'selected' : '' }}>{{ $client->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="to">Дата окончания задачи</label>
                                 <input type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to', $task->to) }}"
