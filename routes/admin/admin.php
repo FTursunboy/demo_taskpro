@@ -166,6 +166,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('clients/offers/search', [\App\Http\Controllers\Admin\OfferController::class, 'search'])->name('search');
         Route::get('clients/offers/search/results', [\App\Http\Controllers\Admin\OfferController::class, 'searchResults'])->name('search.results');
         Route::get('clients/offers/search/results/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'searchResultsWithparametr'])->name('search.results.parameter');
+        Route::post('clients/offers/decline/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'decline'])->name('decline');
 
     });
 

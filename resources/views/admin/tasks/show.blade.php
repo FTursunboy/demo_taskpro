@@ -273,7 +273,7 @@
                                 <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
                                     @foreach($messages as $mess)
                                         @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
-                                            <div class="chat">
+                                            <div class="chat" data-comment-id="{{ $mess->id }}">
                                                 <div class="chat-body" style="margin-right: 10px">
                                                     <div class="chat-message">
                                                         <p>
@@ -281,19 +281,18 @@
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                         @if($mess->file !== null)
                                                             <div class="form-group">
-                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
-                                                                    файл</a>
+                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть файл</a>
                                                             </div>
                                                         @endif
-                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                            </span>
+                                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                    {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                </span>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         @else
-                                            <div class="chat chat-left">
+                                            <div class="chat chat-left" data-comment-id="{{ $mess->id }}">
                                                 <div class="chat-body">
                                                     <div class="chat-message">
                                                         <p>
@@ -301,13 +300,12 @@
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                         @if($mess->file !== null)
                                                             <div class="form-group">
-                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
-                                                                    файл</a>
+                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть файл</a>
                                                             </div>
                                                         @endif
-                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                            </span>
+                                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                    {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                </span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -315,33 +313,66 @@
                                         @endif
                                     @endforeach
                                 </div>
-                                        <script>
-                                            let block = document.getElementById("block");
-                                            block.scrollTop = block.scrollHeight;
-                                        </script>
+                                <script>
+                                    let block = document.getElementById("block");
+                                    block.scrollTop = block.scrollHeight;
+
+                                    block.addEventListener("contextmenu", function(event) {
+                                        event.preventDefault();
+                                        let comment = event.target.closest(".chat");
+                                        if (comment) {
+                                            showContextMenu(event.clientX, event.clientY, comment);
+                                        }
+                                    });
+
+                                    function showContextMenu(x, y, comment) {
+                                        let contextMenu = document.createElement("div");
+                                        contextMenu.className = "context-menu";
+                                        contextMenu.innerHTML = "<a href='#' class='delete'>Удалить</a> | <a href='#' class='edit'>Редактировать</a>";
+
+                                        contextMenu.style.top = y + "px";
+                                        contextMenu.style.left = x + "px";
+
+                                        let deleteOption = contextMenu.querySelector(".delete");
+                                        let editOption = contextMenu.querySelector(".edit");
+
+                                        deleteOption.addEventListener("click", function() {
+                                            deleteComment(comment);
+                                            contextMenu.remove();
+                                        });
+
+                                        editOption.addEventListener("click", function() {
+                                            editComment(comment);
+                                            contextMenu.remove();
+                                        });
+
+                                        document.body.appendChild(contextMenu);
+
+                                        document.addEventListener("click", function(event) {
+                                            if (!contextMenu.contains(event.target)) {
+                                                contextMenu.remove();
+                                            }
+                                        });
+                                    }
+
+                                    function deleteComment(comment) {
+                                        let commentId = comment.getAttribute("data-comment-id");
+                                        // Отправить AJAX-запрос на сервер для удаления комментария
+                                        // Например, использовать fetch или jQuery.ajax
+                                        // После успешного удаления комментария, удалить его из DOM:
+                                        comment.remove();
+                                    }
+
+                                    function editComment(comment) {
+                                        let commentId = comment.getAttribute("data-comment-id");
+                                        // Отправить AJAX-запрос на сервер, чтобы получить форму редактирования комментария
+                                        // Например, использовать fetch или jQuery.ajax
+                                        // После получения формы, вы можете показать модальное окно или встроить форму редактирования в комментарий
+                                    }
+                                </script>
                             </div>
-                            <div class="card-footer">
-                                <div class="message-form d-flex flex-direction-column align-items-center">
-                                    @if($task->status_id !== 3)
-                                        <form id="formMessage" class="w-100" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="d-flex flex-grow-1 ml-4">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" id="message" name="message" class="form-control" placeholder="Сообщение..." required>
-                                                    <div class="col-3">
-                                                        <input type="file" name="file" class="form-control" id="file">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary" id="messageBTN">
-                                                        Отправить
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
+
                         </div>
-                    </div>
                 </div>
 
             </div>
@@ -573,5 +604,8 @@
                 });
             });
         });
+
+
+
     </script>
 @endsection

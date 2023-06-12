@@ -267,10 +267,10 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <button name="action" value="decline"
+                                                                    <a data-bs-target="#decline{{$offer->id}}" data-bs-toggle="modal" value="decline"
                                                                             class="btn btn-danger form-control">
                                                                         Отклонить
-                                                                    </button>
+                                                                    </a>
                                                                 </div>
                                                             @endif
                                                             <script>
@@ -489,18 +489,41 @@
     <div class="modal" tabindex="-1" id="send{{$offer->id}}">
         <div class="modal-dialog">
             <div class="modal-content">
+                <form action="{{route('client.offers.send.back', $offer->id)}}" method="post">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Отправление задачи на проверку</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы действительно хотите отправить задачу клиенту</p>
+                        <textarea required name="reason" class="form-control" id="" cols="30" rows="2"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button  id="reason" type="submit" class="btn btn-danger">Отклонить, Отправить заново</button>
+                        <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="decline{{$offer->id}}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{route('client.offers.decline', $offer->id)}}" method="post">
+                    @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Отправление задачи на проверку</h5>
+                    <h5 class="modal-title">Вы действительно хотите отклонить задачу</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Вы действительно хотите отправить задачу клиенту</p>
+                    <textarea name="reason" class="form-control"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{route('client.offers.send.back', $offer->id)}}" class="btn btn-danger">Отклонить,
-                        Отправить заново</a>
-                    <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success">Отправить</a>
+                    <button type="submit" class="btn btn-success">Отправить</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>

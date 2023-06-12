@@ -400,5 +400,12 @@ class OfferController extends BaseController
 
     }
 
+    public function decline(Request $request, Offer $offer) {
+        $offer->cancel_admin = $request->reason;
+        $offer->status_id = 11;
+        $offer->save();
+        return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
+    }
+
 
 }
