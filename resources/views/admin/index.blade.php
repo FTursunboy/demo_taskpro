@@ -139,7 +139,7 @@
                                 <div class="col-md-5">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="text-center"></h5>
+                                            <h5 class="text-center">Лучшие сотрудники по оценке клиентов</h5>
                                             <div>
                                                 <table class="table mt-3" cellpadding="5">
                                                     <thead>
