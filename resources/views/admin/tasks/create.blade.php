@@ -26,7 +26,7 @@
 
         <div class="card">
             <div class="card-header" id="header">
-                <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">
+                <a href="{{ route('mon.index') }}" class="btn btn-outline-danger">
                     Назад
                 </a>
             </div>
