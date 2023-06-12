@@ -70,7 +70,49 @@
                                         {{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? ' - '.$task->typeType?->name : '' }}
                                     @endif
                                 </td>
-                                <td class="text-center">{{ $task->status->name}}</td>
+
+                                @switch($task->status->id)
+                                    @case(1)
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(2)
+                                    <td><span class="badge bg-primary p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(3)
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(4)
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(5)
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(6)
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(7)
+                                    <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(8)
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(9)
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(10)
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(11)
+                                    <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(12)
+                                   <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    @break
+                                    @case(13)
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
+                                    @case(14)
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
+                                @endswitch
                                 <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
@@ -172,7 +214,7 @@
                 .addClass('btn btn-primary')
                 .text('X')
                 .on('click', function () {
-                    // Сбрасываем фильтры и поиск
+
                     table
                         .search('')
                         .columns()
