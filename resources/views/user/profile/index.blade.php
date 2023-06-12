@@ -22,7 +22,7 @@
         </div>
 
         <section class="section">
-            
+
             <div class="row">
                 <div class="col-9">
 
@@ -288,7 +288,7 @@
                             <div>
                                 <table class="mt-3" cellpadding="5">
                                     <tr>
-                                        <th>Задачи:</th>
+                                        <th title="{{ $user->UserSumKPI($user->id) }}">Задачи:</th>
                                         <th><span class="mx-2">{{ $user->taskCount($user->id) }}</span></th>
                                     </tr>
                                     <tr>
