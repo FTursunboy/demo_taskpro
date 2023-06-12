@@ -130,6 +130,7 @@
                                                                         файл</a>
                                                                 </div>
                                                             @endif
+
                                                             <div class="col-12">
                                                                 <label for="your-message" class="form-label">Описание
                                                                     задачи</label>
@@ -139,6 +140,11 @@
                                                                           rows="3"
                                                                           required>{{$offer->description}} </textarea>
                                                             </div>
+                                                            @if($offer->cancel_admin !== null)
+                                                                <div class="col-md-12">
+                                                                    <input  type="text" disabled class="form-control border-danger" value="{{$offer->cancel_admin}}">
+                                                                </div>
+                                                            @endif
                                                             @if($offer->status_id === 10)
                                                                 <div class="col-12">
                                                                     <label for="your-message" class="form-label">Отчёт
