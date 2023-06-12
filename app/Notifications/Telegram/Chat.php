@@ -17,7 +17,7 @@ class Chat extends Notification implements ShouldQueue
 
 
     public MessagesModel $message;
-    public string $user = '';
+    public string $name;
 
 
     /**
@@ -25,9 +25,10 @@ class Chat extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(MessagesModel $message)
+    public function __construct(MessagesModel $message, $name)
     {
         $this->message = $message;
+        $this->name = $name;
     }
 
     /**
@@ -71,8 +72,8 @@ class Chat extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Здравствуйте, {$this->sender->name} Отправил вам сообщение
-                \n Задача : {$this->message->task->name}
+            ->content("Здравствуйте, {$this->message->sender->name} Отправил вам сообщение
+                \n Задача : {$this->name}
                 \n Сообщение : {$this->message->message }
                 ");
 

@@ -17,6 +17,7 @@ use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
+use App\Notifications\Telegram\Chat;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -119,6 +120,11 @@ class  TasksController extends BaseController
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
         ]);
 
+        try {
+            Notification::send(User::find($task->user_id), new Chat($messages_models, $task->name));
+        } catch (\Exception $exception) {
+
+        }
         return response([
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,

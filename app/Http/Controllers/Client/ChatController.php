@@ -46,7 +46,8 @@ class ChatController extends BaseController
         ]);
 
         try {
-            Notification::send(User::find($offer->user_id), new Chat($messages_models));
+            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name));
+            Notification::send(User::find(1), new Chat($messages_models, $offer->name));
         } catch (\Exception $exception) {
 
         }

@@ -24,9 +24,7 @@
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item" style="margin-top: -20px; margin-right: 20px">
-
                         <a style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">Telegram &nbsp;&nbsp; <i style="color: #269EDA" class="bi bi-telegram"></i></a>
-
                     </li>
 
                 </ul>
@@ -49,6 +47,7 @@
                             </div>
                         </div>
                     </a>
+
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
                         <li>
@@ -61,7 +60,14 @@
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
                                     class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
                     </ul>
+
                 </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item" style="margin-top: -20px; margin-left: 50px">
+                        <a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Выход &nbsp;&nbsp; <i class="bi bi-escape"></i></a>
+                    </li>
+
+                </ul>
             </div>
         </div>
     </nav>
