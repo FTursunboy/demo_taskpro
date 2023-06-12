@@ -198,4 +198,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks-team/leads/accept/{slug}',[\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'acceptTaskCommand'])->name('acceptTaskCommand');
         Route::get('/tasks-team/leads/decline/{slug}',[\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'declineTaskCommand'])->name('declineTaskCommand');
     });
+
+
 });

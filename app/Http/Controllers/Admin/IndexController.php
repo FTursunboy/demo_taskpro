@@ -12,8 +12,19 @@ class IndexController extends BaseController
 {
     public function index()
     {
+        $users = User::select('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone', 'users.position', 'users.xp')
+            ->selectRaw('AVG(ratings.rating) AS average_rating')
+            ->leftJoin('ratings', 'users.id', '=', 'ratings.user_id')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'user');
+            })
+            ->groupBy('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone',  'users.position', 'users.xp')
+            ->orderBy('average_rating', 'desc')
+            ->take(5)
+            ->get();
+
         $task = $this->countTasks();
-        return view('admin.index', compact('task'));
+        return view('admin.index', compact('task', 'users'));
     }
     public function delete(ClientNotification $offer) {
 
