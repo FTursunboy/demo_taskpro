@@ -241,7 +241,7 @@
 
 
 
-                <li class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects/') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Настройки</span>
