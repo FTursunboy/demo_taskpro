@@ -47,10 +47,12 @@
                             <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
                         </div>
                     @endif
-                    <div class="col-md-2 ms-auto">
-                        <button data-bs-target="#delete{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger">Удалить</button>
-                        <a href="{{route('mon.edit', $task->id)}}" class="btn btn-primary">Изменить</a>
+                    <div class="col-md-4 ms-auto d-flex justify-content-end">
+                        <button data-bs-target="#delete{{$task->id}}" data-bs-toggle="modal" class="btn btn-outline-danger me-2">Удалить</button>
+                        <a href="{{route('mon.edit', $task->id)}}" class="btn btn-outline-primary">Изменить</a>
                     </div>
+
+
 
                 </div>
 
