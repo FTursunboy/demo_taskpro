@@ -20,15 +20,16 @@
                 </div>
             </div>
         </div>
+                    @include('inc.messages')
+        @if(session('mess'))
+            <div class="alert alert-success">
+                {{session('mess')}}
+            </div>
+        @endif
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    @if(session('mess'))
-                        <div class="alert alert-success">
-                            {{session('mess')}}
-                        </div>
-                    @endif
-                    @include('inc.messages')
+
                             <a href="{{ route('tasks_client.create') }}" class="btn btn-outline-primary">
                                 Добавить задачу
                             </a>
@@ -98,24 +99,18 @@
                                     <td><a href="#" data-bs-target="#send{{$task->id}}" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a>
                                     </td>
                                 @endif
-                                @if($task->user_id)
                                     <td>
                                         <a class="badge bg-success p-2" href="{{route('tasks_client.show', $task->id)}}"><i class="bi bi-eye"></i></a>
-                                        <a href="{{ route('tasks_client.edit', $task->id) }}" class="badge bg-primary"><i class="bi bi-pencil"></i></a>
+                                        <a href="{{ route('tasks_client.edit', $task->id) }}" class="badge bg-primary p-2"><i class="bi bi-pencil"></i></a>
                                         <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$task->id}}"><i class="bi bi-trash"></i></a>
                                     </td>
-                                @else
-                                    <td>
-                                        <a class="badge bg-success p-2" href="{{route('tasks_client.show', $task->id)}}"><i class="bi bi-eye"></i></a>
-                                    </td>
-                                @endif
                             </tr>
 
                             <div class="modal" tabindex="-1" id="delete{{$task->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Modal title</h5>
+                                            <h5 class="modal-title">{{ $task->name }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
