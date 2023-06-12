@@ -77,7 +77,7 @@
                                                                     задачи</label>
                                                                 <textarea id="description" class="form-control"
                                                                           name="description"
-                                                                          rows="5" disabled>{{$offer->name}}</textarea>
+                                                                          rows="2" disabled>{{$offer->name}}</textarea>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Ответственный
@@ -136,9 +136,21 @@
                                                                 <textarea disabled id="description"
                                                                           class="form-control"
                                                                           name="description"
-                                                                          rows="5"
+                                                                          rows="3"
                                                                           required>{{$offer->description}} </textarea>
                                                             </div>
+                                                            @if($offer->status_id === 10)
+                                                                <div class="col-12">
+                                                                    <label for="your-message" class="form-label">Отчёт
+                                                                    задачи</label>
+                                                                    <textarea disabled id="success_desc"
+                                                                              class="form-control"
+                                                                              name="success_desc"
+                                                                              style="background: #21c021; color: white"
+                                                                              rows="2"
+                                                                              required>{{$offer->tasks->success_desc}} </textarea>
+                                                                </div>
+                                                            @endif
                                                             <div class="col-md-6">
                                                             </div>
                                                         </div>
