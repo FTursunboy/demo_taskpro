@@ -49,7 +49,9 @@
                     @endif
                     <div class="col-md-2 ms-auto">
                         <button data-bs-target="#delete{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger">Удалить</button>
+                        <a href="{{route('mon.edit', $task->id)}}" class="btn btn-primary">Изменить</a>
                     </div>
+
                 </div>
 
                 <div class="row">
