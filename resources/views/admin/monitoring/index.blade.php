@@ -97,10 +97,10 @@
                                     <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
                                     @break
                                     @case(9)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
                                     @break
                                     @case(10)
-                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-success p-2">У клиента</span></td>
                                     @break
                                     @case(11)
                                     <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
