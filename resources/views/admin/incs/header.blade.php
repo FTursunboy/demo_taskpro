@@ -64,10 +64,7 @@
                     <li class="nav-item" style="margin-top: -10px; margin-left: 50px">
                         <a style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">&nbsp;&nbsp; <i style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
                     </li>
-                    <li class="nav-item" style="margin-top: -10px; margin-left: 20px">
-                        <a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop"> &nbsp;&nbsp; <i style="font-size: 30px;" class="bi bi-door-open"></i></a>
-                    </li>
-
+                
 
                 </ul>
             </div>
