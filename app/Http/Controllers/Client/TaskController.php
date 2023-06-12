@@ -3,29 +3,24 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\Mail\MailController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Mail\Send;
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
-
 use App\Models\ClientNotification;
 use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
-
+use App\Notifications\Telegram\TelegramClientDecline;
+use App\Notifications\Telegram\TelegramClientReady;
 use App\Notifications\Telegram\TelegramClientTask;
-use App\Notifications\Telegram\TelegramUserAccept;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TaskController extends BaseController
@@ -161,8 +156,6 @@ class TaskController extends BaseController
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
         $task = TaskModel::where('offer_id', $offer->id)->first();
         if ($task) {
-            dd(1);
-
             HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
         }
         return redirect()->back()->with('mess', 'Успешно отправлено!');
@@ -178,13 +171,20 @@ class TaskController extends BaseController
             $tasks->status_id = 13;
             $tasks->save();
         }
-        $user = User::role('admin')->first();
+
         HistoryController::client($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
+
         $task = TaskModel::where('offer_id', $offer->id)->first();
         if ($task) {
             HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
         }
         HistoryController::task($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
+
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramClientDecline($offer->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+
+        }
 
         return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
@@ -232,9 +232,14 @@ class TaskController extends BaseController
 
 
 
-        $user = User::role('admin')->first();
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
 
+
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramClientReady($offer->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+
+        }
 
         return redirect()->back()->with('create', 'Задача успешно завершена!');
     }
