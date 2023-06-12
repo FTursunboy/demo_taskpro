@@ -25,7 +25,7 @@
                 <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item" style="margin-top: -20px; margin-right: 20px">
 
-                        <a style="color: #3a3838" href="{{route('telegram.index')}}">Telegram &nbsp;&nbsp; <i style="color: #5353e3" class="bi bi-telegram"></i></a>
+                        <a style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">Telegram &nbsp;&nbsp; <i style="color: #269EDA" class="bi bi-telegram"></i></a>
 
                     </li>
 
