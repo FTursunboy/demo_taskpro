@@ -148,7 +148,6 @@
 
 
             $("#example thead th").each(function(i) {
-
                 var th = $(this);
                 var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
 

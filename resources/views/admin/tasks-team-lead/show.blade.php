@@ -1,4 +1,4 @@
-@extends('user.layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     {{ \Str::limit($task->name,15) }}
 @endsection

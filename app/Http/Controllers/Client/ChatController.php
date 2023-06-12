@@ -8,8 +8,11 @@ use App\Models\Admin\MessagesModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\User;
+use App\Notifications\Telegram\Chat;
+use App\Notifications\Telegram\SendNewTaskInUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class ChatController extends BaseController
@@ -41,6 +44,12 @@ class ChatController extends BaseController
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'sender_id' => Auth::id(),
         ]);
+
+        try {
+            Notification::send(User::find($offer->user_id), new Chat($messages_models));
+        } catch (\Exception $exception) {
+
+        }
 
         return response([
             'messages' => $messages_models,

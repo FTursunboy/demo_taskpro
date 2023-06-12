@@ -272,6 +272,7 @@
                             <div class="card-body pt-4 bg-grey">
                                 <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
                                     @foreach($messages as $mess)
+
                                         @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
                                             <div class="chat">
                                                 <div class="chat-body" style="margin-right: 10px">

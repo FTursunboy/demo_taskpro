@@ -303,15 +303,6 @@
                     </ul>
                 </li>
 
-
-                <li
-                        class="sidebar-item">
-                    <a role="button" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-door-open"></i>
-                        <span>Выход</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
     </div>
