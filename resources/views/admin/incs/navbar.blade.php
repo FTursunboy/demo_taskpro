@@ -241,12 +241,12 @@
 
 
 
-                <li class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                <li class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*') or request()->is('profile') or request()->is('profile/*')  )  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Настройки</span>
                     </a>
-                    <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                    <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*') or request()->is('profile') or request()->is('profile/*'))  ? 'active' : '' }}">
                         <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">
                             <a href="{{ route('settings.role') }}">Роли</a>
                         </li>
@@ -269,6 +269,11 @@
                                 Проекты
                             </a>
                         </li>
+                        <li class="submenu-item  {{ (request()->is('profile') or request()->is('profile/*'))  ? 'active' : '' }}">
+                            <a href="{{ route('profile.index') }}">
+                                Профиль
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -279,12 +284,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ (request()->is('profile') or request()->is('profile/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('profile.index') }}" class='sidebar-link'>
-                        <i class="bi bi-egg-fill"></i>
-                        <span>Профиль</span>
-                    </a>
-                </li>
+
 
 
                 <li class="sidebar-item  has-sub {{ (request()->is('lead') or request()->is('lead/*')or request()->is('contact')or request()->is('contact/*')or request()->is('event')or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
