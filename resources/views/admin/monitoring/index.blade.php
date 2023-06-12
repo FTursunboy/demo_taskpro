@@ -170,7 +170,7 @@
 
             var resetButton = $('<button></button>')
                 .addClass('btn btn-primary')
-                .text('Обнулить')
+                .text('X')
                 .on('click', function () {
                     // Сбрасываем фильтры и поиск
                     table

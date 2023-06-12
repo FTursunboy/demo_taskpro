@@ -245,12 +245,7 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('employee.index') }}" class='sidebar-link'>
-                        <i class="bi bi-people"></i>
-                        <span>Сотрудники</span>
-                    </a>
-                </li>
+
 
                 <li class="sidebar-item  has-sub {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task')or request()->is('settings/task/*') or request()->is('settings/kpi')or request()->is('settings/kpi/*')or request()->is('settings/role')or request()->is('settings/role/*')or request()->is('settings/depart')or request()->is('settings/depart/*'))  ? 'active' : '' }}">
                     <a href="#" class='sidebar-link'>
@@ -269,6 +264,11 @@
                         </li>
                         <li class="submenu-item {{ (request()->is('settings/project') or request()->is('settings/project/*'))  ? 'active' : '' }}">
                             <a href="{{route('settings.project')}}">Проекты</a>
+                        </li>
+                        <li class="submenu-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                            <a href="{{ route('employee.index') }}">
+                                Сотрудники
+                            </a>
                         </li>
                     </ul>
                 </li>
