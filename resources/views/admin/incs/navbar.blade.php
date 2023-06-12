@@ -277,14 +277,6 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item {{ (request()->is('telegram') or request()->is('telegram/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('telegram.index') }}" class='sidebar-link'>
-                        <i class="bi bi-pentagon-fill"></i>
-                        <span>Телеграмм</span>
-                    </a>
-                </li>
-
-
 
 
                 <li class="sidebar-item  has-sub {{ (request()->is('lead') or request()->is('lead/*')or request()->is('contact')or request()->is('contact/*')or request()->is('event')or request()->is('event/*') or request()->is('calendar') or request()->is('calendar/*') or request()->is('setting') or request()->is('setting/*'))  ? 'active' : '' }}">
