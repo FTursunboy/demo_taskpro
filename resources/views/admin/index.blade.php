@@ -109,7 +109,42 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-7"></div>
+                            <div class="col-5">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="text-center"></h5>
+                                            <div>
+                                                <table class="table  mt-3" cellpadding="5">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Фото</th>
+                                                            <th>ФИО</th>
+                                                            <th>Средняя оценка</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($users as $user)
+                                                            <tr>
+                                                                <td>{{ $loop->index+1 }}</td>
+                                                                <td>@if($user->avatar)
+                                                                        <img src="{{ asset('storage/' . $user->avatar)}}" width="60" height="60" style="border-radius: 50%">
+                                                                    @else
+                                                                        <img src="{{asset('assets/images/avatar-2.png')}}" width="50" >
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $user?->name . " " . $user?->surname . " " . $user?->lastname }}</td>
+                                                                <td class="text-center">{{ round($user?->average_rating, 1) }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </section>
                 </div>
             </section>
