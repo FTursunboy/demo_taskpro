@@ -62,12 +62,6 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ (request()->is('projects') or request()->is('projects/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('project.index') }}" class='sidebar-link'>
-                        <i class="bi bi-hexagon-fill"></i>
-                        <span>Проекты</span>
-                    </a>
-                </li>
 
                 <li class="sidebar-item {{ (request()->is('monitoring-tasks') or request()->is('monitoring-tasks/*') or request()->is('monitoring/edit/*') or request()->is('monitoring/show-task/*'))  ? 'active' : '' }}">
                     <a href="{{ route('mon.index') }}" class='sidebar-link'>
@@ -263,11 +257,16 @@
                             <a href="{{route('settings.task')}}">Задачи</a>
                         </li>
                         <li class="submenu-item {{ (request()->is('settings/project') or request()->is('settings/project/*'))  ? 'active' : '' }}">
-                            <a href="{{route('settings.project')}}">Проекты</a>
+                            <a href="{{route('settings.project')}}">Тип проекта</a>
                         </li>
                         <li class="submenu-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
                             <a href="{{ route('employee.index') }}">
                                 Сотрудники
+                            </a>
+                        </li>
+                        <li class="submenu-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                            <a href="{{ route('project.index') }}">
+                                Проекты
                             </a>
                         </li>
                     </ul>
