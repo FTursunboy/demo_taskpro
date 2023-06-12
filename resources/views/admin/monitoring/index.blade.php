@@ -144,6 +144,28 @@
             });
 
 
+            var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
+
+
+            $("#example thead th").each(function(i) {
+
+                var th = $(this);
+                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
+
+                if (filterColumns.includes(th.text().trim())) {
+
+                    if (th.text().trim() === 'Статус') {
+
+                        var select = th.find('select');
+
+                       select.val(statusParam);
+                        select.trigger('change');
+                    }
+                }
+            });
+
+
+
             var filters = JSON.parse(localStorage.getItem('datatableFilters'));
             if (filters) {
                 for (var i = 0; i < filters.length; i++) {
@@ -225,7 +247,6 @@
                     localStorage.removeItem('datatableFilters');
 
                     $("#example thead select").val('');
-
 
                     $('#example_filter input').val('');
                 });
