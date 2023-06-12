@@ -69,10 +69,7 @@
                                            id="client_email">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="file">Изображение</label>
-                                    <input type="file" name="avatar" tabindex="11" class="form-control mt-3" id="file">
-                                </div>
+
 
                             </div>
                             <div class="col-4">
@@ -94,6 +91,11 @@
                                 <div class="form-group">
                                     <label for="password">Пароль (password)<span class="text-danger">*</span></label>
                                     <input type="password" id="password" tabindex="8" name="password" class="form-control mt-3">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="file">Изображение</label>
+                                    <input type="file" name="avatar" tabindex="11" class="form-control mt-3" id="file">
                                 </div>
 
                             </div>

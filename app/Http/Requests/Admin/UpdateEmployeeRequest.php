@@ -30,6 +30,7 @@ class UpdateEmployeeRequest extends FormRequest
             'password' => [''],
             'position' => ['required'],
             'telegram_id' => ['required'],
+            'client_email' => [''],
             'avatar' => [''],
             'role' => '',
             'login' => '',

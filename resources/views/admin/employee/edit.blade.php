@@ -22,9 +22,8 @@
             </div>
         </div>
 
-
-
         @include('inc.messages')
+
         <section class="section">
             <div class="card">
                 <div class="card-header">
@@ -110,6 +109,14 @@
                                     <label for="telegram_id">Телеграм ID<span class="text-danger">*</span></label>
                                     <input type="number" id="telegram_id" name="telegram_id" tabindex="8" class="form-control mt-3" value="{{ $user->telegram_user_id }}" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="client_email" class="form-label">Почта</label>
+                                    <input value="{{ $user?->clientEmail?->email }}" tabindex="10" type="text" name="client_email"
+                                           class="form-control mt-2" placeholder="Почта"
+                                           id="client_email">
+                                </div>
+
                             </div>
                             <div class="d-flex justify-content-end mt-3">
                                 <button type="submit" class="btn btn-outline-primary" tabindex="12">Изменить</button>

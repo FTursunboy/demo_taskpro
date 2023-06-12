@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\UpdateEmployeeRequest;
 use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\ClientMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,6 +105,20 @@ class EmployeeController extends BaseController
             'password' => Hash::make($data['password'] ?? 'password'),
             'avatar' => $file,
         ]);
+
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        $clientMail = ClientMail::where('user_id', $user->id)->first();
+        if ($clientMail) {
+            $clientMail->update([
+                'email' => $data['client_email'],
+            ]);
+        } else {
+            ClientMail::create([
+                'user_id' => $user->id,
+                'email' => $data['client_email'],
+            ]);
+        }
 
         return redirect()->route('employee.index')->with('update', "Сотрудник успешно изменен!");
     }
