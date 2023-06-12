@@ -23,8 +23,8 @@
             <div class="collapse navbar-collapse mr-2" id="navbarSupportedContent">
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
-                    <li class="nav-item" style="margin-top: -20px; margin-right: 20px">
-                        <a style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">Telegram &nbsp;&nbsp; <i style="color: #269EDA" class="bi bi-telegram"></i></a>
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
+                        <a style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">&nbsp;&nbsp; <i style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
                     </li>
 
                 </ul>
@@ -63,9 +63,11 @@
 
                 </div>
                 <ul class="navbar-nav">
-                    <li class="nav-item" style="margin-top: -20px; margin-left: 50px">
-                        <a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop">Выход &nbsp;&nbsp; <i class="bi bi-escape"></i></a>
+
+                    <li class="nav-item" style=" margin-left: 50px; margin-top: -10px">
+                        <a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop"> &nbsp;&nbsp; <i style="font-size: 30px;" class="bi bi-door-open"></i></a>
                     </li>
+
 
                 </ul>
             </div>
