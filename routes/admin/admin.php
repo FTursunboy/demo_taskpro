@@ -12,6 +12,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('admin/ideas', [\App\Http\Controllers\Admin\IdeaController::class, 'index'])->name('ideas');
         Route::get('admin/ideas/show/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'show'])->name('idea.show');
         Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
+        Route::get('dashboard-admin/crm', [\App\Http\Controllers\Admin\IndexController::class, 'crm'])->name('crm');
 
         Route::get('tasks/speed-tasks', [\App\Http\Controllers\Admin\IndexController::class, 'speed'])->name('speed');
         Route::get('tasks/success/status/{status}', [\App\Http\Controllers\Admin\MonitoringController::class, 'index'])->name('success');
