@@ -7,6 +7,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\ClientNotification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class IndexController extends BaseController
 {
@@ -24,7 +25,11 @@ class IndexController extends BaseController
             ->get();
 
         $task = $this->countTasks();
-        return view('admin.index', compact('task', 'users'));
+
+        $crmRole = Role::where('name', 'crm')->first();
+        $crm = User::role($crmRole)->get();
+
+        return view('admin.index', compact('task', 'users', 'crm'));
     }
     public function delete(ClientNotification $offer) {
 
@@ -72,5 +77,7 @@ class IndexController extends BaseController
 
         return view('admin.tasks.inProgress', compact('inProgress', 'users'));
     }
+
+
 
 }
