@@ -97,9 +97,9 @@
                                         {{$lead->status?->name}}
                                     @endif
                                 </td>
-                                <td>{{ $lead->leadSource?->name }}</td>
-                                <td>{{ $lead->state?->name }}</td>
-                                <td>{{ $lead->author }}</td>
+                                <td>{{ Str::limit($lead->leadSource?->name, 20) }}</td>
+                                <td>{{ Str::limit($lead->state?->name, 20) }}</td>
+                                <td>{{ Str::limit($lead->author, 20) }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('lead.show', $lead->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>

@@ -4,6 +4,7 @@ namespace App\Models\Client;
 
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\StatusesModel;
+use App\Models\Admin\TaskModel;
 use App\Models\ProjectClient;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,10 @@ class Offer extends Model
         return $this->belongsTo(User::class, 'client_id');
     }
 
+    public function tasks()
+    {
+        return $this->hasOne(TaskModel::class);
+    }
 
 
 }

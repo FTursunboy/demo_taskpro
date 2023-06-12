@@ -176,13 +176,6 @@
                                                                                     placeholder="Введите время">
                                                                             </div>
 
-                                                                            @if($offer->file !== null)
-                                                                                <div class="col-md-6">
-                                                                                    <a style="margin-left: 0px" download
-                                                                                       href="{{route('offer.file.download', $offer->id)}}">Просмотреть
-                                                                                        файл</a>
-                                                                                </div>
-                                                                            @endif
                                                                             <div class="col-md-6">
                                                                                 <label class="form-label">Тип</label>
                                                                                 <select name="type_id"
@@ -199,6 +192,26 @@
                                                                                       style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
 
                                                                             </div>
+
+
+                                                                            @if($offer->file !== null)
+                                                                                <div class="col-md-6">
+                                                                                    <a style="margin-left: 0px" download
+                                                                                       href="{{route('offer.file.download', $offer->id)}}">Просмотреть
+                                                                                        файл</a>
+                                                                                </div>
+                                                                            @endif
+
+                                                                            @if($offer->status_id === 6)
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Отчёт</label>
+                                                                                    <textarea
+                                                                                        class="form-control"
+                                                                                        style="background-color: #208d20; color: white"
+                                                                                    >{{$offer->tasks->success_desc}}</textarea>
+                                                                                </div>
+                                                                            @endif
+
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group"
                                                                                      id="type_id_group">

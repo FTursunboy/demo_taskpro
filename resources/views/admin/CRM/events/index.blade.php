@@ -86,12 +86,12 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ Str::limit($event->description, 6)}}</td>
-                                <td>{{ $event->themeEvent?->theme }}</td>
-                                <td>{{ $event->leads?->contact->fio }}</td>
-                                <td>{{ date('d.m.Y', strtotime($event->date)) }}</td>
-                                <td>{{ date('H:i', strtotime($event->date)) }}</td>
-                                <td>{{ $event->typeEvent?->name }}</td>
-                                <td>{{ $event->eventStatus?->name }}</td>
+                                <td>{{ Str::limit($event->themeEvent?->theme, 15) }}</td>
+                                <td>{{ Str::limit($event->leads?->contact->fio, 15) }}</td>
+                                <td>{{ Str::limit(date('d.m.Y', strtotime($event->date)), 15) }}</td>
+                                <td>{{ Str::limit(date('H:i', strtotime($event->date)), 15) }}</td>
+                                <td>{{ Str::limit($event->typeEvent?->name, 15) }}</td>
+                                <td>{{ Str::limit($event->eventStatus?->name, 15) }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('event.show', $event->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('event.edit', $event->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
