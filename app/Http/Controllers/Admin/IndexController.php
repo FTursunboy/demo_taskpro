@@ -20,6 +20,7 @@ class IndexController extends BaseController
                 $query->where('name', 'user');
             })
             ->groupBy('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone',  'users.position', 'users.xp')
+            ->where('ratings.rating', '>', 0)
             ->orderBy('average_rating', 'desc')
             ->take(5)
             ->get();
