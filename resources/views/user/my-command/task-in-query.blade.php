@@ -151,7 +151,7 @@
                                                                     <label for="comment">Комментария</label>
                                                                     <textarea tabindex="10" name="comment" id="comment"
                                                                               rows="4"
-                                                                              class="form-control mt-3">{{ $task->comment }}</textarea>
+                                                                              class="form-control mt-3" disabled>{{ $task->comment }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
