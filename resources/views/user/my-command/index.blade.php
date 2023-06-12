@@ -28,34 +28,6 @@
 
         <section class="section">
 
-{{--            <div class="row">--}}
-{{--                <div class="col-6">--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="user">Члени команда</label>--}}
-{{--                        <select name="users" id="user" class="form-select">--}}
-{{--                            <option value="0">Все</option>--}}
-{{--                            @foreach($myCommand as $command)--}}
-{{--                                @if($command->id !== \Illuminate\Support\Facades\Auth::id())--}}
-{{--                                    <option value="{{ $command->id }}">{{ $command->surname . ' ' . $command->name . ' ' . $command->lastname }}</option>--}}
-{{--                                @endif--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-6">--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label for="project">Проекты</label>--}}
-{{--                        <select name="project" id="project" class="form-select">--}}
-{{--                            <option value="0">Все</option>--}}
-{{--                            @foreach($myProject as $project)--}}
-{{--                                <option value="{{ $project->project_id }}">{{ $project->name }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-
             @include('user.my-command.my-command-tasks')
 
         </section>
