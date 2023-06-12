@@ -246,7 +246,7 @@
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                         <span>Настройки</span>
                     </a>
-                    <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*'))  ? 'active' : '' }}">
+                    <ul class="submenu {{ (request()->is('settings/project') or request()->is('settings/project/*') or request()->is('settings/task') or request()->is('settings/task/*') or request()->is('settings/kpi') or request()->is('settings/kpi/*')or request()->is('settings/role') or request()->is('settings/role/*')or request()->is('settings/depart') or request()->is('settings/depart/*') or request()->is('projects') or request()->is('projects/*') or request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
                         <li class="submenu-item {{ (request()->is('settings/role') or request()->is('settings/role/*'))  ? 'active' : '' }}">
                             <a href="{{ route('settings.role') }}">Роли</a>
                         </li>
@@ -264,7 +264,7 @@
                                 Сотрудники
                             </a>
                         </li>
-                        <li class="submenu-item  {{ (request()->is('employees') or request()->is('employees/*'))  ? 'active' : '' }}">
+                        <li class="submenu-item  {{ (request()->is('projects') or request()->is('projects/*'))  ? 'active' : '' }}">
                             <a href="{{ route('project.index') }}">
                                 Проекты
                             </a>
