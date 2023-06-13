@@ -156,7 +156,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
             ->name('send.user.search');
         Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])
             ->name('send.user');
-
         Route::get('clients/offers/edit/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'edit'])->name('edit');
         Route::get('clients/offers/send/client/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendClient'])->name('send.client');
         Route::post('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
@@ -167,6 +166,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('clients/offers/search/results', [\App\Http\Controllers\Admin\OfferController::class, 'searchResults'])->name('search.results');
         Route::get('clients/offers/search/results/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'searchResultsWithparametr'])->name('search.results.parameter');
         Route::post('clients/offers/decline/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'decline'])->name('decline');
+        Route::get('clients/offers/create', [\App\Http\Controllers\Admin\OfferController::class, 'create'])->name('create');
+        Route::post('clients/offers/store', [\App\Http\Controllers\Admin\OfferController::class, 'store'])->name('store');
 
     });
 

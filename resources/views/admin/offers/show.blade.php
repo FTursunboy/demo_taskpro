@@ -165,18 +165,7 @@
                                                                                         @endif
                                                                                     @endforeach
                                                                                 </select>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label class="form-label">Время</label>
-                                                                                <input
-                                                                                    value="{{$offer->time}}"
-                                                                                    type="number"
-                                                                                    class="form-control"
-                                                                                    name="time"
-                                                                                    placeholder="Введите время">
-                                                                            </div>
 
-                                                                            <div class="col-md-6">
                                                                                 <label class="form-label">Тип</label>
                                                                                 <select name="type_id"
                                                                                         class="form-control"
@@ -186,6 +175,41 @@
                                                                                             value="{{$type->id}}">{{$type->name}}</option>
                                                                                     @endforeach
                                                                                 </select>
+
+                                                                                <div class="form-group" id="percent">
+                                                                                    <label id="label1"
+                                                                                           class="d-none mb-2"
+                                                                                           for="percent">Введите
+                                                                                        процент</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label">Время</label>
+                                                                                <input
+                                                                                    value="{{$offer->time}}"
+                                                                                    type="number"
+                                                                                    class="form-control"
+                                                                                    name="time"
+                                                                                    placeholder="Введите время">
+
+                                                                                <label class="form-label">Клиент</label>
+                                                                                <input
+                                                                                    value="{{$offer->client->surname . " " . $offer->client->name . " " . $offer->client->lastname}}"
+                                                                                    type="text"
+                                                                                    class="form-control"
+                                                                                    disabled
+                                                                                    >
+
+                                                                                <div class="form-group"
+                                                                                     id="type_id_group">
+                                                                                    <label id="label"
+                                                                                           class="d-none mb-2"
+                                                                                           for="kpi_id">Вид KPI</label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+
 
                                                                                 <span id="error-message"
                                                                                       class="d-none text-center mt-3"
@@ -213,21 +237,9 @@
                                                                             @endif
 
                                                                             <div class="col-md-6">
-                                                                                <div class="form-group"
-                                                                                     id="type_id_group">
-                                                                                    <label id="label"
-                                                                                           class="d-none mb-2"
-                                                                                           for="kpi_id">Вид KPI</label>
-                                                                                </div>
+
                                                                             </div>
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group" id="percent">
-                                                                                    <label id="label1"
-                                                                                           class="d-none mb-2"
-                                                                                           for="percent">Введите
-                                                                                        процент</label>
-                                                                                </div>
-                                                                            </div>
+
                                                                             <div class="col-12">
                                                                                 <label for="your-message"
                                                                                        class="form-label">Описание

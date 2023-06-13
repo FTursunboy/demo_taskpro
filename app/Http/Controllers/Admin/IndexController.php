@@ -30,7 +30,9 @@ class IndexController extends BaseController
         $crmRole = Role::where('name', 'crm')->first();
         $crm = User::role($crmRole)->get();
 
-        return view('admin.index', compact('task', 'users', 'crm'));
+        $team_leads = User::role('team-lead')->get();
+
+        return view('admin.index', compact('task', 'users', 'crm', 'team_leads'));
     }
     public function delete(ClientNotification $offer) {
 
