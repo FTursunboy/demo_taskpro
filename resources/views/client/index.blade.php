@@ -35,7 +35,7 @@
                             <tr>
 
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$task->name}}</td>
+                                <td>{{\Illuminate\Support\Str::limit($task->name, 30)}}</td>
                                 <td>{{\Illuminate\Support\Str::limit($task->description, 20)}}</td>
                                 @if($task->status->id == 1)
                                     <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
@@ -83,7 +83,7 @@
                                 @endif
                                 <td>
                                     <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i
-                                            class="bi bi-eye p-2"></i></a>
+                                            class="bi bi-eye"></i></a>
                                     <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
                                             class="bi bi-pencil"></i></a>
                                     <a class="badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i class="bi bi-chat"></i></a>
