@@ -530,7 +530,7 @@ rocket-chat:
     - smile
     - video
     - video-slash
-  label: Rocket.Chat
+  label: Rocket.ChatEmail
   url: 'https://rocket.chat'
 rodney-oliver:
   icons:

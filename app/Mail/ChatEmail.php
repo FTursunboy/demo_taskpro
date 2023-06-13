@@ -2,28 +2,31 @@
 
 namespace App\Mail;
 
-use App\Models\Client\Offer;
+use App\Models\Report;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Chat extends Mailable implements ShouldQueue
+class ChatEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
+    public $task;
+    public $message1;
 
-    public string $task;
-    public string $message;
+
     public function __construct($task, $message)
     {
         $this->task = $task;
-        $this->message = $message;
+        $this->message1 = $message;
     }
 
     /**
@@ -31,18 +34,25 @@ class Chat extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
+
         return new Envelope(
-            subject: 'Chat',
+            from: new Address('fingroup.task@gmail.com', 'FinGroup'),
+            subject: 'FinGroup',
         );
     }
 
     /**
      * Get the message content definition.
      */
+
     public function content(): Content
     {
         return new Content(
-            view: 'client.chat',
+            view: 'mail.reportFromClient1',
+            with: [
+                'task' => $this->task,
+                'message1' => $this->message1,
+            ]
         );
     }
 
@@ -56,3 +66,4 @@ class Chat extends Mailable implements ShouldQueue
         return [];
     }
 }
+

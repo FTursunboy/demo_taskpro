@@ -145,7 +145,7 @@
                                                                     <input  type="text" disabled class="form-control border-danger" value="{{$offer->cancel_admin}}">
                                                                 </div>
                                                             @endif
-                                                            @if($offer->status_id === 10)
+                                                            @if($offer?->tasks?->success_desc)
                                                                 <div class="col-12">
                                                                     <label for="your-message" class="form-label">Отчёт
                                                                     задачи</label>

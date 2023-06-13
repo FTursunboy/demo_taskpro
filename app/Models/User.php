@@ -220,9 +220,8 @@ class User extends Authenticatable
     {
         $result = DB::table('task_models')
             ->where('user_id', $userID)
-            ->select(DB::raw('COALESCE(SUM(percent), 0)'))
-            ->first();
+            ->sum('percent');
 
-        return $result->{'COALESCE(SUM(percent), 0)'};
+        return $result;
     }
 }

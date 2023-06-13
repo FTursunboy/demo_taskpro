@@ -89,7 +89,7 @@ class TaskController extends BaseController
 
         $name = Auth::user()->name;
 
-        Mail::to($mail)->send(new Send($name));
+       // Mail::to($mail)->send(new Send($name));
 
         $user = User::role('admin')->first();
 

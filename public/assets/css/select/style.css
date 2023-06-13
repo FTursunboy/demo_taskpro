@@ -49,7 +49,7 @@ NOTE: This file contains the styling for responsive Template.
 :: Slick Arrow
 :: Calender
 :: From Wizard
-:: Chat
+:: ChatEmail
 :: Profile
 :: Todo
 :: Privacy Policy
@@ -926,7 +926,7 @@ Calender
 #top-tabbar-vertical li.active i { background: var(--iq-white) !important; }
 
 /*---------------------------------------------------------------------
-Chat
+ChatEmail
 -----------------------------------------------------------------------*/
 .chat-page img { border-radius: 5px; }
 #chat-search { padding-left: 40px; }
@@ -1012,7 +1012,7 @@ form.comment-text input { padding-right: 130px; }
 .twit-date a { color: var(--iq-body-text); }
 
 /*---------------------------------------------------------------------
-Profile Edit 
+Profile Edit
 -----------------------------------------------------------------------*/
 .profile-pic { max-width: 100%; display: block; border-radius: 50%; -webkit-border-radius: 50%; }
 .profile-img-edit { position: relative; display: inline-block; height: 150px; width: 150px; }

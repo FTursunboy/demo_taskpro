@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Mail\ChatEmail;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -24,6 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -124,7 +126,8 @@ class  TasksController extends BaseController
             Notification::send(User::find($task->user_id), new Chat($messages_models, $task->name));
             $user = User::find($task->client_id);
             $email = $user?->clientEmail?->email;
-            MailToSendClientController::chat($email, $task->name, $messages_models->message);
+
+            Mail::to('tfaiziev04@gmail.com')->send(new ChatEmail($task->name, $request->message));
         } catch (\Exception $exception) {
 
         }
@@ -155,6 +158,15 @@ class  TasksController extends BaseController
             'file' => $file ?? null,
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
         ]);
+        try {
+            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name));
+            $user = User::find($offer->client_id);
+            $email = $user?->clientEmail?->email;
+
+            Mail::to('tfaiziev04@gmail.com')->send(new ChatEmail($offer->name, $request->message));
+        } catch (\Exception $exception) {
+
+        }
 
         return response([
             'messages' => $messages_models,
