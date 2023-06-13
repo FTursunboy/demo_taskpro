@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ClientNotification;
 use App\Models\User;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -19,7 +22,7 @@ class IndexController extends BaseController
             ->whereHas('roles', function ($query) {
                 $query->where('name', 'user');
             })
-            ->groupBy('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone',  'users.position', 'users.xp')
+            ->groupBy('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone', 'users.position', 'users.xp')
             ->where('ratings.rating', '>', 0)
             ->orderBy('average_rating', 'desc')
             ->take(5)
@@ -27,19 +30,20 @@ class IndexController extends BaseController
 
         $task = $this->countTasks();
 
-        $crmRole = Role::where('name', 'crm')->first();
-        $crm = User::role($crmRole)->get();
-
+        $tasks = ProjectModel::get();
         $team_leads = User::role('team-lead')->get();
 
-        return view('admin.index', compact('task', 'users', 'crm', 'team_leads'));
+        return view('admin.index', compact('task', 'users', 'tasks', 'team_leads'));
     }
-    public function delete(ClientNotification $offer) {
+
+    public function delete(ClientNotification $offer)
+    {
 
         $offer->delete();
 
         return redirect()->route('client.offers.show', $offer->offer_id);
     }
+
     public function countTasks()
     {
         $success = TaskModel::where('status_id', 3)->count();
@@ -80,7 +84,6 @@ class IndexController extends BaseController
 
         return view('admin.tasks.inProgress', compact('inProgress', 'users'));
     }
-
 
 
 }
