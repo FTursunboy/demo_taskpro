@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\CheckDate;
 use App\Models\Client\Offer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -78,6 +79,10 @@ class TaskModel extends Model
         return $this->belongsTo(Offer::class);
     }
 
+    public function checkDate()
+    {
+        return $this->hasOne(CheckDate::class, 'task_id');
+    }
 
 }
 

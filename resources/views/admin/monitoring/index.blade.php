@@ -48,7 +48,8 @@
                             <th class="text-center">Проект</th>
                             <th class="text-center">Автор</th>
                             <th class="text-center">Тип</th>
-                            <th class="text-center"> Статус</th>
+                            <th class="text-center">Статус</th>
+                            <th class="text-center">КПД</th>
                             <th class="text-center">Сотрудник</th>
                             <th class="text-center">Действия</th>
                         </tr>
@@ -113,6 +114,7 @@
                                     @case(14)
                                     <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
                                 @endswitch
+                                <td class="text-center">{{$task->checkDate?->count}}</td>
                                 <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
