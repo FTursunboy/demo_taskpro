@@ -66,14 +66,6 @@
                     </a>
                 </li>
 
-
-
-{{--                <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">--}}
-{{--                    <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>--}}
-{{--                        <i class="bi bi-bookmark"></i>--}}
-{{--                        <span>Все задачи</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
                 <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-bookmark"></i>
@@ -114,20 +106,6 @@
                     </ul>
                 </li>
                 @endif
-
-                <li class="sidebar-item {{ (request()->is('user/profile') or request()->is('user/profile/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('user_profile.index') }}" class='sidebar-link'>
-                        <i class="bi bi-egg-fill"></i>
-                        <span>Профиль</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a role="button" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-door-open"></i>
-                        <span>Выход</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
     </div>
