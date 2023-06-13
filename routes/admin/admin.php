@@ -15,8 +15,9 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('dashboard-admin/crm', [\App\Http\Controllers\Admin\IndexController::class, 'crm'])->name('crm');
 
         Route::get('tasks/speed-tasks', [\App\Http\Controllers\Admin\IndexController::class, 'speed'])->name('speed');
-        Route::get('tasks/success/status/{status}', [\App\Http\Controllers\Admin\MonitoringController::class, 'index'])->name('success');
-        Route::get('tasks/inprogress', [\App\Http\Controllers\Admin\IndexController::class, 'progress'])->name('progress');
+        Route::get('tasks/success/status', [\App\Http\Controllers\Admin\MonitoringController::class, 'ready'])->name('success');
+        Route::get('tasks/out_of_date', [\App\Http\Controllers\Admin\MonitoringController::class, 'out_of_date'])->name('out_of_date');
+        Route::get('tasks/task', [\App\Http\Controllers\Admin\MonitoringController::class, 'progress'])->name('progress');
 
     });
 

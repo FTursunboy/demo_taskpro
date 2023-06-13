@@ -48,7 +48,6 @@ class IndexController extends BaseController
     {
         $success = TaskModel::where('status_id', 3)->count();
         $inProgress = TaskModel::where('status_id', 6)
-            ->orWhere('status_id', 10)
             ->orWhere('status_id', 14)->count();
         $speed = TaskModel::where('status_id', 7)->count();
         $all = TaskModel::count();
@@ -75,15 +74,7 @@ class IndexController extends BaseController
         return view('admin.tasks.success', compact('success'));
     }
 
-    public function progress()
-    {
-        $inProgress = TaskModel::where('status_id', 6)
-            ->orWhere('status_id', 10)
-            ->orWhere('status_id', 14)->get();
-        $users = User::role(['user', 'admin'])->get();
 
-        return view('admin.tasks.inProgress', compact('inProgress', 'users'));
-    }
 
 
 }

@@ -158,4 +158,40 @@ class  MonitoringController extends BaseController
         return redirect()->route('mon.index')->with('mess', 'Успешно удалено');
     }
 
+
+    public function ready() {
+        $task = new TasksController();
+        $task->check();
+        $tasks = TaskModel::where('status_id', 3)->get();
+        $statuses = StatusesModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role('user')->get();
+        $clients = User::role('client')->get();
+        return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
+    }
+
+    public function progress()
+    {
+        $task = new TasksController();
+        $task->check();
+        $tasks = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->get();
+        $statuses = StatusesModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role('user')->get();
+        $clients = User::role('client')->get();
+        return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
+    }
+    public function out_of_date()
+    {
+        $task = new TasksController();
+        $task->check();
+        $tasks = TaskModel::where('status_id', 7)->get();
+        $statuses = StatusesModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role('user')->get();
+        $clients = User::role('client')->get();
+        return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
+    }
+
+
 }
