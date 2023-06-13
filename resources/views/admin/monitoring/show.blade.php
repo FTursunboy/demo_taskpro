@@ -42,6 +42,12 @@
                             <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
                         </div>
                     @endif
+                    @if($task->user->position === 'Admin')
+                        <div class="col-1">
+                            <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готово</a>
+                        </div>
+                    @endif
+
                     @if($task->status->id == 5)
                         <div class="col-md-2">
                             <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
@@ -78,7 +84,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="user">Сотрудник</label>
+                                    <label for="user">Исполнитель</label>
                                     <input type="text" id="user" class="form-control"
                                            value="{{ $task->user->name }} {{ $task->user->surname }}"
                                            disabled>
@@ -539,7 +545,7 @@
                         <div class="modal-body">
                             <div>
                                 <div class="form-group">
-                                    <label for="user">Сотрудник</label>
+                                    <label for="user">Исполнитель</label>
                                     <select name="user_id" id="user_id"
                                             class="form-select">
                                         @foreach($users as $user)
@@ -558,6 +564,28 @@
                                class="btn btn-primary">
                                 Изменить
                             </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" id="ready">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Подтверждение</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="">Отчет проделанной работы</label>
+                            <textarea required name="report" id="" cols="30" rows="4" class="form-control"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-success">Подтвердить!</button>
                         </div>
                     </form>
                 </div>

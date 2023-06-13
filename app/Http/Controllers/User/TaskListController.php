@@ -52,6 +52,7 @@ class TaskListController extends BaseController
         ]);
 
 
+
         HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
 
         if ($task->offer_id) {
@@ -87,9 +88,6 @@ class TaskListController extends BaseController
 
             $data->count = $result->format('%a');
             $data->save();
-        }
-        else {
-            dd(33);
         }
 
     }

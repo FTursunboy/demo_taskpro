@@ -41,19 +41,21 @@ class MyTasksController extends BaseController
         return $tasks;
     }
 
-    public function done(TaskModel $task)
+    public function done(\Illuminate\Http\Request $request, TaskModel $task)
     {
 
         if ($task->client_id == null) {
             $task->update([
                 'status_id' => 3,
                 'finish' => Carbon::now(),
+                'success_desc' => $request->report,
             ]);
 
             return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
         } else {
             $task->update([
                 'status_id' => 10,
+                'success_desc' => $request->report,
             ]);
             $offer = Offer::find($task->offer_id);
             $offer->status_id = 10;

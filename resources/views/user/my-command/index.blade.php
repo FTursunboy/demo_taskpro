@@ -93,7 +93,7 @@
     <script src="{{asset('assets/js/search.js')}}"></script>
     <script src="{{asset('assets/js/datatable.js')}}"></script>
 
- 
+
     <script>
         const fromInput = document.getElementById('from');
         let prevValue = fromInput.value;

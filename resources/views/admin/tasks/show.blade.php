@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="user">Сотрудник</label>
+                                    <label for="user">Исполнитель</label>
                                     <input type="text" id="user" class="form-control"
                                            value="{{ $task->user->name }} {{ $task->user->surname }}"
                                            disabled>
@@ -472,7 +472,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <h3>Вы уверены?</h3>
+                            <label for="">Отчет проделанной работы</label>
+                            <textarea name="report" id="" cols="30" rows="4" class="form-control"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
