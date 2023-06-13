@@ -80,6 +80,7 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
                 \n До : {$this->taskTo}
                 \n Дедлайн : {$this->taskDeadline}
                 \n Тип : {$this->tasktype}
+                \n http://mytask.fingroup.tj/tasks/public/login.
                 ");
     }
 }
