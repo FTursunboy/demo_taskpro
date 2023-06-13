@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mail\MailController;
 use App\Models\Admin\EmailModel;
@@ -15,7 +16,7 @@ use Box\Spout\Common\Type;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-class ExcelController extends Controller
+class ExcelController extends BaseController
 {
 
     public function index() {

@@ -24,7 +24,7 @@
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
-                    <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
+                    <li class="nav-item" style="margin-top: -10px;">
                         @if($command_task > 0)
                             <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Задача с Тим-лидом"   style="margin-left: 20px;"
                                href="{{route('tasks-team-leads.all-tasks')}}"><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
@@ -51,7 +51,7 @@
                         </style>
                     </li>
 
-                    <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
                         @if($ideas_count > 0)
                             <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников" style="margin-left: 20px;" href="{{route('admin.ideas')}}"><i  id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i></a>
                         @else
@@ -78,7 +78,7 @@
                     </li>
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 30px">
-                        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Телеграм" style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">&nbsp;&nbsp; <i
+                        <a data-bs-toggle="offcanvas" data-bs-target="#TelegramOfCanvas" aria-controls="TelegramOfCanvas" style="color: #6C757D; font-size: 18px" href="{{ route('telegram.index') }}" role="button" ><i
                                     style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
                     </li>
 
@@ -123,3 +123,98 @@
         </div>
     </nav>
 </header>
+
+
+{{--  Telegram ofcanvas  --}}
+<div class="offcanvas offcanvas-end"  data-bs-backdrop="static" tabindex="-1" id="TelegramOfCanvas" aria-labelledby="TelegramOfCanvas" style="width: 1000px">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="TelegramOfCanvas">Телеграм</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <a role="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#telegramAll">
+            Написать всем сразу
+        </a>
+        <div class="modal fade" id="telegramAll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="telegramAll" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{ route('telegram.sendAll') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="telegramAll">Написать всем</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="CMC">СМС</label><textarea name="message" id="CMC" class="form-control"
+                                                                      rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ФИО</th>
+                <th width="150">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($usersTelegram as $user)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $user->surname .' '.$user->name.' '. $user->lastname }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#onePerson{{ $user->id }}">Написать
+                        </button>
+                    </td>
+                </tr>
+
+                <div class="modal fade" id="onePerson{{ $user->id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="onePerson{{ $user->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ route('telegram.sendOne', $user->id) }}" method="POST">
+                                @csrf
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="onePerson{{ $user->id }}">Написать
+                                        на {{ $user->surname .' '.$user->name}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="CMC">СМС</label><textarea name="message" id="CMC"
+                                                                              class="form-control"
+                                                                              rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Отменить
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+{{--  Telegram ofcanvas  end  --}}
