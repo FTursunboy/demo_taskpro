@@ -29,7 +29,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('client.offers.index')}}">Задачи</a></li>
 
                                 </ol>
                             </nav>
@@ -50,6 +50,9 @@
                                     </div>
                                 @endif
                             @include('inc.messages')
+                            <div>
+                                <a href="{{ route( 'client.offers.create')  }}" class="btn btn-outline-primary">Добавить задачу</a>
+                            </div>
                         </div>
                         <div class="card-body">
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Client;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskRequest extends FormRequest
+class TaskClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class TaskRequest extends FormRequest
             'description' => '',
             'file' => '',
             'author_name' => 'required',
-            'author_phone' => 'required',
+            'client_id' => 'required',
         ];
     }
 }
