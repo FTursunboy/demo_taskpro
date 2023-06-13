@@ -55,11 +55,12 @@ class BaseController extends Controller
             ->join('users AS u', 't.user_id', '=', 'u.id')
             ->join('project_models AS p', 't.project_id', '=', 'p.id')
             ->join('users AS author', 't.author_id', '=', 'author.id')
+            ->join('task_type_models AS types', 't.type_id', '=', 'types.id')
             ->whereIn('t.id', function ($query) {
                 $query->select('cmc.task_id')
                     ->from('create_my_command_task_models AS cmc');
             })
-            ->select('t.id AS task_id', 't.name AS task_name', 'p.name AS project', 'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
+            ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
             ->get();
     }
 }
