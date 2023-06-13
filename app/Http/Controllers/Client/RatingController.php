@@ -19,7 +19,7 @@ class RatingController extends BaseController
 
         $rating = $request->input('rating');
         $user = User::find($offer->user_id);
-        $task = TaskModel::find($offer->id);
+        $task = TaskModel::where('offer_id', $offer->id)->first();
         $client = User::find($offer->client_id);
 
         Rating::create([
