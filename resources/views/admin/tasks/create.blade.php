@@ -83,7 +83,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-                                <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3">
+                                <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3" required>
                                     <option value="" tabindex="3" selected>Выберите тип</option>
 
                                     @foreach($types as $type)

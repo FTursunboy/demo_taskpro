@@ -14,6 +14,7 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\ChatMessageModel;
+use App\Models\CheckDate;
 use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\Statuses;
@@ -43,13 +44,20 @@ class  TasksController extends BaseController
         return view('admin.tasks.index', compact('tasks', 'users'));
     }
 
-    public function check(){
+    public function check()
+    {
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
-                if ($task->status_id !== 1 && $task->status_id !== 3 && $task->status_id !== 5 && $task->status_id !== 6 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13) {
+                if ($task->status_id !== 1 && $task->status_id !== 3 && $task->status_id !== 5 && $task->status_id !== 6 && $task->status_id !== 7 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13) {
                     $task->status_id = 7;
                     $task->save();
+
+                    CheckDate::create([
+                        'deadline' => $task->to,
+                        'task_id' => $task->id,
+                    ]);
+
                 }
             }
         }
@@ -176,7 +184,6 @@ class  TasksController extends BaseController
     }
 
 
-
     public function store(Request $request)
     {
 
@@ -210,7 +217,7 @@ class  TasksController extends BaseController
             'pro_status' => 2,
         ]);
 
-        if($request->user_id == Auth::id()) {
+        if ($request->user_id == Auth::id()) {
             $task->update([
                 'status_id' => 2,
             ]);
@@ -285,9 +292,9 @@ class  TasksController extends BaseController
             'slug' => Str::slug($request->name . ' ' . Str::random(5)),
         ]);
 
-        if($request->user_id == Auth::id()) {
+        if ($request->user_id == Auth::id()) {
             $task->update([
-               'status_id' => 2,
+                'status_id' => 2,
             ]);
 
         }
@@ -371,15 +378,14 @@ class  TasksController extends BaseController
 
             $offer = Offer::find($task->offer_id);
 
-            if($offer !== null) {
+            if ($offer !== null) {
                 $offer->status_id = 10;
                 $offer->save();
                 $task->status_id = 10;
                 $task->save();
                 HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
                 HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
-            }
-            else {
+            } else {
 
                 $user = User::where('id', $task->user_id)->first();
                 $user->xp += 20;
@@ -409,7 +415,6 @@ class  TasksController extends BaseController
         }
 
 
-
         try {
             Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->to, $task->type?->name));
         } catch (\Exception $exception) {
@@ -418,7 +423,6 @@ class  TasksController extends BaseController
 
         return redirect()->back()->with('mess', 'Успешно отправлено');
     }
-
 
 
     public function ready(TaskModel $task)
