@@ -246,6 +246,5 @@
                 </section>
             </div>
         </section>
-
     </div>
 @endsection
