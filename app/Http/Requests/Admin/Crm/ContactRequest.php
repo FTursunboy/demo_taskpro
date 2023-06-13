@@ -28,6 +28,7 @@ class ContactRequest extends FormRequest
             'email' => '',
             'position' => '',
             'client_id' => '',
+            'company' => '',
         ];
     }
 }

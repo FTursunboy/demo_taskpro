@@ -47,6 +47,24 @@
                                 <input type="text" id="position" name="position" tabindex="4" class="form-control mt-3"
                                        placeholder="Должность" value="{{ old('position') }}">
                             </div>
+                            <div class="form-group">
+                                <label for="client_id">Лиды <span
+                                        class="text-danger">*</span></label>
+                                @if(isset($leades))
+                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" required>
+                                        <option value="{{$leades?->id}}" selected>{{$leades?->contact?->fio}}</option>
+                                    </select>
+                                @else
+                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" required>
+                                        <option disabled selected>Выберите лида</option>
+                                        @foreach($leads as $lead)
+                                            <option value="{{ $lead?->id }}">{{ $lead?->contact?->fio }}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                                @if($errors->has('lead_id')) <p
+                                    style="color: red;">{{ $errors->first('lead_id') }}</p> @endif
+                            </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
@@ -59,7 +77,7 @@
 
                             <div class="form-group">
                                 <label for="type">Адрес</label>
-                                <input type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" tabindex="7" class="form-control mt-3">
+                                <input type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" tabindex="5" class="form-control mt-3">
                             </div>
                         </div>
                         <div class="col-4">
@@ -69,23 +87,14 @@
                                 <input placeholder="Введите Email" type="text" id="email" name="email" class="form-control mt-3" tabindex="3" value="{{ old('email') }}" >
                             </div>
                             <div class="form-group">
-                                <label for="client_id">Лиды <span
+                                <label for="fio">Компания <span
                                         class="text-danger">*</span></label>
-                                @if(isset($leades))
-                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6" required>
-                                        <option value="{{$leades?->id}}" selected>{{$leades?->contact?->fio}}</option>
-                                    </select>
-                                @else
-                                <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6" required>
-                                    <option disabled selected>Выберите лида</option>
-                                    @foreach($leads as $lead)
-                                        <option value="{{ $lead?->id }}">{{ $lead?->contact?->fio }}</option>
-                                    @endforeach
-                                </select>
-                                @endif
-                                @if($errors->has('lead_id')) <p
-                                    style="color: red;">{{ $errors->first('lead_id') }}</p> @endif
+                                <input type="text" id="company" name="company" tabindex="6" class="form-control mt-3"
+                                       placeholder="Введите компанию" value="{{ old('company') }}" required>
+                                @if($errors->has('company')) <p
+                                    style="color: red;">{{ $errors->first('company') }}</p> @endif
                             </div>
+
                         </div>
                         <div class="d-flex justify-content-end mt-3">
                             <button type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Сохранить</button>

@@ -67,6 +67,10 @@
                                 <input class="form-control mt-3" tabindex="6" value="{{ $contact->client->name }}" disabled>
                             </div>
                             @endif
+                            <div class="form-group">
+                                <label for="company">Компания</label>
+                                    <input type="text" class="form-control mt-3", value="{{ $contact->company }}" disabled>
+                            </div>
                         </div>
                     </div>
                 </form>

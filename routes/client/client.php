@@ -7,6 +7,9 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
     Route::group(['as' => 'client.'], function () {
         Route::get('dashboard-client', [\App\Http\Controllers\Client\IndexController::class, 'index'])->name('index');
         Route::get('/dashboard-client/new-message/{task}', [\App\Http\Controllers\Client\IndexController::class, 'removeNotification'])->name('removeNotification');
+        Route::get('/dashboard-client/verificate_tasks', [\App\Http\Controllers\Client\IndexController::class, 'verificate_tasks'])->name('verificate_tasks');
+        Route::get('/dashboard-client/ready', [\App\Http\Controllers\Client\IndexController::class, 'ready'])->name('ready');
+        Route::get('/dashboard-client/inProgress', [\App\Http\Controllers\Client\IndexController::class, 'inProgress'])->name('inProgress');
     });
 
     Route::group(['as' => 'client_profile.'], function () {
@@ -29,7 +32,7 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::post('offers/store', [\App\Http\Controllers\Client\TaskController::class, 'store'])->name('store');
         Route::get('offers/edit/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'edit'])->name('edit');
         Route::patch('offers/update/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'update'])->name('update');
-        Route::get('offers/delete/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'delete'])->name('delete');
+        Route::delete('offers/delete/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'delete'])->name('delete');
         Route::get('offers/show/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'show'])->name('show');
         Route::get('offers/download/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'downloadFile'])->name('download');
         Route::get('offers/ready/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'ready'])->name('ready');

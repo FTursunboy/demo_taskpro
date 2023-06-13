@@ -1,17 +1,20 @@
 @extends('client.layouts.app')
 @section('content')
-
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Задачи</h3>
+                    <div class="card-header">
+                        <a href="{{ route('client.index') }}" class="btn btn-outline-danger">
+                            Назад
+                        </a>
+                    </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('offers.index')}}">Задачи</a></li>
-
+                            <li class="breadcrumb-item"><a href="{{route('client.index')}}">Панель</a></li>
+                            <li class="breadcrumb-item">Проверить задачи</li>
                         </ol>
                     </nav>
                 </div>
@@ -20,15 +23,13 @@
         @include('inc.messages')
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{route('offers.create')}}" class="btn btn-primary">Добавить</a>
-                </div>
                 <div class="card-body">
-                    <table id="example" class="table table-striped" >
+                    <table class="table table-striped" id="example">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Название</th>
+                            <th>Описание</th>
                             <th>Статус</th>
                             <th>Действие</th>
                         </tr>
@@ -36,8 +37,10 @@
                         <tbody>
                         @forelse($tasks as $task)
                             <tr>
+
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{\Str::limit($task->name,50)}}</td>
+                                <td>{{\Illuminate\Support\Str::limit($task->name, 30)}}</td>
+                                <td>{{\Illuminate\Support\Str::limit($task->description, 20)}}</td>
                                 @if($task->status->id == 1)
                                     <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                     </td>
@@ -70,32 +73,28 @@
                                                 class="badge bg-success p-2">Задача сделана, нажмите чтобы завершить</span></a>
                                     </td>
                                 @elseif($task->status->id == 11)
-                                    <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
+                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
                                     </td>
                                 @elseif($task->status->id == 12)
-                                    <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
+                                    <td><span class="badge bg-primary p-2">{{$task->status->name}}</span>
                                     </td>
                                 @elseif($task->status->id == 13)
-                                    <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                     </td>
                                 @elseif($task->status->id == 14)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                     </td>
                                 @endif
                                 <td>
-
                                     <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i
-                                                class="bi bi-eye"></i></a>
-                                        <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
-                                                    class="bi bi-pencil"></i></a>
-
-
-                                    <a class=" badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i
-                                                class="bi bi-chat"></i></a>
-
+                                            class="bi bi-eye"></i></a>
+                                    <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
+                                            class="bi bi-pencil"></i></a>
+                                    <a class="badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i class="bi bi-chat"></i></a>
 
                                 </td>
                             </tr>
+
 
                             <div class="modal" tabindex="-1" id="send{{$task->id}}">
                                 <div class="modal-dialog">
@@ -106,7 +105,6 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <label>Отчет:</label>
                                             <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
                                         </div>
                                         <div class="modal-footer">
@@ -148,22 +146,32 @@
                                     </div>
                                 </div>
                             </div>
-
                         @empty
-                            <td colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
+                            <td colspan="5"><h1 class="text-center">Пока нет завершенных задач</h1></td>
                         @endforelse
 
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </section>
     </div>
-
-
 @endsection
+
 @section('script')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+
+    <script>
+        $(function() {
+            $('#readyBTN').click(function (){
+                alert("Hello")
+            })
+        })
+
+    </script>
+
     <script src="{{asset('assets/js/filter3.js')}}"></script>
 
 
@@ -186,7 +194,7 @@
 
             $("#example thead th").each(function (i) {
                 var th = $(this);
-                var filterColumns = ['Статус'];
+                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
 
                 if (filterColumns.includes(th.text().trim())) {
                     var select = $('<select></select>')
@@ -271,5 +279,7 @@
 
 
     </script>
+
+
 @endsection
 

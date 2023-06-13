@@ -59,8 +59,11 @@ class ContactController extends BaseController
             'email' => $request->email,
             'position' => $request->position,
             'address' => $request->address,
+            'company' => $request->company,
             'lead_id' => $request->input('lead_id') ? $request->input('lead_id') : null,
         ]);
+
+
 
         return redirect()->route('contact.index')->with('create', 'Контакт успешно создан!');
     }
@@ -100,6 +103,7 @@ class ContactController extends BaseController
             'position' => $request['position'],
             'lead_id' => $request['lead_id'],
             'address' => $request['address'],
+            'company' => $request['company'],
         ]);
 //
 //        if (isset($client)) {
