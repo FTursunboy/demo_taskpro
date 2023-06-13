@@ -145,15 +145,12 @@
                         <div class="col-md-3">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-center"></h5>
+                                    <h5 class="text-center">Проекты</h5>
                                     <div>
-                                        <h5>Проекты</h5>
                                         <div style="max-height: 300px; overflow-y: auto;">
                                             <table class="table mt-3" cellpadding="5">
-                                                <thead>
                                                     <th>Название</th>
                                                     <th class="text-center">Кол. задач</th>
-                                                </thead>
                                                 <tbody>
                                                 @foreach($tasks as $task)
                                                     <tr>
@@ -171,9 +168,8 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-center"></h5>
+                                    <h5 class="text-center">Список Тим-лидов</h5>
                                     <div>
-                                        <h5 class="text-center">Список Тим-лидов</h5>
                                         <div style="max-height: 300px; overflow-y: auto;">
                                             <table class="table mt-3" cellpadding="5">
                                                 <thead>
@@ -214,7 +210,7 @@
                                 <div class="card-body">
                                     <h5 class="text-center">Лучшие сотрудники по оценке клиентов</h5>
                                     <div>
-                                        <table class="table mt-3" cellpadding="5">
+                                        <table class="table mt-4" cellpadding="5">
                                             <thead>
                                             <tr>
                                                 <th>#</th>
