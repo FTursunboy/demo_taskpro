@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Admin\TasksClient;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends BaseController
 {
     public function index() {
-        $tasks = TasksClient::get();
+        $tasks = TasksClient::where('client_id', Auth::id())->get();
         return view('client.tasks.index', compact('tasks'));
     }
 
