@@ -48,12 +48,6 @@
                     </a>
                 </li>
 
-{{--                <li class="sidebar-item {{ (request()->is('tasks') or request()->is('tasks/*'))  ? 'active' : '' }}">--}}
-{{--                    <a href="{{ route('tasks.index') }}" class='sidebar-link'>--}}
-{{--                        <i class="bi bi-grid-1x2-fill"></i>--}}
-{{--                        <span>Задачи</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
 
                 <li class="sidebar-item {{ (request()->is('mytasks') or request()->is('mytasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('mytasks.index') }}" class='sidebar-link'>
@@ -67,111 +61,6 @@
                     <a href="{{ route('mon.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-earmark-medical-fill"></i>
                         <span>Мониторинг</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item {{ (request()->is('admin/ideas') or request()->is('admin/ideas/*'))  ? 'active' : '' }}">
-                    <a href="{{route('admin.ideas')}}" class='sidebar-link'>
-                        <i class="bi bi-journal-check"></i>
-                        <span>Идеи  @if($ideas_count > 0)
-                                <span class="offers-count">
-            </span>
-                            @endif
-        </span>
-                        @if($ideas_count > 0)
-                            <div class="notification-dot"></div>
-                        @endif
-                    </a>
-
-
-                    <style>
-                        .sidebar-link {
-                            position: relative;
-                        }
-
-                        .notification-dot {
-                            position: absolute;
-                            top: 50%;
-                            right: -10px;
-                            transform: translate(50%, -50%);
-                            width: 10px;
-                            height: 10px;
-                            background-color: red;
-                            border-radius: 50%;
-                            animation: blink-animation 1s infinite;
-                        }
-
-                        @keyframes blink-animation {
-                            0% {
-                                opacity: 1;
-                            }
-                            50% {
-                                opacity: 0;
-                            }
-                            100% {
-                                opacity: 1;
-                            }
-                        }
-
-                        .offers-count {
-                            margin-left: 5px;
-                        }
-                    </style> </span>
-                    </a>
-                </li>
-
-
-
-
-
-
-                <li class="sidebar-item {{ (request()->is('tasks-team/leads') or request()->is('tasks-team/leads/*')) ? 'active' : '' }}">
-                    <a href="{{ route('tasks-team-leads.all-tasks') }}" class='sidebar-link'>
-                        <i class="bi bi-people"></i>
-                        <span>Задача с тимлидом
-                            @if($command_task > 0)
-                                <span class="offers-count"></span>
-                            @endif
-                        </span>
-                        @if($command_task > 0)
-                            <div class="notification-dot"></div>
-                        @endif
-                    </a>
-
-
-                    <style>
-                        .sidebar-link {
-                            position: relative;
-                        }
-
-                        .notification-dot {
-                            position: absolute;
-                            top: 50%;
-                            right: -10px;
-                            transform: translate(50%, -50%);
-                            width: 10px;
-                            height: 10px;
-                            background-color: red;
-                            border-radius: 50%;
-                            animation: blink-animation 1s infinite;
-                        }
-
-                        @keyframes blink-animation {
-                            0% {
-                                opacity: 1;
-                            }
-                            50% {
-                                opacity: 0;
-                            }
-                            100% {
-                                opacity: 1;
-                            }
-                        }
-
-                        .offers-count {
-                            margin-left: 5px;
-                        }
-                    </style> </span>
                     </a>
                 </li>
 
