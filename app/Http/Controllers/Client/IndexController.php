@@ -13,7 +13,20 @@ use Illuminate\Support\Facades\Auth;
 
 class IndexController extends BaseController
 {
+
     public function index()
+    {
+        $task = User::where('id', Auth::id())->first()->countTasks(Auth::id());
+        $all = Offer::where('client_id', Auth::id())->count();
+        $ready = Offer::where('status_id', 3)
+        ->where('client_id', Auth::id())->count();
+        $inProgress = Offer::where('status_id', 2)
+        ->where('client_id', Auth::id())->count();
+
+        return view('client.index', compact('task', 'all', 'ready', 'inProgress'));
+    }
+
+    public function verificate_tasks()
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
@@ -21,11 +34,8 @@ class IndexController extends BaseController
         ])->orWhere([
             ['client_id', '=', Auth::id()],
             ['status_id', '=', '6'],
-        ])->orWhere([
-            ['client_id', '=', Auth::id()],
-            ['status_id', '=', '3'],
         ])->get();
-        return view('client.index', compact('tasks'));
+        return view('client.verificate_tasks', compact('tasks'));
     }
 
     public function removeNotification(TaskModel $task)
@@ -35,4 +45,19 @@ class IndexController extends BaseController
         return redirect()->route('offers.chat', $task->id);
     }
 
+    public function ready()
+    {
+        $ready = Offer::where('status_id', 3)
+            ->where('client_id', Auth::id())->get();
+
+        return view('client.ready', compact('ready'));
+    }
+
+    public function inProgress()
+    {
+        $inProgress = Offer::where('status_id', 2)
+            ->where('client_id', Auth::id())->get();
+
+        return view('client.inProgress', compact('inProgress'));
+    }
 }

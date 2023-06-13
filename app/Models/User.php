@@ -124,6 +124,7 @@ class User extends Authenticatable
         })->count();
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)->count();
+        $verificate = TaskModel::where('status_id', 10)->count();
         $new = TaskModel::where('task_models.user_id', $id)
             ->whereIn('task_models.status_id', [1, 7, 9])
             ->whereNotIn('task_models.id', function ($subquery) use ($id) {
@@ -137,6 +138,7 @@ class User extends Authenticatable
             'inProgress' => $inProgress,
             'speed' => $speed,
             'all' => $all,
+            'verificate' => $verificate,
             'new' => $new
         ];
     }

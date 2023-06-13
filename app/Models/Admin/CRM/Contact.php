@@ -11,7 +11,7 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fio', 'phone', 'email', 'position', 'lead_id',  'address', 'is_client'];
+    protected $fillable = ['fio', 'phone', 'email', 'position', 'lead_id',  'address', 'is_client', 'company'];
 
 
     public function leadSource() {

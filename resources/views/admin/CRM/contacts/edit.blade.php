@@ -46,6 +46,15 @@
                                 <input type="text" id="position" name="position" tabindex="4" class="form-control mt-3"
                                        value="{{ $contact->position }}">
                             </div>
+                            <div class="form-group">
+                                <label for="lead_id">Лиды</label>
+                                <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" onchange="showModal()">
+                                    <option selected disabled>Выберите лида</option>
+                                    @foreach($leads as $lead)
+                                        <option value="{{ $lead->id }}" {{ $lead->id === $contact->lead_id  ? 'selected' : '' }}>{{ $lead->contact->fio }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
@@ -65,14 +74,12 @@
                                 <input type="text" id="email" name="email" class="form-control mt-3" tabindex="3" value="{{ $contact->email }}" >
                             </div>
                             <div class="form-group">
-                                <label for="lead_id">Лиды</label>
-                                <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="6" onchange="showModal()">
-                                    <option selected disabled>Выберите лида</option>
-                                    @foreach($leads as $lead)
-                                        <option value="{{ $lead->id }}" {{ $lead->id === $contact->lead_id  ? 'selected' : '' }}>{{ $lead->contact->fio }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="company">Компания <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="company" name="company" tabindex="6" class="form-control mt-3"
+                                       value="{{ $contact?->company }}" required>
                             </div>
+
                         </div>
                         <div class="d-flex justify-content-end mt-3">
                             <button type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Обновить</button>
