@@ -78,7 +78,7 @@
                     </li>
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 30px">
-                        <a data-bs-toggle="offcanvas" data-bs-target="#TelegramOfCanvas" aria-controls="TelegramOfCanvas" style="color: #6C757D; font-size: 18px" href="{{ route('telegram.index') }}" role="button" ><i
+                        <a data-bs-toggle="offcanvas" data-bs-target="#TelegramOfCanvas" aria-controls="TelegramOfCanvas" style="color: #6C757D; font-size: 18px" role="button" ><i
                                     style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
                     </li>
 
