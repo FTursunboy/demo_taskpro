@@ -101,7 +101,7 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Вы действительно хотите закрыть задачу, если нет оптравьте заново</p>
+                                            <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить

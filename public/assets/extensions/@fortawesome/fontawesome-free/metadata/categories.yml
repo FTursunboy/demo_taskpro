@@ -431,7 +431,7 @@ chat:
     - sms
     - video
     - video-slash
-  label: Chat
+  label: ChatEmail
 chess:
   icons:
     - chess

@@ -5,23 +5,31 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Requests\Admin\TaskClientRequest;
+use App\Http\Requests\Client\TaskRequest;
+use App\Mail\Send;
+use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
+use App\Models\ClientNotification;
 use App\Models\History;
 use App\Models\ProjectClient;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
+use App\Notifications\Telegram\TelegramClientTask;
 use GuzzleHttp\Client;
 use Illuminate\Console\View\Components\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class OfferController extends BaseController
@@ -407,5 +415,48 @@ class OfferController extends BaseController
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
     }
 
+    public function create()
+    {
+        $offers = User::role('client')->get();
+
+        return view('admin.offers.create', compact('offers'));
+    }
+
+    public function store(TaskClientRequest $request)
+    {
+        $request->validated();
+        if (isset($request->file)) {
+            $upload_file = $request->file('file');
+            $file_name = $upload_file->getClientOriginalName();
+            $file = $request->file('file')->store('public/docs');
+        } else {
+            $file = null;
+            $file_name = null;
+        }
+
+        $offer = Offer::create([
+            'name' => $request->name,
+            'description' => ($request->description === null)? null:$request->description,
+            'author_name' => $request->author_name,
+            'author_phone' => $request->author_phone,
+            'file' => $file,
+            'file_name' => $file_name,
+            'status_id' => 8,
+            'client_id' => $request->client_id,
+            'slug' => Str::slug($request->name . ' ' . Str::random(5), '-'),
+        ]);
+
+        ClientNotification::create([
+            'offer_id' => $offer->id
+        ]);
+
+
+        HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
+
+
+
+        return redirect()->route('client.offers.index')->with('create', 'Успешно создано!');
+
+    }
 
 }
