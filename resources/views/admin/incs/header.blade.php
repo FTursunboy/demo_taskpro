@@ -26,11 +26,13 @@
 
                     <li class="nav-item" style="margin-top: -10px;">
                         @if($command_task > 0)
-                            <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas" aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
-                               role="button"  ><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
-                         @else
-                             <a  data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas" aria-controls="TeamLeadOfCanvas" style="margin-left: 20px" role="button" ><i
-                                        style="font-size: 30px" class="bi bi-people"></i></a>
+                            <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
+                               aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
+                               role="button"><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
+                        @else
+                            <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
+                               aria-controls="TeamLeadOfCanvas" style="margin-left: 20px" role="button"><i
+                                    style="font-size: 30px" class="bi bi-people"></i></a>
                         @endif
                         <style>
                             #commandCount {
@@ -42,7 +44,7 @@
                                     color: red;
                                 }
                                 50% {
-                                    color: rgba(220,12,10,0.2);
+                                    color: rgba(220, 12, 10, 0.2);
                                 }
                                 100% {
                                     color: red;
@@ -53,33 +55,38 @@
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
                         @if($ideas_count > 0)
-                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников" style="margin-left: 20px;" href="{{route('admin.ideas')}}"><i  id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i></a>
+                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников"
+                               style="margin-left: 20px;" href="{{route('admin.ideas')}}"><i id="ideasCount"
+                                                                                             style="font-size: 30px;"
+                                                                                             class="bi bi-lightbulb-fill"></i></a>
                         @else
-                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников" style="margin-left: 20px" href="{{route('admin.ideas')}}"><i style="font-size: 30px"
+                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников"
+                               style="margin-left: 20px" href="{{route('admin.ideas')}}"><i style="font-size: 30px"
                                                                                             class="bi bi-lightbulb"></i></a>
                         @endif
-                            <style>
-                                #ideasCount {
-                                    animation: ideasCount 2s infinite;
-                                }
+                        <style>
+                            #ideasCount {
+                                animation: ideasCount 2s infinite;
+                            }
 
-                                @keyframes ideasCount {
-                                    0% {
-                                        color: red;
-                                    }
-                                    50% {
-                                        color: rgba(220,12,10,0.2);
-                                    }
-                                    100% {
-                                        color: red;
-                                    }
+                            @keyframes ideasCount {
+                                0% {
+                                    color: red;
                                 }
-                            </style>
+                                50% {
+                                    color: rgba(220, 12, 10, 0.2);
+                                }
+                                100% {
+                                    color: red;
+                                }
+                            }
+                        </style>
                     </li>
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 30px">
-                        <a data-bs-toggle="offcanvas" data-bs-target="#TelegramOfCanvas" aria-controls="TelegramOfCanvas" style="color: #6C757D; font-size: 18px" role="button" ><i
-                                    style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
+                        <a data-bs-toggle="offcanvas" data-bs-target="#TelegramOfCanvas"
+                           aria-controls="TelegramOfCanvas" style="color: #6C757D; font-size: 18px" role="button"><i
+                                style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
                     </li>
 
                 </ul>
@@ -94,7 +101,7 @@
                                 <div class="avatar avatar-md">
                                     @if(Auth::user()->avatar)
                                         <img
-                                                src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
+                                            src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
                                     @else
                                         <img src="{{asset('assets/images/avatar-2.png')}}">
                                     @endif
@@ -110,11 +117,11 @@
                                 !</h6>
                         </li>
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
-                                        class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
+                                    class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
                         <hr class="dropdown-divider">
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop"><i
-                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
+                                    class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
                     </ul>
 
                 </div>
@@ -126,7 +133,8 @@
 
 
 {{--  Telegram ofcanvas  --}}
-<div class="offcanvas offcanvas-end"  data-bs-backdrop="static" tabindex="-1" id="TelegramOfCanvas" aria-labelledby="TelegramOfCanvas" style="width: 1000px">
+<div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="TelegramOfCanvas"
+     aria-labelledby="TelegramOfCanvas" style="width: 1000px">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="TelegramOfCanvas">Телеграм</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -221,9 +229,10 @@
 
 
 {{--  TeamLead  --}}
-<div class="offcanvas offcanvas-bottom"  data-bs-backdrop="static" tabindex="-1" id="TeamLeadOfCanvas" aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="TeamLeadOfCanvas"
+     aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="TelegramOfCanvas">Телеграм</h5>
+        <h5 class="offcanvas-title" id="TelegramOfCanvas">Список задач</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -231,7 +240,7 @@
             <div class="card-body">
                 <table class="table table-hover">
                     <thead>
-                    <tr  class="text-center">
+                    <tr class="text-center">
                         <th>#</th>
                         <th>Задача</th>
                         <th>Проект</th>
@@ -253,9 +262,11 @@
                                     <a role="button" class="btn btn-success" data-bs-toggle="modal"
                                        data-bs-target="#taskTeamLead{{ $task->task_id }}"><i
                                             class="bi bi-eye"></i></a>
-{{--                                    <a  href="{{ route('tasks-team-leads.show', $task->task_slug) }}" class="btn btn-success "><i class="bi bi-eye"></i></a>--}}
-                                    <a href="{{ route('tasks-team-leads.acceptTaskCommand', $task->task_slug) }}" class="btn btn-primary"><i class="bi bi-check"></i></a>
-                                    <a href="{{ route('tasks-team-leads.declineTaskCommand', $task->task_slug) }}" class="btn btn-danger"><i class="bi bi-x"></i></a>
+                                    {{--                                    <a  href="{{ route('tasks-team-leads.show', $task->task_slug) }}" class="btn btn-success "><i class="bi bi-eye"></i></a>--}}
+                                    <a href="{{ route('tasks-team-leads.acceptTaskCommand', $task->task_slug) }}"
+                                       class="btn btn-primary"><i class="bi bi-check"></i></a>
+                                    <a href="{{ route('tasks-team-leads.declineTaskCommand', $task->task_slug) }}"
+                                       class="btn btn-danger"><i class="bi bi-x"></i></a>
                                 </td>
                             </tr>
 
@@ -276,37 +287,37 @@
                                                     <div class="form-group">
                                                         <label for="name">Имя</label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value="" disabled>
+                                                               value="{{ $task->task_name }}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="user_id">Кому это задача</label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value=""
+                                                               value="{{ $task->author_surname . " " . $task->author_name }}"
                                                                disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="from">Дата начала задачи</label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value="" disabled>
+                                                               value="{{ $task->from }}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <label for="time">Время</label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value="" disabled>
+                                                               value="{{ $task->time }}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="project_id">Проект</label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value="" disabled>
+                                                               value="{{ $task->project }}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="to">Дата окончания задачи <span
                                                                 id="project_finish"
                                                                 style="color: red"></span> </label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value="" disabled>
+                                                               value="{{ $task->to }}" disabled>
 
                                                     </div>
                                                 </div>
@@ -314,13 +325,14 @@
                                                     <div class="form-group">
                                                         <label for="type_id">Тип</label>
                                                         <input type="text" class="form-control mt-3"
-                                                               value="" disabled>
+                                                               value="{{ $task->type }}" disabled>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="comment">Комментария</label>
                                                         <textarea tabindex="10" name="comment" id="comment"
                                                                   rows="4"
-                                                                  class="form-control mt-3" disabled></textarea>
+                                                                  class="form-control mt-3"
+                                                                  disabled>{{ $task->comment }}</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -335,9 +347,9 @@
                                 </div>
                             </div>
                         @endforeach
-                    @else
-                        <p>Пустой</p>
-                    @endif
+                        @else
+                            <td colspan="7" class="bg-secondary"><h3 class="text-center text-white">Пока нет задач</h3></td>
+                        @endif
                     </tbody>
                 </table>
             </div>
