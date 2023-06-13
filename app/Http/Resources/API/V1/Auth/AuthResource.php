@@ -15,10 +15,19 @@ class AuthResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $photoUrl = null;
+//        if ($this->avatar) {
+//            $filePath = Storage::disk('public')->path($this->avatar);
+//            if (file_exists($filePath)) {
+//                $fileData = file_get_contents($filePath);
+//                $avatar = base64_encode($fileData);
+//            }
+//        }
+
+        $avatar = null;
         if ($this->avatar) {
-            $photoUrl = Storage::disk('public')->url($this->avatar);
+            $avatar = url('public/' . $this->avatar);
         }
+        
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -29,7 +38,7 @@ class AuthResource extends JsonResource
             'position' => $this->position,
             'email' => $this->email,
             'depart' => $this->otdel->name,
-            'avatar' => $photoUrl
+            'avatar' => $avatar
         ];
     }
 }
