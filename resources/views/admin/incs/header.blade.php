@@ -26,10 +26,10 @@
 
                     <li class="nav-item" style="margin-top: -10px;">
                         @if($command_task > 0)
-                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Задача с Тим-лидом"   style="margin-left: 20px;"
-                               href="{{route('tasks-team-leads.all-tasks')}}"><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
-                        @else
-                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Задача с Тим-лидом"  style="margin-left: 20px" href="{{route('tasks-team-leads.all-tasks')}}"><i
+                            <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas" aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
+                               role="button"  ><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
+                         @else
+                             <a  data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas" aria-controls="TeamLeadOfCanvas" style="margin-left: 20px" role="button" ><i
                                         style="font-size: 30px" class="bi bi-people"></i></a>
                         @endif
                         <style>
@@ -218,3 +218,131 @@
     </div>
 </div>
 {{--  Telegram ofcanvas  end  --}}
+
+
+{{--  TeamLead  --}}
+<div class="offcanvas offcanvas-bottom"  data-bs-backdrop="static" tabindex="-1" id="TeamLeadOfCanvas" aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="TelegramOfCanvas">Телеграм</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr  class="text-center">
+                        <th>#</th>
+                        <th>Задача</th>
+                        <th>Проект</th>
+                        <th>Исполнитель</th>
+                        <th>Тимлид</th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(count($tasksTeamLeads)>0)
+                        @foreach($tasksTeamLeads as $task)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ \Str::limit($task->task_name, 20) }}</td>
+                                <td>{{ $task->project }}</td>
+                                <td>{{ $task->author_task_surname . ' ' . $task->author_task_name }}</td>
+                                <td>{{ $task->author_surname . ' ' . $task->author_name }}</td>
+                                <td>
+                                    <a role="button" class="btn btn-success" data-bs-toggle="modal"
+                                       data-bs-target="#taskTeamLead{{ $task->task_id }}"><i
+                                            class="bi bi-eye"></i></a>
+{{--                                    <a  href="{{ route('tasks-team-leads.show', $task->task_slug) }}" class="btn btn-success "><i class="bi bi-eye"></i></a>--}}
+                                    <a href="{{ route('tasks-team-leads.acceptTaskCommand', $task->task_slug) }}" class="btn btn-primary"><i class="bi bi-check"></i></a>
+                                    <a href="{{ route('tasks-team-leads.declineTaskCommand', $task->task_slug) }}" class="btn btn-danger"><i class="bi bi-x"></i></a>
+                                </td>
+                            </tr>
+
+                            <div class="modal fade" id="taskTeamLead{{ $task->task_id }}"
+                                 data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                 aria-labelledby="taskTeamLead{{ $task->task_id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="taskTeamLead{{ $task->task_id }}">
+                                                Информатция</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="name">Имя</label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value="" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="user_id">Кому это задача</label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value=""
+                                                               disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="from">Дата начала задачи</label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value="" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="time">Время</label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value="" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="project_id">Проект</label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value="" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="to">Дата окончания задачи <span
+                                                                id="project_finish"
+                                                                style="color: red"></span> </label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value="" disabled>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="type_id">Тип</label>
+                                                        <input type="text" class="form-control mt-3"
+                                                               value="" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="comment">Комментария</label>
+                                                        <textarea tabindex="10" name="comment" id="comment"
+                                                                  rows="4"
+                                                                  class="form-control mt-3" disabled></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Отмена
+                                            </button>
+                                            {{--                                                            <button type="submit" class="btn btn-primary">Understood</button>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>Пустой</p>
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{{--  TeamLead ofcanvas  end  --}}
+
