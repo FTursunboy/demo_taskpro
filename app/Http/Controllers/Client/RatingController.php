@@ -24,9 +24,9 @@ class RatingController extends BaseController
 
         Rating::create([
             'rating' => $rating,
-            'user_id' => $user->id,
-            'task_id' => $task->id,
-            'client_id' => $client->id,
+            'user_id' => $user?->id,
+            'task_id' => $task?->id,
+            'client_id' => $client?->id,
         ]);
 
 
