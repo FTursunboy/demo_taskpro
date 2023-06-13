@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\API\V1\Tasks;
 
-use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
-use App\Models\Admin\MessagesModel;
+use App\Http\Resources\API\V1\Tasks\GetTasksResource;
+use App\Http\Resources\API\V1\Tasks\NewTasksResource;
+use App\Http\Resources\API\V1\Tasks\TasksResource;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
@@ -18,19 +19,36 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
-class TasksController extends BaseController
+class TaskController extends Controller
 {
-    public function index()
+    public function index(User $user)
     {
-        $tasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
-        return view('user.task.index', compact('tasks'));
-
+        return response([
+            'message' => true,
+            'tasks' => TasksResource::collection(TaskModel::where('user_id', $user->id)->get())
+        ]);
     }
 
-    public function accept(TaskModel $task)
+    public function newTasks(User $user)
+    {
+        return response([
+            'message' => true,
+            'tasks' => NewTasksResource::collection($user->getNewTasks($user->id))
+        ]);
+    }
+
+    public function getTasks(User $user)
+    {
+        return response([
+            'message' => true,
+            'tasks' => GetTasksResource::collection($user->getUsersTasks($user->id)),
+        ]);
+    }
+
+    public function taskAccept(User $user, TaskModel $task)
     {
         UserTaskHistoryModel::create([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'task_id' => $task->id,
             'status_id' => 4,
         ]);
@@ -38,8 +56,8 @@ class TasksController extends BaseController
             'status_id' => 4
         ]);
         if ($task->to < now()->toDateString()) {
-                $task->status_id = 7;
-                $task->save();
+            $task->status_id = 7;
+            $task->save();
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::ACCEPT);
@@ -52,21 +70,31 @@ class TasksController extends BaseController
 
         }
         try {
-            Notification::send(User::role('admin')->first(), new TelegramUserAccept($task->name, Auth::user()->name));
+            Notification::send(User::role('admin')->first(), new TelegramUserAccept($task->name, $user->name));
         } catch (\Exception $exception) {
         }
         Artisan::call('update:task-status');
-        return redirect()->route('task-list.show', $task->id)->with('create', 'Задача принята!');
+        return response([
+            'message' => true,
+            'info' => 'Задача принята!',
+            'task' => new TasksResource($task),
+        ]);
     }
-
-    public function decline(TaskModel $task, Request $request)
+    public function taskDecline(User $user, TaskModel $task, Request $request)
     {
+        $cancelReason = $request->input('cancel');
+
+        if (empty($cancelReason)) {
+            return response([
+                'message' => false,
+                'info' => 'Введите причину отмены!',
+            ]);
+        }
         if ($task->status_id === 7){
             $task->update([
                 'status_id' => 1,
             ]);
         }
-
 
         $task->update([
             'cancel' => $request->cancel,
@@ -83,33 +111,14 @@ class TasksController extends BaseController
             HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::DECLINED);
         }
         try {
-            Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, Auth::user()->name));
+            Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, $user->name));
         } catch (\Exception $exception) {
+
         }
         Artisan::call('update:task-status');
-        return back()->with('error', 'Задача отклонена!');
-    }
-    public function download_file_chat(MessagesModel $mess)  {
-        $path = storage_path('app/public/' . $mess->file);
-
-        $headers = [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'Content-Disposition' => 'attachment; filename="' . $mess->file_name . '"',
-        ];
-
-        return response()->download($path, $mess->file_name, $headers);
-
-    }
-
-    public function downloadFile(TaskModel $task)
-    {
-        $path = storage_path('app/' . $task->file);
-
-        $headers = [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'Content-Disposition' => 'attachment; filename="' . $task->file_name . '"',
-        ];
-
-        return response()->download($path, $task->file_name, $headers);
+        return response([
+            'message' => true,
+            'info' => 'Задача отклонено!',
+        ]);
     }
 }

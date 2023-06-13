@@ -37,7 +37,10 @@ class AuthResource extends JsonResource
             'position' => $this->position,
             'email' => $this->email,
             'depart' => $this->otdel->name,
-            'avatar' => $avatar
+            'xp' => $this->xp,
+            'slug' => $this->slug,
+            'role' => $this->getRoleNames(),
+            'avatar' => $avatar,
         ];
     }
 }

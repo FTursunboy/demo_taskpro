@@ -22,9 +22,20 @@ class AuthController extends Controller
         $this->user = $user;
         $response = [
             'message' => true,
+            'token' => $token,
             'user' => new AuthResource($user),
-            'token' => $token
         ];
         return response($response);
     }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return response([
+            'message' => true,
+            'info' => 'Вы успешно вышли из системы. До встречи!'
+        ]);
+    }
+
+
 }
