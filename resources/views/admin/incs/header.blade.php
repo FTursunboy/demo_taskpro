@@ -23,8 +23,63 @@
             <div class="collapse navbar-collapse mr-2" id="navbarSupportedContent">
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
-                    <li class="nav-item" style="margin-top: -10px; margin-right: 50px">
-                        <a style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">&nbsp;&nbsp; <i style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
+
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
+                        @if($command_task > 0)
+                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Задача с Тим-лидом"   style="margin-left: 20px;"
+                               href="{{route('tasks-team-leads.all-tasks')}}"><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
+                        @else
+                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Задача с Тим-лидом"  style="margin-left: 20px" href="{{route('tasks-team-leads.all-tasks')}}"><i
+                                        style="font-size: 30px" class="bi bi-people"></i></a>
+                        @endif
+                        <style>
+                            #commandCount {
+                                animation: command 2s infinite;
+                            }
+
+                            @keyframes command {
+                                0% {
+                                    color: red;
+                                }
+                                50% {
+                                    color: rgba(220,12,10,0.2);
+                                }
+                                100% {
+                                    color: red;
+                                }
+                            }
+                        </style>
+                    </li>
+
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
+                        @if($ideas_count > 0)
+                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников" style="margin-left: 20px;" href="{{route('admin.ideas')}}"><i  id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i></a>
+                        @else
+                            <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Идеи сотрудников" style="margin-left: 20px" href="{{route('admin.ideas')}}"><i style="font-size: 30px"
+                                                                                            class="bi bi-lightbulb"></i></a>
+                        @endif
+                            <style>
+                                #ideasCount {
+                                    animation: ideasCount 2s infinite;
+                                }
+
+                                @keyframes ideasCount {
+                                    0% {
+                                        color: red;
+                                    }
+                                    50% {
+                                        color: rgba(220,12,10,0.2);
+                                    }
+                                    100% {
+                                        color: red;
+                                    }
+                                }
+                            </style>
+                    </li>
+
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 30px">
+                        <a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Телеграм" style="color: #6C757D; font-size: 18px" href="{{route('telegram.index')}}">&nbsp;&nbsp; <i
+                                    style="color: #269EDA; font-size: 30px" class="bi bi-telegram"></i></a>
                     </li>
 
                 </ul>
@@ -39,7 +94,7 @@
                                 <div class="avatar avatar-md">
                                     @if(Auth::user()->avatar)
                                         <img
-                                            src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
+                                                src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
                                     @else
                                         <img src="{{asset('assets/images/avatar-2.png')}}">
                                     @endif
@@ -55,10 +110,11 @@
                                 !</h6>
                         </li>
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
-                                    class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
+                                        class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
                         <hr class="dropdown-divider">
-                        <li><a role="button" class='dropdown-item' data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
-                                    class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
+                        <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
+                               data-bs-target="#staticBackdrop"><i
+                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
                     </ul>
 
                 </div>
