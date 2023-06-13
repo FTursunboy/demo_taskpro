@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Mail\ChatEmail;
+use App\Mail\Send;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
@@ -13,9 +15,12 @@ use App\Models\User;
 use App\Notifications\Telegram\Chat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
-class   MessagesController extends BaseController
+
+class MessagesController extends BaseController
 {
     public function message(Request $request, TaskModel $task)
     {
@@ -36,15 +41,16 @@ class   MessagesController extends BaseController
             'message' => $request->message
         ]);
 
-        try {
-            Notification::send(User::find(1), new Chat($messages_models, $task->name));
+
+
             $user = User::find($task->client_id);
             $email = $user?->clientEmail?->email;
-            MailToSendClientController::chat($email, $task->name, $messages_models->message);
-        } catch (\Exception $exception) {
 
-        }
+            Mail::to($email)->send(new ChatEmail($task->name, $request->message));
+            Notification::send(User::find(1), new Chat($messages_models, $task->name));
+
         return response([
+            'user' => $email,
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,
             'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))

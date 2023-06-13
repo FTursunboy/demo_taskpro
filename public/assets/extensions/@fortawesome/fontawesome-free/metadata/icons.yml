@@ -4497,7 +4497,7 @@ comment-dots:
 comment-medical:
   changes:
     - 5.7.0
-  label: Alternate Medical Chat
+  label: Alternate Medical ChatEmail
   search:
     terms:
       - advice
@@ -15680,7 +15680,7 @@ rocketchat:
     - 5.4.2
     - 5.8.0
     - 5.15.0
-  label: Rocket.Chat
+  label: Rocket.ChatEmail
   search:
     terms: []
   styles:
