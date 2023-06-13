@@ -7,6 +7,7 @@ use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
 use App\Models\Idea;
+use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,7 @@ class BaseController extends Controller
             $notifications = ClientNotification::get();
             $newMessage = ChatMessageModel::where('user_id', Auth::id())->orwhere('offer_id', Auth::id())->orderBy('created_at','desc')->get();
             $command_task = CreateMyCommandTaskModel::get()->count();
+            $usersTelegram = User::role('user')->get();
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -36,6 +38,7 @@ class BaseController extends Controller
                 'out_of_date' => $out_of_date,
                 'rejected' => $rejected,
                 'command_task' => $command_task,
+                'usersTelegram' => $usersTelegram,
             ]);
             return $next($request);
 
