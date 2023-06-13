@@ -15,6 +15,7 @@ use App\Models\ProjectClient;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -24,7 +25,15 @@ class ClientController extends BaseController
 {
     public function index()
     {
-        $users = User::role('client')->get();
+        $users = User::role('client')
+            ->leftJoin('offers', 'users.id', '=', 'offers.client_id')
+            ->select('users.id', 'users.name', 'users.slug', 'users.surname', DB::raw('COUNT(offers.id) as offers_count'), DB::raw('SUM(offers.status_id = 3) as status2_count'))
+            ->groupBy('users.id', 'users.name', 'users.slug', 'users.surname')
+            ->get();
+
+
+
+
         $projects = ProjectModel::where('types_id', 2)
             ->where('pro_status', '!=', 3)->get();
 

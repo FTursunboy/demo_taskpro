@@ -224,4 +224,8 @@ class User extends Authenticatable
 
         return $result;
     }
+
+    public function offerss() {
+        return $this->hasMany(Offer::class);
+    }
 }

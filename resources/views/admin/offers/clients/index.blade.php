@@ -22,9 +22,6 @@
                                     <img style="border-radius: 50% " src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
                                 @endif
                             </div>
-
-
-
                         </div>
                         <div class="card-body">
                             <h5 class="text-center">{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</h5>
@@ -32,15 +29,15 @@
                                 <table class="mt-3" cellpadding="5">
                                     <tr>
                                         <th>Отправлено задач: </th>
-                                        <th><span class="mx-2">{{ $user->taskCount($user->id) }}</span></th>
+                                        <th><span class="mx-2">{{ $user->offers_count }}</span></th>
                                     </tr>
                                     <tr>
                                         <th>Принято задач :</th>
-                                        <th><span class="mx-2">{{ $user->taskSuccessCount($user->id) }}</span></th>
+                                        <th><span class="mx-2">{{ ($user->status2_count) ? $user->status2_count : 0 }}</span></th>
                                     </tr>
                                     <tr>
                                         <th>Проект: </th>
-                                        <th><span class="mx-2"> {{ $user->ideaCount($user->id) }}</span></th>
+                                        <th><span class="mx-2"> 1</span></th>
                                     </tr>
                                 </table>
                             </div>
