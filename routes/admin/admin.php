@@ -184,7 +184,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
 
     Route::group(['as' => 'telegram.'], function () {
-        Route::get('/telegram', [\App\Http\Controllers\Admin\TelegramController::class, 'index'])->name('index');
         Route::post('/telegram/all', [\App\Http\Controllers\Admin\TelegramController::class, 'sendAll'])->name('sendAll');
         Route::post('/telegram/one/{user}', [\App\Http\Controllers\Admin\TelegramController::class, 'sendOne'])->name('sendOne');
     });

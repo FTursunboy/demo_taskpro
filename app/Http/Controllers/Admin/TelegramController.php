@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Notification;
 
 class TelegramController extends BaseController
 {
-    public function index()
-    {
-        $users = User::role('user')->orderBy('xp', 'desc')->get();
-        return view('admin.telegram.index', compact('users'));
-    }
-
     public function sendAll(Request $request)
     {
         try {
