@@ -7,7 +7,7 @@
     }
 </style>
 
-<header class='mb-3'>
+<header class='mb-3 bg-white'>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
             <a href="#" class="burger-btn d-block">
