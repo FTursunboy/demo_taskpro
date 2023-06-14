@@ -29,7 +29,7 @@ class DeclineOffer extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Decline Offer',
+            subject: 'Задача отклонена',
         );
     }
 
