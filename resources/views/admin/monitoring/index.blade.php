@@ -57,7 +57,7 @@
                         <tbody id="tableBodyMonitoring">
                         @foreach($tasks as $task)
                             <tr>
-                                <td class="text-center">{{$loop->iteration }}</td>
+                                <td class="text-center">{{$task->id }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
                                 <td class="text-center">{{ $task->time }}</td>
                                 <td width="10%" class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>

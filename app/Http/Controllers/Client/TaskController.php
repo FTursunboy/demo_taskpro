@@ -215,8 +215,10 @@ class TaskController extends BaseController
 
     public function ready(Offer $offer)
     {
+
         $offer->status_id = 3;
         $user = User::find($offer->user_id);
+
         $user->xp += 20;
         $user->save();
         $offer->finish = Carbon::now();
