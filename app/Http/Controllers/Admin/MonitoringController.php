@@ -28,7 +28,7 @@ class  MonitoringController extends BaseController
     {
         $task = new TasksController();
         $task->check();
-        $tasks = TaskModel::get();
+        $tasks = TaskModel::where('status_id', '!=', 3)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -174,6 +174,30 @@ class  MonitoringController extends BaseController
     {
         $task = new TasksController();
         $task->check();
+        $tasks = TaskModel::where('status_id', 2)->orWhere('status_id', 4)->get();
+        $statuses = StatusesModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role('user')->get();
+        $clients = User::role('client')->get();
+        return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
+    }
+
+    public function clientVerification()
+    {
+        $task = new TasksController();
+        $task->check();
+        $tasks = TaskModel::where('status_id', 10)->get();
+        $statuses = StatusesModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role('user')->get();
+        $clients = User::role('client')->get();
+        return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
+    }
+
+    public function adminVerification()
+    {
+        $task = new TasksController();
+        $task->check();
         $tasks = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -181,6 +205,7 @@ class  MonitoringController extends BaseController
         $clients = User::role('client')->get();
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
     }
+
     public function out_of_date()
     {
         $task = new TasksController();
