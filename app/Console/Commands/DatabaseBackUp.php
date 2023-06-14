@@ -47,6 +47,8 @@ class DatabaseBackUp extends Command
                 ->attach($files, ['as' => 'Backup.sql', 'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']);
         });
 
+        $this->info('BackUP успешно отправлен на почту' . $email);
+
 
 
 

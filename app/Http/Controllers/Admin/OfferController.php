@@ -416,8 +416,9 @@ class OfferController extends BaseController
         $offer->save();
         $user = User::find($offer->client_id);
         $email = $user?->clientEmail?->email;
-        Mail::to($email)->send(new DeclineOffer($offer->name, $offer->cancel_admin));
-
+        if ($email) {
+            Mail::to($email)->send(new DeclineOffer($offer->name, $offer->cancel_admin));
+        }
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
     }
 
