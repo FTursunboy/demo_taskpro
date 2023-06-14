@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label for="login">Логин<span class="text-danger">*</span></label>
                                     <input type="text" id="login" tabindex="7" name="login" class="form-control mt-3"
-                                           value="{{ $user->login }}" disabled>
+                                           value="{{ $user->login }}">
                                 </div>
 
 

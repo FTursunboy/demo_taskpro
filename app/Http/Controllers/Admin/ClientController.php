@@ -112,6 +112,7 @@ class ClientController extends BaseController
             'surname' => $data['surname'],
             'password' => Hash::make($data['password'] ?? 'password'),
             'phone' => $data['phone'],
+            'login' => $data['login'],
             'telegram_user_id' => $data['telegram_id'],
             'avatar' => $file,
         ]);
