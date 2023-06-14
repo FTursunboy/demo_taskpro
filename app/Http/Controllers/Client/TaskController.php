@@ -29,7 +29,6 @@ class TaskController extends BaseController
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-            ['is_finished', '=', false]
         ])->get();
 
         return view('client.offers.index', compact('tasks'));
