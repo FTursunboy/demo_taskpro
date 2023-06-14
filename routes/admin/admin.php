@@ -78,6 +78,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/edit/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'edit'])->name('edit');
         Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
+        Route::get('/tasks/message/delete/{mess}', [\App\Http\Controllers\Admin\TasksController::class, 'delete'])->name('messages.delete');
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
 

@@ -43,6 +43,7 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::get('offers/messages/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'index'])->name('messages');
         Route::post('offers/messages/store/{offer}', [\App\Http\Controllers\Client\ChatController::class, 'store'])->name('messages.store');
         Route::get('offers/messages/download/{mess}', [\App\Http\Controllers\Client\ChatController::class, 'downloadFile'])->name('messages.download');
+        Route::get('offers/messages/delete/{mess}', [\App\Http\Controllers\Client\ChatController::class, 'delete'])->name('messages.delete');
 
     });
 

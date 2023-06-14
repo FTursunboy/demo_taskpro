@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use function Symfony\Component\String\b;
 
 class ChatController extends BaseController
 {
@@ -68,6 +69,11 @@ class ChatController extends BaseController
         ];
 
         return response()->download($path, $mess->file_name, $headers);
+    }
+
+    public function delete(MessagesModel $mess) {
+        $mess->delete();
+        return back();
     }
 
 }

@@ -466,4 +466,9 @@ class  TasksController extends BaseController
     {
         return TaskTypesTypeModel::where('typeTask_id', $id)->select('id', 'name')->get();
     }
+
+    public function delete(MessagesModel $mess) {
+        $mess->delete();
+        return redirect()->back();
+    }
 }

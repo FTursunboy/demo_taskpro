@@ -57,5 +57,10 @@ class MessagesController extends BaseController
         ]);
     }
 
+    public function delete(MessagesModel $mess) {
+        $mess->delete();
+        return back();
+    }
+
 
 }
