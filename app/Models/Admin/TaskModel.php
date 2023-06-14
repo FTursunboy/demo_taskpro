@@ -84,5 +84,11 @@ class TaskModel extends Model
         return $this->hasOne(CheckDate::class, 'task_id');
     }
 
+    public function count_task()
+    {
+        $projectId = $this->id;
+        return TaskModel::where('project_id', $projectId)->orderBy('count', 'desc')->count();
+    }
+
 }
 

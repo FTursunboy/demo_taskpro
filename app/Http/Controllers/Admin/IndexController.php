@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ClientNotification;
 use App\Models\User;
-use Illuminate\Console\View\Components\Task;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends BaseController
 {
@@ -30,10 +27,18 @@ class IndexController extends BaseController
 
         $task = $this->countTasks();
 
-        $tasks = ProjectModel::get();
-        $team_leads = User::role('team-lead')->get();
+        $tasks = ProjectModel::get()->take(5);
+        $team_leads = User::role('team-lead')->withCount('tasks')->orderBy('tasks_count', 'desc')->take(5)->get();
 
-        return view('admin.index', compact('task', 'users', 'tasks', 'team_leads'));
+        $ratings = DB::table('ratings as r')
+            ->join('users as u', 'u.id', 'r.user_id')
+            ->join('users as c', 'c.id', 'r.client_id')
+            ->join('task_models as t', 't.id', 'r.task_id')
+            ->select( 'u.*', 'u.surname', 'c.*', 'c.name as client', 't.name as task', 'r.rating')
+            ->get();
+
+
+        return view('admin.index', compact('task', 'users', 'tasks', 'team_leads', 'ratings'));
     }
 
     public function delete(ClientNotification $offer)
@@ -73,8 +78,6 @@ class IndexController extends BaseController
 
         return view('admin.tasks.success', compact('success'));
     }
-
-
 
 
 }

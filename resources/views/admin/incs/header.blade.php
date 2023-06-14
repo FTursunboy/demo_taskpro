@@ -22,9 +22,18 @@
 
             <div class="collapse navbar-collapse mr-2" id="navbarSupportedContent">
 
+
+                <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
+                   aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
+                   role="button">
+                    <i class="bi bi-wallet" style="font-size: 30px;"></i>
+                </a>
+
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
                     <li class="nav-item" style="margin-top: -10px;">
+
+
                         @if($command_task > 0)
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
                                aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
@@ -357,4 +366,40 @@
     </div>
 </div>
 {{--  TeamLead ofcanvas  end  --}}
+
+{{--  Project  --}}
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ProjectOfCanvas"
+     aria-labelledby="ProjectOfCanvas" style="width: 100%; height: 80%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="ProjectOfCanvas">Проекты</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="card">
+            <div class="card-body overflow-hidden">
+                    <div>
+                        <table class="table table-hover mt-3 " cellpadding="5">
+                            <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Название</th>
+                                <th class="text-center">Количество задач</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($tasks as $task)
+                                <tr class="">
+                                    <td>{{ $loop->index+1 }}</td>
+                                    <td>{{ $task->name }}</td>
+                                    <td class="text-center">{{ $task->count_task() }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{--  Project ofcanvas  end  --}}
 

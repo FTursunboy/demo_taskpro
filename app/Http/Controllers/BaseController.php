@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
@@ -26,6 +27,8 @@ class BaseController extends Controller
             $rejected = TaskModel::where('status_id', 5)->count();
 
 
+            $tasks = ProjectModel::get()->take(5);
+
 
             $notifications = ClientNotification::get();
             $newMessage = ChatMessageModel::where('user_id', Auth::id())->orwhere('offer_id', Auth::id())->orderBy('created_at','desc')->get();
@@ -43,6 +46,7 @@ class BaseController extends Controller
                 'command_task' => $command_task,
                 'usersTelegram' => $usersTelegram,
                 'tasksTeamLeads' => $this->taskTeamLead(),
+                'tasks' => $tasks,
             ]);
             return $next($request);
 
