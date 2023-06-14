@@ -28,9 +28,7 @@
                                     <select tabindex="4" id="user_id" name="user_id" class="form-select mt-3">
                                         <option value="" selected>Выберите сотрудник</option>
                                         @foreach($myCommand as $command)
-                                            @if($command->id !== \Illuminate\Support\Facades\Auth::id())
                                                 <option value="{{ $command->id }}">{{ $command->surname . ' ' . $command->name . ' ' . $command->lastname }}</option>
-                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

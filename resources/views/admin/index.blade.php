@@ -149,8 +149,12 @@
                                     <div>
                                         <div style="max-height: 300px; overflow-y: auto;">
                                             <table class="table mt-3" cellpadding="5">
-                                                    <th>Название</th>
-                                                    <th class="text-center">Кол. задач</th>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Название</th>
+                                                        <th class="text-center">Кол. задач</th>
+                                                    </tr>
+                                                </thead>
                                                 <tbody>
                                                 @foreach($tasks as $task)
                                                     <tr>
@@ -173,23 +177,24 @@
                                         <div style="max-height: 300px; overflow-y: auto;">
                                             <table class="table mt-3" cellpadding="5">
                                                 <thead>
-                                                    <th>#</th>
-                                                    <th>Фото</th>
-                                                    <th>ФИО</th>
+                                                <th>#</th>
+                                                <th>Фото</th>
+                                                <th>ФИО</th>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($team_leads as $team_lead)
-                                                     <tr>
-                                                         <td>{{ $loop->index + 1 }}</td>
-                                                         <td>
-                                                             @if($team_lead->avatar)
-                                                                 <img src="{{ asset('storage/' . $team_lead->avatar)}}" width="40"
-                                                                      height="40" style="border-radius: 50%">
-                                                             @else
-                                                                 <img src="{{asset('assets/images/avatar-2.png')}}"
-                                                                      width="30">
-                                                             @endif
-                                                         </td>
+                                                    <tr>
+                                                        <td>{{ $loop->index + 1 }}</td>
+                                                        <td>
+                                                            @if($team_lead->avatar)
+                                                                <img src="{{ asset('storage/' . $team_lead->avatar)}}"
+                                                                     width="40"
+                                                                     height="40" style="border-radius: 50%">
+                                                            @else
+                                                                <img src="{{asset('assets/images/avatar-2.png')}}"
+                                                                     width="30">
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <a href="{{ route('employee.show', $team_lead->slug) }}">
                                                                 {{ $team_lead->name . " " . $team_lead->surname . " " . $team_lead->lastname }}
@@ -246,6 +251,5 @@
                 </section>
             </div>
         </section>
-
     </div>
 @endsection
