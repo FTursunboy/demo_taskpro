@@ -14,7 +14,7 @@ class DatabaseBackUp extends Command
      *
      * @var string
      */
-    protected $signature = 'backup:db';
+    protected $signature = 'backup';
 
     /**
      * The console command description.
