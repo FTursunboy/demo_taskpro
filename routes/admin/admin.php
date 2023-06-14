@@ -17,6 +17,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('tasks/success/status', [\App\Http\Controllers\Admin\MonitoringController::class, 'ready'])->name('success');
         Route::get('tasks/out_of_date', [\App\Http\Controllers\Admin\MonitoringController::class, 'out_of_date'])->name('out_of_date');
         Route::get('tasks/task', [\App\Http\Controllers\Admin\MonitoringController::class, 'progress'])->name('progress');
+        Route::get('tasks/clientVerification', [\App\Http\Controllers\Admin\MonitoringController::class, 'clientVerification'])->name('clientVerification');
+        Route::get('tasks/adminVerification', [\App\Http\Controllers\Admin\MonitoringController::class, 'adminVerification'])->name('adminVerification');
 
     });
 
