@@ -64,7 +64,7 @@ class IndexController extends BaseController
         $speed = TaskModel::where('status_id', 7)->count();
         $clientVerification = TaskModel::where('status_id', 10)->count();
         $adminVerification = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->count();
-        $all = TaskModel::count();
+        $all = TaskModel::where('status_id', '!=', 3)->count();
         return [
             'success' => $success,
             'inProgress' => $inProgress,

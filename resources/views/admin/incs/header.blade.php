@@ -376,221 +376,411 @@
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ideasOfCanvas"
      aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="TelegramOfCanvas">Список задач</h5>
+        <h5 class="offcanvas-title" id="TelegramOfCanvas">Список идеи</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div class="card">
             <div class="card-body">
-                <table class="table table-striped" id="table1">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Название</th>
-                        <th>От</th>
-                        <th>До</th>
-                        <th>Описание</th>
-                        <th>Статус</th>
-                        <th>Сотрудник</th>
-                        <th>Действие</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($ideasOfDashboard as $idea)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{\Str::limit($idea->title, 20)}}</td>
-                            <td>{{$idea->from}}</td>
-                            <td>{{$idea->to}}</td>
-                            <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
-                            <td>
-                                @switch($idea->status->id)
-                                    @case($idea->status->id === 1)
-                                    {{$idea->status->name}}
-                                    @break
+                <div class="row p-3">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="border-radius: 20px">
+                            <li class="nav-item">
+                                <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
+                                   id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
+                                   role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Идея</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
+                                   data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
+                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея</a>
+                            </li>
+                        </ul>
+                    </div>
 
-                                    @case($idea->status->id === 2)
-                                    {{$idea->status->name}}
-                                    @break
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-home-tab">
+                                <table class="table table-striped" id="table1">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Название</th>
+                                        <th>От</th>
+                                        <th>До</th>
+                                        <th>Описание</th>
+                                        <th>Статус</th>
+                                        <th>Сотрудник</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($ideasOfDashboard as $idea)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{\Str::limit($idea->title, 20)}}</td>
+                                            <td>{{$idea->from}}</td>
+                                            <td>{{$idea->to}}</td>
+                                            <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
+                                            <td>
+                                                @switch($idea->status->id)
+                                                    @case($idea->status->id === 1)
+                                                        {{$idea->status->name}}
+                                                        @break
 
-                                    @case($idea->status->id === 3)
-                                    {{$idea->status->name}}
-                                    @break
+                                                    @case($idea->status->id === 2)
+                                                        {{$idea->status->name}}
+                                                        @break
 
-                                    @case($idea->status->id === 4)
-                                    {{$idea->status->name}}
-                                    @break
+                                                    @case($idea->status->id === 3)
+                                                        {{$idea->status->name}}
+                                                        @break
 
-                                    @case($idea->status->id === 5)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 4)
+                                                        {{$idea->status->name}}
+                                                        @break
 
-                                    @case($idea->status->id === 6)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 5)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 7)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 6)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 8)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 7)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 9)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 8)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 10)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 9)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 11)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 10)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 12)
-                                    {{$idea->status->name}} @break
+                                                    @case($idea->status->id === 11)
+                                                        {{$idea->status->name}}@break
 
-                                    @case($idea->status->id === 13)
-                                    {{$idea->status->name}}@break
+                                                    @case($idea->status->id === 12)
+                                                        {{$idea->status->name}} @break
 
-                                    @case($idea->status->id === 14)
-                                    {{$idea->status->name}} @break
-                                    @case($idea->status->id === 15)
-                                    {{$idea->status->name}} @break
-                                @endswitch
-                            </td>
-                            <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
-                            <td>
-                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
-                            </td>
-                        </tr>
+                                                    @case($idea->status->id === 13)
+                                                        {{$idea->status->name}}@break
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="ideasShowDashboard{{ $idea->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ideasShowDashboard{{ $idea->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-xl modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="ideasShowDashboard{{ $idea->id }}">Названия: {{\Str::limit($idea->title, 60)}}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="post" action="{{ route('admin.ideas.update', $idea->id) }}"
-                                              enctype="multipart/form-data" autocomplete="off">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <!-- textarea -->
-                                                    <div class="form-group">
-                                                        <label>Идея</label>
-                                                        <textarea disabled name="title" class="form-control" rows="3"
-                                                                  placeholder="Введите имя идеи ...">{{$idea->title}}</textarea>
+                                                    @case($idea->status->id === 14)
+                                                        {{$idea->status->name}} @break
+                                                    @case($idea->status->id === 15)
+                                                        {{$idea->status->name}} @break
+                                                @endswitch
+                                            </td>
+                                            <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
+                                            <td>
+                                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="ideasShowDashboard{{ $idea->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ideasShowDashboard{{ $idea->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="ideasShowDashboard{{ $idea->id }}">Названия: {{\Str::limit($idea->title, 60)}}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <!-- textarea -->
-                                                    <div class="form-group">
-                                                        <label>Бюджет</label>
-                                                        <textarea disabled name="budget" class="form-control" rows="3"
-                                                                  placeholder="Введите бюджет ...">{{$idea->budget}}</textarea>
-                                                    </div>
-                                                </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" action="{{ route('admin.ideas.update', $idea->id) }}"
+                                                              enctype="multipart/form-data" autocomplete="off">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <!-- textarea -->
+                                                                    <div class="form-group">
+                                                                        <label>Идея</label>
+                                                                        <textarea disabled name="title" class="form-control" rows="3"
+                                                                                  placeholder="Введите имя идеи ...">{{$idea->title}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <!-- textarea -->
+                                                                    <div class="form-group">
+                                                                        <label>Бюджет</label>
+                                                                        <textarea disabled name="budget" class="form-control" rows="3"
+                                                                                  placeholder="Введите бюджет ...">{{$idea->budget}}</textarea>
+                                                                    </div>
+                                                                </div>
 
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Плюсы</label>
-                                                        <textarea disabled name="pluses" class="form-control" rows="3"
-                                                                  placeholder="Введите плюсы идеи ...">{{$idea->pluses}}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Минусы</label>
-                                                        <textarea disabled name="minuses" class="form-control" rows="3"
-                                                                  placeholder="Введите минусы идеи ...">{{$idea->minuses}}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Описание</label>
-                                                        <textarea disabled name="description" class="form-control" rows="5"
-                                                                  placeholder="Введите описание идеи ...">{{$idea->description}}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label>Срок от:</label>
-                                                    <div class="input-group date" id="reservationdate"
-                                                         data-target-input="nearest">
-                                                        <input disabled name="from" value="{{$idea->from}}" type="text" class="form-control"/>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Плюсы</label>
+                                                                        <textarea disabled name="pluses" class="form-control" rows="3"
+                                                                                  placeholder="Введите плюсы идеи ...">{{$idea->pluses}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Минусы</label>
+                                                                        <textarea disabled name="minuses" class="form-control" rows="3"
+                                                                                  placeholder="Введите минусы идеи ...">{{$idea->minuses}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Описание</label>
+                                                                        <textarea disabled name="description" class="form-control" rows="5"
+                                                                                  placeholder="Введите описание идеи ...">{{$idea->description}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <label>Срок от:</label>
+                                                                    <div class="input-group date" id="reservationdate"
+                                                                         data-target-input="nearest">
+                                                                        <input disabled name="from" value="{{$idea->from}}" type="text" class="form-control"/>
 
+                                                                    </div>
+                                                                    <div style="margin-top: 30px" class="col md-3"><i
+                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
+                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
+                                                                                файл</a></i>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-3">
+
+                                                                    <label>До:</label>
+                                                                    <div class="input-group date" id="reservationdated"
+                                                                         data-target-input="nearest">
+                                                                        <input type="text" disabled name="to" value="{{$idea->to}}" class="form-control"/>
+
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Комментарий</label>
+                                                                        <textarea name="comment" class="form-control" rows="5"
+                                                                                  placeholder="Напишите комментарий ...">{{$idea->comments}}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="float-right">
+                                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
+                                                                        id="accept">Принять
+                                                                </button>
+                                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
+                                                                        id="decline">Отклонить
+                                                                </button>
+                                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
+                                                                        id="inWork">На доработку
+                                                                </button>
+                                                            </div>
+
+                                                            <script>
+                                                                const btn = document.getElementById('accept')
+                                                                btn.addEventListener('click', function () {
+                                                                    btn.type = 'submit';
+                                                                    btn.click();
+                                                                    btn.classList.add('disabled')
+                                                                })
+                                                                const decline = document.getElementById('decline')
+                                                                decline.addEventListener('click', function () {
+                                                                    decline.type = 'submit';
+                                                                    decline.click();
+                                                                    decline.classList.add('disabled')
+
+                                                                })
+                                                                const inWork = document.getElementById('inWork')
+                                                                inWork.addEventListener('click', function () {
+                                                                    inWork.type = 'submit';
+                                                                    inWork.click();
+                                                                    inWork.classList.add('disabled')
+                                                                })
+                                                            </script>
+                                                        </form>
                                                     </div>
-                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                           href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                файл</a></i>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-3">
-
-                                                    <label>До:</label>
-                                                    <div class="input-group date" id="reservationdated"
-                                                         data-target-input="nearest">
-                                                        <input type="text" disabled name="to" value="{{$idea->to}}" class="form-control"/>
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Комментарий</label>
-                                                        <textarea name="comment" class="form-control" rows="5"
-                                                                  placeholder="Напишите комментарий ...">{{$idea->comments}}</textarea>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Назад</button>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    @empty
+                                        <td colspan="8" class="text-center ">Пока нет идей</td>
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-profile-tab">
+                                <table class="table table-striped" id="table1">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Название</th>
+                                        <th>Описание</th>
+                                        <th>Статус</th>
+                                        <th>Сотрудник</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($systemIdeasOfDashboard as $idea)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{\Str::limit($idea->name, 20)}}</td>
+                                            <td>{{\Illuminate\Support\Str::limit($idea->description, 20)}}</td>
+                                            <td>
+                                                @switch($idea->status->id)
+                                                    @case($idea->status->id === 1)
+                                                        {{$idea->status->name}}
+                                                        @break
 
-                                            <div class="float-right">
-                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
-                                                        id="accept">Принять
-                                                </button>
-                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
-                                                        id="decline">Отклонить
-                                                </button>
-                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
-                                                        id="inWork">На доработку
-                                                </button>
+                                                    @case($idea->status->id === 2)
+                                                        {{$idea->status->name}}
+                                                        @break
+
+                                                    @case($idea->status->id === 3)
+                                                        {{$idea->status->name}}
+                                                        @break
+
+                                                    @case($idea->status->id === 4)
+                                                        {{$idea->status->name}}
+                                                        @break
+
+                                                    @case($idea->status->id === 5)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 6)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 7)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 8)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 9)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 10)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 11)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 12)
+                                                        {{$idea->status->name}} @break
+
+                                                    @case($idea->status->id === 13)
+                                                        {{$idea->status->name}}@break
+
+                                                    @case($idea->status->id === 14)
+                                                        {{$idea->status->name}} @break
+                                                    @case($idea->status->id === 15)
+                                                        {{$idea->status->name}} @break
+                                                @endswitch
+                                            </td>
+                                            <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
+                                            <td>
+                                                <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="SystemIdeasShowDashboard{{ $idea->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SystemIdeasShowDashboard{{ $idea->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="SystemIdeasShowDashboard{{ $idea->id }}">Названия: {{\Str::limit($idea->title, 60)}}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" action="{{ route('admin.system-ideas.update', $idea->id) }}"
+                                                              enctype="multipart/form-data" autocomplete="off">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <!-- textarea -->
+                                                                    <div class="form-group">
+                                                                        <label>Название</label>
+                                                                        <input disabled name="name" class="form-control"
+                                                                               placeholder="Введите имя идеи ..." value="{{$idea->name}}">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Комментарий</label>
+                                                                        <textarea name="comment"  class="form-control" rows="5"
+                                                                        >{{$idea->comment}}</textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Описание</label>
+                                                                        <textarea disabled name="description" class="form-control"
+                                                                                  rows="5"
+                                                                                  placeholder="Введите описание идеи ..." >{{$idea->description}}</textarea>
+                                                                    </div>
+                                                                    <div style="margin-top: 30px" class="col md-3"><i
+                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
+                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
+                                                                                файл</a></i>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="float-right">
+                                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
+                                                                        id="accept">Принять
+                                                                </button>
+                                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
+                                                                        id="decline">Отклонить
+                                                                </button>
+                                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
+                                                                        id="inWork">На доработку
+                                                                </button>
+                                                            </div>
+
+                                                            <script>
+                                                                const btn = document.getElementById('accept')
+                                                                btn.addEventListener('click', function () {
+                                                                    btn.type = 'submit';
+                                                                    btn.click();
+                                                                    btn.classList.add('disabled')
+                                                                })
+                                                                const decline = document.getElementById('decline')
+                                                                decline.addEventListener('click', function () {
+                                                                    decline.type = 'submit';
+                                                                    decline.click();
+                                                                    decline.classList.add('disabled')
+
+                                                                })
+                                                                const inWork = document.getElementById('inWork')
+                                                                inWork.addEventListener('click', function () {
+                                                                    inWork.type = 'submit';
+                                                                    inWork.click();
+                                                                    inWork.classList.add('disabled')
+                                                                })
+                                                            </script>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Назад</button>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <script>
-                                                const btn = document.getElementById('accept')
-                                                btn.addEventListener('click', function () {
-                                                    btn.type = 'submit';
-                                                    btn.click();
-                                                    btn.classList.add('disabled')
-                                                })
-                                                const decline = document.getElementById('decline')
-                                                decline.addEventListener('click', function () {
-                                                    decline.type = 'submit';
-                                                    decline.click();
-                                                    decline.classList.add('disabled')
-
-                                                })
-                                                const inWork = document.getElementById('inWork')
-                                                inWork.addEventListener('click', function () {
-                                                    inWork.type = 'submit';
-                                                    inWork.click();
-                                                    inWork.classList.add('disabled')
-                                                })
-                                            </script>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Назад</button>
-                                    </div>
-                                </div>
+                                        </div>
+                                    @empty
+                                        <td colspan="6" class="text-center ">Пока нет идей</td>
+                                    @endforelse
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    @empty
-                        <td colspan="7" class="text-center ">Пока нет идей</td>
-                    @endforelse
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -632,4 +822,5 @@
     </div>
 </div>
 {{--  Project ofcanvas  end  --}}
+
 
