@@ -48,7 +48,7 @@ class MessagesController extends BaseController
             if ($email) {
                 Mail::to($email)->send(new ChatEmail($task->name, $request->message));
             }
-            Notification::send(User::find(1), new Chat($messages_models, $task->name));
+            Notification::send(User::find(1), new Chat($messages_models, $task->name, $task->id));
 
         return response([
             'user' => $email,
