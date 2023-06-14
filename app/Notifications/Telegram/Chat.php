@@ -76,7 +76,8 @@ class Chat extends Notification implements ShouldQueue
     {
         return TelegramMessage::create()
             ->content("Здравствуйте, {$this->message->sender->name} Отправил вам сообщение
-                \n Задача : {$this->name} \t Номер: {$this->id}
+                \n Задача : {$this->name}
+                \n Номер: {$this->id}
                 \n Сообщение : {$this->message->message }
                 ");
 
