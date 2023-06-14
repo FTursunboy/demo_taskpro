@@ -17,7 +17,7 @@ class ProfileController extends BaseController
     public function index()
     {
         $user = User::findOrFail(Auth::id());
-        $employees = User::role('user')->get();
+        $employees = User::role('user')->orderBy('xp', 'desc')->get();
         return view('admin.profile.index', compact('user', 'employees'));
     }
 
