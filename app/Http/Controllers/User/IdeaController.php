@@ -12,37 +12,17 @@ use Illuminate\Support\Str;
 
 class IdeaController extends BaseController
 {
-    public function index(){
-        $ideas = Idea::where('user_id', Auth::user()->id)->get();
-
-        return view('user.idea.index', compact('ideas'));
-    }
-
-    public function store(IdeaRequest $request) {
+    public function store(IdeaRequest $request)
+    {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
         $data['status_id'] = 1;
         $data['slug'] = Str::slug($data['title'], '-', '5');
         Idea::create($data);
-
-        return redirect()->route('idea.ideas')->with('mess', 'Успешно отправлено!');
+        return redirect()->route('user.index')->with('mess', 'Идея успешно отправлена!');
     }
-
-    public function create(){
-        return view('user.idea.create');
-    }
-
-    public function show(Idea $idea) {
-
-        return view('user.idea.show', compact('idea'));
-    }
-
-
-    public function edit(Idea $idea){
-        return view('user.idea.edit', compact('idea'));
-    }
-
-    public function update(Idea $idea, Request $request) {
+    public function update(Idea $idea, Request $request)
+    {
         $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -59,8 +39,13 @@ class IdeaController extends BaseController
 
         $idea->update($data);
 
-        return redirect()->route('idea.ideas')->with('mess', 'Успешно обновлено!');
+        return redirect()->route('user.index')->with('create', 'Идея успешна обновлена!');
     }
 
+    public function destroy(Idea $idea)
+    {
+        $idea->delete();
+        return redirect()->route('user.index')->with('delete','Идея успешна удалена!');
+    }
 
 }

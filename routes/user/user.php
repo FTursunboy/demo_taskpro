@@ -14,12 +14,9 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::post('/user/profile/change-password', [\App\Http\Controllers\User\ProfileController::class, 'password'])->name('user_profile.password');
 
     Route::group(['as' => 'idea.'], function () {
-        Route::get('ideas', [\App\Http\Controllers\User\IdeaController::class, 'index'])->name('ideas');
-        Route::get('ideas/create', [\App\Http\Controllers\User\IdeaController::class, 'create'])->name('idea.create');
         Route::post('ideas/store', [\App\Http\Controllers\User\IdeaController::class, 'store'])->name('idea.store');
-        Route::get('ideas/show/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'show'])->name('ideas.show');
-        Route::get('ideas/edit/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'edit'])->name('idea.edit');
         Route::patch('ideas/update/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'update'])->name('idea.update');
+        Route::delete('ideas/delete/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'destroy'])->name('idea.destroy');
     });
 
 

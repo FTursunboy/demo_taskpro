@@ -58,14 +58,6 @@
                     </a>
                 </li>
 
-                <li
-                    class="sidebar-item {{ (request()->is('ideas') or request()->is('ideas/*'))  ? 'active' : '' }}">
-                    <a href="{{route('idea.ideas')}}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Идеи</span>
-                    </a>
-                </li>
-
                 <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-bookmark"></i>

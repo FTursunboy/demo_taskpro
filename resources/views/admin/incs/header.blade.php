@@ -236,6 +236,8 @@
 {{--  Telegram ofcanvas  end  --}}
 
 
+
+
 {{--  TeamLead tasks ofCanvas Start --}}
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="TeamLeadOfCanvas"
      aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
@@ -370,7 +372,7 @@
 
 
 
-{{--  TeamLead tasks ofCanvas Start --}}
+{{--  Ideas  ofCanvas Start --}}
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ideasOfCanvas"
      aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
     <div class="offcanvas-header">
@@ -593,7 +595,7 @@
         </div>
     </div>
 </div>
-{{--  TeamLead tasks ofCanvas Start  --}}
+{{--  Ideas  ofCanvas Start  --}}
 
 {{--  Project  --}}
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ProjectOfCanvas"
