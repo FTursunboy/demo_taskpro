@@ -57,9 +57,9 @@ class ProjectModel extends Model
 
     public function count_task()
     {
-        $projectId = $this->id;
-        return TaskModel::where('project_id', $projectId)->orderBy('count', 'desc')->count();
+        return $this->tasks()->count();
     }
+
 
 
 }
