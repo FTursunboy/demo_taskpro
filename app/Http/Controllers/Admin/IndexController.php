@@ -7,6 +7,7 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ClientNotification;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends BaseController
@@ -28,7 +29,8 @@ class IndexController extends BaseController
         $task = $this->countTasks();
 
         $tasks = ProjectModel::get()->take(5);
-        $team_leads = User::role('team-lead')->withCount('tasks')->orderBy('tasks_count', 'desc')->take(5)->get();
+
+        $team_leads = Auth::user()->TeamLeadProject();
 
         $ratings = DB::table('ratings as r')
             ->join('users as u', 'u.id', 'r.user_id')
