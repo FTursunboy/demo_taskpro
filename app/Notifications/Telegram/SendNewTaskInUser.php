@@ -71,6 +71,7 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
+        $url = "http://mytask.fingroup.tj";
         return TelegramMessage::create()
             ->content("Здравствуйте, Вам поступила новая задача.
                 \n Номер : {$this->taskID}
@@ -80,7 +81,7 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
                 \n До : {$this->taskTo}
                 \n Дедлайн : {$this->taskDeadline}
                 \n Тип : {$this->tasktype}
-                \n http://mytask.fingroup.tj/tasks/public/login.
-                ");
+                ")
+            ->button('Посмотреть', $url);
     }
 }
