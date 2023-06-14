@@ -27,7 +27,8 @@ class BaseController extends Controller
             $rejected = TaskModel::where('status_id', 5)->count();
 
 
-            $tasksOfDashboard = ProjectModel::get()->take(5);
+            $tasksOfDashboard = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->take(5)->get();
+
 
 
             $notifications = ClientNotification::get();
