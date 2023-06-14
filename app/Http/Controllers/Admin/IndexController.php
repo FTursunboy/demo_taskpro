@@ -40,7 +40,8 @@ class IndexController extends BaseController
             ->join('users as u', 'u.id', 'r.user_id')
             ->join('users as c', 'c.id', 'r.client_id')
             ->join('task_models as t', 't.id', 'r.task_id')
-            ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.name AS perfomer_lastname',  'c.*', 't.name as task', 'r.rating')
+            ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname',  'c.*', 't.name as task', 'r.rating')
+            ->orderByDesc('r.rating')
             ->get();
 
 
