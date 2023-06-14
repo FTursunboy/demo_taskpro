@@ -29,6 +29,7 @@ class TasksTeamLeadController extends BaseController
             })
             ->select('t.id AS task_id', 't.name AS task_name', 'p.name AS project', 'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
             ->get();
+
         return view('admin.tasks-team-lead.index', compact('tasks'));
     }
 
@@ -53,8 +54,9 @@ class TasksTeamLeadController extends BaseController
             $teamLead = User::find($task->author_id);
             Notification::send(User::find($task->user_id), new TelegramTeamLeadSendTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->project->finish, $task->type->name, $teamLead->surname . ' ' . $teamLead->name));
         } catch (\Exception $exception) {
+
         }
-        return redirect()->route('tasks-team-leads.all-tasks')->with('create', 'Задача успешно создана!');
+        return redirect()->route('admin.index')->with('create', 'Задача успешно создана!');
     }
 
 
@@ -75,7 +77,7 @@ class TasksTeamLeadController extends BaseController
         } catch (\Exception $exception) {
 
         }
-        return redirect()->route('tasks-team-leads.all-tasks')->with('delete', 'Задача успешно удалено!');
+        return redirect()->route('admin.index')->with('delete', 'Задача успешно удалено!');
     }
 
     public function show($slug)

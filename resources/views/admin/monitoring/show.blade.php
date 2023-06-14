@@ -42,12 +42,6 @@
                             <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
                         </div>
                     @endif
-                    @if($task->user->position === 'Admin')
-                        <div class="col-1">
-                            <a data-bs-target="#ready" data-bs-toggle="modal" class="btn btn-success">Готово</a>
-                        </div>
-                    @endif
-
                     @if($task->status->id == 5)
                         <div class="col-md-2">
                             <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
@@ -84,7 +78,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="user">Исполнитель</label>
+                                    <label for="user">Сотрудник</label>
                                     <input type="text" id="user" class="form-control"
                                            value="{{ $task->user->name }} {{ $task->user->surname }}"
                                            disabled>
@@ -310,18 +304,21 @@
                                                 <div class="chat-body" style="margin-right: 10px">
                                                     <div class="chat-message">
                                                         <p>
-                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                        <span style="display: flex; justify-content: space-between;">
+                                                            <b>{{$mess->sender?->name}}</b>
+                                                            <a style="color: red" href="{{route('tasks.messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
+                                                        </span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                         @if($mess->file !== null)
                                                             <div class="form-group">
-                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
-                                                                    файл</a>
+                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть файл</a>
                                                             </div>
                                                         @endif
-                                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                            </span>
+                                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px; margin-bottom: -25px">
+        {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+    </span>
                                                         </p>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -545,7 +542,7 @@
                         <div class="modal-body">
                             <div>
                                 <div class="form-group">
-                                    <label for="user">Исполнитель</label>
+                                    <label for="user">Сотрудник</label>
                                     <select name="user_id" id="user_id"
                                             class="form-select">
                                         @foreach($users as $user)
@@ -564,28 +561,6 @@
                                class="btn btn-primary">
                                 Изменить
                             </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" tabindex="-1" id="ready">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title">Подтверждение</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <label for="">Отчет проделанной работы</label>
-                            <textarea required name="report" id="" cols="30" rows="4" class="form-control"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-success">Подтвердить!</button>
                         </div>
                     </form>
                 </div>
@@ -635,12 +610,16 @@
                         $('#file').val('');
 
                         let fileUrl = route('tasks.messages.download', { mess: response.messages.id });
+                        let del = route('tasks.messages.delete', { mess: response.messages.id });
                         let newMessage = `
                                 <div class="chat">
                                     <div class="chat-body" style="margin-right: 10px">
                                         <div class="chat-message">
                                             <p>
-                                                <span><b>${response.name}</b><br></span>
+                                                <span style="display: flex; justify-content: space-between;">
+                                                            <b>${response.name}</b>
+                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
+                                                        </span>
                                                 <span style="margin-top: 10px">${response.messages.message}</span>
                                                 ${response.messages.file !== null ? `
                                                         <div class="form-group">

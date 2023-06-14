@@ -33,6 +33,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::group(['as' => 'messages.'], function () {
         Route::post('/messages/{task}', [\App\Http\Controllers\Admin\MessagesController::class, 'message'])->name('messages');
         Route::post('/messages/download/{mess}', [\App\Http\Controllers\Admin\MessagesController::class, 'downloadFile'])->name('download');
+        Route::get('/messages/delete/{mess}', [\App\Http\Controllers\Admin\MessagesController::class, 'delete'])->name('delete');
     });
 
     Route::group(['as' => 'new-task.'], function () {

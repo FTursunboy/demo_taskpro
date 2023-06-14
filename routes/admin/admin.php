@@ -9,8 +9,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::group(['as' => 'admin.'], function () {
         Route::get('dashboard-admin', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
-        Route::get('admin/ideas', [\App\Http\Controllers\Admin\IdeaController::class, 'index'])->name('ideas');
-        Route::get('admin/ideas/show/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'show'])->name('idea.show');
+
         Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
         Route::get('dashboard-admin/crm', [\App\Http\Controllers\Admin\IndexController::class, 'crm'])->name('crm');
 
@@ -78,6 +77,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/edit/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'edit'])->name('edit');
         Route::post('/tasks/ready/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'ready'])->name('ready');
         Route::post('/tasks/message-show/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'message'])->name('message');
+        Route::get('/tasks/message/delete/{mess}', [\App\Http\Controllers\Admin\TasksController::class, 'delete'])->name('messages.delete');
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
 
