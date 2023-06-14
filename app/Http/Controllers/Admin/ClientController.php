@@ -32,8 +32,6 @@ class ClientController extends BaseController
             ->get();
 
 
-
-
         $projects = ProjectModel::where('types_id', 2)
             ->where('pro_status', '!=', 3)->get();
 

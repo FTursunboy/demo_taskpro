@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Requests\Admin\TaskClientRequest;
 use App\Http\Requests\Client\TaskRequest;
+use App\Mail\ChatEmail;
+use App\Mail\DeclineOffer;
 use App\Mail\Send;
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
@@ -412,6 +414,10 @@ class OfferController extends BaseController
         $offer->cancel_admin = $request->reason;
         $offer->status_id = 11;
         $offer->save();
+        $user = User::find($offer->client_id);
+        $email = $user?->clientEmail?->email;
+        Mail::to($email)->send(new DeclineOffer($offer->name, $offer->cancel_admin));
+
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено');
     }
 

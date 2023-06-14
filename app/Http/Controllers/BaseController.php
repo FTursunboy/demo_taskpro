@@ -34,6 +34,7 @@ class BaseController extends Controller
             $newMessage = ChatMessageModel::where('user_id', Auth::id())->orwhere('offer_id', Auth::id())->orderBy('created_at','desc')->get();
             $command_task = CreateMyCommandTaskModel::get()->count();
             $usersTelegram = User::role('user')->get();
+            $ideasOfDashboard = Idea::get();
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -45,8 +46,9 @@ class BaseController extends Controller
                 'rejected' => $rejected,
                 'command_task' => $command_task,
                 'usersTelegram' => $usersTelegram,
-                'tasksTeamLeads' => $this->taskTeamLead(),
-                'tasks' => $tasks,
+                'tasksTeamLeads' => $this->taskTeamLead(),        
+                'tasks' => $tasks,            
+                'ideasOfDashboard' => $ideasOfDashboard,
             ]);
             return $next($request);
 

@@ -90,16 +90,16 @@
                                         <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
                                         @break
                                         @case(12)
-                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span
+                                        <td><a data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" href="#"><span
                                                         class="badge bg-danger p-2">Отклонено (Сотрудник)</span></a>
                                         </td>
                                         @break
                                         @case(13)
-                                        <td><a data-bs-target="#sendBack{{$offer->id}}" data-bs-toggle="modal" href="#"><span
+                                        <td><a data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" href="#"><span
                                                         class="badge bg-danger p-2">Отклонено (Клиент)</span></a></td>
                                         @break
                                         @case(14)
-                                        <td><a href="#" data-bs-target="#send{{$offer->id}}"
+                                        <td><a href="#" data-bs-target="#send{{$task->id}}"
                                                data-bs-toggle="modal"><span class="badge bg-success p-2"></span>На
                                                 проверку</a></td>
                                         @break

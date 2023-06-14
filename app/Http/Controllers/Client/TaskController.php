@@ -29,7 +29,6 @@ class TaskController extends BaseController
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-            ['is_finished', '=', false]
         ])->get();
 
         return view('client.offers.index', compact('tasks'));
@@ -216,9 +215,11 @@ class TaskController extends BaseController
 
     public function ready(Offer $offer)
     {
+
         $offer->status_id = 3;
         $user = User::find($offer->user_id);
-        $user->xp += 20;
+
+        $user->xp += 10;
         $user->save();
         $offer->finish = Carbon::now();
         $offer->save();

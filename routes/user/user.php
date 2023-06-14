@@ -33,6 +33,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::group(['as' => 'messages.'], function () {
         Route::post('/messages/{task}', [\App\Http\Controllers\Admin\MessagesController::class, 'message'])->name('messages');
         Route::post('/messages/download/{mess}', [\App\Http\Controllers\Admin\MessagesController::class, 'downloadFile'])->name('download');
+        Route::get('/messages/delete/{mess}', [\App\Http\Controllers\Admin\MessagesController::class, 'delete'])->name('delete');
     });
 
     Route::group(['as' => 'new-task.'], function () {
@@ -45,6 +46,8 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::group(['as' => 'all-tasks.'], function () {
         Route::get('/my-all-tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'index'])->name('index');
         Route::get('/my-all-tasks/{task}', [\App\Http\Controllers\User\GetAllTasksController::class, 'show'])->name('show');
+        Route::post('/my-all-tasks/{task}/store', [\App\Http\Controllers\User\GetAllTasksController::class, 'store'])->name('store');
+        Route::get('/my-all-tasks/download/{mess}', [\App\Http\Controllers\User\GetAllTasksController::class, 'downloadFile'])->name('download');
     });
 
     Route::group(['as' => 'my-command.'], function () {

@@ -6,7 +6,7 @@
         border-radius: 50%; /* Задание круглой формы */
     }
 </style>
-<header class='mb-3 bg-white'>
+<header class='mb-3'>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
             <a href="#" class="burger-btn d-block">

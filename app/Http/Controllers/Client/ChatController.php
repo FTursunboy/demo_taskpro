@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\MessagesModel;
+use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use function Symfony\Component\String\b;
 
 class ChatController extends BaseController
 {
@@ -44,10 +46,10 @@ class ChatController extends BaseController
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'sender_id' => Auth::id(),
         ]);
-
+        $task = TaskModel::where('offer_id', $offer->id);
         try {
-            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name));
-            Notification::send(User::find(1), new Chat($messages_models, $offer->name));
+            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name, $offer->id));
+            Notification::send(User::find(1), new Chat($messages_models, $offer->name, ($task) ? $task->id : $offer->id));
         } catch (\Exception $exception) {
 
         }
@@ -68,6 +70,11 @@ class ChatController extends BaseController
         ];
 
         return response()->download($path, $mess->file_name, $headers);
+    }
+
+    public function delete(MessagesModel $mess) {
+        $mess->delete();
+        return back();
     }
 
 }

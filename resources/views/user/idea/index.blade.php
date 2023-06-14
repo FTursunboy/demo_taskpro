@@ -91,7 +91,12 @@
                                             <td><span class="badge bg-danger p-2">{{$idea->status->name}}</span>
                                             </td>
                                         @elseif($idea->status->id == 14)
-                                            <td><span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            <td>
+                                                <span class="badge bg-warning p-2">{{$idea->status->name}}</span>
+                                            </td>
+                                        @elseif($idea->status->id == 15)
+                                            <td>
+                                                <span class="badge bg-primary p-2">{{$idea->status->name}}</span>
                                             </td>
                                         @endif
                                     <td>
