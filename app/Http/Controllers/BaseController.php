@@ -27,7 +27,7 @@ class BaseController extends Controller
             $rejected = TaskModel::where('status_id', 5)->count();
 
 
-            $tasks = ProjectModel::get()->take(5);
+            $tasksOfDashboard = ProjectModel::get()->take(5);
 
 
             $notifications = ClientNotification::get();
@@ -50,8 +50,8 @@ class BaseController extends Controller
                 'rejected' => $rejected,
                 'command_task' => $command_task,
                 'usersTelegram' => $usersTelegram,
-                'tasksTeamLeads' => $this->taskTeamLead(),        
-                'tasks' => $tasks,            
+                'tasksTeamLeads' => $this->taskTeamLead(),
+                'tasksOfDashboard' => $tasksOfDashboard,
                 'ideasOfDashboard' => $ideasOfDashboard,
                 'ideasOfDashboardUser' => $ideasOfDashboardUser
             ]);
