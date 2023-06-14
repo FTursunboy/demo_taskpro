@@ -66,7 +66,7 @@ class TasksTeamLeadController extends BaseController
             ->where('slug', $slug)
             ->whereNotNull('deleted_at')
             ->first();
-        $task->forceDelete();
+        $task?->forceDelete();
         $my = CreateMyCommandTaskModel::where([
             ['task_id', $task->id],
             ['user_id', $task->user_id],
