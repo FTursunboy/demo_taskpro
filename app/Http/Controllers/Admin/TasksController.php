@@ -131,11 +131,11 @@ class  TasksController extends BaseController
         ]);
 
         try {
-            Notification::send(User::find($task->user_id), new Chat($messages_models, $task->name));
+            Notification::send(User::find($task->user_id), new Chat($messages_models, $task->name, $task->id));
             $user = User::find($task->client_id);
             $email = $user?->clientEmail?->email;
 
-            Mail::to('tfaiziev04@gmail.com')->send(new ChatEmail($task->name, $request->message));
+            Mail::to($email)->send(new ChatEmail($task->name, $request->message));
         } catch (\Exception $exception) {
 
         }
@@ -166,12 +166,14 @@ class  TasksController extends BaseController
             'file' => $file ?? null,
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
         ]);
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+
         try {
-            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name));
+            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name, ($task) ? $task->id : $offer->id));
             $user = User::find($offer->client_id);
             $email = $user?->clientEmail?->email;
 
-            Mail::to('tfaiziev04@gmail.com')->send(new ChatEmail($offer->name, $request->message));
+            Mail::to($email)->send(new ChatEmail($offer->name, $request->message));
         } catch (\Exception $exception) {
 
         }
