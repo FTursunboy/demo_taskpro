@@ -32,7 +32,7 @@ class RatingController extends BaseController
 
 
 
-        return redirect()->route('offers.ready', $task->id)->with('update', 'Спасибо за отзыв');
+        return redirect()->route('offers.ready', $offer->id)->with('update', 'Спасибо за отзыв');
     }
 
 }
