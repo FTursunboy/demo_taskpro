@@ -44,7 +44,7 @@ class TasksTeamLeadController extends BaseController
             ['task_id', $task->id],
             ['user_id', $task->user_id],
         ])->first();
-        $my->delete();
+        $my?->delete();
         try {
             Notification::send(User::find($task->author_id), new TelegramTeamLeadTaskAccept($task->name));
         } catch (\Exception $exception) {

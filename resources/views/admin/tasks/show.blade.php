@@ -374,7 +374,6 @@
 
                         </div>
                 </div>
-
             </div>
         </div>
         <div class="modal" tabindex="-1" id="history">
