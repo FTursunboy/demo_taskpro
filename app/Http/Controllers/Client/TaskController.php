@@ -219,7 +219,7 @@ class TaskController extends BaseController
         $offer->status_id = 3;
         $user = User::find($offer->user_id);
 
-        $user->xp += 20;
+        $user->xp += 10;
         $user->save();
         $offer->finish = Carbon::now();
         $offer->save();
