@@ -155,15 +155,19 @@
                             </td>
                             <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
                             <td>
-                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserShow{{ $idea->id }}" class="badge bg-success" role="button"><i class="bi bi-eye"></i></a>
-                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserEdit{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-pencil"></i></a>
-                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserDelete{{ $idea->id }}" class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>
+                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserShow{{ $idea->id }}"
+                                   class="badge bg-success" role="button"><i class="bi bi-eye"></i></a>
+                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserEdit{{ $idea->id }}"
+                                   class="badge bg-primary" role="button"><i class="bi bi-pencil"></i></a>
+                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserDelete{{ $idea->id }}"
+                                   class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
 
                         <!-- Modal Show Start -->
                         <div class="modal fade" id="ideasShowDashboardUserShow{{ $idea->id }}" data-bs-backdrop="static"
-                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="ideasShowDashboardUserShow{{ $idea->id }}"
+                             data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="ideasShowDashboardUserShow{{ $idea->id }}"
                              aria-hidden="true">
                             <div class="modal-dialog modal-xl modal-dialog-centered">
                                 <div class="modal-content">
@@ -267,7 +271,8 @@
 
                         <!-- Modal Edit Start -->
                         <div class="modal fade" id="ideasShowDashboardUserEdit{{ $idea->id }}" data-bs-backdrop="static"
-                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="ideasShowDashboardUserEdit{{ $idea->id }}"
+                             data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="ideasShowDashboardUserEdit{{ $idea->id }}"
                              aria-hidden="true">
                             <div class="modal-dialog modal-xl modal-dialog-centered">
                                 <div class="modal-content">
@@ -277,88 +282,91 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
-                                    <form method="POST" action="{{ route('idea.idea.update', $idea->id) }}" enctype="multipart/form-data">
+                                    <form method="POST" action="{{ route('idea.idea.update', $idea->id) }}"
+                                          enctype="multipart/form-data">
                                         @csrf
                                         @method('PATCH')
                                         <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <!-- textarea -->
-                                                        <div class="form-group">
-                                                            <label>Идея</label>
-                                                            <textarea name="title" class="form-control" rows="3"
-                                                                      placeholder="Введите имя идеи ...">{{$idea->title}}</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <!-- textarea -->
-                                                        <div class="form-group">
-                                                            <label>Бюджет</label>
-                                                            <textarea name="budget" class="form-control" rows="3"
-                                                                      placeholder="Введите бюджет ...">{{$idea->budget}}</textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Плюсы</label>
-                                                            <textarea name="pluses" class="form-control" rows="3"
-                                                                      placeholder="Введите плюсы идеи ...">{{$idea->pluses}}</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Минусы</label>
-                                                            <textarea name="minuses" class="form-control" rows="3"
-                                                                      placeholder="Введите минусы идеи ...">{{$idea->minuses}}</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Описание</label>
-                                                            <textarea name="description" class="form-control"
-                                                                      rows="5"
-                                                                      placeholder="Введите описание идеи ...">{{$idea->description}}</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label>Срок от:</label>
-                                                        <div class="input-group date" id="reservationdate"
-                                                             data-target-input="nearest">
-                                                            <input name="from" value="{{$idea->from}}" type="text"
-                                                                   class="form-control"/>
-
-                                                        </div>
-                                                        <div style="margin-top: 30px" class="col md-3"><i
-                                                                    class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                               href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                    файл</a></i>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-md-3">
-
-                                                        <label>До:</label>
-                                                        <div class="input-group date" id="reservationdated"
-                                                             data-target-input="nearest">
-                                                            <input type="text" name="to" value="{{$idea->to}}"
-                                                                   class="form-control"/>
-
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Комментарий</label>
-                                                            <textarea name="comment" disabled class="form-control" rows="5"
-                                                                      placeholder="Напишите комментарий ...">{{$idea->comments}}</textarea>
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- textarea -->
+                                                    <div class="form-group">
+                                                        <label>Идея</label>
+                                                        <textarea name="title" class="form-control" rows="3"
+                                                                  placeholder="Введите имя идеи ...">{{$idea->title}}</textarea>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <!-- textarea -->
+                                                    <div class="form-group">
+                                                        <label>Бюджет</label>
+                                                        <textarea name="budget" class="form-control" rows="3"
+                                                                  placeholder="Введите бюджет ...">{{$idea->budget}}</textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Плюсы</label>
+                                                        <textarea name="pluses" class="form-control" rows="3"
+                                                                  placeholder="Введите плюсы идеи ...">{{$idea->pluses}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Минусы</label>
+                                                        <textarea name="minuses" class="form-control" rows="3"
+                                                                  placeholder="Введите минусы идеи ...">{{$idea->minuses}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Описание</label>
+                                                        <textarea name="description" class="form-control"
+                                                                  rows="5"
+                                                                  placeholder="Введите описание идеи ...">{{$idea->description}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Срок от:</label>
+                                                    <div class="input-group date" id="reservationdate"
+                                                         data-target-input="nearest">
+                                                        <input name="from" value="{{$idea->from}}" type="text"
+                                                               class="form-control"/>
+
+                                                    </div>
+                                                    <div style="margin-top: 30px" class="col md-3"><i
+                                                                class="bi bi-paperclip"><a style="margin-left: 0px"
+                                                                                           href="{{asset('/storage/' . $idea->file)}}">Просмотреть
+                                                                файл</a></i>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-3">
+
+                                                    <label>До:</label>
+                                                    <div class="input-group date" id="reservationdated"
+                                                         data-target-input="nearest">
+                                                        <input type="text" name="to" value="{{$idea->to}}"
+                                                               class="form-control"/>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Комментарий</label>
+                                                        <textarea name="comment" disabled class="form-control" rows="5"
+                                                                  placeholder="Напишите комментарий ...">{{$idea->comments}}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Отмена</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                Отмена
+                                            </button>
                                             <button type="submit" class="btn btn-primary">Обновить</button>
                                         </div>
                                     </form>
@@ -370,8 +378,10 @@
 
 
                         <!-- Modal Delete Start -->
-                        <div class="modal fade" id="ideasShowDashboardUserDelete{{ $idea->id }}" data-bs-backdrop="static"
-                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="ideasShowDashboardUserDelete{{ $idea->id }}"
+                        <div class="modal fade" id="ideasShowDashboardUserDelete{{ $idea->id }}"
+                             data-bs-backdrop="static"
+                             data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="ideasShowDashboardUserDelete{{ $idea->id }}"
                              aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -381,7 +391,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
-                                    <form method="post" action="{{ route('idea.idea.destroy', $idea->id) }}" enctype="multipart/form-data">
+                                    <form method="post" action="{{ route('idea.idea.destroy', $idea->id) }}"
+                                          enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
                                         <div class="modal-body">
@@ -431,28 +442,28 @@
                             <!-- textarea -->
                             <div class="form-group">
                                 <label>Идея</label>
-                                <textarea name="title" class="form-control" rows="3"
+                                <textarea required name="title" class="form-control" rows="3"
                                           placeholder="Введите имя идеи ...">{{ old('title') }}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Описание</label>
-                                <textarea name="description" class="form-control" rows="3"
+                                <textarea required name="description" class="form-control" rows="3"
                                           placeholder="Введите описание идеи ...">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Плюсы</label>
-                                <textarea name="pluses" class="form-control" rows="3"
+                                <textarea required name="pluses" class="form-control" rows="3"
                                           placeholder="Введите плюсы идеи ...">{{ old('pluses') }}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Минусы</label>
-                                <textarea name="minuses" class="form-control" rows="3"
+                                <textarea required name="minuses" class="form-control" rows="3"
                                           placeholder="Введите минусы идеи ...">{{ old('minuses') }}</textarea>
                             </div>
                         </div>
@@ -460,39 +471,26 @@
                             <!-- textarea -->
                             <div class="form-group">
                                 <label>Бюджет</label>
-                                <textarea name="budget" class="form-control" rows="4"
+                                <textarea required name="budget" class="form-control" rows="4"
                                           placeholder="Введите бюджет ...">{{ old('budget') }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <label>Срок от:</label>
-                            <div class="input-group date" id="reservationdate"
-                                 data-target-input="nearest">
-                                <input name="from" value="{{old('from')}}" placeholder="Введите срок"
-                                       type="date"
-                                       class="form-control datetimepicker-input"
-                                       data-target="#reservationdate"/>
+                            <input required name="from" value="{{old('from')}}" type="date" class="form-control"/>
 
-                            </div>
                         </div>
                         <div class="col-md-3">
                             <label>До:</label>
-                            <div class="input-group date" id="reservationdated"
-                                 data-target-input="nearest">
-                                <input value="{{old('to')}}" name="to" placeholder="Введите срок"
-                                       type="date"
-                                       class="form-control datetimepicker-input"
-                                       data-target="#reservationdated"/>
-                            </div>
+                            <input required value="{{old('to')}}" name="to" type="date" class="form-control"/>
                         </div>
 
                     </div>
                     <div class="row">
                         <div class="col-12">
-
                             <div class="form-group">
-                                    <label for="exampleInputFile">Выберите файл</label>
-                                    <input type="file" name="file" class="form-control" id="exampleInputFile">
+                                <label for="exampleInputFile">Выберите файл</label>
+                                <input type="file" name="file" class="form-control" id="exampleInputFile">
                             </div>
                         </div>
                     </div>
