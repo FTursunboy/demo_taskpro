@@ -9,16 +9,7 @@ use Illuminate\Http\Request;
 
 class IdeaController extends BaseController
 {
-    public function index() {
-        $ideas = Idea::get();
 
-
-        return view('admin.ideas.index', compact('ideas'));
-    }
-
-    public function show(Idea $idea){
-        return view('admin.ideas.show', compact('idea'));
-    }
 
     public function update(Request $request, Idea $idea)
     {
@@ -40,6 +31,6 @@ class IdeaController extends BaseController
         $idea->status_id = $statusId;
         $idea->comments = $request->comment;
         $idea->save();
-        return redirect()->route('admin.ideas')->with('mess', 'Успешно обновлено!');
+        return redirect()->route('admin.index')->with('mess', 'Успешно обновлено!');
     }
 }
