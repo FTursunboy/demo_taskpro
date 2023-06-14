@@ -82,6 +82,6 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
                 \n Дедлайн : {$this->taskDeadline}
                 \n Тип : {$this->tasktype}
                 ")
-            ->button('Посмотреть', $url);
+            ->button('Перейти', $url);
     }
 }
