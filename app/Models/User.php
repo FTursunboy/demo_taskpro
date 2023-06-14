@@ -8,6 +8,7 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TasksClient;
 use App\Models\Client\Offer;
+use App\Models\User\TeamLeadCommandModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -227,7 +228,22 @@ class User extends Authenticatable
         return $result;
     }
 
-    public function offerss() {
+    public function offerss()
+    {
         return $this->hasMany(Offer::class);
     }
+
+    public function teamLeadTasks()
+    {
+        return DB::table('team_lead_command_models AS tlm')
+            ->join('users AS u', 'u.id', '=', 'tlm.user_id')
+            ->join('users AS t', 'u.id', '=', 'tlm.teamLead_id')
+            ->join('task_models as task', 'task.user_id', 'u.id')
+            ->join('task_models as taskk', 'taskk.user_id', 't.id')
+            ->select(DB::raw('COUNT(task.id) as count'))
+            ->get();
+    }
+
+
+
 }
