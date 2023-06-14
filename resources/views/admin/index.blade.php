@@ -236,9 +236,9 @@
                                                                 <img src="{{asset('assets/images/avatar-2.png')}}" width="30">
                                                             @endif
                                                         </td>
-                                                        <td>{{ $team_lead->name }}</td>
+                                                        <td>{{ $team_lead->surname .' '. $team_lead->name . ' ' . $team_lead->lastname}}</td>
                                                         <td>
-
+                                                            {{ $team_lead->pro_name }}
                                                         </td>
                                                     </tr>
                                                 @endforeach

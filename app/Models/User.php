@@ -233,17 +233,16 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class);
     }
 
-    public function teamLeadTasks()
+    public function TeamLeadProject()
     {
-        return DB::table('team_lead_command_models AS tlm')
-            ->join('users AS u', 'u.id', '=', 'tlm.user_id')
-            ->join('users AS t', 'u.id', '=', 'tlm.teamLead_id')
-            ->join('task_models as task', 'task.user_id', 'u.id')
-            ->join('task_models as taskk', 'taskk.user_id', 't.id')
-            ->select(DB::raw('COUNT(task.id) as count'))
+        return DB::table('team_lead_command_models AS tlc')
+            ->select('tlc.teamLead_id', 'p.NAME AS pro_name', 'u.*')
+            ->join('project_models AS p', 'tlc.project_id', '=', 'p.id')
+            ->join('users AS u', 'tlc.teamLead_id', '=', 'u.id')
+            ->distinct()
             ->get();
-    }
 
+    }
 
 
 }
