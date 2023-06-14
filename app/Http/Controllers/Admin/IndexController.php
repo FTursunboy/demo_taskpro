@@ -7,7 +7,11 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ClientNotification;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Console\View\Components\Task;
+
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends BaseController
@@ -54,15 +58,19 @@ class IndexController extends BaseController
     public function countTasks()
     {
         $success = TaskModel::where('status_id', 3)->count();
-        $inProgress = TaskModel::where('status_id', 6)
-            ->orWhere('status_id', 14)->count();
+        $inProgress = TaskModel::where('status_id', 2)
+            ->orWhere('status_id', 4)->count();
         $speed = TaskModel::where('status_id', 7)->count();
+        $clientVerification = TaskModel::where('status_id', 10)->count();
+        $adminVerification = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->count();
         $all = TaskModel::count();
         return [
             'success' => $success,
             'inProgress' => $inProgress,
             'speed' => $speed,
-            'all' => $all
+            'all' => $all,
+            'clientVerification' => $clientVerification,
+            'adminVerification' => $adminVerification,
         ];
     }
 
@@ -79,6 +87,20 @@ class IndexController extends BaseController
         $success = TaskModel::where('status_id', 3)->get();
 
         return view('admin.tasks.success', compact('success'));
+    }
+
+    public function  clientVerification()
+    {
+        $clientVerifications = TaskModel::where('status_id', 10)->count();
+
+        return view('admin.tasks.clientVerification', compact('clientVerifications'));
+    }
+
+    public function adminVerification()
+    {
+        $adminVerifications = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->count();
+
+        return view('admin.tasks.clientVerification', compact('adminVerifications'));
     }
 
 

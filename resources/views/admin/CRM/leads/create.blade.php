@@ -107,6 +107,21 @@
                                     style="color: red;">{{ $errors->first('state_id') }}</p> @endif
                             </div>
                         </div>
+                        <div class="row d-none" id="company">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Компания</label>
+                                    <input type="text" class="form-control mt-3" name="company" placeholder="Введите компанию">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Должность</label>
+                                    <input type="text" name="position" placeholder="Должность" class="form-control mt-3">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="d-flex justify-content-end mt-3">
                             <button type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Сохранить</button>
                         </div>
@@ -127,6 +142,13 @@
                     $('#is_client').addClass('d-none');
                 } else {
                     $('#is_client').removeClass('d-none');
+                }
+            });
+            $('#is_client input[type="checkbox"]').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#company').removeClass('d-none');
+                } else {
+                    $('#company').addClass('d-none');
                 }
             });
         });
