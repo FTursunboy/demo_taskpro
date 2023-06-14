@@ -67,6 +67,18 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <style>
+                        @media (max-width: 768px) {
+                            .table-responsive {
+                                overflow-x: auto;
+                            }
+
+                            .table-responsive table {
+                                width: 100%;
+                            }
+                        }
+                    </style>
+                    <div class="table-responsive">
                     <table id="example" class="table table-hover">
                         <thead>
                         <tr>
@@ -84,15 +96,15 @@
                         <tbody id="tbody">
                         @foreach($events as $event)
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ Str::limit($event->description, 6)}}</td>
-                                <td>{{ Str::limit($event->themeEvent?->theme, 15) }}</td>
-                                <td>{{ Str::limit($event->leads?->contact->fio, 15) }}</td>
-                                <td>{{ Str::limit(date('d.m.Y', strtotime($event->date)), 15) }}</td>
-                                <td>{{ Str::limit(date('H:i', strtotime($event->date)), 15) }}</td>
-                                <td>{{ Str::limit($event->typeEvent?->name, 15) }}</td>
-                                <td>{{ Str::limit($event->eventStatus?->name, 15) }}</td>
-                                <td class="text-center">
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ $loop->index + 1 }}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->description, 6)}}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->themeEvent?->theme, 15) }}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->leads?->contact->fio, 15) }}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit(date('d.m.Y', strtotime($event->date)), 15) }}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit(date('H:i', strtotime($event->date)), 15) }}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->typeEvent?->name, 15) }}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->eventStatus?->name, 15) }}</td>
+                                <td class="text-center" style="padding-top: 0; padding-bottom: 0;">
                                     <a href="{{ route('event.show', $event->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('event.edit', $event->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                                     <a class="btn btn-danger" data-bs-toggle="modal"
@@ -133,6 +145,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -188,20 +201,21 @@
 
                     let row = `<tr>
                   <td>${i + 1}</td>
-                  <td>${item.description}</td>
-                  <td>${item.theme}</td>
-                  <td>${item.fio}</td>
+                  <td>${item.description.slice(0, 6)}</td>
+                  <td>${item.theme.slice(0, 15)}</td>
+                  <td>${item.fio.slice(0, 15)}</td>
                   <td>${day}</td>
                   <td>${time}</td>
-                  <td>${item.type}</td>
-                  <td>${item.status}</td>
+                  <td>${item.type.slice(0, 15)}</td>
+                  <td>${item.status.slice(0, 15)}</td>
                   <td class="text-center">
                     <a href="${show}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                   <a href="${edit}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
-<a class="btn btn-danger" data-bs-toggle="modal"
+                    <a href="${edit}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                    <a class="btn btn-danger" data-bs-toggle="modal"
                                        data-bs-target="#delete${item.id}"><i class="bi bi-trash"></i></a>
                   </td>
                 </tr>`;
+
                     table.append(row);
                 });
             }

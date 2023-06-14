@@ -61,7 +61,8 @@ class LeadController extends BaseController
                 'email' => $request->email,
                 'lead_source_id' => $request->source_id,
                 'is_client' => $is_client,
-
+                'company' => $request->input('company'),
+                'position' => $request->input('position'),
             ]);
         }
 
