@@ -64,33 +64,33 @@
                                     </div>
                                 </div>
                             </div>
-                                        <div class="container">
-                                            <div class="row   d-flex justify-content-center align-items-center">
-                                                <div class="col-lg-9">
-                                                    <form method="post" action="{{route('offers.store')}}"
-                                                          enctype="multipart/form-data"
-                                                          autocomplete="off">
-                                                        @csrf
-                                                        <div class="row g-3">
-                                                            <div class="col-md-6">
-                                                                <label class="form-label">Название
-                                                                    задачи</label>
-                                                                <textarea id="description" class="form-control"
-                                                                          name="description"
-                                                                          rows="2" disabled>{{$offer->name}}</textarea>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="form-label">Ответственный
-                                                                    сотрудник</label>
-                                                                <input placeholder="Сотрудник будет установлен"
-                                                                       disabled
-                                                                       type="text"
-                                                                       class="form-control"
-                                                                       name="user_id" id="name"
-                                                                       value="{{$offer->user?->name}}" required>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="form-label">Ответсвенный сотрудник
+                            <div class="container">
+                                <div class="row   d-flex justify-content-center align-items-center">
+                                    <div class="col-lg-9">
+                                        <form method="post" action="{{route('offers.store')}}"
+                                              enctype="multipart/form-data"
+                                              autocomplete="off">
+                                            @csrf
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Название
+                                                        задачи</label>
+                                                    <textarea id="description" class="form-control"
+                                                              name="description"
+                                                              rows="2" disabled>{{$offer->name}}</textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Ответственный
+                                                        сотрудник</label>
+                                                    <input placeholder="Сотрудник будет установлен"
+                                                           disabled
+                                                           type="text"
+                                                           class="form-control"
+                                                           name="user_id" id="name"
+                                                           value="{{$offer->user?->name}}" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Ответсвенный сотрудник
                                                                     со стороны
                                                                     компании</label>
                                                                 <input value="{{$offer->author_name}}" disabled
