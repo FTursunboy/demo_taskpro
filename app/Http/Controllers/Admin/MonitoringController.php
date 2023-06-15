@@ -60,11 +60,7 @@ class  MonitoringController extends BaseController
 
     public function show(TaskModel $task)
     {
-        $messages = MessagesModel::where('task_slug', $task->slug)
-            ->orWhere([
-                ['user_id', Auth::id()],
-                ['sender_id', Auth::id()]
-            ])->get();
+        $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
         $histories = History::where([
             ['task_id', '=', $task->id],
