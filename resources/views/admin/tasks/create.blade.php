@@ -129,6 +129,8 @@
 
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     <script>
+        import {post} from "axios";
+
         const inputElement = document.querySelector('input[type="file"]');
 
         // Create a FilePond instance
@@ -137,7 +139,7 @@
         FilePond.setOptions({
             server: {
                 url: `/tasks/public/upload/`,
-                method: 'post',
+                method: "POST",
                 headers: {
                     'X-CSRF-TOKEN': '{{csrf_token()}}'
                 }
