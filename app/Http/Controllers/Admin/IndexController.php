@@ -40,7 +40,8 @@ class IndexController extends BaseController
             ->join('users as u', 'u.id', 'r.user_id')
             ->join('users as c', 'c.id', 'r.client_id')
             ->join('task_models as t', 't.id', 'r.task_id')
-            ->select( 'u.*', 'u.surname', 'c.*', 'c.name as client', 't.name as task', 'r.rating')
+            ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname',  'c.*', 't.name as task', 'r.rating')
+            ->orderByDesc('r.rating')
             ->get();
 
 
@@ -63,7 +64,7 @@ class IndexController extends BaseController
         $speed = TaskModel::where('status_id', 7)->count();
         $clientVerification = TaskModel::where('status_id', 10)->count();
         $adminVerification = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->count();
-        $all = TaskModel::count();
+        $all = TaskModel::where('status_id', '!=', 3)->count();
         return [
             'success' => $success,
             'inProgress' => $inProgress,

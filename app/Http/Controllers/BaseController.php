@@ -8,6 +8,7 @@ use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
 use App\Models\Idea;
+use App\Models\SystemIdea;
 use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +21,14 @@ class BaseController extends Controller
         $this->middleware(function ($request, $next) {
             $offers_count = Offer::where('user_id', null)->get()->count();
             $ideas_count = Idea::where('status_id', 1)->get()->count();
-
             $ready = TaskModel::where('status_id', 3)->get()->count();
             $all_tasks = TaskModel::get()->count();
             $out_of_date = TaskModel::where('status_id', 7)->count();
             $rejected = TaskModel::where('status_id', 5)->count();
 
 
-            $tasksOfDashboard = ProjectModel::get()->take(5);
+            $tasksOfDashboard = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
+
 
 
             $notifications = ClientNotification::get();
@@ -39,6 +40,8 @@ class BaseController extends Controller
 
             $ideasOfDashboard = Idea::get();
             $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();
+            $systemIdeasOfDashboard = SystemIdea::get();
+            $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->get();
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -53,7 +56,9 @@ class BaseController extends Controller
                 'tasksTeamLeads' => $this->taskTeamLead(),
                 'tasksOfDashboard' => $tasksOfDashboard,
                 'ideasOfDashboard' => $ideasOfDashboard,
-                'ideasOfDashboardUser' => $ideasOfDashboardUser
+                'ideasOfDashboardUser' => $ideasOfDashboardUser,
+                'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
+                'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
             ]);
             return $next($request);
 

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
-use App\Models\Idea;
+use App\Models\SystemIdea;
 use Illuminate\Http\Request;
 
-class IdeaController extends BaseController
+class SystemIdeaController extends Controller
 {
-    public function update(Request $request, Idea $idea)
+    public function update(Request $request, SystemIdea $idea)
     {
-        $statusId = null;
         switch ($request->input('action')) {
             case 'accept':
                 $statusId = 4;
@@ -27,7 +25,7 @@ class IdeaController extends BaseController
         }
 
         $idea->status_id = $statusId;
-        $idea->comments = $request->comment;
+        $idea->comment = $request->comment;
         $idea->save();
         return redirect()->route('admin.index')->with('mess', 'Успешно обновлено!');
     }

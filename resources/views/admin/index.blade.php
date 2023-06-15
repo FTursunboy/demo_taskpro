@@ -333,9 +333,9 @@
                                                  width="30">
                                         @endif
                                     </td>
-                                    <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
+                                    <td>{{ $user->perfomer_surname . " " . $user->perfomer_name . " "  . $user->perfomer_lastname }}</td>
                                     <td>{{ $user->task }}</td>
-                                    <td>{{ $user->client }}</td>
+                                    <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
                                     <td class="text-center">{{ $user->rating }}</td>
                                 </tr>
                             @endforeach
