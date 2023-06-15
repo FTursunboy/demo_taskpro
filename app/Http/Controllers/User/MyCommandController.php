@@ -66,36 +66,6 @@ class MyCommandController extends BaseController
         return redirect()->route('my-command.index')->with('create', 'Задача отправлена на рассмотрение Админа');
     }
 
-    public function filter($user, $project)
-    {
-//        try {
-//
-//            $tasks = TaskModel::with(['author', 'project', 'user', 'status'])
-//                ->whereIn('id', function ($query) {
-//                    $query->select('tlc.user_id')
-//                        ->from('team_lead_command_models AS tlc')
-//                        ->where('tlc.teamLead_id', Auth::id());
-//                });
-//
-//            if ($user !== '0' && $project === '0') {
-//                $tasks = $tasks->whereIn('project_id', $project)->get();
-//                dd($tasks);
-//            } elseif ($user !== '0' && $project === '0') {
-//                $tasks = $tasks->where('user_id', $user)->get();
-//            } elseif ($user === '0' && $project !== '0') {
-//                $tasks = $tasks->where('project_id', $project)->get();
-//            } elseif ($user !== '0' && $project !== '0') {
-//                $tasks = $tasks->where('project_id', $project)->where('user_id', $user)->get();
-//            }
-//            return response()->json($tasks);
-//        } catch (\Exception $exception) {
-//            return [
-//                'error' => $exception->getMessage(),
-//                'status' => false
-//            ];
-//        }
-    }
-
     public function taskInQuery()
     {
         $TasksInQuery = TaskModel::withTrashed()

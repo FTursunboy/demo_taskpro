@@ -64,6 +64,14 @@
                         <span>Все задачи</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item {{ (request()->is('my-plan') or request()->is('my-plan/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('plan.index') }}" class='sidebar-link'>
+                        <i class="bi bi-bookmark-check"></i>
+                        <span>Мой план</span>
+                    </a>
+                </li>
+
                 @role('team-lead')
                 <li class="sidebar-item {{ (request()->is('my-command') or request()->is('my-command/*'))  ? 'active' : '' }}">
                     <a href="{{ route('my-command.index') }}" class='sidebar-link'>
