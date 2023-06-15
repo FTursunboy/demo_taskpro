@@ -136,7 +136,7 @@
 
         FilePond.setOptions({
             server: {
-                url: `/tasks/upload/file`,
+                url: `/tasks/public/upload/file`,
                 headers: {
                     'X-CSRF-TOKEN': '{{csrf_token()}}'
                 }
