@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -43,6 +44,7 @@ class User extends Authenticatable
         'role',
         'email',
         'client_id',
+        'birthday',
     ];
 
     /**
@@ -126,7 +128,8 @@ class User extends Authenticatable
         })->count();
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)->count();
-        $verificate = TaskModel::where('status_id', 10)->count();
+        $verificate = TaskModel::where('status_id', 10)
+            ->where('client_id', Auth::id())->count();
         $new = TaskModel::where('task_models.user_id', $id)
             ->whereIn('task_models.status_id', [1, 7, 9])
             ->whereNotIn('task_models.id', function ($subquery) use ($id) {
