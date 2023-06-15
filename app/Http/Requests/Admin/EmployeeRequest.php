@@ -31,6 +31,7 @@ class EmployeeRequest extends FormRequest
             'surname' => ['required'],
             'position' => ['required'],
             'telegram_id' => ['required'],
+            'birthday' => [''],
         ];
     }
 
