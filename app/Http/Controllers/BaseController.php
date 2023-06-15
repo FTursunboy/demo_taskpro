@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\IndexController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
@@ -42,6 +43,11 @@ class BaseController extends Controller
             $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();
             $systemIdeasOfDashboard = SystemIdea::get();
             $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->get();
+
+            $birthday = new IndexController();
+            $birthdayUsers = $birthday->birthday();
+
+            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -59,6 +65,8 @@ class BaseController extends Controller
                 'ideasOfDashboardUser' => $ideasOfDashboardUser,
                 'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
                 'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
+                'birthdayUsers' => $birthdayUsers,
+                'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
             ]);
             return $next($request);
 
@@ -79,4 +87,6 @@ class BaseController extends Controller
             ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
             ->get();
     }
+
+
 }

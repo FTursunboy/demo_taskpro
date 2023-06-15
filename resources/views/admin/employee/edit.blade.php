@@ -67,6 +67,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="birthday">День рождение</label>
+                                    <input type="date" name="birthday" id="birthday" tabindex="13" class="form-control mt-3" value="{{ $user->birthday }}">
+                                </div>
                             </div>
                             <div class="col-4">
 

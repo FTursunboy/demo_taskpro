@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::group(['as' => 'tasks'], function (){
-        Route::get('/tasks/{user}',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'index']);
-        Route::get('/new-tasks/{user}',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'newTasks']);
-        Route::get('/get-tasks/{user}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'getTasks']);
-        Route::post('/get-tasks/accept/{user}/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskAccept']);
-        Route::post('/get-tasks/decline/{user}/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
+        Route::get('/tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'index']);
+        Route::get('/new-tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'newTasks']);
+        Route::get('/get-tasks/', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'getTasks']);
+        Route::post('/get-tasks/accept/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskAccept']);
+        Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
     });
 
     Route::get('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);

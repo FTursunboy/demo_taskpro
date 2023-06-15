@@ -44,6 +44,7 @@ class ProfileController extends BaseController
             'surname' => $data['surname'],
             'lastname' => $data['lastname'],
             'phone' => $data['phone'],
+            'birthday' => $data['birthday'],
             'avatar' => $file,
         ]);
 

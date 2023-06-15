@@ -47,6 +47,7 @@ class EmployeeController extends BaseController
             'position' => $data['position'],
             'otdel_id' => $data['otdel_id'],
             'telegram_user_id' => $data['telegram_id'],
+            'birthday' => $data['birthday'],
             'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
         ]);
         $user->assignRole('user');
@@ -102,8 +103,10 @@ class EmployeeController extends BaseController
             'position' => $data['position'],
             'telegram_user_id' => $data['telegram_id'],
             'otdel_id' => $data['otdel_id'],
+            'birthday' => $data['birthday'],
             'password' => Hash::make($data['password'] ?? 'password'),
             'avatar' => $file,
+
         ]);
 
         $user = User::where('slug', $slug)->firstOrFail();

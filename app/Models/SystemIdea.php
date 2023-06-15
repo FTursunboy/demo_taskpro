@@ -11,7 +11,7 @@ class SystemIdea extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'user_id', 'status_id', 'comment'];
+    protected $fillable = ['name', 'description', 'user_id', 'status_id', 'comment', 'file', 'file_name'];
 
     public function user() {
         return $this->belongsTo(User::class);

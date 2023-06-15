@@ -22,12 +22,38 @@
 
             <div class="collapse navbar-collapse mr-2" id="navbarSupportedContent">
 
-
                 <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                    aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
                    role="button">
                     <i class="bi bi-wallet" style="font-size: 30px;"></i>
                 </a>
+
+                @if(count($birthdayUsers) > 1)
+                    <div class="dropdown" style="margin-left: 300px;">
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-menu d-flex">
+                                <p>Ближайшие дни рождения: {{ count($birthdayUsers) }} сотрудника</p>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
+                            style="min-width: 11rem; margin-left: 300px">
+                            <li>
+                                <h6 class="dropdown-header">
+                                    @foreach($birthdayUsers as $birthday)
+                                        <p><b>{{ $birthday->name }}</b> - {{ date('d-m-Y' , strtotime($birthday->birthday))}} </p>
+                                        <hr>
+                                    @endforeach
+                                </h6>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                    <div style="margin-left: 300px;">
+                    @foreach($birthdayUsers as $birthday)
+                            <p>Ближайшее день рождение: <b>{{ $birthday->name }}</b> - {{ date('d-m-Y' , strtotime($birthday->birthday))}} </p>
+                    @endforeach
+                    </div>
+                @endif
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
@@ -63,8 +89,8 @@
                     </li>
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
-                        @if($ideas_count > 0)
-                            <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas"style="margin-left: 20px;">
+                        @if($ideas_count > 0 || count($systemIdeasOfDashboard) > 0)
+                            <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px;">
                                 <i id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
                             </a>
                         @else
@@ -388,12 +414,12 @@
                             <li class="nav-item">
                                 <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
                                    id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
-                                   role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Идея</a>
+                                   role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Идея <span style="color:#ff0000;">{{ ($ideas_count > 0) ? '- ('.$ideas_count.')' : '' }}</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
                                    data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
-                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея</a>
+                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея <span style="color:#ff0000;">{{(count($systemIdeasOfDashboard) > 0) ? '- ('.count($systemIdeasOfDashboard).')' : ''  }}</span></a>
                             </li>
                         </ul>
                     </div>
@@ -411,7 +437,7 @@
                                         <th>До</th>
                                         <th>Описание</th>
                                         <th>Статус</th>
-                                        <th>Сотрудник</th>
+                                        <th>Автор</th>
                                         <th>Действие</th>
                                     </tr>
                                     </thead>
@@ -538,10 +564,10 @@
                                                                         <input disabled name="from" value="{{$idea->from}}" type="text" class="form-control"/>
 
                                                                     </div>
-                                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                                файл</a></i>
+                                                                    <div style="margin-top: 30px" class="col md-3">
+                                                                        <i class="bi bi-paperclip">
+                                                                            <a style="margin-left: 0px" href="{{ route('admin.ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                        </i>
                                                                     </div>
 
                                                                 </div>
@@ -621,7 +647,7 @@
                                         <th>Название</th>
                                         <th>Описание</th>
                                         <th>Статус</th>
-                                        <th>Сотрудник</th>
+                                        <th>Автор</th>
                                         <th>Действие</th>
                                     </tr>
                                     </thead>
@@ -722,10 +748,10 @@
                                                                                   rows="5"
                                                                                   placeholder="Введите описание идеи ..." >{{$idea->description}}</textarea>
                                                                     </div>
-                                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                                файл</a></i>
+                                                                    <div style="margin-top: 30px" class="col md-3">
+                                                                        <i class="bi bi-paperclip">
+                                                                            <a style="margin-left: 0px" href="{{ route('admin.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                        </i>
                                                                     </div>
                                                                 </div>
 
@@ -786,6 +812,9 @@
     </div>
 </div>
 {{--  Ideas  ofCanvas Start  --}}
+
+
+
 
 {{--  Project  --}}
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ProjectOfCanvas"

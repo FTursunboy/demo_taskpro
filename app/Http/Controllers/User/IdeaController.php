@@ -14,12 +14,20 @@ class IdeaController extends BaseController
 {
     public function store(IdeaRequest $request)
     {
+        if ($request->file('file') !== null) {
+            $file = $request->file('file')->store('public/idea_docs');
+        } else {
+            $file = null;
+        }
+
         $data = $request->validated();
         $data['user_id'] = Auth::id();
         $data['status_id'] = 1;
+        $data['file'] = $file ?? null;
+        $data['file_name'] = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
         $data['slug'] = Str::slug($data['title'], '-', '5');
         Idea::create($data);
-        return redirect()->route('user.index')->with('mess', 'Идея успешно отправлена!');
+        return redirect()->route('user.index')->with('create', 'Идея успешно отправлена!');
     }
     public function update(Idea $idea, Request $request)
     {
@@ -32,6 +40,7 @@ class IdeaController extends BaseController
             'from' => 'required',
             'to' => 'required',
             'file' => '',
+            'file_name' => '',
         ]);
         $data['user_id'] = Auth::id();
         $data['status_id'] = 1;
@@ -40,6 +49,17 @@ class IdeaController extends BaseController
         $idea->update($data);
 
         return redirect()->route('user.index')->with('create', 'Идея успешна обновлена!');
+    }
+
+    public function downloadFile(Idea $idea)
+    {
+        $path = storage_path('app/' . $idea->file);
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $idea->file_name . '"',
+        ];
+
+        return response()->download($path, $idea->file_name, $headers);
     }
 
     public function destroy(Idea $idea)

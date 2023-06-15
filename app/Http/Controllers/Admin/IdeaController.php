@@ -23,12 +23,23 @@ class IdeaController extends BaseController
                 $statusId = 15;
                 break;
             default:
-                return back()->with('mess', 'Что-то пошло не так');
+                return back()->with('create', 'Что-то пошло не так');
         }
 
         $idea->status_id = $statusId;
         $idea->comments = $request->comment;
         $idea->save();
-        return redirect()->route('admin.index')->with('mess', 'Успешно обновлено!');
+        return redirect()->route('admin.index')->with('create', 'Успешно обновлено!');
+    }
+
+    public function downloadFile(Idea $idea)
+    {
+        $path = storage_path('app/' . $idea->file);
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $idea->file_name . '"',
+        ];
+
+        return response()->download($path, $idea->file_name, $headers);
     }
 }

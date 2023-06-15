@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\IdeaRequest;
 use App\Http\Requests\User\SystemIdeaStoreRequest;
-use App\Models\Idea;
 use App\Models\SystemIdea;
 use App\Models\User;
+use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramSendClientIdead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Str;
 
 class SystemIdeaController extends Controller
 {
@@ -37,7 +35,9 @@ class SystemIdeaController extends Controller
 
         }
 
-        return redirect()->route('user.index')->with('create', 'Системная идея успешно отправлена!');
+
+
+        return redirect()->route('client.index')->with('create', 'Системная идея успешно отправлена!');
     }
 
     public function downloadFile(SystemIdea $idea)
@@ -62,12 +62,12 @@ class SystemIdeaController extends Controller
 
         $idea->update($data);
 
-        return redirect()->route('user.index')->with('create', 'Системная идея успешна обновлена!');
+        return redirect()->route('client.index')->with('create', 'Системная идея успешна обновлена!');
     }
 
     public function destroy(SystemIdea $idea)
     {
         $idea->delete();
-        return redirect()->route('user.index')->with('delete','Системная идея успешна удалена!');
+        return redirect()->route('client.index')->with('delete','Системная идея успешна удалена!');
     }
 }

@@ -104,5 +104,14 @@ class IndexController extends BaseController
         return view('admin.tasks.clientVerification', compact('adminVerifications'));
     }
 
+    public function birthday()
+    {
+        $birthdays = User::role('user')
+            ->whereRaw('DATEDIFF(birthday, CURDATE()) <= 3')
+            ->whereRaw('DATEDIFF(birthday, CURDATE()) >= 0')
+            ->get();
+        return $birthdays;
+
+    }
 
 }

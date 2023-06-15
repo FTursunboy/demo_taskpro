@@ -61,6 +61,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="birthday">День рождение</label>
+                                    <input type="date" name="birthday" tabindex="10" id="bithday" class="form-control mt-3" value="{{ old('birthday') }}">
+                                </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">

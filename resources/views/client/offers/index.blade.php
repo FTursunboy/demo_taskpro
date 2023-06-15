@@ -18,13 +18,14 @@
             </div>
         </div>
         @include('inc.messages')
+
+        <a role="button" class="btn btn-primary mb-4" data-bs-toggle="offcanvas" data-bs-target="#creatTaskClient"
+           aria-controls="creatTaskClient">Добавить</a>
+
         <section class="section">
             <div class="card">
-                <div class="card-header">
-                    <a href="{{route('offers.create')}}" class="btn btn-primary">Добавить</a>
-                </div>
                 <div class="card-body">
-                    <table id="example" class="table table-striped" >
+                    <table id="example" class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -67,7 +68,7 @@
                                     </td>
                                 @elseif($task->status->id == 10)
                                     <td><a href="#" data-bs-target="#send{{$task->id}}" data-bs-toggle="modal"><span
-                                                class="badge bg-success p-2">Задача сделана, нажмите чтобы завершить</span></a>
+                                                    class="badge bg-success p-2">Задача сделана, нажмите чтобы завершить</span></a>
                                     </td>
                                 @elseif($task->status->id == 11)
                                     <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
@@ -84,10 +85,12 @@
                                 @endif
                                 <td>
 
-                                    <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i
+                                    <a class="badge bg-success p-2" href="{{ route('offers.show', $task->id) }}"><i
                                                 class="bi bi-eye"></i></a>
-                                        <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
-                                                    class="bi bi-pencil"></i></a>
+
+                                    <a data-bs-toggle="offcanvas" data-bs-target="#EditTaskClient{{ $task->id }}"
+                                       aria-controls="EditTaskClient{{ $task->id }}" class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
+                                                class="bi bi-pencil"></i></a>
 
 
                                     <a class=" badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i
@@ -107,12 +110,14 @@
                                         </div>
                                         <div class="modal-body">
                                             <label>Отчет:</label>
-                                            <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
+                                            <textarea disabled class="form-control" name="report" id="" cols="30"
+                                                      rows="4">{{$task?->tasks?->success_desc}}</textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
                                                 заново</a>
-                                            <a href="#" class="btn btn-success" role="button"  data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
+                                            <a href="#" class="btn btn-success" role="button" data-bs-toggle="modal"
+                                               data-bs-target="#ready{{ $task->id }}">Завершить</a>
                                         </div>
                                     </div>
 
@@ -120,11 +125,14 @@
                             </div>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="ready{{ $task->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready{{ $task->id }}" aria-hidden="true">
+                            <div class="modal fade" id="ready{{ $task->id }}" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready{{ $task->id }}"
+                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="ready{{ $task->id }}">Поставте оценку исполнителю</h1>
+                                            <h1 class="modal-title fs-5" id="ready{{ $task->id }}">Поставте оценку
+                                                исполнителю</h1>
                                         </div>
                                         <div class="modal-body">
                                             <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
@@ -132,7 +140,8 @@
                                                 <div class="ponavues">
 
                                                     <label class="eysan">
-                                                        <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
+                                                        <form id="scoreForm" action="{{route('score', $task->id)}}"
+                                                              method="post">
                                                             @csrf
                                                             <input type="submit" name="rating" class="star" value="1">
                                                             <input type="submit" name="rating" class="star2" value="2">
@@ -149,6 +158,76 @@
                                 </div>
                             </div>
 
+
+                            {{--  EditTaskClient  ofCanvas Start --}}
+                            <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="EditTaskClient{{ $task->id }}"
+                                 aria-labelledby="EditTaskClient{{ $task->id }}" style="width: 100%; height: 80%;">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="EditTaskClient{{ $task->id }}">{{ $task->name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <div class="container my-5">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-lg-9">
+                                                <form method="post" action="{{route('offers.update', $task->id)}}"
+                                                      enctype="multipart/form-data"
+                                                      autocomplete="off">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Название задачи</label>
+                                                            <textarea id="name" class="form-control"
+                                                                      name="name"
+                                                                      rows="5" required>{{ $task->name }}</textarea>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Ответственный сотрудник со стороны
+                                                                компании</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   name="author_name" id="author_name"
+                                                                   value="{{ $task->author_name }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Телефон ответственного сотрудника</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   name="author_phone" id="author_phone"
+                                                                   value="{{ $task->author_phone }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Выберите файл</label>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="file">
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="your-message" class="form-label">Описание
+                                                                задачи</label>
+                                                            <textarea id="description" class="form-control"
+                                                                      name="description"
+                                                                      rows="5">{{ $task->description }}</textarea>
+                                                        </div>
+                                                        <div class="col-md-6">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col-12">
+                                                            <button type="submit" class="btn btn-success form-control">
+                                                                Обновить
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{--  creatTaskClient  ofCanvas Start  --}}
                         @empty
                             <td colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
                         @endforelse
@@ -160,6 +239,95 @@
 
         </section>
     </div>
+
+
+
+    {{--  creatTaskClient  ofCanvas Start --}}
+    <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="creatTaskClient"
+         aria-labelledby="createtaskClient" style="width: 100%; height: 80%;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="createtaskClient">Новая задача</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="container my-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-9">
+                        <form method="post" action="{{route('offers.store')}}"
+                              enctype="multipart/form-data"
+                              autocomplete="off">
+                            @csrf
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Название задачи</label>
+                                    <textarea id="name" class="form-control"
+                                              name="name"
+                                              rows="5" required>{{ old('name') }}</textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Ответственный сотрудник со стороны
+                                        компании</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="author_name" id="author_name"
+                                           value="{{ old('author_name') }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Телефон ответсвенного сотрудника</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="author_phone" id="author_phone"
+                                           value="{{ old('author_phone') }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Выберите файл</label>
+                                    <input type="file"
+                                           class="form-control"
+                                           name="file">
+                                </div>
+                                <div class="col-12">
+                                    <label for="your-message" class="form-label">Описание
+                                        задачи</label>
+                                    <textarea id="description" class="form-control"
+                                              name="description"
+                                              rows="5">{{ old('description') }}</textarea>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-success form-control"
+                                            id="btnSend">
+                                        Отправить
+                                    </button>
+                                </div>
+                                <script>
+                                    const btn = document.getElementById('btnSend')
+                                    btn.addEventListener('click', function () {
+                                        const name = document.getElementById('name')
+                                        const author_name = document.getElementById('author_name')
+                                        const phone = document.getElementById('author_phone')
+                                        if (name.value !== '' && author_name.value !== '' && phone.value !== '') {
+                                            btn.type = 'submit';
+                                            btn.click();
+                                            btn.classList.add('disabled')
+                                        } else {
+                                            name.classList.add('border-danger')
+                                            author_name.classList.add('border-danger')
+                                            phone.classList.add('border-danger')
+                                        }
+                                    })
+                                </script>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--  creatTaskClient  ofCanvas Start  --}}
 
 
 @endsection
