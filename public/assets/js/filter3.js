@@ -12846,7 +12846,7 @@
              *  @type string
              *  @default alert
              */
-            errMode: "alert",
+            errMode: "",
 
 
             /**
