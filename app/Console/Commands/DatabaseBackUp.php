@@ -42,12 +42,12 @@ class DatabaseBackUp extends Command
         $email = EmailModel::first()->email;
         Mail::send([], [], function ($message) use ($files, $email) {
 
-            $message->to('tfaiziev04@gmail.com')
+            $message->to($email)
                 ->subject('Backup')
                 ->attach($files, ['as' => 'Backup.sql', 'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']);
         });
 
-        $this->info('BackUP успешно отправлен на почту' . $email);
+        $this->info('BackUP успешно отправлен на почту ' . $email);
 
 
 

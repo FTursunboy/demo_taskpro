@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
-
+@section('css')
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+@endsection
 @section('title')
     Создание новой задачи
 @endsection
@@ -125,7 +127,26 @@
 
 @section('script')
 
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     <script>
+        const inputElement = document.querySelector('input[type="file"]');
+
+        // Create a FilePond instance
+        const pond = FilePond.create(inputElement);
+
+        FilePond.setOptions({
+            server: {
+                url: '/upload',
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                }
+            }
+        });
+    </script>
+
+    <script>
+
+
         const fromInput = document.getElementById('from');
         let prevValue = fromInput.value;
 
@@ -309,16 +330,6 @@
             console.log(selectedClass)
             $('#project_finish').text("Дата окончания выбранного проекта " +  selectedClass);
 
-        });
-
-        $('#file').on('change', function () {
-            const file = this.files[0]; // выбранный файл
-            const fileSizeInBytes = file.size; // размер файла в байтах
-            const fileSizeInMegabytes = fileSizeInBytes / (1024 * 100024); // размер файла в мегабайтах
-            if (fileSizeInMegabytes > 50) { // проверка на максимальный размер файла в мегабайтах
-                alert('Выбранный файл слишком большой. Максимальный размер файла - 50 МБ');
-                $(this).val('');
-            }
         });
 
 

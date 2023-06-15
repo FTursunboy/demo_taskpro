@@ -54,7 +54,6 @@ class WorkerController extends BaseController
         ]);
 
         return redirect()->back()->with('mess', 'Сотрудник успешно создан');
-
     }
 
     public function show(User $user)

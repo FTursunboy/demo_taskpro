@@ -166,8 +166,8 @@
                                     @if($task->file !== null)
                                         <div class="form-group">
                                             <label for="file">Файл</label>
-                                            <a href="{{ route('user.download', $task) }}" download class="form-control text-bold">Просмотреть
-                                                файл</a>
+                                            <a href="{{ Storage::url('public/docs/tmp/' . $task->file) }}" download class="form-control text-bold">Просмотреть файл</a>
+
                                         </div>
                                     @else
                                         <div class="form-group">
