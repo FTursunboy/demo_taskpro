@@ -246,7 +246,7 @@
     <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="creatTaskClient"
          aria-labelledby="createtaskClient" style="width: 100%; height: 80%;">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="createtaskClient">Добавить идеи</h5>
+            <h5 class="offcanvas-title" id="createtaskClient">Новая задача</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
