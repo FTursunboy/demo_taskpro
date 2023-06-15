@@ -50,14 +50,26 @@ class  TasksController extends BaseController
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
-                if ($task->status_id !== 1 && $task->status_id !== 3 && $task->status_id !== 5 && $task->status_id !== 6 && $task->status_id !== 7 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13) {
+                if ($task->status_id !== 1 && $task->status_id !== 3 && $task->status_id !== 5 && $task->status_id !== 6 && $task->status_id !== 10 && $task->status_id !== 11 && $task->status_id !== 12 && $task->status_id !== 13) {
                     $task->status_id = 7;
                     $task->save();
 
-                    CheckDate::create([
+                    CheckDate::updateOrCreate(
+                    ['task_id' => $task->id],
+                    [
                         'deadline' => $task->to,
                         'task_id' => $task->id,
                     ]);
+                    $check = CheckDate::where('task_id', $task->id)->first();
+                    $date = Carbon::now();
+                    $current_date = $date->format('Y-m-d');
+                    $deadLine = $check->deadline;
+                    $minus = Carbon::create($deadLine);
+
+                    $result =  $date->diff($minus);
+
+                    $check->count = $result->format('%a');
+                    $check->save();
 
                 }
             }
