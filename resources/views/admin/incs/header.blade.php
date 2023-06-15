@@ -28,6 +28,33 @@
                     <i class="bi bi-wallet" style="font-size: 30px;"></i>
                 </a>
 
+                @if(count($birthdayUsers) > 1)
+                    <div class="dropdown" style="margin-left: 300px;">
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-menu d-flex">
+                                <p>Ближайшие дни рождения: {{ count($birthdayUsers) }} сотрудника</p>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
+                            style="min-width: 11rem; margin-left: 300px">
+                            <li>
+                                <h6 class="dropdown-header">
+                                    @foreach($birthdayUsers as $birthday)
+                                        <p><b>{{ $birthday->name }}</b> - {{ date('d-m-Y' , strtotime($birthday->birthday))}} </p>
+                                        <hr>
+                                    @endforeach
+                                </h6>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                    <div style="margin-left: 300px;">
+                    @foreach($birthdayUsers as $birthday)
+                            <p>Ближайшее день рождение: <b>{{ $birthday->name }}</b> - {{ date('d-m-Y' , strtotime($birthday->birthday))}} </p>
+                    @endforeach
+                    </div>
+                @endif
+
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
                     <li class="nav-item" style="margin-top: -10px;">
