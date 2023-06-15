@@ -28,6 +28,7 @@ class UpdateProfileRequest extends FormRequest
             'phone' => ['required'],
             'password' => [''],
             'avatar' => [''],
+            'birthday' => [''],
         ];
     }
 }
