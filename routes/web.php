@@ -21,7 +21,7 @@ Route::get('/logout', function () {
     return redirect()->route('login');
 })->name('logout');
 
-Route::post('/upload', [\App\Http\Controllers\Uploadcontroller::class, 'store']);
+Route::post('/upload', [\App\Http\Controllers\Uploadcontroller::class, 'store'])->name('upload');
 
 Route::group(['as' => 'forgot.'], function () {
     Route::get('/forgot-password', [\App\Http\Controllers\ForgotController::class, 'index'])->name('index');
