@@ -272,11 +272,13 @@
                                                                 </div>
 
                                                                 <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  >{{$idea->comments}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -378,11 +380,13 @@
                                                                 </div>
 
                                                                 <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  placeholder="Напишите комментарий ...">{{$idea->comments}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -545,11 +549,13 @@
                                                                         <input disabled name="name" class="form-control"
                                                                                   placeholder="Введите имя идеи ..." value="{{$idea->name}}">
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  >{{$idea->comment}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
 
                                                                 <div class="col-sm-6">
@@ -603,14 +609,16 @@
                                                                     <!-- textarea -->
                                                                     <div class="form-group">
                                                                         <label>Название</label>
-                                                                        <textarea name="title" class="form-control" rows="3"
+                                                                        <textarea name="name" class="form-control" rows="3"
                                                                                   placeholder="Введите имя идеи ..." required>{{$idea->name}}</textarea>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  >{{$idea->comment}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
 
                                                                 <div class="col-sm-6">
