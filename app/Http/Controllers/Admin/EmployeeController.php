@@ -103,9 +103,10 @@ class EmployeeController extends BaseController
             'position' => $data['position'],
             'telegram_user_id' => $data['telegram_id'],
             'otdel_id' => $data['otdel_id'],
+            'birthday' => $data['birthday'],
             'password' => Hash::make($data['password'] ?? 'password'),
             'avatar' => $file,
-            'birthday' => $data['birthday'],
+
         ]);
 
         $user = User::where('slug', $slug)->firstOrFail();
