@@ -60,10 +60,10 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
     });
 
     Route::group(['as' => 'client.system-idea.'], function () {
-        Route::post('system-ideas/store', [\App\Http\Controllers\Client\SystemIdeaController::class, 'store'])->name('store');
-        Route::patch('system-ideas/update/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'update'])->name('update');
-        Route::delete('system-ideas/delete/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'destroy'])->name('destroy');
-        Route::get('system-ideas/downloadFile/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'downloadFile'])->name('downloadFile');
+        Route::post('/client/system-ideas/store', [\App\Http\Controllers\Client\SystemIdeaController::class, 'store'])->name('store');
+        Route::patch('/client/system-ideas/update/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'update'])->name('update');
+        Route::delete('/client/system-ideas/delete/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'destroy'])->name('destroy');
+        Route::get('/client/system-ideas/downloadFile/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'downloadFile'])->name('downloadFile');
     });
 
     Route::post('score/{offer}', [\App\Http\Controllers\Client\RatingController::class, 'score'])->name('score');

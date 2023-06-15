@@ -567,7 +567,7 @@
                                                                     </div>
                                                                     <div style="margin-top: 30px" class="col md-3">
                                                                         <i class="bi bi-paperclip">
-                                                                            <a style="margin-left: 0px" href="{{ route('idea.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                            <a href="{{ route('idea.system.downloadFileUser', $idea->id) }}" download>Просмотреть файл</a>
                                                                         </i>
                                                                     </div>
                                                                 </div>
@@ -599,7 +599,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form method="POST" action="{{ route('idea.system-ideas.update', $idea->id) }}"
+                                                    <form method="POST" action="{{ route('idea.system.ideas.update', $idea->id) }}"
                                                           enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PATCH')
@@ -630,7 +630,7 @@
                                                                     </div>
                                                                     <div style="margin-top: 30px" class="col md-3">
                                                                         <i class="bi bi-paperclip">
-                                                                            <a style="margin-left: 0px" href="{{ route('idea.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                            <a style="margin-left: 0px" href="{{ route('idea.system.downloadFileUser', $idea->id) }}" download>Просмотреть файл</a>
                                                                         </i>
                                                                     </div>
                                                                 </div>
@@ -665,7 +665,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form method="post" action="{{ route('idea.system-ideas.destroy', $idea->id) }}"
+                                                    <form method="post" action="{{ route('idea.system.ideas.destroy', $idea->id) }}"
                                                           enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
@@ -709,7 +709,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="CreateIdeaModal">Добавить идею</h1>
+                <h1 class="modal-title fs-5" id="CreateIdeaModal">Добавить идею для системы</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" action="{{route('idea.idea.store')}}" enctype="multipart/form-data">
