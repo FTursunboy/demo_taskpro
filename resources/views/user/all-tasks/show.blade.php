@@ -432,7 +432,10 @@
                                     <div class="chat-body" style="margin-right: 10px">
                                         <div class="chat-message">
                                             <p>
-                                                <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                <span style="display: flex; justify-content: space-between;">
+                                                            <b>{{$mess->sender?->name}}</b>
+                                                            <a style="color: red" href="{{route('messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
+                                                        </span>
                                                 <span style="margin-top: 10px">{{ $mess->message }}</span>
                                             @if($mess->file !== null)
                                                 <div class="form-group">
@@ -533,12 +536,16 @@
                         $('#file').val('');
 
                         let fileUrl = "{{ route('all-tasks.download', 'mess') }}/" + response.messages.id;
+                        let del = route('messages.delete', { mess: response.messages.id });
                         let newMessage = `
                             <div class="chat">
                                 <div class="chat-body" style="margin-right: 10px">
                                     <div class="chat-message">
                                         <p>
-                                            <span><b>${response.name}</b><br></span>
+                                             <span style="display: flex; justify-content: space-between;">
+                                                            <b>${response.name}</b>
+                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
+                                                        </span>
                                             <span style="margin-top: 10px">${response.messages.message}</span>
                                             ${response.messages.file !== null ? `
                                                 <div class="form-group">
