@@ -34,11 +34,6 @@ class TaskController extends BaseController
         return view('client.offers.index', compact('tasks'));
     }
 
-    public function create()
-    {
-        return view('client.offers.create');
-    }
-
 
     public function show(Offer $offer) {
 
@@ -103,10 +98,6 @@ class TaskController extends BaseController
 
     }
 
-    public function edit(Offer $offer)
-    {
-        return view('client.offers.edit', ['offer' => $offer]);
-    }
 
     public function update(TaskRequest $request, Offer $offer)
     {
@@ -115,7 +106,6 @@ class TaskController extends BaseController
         if (isset($request->file)) {
             $upload_file = $request->file('file');
             $file_name = $upload_file->getClientOriginalName();
-//            $file = Storage::disk('public')->put('public/docs', $upload_file);
             $file = $request->file('file')->store('public/docs');
             $offer->file = $file;
             $offer->file_name = $file_name;
