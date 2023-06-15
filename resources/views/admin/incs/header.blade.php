@@ -89,7 +89,7 @@
                     </li>
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
-                        @if($ideas_count > 0)
+                        @if($ideas_count > 0 || count($systemIdeasOfDashboard) > 0)
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px;">
                                 <i id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
                             </a>
@@ -414,12 +414,12 @@
                             <li class="nav-item">
                                 <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
                                    id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
-                                   role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Идея</a>
+                                   role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Идея <span style="color:#ff0000;">{{ ($ideas_count > 0) ? '- ('.$ideas_count.')' : '' }}</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
                                    data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
-                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея</a>
+                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея <span style="color:#ff0000;">{{(count($systemIdeasOfDashboard) > 0) ? '- ('.count($systemIdeasOfDashboard).')' : ''  }}</span></a>
                             </li>
                         </ul>
                     </div>
@@ -437,7 +437,7 @@
                                         <th>До</th>
                                         <th>Описание</th>
                                         <th>Статус</th>
-                                        <th>Сотрудник</th>
+                                        <th>Автор</th>
                                         <th>Действие</th>
                                     </tr>
                                     </thead>
@@ -647,7 +647,7 @@
                                         <th>Название</th>
                                         <th>Описание</th>
                                         <th>Статус</th>
-                                        <th>Сотрудник</th>
+                                        <th>Автор</th>
                                         <th>Действие</th>
                                     </tr>
                                     </thead>
@@ -812,6 +812,9 @@
     </div>
 </div>
 {{--  Ideas  ofCanvas Start  --}}
+
+
+
 
 {{--  Project  --}}
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ProjectOfCanvas"

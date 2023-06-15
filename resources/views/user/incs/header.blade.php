@@ -272,11 +272,13 @@
                                                                 </div>
 
                                                                 <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  >{{$idea->comments}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -378,11 +380,13 @@
                                                                 </div>
 
                                                                 <div class="col-sm-6">
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  placeholder="Напишите комментарий ...">{{$idea->comments}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -545,11 +549,13 @@
                                                                         <input disabled name="name" class="form-control"
                                                                                   placeholder="Введите имя идеи ..." value="{{$idea->name}}">
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  >{{$idea->comment}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
 
                                                                 <div class="col-sm-6">
@@ -561,7 +567,7 @@
                                                                     </div>
                                                                     <div style="margin-top: 30px" class="col md-3">
                                                                         <i class="bi bi-paperclip">
-                                                                            <a style="margin-left: 0px" href="{{ route('idea.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                            <a href="{{ route('idea.system.downloadFileUser', $idea->id) }}" download>Просмотреть файл</a>
                                                                         </i>
                                                                     </div>
                                                                 </div>
@@ -593,7 +599,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form method="POST" action="{{ route('idea.system-ideas.update', $idea->id) }}"
+                                                    <form method="POST" action="{{ route('idea.system.ideas.update', $idea->id) }}"
                                                           enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PATCH')
@@ -603,14 +609,16 @@
                                                                     <!-- textarea -->
                                                                     <div class="form-group">
                                                                         <label>Название</label>
-                                                                        <textarea name="title" class="form-control" rows="3"
+                                                                        <textarea name="name" class="form-control" rows="3"
                                                                                   placeholder="Введите имя идеи ..." required>{{$idea->name}}</textarea>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label>Комментарий</label>
-                                                                        <textarea name="comment" disabled class="form-control" rows="5"
-                                                                                  >{{$idea->comment}}</textarea>
-                                                                    </div>
+                                                                    @if($idea->comment)
+                                                                        <div class="form-group">
+                                                                            <label>Комментарий</label>
+                                                                            <textarea disabled name="comment"  class="form-control" rows="5"
+                                                                            >{{$idea->comment}}</textarea>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
 
                                                                 <div class="col-sm-6">
@@ -622,7 +630,7 @@
                                                                     </div>
                                                                     <div style="margin-top: 30px" class="col md-3">
                                                                         <i class="bi bi-paperclip">
-                                                                            <a style="margin-left: 0px" href="{{ route('idea.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                            <a style="margin-left: 0px" href="{{ route('idea.system.downloadFileUser', $idea->id) }}" download>Просмотреть файл</a>
                                                                         </i>
                                                                     </div>
                                                                 </div>
@@ -657,7 +665,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form method="post" action="{{ route('idea.system-ideas.destroy', $idea->id) }}"
+                                                    <form method="post" action="{{ route('idea.system.ideas.destroy', $idea->id) }}"
                                                           enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')
@@ -701,7 +709,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="CreateIdeaModal">Добавить идею</h1>
+                <h1 class="modal-title fs-5" id="CreateIdeaModal">Добавить идею для системы</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" action="{{route('idea.idea.store')}}" enctype="multipart/form-data">
@@ -783,7 +791,7 @@
                 <h1 class="modal-title fs-5" id="CreateSystemIdeaModal">Добавить идею</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="{{route('idea.system-ideas.store')}}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('idea.system.ideas.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="row">

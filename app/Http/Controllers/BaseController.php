@@ -47,6 +47,7 @@ class BaseController extends Controller
             $birthday = new IndexController();
             $birthdayUsers = $birthday->birthday();
 
+            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -65,6 +66,7 @@ class BaseController extends Controller
                 'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
                 'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
                 'birthdayUsers' => $birthdayUsers,
+                'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
             ]);
             return $next($request);
 
