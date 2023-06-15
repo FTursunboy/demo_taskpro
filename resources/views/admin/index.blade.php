@@ -18,6 +18,9 @@
                 </div>
             </div>
         </div>
+
+        @include('.inc.messages')
+
         <section class="section overflow-hidden">
             <div class="page-content">
                 <section class="row">

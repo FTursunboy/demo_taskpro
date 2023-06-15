@@ -27,7 +27,7 @@ class IdeaController extends BaseController
         $data['file_name'] = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
         $data['slug'] = Str::slug($data['title'], '-', '5');
         Idea::create($data);
-        return redirect()->route('user.index')->with('mess', 'Идея успешно отправлена!');
+        return redirect()->route('user.index')->with('create', 'Идея успешно отправлена!');
     }
     public function update(Idea $idea, Request $request)
     {

@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SystemIdeaStoreRequest;
 use App\Models\SystemIdea;
+use App\Models\User;
+use App\Notifications\Telegram\SendNewTaskInUser;
+use App\Notifications\Telegram\TelegramSendClientIdead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class SystemIdeaController extends Controller
 {
@@ -23,7 +27,17 @@ class SystemIdeaController extends Controller
         $data['file'] = $file ?? null;
         $data['file_name'] = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
         SystemIdea::create($data);
-        return redirect()->route('client.index')->with('mess', 'Системная идея успешно отправлена!');
+
+        try {
+            Notification::send(User::find(1), new TelegramSendClientIdead($request->name, $request->description));
+        }
+        catch (\Exception $exception) {
+
+        }
+
+
+
+        return redirect()->route('client.index')->with('create', 'Системная идея успешно отправлена!');
     }
 
     public function downloadFile(SystemIdea $idea)

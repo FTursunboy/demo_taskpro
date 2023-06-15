@@ -23,13 +23,13 @@ class IdeaController extends BaseController
                 $statusId = 15;
                 break;
             default:
-                return back()->with('mess', 'Что-то пошло не так');
+                return back()->with('create', 'Что-то пошло не так');
         }
 
         $idea->status_id = $statusId;
         $idea->comments = $request->comment;
         $idea->save();
-        return redirect()->route('admin.index')->with('mess', 'Успешно обновлено!');
+        return redirect()->route('admin.index')->with('create', 'Успешно обновлено!');
     }
 
     public function downloadFile(Idea $idea)

@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-
+        @include('.inc.messages')
         <section class="section">
             <div class="row">
                 <div class="col-6 col-lg-3 col-md-6">
