@@ -39,10 +39,11 @@ class IndexController extends BaseController
         $ratings = DB::table('ratings as r')
             ->join('users as u', 'u.id', 'r.user_id')
             ->join('users as c', 'c.id', 'r.client_id')
-            ->join('task_models as t', 't.id', 'r.task_id')
+            ->join('task_models as t', 't.slug', 'r.task_slug')
             ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname',  'c.*', 't.name as task', 'r.rating')
             ->orderByDesc('r.rating')
             ->get();
+
 
 
         return view('admin.index', compact('task', 'users', 'tasks', 'team_leads', 'ratings'));

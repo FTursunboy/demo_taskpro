@@ -22,12 +22,14 @@ class RatingController extends BaseController
         $task = TaskModel::where('offer_id', $offer->id)->first();
         $client = User::find($offer->client_id);
 
-        Rating::firstOrCreate([
-            'rating' => $rating,
-            'user_id' => $user?->id,
-            'task_id' => $task?->id,
-            'client_id' => $client?->id,
-        ]);
+        Rating::updateOrCreate(
+            ['task_slug' => $task->slug],
+            [
+                'rating' => $rating,
+                'user_id' => $user->id,
+                'client_id' => $client->id,
+            ]
+        );
 
         return redirect()->route('offers.ready', $offer->id)->with('update', 'Спасибо за отзыв');
     }
