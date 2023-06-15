@@ -113,28 +113,12 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-12">
-                                                    <button type="button" class="btn btn-success form-control"
+                                                    <button type="submit" class="btn btn-success form-control"
                                                             id="btnSend">
                                                         Отправить
                                                     </button>
                                                 </div>
-                                                <script>
-                                                    const btn = document.getElementById('btnSend')
-                                                    btn.addEventListener('click', function () {
-                                                        const name = document.getElementById('name')
-                                                        const author_name = document.getElementById('author_name')
-                                                        const phone = document.getElementById('author_phone')
-                                                        if (name.value !== '' && author_name.value !== '' && phone.value !== '') {
-                                                            btn.type = 'submit';
-                                                            btn.click();
-                                                            btn.classList.add('disabled')
-                                                        } else {
-                                                            name.classList.add('border-danger')
-                                                            author_name.classList.add('border-danger')
-                                                            phone.classList.add('border-danger')
-                                                        }
-                                                    })
-                                                </script>
+
                                             </div>
                                         </form>
                                     </div>
