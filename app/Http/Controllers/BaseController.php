@@ -42,6 +42,7 @@ class BaseController extends Controller
             $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();
             $systemIdeasOfDashboard = SystemIdea::get();
             $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->get();
+            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -59,6 +60,7 @@ class BaseController extends Controller
                 'ideasOfDashboardUser' => $ideasOfDashboardUser,
                 'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
                 'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
+                'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
             ]);
             return $next($request);
 

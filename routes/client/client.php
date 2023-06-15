@@ -10,6 +10,8 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::get('/dashboard-client/verificate_tasks', [\App\Http\Controllers\Client\IndexController::class, 'verificate_tasks'])->name('verificate_tasks');
         Route::get('/dashboard-client/ready', [\App\Http\Controllers\Client\IndexController::class, 'ready'])->name('ready');
         Route::get('/dashboard-client/inProgress', [\App\Http\Controllers\Client\IndexController::class, 'inProgress'])->name('inProgress');
+
+
     });
 
     Route::group(['as' => 'client_profile.'], function () {
@@ -55,6 +57,13 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::post('/client/worker/store', [\App\Http\Controllers\Client\WorkerController::class, 'store'])->name('store');
         Route::patch('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'update'])->name('update');
         Route::delete('/client/worker/update/{slug}', [\App\Http\Controllers\Client\WorkerController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['as' => 'client.system-idea.'], function () {
+        Route::post('system-ideas/store', [\App\Http\Controllers\Client\SystemIdeaController::class, 'store'])->name('store');
+        Route::patch('system-ideas/update/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'update'])->name('update');
+        Route::delete('system-ideas/delete/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'destroy'])->name('destroy');
+        Route::get('system-ideas/downloadFile/{idea}', [\App\Http\Controllers\Client\SystemIdeaController::class, 'downloadFile'])->name('downloadFile');
     });
 
     Route::post('score/{offer}', [\App\Http\Controllers\Client\RatingController::class, 'score'])->name('score');
