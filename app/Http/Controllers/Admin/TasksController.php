@@ -47,7 +47,7 @@ class  TasksController extends BaseController
 
     public function check()
     {
-        CheckDate::truncate();
+        
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
