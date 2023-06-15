@@ -31,6 +31,7 @@ class IdeaRequest extends FormRequest
             'from' => 'required',
             'to' => 'required',
             'file' => '',
+            'file_name' => '',
 
         ];
     }
