@@ -24,6 +24,8 @@ class SystemIdeaStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
+            'file' => '',
+            'file_name' => '',
         ];
     }
 }

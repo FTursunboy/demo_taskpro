@@ -31,4 +31,15 @@ class IdeaController extends BaseController
         $idea->save();
         return redirect()->route('admin.index')->with('mess', 'Успешно обновлено!');
     }
+
+    public function downloadFile(Idea $idea)
+    {
+        $path = storage_path('app/' . $idea->file);
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $idea->file_name . '"',
+        ];
+
+        return response()->download($path, $idea->file_name, $headers);
+    }
 }
