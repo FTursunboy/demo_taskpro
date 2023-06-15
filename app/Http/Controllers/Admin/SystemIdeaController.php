@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Idea;
 use App\Models\SystemIdea;
 use Illuminate\Http\Request;
 
@@ -28,5 +29,16 @@ class SystemIdeaController extends Controller
         $idea->comment = $request->comment;
         $idea->save();
         return redirect()->route('admin.index')->with('mess', 'Успешно обновлено!');
+    }
+
+    public function downloadFile(SystemIdea $idea)
+    {
+        $path = storage_path('app/' . $idea->file);
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition' => 'attachment; filename="' . $idea->file_name . '"',
+        ];
+
+        return response()->download($path, $idea->file_name, $headers);
     }
 }

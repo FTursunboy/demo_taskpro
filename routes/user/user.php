@@ -17,10 +17,13 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::post('ideas/store', [\App\Http\Controllers\User\IdeaController::class, 'store'])->name('idea.store');
         Route::patch('ideas/update/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'update'])->name('idea.update');
         Route::delete('ideas/delete/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'destroy'])->name('idea.destroy');
+        Route::get('ideas/downloadFile/{idea}', [\App\Http\Controllers\User\IdeaController::class, 'downloadFile'])->name('idea.downloadFile');
 
         Route::post('system-ideas/store', [\App\Http\Controllers\User\SystemIdeaController::class, 'store'])->name('system-ideas.store');
         Route::patch('system-ideas/update/{idea}', [\App\Http\Controllers\User\SystemIdeaController::class, 'update'])->name('system-ideas.update');
         Route::delete('system-ideas/delete/{idea}', [\App\Http\Controllers\User\SystemIdeaController::class, 'destroy'])->name('system-ideas.destroy');
+        Route::get('system-ideas/downloadFile/{idea}', [\App\Http\Controllers\User\SystemIdeaController::class, 'downloadFile'])->name('system-ideas.downloadFile');
+
     });
 
 

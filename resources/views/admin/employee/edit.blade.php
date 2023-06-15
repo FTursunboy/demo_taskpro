@@ -67,6 +67,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="birthday">День рождение</label>
+                                    <input type="date" >
+                                </div>
                             </div>
                             <div class="col-4">
 

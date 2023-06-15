@@ -252,10 +252,10 @@
                                                                                class="form-control"/>
 
                                                                     </div>
-                                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                                файл</a></i>
+                                                                    <div style="margin-top: 30px" class="col md-3">
+                                                                        <i class="bi bi-paperclip">
+                                                                            <a style="margin-left: 0px" href="{{ route('idea.idea.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                        </i>
                                                                     </div>
 
                                                                 </div>
@@ -358,10 +358,10 @@
                                                                                class="form-control"/>
 
                                                                     </div>
-                                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                                файл</a></i>
+                                                                    <div style="margin-top: 30px" class="col md-3">
+                                                                        <i class="bi bi-paperclip">
+                                                                            <a style="margin-left: 0px" href="{{ route('idea.idea.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                        </i>
                                                                     </div>
 
                                                                 </div>
@@ -535,9 +535,8 @@
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form method="post" action="{{ route('idea.system-ideas.update', $idea->id) }}"
+                                                        <form method="post" action="#"
                                                               enctype="multipart/form-data" autocomplete="off">
-                                                            @csrf
                                                             <div class="row">
                                                                 <div class="col-sm-6">
                                                                     <!-- textarea -->
@@ -560,10 +559,10 @@
                                                                                   rows="5"
                                                                                   placeholder="Введите описание идеи ..." >{{$idea->description}}</textarea>
                                                                     </div>
-                                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                                файл</a></i>
+                                                                    <div style="margin-top: 30px" class="col md-3">
+                                                                        <i class="bi bi-paperclip">
+                                                                            <a style="margin-left: 0px" href="{{ route('idea.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                        </i>
                                                                     </div>
                                                                 </div>
 
@@ -621,10 +620,10 @@
                                                                                   rows="5"
                                                                                   placeholder="Введите описание идеи ..." required>{{$idea->description}}</textarea>
                                                                     </div>
-                                                                    <div style="margin-top: 30px" class="col md-3"><i
-                                                                            class="bi bi-paperclip"><a style="margin-left: 0px"
-                                                                                                       href="{{asset('/storage/' . $idea->file)}}">Просмотреть
-                                                                                файл</a></i>
+                                                                    <div style="margin-top: 30px" class="col md-3">
+                                                                        <i class="bi bi-paperclip">
+                                                                            <a style="margin-left: 0px" href="{{ route('idea.system-ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                        </i>
                                                                     </div>
                                                                 </div>
 
