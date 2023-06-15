@@ -66,5 +66,7 @@ Route::group(['middleware' => ['role:user']], function () {
 
     Route::get('user/offers/file/download/chat/{mess}', [\App\Http\Controllers\User\TasksController::class, 'download_file_chat'])->name('user.download.file.chat');
 
-    Route::get('/tasks/public/my-command/{user}/{project}', [\App\Http\Controllers\User\MyCommandController::class, 'filter']);
+    Route::group(['as' => 'plan.'], function () {
+        Route::get('/my-plan', [\App\Http\Controllers\User\MyPlanController::class, 'index'])->name('index');
+    });
 });
