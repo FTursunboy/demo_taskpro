@@ -42,6 +42,7 @@ class User extends Authenticatable
         'avatar',
         'role',
         'email',
+        'client_id',
     ];
 
     /**

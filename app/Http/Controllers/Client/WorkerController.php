@@ -23,7 +23,7 @@ class WorkerController extends BaseController
 {
     public function index()
     {
-        $users = User::role('client-worker')->get();
+        $users = User::role('client-worker')->where('client_id', Auth::id())->get();
 
         return view('client.workers.index', compact('users'));
     }
@@ -38,6 +38,7 @@ class WorkerController extends BaseController
             'slug' => Str::slug($request->name . '-' . rand(0, 5), '-'),
             'login' => $request->login,
             'password' => Hash::make($request->password),
+            'client_id' => Auth::id(),
         ]);
         $user->assignRole('client-worker');
 
