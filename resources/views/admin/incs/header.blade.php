@@ -22,7 +22,6 @@
 
             <div class="collapse navbar-collapse mr-2" id="navbarSupportedContent">
 
-
                 <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                    aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
                    role="button">
