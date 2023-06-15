@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        @include('.inc.messages')
+
         <section class="section">
             <div class="row">
                 <div class="col-6 col-lg-3 col-md-6">
@@ -166,8 +166,8 @@
                                     @if($task->file !== null)
                                         <div class="form-group">
                                             <label for="file">Файл</label>
-                                            <a href="{{ Storage::url('public/docs/tmp/' . $task->file) }}" download class="form-control text-bold">Просмотреть файл</a>
-
+                                            <a href="{{ route('user.download', $task) }}" download class="form-control text-bold">Просмотреть
+                                                файл</a>
                                         </div>
                                     @else
                                         <div class="form-group">

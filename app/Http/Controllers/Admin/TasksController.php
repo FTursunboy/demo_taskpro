@@ -190,13 +190,19 @@ class  TasksController extends BaseController
     public function store(Request $request)
     {
 
-
+        if ($request->file('file') !== null) {
+            $file = $request->file('file')->store('public/docs');
+        } else {
+            $file = null;
+        }
         $task = TaskModel::create([
             'name' => $request->name,
             'time' => $request->time,
             'from' => $request->from,
             'to' => $request->to,
             'comment' => $request->comment ?? null,
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'project_id' => $request->project_id,
             'type_id' => $request->type_id,
             'percent' => $request->percent,
@@ -209,20 +215,6 @@ class  TasksController extends BaseController
             'cancel_admin' => $request->cancel_admin ?? null,
             'slug' => Str::slug($request->name . ' ' . Str::random(5)),
         ]);
-
-       $temp = TemporaryFile::where('folder', $request->file)->first();
-
-       if($temp) {
-
-           Storage::copy('docs/tmp/' . $temp->folder . '/' . $temp->filename, 'docs/' . $temp->folder . '/' . $temp->filename);
-           $task->update([
-               'file' => $temp->folder . '/' . $temp->filename,
-               'file_name' => $temp->filename,
-           ]);
-           $temp->delete();
-       }
-
-
         $project = ProjectModel::where('id', $request->project_id)->first();
         $project->update([
             'pro_status' => 2,

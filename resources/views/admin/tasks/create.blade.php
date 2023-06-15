@@ -1,7 +1,5 @@
 @extends('admin.layouts.app')
-@section('css')
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-@endsection
+
 @section('title')
     Создание новой задачи
 @endsection
@@ -127,22 +125,7 @@
 
 @section('script')
 
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    <script>
-        const inputElement = document.querySelector('input[type="file"]');
 
-        // Create a FilePond instance
-        const pond = FilePond.create(inputElement);
-
-        FilePond.setOptions({
-            server: {
-                url: `/tasks/public/upload/file`,
-                headers: {
-                    'X-CSRF-TOKEN': '{{csrf_token()}}'
-                }
-            }
-        });
-    </script>
 
     <script>
 
