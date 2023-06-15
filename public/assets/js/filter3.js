@@ -2841,6 +2841,9 @@
                     "fn": _fnUpdateInfo,
                     "sName": "information"
                 } );
+
+                n
+                    .attr( 'role', 'alert' )
                     .attr( 'aria-live', 'polite' )
                     .attr( 'aria-relevant', 'all' );
 
@@ -4638,7 +4641,9 @@
                 var ext = DataTable.ext;
                 var type = ext.sErrMode || ext.errMode;
 
-
+                if ( type == 'alert' ) {
+                    alert( msg );
+                }
                 else {
                     throw new Error(msg);
                 }
@@ -12841,7 +12846,7 @@
              *  @type string
              *  @default alert
              */
-            
+            errMode: "alert",
 
 
             /**
