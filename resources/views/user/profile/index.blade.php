@@ -130,6 +130,10 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="file">Изображение</label>
+                                                    <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
+                                                </div>
                                             </div>
                                             <div class="col-4">
 
@@ -164,8 +168,8 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="file">Изображение</label>
-                                                    <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
+                                                    <label for="birthday">День рождение</label>
+                                                    <input type="date" class="form-control mt-3" name="birthday" id="birthday" tabindex="9" value="{{ $user->birthday }}">
                                                 </div>
 
                                             </div>
