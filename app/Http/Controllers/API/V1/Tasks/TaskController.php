@@ -21,40 +21,42 @@ use Illuminate\Support\Facades\Notification;
 
 class TaskController extends Controller
 {
-    public function index(User $user)
+    public function index()
     {
         return response([
             'message' => true,
-            'tasks' => TasksResource::collection(TaskModel::where('user_id', $user->id)->get())
+            'tasks' => TasksResource::collection(TaskModel::where('user_id', Auth::id())->get())
         ]);
     }
 
-    public function newTasks(User $user)
+    public function newTasks()
     {
         return response([
             'message' => true,
-            'tasks' => NewTasksResource::collection($user->getNewTasks($user->id))
+            'tasks' => NewTasksResource::collection(Auth::user()->getNewTasks(Auth::id()))
         ]);
     }
 
-    public function getTasks(User $user)
+    public function getTasks()
     {
         return response([
             'message' => true,
-            'tasks' => GetTasksResource::collection($user->getUsersTasks($user->id)),
+            'tasks' => GetTasksResource::collection(Auth::user()->getUsersTasks(Auth::id())),
         ]);
     }
 
-    public function taskAccept(User $user, TaskModel $task)
+    public function taskAccept(TaskModel $task)
     {
         UserTaskHistoryModel::create([
-            'user_id' => $user->id,
+            'user_id' => Auth::id(),
             'task_id' => $task->id,
             'status_id' => 4,
         ]);
+
         $task->update([
             'status_id' => 4
         ]);
+        
         if ($task->to < now()->toDateString()) {
             $task->status_id = 7;
             $task->save();
@@ -67,10 +69,9 @@ class TaskController extends Controller
             $offer->status_id = 2;
             $offer->save();
             HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::ACCEPT);
-
         }
         try {
-            Notification::send(User::role('admin')->first(), new TelegramUserAccept($task->name, $user->name));
+            Notification::send(User::role('admin')->first(), new TelegramUserAccept($task->name, Auth::user()->name));
         } catch (\Exception $exception) {
         }
         Artisan::call('update:task-status');
@@ -80,7 +81,7 @@ class TaskController extends Controller
             'task' => new TasksResource($task),
         ]);
     }
-    public function taskDecline(User $user, TaskModel $task, Request $request)
+    public function taskDecline(TaskModel $task, Request $request)
     {
         $cancelReason = $request->input('cancel');
 
@@ -90,6 +91,11 @@ class TaskController extends Controller
                 'info' => 'Введите причину отмены!',
             ]);
         }
+        UserTaskHistoryModel::create([
+            'user_id' => Auth::id(),
+            'task_id' => $task->id,
+            'status_id' => 5,
+        ]);
         if ($task->status_id === 7){
             $task->update([
                 'status_id' => 1,
@@ -111,7 +117,7 @@ class TaskController extends Controller
             HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::DECLINED);
         }
         try {
-            Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, $user->name));
+            Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, Auth::user()->name));
         } catch (\Exception $exception) {
 
         }
