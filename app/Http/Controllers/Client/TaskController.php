@@ -10,10 +10,12 @@ use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
+use App\Models\Client\Rating;
 use App\Models\ClientNotification;
 use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
+use App\Notifications\Telegram\ClientAccept;
 use App\Notifications\Telegram\TelegramClientDecline;
 use App\Notifications\Telegram\TelegramClientReady;
 use App\Notifications\Telegram\TelegramClientTask;
@@ -213,6 +215,14 @@ class TaskController extends BaseController
         $user->save();
         $offer->finish = Carbon::now();
         $offer->save();
+
+        $rating = Rating::where('task_slug', $offer->slug)->first();
+
+        try {
+            Notification::send($user, new ClientAccept($offer, $rating->rating));
+        } catch (\Exception $exception) {
+        }
+
 
         $tasks = TaskModel::where('offer_id', $offer->id)->first();
         if ($tasks !== null) {
