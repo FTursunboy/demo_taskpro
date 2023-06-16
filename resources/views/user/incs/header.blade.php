@@ -79,7 +79,7 @@
      aria-labelledby="notesUserList" style="width: 40%;">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="notesUserList">
-            <span style="margin-right: 20px">Идеи</span>
+            <span style="margin-right: 20px">Заметка</span>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                     data-bs-target="#createNotesUsers">Новая заметка
             </button>
