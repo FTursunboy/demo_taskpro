@@ -143,6 +143,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
 
     Route::get('/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+    Route::get('/edit/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
 
     Route::get('/tasks/edit/tasks/kpi/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);

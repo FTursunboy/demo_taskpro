@@ -213,7 +213,7 @@
 
 
 
-            $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
+            $.get(`/kpi/${kpi.val()}/`).then((res) => {
                 for (let i = 0; i < res.length; i++) {
                     const item = res[i];
                     console.log(item.name);
