@@ -241,13 +241,14 @@ class User extends Authenticatable
     public function TeamLeadProject()
     {
         return DB::table('team_lead_command_models AS tlc')
-            ->select('tlc.teamLead_id', 'p.NAME AS pro_name', 'u.*')
+            ->select('tlc.teamLead_id', 'p.NAME AS pro_name', 'u.name',  'u.avatar', 'u.surname', 'u.lastname',  DB::raw('COUNT(t.id) AS task_count'))
             ->join('project_models AS p', 'tlc.project_id', '=', 'p.id')
             ->join('users AS u', 'tlc.teamLead_id', '=', 'u.id')
-            ->distinct()
+            ->join('task_models AS t', 'tlc.project_id', '=', 't.id')
+            ->groupBy('tlc.teamLead_id', 'p.NAME',  'u.avatar', 'u.surname', 'u.lastname',  'u.name')
             ->get();
-
     }
+
 
 
     public function notesList($userID)
