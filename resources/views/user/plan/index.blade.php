@@ -35,7 +35,7 @@
     {{--  Create Plan Canvas Start  --}}
     <div style="width: 70%" class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="addNewPlanUsers" aria-labelledby="addNewPlanUsers">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="addNewPlanUsers">Добавить новый план на сегодняя</h5>
+            <h5 class="offcanvas-title" id="addNewPlanUsers">Добавить новый план на сегодня</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -45,13 +45,13 @@
                     <div class="row mb-4">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="name">Имя плана</label>
+                                <label for="name">Название плана</label>
                                 <input type="text" name="name" class="form-control" placeholder="Введите имя плана" id="name" required tabindex="1">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="hour">Врем (в часах)</label>
+                                <label for="hour">Время (в часах)</label>
                                 <input type="number" min="1" max="{{ 8 - $myPlan->where('status', false)->pluck('hour')->sum() }}" step="0.5" name="hour" id="hour" class="form-control" placeholder="Введите час" required tabindex="2">
                             </div>
                         </div>
@@ -78,11 +78,11 @@
     <div style="height: 70%" class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="listPlanUsers" aria-labelledby="listPlanUsers">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="listPlanUsers">
-                Список план на сегодня
+                Список планов на сегодня
                 @if($myPlan->where('status', false)->pluck('hour')->sum() < 8 )
                 <a style="margin-left: 30px" role="button" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#addNewPlanUsers" aria-controls="addNewPlanUsers">Добавить новый план на сегодня</a>
                 @else
-                <span class="bg-danger text-white px-3 py-1 rounded">У вас неосталос время.</span>
+                <span class="bg-danger text-white px-3 py-1 rounded">У вас неосталось времени.</span>
                 @endif
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
