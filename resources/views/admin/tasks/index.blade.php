@@ -27,7 +27,7 @@
         <div class="row">
             @if(session('mess'))
                 <div class="alert alert-success">
-                    Успешно отправлено
+                    {{ session('mess') }}
                 </div>
             @endif
             <div class="col-md-12">
@@ -115,6 +115,45 @@
                                 </tr>
 
 
+                                <div class="modal fade" id="ready{{ $task->id }}" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready{{ $task->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" style=" box-shadow: none;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="ready{{ $task->id }}">Поставте оценку исполнителю</h1>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
+                                                <div class="gezdvu">
+                                                    <div class="ponavues">
+                                                        <label class="eysan">
+
+                                                            <form id="scoreForm" action="{{route('tasks.score')}}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" value="{{ session('task1') }}" name="session">
+                                                                <input type="submit" name="rating" class="star" value="1">
+                                                                <input type="submit" name="rating" class="star2" value="2">
+                                                                <input type="submit" name="rating" class="star3" value="3">
+                                                                <input type="submit" name="rating" class="star4" value="4">
+                                                                <input type="submit" name="rating" class="star5" value="5">
+                                                            </form>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if(session('mess') == 'Успешно завершено')
+
+                                    <script>
+                                        window.addEventListener('DOMContentLoaded', function() {
+                                            var modal = new bootstrap.Modal(document.getElementById('ready{{ $task->id }}'));
+                                            modal.show();
+                                        });
+                                    </script>
+                                @endif
 
                                 <div class="modal fade" id="delete{{$task->id}}" data-bs-backdrop="static"
                                      data-bs-keyboard="false" tabindex="-1"
@@ -259,7 +298,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-warning">
-                                                        Перенаправить
+                                                        <Пере></Пере>направить
                                                     </button>
                                                     <button type="submit" class="btn btn-success">Готово
                                                     </button>
