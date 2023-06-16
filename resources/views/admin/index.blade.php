@@ -321,6 +321,8 @@
                                 <th>Название задачи</th>
                                 <th>Клиент</th>
                                 <th class="text-center">Оценки клиента</th>
+                                <th>Причина</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -340,6 +342,7 @@
                                     <td>{{ $user->task }}</td>
                                     <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
                                     <td class="text-center">{{ $user->rating }}</td>
+                                    <td >{{ $user?->reason }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
