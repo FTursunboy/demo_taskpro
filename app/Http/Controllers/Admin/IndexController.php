@@ -9,6 +9,7 @@ use App\Models\Client\Rating;
 use App\Models\ClientNotification;
 use App\Models\User;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Console\View\Components\Task;
@@ -109,11 +110,24 @@ class IndexController extends BaseController
 
     public function birthday()
     {
+
+
+        $today = Carbon::now();
+        $endRange = $today->copy()->addDays(2);
+        $startMonthDay = $today->format('m-d');
+        $endMonthDay = $endRange->format('m-d');
+
+        if ($endRange->isBefore($today)) {
+            $startMonthDay = '12-31';
+            $endMonthDay = $endRange->format('m-d');
+            $endRange = $endRange->copy()->addYear();
+        }
+
         $birthdays = User::role('user')
-            ->whereRaw('DATE_FORMAT(birthday, "%m-%d") >= DATE_FORMAT(CURDATE(), "%m-%d")')
+            ->whereRaw('DATE_FORMAT(birthday, "%m-%d") >= ?', [$startMonthDay])
+            ->whereRaw('DATE_FORMAT(birthday, "%m-%d") <= ?', [$endMonthDay])
             ->orderByRaw('DATE_FORMAT(birthday, "%m-%d")')
             ->get();
-
 
         return $birthdays;
 
