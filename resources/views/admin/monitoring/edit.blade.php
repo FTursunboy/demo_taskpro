@@ -239,6 +239,7 @@
         }
     }
 
+
     $('#project_id').change(function() {
         let selectedOption = $('#project_id option:selected');
         let selectedClass = selectedOption.attr('class');
