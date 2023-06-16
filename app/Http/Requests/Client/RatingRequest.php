@@ -26,6 +26,7 @@ class RatingRequest extends FormRequest
             'user_id' => '',
             'task_id' => '',
             'client_id' => '',
+            'reason' => '',
         ];
     }
 }

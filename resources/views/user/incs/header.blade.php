@@ -21,10 +21,17 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0">
-                    <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvasUser"
-                           aria-controls="ideasOfCanvasUser" style="margin-left: 20px;">
+                           aria-controls="ideasOfCanvasUser">
                             <i style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
+                        <a data-bs-toggle="offcanvas" data-bs-target="#notesUserList"
+                           aria-controls="notesUserList">
+                            <i style="font-size: 30px;" class="bi bi-journal-check"></i>
                         </a>
                     </li>
                 </ul>
@@ -64,6 +71,121 @@
         </div>
     </nav>
 </header>
+
+
+
+{{--  Notes  ofCanvas Start --}}
+<div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="notesUserList"
+     aria-labelledby="notesUserList" style="width: 40%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="notesUserList">
+            <span style="margin-right: 20px">Заметка</span>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#createNotesUsers">Новая заметка
+            </button>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Заметка</th>
+                <th width="30" class="text-center">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($notes as $note)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $note->note }}</td>
+                <td width="30" class="text-center">
+                    <a role="button" class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#updateNoteUsers{{ $note->id }}"><i class="bi bi-pencil"></i></a>
+                    <a role="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#deleteNoteUsers{{ $note->id }}"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+
+            <div class="modal fade" id="updateNoteUsers{{ $note->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateNoteUsers{{ $note->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="updateNoteUsers{{ $note->id }}">{{ $note->note }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('notes.update', $note->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="modal-body">
+                                <label for="note">Заметка</label>
+                                <textarea name="note" id="note" cols="30" rows="5" class="form-control" required>{{ $note->note }}</textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                <button type="submit" class="btn btn-primary">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="deleteNoteUsers{{ $note->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteNoteUsers{{ $note->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteNoteUsers{{ $note->id }}">{{ $note->note }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('notes.delete', $note->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <div class="modal-body">
+                                <label for="note">Заметка</label>
+                                <textarea name="note" id="note" cols="30" rows="5" class="form-control" disabled>{{ $note->note }}</textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                <button type="submit" class="btn btn-danger">Удалит</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createNotesUsers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createNotesUsers" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createNotesUsers">Добавить новая заметка</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('notes.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <label for="note">Новая заметка</label>
+                    <textarea name="note" id="note" cols="30" rows="5" class="form-control" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--  Notes  ofCanvas Start  --}}
+
+
+
 
 
 {{--  Ideas  ofCanvas Start --}}

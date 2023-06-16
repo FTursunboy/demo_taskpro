@@ -26,9 +26,33 @@
         <a href="{{ route('user.index') }}" class="btn btn-danger {{ (count($myPlan) === 0) ? 'disabled' : '' }}">Назад</a>
         <a role="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#listPlanUsers" aria-controls="listPlanUsers">Мои планы на сегодня</a>
         <section class="section">
-            <div >
-                <div id="chart" class="row d-flex justify-content-center w-100" style="width: 100%"></div>
-            </div>
+            <table class="table table-hover mt-5">
+                <thead>
+                <tr>
+                    <th width="10">Статус</th>
+                    <th>Имя</th>
+                    <th>Описание</th>
+                    <th>Час</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($myPlan as $plan)
+                    <tr>
+                        <td width="10" class="text-center"><input type="checkbox" class="form-check text-primary" disabled {{ ($plan->status === 1) ? 'checked' : '' }}></td>
+                        <td>{{ \Str::limit($plan->name, 30) }}</td>
+                        <td>{{ \Str::limit($plan->description, 20) }}</td>
+                        <td>{{ $plan->hour }}</td>
+                        <td width="200">
+                            <a href="{{ route('plan.ready', $plan->id) }}" class="badge bg-success p-2"><i class="bi bi-check"></i></a>
+                            @if($plan->status === 0)
+                                <a href="{{ route('plan.delete', $plan->id) }}" class="badge bg-danger p-2"><i class="bi bi-trash"></i></a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
         </section>
     </div>
 
@@ -91,7 +115,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr class="text-center">
-                    <th>#</th>
+                    <th width="10">Статус</th>
                     <th>Имя</th>
                     <th>Описание</th>
                     <th>Час</th>
@@ -99,9 +123,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($myPlan as $plan)
+                @foreach($allPlan as $plan)
                     <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
+                        <td><input type="checkbox" class="form-check text-primary" disabled {{ ($plan->status === 1) ? 'checked' : '' }}></td>
                         <td>{{ \Str::limit($plan->name, 30) }}</td>
                         <td>{{ \Str::limit($plan->description, 20) }}</td>
                         <td>{{ $plan->hour }}</td>
@@ -122,28 +146,6 @@
 
 @endsection
 @section('script')
-    <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-    <script>
-        var options = {
-            chart:{
-                type: 'bar',
-                width:'70%',
-                stacked: true,
-            },
-            series:[{
-                name: 'Success',
-                data: [44, 55, 41, 67, 22, 43, 21, 49]
-            }, {
-                name: 'Un success',
-                data: [13, 23, 20, 8, 13, 27, 33, 12,]
-            }],
-            xaxis:{
-                categories: [200,300,400,500,600]
-            },
-        }
-        var chart = new ApexCharts(document.querySelector('#chart'), options)
-        chart.render()
-    </script>
     <script>
         $('#submitPlan').click(function (){
             $(this).attr('type', 'submit')

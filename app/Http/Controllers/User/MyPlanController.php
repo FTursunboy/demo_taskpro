@@ -14,8 +14,9 @@ class MyPlanController extends BaseController
     public function index()
     {
         $myPlan = $this->myPlan(Auth::id(), Carbon::now()->format('Y-m-d'));
-//        dd($this->MyPercentPlan(Auth::id()));
-        return view('user.plan.index', compact('myPlan'));
+        $allPlan = MyPlanModel::where('user_id', Auth::id())->orderBy('status', 'asc')
+            ->orderBy('hour', 'asc')->get();
+        return view('user.plan.index', compact('myPlan', 'allPlan'));
     }
 
     public function store(Request $request)
@@ -58,6 +59,7 @@ class MyPlanController extends BaseController
             ['date', $today],
         ])
             ->orderBy('status', 'asc')
+            ->orderBy('hour', 'asc')
             ->get();
 
     }
