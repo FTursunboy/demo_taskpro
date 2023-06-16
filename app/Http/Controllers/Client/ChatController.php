@@ -49,7 +49,7 @@ class ChatController extends BaseController
         $task = TaskModel::where('offer_id', $offer->id);
         try {
             Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name, $offer->id));
-            Notification::send(User::find(1), new Chat($messages_models, $offer->name, $task->id);
+            Notification::send(User::find(1), new Chat($messages_models, $offer->name, $task->id));
         } catch (\Exception $exception) {
 
         }
