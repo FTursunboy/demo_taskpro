@@ -73,7 +73,7 @@
         <h5 class="offcanvas-title" id="ideasOfCanvasUser">
             <span style="margin-right: 20px">Идеи</span>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                    data-bs-target="#CreateIdeaModal">Добавить идея
+                    data-bs-target="#CreateIdeaModal">Добавить идею
             </button>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                     data-bs-target="#CreateSystemIdeaModal">Добавить идею для системы

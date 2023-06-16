@@ -24,7 +24,7 @@
 
         @include('inc.messages')
         <a href="{{ route('user.index') }}" class="btn btn-danger {{ (count($myPlan) === 0) ? 'disabled' : '' }}">Назад</a>
-        <a role="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#listPlanUsers" aria-controls="listPlanUsers">Мои плани на сегодня</a>
+        <a role="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#listPlanUsers" aria-controls="listPlanUsers">Мои планы на сегодня</a>
         <section class="section">
             <div >
                 <div id="chart" class="row d-flex justify-content-center w-100" style="width: 100%"></div>
@@ -93,7 +93,7 @@
                 <tr class="text-center">
                     <th>#</th>
                     <th>Имя</th>
-                    <th>Описания</th>
+                    <th>Описание</th>
                     <th>Час</th>
                     <th>Действия</th>
                 </tr>
