@@ -69,6 +69,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::group(['as' => 'plan.'], function () {
         Route::get('/my-plan', [\App\Http\Controllers\User\MyPlanController::class, 'index'])->name('index');
         Route::post('/my-plan/store', [\App\Http\Controllers\User\MyPlanController::class, 'store'])->name('store');
+        Route::patch('/my-plan/update/{plan}',[\App\Http\Controllers\User\MyPlanController::class, 'update'])->name('update');
         Route::get('/my-plan/ready/{plan}', [\App\Http\Controllers\User\MyPlanController::class, 'ready'])->name('ready');
         Route::get('/my-plan/delete/{plan}', [\App\Http\Controllers\User\MyPlanController::class, 'delete'])->name('delete');
     });
