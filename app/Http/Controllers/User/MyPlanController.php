@@ -24,19 +24,39 @@ class MyPlanController extends BaseController
         $data = $request->validate([
             'name' => ['required'],
             'hour' => ['required'],
-            'description' => ['required']
+            'description' => ['required'],
+            'date' => ['required'],
         ]);
 
         MyPlanModel::create([
             'name' => $data['name'],
             'hour' => $data['hour'],
             'description' => $data['description'],
-            'date' => Carbon::now()->format('Y-m-d'),
+            'date' => $data['date'],
             'status' => false,
             'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('plan.index')->with('creat', 'План успешно создан!');
+    }
+
+    public function update(MyPlanModel $plan, Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required'],
+            'hour' => ['required'],
+            'description' => ['required'],
+            'date' => ['required'],
+        ]);
+
+        $plan->update([
+            'name' => $data['name'],
+            'hour' => $data['hour'],
+            'description' => $data['description'],
+            'date' => $data['date'],
+        ]);
+        return redirect()->route('plan.index')->with('update', 'План успешно изменен!');
+
     }
 
     public function ready(MyPlanModel $plan)
