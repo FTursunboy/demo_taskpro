@@ -89,7 +89,7 @@
                     </li>
 
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
-                        @if($ideas_count > 0 || count($systemIdeasOfDashboard) > 0)
+                        @if($ideas_count > 0 || $system_idea_count > 0)
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px;">
                                 <i id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
                             </a>
@@ -419,7 +419,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
                                    data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
-                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея <span style="color:#ff0000;">{{(count($systemIdeasOfDashboard) > 0) ? '- ('.count($systemIdeasOfDashboard).')' : ''  }}</span></a>
+                                   aria-controls="custom-tabs-one-profile" aria-selected="false">Системная идея <span style="color:#ff0000;">{{($system_idea_count > 0) ? '- ('.$system_idea_count.')' : ''  }}</span></a>
                             </li>
                         </ul>
                     </div>
@@ -590,7 +590,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+                                                            @if($idea->status->id ==1)
                                                             <div class="float-right">
                                                                 <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
                                                                         id="accept">Принять
@@ -602,7 +602,7 @@
                                                                         id="inWork">На доработку
                                                                 </button>
                                                             </div>
-
+                                                            @endif
                                                             <script>
                                                                 const btn = document.getElementById('accept')
                                                                 btn.addEventListener('click', function () {
@@ -756,8 +756,9 @@
                                                                 </div>
 
                                                             </div>
-
+                                                        @if($idea->status->id == 1)
                                                             <div class="float-right">
+
                                                                 <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
                                                                         id="accept">Принять
                                                                 </button>
@@ -768,7 +769,7 @@
                                                                         id="inWork">На доработку
                                                                 </button>
                                                             </div>
-
+                                                            @endif
                                                             <script>
                                                                 const btn = document.getElementById('accept')
                                                                 btn.addEventListener('click', function () {
