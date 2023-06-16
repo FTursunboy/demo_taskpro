@@ -27,17 +27,12 @@ class BaseController extends Controller
             $out_of_date = TaskModel::where('status_id', 7)->count();
             $rejected = TaskModel::where('status_id', 5)->count();
 
-
             $tasksOfDashboard = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
-
-
 
             $notifications = ClientNotification::get();
             $newMessage = ChatMessageModel::where('user_id', Auth::id())->orwhere('offer_id', Auth::id())->orderBy('created_at','desc')->get();
             $command_task = CreateMyCommandTaskModel::get()->count();
             $usersTelegram = User::role('user')->get();
-
-
 
             $ideasOfDashboard = Idea::get();
             $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();

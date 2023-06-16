@@ -227,6 +227,7 @@
                                                 <th>Фото</th>
                                                 <th>ФИО</th>
                                                 <th>Проекты</th>
+                                                <th class="text-center">Количество задач</th>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($team_leads as $team_lead)
@@ -243,6 +244,7 @@
                                                         <td>
                                                             {{ $team_lead->pro_name }}
                                                         </td>
+                                                        <td class="text-center">{{ $team_lead->task_count }}</td>
                                                     </tr>
                                                 @endforeach
 
