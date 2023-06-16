@@ -72,4 +72,10 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('/my-plan/ready/{plan}', [\App\Http\Controllers\User\MyPlanController::class, 'ready'])->name('ready');
         Route::get('/my-plan/delete/{plan}', [\App\Http\Controllers\User\MyPlanController::class, 'delete'])->name('delete');
     });
+
+    Route::group(['as' => 'notes.'], function (){
+       Route::post('/notes/store', [\App\Http\Controllers\Users\NotesController::class,'store'])->name('store');
+       Route::patch('/notes/update/{note}', [\App\Http\Controllers\Users\NotesController::class,'update'])->name('update');
+       Route::delete('/notes/delete/{note}', [\App\Http\Controllers\Users\NotesController::class,'destroy'])->name('delete');
+    });
 });
