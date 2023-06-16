@@ -88,6 +88,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
 
+        Route::post('/tasks/score', [\App\Http\Controllers\Admin\AdminRatingController::class, 'score'])->name('score');
     });
 
     Route::group(['as' => 'mytasks.'], function () {
