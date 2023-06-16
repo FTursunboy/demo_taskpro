@@ -32,7 +32,7 @@
                     Добавить задачу
                 </a>
 
-                <a href="{{ route('exel') }}" download class="btn btn-success mb-4"> Excel</a>
+                <a href="#" id="excel" class="btn btn-success mb-4"> Excel</a>
 
             </div>
             <div class="col-12">
@@ -136,7 +136,18 @@
 
 @section('script')
     <script src="{{asset('assets/js/filter3.js')}}"></script>
+    <script src="{{asset('assets/js/table2excel.js')}}" ></script>
+    <script>
+        $(document).ready(function () {
+            document.getElementById('excel').addEventListener('click', function () {
+                var table2excel = new Table2Excel();
+                table2excel.export(document.querySelectorAll('#example'));
+            })
 
+        });
+
+
+    </script>
     <script>
         $(document).ready(function () {
             var table = $('#example').DataTable({
