@@ -9,6 +9,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\Admin\TasksClient;
 use App\Models\Client\Offer;
 use App\Models\User\TeamLeadCommandModel;
+use App\Models\Users\NotesModels;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -248,5 +249,10 @@ class User extends Authenticatable
 
     }
 
+
+    public function notesList($userID)
+    {
+        return NotesModels::where('user_id', $userID)->get();
+    }
 
 }
