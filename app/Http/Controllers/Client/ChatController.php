@@ -47,14 +47,18 @@ class ChatController extends BaseController
             'sender_id' => Auth::id(),
         ]);
         $task = TaskModel::where('offer_id', $offer->id);
+        $admin = User::where('position', 'admin')->first();
+
+
         try {
             Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name, $offer->id));
-            Notification::send(User::find(1), new Chat($messages_models, $offer->name, $task->id));
+            Notification::send(User::find($admin), new Chat($messages_models, $offer->name, $task->id));
         } catch (\Exception $exception) {
 
         }
 
         return response([
+            'admin' => $admin->telegram_user_id,
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,
             'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))

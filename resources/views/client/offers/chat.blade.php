@@ -162,7 +162,7 @@
                             contentType: false,
                             processData: false,
                             success: function (response) {
-
+                                console.log(response)
                                 $('#message').val('');
                                 $('#file').val('');
 
