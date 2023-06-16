@@ -270,14 +270,14 @@
                                     <input type="text"
                                            class="form-control"
                                            name="author_name" id="author_name"
-                                           value="{{ old('author_name') }}" required>
+                                           value="{{ auth()->user()->name ?? old('author_name') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Телефон ответсвенного сотрудника</label>
                                     <input type="text"
                                            class="form-control"
                                            name="author_phone" id="author_phone"
-                                           value="{{ old('author_phone') }}" required>
+                                           value="{{ auth()->user()->phone ?? old('author_phone') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Выберите файл</label>
@@ -317,6 +317,7 @@
                                             name.classList.add('border-danger')
                                             author_name.classList.add('border-danger')
                                             phone.classList.add('border-danger')
+                                            btn.classList.remove('disabled')
                                         }
                                     })
                                 </script>
