@@ -113,7 +113,7 @@ class IndexController extends BaseController
 
 
         $today = Carbon::now();
-        $endRange = $today->copy()->addDays(2);
+        $endRange = $today->copy()->addDays(3);
         $startMonthDay = $today->format('m-d');
         $endMonthDay = $endRange->format('m-d');
 
