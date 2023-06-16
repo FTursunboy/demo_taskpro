@@ -266,8 +266,6 @@
             searchWrapper.addClass('d-flex align-items-center');
             resetButton.addClass('ml-2');
             resetButton.appendTo(searchWrapper);
-
-
         });
 
 
