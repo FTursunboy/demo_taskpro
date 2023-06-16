@@ -110,9 +110,11 @@ class IndexController extends BaseController
     public function birthday()
     {
         $birthdays = User::role('user')
-            ->whereRaw('DATEDIFF(birthday, CURDATE()) <= 3')
-            ->whereRaw('DATEDIFF(birthday, CURDATE()) >= 0')
+            ->whereRaw('DATE_FORMAT(birthday, "%m-%d") >= DATE_FORMAT(CURDATE(), "%m-%d")')
+            ->orderByRaw('DATE_FORMAT(birthday, "%m-%d")')
             ->get();
+
+
         return $birthdays;
 
     }
