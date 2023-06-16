@@ -216,10 +216,10 @@ class TaskController extends BaseController
         $offer->finish = Carbon::now();
         $offer->save();
 
-        $rating = Rating::where('task_slug', $offer->slug)->first();
+
 
         try {
-            Notification::send($user, new ClientAccept($offer, $rating->rating));
+            Notification::send($user, new ClientAccept($offer));
         } catch (\Exception $exception) {
         }
 
