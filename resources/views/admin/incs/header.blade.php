@@ -50,7 +50,7 @@
                 @else
                     <div style="margin-left: 300px;">
                     @foreach($birthdayUsers as $birthday)
-                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m' , strtotime($birthday->birthday))}} </p>
+                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m', strtotime($birthday->birthday))}} </p>
                     @endforeach
                     </div>
                 @endif
