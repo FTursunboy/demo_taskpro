@@ -19,17 +19,15 @@ class ClientAccept extends Notification implements ShouldQueue
     use Queueable;
 
     public Offer $offer;
-    public $rating;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($offer, $rating)
+    public function __construct($offer)
     {
         $this->offer = $offer;
-        $this->rating = $rating;
     }
 
     /**
@@ -74,8 +72,7 @@ class ClientAccept extends Notification implements ShouldQueue
     {
 
         return TelegramMessage::create()
-            ->content("Здравствуйте, Клиент {$this->offer->client->name} подтвердил Вашу задачу {$this->offer->name}!
-            \nОценка: {$this->rating} ");
+            ->content("Здравствуйте, Клиент {$this->offer->client->name} подтвердил Вашу задачу {$this->offer->name}!");
 
 
     }

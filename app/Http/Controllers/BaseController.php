@@ -47,6 +47,9 @@ class BaseController extends Controller
             $birthday = new IndexController();
             $birthdayUsers = $birthday->birthday();
 
+            $system_idea_count = SystemIdea::where('status_id', 1)->count();
+
+
             $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
 
             $notes = Auth::user()->notesList(Auth::id());
@@ -69,7 +72,11 @@ class BaseController extends Controller
                 'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
                 'birthdayUsers' => $birthdayUsers,
                 'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
+
                 'notes' => $notes,
+
+                'system_idea_count' => $system_idea_count
+
             ]);
             return $next($request);
 
