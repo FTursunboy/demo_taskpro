@@ -402,6 +402,8 @@ class  TasksController extends BaseController
                 $task->save();
                 HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
                 HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
+
+                return redirect()->back()->with('mess', 'Успешно отправлено');
             } else {
 
                 $user = User::where('id', $task->user_id)->first();
@@ -409,11 +411,13 @@ class  TasksController extends BaseController
                 $user->save();
                 HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
                 $task->finish = Carbon::now();
+                $task1 = $task->id;
                 $task->save();
 
+                return redirect()->back()->with(['mess' => 'Успешно завершено', 'task1' => $task1]);
             }
 
-            return redirect()->back()->with('mess', 'Успешно отправлено');
+
 
         } else {
             $user = User::where('id', $request->employee)->first();

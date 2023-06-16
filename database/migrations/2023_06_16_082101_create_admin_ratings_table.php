@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ratings', function (Blueprint $table) {
-//          $table->string('task_slug')->unique()->after('rating');
+        Schema::create('admin_ratings', function (Blueprint $table) {
+            $table->id(); $table->integer('rating');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('task_id');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ratings', function (Blueprint $table) {
-//            $table->dropColumn('task_slug');
-        });
+        Schema::dropIfExists('admin_ratings');
     }
 };
