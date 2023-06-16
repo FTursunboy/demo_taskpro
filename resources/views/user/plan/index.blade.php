@@ -23,7 +23,7 @@
         </div>
 
         @include('inc.messages')
-        <a href="{{ route('user.index') }}" class="btn btn-danger {{ (count($myPlan) === 0) ? 'disabled' : '' }}">Назад</a>
+        <a href="{{ route('user.index') }}" class="btn btn-danger">Назад</a>
         <a role="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#listPlanUsers" aria-controls="listPlanUsers">Мои планы на сегодня</a>
         <section class="section">
             <table class="table table-hover mt-5">
@@ -142,8 +142,6 @@
         </div>
     </div>
     {{--  List Plan Canvas End  --}}
-
-
 @endsection
 @section('script')
     <script>

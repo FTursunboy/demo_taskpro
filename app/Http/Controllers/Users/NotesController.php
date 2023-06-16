@@ -16,7 +16,7 @@ class NotesController extends BaseController
             'note' => $request->note,
             'user_id' => Auth::id(),
         ]);
-        return redirect()->route('user.index')->with('create', 'Заметка создана!');
+        return back()->with('create', 'Заметка создана!');
     }
 
     public function update(NotesModels $note, Request $request)
@@ -24,12 +24,12 @@ class NotesController extends BaseController
         $note->update([
             'note' => $request->note
         ]);
-        return redirect()->route('user.index')->with('update', 'Заметка обновлена!');
+        return back()->with('update', 'Заметка обновлена!');
     }
 
     public function destroy(NotesModels $note)
     {
         $note->delete();
-        return redirect()->route('user.index')->with('delete', 'Заметка удалена!');
+        return back()->with('delete', 'Заметка удалена!');
     }
 }
