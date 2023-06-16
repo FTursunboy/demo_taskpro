@@ -44,12 +44,50 @@
                         <td>{{ \Str::limit($plan->description, 20) }}</td>
                         <td>{{ $plan->hour }}</td>
                         <td width="200">
-                            <a href="{{ route('plan.ready', $plan->id) }}" class="badge bg-success p-2"><i class="bi bi-check"></i></a>
+                            <a role="button" class="badge bg-success p-2" data-bs-toggle="offcanvas" data-bs-target="#shoePlanUsers{{ $plan->id }}" aria-controls="shoePlanUsers{{ $plan->id }}"><i class="bi bi-eye"></i></a>
+                            <a href="{{ route('plan.ready', $plan->id) }}" class="badge bg-primary p-2"><i class="bi bi-check"></i></a>
                             @if($plan->status === 0)
                                 <a href="{{ route('plan.delete', $plan->id) }}" class="badge bg-danger p-2"><i class="bi bi-trash"></i></a>
                             @endif
                         </td>
                     </tr>
+
+
+                    {{--  Create Plan Canvas Start  --}}
+                    <div style="width: 70%" class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="shoePlanUsers{{ $plan->id }}" aria-labelledby="shoePlanUsers{{ $plan->id }}">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="shoePlanUsers{{ $plan->id }}">{{ $plan->name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="container">
+                                    <div class="row mb-4">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="name">Название плана</label>
+                                                <input type="text" name="name" class="form-control" value="{{ $plan->name }}" id="name" disabled tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="hour">Время (в часах)</label>
+                                                <input type="number" id="hour" class="form-control" value="{{ $plan->hour }}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="description">Описание плана</label>
+                                            <textarea name="description" id="description" cols="30" rows="5" class="form-control" disabled>{{ $plan->description }}</textarea>
+                                        </div>
+                                    </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {{--  Create Plan Canvas End  --}}
+
                 @endforeach
                 </tbody>
             </table>
@@ -130,6 +168,7 @@
                         <td>{{ \Str::limit($plan->description, 20) }}</td>
                         <td>{{ $plan->hour }}</td>
                         <td width="200">
+                            <a role="button" class="badge bg-success p-2" data-bs-toggle="offcanvas" data-bs-target="#shoePlanUsers{{ $plan->id }}" aria-controls="shoePlanUsers{{ $plan->id }}"><i class="bi bi-eye"></i></a>
                             <a href="{{ route('plan.ready', $plan->id) }}" class="badge bg-success p-2"><i class="bi bi-check"></i></a>
                             @if($plan->status === 0)
                                 <a href="{{ route('plan.delete', $plan->id) }}" class="badge bg-danger p-2"><i class="bi bi-trash"></i></a>
