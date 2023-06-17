@@ -70,7 +70,9 @@ class  MonitoringController extends BaseController
                 ['task_id', '=', $offer->id],
                 ['type', '=', 'offer']
             ])->get();
+            $users = User::role('user')->get();
 
+            return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
         }
         else {
             $histories_task = History::where([
@@ -83,7 +85,7 @@ class  MonitoringController extends BaseController
 
         $users = User::role('user')->get();
 
-        return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
+        return view('admin.monitoring.show', compact('task', 'messages', 'histories_task', 'users'));
     }
 
     public function edit(TaskModel $task)
