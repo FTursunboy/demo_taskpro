@@ -412,6 +412,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @if(isset($histories))
                                             @foreach($histories as $history)
 
                                                 <tr>
@@ -434,6 +435,30 @@
 
                                                 </tr>
                                             @endforeach
+                                                @elseif(isset($histories_task))
+                                                @foreach($histories_task as $history)
+
+                                                    <tr>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
+                                                        <td>{{$history->user->name }}</td>
+                                                        <td>
+                                                            {{ $history->status?->name }}
+
+                                                            @if ($history->user->hasRole('admin'))
+                                                                (Админ)
+                                                            @elseif ($history->user->hasRole('user'))
+                                                                (Сотрудник)
+                                                            @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                                                (Клиент)
+                                                            @else
+                                                                Роль не определена
+                                                            @endif
+                                                        </td>
+
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                             </tbody>
                                         </table>
                                     </div>

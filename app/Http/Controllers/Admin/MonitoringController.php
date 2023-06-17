@@ -73,7 +73,7 @@ class  MonitoringController extends BaseController
 
         }
         else {
-            $histories = History::where([
+            $histories_task = History::where([
                 ['task_id', '=', $task->id],
                 ['type', '=', 'task']
             ])->get();
