@@ -67,7 +67,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <span class="fs-5 text-white"><i class="bi bi-telegram mx-4"></i> <a target="_blank" href="https://t.me/shahobovN" class="text-white">Telegram</a></span>
+                            <span class="fs-5 text-white"><i class="bi bi-telegram mx-4"></i> <a target="_blank" href="https://t.me/FINGROUPParviz" class="text-white">Telegram</a></span>
                         </div>
                     </div>
 
