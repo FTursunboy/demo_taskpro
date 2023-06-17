@@ -61,10 +61,21 @@ class IndexController extends BaseController
             ->orderByDesc('r.rating')
             ->get();
 
+
+
+
+        $admin_ratings = DB::table('admin_ratings as r')
+            ->join('users as u', 'u.id', 'r.user_id')
+            ->join('task_models as t', 't.id', 'r.task_id')
+            ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname', 't.name as task', 'r.rating')
+            ->orderByDesc('r.rating')
+            ->get();
+
+
         $statistics = TaskModel::where('status_id', '!=', 3)->get();
 
 
-        return view('admin.index', compact('task', 'statistics', 'users', 'tasks', 'team_leads', 'ratings', 'admin_users'));
+        return view('admin.index', compact('task', 'statistics', 'users', 'tasks', 'team_leads', 'ratings', 'admin_users', 'admin_ratings'));
     }
 
     public function delete(ClientNotification $offer)
