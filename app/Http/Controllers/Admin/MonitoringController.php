@@ -64,7 +64,7 @@ class  MonitoringController extends BaseController
 
         $histories = History::where([
             ['task_id', '=', $task->id],
-            ['type', '=', 'task']
+            ['type', '=', 'offer']
         ])->get();
 
         $users = User::role('user')->get();
