@@ -203,7 +203,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-7">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="text-center">Список Тим-лидов</h5>
@@ -215,7 +215,7 @@
                                             <th>ФИО</th>
                                             <th>Долг</th>
                                             <th>Проекты</th>
-                                            <th class="text-center">Количество задач</th>
+                                            <th class="text-center">Кол-во задач</th>
                                             </thead>
                                             <tbody>
                                             @foreach($team_leads as $team_lead)
@@ -228,9 +228,9 @@
                                                             <img src="{{asset('assets/images/avatar-2.png')}}" width="30">
                                                         @endif
                                                     </td>
-                                                    <td>{{ $team_lead->surname .' '. $team_lead->name . ' ' . $team_lead->lastname}}</td>
+                                                    <td>{{ Str::limit($team_lead->surname .' '. $team_lead->name . ' ' . $team_lead->lastname, 15)}}</td>
                                                     <td>
-                                                        {{ $team_lead->pro_name }}
+                                                        {{ Str::limit($team_lead->pro_name, 15) }}
                                                     </td>
                                                     <td class="text-center">{{ $team_lead->task_count }}</td>
                                                 </tr>
@@ -245,46 +245,83 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-center">Лучшие сотрудники по оценке клиентов</h5>
-                                <div>
-                                    <table class="table mt-4" cellpadding="5">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Фото</th>
-                                            <th>ФИО</th>
-                                            <th>Средняя оценка</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($users as $user)
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="text-center">Лучшие сотрудники по оценке клиентов</h5>
+                                    <div>
+                                        <table class="table mt-4" cellpadding="5">
+                                            <thead>
                                             <tr>
-                                                <td>{{ $loop->index + 1 }}</td>
-                                                <td>
-                                                    @if($user->avatar)
-                                                        <img src="{{ asset('storage/' . $user->avatar)}}" width="40"
-                                                             height="40" style="border-radius: 50%">
-                                                    @else
-                                                        <img src="{{asset('assets/images/avatar-2.png')}}"
-                                                             width="30">
-                                                    @endif
-                                                </td>
-                                                <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
-                                                <td class="text-center">{{ round($user->average_rating, 1) }}</td>
+                                                <th>#</th>
+                                                <th>Фото</th>
+                                                <th>ФИО</th>
+                                                <th>Средняя оценка</th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    <p data-bs-toggle="offcanvas" data-bs-target="#RatingOfCanvas"
-                                       aria-controls="RatingOfCanvas" role="button" class="text-primary text-end">
-                                        Ещё..</p>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($users as $user)
+                                                <tr>
+                                                    <td>{{ $loop->index + 1 }}</td>
+                                                    <td>
+                                                        @if($user->avatar)
+                                                            <img src="{{ asset('storage/' . $user->avatar)}}" width="40" height="40" style="border-radius: 50%">
+                                                        @else
+                                                            <img src="{{asset('assets/images/avatar-2.png')}}" width="30">
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ Str::limit($user->surname . " " . $user->name . " "  . $user->lastname, 15) }}</td>
+                                                    <td class="text-center">{{ round($user->average_rating, 1) }}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                        <p data-bs-toggle="offcanvas" data-bs-target="#RatingOfCanvas" aria-controls="RatingOfCanvas" role="button" class="text-primary text-end">
+                                            Ещё..
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="text-center">Лучшие сотрудники по оценке админа</h5>
+                                    <div>
+                                        <table class="table mt-4" cellpadding="5">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Фото</th>
+                                                <th>ФИО</th>
+                                                <th>Средняя оценка</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($admin_users as $user)
+                                                <tr>
+                                                    <td>{{ $loop->index + 1 }}</td>
+                                                    <td>
+                                                        @if($user->avatar)
+                                                            <img src="{{ asset('storage/' . $user->avatar)}}" width="40" height="40" style="border-radius: 50%">
+                                                        @else
+                                                            <img src="{{asset('assets/images/avatar-2.png')}}" width="30">
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ Str::limit($user->surname . " " . $user->name . " "  . $user->lastname, 15) }}</td>
+                                                    <td class="text-center">{{ round($user->average_rating, 1) }}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                        <p data-bs-toggle="offcanvas" data-bs-target="#AdminRatingOfCanvas" aria-controls="AdminRatingOfCanvas" role="button" class="text-primary text-end">
+                                            Ещё..
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </section>
         </div>
@@ -295,53 +332,90 @@
 </div>
 
 {{--  Rating  --}}
-<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="RatingOfCanvas"
-     aria-labelledby="RatingOfCanvas" style="width: 100%; height: 80%;">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="RatingOfCanvas">Лучшие сотрудники по оценке клиентов</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="card">
-            <div class="card-body">
-                <div>
-                    <table class="table table-hover mt-4" cellpadding="5">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Фото</th>
-                            <th>Исполнитель</th>
-                            <th>Название задачи</th>
-                            <th>Клиент</th>
-                            <th class="text-center">Оценки клиента</th>
-                            <th>Причина</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($ratings as $user)
-                            <tr>
-                                <td>{{ $loop->index+1 }}</td>
-                                <td>
-                                    @if($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar)}}" width="40"
-                                             height="40" style="border-radius: 50%">
-                                    @else
-                                        <img src="{{asset('assets/images/avatar-2.png')}}"
-                                             width="30">
-                                    @endif
-                                </td>
-                                <td>{{ $user->perfomer_surname . " " . $user->perfomer_name . " "  . $user->perfomer_lastname }}</td>
-                                <td>{{ $user->task }}</td>
-                                <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
-                                <td class="text-center">{{ $user->rating }}</td>
-                                <td >{{ $user?->reason }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+
+        <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="RatingOfCanvas"
+             aria-labelledby="RatingOfCanvas" style="width: 100%; height: 80%;">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="RatingOfCanvas">Лучшие сотрудники по оценке клиентов</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-hover mt-4" cellpadding="5">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Фото</th>
+                                    <th>Исполнитель</th>
+                                    <th>Название задачи</th>
+                                    <th>Клиент</th>
+                                    <th class="text-center">Оценки клиента</th>
+                                    <th>Причина</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($ratings as $user)
+                                    <tr>
+                                        <td>{{ $loop->index+1 }}</td>
+                                        <td>
+                                            @if($user->avatar)
+                                                <img src="{{ asset('storage/' . $user->avatar)}}" width="40"
+                                                     height="40" style="border-radius: 50%">
+                                            @else
+                                                <img src="{{asset('assets/images/avatar-2.png')}}"
+                                                     width="30">
+                                            @endif
+                                        </td>
+                                        <td>{{ $user->perfomer_surname . " " . $user->perfomer_name . " "  . $user->perfomer_lastname }}</td>
+                                        <td>{{ $user->task }}</td>
+                                        <td>{{ $user->surname . " " . $user->name . " "  . $user->lastname }}</td>
+                                        <td class="text-center">{{ $user->rating }}</td>
+                                        <td >{{ $user?->reason }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="AdminRatingOfCanvas"
+             aria-labelledby="RatingOfCanvas" style="width: 100%; height: 80%;">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="RatingOfCanvas">Лучшие сотрудники по оценке клиентов</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-hover mt-4" cellpadding="5">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Исполнитель</th>
+                                    <th>Название задачи</th>
+                                    <th class="text-center">Оценки админа</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($admin_ratings as $user)
+                                    <tr>
+                                        <td>{{ $loop->index+1 }}</td>
+                                        <td>{{ $user->perfomer_surname . " " . $user->perfomer_name . " "  . $user->perfomer_lastname }}</td>
+                                        <td>{{ $user->task }}</td>
+                                        <td class="text-center">{{ $user->rating }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 {{--  Rating ofcanvas  end  --}}
