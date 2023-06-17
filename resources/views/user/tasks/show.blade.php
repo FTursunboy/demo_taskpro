@@ -29,38 +29,72 @@
                         <a href="{{ route('user.index') }}" class="btn btn-outline-danger">Назад</a>
                     </div>
                     <div class="col-6 d-flex justify-content-end">
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-outline-success mx-3" data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop{{ $task->id }}">Я сделал задачу
                         </button>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static"
-                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ $task->id }}"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <form action="{{ route('task-list.ready', $task->id) }}" method="POST">
-                                    @csrf
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5"
-                                            id="staticBackdropLabel{{ $task->id }}">{{ $task->name }}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <textarea class="form-control" name="success_desc" placeholder="Отчёт проделанной работы" required></textarea>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Отмена
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">Отправить!
-                                        </button>
-                                    </div>
-                                </form>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static"
+                             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ $task->id }}"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form action="{{ route('task-list.ready', $task->id) }}" method="POST">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5"
+                                                id="staticBackdropLabel{{ $task->id }}">{{ $task->name }}</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea class="form-control" name="success_desc" placeholder="Отчёт проделанной работы" required></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Отмена
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Отправить!
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                data-bs-target="#declineTask{{ $task->id }}">Отклонить
+                        </button>
+
+                        <div class="modal fade" id="declineTask{{$task->id}}" data-bs-backdrop="static"
+                             data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="declineTask{{$task->id}}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form action="{{ route('task-list.decline', $task->id) }}" method="POST">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="cancel">Предупреждение</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="cancel">Причина</label>
+                                                <textarea name="cancel" id="cancel" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                            <button type="submit" class="btn btn-primary">Подтвердить</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <p>

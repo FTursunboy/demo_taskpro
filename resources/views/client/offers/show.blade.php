@@ -142,7 +142,14 @@
                                                             </div>
                                                             @if($offer->cancel_admin !== null)
                                                                 <div class="col-md-12">
-                                                                    <input  type="text" disabled class="form-control border-danger" value="{{$offer->cancel_admin}}">
+                                                                    <label for="cancel">Причина отклонения</label>
+                                                                    <textarea id="cancel" class="form-control bg-danger text-white" rows="5">{{ $offer->cancel_admin }}</textarea>
+                                                                </div>
+                                                            @endif
+                                                            @if($offer->cancel !== null)
+                                                                <div class="col-md-12">
+                                                                    <label for="cancel">Причина отклонения</label>
+                                                                    <textarea id="cancel" class="form-control bg-danger text-white" rows="5">{{ $offer->cancel }}</textarea>
                                                                 </div>
                                                             @endif
                                                             @if($offer?->tasks?->success_desc)

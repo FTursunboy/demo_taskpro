@@ -15,9 +15,11 @@ use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\TelegramReady;
 use App\Notifications\Telegram\TelegramUserAccept;
+use App\Notifications\Telegram\TelegramUserDecline;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
@@ -40,17 +42,17 @@ class TaskListController extends BaseController
     public function ready(TaskModel $task, Request $request)
     {
         $request->validate([
-           'success_desc' => 'required',
+            'success_desc' => 'required',
         ]);
 
         $this->stopDeadline($task);
+
         $successDesc = $request->input('success_desc');
 
         $task->update([
             'status_id' => 6,
             'success_desc' => $successDesc,
         ]);
-
 
 
         HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
@@ -71,8 +73,40 @@ class TaskListController extends BaseController
 
         }
 
-
         return redirect()->route('user.index')->with('create', 'Задача отправлена на проверку!');
+    }
+
+    public function decline(TaskModel $task, Request $request)
+    {
+        $request->validate(['cancel' => ['required']]);
+        $decline = UserTaskHistoryModel::where([
+            'user_id' => Auth::id(),
+            'task_id' => $task->id,
+            'status_id' => $task->status_id
+        ])->first();
+
+        $decline?->delete();
+
+        $task->update([
+            'status_id' => 5,
+            'cancel' => $request->input('cancel'),
+        ]);
+
+        HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
+
+        if ($task->offer_id) {
+            $offer = Offer::find($task->offer_id);
+            $offer->cancel = $request->cancel;
+            $offer->status_id = 12;
+            $offer->save();
+            HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::DECLINED);
+        }
+        try {
+            Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, Auth::user()->name));
+        } catch (\Exception $exception) {
+        }
+        Artisan::call('update:task-status');
+        return redirect()->route('user.index')->with('delete', 'Задача отклонена!');
     }
 
     public function stopDeadline(TaskModel $task)
@@ -84,7 +118,7 @@ class TaskListController extends BaseController
             $deadLine = $data->deadline;
             $minus = Carbon::create($deadLine);
 
-            $result =  $date->diff($minus);
+            $result = $date->diff($minus);
 
             $data->count = $result->format('%a');
             $data->save();
