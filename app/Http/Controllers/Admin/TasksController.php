@@ -67,8 +67,21 @@ class  TasksController extends BaseController
                         ['user_id', 35]
                     ])->first();
 
-                    if ($history == null) {
+                    $offer = Offer::where('id', $task->id)->first();
+                    if($offer !== null) {
 
+                        $history_offer = History::where([
+                            ['task_id', $offer->id],
+                            ['status_id', 7],
+                            ['user_id', 35],
+                        ])->first();
+
+                        if ($history_offer == null) {
+                            HistoryController::out_of_date_offer($offer->id);
+                        }
+                    }
+
+                    if ($history == null) {
                         HistoryController::out_of_date($task->id);
                     }
                     $check = CheckDate::where('task_id', $task->id)->first();
@@ -312,7 +325,6 @@ class  TasksController extends BaseController
             'client_id' => $request->client_id ?? null,
             'cancel' => $request->cancel ?? null,
             'cancel_admin' => $request->cancel_admin ?? null,
-            'slug' => Str::slug($request->name . ' ' . Str::random(5)),
         ]);
 
         if ($request->user_id == Auth::id()) {

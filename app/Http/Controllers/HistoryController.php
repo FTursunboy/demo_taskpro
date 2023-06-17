@@ -48,4 +48,13 @@ class HistoryController extends BaseController
             'user_id' => 35
         ]);
     }
+    public static  function out_of_date_offer($offer_id) {
+        History::create([
+            'task_id' => $offer_id,
+            'status_id' => 7,
+            'type' => 'offer',
+            'sender_id' => 35,
+            'user_id' => 35,
+        ]);
+    }
 }
