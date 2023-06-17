@@ -383,25 +383,19 @@
                     </div>
                     <div class="modal-body">
                         <div class="row p-3">
-                            <div class="card-header p-0 pt-1">
-                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="border-radius: 20px">
-                                    <li class="nav-item">
-                                        <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
-                                           id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
-                                           role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История задачи</a>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
+                                           aria-controls="home" aria-selected="true">История</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
-                                           data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
-                                           aria-controls="custom-tabs-one-profile" aria-selected="false">Время задачи</a>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
+                                           aria-controls="profile" aria-selected="false">Потраченное время</a>
                                     </li>
                                 </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
-                                         aria-labelledby="custom-tabs-one-home-tab">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <table class="table mb-0 table-hover">
                                             <thead>
                                             <tr>
@@ -413,29 +407,29 @@
                                             </thead>
                                             <tbody>
                                             @if(isset($histories))
-                                            @foreach($histories as $history)
+                                                @foreach($histories as $history)
 
-                                                <tr>
-                                                    <td>{{$loop->iteration}}</td>
-                                                    <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                    <td>{{$history->user->name }}</td>
-                                                    <td>
-                                                        {{ $history->status?->name }}
+                                                    <tr>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
+                                                        <td>{{$history->user->name }}</td>
+                                                        <td>
+                                                            {{ $history->status?->name }}
 
-                                                        @if ($history->user->hasRole('admin'))
-                                                            (Админ)
-                                                        @elseif ($history->user->hasRole('user'))
-                                                            (Сотрудник)
-                                                        @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
-                                                            (Клиент)
-                                                        @else
-                                                            Роль не определена
-                                                        @endif
-                                                    </td>
+                                                            @if ($history->user->hasRole('admin'))
+                                                                (Админ)
+                                                            @elseif ($history->user->hasRole('user'))
+                                                                (Сотрудник)
+                                                            @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                                                (Клиент)
+                                                            @else
+                                                                Роль не определена
+                                                            @endif
+                                                        </td>
 
-                                                </tr>
-                                            @endforeach
-                                                @elseif(isset($histories_task))
+                                                    </tr>
+                                                @endforeach
+                                            @elseif(isset($histories_task))
                                                 @foreach($histories_task as $history)
 
                                                     <tr>
@@ -462,8 +456,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
-                                         aria-labelledby="custom-tabs-one-profile-tab">
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <table class="table mb-0 table-hover">
                                             <thead>
                                             <tr>
@@ -479,6 +472,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
