@@ -71,7 +71,7 @@ class  MonitoringController extends BaseController
                 ['type', '=', 'offer']
             ])->get();
             $users = User::role('user')->get();
-            dd($histories);
+            
             return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
         }
         else {
