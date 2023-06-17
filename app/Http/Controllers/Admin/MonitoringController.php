@@ -75,10 +75,12 @@ class  MonitoringController extends BaseController
             return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
         }
         else {
+
             $histories_task = History::where([
                 ['task_id', '=', $task->id],
-                ['type', '=', 'task']
+                ['sender_id', '!=', 'null']
             ])->get();
+
 
         }
 

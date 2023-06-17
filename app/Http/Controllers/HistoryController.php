@@ -38,4 +38,14 @@ class HistoryController extends BaseController
             'sender_id' => Auth::id(),
         ]);
     }
+
+    public static function out_of_date($task_id) {
+        History::create([
+            'task_id' => $task_id,
+            'status_id' => 7,
+            'type' => 'offer',
+            'sender_id' => 35,
+            'user_id' => 35
+        ]);
+    }
 }

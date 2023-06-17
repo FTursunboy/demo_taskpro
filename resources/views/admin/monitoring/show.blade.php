@@ -423,7 +423,7 @@
                                                             @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
-                                                                Роль не определена
+                                                                (Система)
                                                             @endif
                                                         </td>
 
@@ -446,7 +446,7 @@
                                                             @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
-                                                                Роль не определена
+                                                                (Система)
                                                             @endif
                                                         </td>
 
