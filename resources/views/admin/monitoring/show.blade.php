@@ -441,7 +441,7 @@
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                        <td>{{$history->user->name }}</td>
+                                                        <td>{{$history->sender->name }}</td>
                                                         <td>
                                                             {{ $history->status?->name }}
 
