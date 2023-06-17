@@ -131,9 +131,9 @@
                                                     <label class="eysan">
                                                         <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
                                                             @csrf
-                                                            <input data-bs-toggle="modal" data-bs-target="#RatingOne" type="button" name="rating" id="rating"  class="star"  value="1">
-                                                            <input data-bs-toggle="modal" data-bs-target="#RatingTwo" type="button" name="rating" id="rating2" class="star2" value="2">
-                                                            <input data-bs-toggle="modal" data-bs-target="#RatingThree" type="button" name="rating" id="rating3" class="star3" value="3">
+                                                            <input data-bs-toggle="modal" data-bs-target="#RatingOne" type="button"  class="star"  >
+                                                            <input data-bs-toggle="modal" data-bs-target="#RatingTwo" type="button"  class="star2" >
+                                                            <input data-bs-toggle="modal" data-bs-target="#RatingThree" type="button"  class="star3" >
                                                             <input type="submit" name="rating" class="star4" value="4">
                                                             <input type="submit" name="rating" class="star5" value="5">
                                                         </form>
