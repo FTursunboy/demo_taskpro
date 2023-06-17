@@ -32,6 +32,7 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('/task-list/new-message/{task}', [\App\Http\Controllers\User\TaskListController::class, 'removeNotification'])->name('removeNotification');
 
         Route::post('/task-list/ready/{task}', [\App\Http\Controllers\User\TaskListController::class, 'ready'])->name('ready');
+        Route::post('/task-list/decline/{task}', [\App\Http\Controllers\User\TaskListController::class, 'decline'])->name('decline');
     });
 
     Route::group(['as' => 'messages.'], function () {
