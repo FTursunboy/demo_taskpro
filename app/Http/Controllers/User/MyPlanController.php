@@ -13,10 +13,8 @@ class MyPlanController extends BaseController
 {
     public function index()
     {
-        $myPlan = $this->myPlan(Auth::id(), Carbon::now()->format('Y-m-d'));
-        $allPlan = MyPlanModel::where('user_id', Auth::id())->orderBy('status', 'asc')
-            ->orderBy('hour', 'asc')->get();
-        return view('user.plan.index', compact('myPlan', 'allPlan'));
+        $allPlan = MyPlanModel::where('user_id', Auth::id())->orderBy('status', 'asc')->orderBy('hour', 'asc')->get();
+        return view('user.plan.index', compact( 'allPlan'));
     }
 
     public function store(Request $request)
@@ -71,28 +69,4 @@ class MyPlanController extends BaseController
         return redirect()->route('plan.index')->with('delete', 'План удалён');
     }
 
-
-    public function myPlan($userID, $today)
-    {
-        return MyPlanModel::where([
-            ['user_id', $userID],
-            ['date', $today],
-        ])
-            ->orderBy('status', 'asc')
-            ->orderBy('hour', 'asc')
-            ->get();
-
-    }
-
-    public function MyPercentPlan($userID)
-    {
-        $plan = $this->myPlan($userID, Carbon::now()->format('Y-m-d'));
-        $percent_100 = $plan->pluck('hour')->sum();
-        $success = $plan->where('status', true)->pluck('hour')->sum();
-        $unSuccess = $plan->where('status', false)->pluck('hour')->sum();
-        return response([
-            'success' => number_format(($success * 100) / $percent_100, 2),
-            'unSuccess' => number_format(($unSuccess * 100) / $percent_100, 2),
-        ]);
-    }
 }

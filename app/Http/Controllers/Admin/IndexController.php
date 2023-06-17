@@ -34,11 +34,24 @@ class IndexController extends BaseController
             ->take(5)
             ->get();
 
+        $admin_users = User::select('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone', 'users.position', 'users.xp')
+            ->selectRaw('AVG(admin_ratings.rating) AS average_rating')
+            ->leftJoin('admin_ratings', 'users.id', '=', 'admin_ratings.user_id')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'user');
+            })
+            ->groupBy('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone', 'users.position', 'users.xp')
+            ->where('admin_ratings.rating', '>', 0)
+            ->orderBy('average_rating', 'desc')
+            ->take(5)
+            ->get();
+
+
         $task = $this->countTasks();
 
         $tasks = ProjectModel::get()->take(5);
 
-        $team_leads = Auth::user()->TeamLeadProject();
+        $team_leads = Auth::user()->TeamLeadProject()->take(5);
 
         $ratings = DB::table('ratings as r')
             ->join('users as u', 'u.id', 'r.user_id')
@@ -51,8 +64,7 @@ class IndexController extends BaseController
         $statistics = TaskModel::where('status_id', '!=', 3)->get();
 
 
-
-        return view('admin.index', compact('task', 'statistics', 'users', 'tasks', 'team_leads', 'ratings'));
+        return view('admin.index', compact('task', 'statistics', 'users', 'tasks', 'team_leads', 'ratings', 'admin_users'));
     }
 
     public function delete(ClientNotification $offer)
@@ -116,7 +128,7 @@ class IndexController extends BaseController
 
 
         $today = Carbon::now();
-        $endRange = $today->copy()->addDays(3);
+        $endRange = $today->copy()->addDays(11);
         $startMonthDay = $today->format('m-d');
         $endMonthDay = $endRange->format('m-d');
 

@@ -40,7 +40,7 @@
                             <li>
                                 <h6 class="dropdown-header">
                                     @foreach($birthdayUsers as $birthday)
-                                        <p><b>{{ $birthday->name }}</b> - {{ date('d-m-Y' , strtotime($birthday->birthday))}} </p>
+                                        <p><b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m' , strtotime($birthday->birthday))}} </p>
                                         <hr>
                                     @endforeach
                                 </h6>
@@ -50,7 +50,7 @@
                 @else
                     <div style="margin-left: 300px;">
                     @foreach($birthdayUsers as $birthday)
-                            <p>Ближайшее день рождение: <b>{{ $birthday->name }}</b> - {{ date('d-m-Y' , strtotime($birthday->birthday))}} </p>
+                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m', strtotime($birthday->birthday))}} </p>
                     @endforeach
                     </div>
                 @endif
