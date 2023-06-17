@@ -63,8 +63,8 @@ class  MonitoringController extends BaseController
     {
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
-        $offer = Offer::find($task->offer_id);
-        if ($offer) {
+        $offer = Offer::where('slug', $task->slug)->first();
+        if ($offer !== null) {
 
             $histories = History::where([
                 ['task_id', '=', $offer->id],
@@ -77,6 +77,7 @@ class  MonitoringController extends BaseController
                 ['task_id', '=', $task->id],
                 ['type', '=', 'task']
             ])->get();
+
         }
 
 
