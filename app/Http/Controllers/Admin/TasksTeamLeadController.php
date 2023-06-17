@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Models\Admin\TaskModel;
+use App\Models\Statuses;
 use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -40,6 +42,7 @@ class TasksTeamLeadController extends BaseController
             ->whereNotNull('deleted_at')
             ->first();
         $task->restore();
+        HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
         $my = CreateMyCommandTaskModel::where([
             ['task_id', $task->id],
             ['user_id', $task->user_id],
