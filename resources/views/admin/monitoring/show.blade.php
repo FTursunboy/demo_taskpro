@@ -413,21 +413,25 @@
                                             </thead>
                                             <tbody>
                                             @foreach($histories as $history)
+
                                                 <tr>
                                                     <td>{{$loop->iteration}}</td>
                                                     <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                    <td>{{$history->sender?->name }}
-                                                        @if ($history->sender->hasRole('admin'))
+                                                    <td>{{$history->user->name }}</td>
+                                                    <td>
+                                                        {{ $history->status?->name }}
+
+                                                        @if ($history->user->hasRole('admin'))
                                                             (Админ)
-                                                        @elseif ($history->sender->hasRole('user'))
+                                                        @elseif ($history->user->hasRole('user'))
                                                             (Сотрудник)
-                                                        @elseif ($history->sender->hasRole('client') || $history->sender->hasRole('client-worker'))
+                                                        @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
                                                             (Клиент)
                                                         @else
                                                             Роль не определена
                                                         @endif
                                                     </td>
-                                                    <td>{{$history->status?->name}}</td>
+
                                                 </tr>
                                             @endforeach
                                             </tbody>

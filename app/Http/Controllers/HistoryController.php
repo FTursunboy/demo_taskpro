@@ -25,7 +25,8 @@ class HistoryController extends BaseController
             'user_id' => $user_id,
             'client_id' => $client_id,
             'status_id' => $status_id,
-            'type' => 'offer'
+            'type' => 'offer',
+            'sender_id' => Auth::id(),
         ]);
     }
 
@@ -33,7 +34,8 @@ class HistoryController extends BaseController
         History::create([
             'task_id' => $task_id,
             'status_id' => $status_id,
-            'type' => 'project'
+            'type' => 'project',
+            'sender_id' => Auth::id(),
         ]);
     }
 }

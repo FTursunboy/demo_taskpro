@@ -12,6 +12,7 @@ use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
+use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\Statuses;
 use App\Models\User;
@@ -62,10 +63,22 @@ class  MonitoringController extends BaseController
     {
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
-        $histories = History::where([
-            ['task_id', '=', $task->id],
-            ['type', '=', 'task']
-        ])->get();
+        $offer = Offer::find($task->offer_id);
+        if ($offer) {
+
+            $histories = History::where([
+                ['task_id', '=', $offer->id],
+                ['type', '=', 'offer']
+            ])->get();
+
+        }
+        else {
+            $histories = History::where([
+                ['task_id', '=', $task->id],
+                ['type', '=', 'task']
+            ])->get();
+        }
+
 
         $users = User::role('user')->get();
 
