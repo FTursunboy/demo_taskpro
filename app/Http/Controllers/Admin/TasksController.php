@@ -6,6 +6,8 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Jobs\ChatSendEmailClientJob;
+use App\Jobs\ChatUserNotificationJob;
 use App\Mail\ChatEmail;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
@@ -50,11 +52,11 @@ class  TasksController extends BaseController
                     $task->save();
 
                     CheckDate::updateOrCreate(
-                    ['task_id' => $task->id],
-                    [
-                        'deadline' => $task->to,
-                        'task_id' => $task->id,
-                    ]);
+                        ['task_id' => $task->id],
+                        [
+                            'deadline' => $task->to,
+                            'task_id' => $task->id,
+                        ]);
                     $history = History::where([
                         ['task_id', $task->id],
                         ['status_id', 7],
@@ -62,7 +64,7 @@ class  TasksController extends BaseController
                     ])->first();
 
                     $offer = Offer::where('id', $task->id)->first();
-                    if($offer !== null) {
+                    if ($offer !== null) {
 
                         $history_offer = History::where([
                             ['task_id', $offer->id],
@@ -84,7 +86,7 @@ class  TasksController extends BaseController
                     $deadLine = $check->deadline;
                     $minus = Carbon::create($deadLine);
 
-                    $result =  $date->diff($minus);
+                    $result = $date->diff($minus);
 
                     $check->count = $result->format('%a');
                     $check->save();
@@ -158,15 +160,13 @@ class  TasksController extends BaseController
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
         ]);
 
-        try {
-            Notification::send(User::find($task->user_id), new Chat($messages_models, $task->name, $task->id));
-            $user = User::find($task->client_id);
-            $email = $user?->clientEmail?->email;
+        $user = User::find($task->client_id);
+        $email = $user?->clientEmail?->email;
 
-            Mail::to($email)->send(new ChatEmail($task->name, $request->message));
-        } catch (\Exception $exception) {
+        ChatUserNotificationJob::dispatch($task->user_id, $messages_models, $task->name, $task->id);
+        ChatSendEmailClientJob::dispatch($task->name, $messages_models->message, $email);
 
-        }
+
         return response([
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,
@@ -428,7 +428,6 @@ class  TasksController extends BaseController
             }
 
 
-
         } else {
             $user = User::where('id', $request->employee)->first();
             if ($user->position === 'Admin') {
@@ -498,7 +497,8 @@ class  TasksController extends BaseController
         return TaskTypesTypeModel::where('typeTask_id', $id)->select('id', 'name')->get();
     }
 
-    public function delete(MessagesModel $mess) {
+    public function delete(MessagesModel $mess)
+    {
         $mess->delete();
         return redirect()->back();
     }
