@@ -18,13 +18,15 @@ class TelegranAdminSendJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $name;
+    private $user;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($name)
+    public function __construct($name, $user)
     {
         $this->name = $name;
+        $this->user = $user;
     }
 
     /**
@@ -33,7 +35,7 @@ class TelegranAdminSendJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            Notification::send(User::role('admin')->first(), new TelegramClientTask($this->name, "123"));
+            Notification::send(User::role('admin')->first(), new TelegramClientTask($this->name, $this->user));
         } catch (\Exception $exception) {
 
         }
