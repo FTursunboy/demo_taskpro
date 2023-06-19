@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Controllers\HistoryController;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
 use Illuminate\Bus\Queueable;
@@ -46,7 +47,7 @@ class NewOfferStoreJobMake implements ShouldQueue
 
 
 
-    public function handle(): void
+    public function handle(): Offer
     {
         $request = $this->data;
 
@@ -68,7 +69,11 @@ class NewOfferStoreJobMake implements ShouldQueue
             'slug' => $slug,
         ]);
 
-
-
+        $offer_test =  Offer::where([
+            'name' => $request->name,
+            'description' => $request->description,
+        ])->first();
+        HistoryController::client($offer_test->id, Auth::id(), Auth::id(), 2);
+        return $offer;
     }
 }
