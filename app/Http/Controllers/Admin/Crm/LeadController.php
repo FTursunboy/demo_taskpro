@@ -16,6 +16,7 @@ use App\Models\Admin\CRM\LeadStatus;
 use App\Models\Admin\CRM\ThemeEvent;
 use App\Models\Admin\CRM\TypeEvent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +29,6 @@ class LeadController extends BaseController
         $sources = LeadSource::get();
 
         $leads = Lead::orderBy('created_at', 'desc')->get();
-
 
         return view('admin.CRM.leads.index', compact('leads', 'statuses', 'states', 'sources'));
     }
@@ -137,7 +137,7 @@ class LeadController extends BaseController
     }
 
 
-    public function filter($status, $state, $source) {
+    public function filter($month, $status, $state, $source) {
         $leads = Lead::query();
 
         if ($status) {
@@ -158,6 +158,12 @@ class LeadController extends BaseController
             });
         }
 
+        if ($month  !== '0') {
+            $leads->where(function ($query) use ($month) {
+                $query->whereMonth('leads.created_at', '=', $month);
+            });
+        }
+
         $filteredLeads = $leads->join('lead_sources as ls', 'ls.id', '=', 'leads.lead_source_id')
             ->join('lead_states as lstat', 'leads.lead_state_id', '=', 'lstat.id')
             ->join('lead_statuses as sts', 'leads.lead_status_id', '=', 'sts.id')
@@ -165,11 +171,12 @@ class LeadController extends BaseController
             ->select('leads.id', 'leads.author', 'leads.created_at as date', 'lstat.name as lead_state', 'sts.name as status', 'ls.name as source', 'c.fio as contact_name')
             ->get();
 
-
         return response([
             'data' => $filteredLeads,
         ]);
     }
+
+
 
     public function contact(Lead $lead) {
         $contacts = Contact::where('contact_id', $lead->id)->get();
