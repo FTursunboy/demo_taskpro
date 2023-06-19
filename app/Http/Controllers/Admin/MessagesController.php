@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Jobs\ChatSendEmailClientJob;
+use App\Jobs\ChatTelegramNotificationAdminJob;
 use App\Mail\ChatEmail;
 use App\Mail\Send;
 use App\Models\Admin\MessagesModel;
@@ -45,10 +47,15 @@ class MessagesController extends BaseController
 
             $user = User::find($task->client_id);
             $email = $user?->clientEmail?->email;
-            if ($email) {
-                Mail::to($email)->send(new ChatEmail($task->name, $request->message));
-            }
-            Notification::send(User::find(1), new Chat($messages_models, $task->name, $task->id));
+        $user = User::find($task->client_id);
+        $email = $user?->clientEmail?->email;
+        if ($email) {
+            ChatSendEmailClientJob::dispatch($task->name, $messages_models->message, $email);
+        }
+
+
+            ChatTelegramNotificationAdminJob::dispatch($messages_models, $task->name, $task->id);
+
 
         return response([
             'user' => $email,

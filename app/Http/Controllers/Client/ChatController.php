@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Jobs\ChatTelegramNotification;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ChatMessageModel;
@@ -46,16 +47,12 @@ class ChatController extends BaseController
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'sender_id' => Auth::id(),
         ]);
-        $task = TaskModel::where('offer_id', $offer->id);
+        $task = TaskModel::where('offer_id', $offer->id)->first();
         $admin = User::where('position', 'admin')->first();
 
 
-        try {
-            Notification::send(User::find(1), new Chat($messages_models, $offer->name, $offer->id));
-            Notification::send(User::find($offer->user_id), new Chat($messages_models, $offer->name, $offer->id));
-        } catch (\Exception $exception) {
+        ChatTelegramNotification::dispatch($messages_models, $offer->name, $task->id, $offer->user_id);
 
-        }
 
         return response([
             'admin' => $admin->telegram_user_id,
