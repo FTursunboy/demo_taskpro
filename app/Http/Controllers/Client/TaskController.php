@@ -81,7 +81,7 @@ class TaskController extends BaseController
         } catch (\Exception $exception) {
 
         }
-      
+
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 
