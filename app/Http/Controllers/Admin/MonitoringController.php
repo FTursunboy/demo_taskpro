@@ -170,6 +170,16 @@ class  MonitoringController extends BaseController
                 ]);
             }
 
+            $offer = Offer::where('id', $task->offer_id)->first();
+
+            if ($offer){
+                $offer->name = $request->name;
+                $offer->description = $request->comment ?? null;
+                $offer->file = $file ?? null;
+                $offer->file_name = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
+                $offer->save();
+            }
+
         $project = ProjectModel::where('id', $request->project_id)->first();
         $project->update([
             'pro_status' => 2,
