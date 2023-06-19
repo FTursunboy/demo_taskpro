@@ -131,9 +131,12 @@ class LeadController extends BaseController
     }
 
     public function show(Lead $lead) {
+        $events = Event::where('lead_id', $lead->id)->get();
+        $themeEvents = ThemeEvent::get();
+        $typeEvents = TypeEvent::get();
+        $eventStatuses = EventStatus::get();
 
-
-        return view('admin.CRM.leads.show', compact('lead'));
+        return view('admin.CRM.leads.show', compact('lead', 'events', 'themeEvents', 'typeEvents', 'eventStatuses'));
     }
 
 
