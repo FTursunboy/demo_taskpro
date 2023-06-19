@@ -71,7 +71,7 @@ class  MonitoringController extends BaseController
                 ['type', '=', 'offer']
             ])->get();
             $users = User::role('user')->get();
-            
+
             return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
         }
         else {
@@ -143,6 +143,16 @@ class  MonitoringController extends BaseController
                     'percent' => null,
                     'kpi_id' => null,
                 ]);
+            }
+
+            $offer = Offer::where('id', $task->offer_id)->first();
+
+            if ($offer){
+                $offer->name = $request->name;
+                $offer->description = $request->comment ?? null;
+                $offer->file = $file ?? null;
+                $offer->file_name = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
+                $offer->save();
             }
 
         $project = ProjectModel::where('id', $request->project_id)->first();

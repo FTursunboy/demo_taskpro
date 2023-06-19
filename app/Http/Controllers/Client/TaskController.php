@@ -121,12 +121,15 @@ class TaskController extends BaseController
 
         $offer->save();
 
-        TaskModel::update([
-            'name' => $request->name,
-            'comment' => $request->comment,
-            'file' =>  $request->file('file')->store('public/docs'),
-            'file_name' => $upload_file->getClientOriginalName(),
-        ]);
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+
+        if ($task) {
+            $task->name = $request->name;
+            $task->comment = $request->description;
+            $task->file = $request->file('file')->store('public/docs');
+            $task->file_name = $upload_file->getClientOriginalName();
+            $task->save();
+        }
 
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 8);
         return redirect()->route('offers.index')->with('update', 'Успешно обновлено!');
