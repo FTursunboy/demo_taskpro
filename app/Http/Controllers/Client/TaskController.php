@@ -42,8 +42,9 @@ class TaskController extends BaseController
     }
 
 
-    public function show(Offer $offer) {
+    public function show($slug) {
 
+        $offer = Offer::where('slug', $slug)->first();
 
         $histories = History::where([
             ['type', '=', 'offer'],

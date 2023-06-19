@@ -18,6 +18,7 @@ use App\Notifications\Telegram\TelegramUserAccept;
 use App\Notifications\Telegram\TelegramUserDecline;
 use Carbon\Carbon;
 use Database\Factories\UserFactory;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -25,8 +26,9 @@ use Illuminate\Support\Facades\Notification;
 
 class TaskListController extends BaseController
 {
-    public function show(TaskModel $task)
+    public function show($slug)
     {
+        $task = TaskModel::where('slug', $slug)->first();
 
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
         return view('user.tasks.show', compact('task', 'messages'));

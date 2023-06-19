@@ -85,7 +85,7 @@
                                 @endif
                                 <td>
 
-                                    <a class="badge bg-success p-2" href="{{ route('offers.show', $task->id) }}"><i
+                                    <a class="badge bg-success p-2" href="{{ route('offers.show', $task->slug) }}"><i
                                                 class="bi bi-eye"></i></a>
 
                                     <a data-bs-toggle="offcanvas" data-bs-target="#EditTaskClient{{ $task->id }}"
