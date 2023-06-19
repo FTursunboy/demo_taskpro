@@ -57,17 +57,15 @@ class IndexController extends BaseController
             ->join('users as u', 'u.id', 'r.user_id')
             ->join('users as c', 'c.id', 'r.client_id')
             ->join('task_models as t', 't.slug', 'r.task_slug')
-            ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname',  'c.*', 't.name as task', 'r.rating', 'r.reason')
+            ->select('u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname', 'c.*', 't.name as task', 'r.rating', 'r.reason')
             ->orderByDesc('r.rating')
             ->get();
-
-
 
 
         $admin_ratings = DB::table('admin_ratings as r')
             ->join('users as u', 'u.id', 'r.user_id')
             ->join('task_models as t', 't.id', 'r.task_id')
-            ->select( 'u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname', 't.name as task', 'r.rating')
+            ->select('u.name AS perfomer_name', 'u.surname AS perfomer_surname', 'u.lastname AS perfomer_lastname', 't.name as task', 'r.rating')
             ->orderByDesc('r.rating')
             ->get();
 
@@ -120,7 +118,7 @@ class IndexController extends BaseController
         return view('admin.tasks.success', compact('success'));
     }
 
-    public function  clientVerification()
+    public function clientVerification()
     {
         $clientVerifications = TaskModel::where('status_id', 10)->count();
 
@@ -159,16 +157,30 @@ class IndexController extends BaseController
 
     }
 
-    public function statistics()
+    public function filter($month)
     {
-        $task = new TasksController();
-        $task->check();
-        $tasks = TaskModel::where('status_id', '!=', 3)->get();
-        $statuses = StatusesModel::get();
-        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
-        $user = User::role('user')->get();
-        $clients = User::role('client')->get();
-        return view('admin.index', compact('tasks', 'statuses', 'projects', 'user', 'clients'));
+        return $this->getFilter($month);
+    }
+
+    public function getFilter($month)
+    {
+        $tasks = TaskModel::with('checkDate', 'author', 'status', 'user', 'type', 'typeType', 'project');
+        if ($month == '0') {
+            return response([
+                'statistics' => $tasks->get(),
+            ]);
+        } else {
+            $startOfMonth = Carbon::now()->month($month)->startOfMonth();
+            $endOfMonth = Carbon::now()->month($month)->endOfMonth();
+            $tasks->whereBetween('created_at', [
+                $startOfMonth,
+                $endOfMonth
+            ]);
+        }
+
+        return response([
+                'statistics' => $tasks->get(),
+            ]);
     }
 
 }
