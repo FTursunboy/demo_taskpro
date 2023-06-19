@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
                 $user = User::where('id', Auth::user()->id)->first();
                 Notification::send($user, new AuthNotification($user->surname, $user->name));
             } catch (\Exception $exception) {
-                dd($exception->getMessage());
+//                dd($exception->getMessage());
             }
             return match ($role) {
                 'admin' => redirect()->intended(RouteServiceProvider::HOME),
