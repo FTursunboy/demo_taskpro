@@ -670,7 +670,7 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
-
+                        console.log(response)
                         $('#message').val('');
                         $('#file').val('');
 
@@ -709,7 +709,8 @@
 
                     },
                     error: function (xhr, status, error) {
-                        alert('Ошибка при отправке сообщения');
+                        console.log(xhr, status)
+                        alert('Ошибка при отправке сообщения' + status + xhr);
                     }
                 });
             });
