@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('tasks.index') }}">Список задач</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('mon.index') }}">Список задач</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Обновление задачи</li>
                         </ol>
                     </nav>
@@ -26,7 +26,7 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('tasks.index') }}" class="btn btn-outline-danger">
+                <a href="{{ route('mon.index') }}" class="btn btn-outline-danger">
                     Назад
                 </a>
             </div>

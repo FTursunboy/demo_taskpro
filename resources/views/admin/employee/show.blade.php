@@ -341,7 +341,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{ route('tasks.index') }}" class="btn btn-outline-primary">
+                            <a href="{{ route('mon.index') }}" class="btn btn-outline-primary">
                                 Задачи
                             </a>
                         </div>

@@ -23,7 +23,7 @@
 
         @include('inc.messages')
 
-        <a href="{{ route('tasks.index') }}" class="btn btn-outline-primary mb-4">
+        <a href="{{ route('mon.index') }}" class="btn btn-outline-primary mb-4">
             Назад
         </a>
         <div class="row">

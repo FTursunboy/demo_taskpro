@@ -359,7 +359,7 @@ class  TasksController extends BaseController
         $task1 = new TasksController();
 
         $task1->check();
-        return redirect()->route('tasks.index')->with('update', 'Задача успешно обновлена');
+        return redirect()->route('mon.index')->with('update', 'Задача успешно обновлена');
     }
 
     public function sendBack(Request $request, TaskModel $task)
@@ -489,7 +489,7 @@ class  TasksController extends BaseController
             HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
         }
 
-        return redirect()->route('tasks.index')->with('create', 'Задача готова!');
+        return redirect()->route('mon.index')->with('create', 'Задача готова!');
     }
 
     public function destroy(TaskModel $task)
