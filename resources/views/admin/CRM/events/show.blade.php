@@ -26,7 +26,7 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('event.index') }}" class="btn btn-outline-danger">
+                <a onclick="history.back()" class="btn btn-outline-danger">
                     Назад
                 </a>
                 <a href="{{ route('event.edit', $event->id) }}" class="btn btn-outline-primary mx-2">
