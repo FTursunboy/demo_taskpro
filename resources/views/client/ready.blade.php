@@ -86,11 +86,11 @@
                                 @endif
                                 <td>
 
-                                    <a class="badge bg-success p-2" href="{{route('offers.show', $task->id)}}"><i
+                                    <a class="badge bg-success p-2" href="{{route('offers.show', $task->slug)}}"><i
                                             class="bi bi-eye"></i></a>
-                                    <a class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
+                                    <a data-bs-toggle="offcanvas" data-bs-target="#EditTaskClient{{ $task->id }}"
+                                       aria-controls="EditTaskClient{{ $task->id }}" class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
                                             class="bi bi-pencil"></i></a>
-
 
                                     <a class=" badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i
                                             class="bi bi-chat"></i></a>
@@ -150,7 +150,73 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="EditTaskClient{{ $task->id }}"
+                                 aria-labelledby="EditTaskClient{{ $task->id }}" style="width: 100%; height: 80%;">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="EditTaskClient{{ $task->id }}">{{ $task->name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <div class="container my-5">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-lg-9">
+                                                <form method="post" action="{{route('offers.update', $task->id)}}"
+                                                      enctype="multipart/form-data"
+                                                      autocomplete="off">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <div class="row g-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Название задачи</label>
+                                                            <textarea id="name" class="form-control"
+                                                                      name="name"
+                                                                      rows="5" required>{{ $task->name }}</textarea>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Ответственный сотрудник со стороны
+                                                                компании</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   name="author_name" id="author_name"
+                                                                   value="{{ $task->author_name }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Телефон ответственного сотрудника</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   name="author_phone" id="author_phone"
+                                                                   value="{{ $task->author_phone }}" required>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Выберите файл</label>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="file">
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="your-message" class="form-label">Описание
+                                                                задачи</label>
+                                                            <textarea id="description" class="form-control"
+                                                                      name="description"
+                                                                      rows="5">{{ $task->description }}</textarea>
+                                                        </div>
+                                                        <div class="col-md-6">
 
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col-12">
+                                                            <button type="submit" class="btn btn-success form-control">
+                                                                Обновить
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @empty
                             <td colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
                         @endforelse
