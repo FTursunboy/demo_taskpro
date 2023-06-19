@@ -137,6 +137,7 @@
 @section('script')
     <script src="{{asset('assets/js/filter3.js')}}"></script>
     <script src="{{asset('assets/js/table2excel.js')}}" ></script>
+
     <script>
         $(document).ready(function () {
             document.getElementById('excel').addEventListener('click', function () {
