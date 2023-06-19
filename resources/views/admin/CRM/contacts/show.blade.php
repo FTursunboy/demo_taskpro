@@ -25,7 +25,7 @@
 
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('contact.index') }}" class="btn btn-outline-danger">
+                <a onclick="history.back()" class="btn btn-outline-danger">
                     Назад
                 </a>
                 <a href="{{ route('contact.edit', $contact->id) }}" class="btn btn-outline-primary">
