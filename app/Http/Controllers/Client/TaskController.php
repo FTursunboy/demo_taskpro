@@ -69,12 +69,12 @@ class TaskController extends BaseController
         }
 
 
-//        NewOfferStoreJobMake::dispatch(
-//            $request->except('file'),
-//            $file,
-//            $file_name,
-//            Auth::id()
-//        );
+        NewOfferStoreJobMake::dispatch(
+            $request->except('file'),
+            $file,
+            $file_name,
+            Auth::id()
+        );
 
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
