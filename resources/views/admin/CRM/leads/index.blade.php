@@ -32,6 +32,25 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
+                                <select class="form-select" name="month" id="month">
+                                    <option value="0">фильтр по месяцу</option>
+                                        <option value="1">Январь</option>
+                                        <option value="2">Февраль</option>
+                                        <option value="3">Март</option>
+                                        <option value="4">Апрель</option>
+                                        <option value="5">Май</option>
+                                        <option value="6">Июнь</option>
+                                        <option value="7">Июль</option>
+                                        <option value="8">Август</option>
+                                        <option value="9">Сентябрь</option>
+                                        <option value="10">Октябрь</option>
+                                        <option value="11">Ноябрь</option>
+                                        <option value="12">Декабрь</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
                                 <select class="form-select" name="status" id="status">
                                     <option value="0">фильтр по стадию</option>
                                     @foreach($statuses as $status)
@@ -160,7 +179,7 @@
             for (var i = 0; i < optionElements.length; i++) {
             var option = optionElements[i];
             if (option.value === "0" && option.selected) {
-            option.style.color = "red"; // Change the color to your desired color
+            option.style.color = "red";
         }
         }
 
@@ -185,21 +204,21 @@
                 },
             });
 
-            $('#status, #state, #source').on('change', function() {
+            $('#month, #status, #state, #source').on('change', function() {
                 filterLeads()
             });
 
             function filterLeads() {
+                let month = $('#month').val();
                 let status = $('#status').val();
                 let state = $('#state').val();
                 let source = $('#source').val();
 
-                $.get(`tasks/public/filter-leads/${status}/${state}/${source}`, function(responce) {
+                $.get(`tasks/public/filter-leads/${month}/${status}/${state}/${source}`, function(responce) {
                     let table = $('#tbody').empty();
-                    console.log(responce)
-                    buildTable(responce.data, table)
+                    console.log(responce);
+                    buildTable(responce.data, table);
                 });
-
 
 
             }
@@ -214,7 +233,7 @@
 
                     let row = `<tr>
                   <td>${i + 1}</td>
-                  <td>${item.contact_name}</td>
+                  <td>${(item.contact_name)}</td>
                   <td>${item.status}</td>
                   <td>${item.source}</td>
                   <td>${item.lead_state}</td>
