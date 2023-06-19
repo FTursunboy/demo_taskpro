@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Requests\Client\TaskRequest;
+use App\Jobs\NewOfferStoreJob;
+use App\Jobs\NewOfferStoreJobMake;
+use App\Jobs\StoreOfferJob;
 use App\Mail\Send;
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
@@ -33,6 +36,7 @@ class TaskController extends BaseController
             ['client_id', '=', Auth::id()],
         ])->get();
 
+
         return view('client.offers.index', compact('tasks'));
     }
 
@@ -59,42 +63,19 @@ class TaskController extends BaseController
             $upload_file = $request->file('file');
             $file_name = $upload_file->getClientOriginalName();
             $file = $request->file('file')->store('public/docs');
-            //            $file = Storage::disk('public')->put('/docs', $upload_file);
         } else {
             $file = null;
             $file_name = null;
         }
 
-        $offer = Offer::create([
-            'name' => $request->name,
-            'description' => ($request->description === null)? null:$request->description,
-            'author_name' => $request->author_name,
-            'author_phone' => $request->author_phone,
-            'file' => $file,
-            'file_name' => $file_name,
-            'status_id' => 8,
-            'client_id' => Auth::id(),
-            'slug' => Str::slug($request->name . ' ' . Str::random(5), '-'),
-        ]);
 
-        ClientNotification::create([
-            'offer_id' => $offer->id
-        ]);
+//        NewOfferStoreJobMake::dispatch(
+//            $request->except('file'),
+//            $file,
+//            $file_name,
+//            Auth::id()
+//        );
 
-        $mail = EmailModel::first()->email;
-
-        $name = Auth::user()->name;
-
-       // Mail::to($mail)->send(new Send($name));
-
-        $user = User::role('admin')->first();
-
-        HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
-
-        try {
-            Notification::send(User::role('admin')->first(), new TelegramClientTask($offer->name, Auth::user()->name));
-        } catch (\Exception $exception) {
-        }
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 
