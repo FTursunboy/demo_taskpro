@@ -9,8 +9,10 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::group(['as' => 'admin.'], function () {
         Route::get('dashboard-admin', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('index');
-
         Route::get('dasboard-admin/birthday', [\App\Http\Controllers\Admin\IndexController::class, 'birthday'])->name('birthday');
+
+        Route::get('/tasks/public/monitoring-statistics-filter/{month}', [\App\Http\Controllers\Admin\IndexController::class, 'filter'])->name('filter');
+
 
         Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
         Route::get('admin/ideas/downloadFile/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'downloadFile'])->name('ideas.downloadFile');
