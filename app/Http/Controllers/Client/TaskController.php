@@ -81,15 +81,7 @@ class TaskController extends BaseController
         } catch (\Exception $exception) {
 
         }
-        $offer_test =  Offer::where([
-            'name' => $request->name,
-            'description' => $request->description,
-        ])->first();
-
-        HistoryController::client($offer_test->id, Auth::id(), Auth::id(), 2);
-
-
-
+      
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 
