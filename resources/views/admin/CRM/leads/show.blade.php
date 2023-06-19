@@ -101,7 +101,9 @@
                     </div>
                 </form>
             </div>
-            <div class="card-body" style="overflow: auto;">
+
+            <div class="row">
+            <div class="card-body col-md-5" style="overflow: auto;">
                 <h2 class="text-center">Список контактов лида</h2>
                 <table id="example" class="table table-hover">
                     <thead>
@@ -125,9 +127,9 @@
                             <td>{{ Str::limit($contact?->fio, 20) }}</td>
 
                             <td class="text-center">
-                                <a href="{{ route('contact.show', $contact->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                <a href="{{ route('contact.edit', $contact->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
-                                <a class="btn btn-danger" data-bs-toggle="modal"
+                                <a href="{{ route('contact.show', $contact->id)   }}" class="badge bg-success p-2"><i class="bi bi-eye"></i></a>
+                                <a href="{{ route('contact.edit', $contact->id) }}" class="badge bg-primary p-2"><i class="bi bi-pencil"></i></a>
+                                <a class="badge bg-danger p-2" data-bs-toggle="modal"
                                    data-bs-target="#delete{{$contact->id}}"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
@@ -165,6 +167,69 @@
                     @endforeach
                     </tbody>
                 </table>
+            </div>
+                <div class="card-body col-md-6" style="overflow: auto;">
+                    <h2 class="text-center">Список событый лида</h2>
+                    <table id="example" class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Тема</th>
+                            <th>Тип</th>
+                            <th>Статус</th>
+                            <th class="text-center">Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    @foreach($events as $event)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ Str::limit($event->themeEvent?->theme, 15) }}</td>
+                            <td>{{ Str::limit($event->typeEvent?->name, 15) }}</td>
+                            <td>{{ Str::limit($event->eventStatus?->name, 15) }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('event.show', $event->id) }}" class="badge bg-success p-2"><i class="bi bi-eye"></i></a>
+
+                                <a href="{{ route('event.edit', $event->id) }}" class="badge bg-primary p-2"><i class="bi bi-pencil"></i></a>
+                                <a class="badge bg-danger p-2" data-bs-toggle="modal"
+                                   data-bs-target="#delete{{$event->id}}"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+
+                        <div class="modal fade text-left" id="delete{{$event->id}}" tabindex="-1" role="dialog"
+                             aria-labelledby="delete{{$event->id}}" data-bs-backdrop="false" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                <form action="{{ route('event.destroy', $event->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="delete{{$event->id}}">Предупреждение</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Точно хотите удалить событие?
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-secondary"
+                                                    data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Нет</span>
+                                            </button>
+                                            <button type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Да, точно</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
             </div>
         </div>
     </div>
