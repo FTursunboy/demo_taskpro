@@ -31,8 +31,10 @@ class GetAllTasksController extends BaseController
         return view('user.all-tasks.index', compact('tasks'));
     }
 
-    public function show(TaskModel $task)
+    public function show($slug)
     {
+        $task = TaskModel::where('slug', $slug)->first();
+
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
         $histories = History::where([
