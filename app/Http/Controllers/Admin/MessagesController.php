@@ -34,7 +34,7 @@ class MessagesController extends BaseController
             $file = null;
         }
 
-        $messages_models = MessagesModel::create([
+        $messages_models =  MessagesModel::create([
             'task_slug' => $task->slug,
             'sender_id' => Auth::id(),
             'user_id' => ($task->offer_id !== null) ? $task->client_id : $user_id->id,
@@ -44,20 +44,27 @@ class MessagesController extends BaseController
         ]);
 
 
-    
 
-        ChatTelegramNotificationAdminJob::dispatch($messages_models, $task->name, $task->id);
+
+        $user = User::find($task->client_id);
+        $email = $user?->clientEmail?->email;
+        if ($email) {
+            ChatSendEmailClientJob::dispatch($task->name, $messages_models->message, $email);
+        }
+
+
+            ChatTelegramNotificationAdminJob::dispatch($messages_models, $task->name, $task->id);
 
 
         return response([
+            'user' => $email,
             'messages' => $messages_models,
             'name' => $messages_models->sender->name,
             'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))
         ]);
     }
 
-    public function delete(MessagesModel $mess)
-    {
+    public function delete(MessagesModel $mess) {
         $mess->delete();
         return back();
     }

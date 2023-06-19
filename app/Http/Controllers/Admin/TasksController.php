@@ -160,10 +160,6 @@ class  TasksController extends BaseController
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
         ]);
 
-        $user = User::find($task->client_id);
-        $email = $user?->clientEmail?->email;
-
-        ChatUserNotificationJob::dispatch($task->user_id, $messages_models, $task->name, $task->id);
         ChatSendEmailClientJob::dispatch($task->name, $messages_models->message, $email);
 
 
