@@ -59,8 +59,10 @@ class  MonitoringController extends BaseController
     }
 
 
-    public function show(TaskModel $task)
+    public function show($slug)
     {
+        $task = TaskModel::where('slug', $slug)->first();
+
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
         $offer = Offer::where('slug', $task->slug)->first();
@@ -90,8 +92,10 @@ class  MonitoringController extends BaseController
         return view('admin.monitoring.show', compact('task', 'messages', 'histories_task', 'users'));
     }
 
-    public function edit(TaskModel $task)
+    public function edit($slug)
     {
+        $task = TaskModel::where('slug', $slug)->first();
+
         $types = TaskTypeModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -100,8 +104,10 @@ class  MonitoringController extends BaseController
         return view('admin.monitoring.edit', compact('types', 'projects', 'users', 'task', 'type_kpi'));
     }
 
-    public function update(Request $request, TaskModel $task)
+    public function update(Request $request, $slug)
     {
+        $task = TaskModel::where('slug', $slug)->first();
+
         $file = $task->file;
 
         if ($request->hasFile('file')) {
@@ -145,7 +151,7 @@ class  MonitoringController extends BaseController
                 if ($history?->user_id != $task->user_id) {
 
                     $history?->delete();
-                   
+
                    $task->status_id = 1;
                    $task->save();
 

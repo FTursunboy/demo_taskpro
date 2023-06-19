@@ -35,7 +35,7 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
         Route::get('offers/edit/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'edit'])->name('edit');
         Route::patch('offers/update/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'update'])->name('update');
         Route::delete('offers/delete/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'delete'])->name('delete');
-        Route::get('offers/show/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'show'])->name('show');
+        Route::get('offers/show/{slug}', [\App\Http\Controllers\Client\TaskController::class, 'show'])->name('show');
         Route::get('offers/download/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'downloadFile'])->name('download');
         Route::get('offers/ready/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'ready'])->name('ready');
         Route::get('offers/decline/{offer}', [\App\Http\Controllers\Client\TaskController::class, 'decline'])->name('decline');

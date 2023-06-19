@@ -117,7 +117,7 @@
                                 <td class="text-center">{{$task->checkDate?->count}}</td>
                                 <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
+                                    <a href="{{ route('mon.show', $task->slug) }}" class="btn btn-success"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
