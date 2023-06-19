@@ -43,7 +43,7 @@ class MessagesController extends BaseController
             'message' => $request->message
         ]);
 
-        
+
         $user = User::find($task->client_id);
         $email = $user?->clientEmail?->email;
         if ($email) {
