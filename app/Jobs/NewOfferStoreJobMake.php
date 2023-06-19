@@ -70,8 +70,8 @@ class NewOfferStoreJobMake implements ShouldQueue
         ]);
 
         $offer_test =  Offer::where([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $name,
+            'description' => $description,
         ])->first();
         HistoryController::client($offer_test->id, Auth::id(), Auth::id(), 2);
         return $offer;
