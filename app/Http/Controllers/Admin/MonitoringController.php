@@ -71,7 +71,7 @@ class  MonitoringController extends BaseController
                 ['type', '=', 'offer']
             ])->get();
             $users = User::role('user')->get();
-            
+
             return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
         }
         else {
@@ -117,6 +117,10 @@ class  MonitoringController extends BaseController
             ['user_id', $task->user_id],
             ['task_id', $task->id]
         ])->first();
+
+
+
+
             $task->update([
                 'name' => $request->name,
                 'time' => $request->time,
@@ -137,6 +141,27 @@ class  MonitoringController extends BaseController
                 'cancel_admin' => $request->cancel_admin ?? null,
                 'slug' => Str::slug($request->name . ' ' . Str::random(5)),
             ]);
+            if (isset($history)) {
+                if ($history?->user_id != $task->user_id) {
+
+                    $history?->delete();
+                   
+                   $task->status_id = 1;
+                   $task->save();
+
+
+                    try {
+                        Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->type->name));
+                    } catch (\Exception $exception) {
+
+                    }
+                }
+            }
+
+
+
+
+
 
             if ($request->type_id != 2) {
                 $task->update([
@@ -151,13 +176,7 @@ class  MonitoringController extends BaseController
         ]);
 
         $type = TaskTypeModel::find($request->type_id)?->name;
-        if ($history === null ){
-            try {
-                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $project->to, $type));
-            } catch (\Exception $exception) {
 
-            }
-        }
 
         HistoryController::task($task->id, $task->user_id, Statuses::UPDATE);
 
