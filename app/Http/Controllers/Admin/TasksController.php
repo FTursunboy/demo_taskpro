@@ -18,22 +18,16 @@ use App\Models\CheckDate;
 use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\Statuses;
-use App\Models\TemporaryFile;
 use App\Models\User;
 use App\Notifications\Telegram\Chat;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use mysql_xdevapi\Exception;
-use Spatie\Permission\Models\Role;
-use function GuzzleHttp\Promise\all;
 
 class  TasksController extends BaseController
 {

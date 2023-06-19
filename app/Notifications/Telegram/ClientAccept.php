@@ -72,7 +72,7 @@ class ClientAccept extends Notification implements ShouldQueue
     {
 
         return TelegramMessage::create()
-            ->content("Здравствуйте, Клиент {$this->offer->client->name} подтвердил Вашу задачу {$this->offer->name}!");
+            ->content("Здравствуйте, Клиент {$this->offer->client->name} подтвердил(а) Вашу задачу {$this->offer->name}!");
 
 
     }

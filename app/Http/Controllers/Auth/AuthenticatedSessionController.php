@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
+use App\Notifications\Telegram\AuthNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -34,14 +36,25 @@ class AuthenticatedSessionController extends Controller
 
         $task->check();
         $role = Auth::user()->getRoleNames()[0];
+        try {
+            try {
+                $user = User::where('id', Auth::user()->id)->first();
+                Notification::send($user, new AuthNotification($user->surname, $user->name));
+            } catch (\Exception $exception) {
+                dd($exception->getMessage());
+            }
+            return match ($role) {
+                'admin' => redirect()->intended(RouteServiceProvider::HOME),
+                'user' => redirect()->intended(RouteServiceProvider::USER),
+                'client' => redirect()->intended(RouteServiceProvider::CLIENT),
+                'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
+                default => redirect()->back()->with('err', 'Что то пошло не так'),
+            };
+        } catch (\Exception $exception) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
 
-        return match ($role) {
-            'admin' => redirect()->intended(RouteServiceProvider::HOME),
-            'user' => redirect()->intended(RouteServiceProvider::USER),
-            'client' => redirect()->intended(RouteServiceProvider::CLIENT),
-            'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
-            default => redirect()->back()->with('err', 'Что то пошло не так'),
-        };
     }
 
     /**
