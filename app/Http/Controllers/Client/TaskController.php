@@ -8,6 +8,7 @@ use App\Http\Requests\Client\TaskRequest;
 use App\Jobs\NewOfferStoreJob;
 use App\Jobs\NewOfferStoreJobMake;
 use App\Jobs\StoreOfferJob;
+use App\Jobs\TelegranAdminSendJob;
 use App\Mail\Send;
 use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
@@ -41,8 +42,9 @@ class TaskController extends BaseController
     }
 
 
-    public function show(Offer $offer) {
+    public function show($slug) {
 
+        $offer = Offer::where('slug', $slug)->first();
 
         $histories = History::where([
             ['type', '=', 'offer'],
@@ -69,19 +71,16 @@ class TaskController extends BaseController
         }
 
 
-        $offer =  NewOfferStoreJobMake::dispatch(
+        NewOfferStoreJobMake::dispatch(
             $request->except('file'),
             $file,
             $file_name,
             Auth::id()
         );
 
-        try {
-            Notification::send(User::role('admin')->first(), new TelegramClientTask($request->name, Auth::user()->name));
-        } catch (\Exception $exception) {
+        TelegranAdminSendJob::dispatch($request->name, Auth::user()->name);
 
-        }
-
+        
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 

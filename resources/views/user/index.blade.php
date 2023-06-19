@@ -227,7 +227,7 @@
                             </div>
                             <div class="row p-3">
                                 <div class="col-6">
-                                    <a href="{{ route('task-list.show', $task->id) }}"
+                                    <a href="{{ route('task-list.show', $task->slug) }}"
                                        class="btn btn-outline-info w-100">Подробнее</a>
                                 </div>
                                 <div class="col-6">
