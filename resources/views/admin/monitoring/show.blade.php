@@ -379,7 +379,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Вся история задачи</h5>
-
                     </div>
                     <div class="modal-body">
                         <div class="row p-3">
@@ -408,7 +407,6 @@
                                             <tbody>
                                             @if(isset($histories))
                                                 @foreach($histories as $history)
-
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>

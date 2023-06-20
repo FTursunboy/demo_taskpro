@@ -90,6 +90,13 @@ class TaskModel extends Model
         return TaskModel::where('project_id', $projectId)->orderBy('count', 'desc')->count();
     }
 
+    public function process($id)
+    {
+        return TaskModel::select('task_models')->where([
+            ['status_id', 2],
+            ['user_id', $id]
+        ])->count();
+    }
 
 }
 
