@@ -37,6 +37,9 @@
                     <div class="col-md-2">
                         <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                     </div>
+                    <div class="col-md-2">
+                        <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
+                    </div>
                     @if($task->status->id == 6)
                         <div class="col-md-2">
                             <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
@@ -374,6 +377,63 @@
 
             </div>
         </div>
+
+        <div class="modal" tabindex="-1" id="reports">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Отчеты всех статусов</h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row p-3">
+                            <div class="card-body">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <table class="table mb-0 table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="">#</th>
+                                                <th class="">Дата</th>
+                                                <th class="">Совершил действия</th>
+                                                <th class="">Статус</th>
+                                                <th class="">Отчет</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($reports as $report)
+                                                    <tr>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{date('d.m.Y H:i:s', strtotime($report->created_at))}}</td>
+                                                        <td>{{$report->user->name }}</td>
+                                                        <td>
+                                                            {{ $report->status?->name }}
+
+                                                            @if ($report->user->hasRole('admin'))
+                                                                (Админ)
+                                                            @elseif ($report->user->hasRole('user'))
+                                                                (Сотрудник)
+                                                            @elseif ($report->user->hasRole('client') || $report->user->hasRole('client-worker'))
+                                                                (Клиент)
+                                                            @else
+                                                                (Система)
+                                                            @endif
+                                                        </td>
+                                                        <td>{{$report->text}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="modal" tabindex="-1" id="history">
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
@@ -510,13 +570,14 @@
                                     </option>
                                     @foreach($users as $user)
                                         <option
-                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                            value="{{ $user->id }}" {{($user->id == $task->user_id) ? 'selected' : ''}} >{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning">
+                            
+                            <button data-bs-target="#reason{{$task->id}}" data-bs-toggle="modal" type="button" class="btn btn-warning">
                                 Перенаправить
                             </button>
                             <button type="submit" class="btn btn-success">Готово
@@ -526,7 +587,25 @@
                 </div>
             </div>
         </div>
-
+        <div class="modal" id="reason{{$task->id}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Отклонения задачи</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea name="reason" id="" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{route('mon.delete', $task->id)}}" class="btn btn-danger" >Удалить задачу</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal" id="delete{{$task->id}}" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

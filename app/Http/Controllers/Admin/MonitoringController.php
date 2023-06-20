@@ -14,6 +14,7 @@ use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
 use App\Models\History;
+use App\Models\ReportHistory;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -65,6 +66,9 @@ class  MonitoringController extends BaseController
 
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
+       $reports = ReportHistory::where('task_slug', $slug)->get();
+
+
         $offer = Offer::where('slug', $task->slug)->first();
         if ($offer !== null) {
 
@@ -74,7 +78,7 @@ class  MonitoringController extends BaseController
             ])->get();
             $users = User::role('user')->get();
 
-            return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users'));
+            return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users', 'reports'));
         }
         else {
 
@@ -89,7 +93,7 @@ class  MonitoringController extends BaseController
 
         $users = User::role('user')->get();
 
-        return view('admin.monitoring.show', compact('task', 'messages', 'histories_task', 'users'));
+        return view('admin.monitoring.show', compact('task', 'messages', 'histories_task', 'users', 'reports'));
     }
 
     public function edit($slug)

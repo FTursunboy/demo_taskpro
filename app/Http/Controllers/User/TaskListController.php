@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
@@ -46,6 +47,7 @@ class TaskListController extends BaseController
         $request->validate([
             'success_desc' => 'required',
         ]);
+        ReportHistoryController::create($task->slug, Statuses::SEND_TO_TEST, $request->success_desc);
 
         $this->stopDeadline($task);
 
@@ -80,12 +82,15 @@ class TaskListController extends BaseController
 
     public function decline(TaskModel $task, Request $request)
     {
+
         $request->validate(['cancel' => ['required']]);
         $decline = UserTaskHistoryModel::where([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
             'status_id' => $task->status_id
         ])->first();
+
+        ReportHistoryController::create($task->slug, Statuses::DECLINED, $request->cancel);
 
         $decline?->delete();
 
