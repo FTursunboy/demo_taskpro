@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Jobs\AuthNotifyJob;
 use App\Models\User;
 use App\Notifications\Telegram\AuthNotification;
 use App\Providers\RouteServiceProvider;
@@ -37,12 +38,8 @@ class AuthenticatedSessionController extends Controller
         $task->check();
         $role = Auth::user()->getRoleNames()[0];
         try {
-            try {
-                $user = User::where('id', Auth::user()->id)->first();
-                Notification::send($user, new AuthNotification($user->surname, $user->name));
-            } catch (\Exception $exception) {
-//                dd($exception->getMessage());
-            }
+            AuthNotifyJob::dispatch(Auth::user());
+
             return match ($role) {
                 'admin' => redirect()->intended(RouteServiceProvider::HOME),
                 'user' => redirect()->intended(RouteServiceProvider::USER),

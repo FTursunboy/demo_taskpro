@@ -32,13 +32,46 @@
                 <div class="col-md-2">
                     <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                 </div>
+                @if($task->status->id == 4 || $task->status->id == 7)
+                <div class="col-md-2">
+                <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop{{ $task->id }}">Я сделал задачу
+                </button>
+                </div>
+                @endif
                 <div class="col-md-2">
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                             data-bs-target="#declineTask{{ $task->id }}">Отклонить
                     </button>
                 </div>
 
-
+                <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel{{ $task->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ route('all-tasks.ready', $task->id) }}" method="POST">
+                                @csrf
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5"
+                                        id="staticBackdropLabel{{ $task->id }}">{{ $task->name }}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea class="form-control" name="success_desc" placeholder="Отчёт проделанной работы" required></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Отмена
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Отправить!
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal fade" id="declineTask{{$task->id}}" data-bs-backdrop="static"
                      data-bs-keyboard="false" tabindex="-1"
                      aria-labelledby="declineTask{{$task->id}}" aria-hidden="true">

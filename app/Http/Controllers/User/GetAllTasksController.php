@@ -17,6 +17,7 @@ use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\Chat;
 use App\Notifications\Telegram\SendNewTaskInUser;
+use App\Notifications\Telegram\TelegramReady;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -77,6 +78,45 @@ class GetAllTasksController extends BaseController
             'created_at' => date('d.m.Y H:i:s', strtotime($messages_models->created_at))
         ]);
     }
+
+
+    public function ready(TaskModel $task, Request $request)
+        {
+            $request->validate([
+                'success_desc' => 'required',
+            ]);
+
+            $h = new TaskListController();
+            $h->stopDeadline($task);
+
+            $successDesc = $request->input('success_desc');
+
+            $task->update([
+                'status_id' => 6,
+                'success_desc' => $successDesc,
+            ]);
+
+
+            HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
+
+            if ($task->offer_id) {
+
+
+                $offer = Offer::find($task->offer_id);
+                $offer->status_id = 6;
+                $offer->save();
+
+                HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::SEND_TO_TEST);
+            }
+
+            try {
+                Notification::send(User::role('admin')->first(), new TelegramReady($task->name, Auth::user()->name));
+            } catch (\Exception $exception) {
+
+            }
+
+            return redirect()->route('all-tasks.index')->with('create', 'Задача отправлена на проверку!');
+        }
 
     public function downloadFile(MessagesModel $mess)
     {

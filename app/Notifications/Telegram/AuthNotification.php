@@ -62,7 +62,7 @@ class AuthNotification extends Notification implements ShouldQueue
     {
         $date = Carbon::now()->format('d.m.Y H:i:s');
         return TelegramMessage::create()
-            ->content("Добро пожаловать в нашу систему, $this->surname $this->name 
-            \n Дата вход: $date");
+            ->content("Добро пожаловать в нашу систему, $this->surname $this->name
+            \n Дата входа: $date");
     }
 }
