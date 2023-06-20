@@ -118,6 +118,33 @@ class GetAllTasksController extends BaseController
             return redirect()->route('all-tasks.index')->with('create', 'Задача отправлена на проверку!');
         }
 
+        public function resend(TaskModel $task, Request $request) {
+
+            $request->validate([
+                'success_desc' => 'required',
+            ]);
+
+            $h = new TaskListController();
+            $h->stopDeadline($task);
+
+            $successDesc = $request->input('success_desc');
+
+            $task->update([
+                'status_id' => 10,
+                'success_desc' => $successDesc,
+            ]);
+            $offer = Offer::find($task->offer_id);
+            $offer->is_finished = true;
+            $offer->status_id = 10;
+            $offer->save();
+
+
+            HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
+            
+
+            return redirect()->route('all-tasks.index')->with('create', 'Задача отправлена на проверку!');
+        }
+
     public function downloadFile(MessagesModel $mess)
     {
         $path = storage_path('app/' . $mess->file);

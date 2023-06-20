@@ -39,12 +39,45 @@
                 </button>
                 </div>
                 @endif
+                @if($task->status->id == 13)
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal"
+                                data-bs-target="#resend{{ $task->id }}">Отправить заново
+                        </button>
+                    </div>
+                @endif
                 <div class="col-md-2">
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                             data-bs-target="#declineTask{{ $task->id }}">Отклонить
                     </button>
                 </div>
-
+                <div class="modal fade" id="resend{{ $task->id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel{{ $task->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ route('all-tasks.resend', $task->id) }}" method="POST">
+                                @csrf
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5"
+                                        id="staticBackdropLabel{{ $task->id }}">{{ $task->name }}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea class="form-control" name="success_desc" placeholder="Отчёт проделанной работы" required></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Отмена
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Отправить!
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static"
                      data-bs-keyboard="false" tabindex="-1"
                      aria-labelledby="staticBackdropLabel{{ $task->id }}" aria-hidden="true">

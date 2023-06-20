@@ -74,22 +74,22 @@
 
                                 @switch($task->status->id)
                                     @case(1)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
                                     @break
                                     @case(2)
-                                    <td><span class="badge bg-primary p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
                                     @break
                                     @case(3)
                                     <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
                                     @break
                                     @case(4)
-                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-success p-2">В процессе</span></td>
                                     @break
                                     @case(5)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-warning p-2">Отклон.(сотруд.)</span></td>
                                     @break
                                     @case(6)
-                                    <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                    <td><span class="badge bg-success p-2">На проверке (Адм)</span></td>
                                     @break
                                     @case(7)
                                     <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
@@ -110,7 +110,7 @@
                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
                                     @break
                                     @case(13)
-                                    <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
+                                    <td><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> @break
                                     @case(14)
                                     <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
                                 @endswitch
