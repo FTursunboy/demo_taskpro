@@ -10,6 +10,7 @@ use App\Models\Admin\TasksClient;
 use App\Models\Client\Offer;
 use App\Models\User\TeamLeadCommandModel;
 use App\Models\Users\NotesModels;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -255,5 +256,69 @@ class User extends Authenticatable
     {
         return NotesModels::where('user_id', $userID)->get();
     }
+
+    public function usersCountTasks($id)
+    {
+        $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
+
+        $counts = TaskModel::where('user_id', $id)
+            ->whereIn('status_id', $statusIds)
+            ->selectRaw("
+            COUNT(*) as total,
+            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as debt,
+            SUM(CASE WHEN status_id = 2 THEN 1 ELSE 0 END) as process,
+            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as accept,
+            SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
+            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expected,
+            SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
+            SUM(CASE WHEN status_id = 8 THEN 1 ELSE 0 END) as expectedAdmin,
+            SUM(CASE WHEN status_id = 9 THEN 1 ELSE 0 END) as expectedUser,
+            SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
+            SUM(CASE WHEN status_id = 14 THEN 1 ELSE 0 END) as forVerificationAdmin,
+            SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerification,
+            SUM(CASE WHEN status_id = 5 THEN 1 ELSE 0 END) as rejected,
+            SUM(CASE WHEN status_id = 11 THEN 1 ELSE 0 END) as rejectedAdmin,
+            SUM(CASE WHEN status_id = 13 THEN 1 ELSE 0 END) as rejectedClient,
+            SUM(CASE WHEN status_id = 12 THEN 1 ELSE 0 END) as rejectedUser
+        ")
+            ->first();
+
+        return $counts->toArray();
+    }
+
+
+    public static function getUserTasksInMonth($month, $id)
+    {
+        $startOfMonth = Carbon::now()->month($month)->startOfMonth();
+        $endOfMonth = Carbon::now()->month($month)->endOfMonth();
+
+        $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
+        $tasks = TaskModel::where('user_id', $id)
+            ->whereIn('status_id', $statusIds)
+            ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+            ->selectRaw("
+            COUNT(*) as total,
+            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as debt,
+            SUM(CASE WHEN status_id = 2 THEN 1 ELSE 0 END) as process,
+            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as accept,
+            SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
+            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expected,
+            SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
+            SUM(CASE WHEN status_id = 8 THEN 1 ELSE 0 END) as expectedAdmin,
+            SUM(CASE WHEN status_id = 9 THEN 1 ELSE 0 END) as expectedUser,
+            SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
+            SUM(CASE WHEN status_id = 14 THEN 1 ELSE 0 END) as forVerificationAdmin,
+            SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerification,
+            SUM(CASE WHEN status_id = 5 THEN 1 ELSE 0 END) as rejected,
+            SUM(CASE WHEN status_id = 11 THEN 1 ELSE 0 END) as rejectedAdmin,
+            SUM(CASE WHEN status_id = 13 THEN 1 ELSE 0 END) as rejectedClient,
+            SUM(CASE WHEN status_id = 12 THEN 1 ELSE 0 END) as rejectedUser
+        ")
+            ->first();
+
+        return $tasks;
+    }
+
+
 
 }

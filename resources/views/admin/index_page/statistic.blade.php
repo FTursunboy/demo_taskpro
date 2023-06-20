@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header"></div>
-        <div class="card-body">
+        <div class="card-header "></div>
+        <div class="card-body overflow-auto">
             <div class="row">
                 <div class="col-9"></div>
                 <div class="col">
@@ -28,79 +28,44 @@
                 <thead>
                 <tr>
                     <th class="text-center">#</th>
-                    <th class="text-center">Имя</th>
-                    <th class="text-center">Проект</th>
-                    <th class="text-center">Автор</th>
-                    <th class="text-center">Тип</th>
-                    <th class="text-center">Статус</th>
-                    <th class="text-center">КПД</th>
-                    <th class="text-center">Сотрудник</th>
-                    <th class="text-center">Действия</th>
+                    <th class="text-center">ФИО</th>
+                    <th class="text-center">Все задачи</th>
+                    <th class="text-center">Долг</th>
+                    <th class="text-center">В процессе</th>
+                    <th class="text-center">Принято</th>
+                    <th class="text-center">Готово</th>
+                    <th class="text-center">Просроченное</th>
+                    <th class="text-center">Ожидается</th>
+                    <th class="text-center">Ожидается (Админ)</th>
+                    <th class="text-center">Ожидается (Сотрудник)</th>
+                    <th class="text-center">На проверку</th>
+                    <th class="text-center">На проверке (У админа)</th>
+                    <th class="text-center">На проверке (У клиента)</th>
+                    <th class="text-center">Отклонено</th>
+                    <th class="text-center">Отклонено (Администратором)</th>
+                    <th class="text-center">Отклонено (Сотрудником)</th>
                 </tr>
                 </thead>
                 <tbody id="tableBodyMonitoring">
-                @foreach($statistics as $task)
+                @foreach($statistics as $user)
                     <tr>
-                        <td class="text-center">{{$task->id }}</td>
-                        <td>{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
-                        <td class="text-center">{{ $task->project->name  }}</td>
-                        <td class="text-center">{{ $task->author->name  }}</td>
-                        <td class="text-center">
-                            @if($task->type === null)
-                                От клиента
-                            @elseif($task->type !== null)
-                                {{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? ' - '.$task->typeType?->name : '' }}
-                            @endif
-                        </td>
-
-                        @switch($task->status->id)
-                            @case(1)
-                                <td class="text-center"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(2)
-                                <td class="text-center"><span class="badge bg-primary p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(3)
-                                <td class="text-center"><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(4)
-                                <td class="text-center"><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(5)
-                                <td class="text-center"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(6)
-                                <td class="text-center"><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(7)
-                                <td class="text-center"><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(8)
-                                <td class="text-center"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(9)
-                                <td class="text-center"><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
-                                @break
-                            @case(10)
-                                <td class="text-center"><span class="badge bg-success p-2">У клиента</span></td>
-                                @break
-                            @case(11)
-                                <td class="text-center"><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(12)
-                                <td class="text-center"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
-                                @break
-                            @case(13)
-                                <td class="text-center"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
-                            @case(14)
-                                <td class="text-center"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
-                        @endswitch
-                        <td class="text-center">{{$task->checkDate?->count}}</td>
-                        <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
-                        <td class="text-center">
-                            <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
-                                    class="bi bi-eye"></i></a>
-                        </td>
+                        <td class="text-center">{{$user->id }}</td>
+                        <td>{{ \Illuminate\Support\Str::limit($user->name . " " . $user->surname, 50)  }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['debt'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['process'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['accept'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['ready'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['speed'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['expected'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['expectedAdmin'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['expectedUser'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerification'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationAdmin'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationClient'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['rejected'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedAdmin'] }}</td>
+                        <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedClient'] }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -127,67 +92,42 @@
             $.get(`/tasks/public/monitoring-statistics-filter/${month}`, function (response) {
                 let tableBody = $('#tableBodyMonitoring');
                 table.clear().draw();
+                tableBody.empty()
 
                 if (response.statistics.length > 0) {
                     buildTable(response.statistics, tableBody);
                 }
+
             });
         }
 
         function buildTable(data, tableBody) {
             $.each(data, function (i, item) {
-                let taskName = item.name.length > 50 ? `${item.name.substring(0, 50)}...` : item.name;
-                let projectName = item.project.name;
-                let authorName = item.author.name;
-                let typeName = item.type ? item.type.name : 'От клиента';
-                // let statusName = item.status.name;
-                let checkDateCount = item.checkDate ? item.checkDate.count : 0;
-                let userName = item.user.name;
-                let statusColumn = '';
-                switch (item.status.name) {
-                    case 'Ожидается':
-                    case 'Ожидается (Админ)':
-                    case 'Ожидается (Сотрудник)':
-                        statusColumn = '<td class="text-center"><span class="badge bg-warning p-2">' + item.status.name + '</span></td>';
-                        break;
-                    case 'В процессе':
-                        statusColumn = '<td class="text-center"><span class="badge bg-primary p-2">' + item.status.name + '</span></td>';
-                        break;
-                    case 'Готов':
-                    case 'Принято':
-                    case 'На проверку':
-                    case 'На проверке (У клиента)':
-                    case 'На проверке (У админа)':
-                        statusColumn = '<td class="text-center"><span class="badge bg-success p-2">' + item.status.name + '</span></td>';
-                        break;
-                    case 'Отклонено':
-                    case 'Отклонено (Администратор)':
-                    case 'Отклонено (Сотрудник)':
-                    case 'Отклонено (Клиентом)':
-                    case 'Просроченное':
-                        statusColumn = '<td class="text-center"><span class="badge bg-danger p-2">' + item.status.name + '</span></td>';
-                        break;
+                let row = `
+                <tr>
+                    <td class="text-center">${i + 1}</td>
+                    <td>${item.user}</td>
+                    <td class="text-center">${item.total !== null ? item.total : 0}</td>
+                    <td class="text-center">${item.debt !== null ? item.debt : 0}</td>
+                    <td class="text-center">${item.process !== null ? item.process : 0}</td>
+                    <td class="text-center">${item.accept !== null ? item.accept : 0}</td>
+                    <td class="text-center">${item.ready !== null ? item.ready : 0}</td>
+                    <td class="text-center">${item.speed !== null ? item.speed : 0}</td>
+                    <td class="text-center">${item.expected !== null ? item.expected : 0}</td>
+                    <td class="text-center">${item.expectedAdmin !== null ? item.expectedAdmin : 0}</td>
+                    <td class="text-center">${item.expectedUser !== null ? item.expectedUser : 0}</td>
+                    <td class="text-center">${item.forVerification !== null ? item.forVerification : 0}</td>
+                    <td class="text-center">${item.forVerificationAdmin !== null ? item.forVerificationAdmin : 0}</td>
+                    <td class="text-center">${item.forVerificationClient !== null ? item.forVerificationClient : 0}</td>
+                    <td class="text-center">${item.rejected !== null ? item.rejected : 0}</td>
+                    <td class="text-center">${item.rejectedAdmin !== null ? item.rejectedAdmin : 0}</td>
+                    <td class="text-center">${item.rejectedClient !== null ? item.rejectedClient : 0}</td>
+                </tr>`;
 
-
-                }
-
-                let show = route('mon.show', item.id);
-
-                let row = `<tr>
-                <td class="text-center">${i + 1}</td>
-                <td class="text-center">${taskName}</td>
-                <td class="text-center">${projectName}</td>
-                <td class="text-center">${authorName}</td>
-                <td class="text-center">${typeName}</td>
-                ${statusColumn}
-                <td class="text-center">${checkDateCount}</td>
-                <td class="text-center">${userName}</td>
-                <td class="text-center">
-                    <a href="${show}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                </td>
-            </tr>`;
-                table.row.add($(row)).draw(); // Add the new row to the table
+                tableBody.append(row);
             });
         }
+
+
     });
 </script>
