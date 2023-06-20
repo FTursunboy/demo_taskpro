@@ -140,7 +140,7 @@ class GetAllTasksController extends BaseController
 
 
             HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
-            
+
 
             return redirect()->route('all-tasks.index')->with('create', 'Задача отправлена на проверку!');
         }
