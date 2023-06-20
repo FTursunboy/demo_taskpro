@@ -60,8 +60,8 @@
                                 <td class="text-center">{{$task->id }}</td>
                                 <td >{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit($task->comment, 51)  }}</td>
-                                <td  class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
-                                <td  class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
+                                <td  >{{ date('d-m-Y', strtotime($task->from))  }}</td>
+                                <td  >{{ date('d-m-Y', strtotime($task->to))  }}</td>
                                 <td class="text-center">{{ $task->project->name  }}</td>
                                 <td class="text-center">{{ $task->author->name  }}</td>
                                 <td class="text-center">
