@@ -42,7 +42,7 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th data-td="td_one">Имя<span class="btn btn-right">></span></th>
-                            <th>Время</th>
+                            <th data-td="td_four">Описание<span class="btn btn-right">></span></th>
                             <th data-td="td_two">От<span class="btn btn-right">></span></th>
                             <th data-td="td_three">До<span class="btn btn-right">></span></th>
                             <th>Проект</th>
@@ -59,7 +59,7 @@
                             <tr>
                                 <td class="text-center">{{$task->id }}</td>
                                 <td >{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
-                                <td class="text-center">{{ $task->time }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($task->comment, 51)  }}</td>
                                 <td  class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                                 <td  class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
                                 <td class="text-center">{{ $task->project->name  }}</td>

@@ -179,7 +179,7 @@
     <div class="notfound-bg"></div>
     <div class="notfound">
         <div class="notfound-404">
-            <h1>404</h1>
+            <h1>419</h1>
         </div>
         <h2>Страница устарела</h2>
         <a href="#" class="home-btn">Go Home</a>
