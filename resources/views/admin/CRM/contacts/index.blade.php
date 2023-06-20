@@ -33,10 +33,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>ФИО</th>
-                            <th>Телефон</th>
-                            <th>Адрес</th>
-                            <th>Лид</th>
+                            <th data-td="td_one">ФИО<span class="btn btn-right">></span></th>
+                            <th data-td="td_two">Телефон<span class="btn btn-right">></span></th>
+                            <th data-td="td_three">Адрес<span class="btn btn-right">></span></th>
+                            <th data-td="td_four">Лид<span class="btn btn-right">></span></th>
 
                             <th class="text-center">Действия</th>
                         </tr>
@@ -100,6 +100,36 @@
 @section('script')
     <script src="{{asset('assets/js/search.js')}}"></script>
     <script src="{{asset('assets/js/datatable.js')}}"></script>
+    <script type="text/javascript">
+        "use strict";
+
+        let tMouse = {
+            // isMouseDown
+            // tMouse.target
+            // tMouse.targetWidth
+            // targetPosX
+        };
+        const eventNames = ["mousedown", "mouseup", "mousemove"];
+        eventNames.forEach((e) => window.addEventListener(e, handle));
+
+        function handle(e) {
+            if (e.type === eventNames[0]) {
+                tMouse.isMouseDown = true;
+                let element = e.target.parentElement;
+                if (!element.dataset[`td`]) return false;
+                let th = document.querySelector(`th[data-td='${element.dataset[`td`]}']`);
+                tMouse.target = th;
+                tMouse.targetWidth = th.clientWidth;
+                tMouse.targetPosX = th.getBoundingClientRect().x;
+            }
+            if (e.type === eventNames[1]) tMouse = {};
+            if (e.type === eventNames[2]) {
+                if (!tMouse.target || !tMouse.isMouseDown) return false;
+                let size = (e.clientX - tMouse.targetWidth) - tMouse.targetPosX;
+                tMouse.target.style.width = tMouse.targetWidth + size + "px";
+            }
+        }
+    </script>
     <script>
         $(document).ready(function () {
 

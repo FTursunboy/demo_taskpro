@@ -3,10 +3,10 @@
         <thead>
         <tr>
             <th class="text-center">#</th>
-            <th >Имя</th>
-            <th class="text-center">Время</th>
-            <th class="text-center">От</th>
-            <th class="text-center">До</th>
+            <th data-td="td_one">Имя<span class="btn btn-right">></span></th>
+            <th class="text-center" data-td="td_two">Время<span class="btn btn-right">></span></th>
+            <th class="text-center" data-td="td_three">От<span class="btn btn-right">></span></th>
+            <th class="text-center" data-td="td_four">До<span class="btn btn-right">></span></th>
             <th class="text-center">Проект</th>
             <th class="text-center">Автор</th>
             <th class="text-center">Тип</th>
@@ -17,7 +17,7 @@
         <tbody id="tableBodyMonitoring">
         @foreach($tasks as $task)
             <tr>
-                <td class="text-center">{{ $task->created_at->format('d-m-Y') }}</td>
+                <td class="text-center">{{ $loop->iteration  }}</td>
                 <td >{{ $task->name }}</td>
                 <td class="text-center">{{ $task->time }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
