@@ -28,8 +28,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Название</th>
-                            <th>Описание</th>
+                            <th data-td="td_one">Название<span class="btn btn-right">></span></th>
+                            <th data-td="td_two">Описание<span class="btn btn-right">></span></th>
                             <th>Статус</th>
                             <th>Действие</th>
                         </tr>
@@ -309,7 +309,36 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <script type="text/javascript">
+        "use strict";
 
+        let tMouse = {
+            // isMouseDown
+            // tMouse.target
+            // tMouse.targetWidth
+            // targetPosX
+        };
+        const eventNames = ["mousedown", "mouseup", "mousemove"];
+        eventNames.forEach((e) => window.addEventListener(e, handle));
+
+        function handle(e) {
+            if (e.type === eventNames[0]) {
+                tMouse.isMouseDown = true;
+                let element = e.target.parentElement;
+                if (!element.dataset[`td`]) return false;
+                let th = document.querySelector(`th[data-td='${element.dataset[`td`]}']`);
+                tMouse.target = th;
+                tMouse.targetWidth = th.clientWidth;
+                tMouse.targetPosX = th.getBoundingClientRect().x;
+            }
+            if (e.type === eventNames[1]) tMouse = {};
+            if (e.type === eventNames[2]) {
+                if (!tMouse.target || !tMouse.isMouseDown) return false;
+                let size = (e.clientX - tMouse.targetWidth) - tMouse.targetPosX;
+                tMouse.target.style.width = tMouse.targetWidth + size + "px";
+            }
+        }
+    </script>
     <script>
         $(function() {
             $('#readyBTN').click(function (){
