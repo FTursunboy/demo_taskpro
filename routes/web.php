@@ -15,6 +15,7 @@ Route::group(['middleware' => 'redirectIfUnauthorized'], function () {
     require __DIR__ . '/admin/crm.php';
 });
 require __DIR__ . '/auth.php';
+require __DIR__ . '/errors.php';
 
 Route::get('/logout', function () {
     \Illuminate\Support\Facades\Auth::logout();
