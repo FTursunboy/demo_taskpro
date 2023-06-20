@@ -57,8 +57,8 @@
                         <tbody id="tableBodyMonitoring">
                         @foreach($tasks as $task)
                             <tr>
-                                <td class="text-center">{{$task->id }}</td>
-                                <td >{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
+                                <td class="text-center">{{$task->id + 1000 }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit($task->comment, 51)  }}</td>
                                 <td  >{{ date('d-m-Y', strtotime($task->from))  }}</td>
                                 <td  >{{ date('d-m-Y', strtotime($task->to))  }}</td>

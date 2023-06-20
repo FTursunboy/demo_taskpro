@@ -19,17 +19,17 @@ class ChatTelegramNotification implements ShouldQueue
 
    protected MessagesModel $messagesModel;
    protected $offer_name;
-   protected $offer_id;
+   protected $task_id;
     private $user_id;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($messagesModel, $offer_name, $offer_id, $user_id)
+    public function __construct($messagesModel, $offer_name, $user_id, $task_id)
     {
         $this->messagesModel = $messagesModel;
         $this->offer_name = $offer_name;
-        $this->offer_id = $offer_id;
+        $this->task_id = $task_id;
         $this->user_id = $user_id;
     }
 
@@ -39,8 +39,8 @@ class ChatTelegramNotification implements ShouldQueue
     public function handle(): void
     {
         try {
-            Notification::send(User::find(1), new Chat($this->messagesModel, $this->offer_name, $this->offer_id));
-            Notification::send(User::find($this->user_id), new Chat($this->messagesModel, $this->offer_name, $this->offer_id));
+            Notification::send(User::find(1), new Chat($this->messagesModel, $this->offer_name, $this->task_id));
+            Notification::send(User::find($this->user_id), new Chat($this->messagesModel, $this->offer_name, $this->task_id));
         } catch (\Exception $exception) {
 
         }

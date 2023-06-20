@@ -51,7 +51,7 @@ class ChatController extends BaseController
         $admin = User::where('position', 'admin')->first();
 
 
-        ChatTelegramNotification::dispatch($messages_models, $offer->name, $task->id, $offer->user_id);
+        ChatTelegramNotification::dispatch($messages_models, $offer->name, $offer->user_id, $task->id + 1000);
 
 
         return response([

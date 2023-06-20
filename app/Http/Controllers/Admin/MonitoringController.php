@@ -29,7 +29,7 @@ class  MonitoringController extends BaseController
     {
         $task = new TasksController();
         $task->check();
-        $tasks = TaskModel::where('status_id', '!=', 3)->get();
+        $tasks = TaskModel::get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();

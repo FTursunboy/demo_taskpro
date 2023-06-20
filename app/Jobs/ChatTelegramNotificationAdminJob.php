@@ -37,6 +37,6 @@ class ChatTelegramNotificationAdminJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Notification::send(User::find(1), new Chat($this->messagesModel, $this->task_name, $this->task_id));
+        Notification::send(User::find(1), new Chat($this->messagesModel, $this->task_name, $this->task_id + 1000));
     }
 }
