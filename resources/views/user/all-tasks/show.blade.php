@@ -556,7 +556,7 @@
                 formData.append('file', selectedFile);
 
                 $.ajax({
-                    url: "{{ route('all-tasks.store', $task->id) }}",
+                    url: "{{ route('messages.messages', $task->id) }}",
                     method: "POST",
                     data: formData,
                     dataType: 'json',
