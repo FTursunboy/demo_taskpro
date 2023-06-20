@@ -36,23 +36,25 @@ class AuthenticatedSessionController extends Controller
 
         $task->check();
         $role = Auth::user()->getRoleNames()[0];
-        try {
-            try {
-                $user = User::where('id', Auth::user()->id)->first();
-                Notification::send($user, new AuthNotification($user->surname, $user->name));
-            } catch (\Exception $exception) {
-//                dd($exception->getMessage());
-            }
-            return match ($role) {
-                'admin' => redirect()->intended(RouteServiceProvider::HOME),
-                'user' => redirect()->intended(RouteServiceProvider::USER),
-                'client' => redirect()->intended(RouteServiceProvider::CLIENT),
-                'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
-                default => redirect()->back()->with('err', 'Что то пошло не так'),
-            };
-        } catch (\Exception $exception) {
-
-        }
+        return match ($role) {
+            'admin' => redirect()->intended(RouteServiceProvider::HOME),
+            'user' => redirect()->intended(RouteServiceProvider::USER),
+            'client' => redirect()->intended(RouteServiceProvider::CLIENT),
+            'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
+            default => redirect()->back()->with('err', 'Что то пошло не так'),
+        };
+//        try {
+//            try {
+//                $user = User::where('id', Auth::user()->id)->first();
+//                Notification::send($user, new AuthNotification($user->surname, $user->name));
+//            } catch (\Exception $exception) {
+////                dd($exception->getMessage());
+//            }
+//            
+//        } catch (\Exception $exception) {
+//            Auth::logout();
+//            return redirect()->route('login');
+//        }
 
     }
 
