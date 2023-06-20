@@ -27,7 +27,16 @@ class IndexController extends BaseController
         $task = User::where('id', Auth::id())->first()->countTasks(Auth::id());
         $user = User::where('id', Auth::id())->first();
         $tasks = User::findOrFail(Auth::id())->getUsersTasks(Auth::id());
-        return view('user.index', compact('task', 'user', 'tasks'));
+        $tasks_count = TaskModel::where([
+            ['user_id', '=', Auth::id()],
+            ['status_id', '=', '10']
+        ])->count();
+        $rejectClientCount = TaskModel::where([
+            ['user_id', '=', Auth::id()],
+            ['status_id', '=', '13']
+        ])->count();
+
+        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount'));
     }
 
     public function downloadFile(TaskModel $task)
@@ -52,4 +61,23 @@ class IndexController extends BaseController
         return response()->download($path, $task->file_name, $headers);
     }
 
+    public function verificate_client()
+    {
+        $clientVerification  = TaskModel::where([
+            ['user_id', '=', Auth::id()],
+            ['status_id', '=', '10']
+        ])->get();
+
+
+        return view('user.tasks.verificate_client', compact('clientVerification'));
+    }
+
+    public function reject_client()
+    {
+        $rejectClient = TaskModel::where([
+            ['user_id', '=', Auth::id()],
+            ['status_id', '=', '13']
+        ])->get();
+
+    }
 }
