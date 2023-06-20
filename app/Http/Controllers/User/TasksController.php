@@ -56,7 +56,7 @@ class TasksController extends BaseController
         } catch (\Exception $exception) {
         }
         Artisan::call('update:task-status');
-        return redirect()->route('task-list.show', $task->id)->with('create', 'Задача принята!');
+        return redirect()->route('task-list.show', $task->slug)->with('create', 'Задача принята!');
     }
 
     public function decline(TaskModel $task, Request $request)
