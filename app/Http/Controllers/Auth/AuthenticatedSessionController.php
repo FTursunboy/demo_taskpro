@@ -51,8 +51,7 @@ class AuthenticatedSessionController extends Controller
                 default => redirect()->back()->with('err', 'Что то пошло не так'),
             };
         } catch (\Exception $exception) {
-            Auth::logout();
-            return redirect()->route('login');
+         
         }
 
     }
