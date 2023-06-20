@@ -149,7 +149,7 @@
                                                 </div>
                                                 <div class="row mt-4">
                                                     <div class="col-6">
-                                                        <form action="{{ route('new-task.accept',$task->id) }}"
+                                                        <form action="{{ route('new-task.accept',$task->slug) }}"
                                                               method="POST">
                                                             @csrf
                                                             <button type="submit" class="btn btn-outline-success w-100">
