@@ -41,11 +41,11 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>Имя</th>
-                            <th class="text-center">Время</th>
-                            <th class="text-center">От</th>
-                            <th class="text-center">До</th>
-                            <th class="text-center">Проект</th>
+                            <th data-td="td_one">Имя<span class="btn btn-right">></span></th>
+                            <th>Время</th>
+                            <th data-td="td_two">От<span class="btn btn-right">></span></th>
+                            <th data-td="td_three">До<span class="btn btn-right">></span></th>
+                            <th>Проект</th>
                             <th class="text-center">Автор</th>
                             <th class="text-center">Тип</th>
                             <th class="text-center">Статус</th>
@@ -58,10 +58,10 @@
                         @foreach($tasks as $task)
                             <tr>
                                 <td class="text-center">{{$task->id }}</td>
-                                <td>{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
+                                <td >{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
                                 <td class="text-center">{{ $task->time }}</td>
-                                <td width="10%" class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
-                                <td width="10%" class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
+                                <td  class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
+                                <td  class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
                                 <td class="text-center">{{ $task->project->name  }}</td>
                                 <td class="text-center">{{ $task->author->name  }}</td>
                                 <td class="text-center">
@@ -137,7 +137,36 @@
 @section('script')
     <script src="{{asset('assets/js/filter3.js')}}"></script>
     <script src="{{asset('assets/js/table2excel.js')}}" ></script>
+    <script type="text/javascript">
+        "use strict";
 
+        let tMouse = {
+            // isMouseDown
+            // tMouse.target
+            // tMouse.targetWidth
+            // targetPosX
+        };
+        const eventNames = ["mousedown", "mouseup", "mousemove"];
+        eventNames.forEach((e) => window.addEventListener(e, handle));
+
+        function handle(e) {
+            if (e.type === eventNames[0]) {
+                tMouse.isMouseDown = true;
+                let element = e.target.parentElement;
+                if (!element.dataset[`td`]) return false;
+                let th = document.querySelector(`th[data-td='${element.dataset[`td`]}']`);
+                tMouse.target = th;
+                tMouse.targetWidth = th.clientWidth;
+                tMouse.targetPosX = th.getBoundingClientRect().x;
+            }
+            if (e.type === eventNames[1]) tMouse = {};
+            if (e.type === eventNames[2]) {
+                if (!tMouse.target || !tMouse.isMouseDown) return false;
+                let size = (e.clientX - tMouse.targetWidth) - tMouse.targetPosX;
+                tMouse.target.style.width = tMouse.targetWidth + size + "px";
+            }
+        }
+    </script>
     <script>
         $(document).ready(function () {
             document.getElementById('excel').addEventListener('click', function () {
@@ -164,16 +193,7 @@
                 var th = $(this);
                 var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
 
-                if (filterColumns.includes(th.text().trim())) {
 
-                    if (th.text().trim() === 'Статус') {
-
-                        var select = th.find('select');
-
-                       select.val(statusParam);
-                        select.trigger('change');
-                    }
-                }
             });
 
 
