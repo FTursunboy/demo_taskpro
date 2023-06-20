@@ -47,7 +47,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #334d9a;
+            background-color: rgb(25, 0, 255);
         }
 
         #notfound .notfound {
@@ -181,9 +181,9 @@
         <div class="notfound-404">
             <h1>404</h1>
         </div>
-        <h2>Страница не найдено</h2>
-        <a href="{{ route('error.error404') }}" class="contact-btn">Сообщит об ошибке и выход</a>
-        <a href="{{ route('error.send404') }}" class="home-btn">Выход</a>
+        <h2>Страница устарела</h2>
+        <a href="#" class="home-btn">Go Home</a>
+        <a href="#" class="contact-btn">Contact us</a>
         <div class="notfound-social">
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
