@@ -34,6 +34,7 @@ class GetAllTasksController extends BaseController
 
     public function show($slug)
     {
+
         $task = TaskModel::where('slug', $slug)->first();
 
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
@@ -156,5 +157,30 @@ class GetAllTasksController extends BaseController
         return response()->download($path, $mess->file_name, $headers);
     }
 
+    public function verificate_client()
+    {
+
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 10)->get();
+
+        return view('user.all-tasks.index', compact('tasks'));
+    }
+
+    public function speed()
+    {
+
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 7)->get();
+
+        return view('user.all-tasks.index', compact('tasks'));
+    }
+
+     public function reject()
+        {
+            $tasks = TaskModel::where('user_id', Auth::id())
+                ->where('status_id', 13)->get();
+
+            return view('user.all-tasks.index', compact('tasks'));
+        }
 
 }
