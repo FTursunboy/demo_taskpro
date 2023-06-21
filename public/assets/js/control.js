@@ -4,7 +4,7 @@ $('#to, #from, #user_id, #type_id').change(function () {
     let from = $('#from').val();
     let to = $('#to').val();
     let time = $('#time').val();
-    $.get(`/control/${user_id}/${from}/${to}/${time}`, function(response) {
+    $.get(`/tasks/public/control/${user_id}/${from}/${to}/${time}`, function(response) {
         console.log(response);
         let kpi = $('#type_id').children('option:selected')
 
