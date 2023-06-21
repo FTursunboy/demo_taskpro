@@ -104,7 +104,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>
                                     @if ($lead->contact?->fio)
-                                             {{ Str::limit($lead->contact?->fio, 20) }}
+                                             {{ Str::limit($lead->contact?->fio, 50) }}
                                     @else
                                         <span style='color: lightcoral;'>Удалённый аккаунт</span>
                                     @endif

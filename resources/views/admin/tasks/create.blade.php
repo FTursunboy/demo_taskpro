@@ -3,7 +3,13 @@
 @section('title')
     Создание новой задачи
 @endsection
+<style>
+    .centered-span {
+        display: flex;
+        justify-content: center;
+    }
 
+</style>
 @section('content')
     <div id="page-heading">
         <div class="page-title">
@@ -29,6 +35,9 @@
                 <a href="{{ route('mon.index') }}" class="btn btn-outline-danger">
                     Назад
                 </a>
+
+                <span class="centered-span" id="info_danger" style="color: red"></span>
+
             </div>
             <div class="card-body">
                 <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
@@ -124,7 +133,7 @@
 @endsection
 
 @section('script')
-
+    <script src="{{asset('assets/js/control.js')}}" ></script>
 
 
     <script>

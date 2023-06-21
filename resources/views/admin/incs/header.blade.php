@@ -58,8 +58,6 @@
                 <ul class="navbar-nav ms-auto mb-lg-0">
 
                     <li class="nav-item" style="margin-top: -10px;">
-
-
                         @if($command_task > 0)
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
                                aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"

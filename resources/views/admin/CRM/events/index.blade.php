@@ -97,7 +97,7 @@
                         @foreach($events as $event)
                             <tr>
                                 <td style="padding-top: 0; padding-bottom: 0;">{{ $loop->index + 1 }}</td>
-                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->description, 6)}}</td>
+                                <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->description, 60)}}</td>
                                 <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->themeEvent?->theme, 15) }}</td>
                                 <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit($event->leads?->contact->fio, 15) }}</td>
                                 <td style="padding-top: 0; padding-bottom: 0;">{{ Str::limit(date('d.m.Y', strtotime($event->date)), 15) }}</td>

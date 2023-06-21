@@ -26,6 +26,7 @@ use App\Notifications\Telegram\SendNewTaskInUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -502,5 +503,51 @@ class  TasksController extends BaseController
     {
         $mess->delete();
         return redirect()->back();
+    }
+
+    public function control($user_id, $from, $to, $time)  {
+
+        $taskModels = DB::table('task_models')
+            ->where('user_id', $user_id)
+            ->where(function ($query) use ($from, $to) {
+                $query->whereBetween('from', [$from, $to])
+                    ->orWhereBetween('to', [$from, $to]);
+            })
+            ->get();
+        $user = User::find($user_id)->name;
+        $hour = 0;
+
+        foreach ($taskModels as $task) {
+            $hour += $task->time;
+        }
+
+        $from_check = Carbon::createFromFormat('Y-m-d', $from);
+        $to_check = Carbon::createFromFormat('Y-m-d', $to);
+        $days = $to_check->diffInDays($from_check);
+
+        $is_valid = false;
+        $total = $days * 8 + 8;
+
+        $allow = $total - $hour;
+
+        if($allow > 0) {
+            $is_valid = true;
+        }
+
+        if ($time > $allow) {
+            $is_valid = false;
+        }
+
+
+        return response([
+            'tasks' => $taskModels,
+            'hour' => $hour,
+            'total' => $total,
+            'allowed' => $allow,
+            'is_valid' => $is_valid,
+            'time' => $time,
+            'user' => $user
+        ]);
+
     }
 }

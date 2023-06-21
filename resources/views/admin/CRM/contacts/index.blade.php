@@ -45,10 +45,10 @@
                         @foreach($contacts as $contact)
                             <tr>
                                 <td>{{ $loop->iteration}}</td>
-                                <td>{{ Str::limit($contact?->fio, 20) }}</td>
+                                <td>{{ Str::limit($contact?->fio, 50) }}</td>
                                 <td>{{ $contact?->phone }}</td>
                                 <td>{{ $contact?->address }}</td>
-                                <td>{{ Str::limit($contact?->fio, 20) }}</td>
+                                <td>{{ Str::limit($contact?->fio, 50) }}</td>
 
                                 <td class="text-center">
                                     <a href="{{ route('contact.show', $contact->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
