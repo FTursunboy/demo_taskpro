@@ -39,6 +39,20 @@
                                         <th>Проект: </th>
                                         <th><span class="mx-2"> 1</span></th>
                                     </tr>
+                                    <tr>
+                                        <th>Cтатус: </th>
+                                        <th>
+                                            @if(Cache::has('user-is-online-' . $user?->id))
+                                                <span class="text-center text-success mx-2"><b>Online</b></span>
+                                            @else
+                                                <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                     @if($user->last_seen !== null)
+                                                        <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($user?->last_seen)->diffForHumans() }}</span>
+                                                     @endif
+                                                </span>
+                                            @endif
+                                        </th>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
