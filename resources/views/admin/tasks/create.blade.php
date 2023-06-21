@@ -133,6 +133,7 @@
 @endsection
 
 @section('script')
+    @routes
     <script src="{{asset('assets/js/control.js')}}" ></script>
 
 
