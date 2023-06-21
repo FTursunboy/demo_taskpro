@@ -172,19 +172,28 @@
                             <div class="modal" tabindex="-1" id="send{{$task->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Убедитесь что задача выполнена</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="{{route('offers.decline', $task->id)}}" class="btn btn-danger">Отправить
-                                                заново</a>
-                                            <a href="#" class="btn btn-success" role="button"  data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
-                                        </div>
+                                        <form action="{{route('offers.decline', $task->id)}}" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Убедитесь что задача выполнена</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
+
+                                                <div style="display: none;" id="reason">
+                                                    <label for="reason">Причина отклонения</label>
+                                                    <textarea name="reason" cols="30" rows="5" class="form-control" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="declineButton" class="btn btn-danger">Отправить заново</button>
+                                                <button type="submit" class="btn btn-danger" id="decline" style="display: none">Отправить
+                                                    заново</button>
+                                                <a href="#" class="btn btn-success" role="button"  data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
+                                            </div>
+                                        </form>
                                     </div>
 
                                 </div>
@@ -309,6 +318,19 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <script>
+        const decline = document.getElementById('decline');
+        const declineButton = document.getElementById('declineButton');
+        const reasonField = document.getElementById('reason');
+        let isReasonFieldVisible = false;
+
+        declineButton.addEventListener('click', function(event) {
+            reasonField.style.display = 'block';
+            decline.style.display = 'block';
+            declineButton.style.display = 'none';
+            isReasonFieldVisible = true;
+        });
+    </script>
     <script type="text/javascript">
         "use strict";
 

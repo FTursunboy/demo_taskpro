@@ -408,7 +408,6 @@
                                                         <td>{{$report->user->name }}</td>
                                                         <td>
                                                             {{ $report->status?->name }}
-
                                                             @if ($report->user->hasRole('admin'))
                                                                 (Админ)
                                                             @elseif ($report->user->hasRole('user'))
@@ -421,7 +420,7 @@
                                                         </td>
                                                         <td>{{$report->text}}</td>
                                                     </tr>
-                                                @endforeach
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -568,16 +567,19 @@
                                     </option>
                                     @foreach($users as $user)
                                         <option
-                                            value="{{ $user->id }}" {{($user->id == $task->user_id) ? 'selected' : ''}} >{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group" id="reasonId" style="display: none">
+                                <label>Причина отклонения</label>
+                                <textarea name="reason" cols="30" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
 
-                            <button data-bs-target="#reason{{$task->id}}" data-bs-toggle="modal" type="button" class="btn btn-warning">
-                                Перенаправить
-                            </button>
+                            <button type="button" id="redirectButton" class="btn btn-warning">Перенаправить</button>
+                            <button type="submit" id="redirect" class="btn btn-warning" style="display: none">Перенаправить</button>
                             <button type="submit" class="btn btn-success">Готово
                             </button>
                         </div>
@@ -608,7 +610,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Удадения задачи</h5>
+                        <h5 class="modal-title">Удаление задачи</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -712,6 +714,22 @@
 
 @section('script')
     @routes
+    <script>
+        const redirect = document.getElementById('redirect');
+        const redirectButton = document.getElementById('redirectButton');
+        const reasonField = document.getElementById('reasonId');
+        let isReasonFieldVisible = false;
+
+        redirectButton.addEventListener('click', function(event) {
+            reasonField.style.display = 'block';
+            redirect.style.display = 'block';
+            redirectButton.style.display = 'none';
+            isReasonFieldVisible = true;
+        });
+    </script>
+
+
+
     <script>
         $(document).ready(function() {
             $('#file').change(function() {
