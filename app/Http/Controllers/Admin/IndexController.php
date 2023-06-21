@@ -70,7 +70,8 @@ class IndexController extends BaseController
             ->get();
 
 
-        $statistics = TaskModel::where('status_id', '!=', 3)->get();
+
+        $statistics = User::role('user')->get();
 
 
         return view('admin.index', compact('task', 'statistics', 'users', 'tasks', 'team_leads', 'ratings', 'admin_users', 'admin_ratings'));
@@ -164,23 +165,33 @@ class IndexController extends BaseController
 
     public function getFilter($month)
     {
-        $tasks = TaskModel::with('checkDate', 'author', 'status', 'user', 'type', 'typeType', 'project');
-        if ($month == '0') {
-            return response([
-                'statistics' => $tasks->get(),
-            ]);
-        } else {
-            $startOfMonth = Carbon::now()->month($month)->startOfMonth();
-            $endOfMonth = Carbon::now()->month($month)->endOfMonth();
-            $tasks->whereBetween('created_at', [
-                $startOfMonth,
-                $endOfMonth
-            ]);
+        $arrs = [];
+        $users = User::role('user')->get();
+        foreach ($users as $user) {
+            $arrs[] = [
+                'user' => $user->name . " " . $user->surname,
+                'total' => $user->getUserTasksInMonth($month, $user->id)['total'],
+                'debt' => $user->getUserTasksInMonth($month, $user->id)['debt'],
+                'process' => $user->getUserTasksInMonth($month, $user->id)['process'],
+                'accept' => $user->getUserTasksInMonth($month, $user->id)['accept'],
+                'ready' => $user->getUserTasksInMonth($month, $user->id)['ready'],
+                'speed' => $user->getUserTasksInMonth($month, $user->id)['speed'],
+                'expected' => $user->getUserTasksInMonth($month, $user->id)['expected'],
+                'expectedAdmin' => $user->getUserTasksInMonth($month, $user->id)['expectedAdmin'],
+                'expectedUser' => $user->getUserTasksInMonth($month, $user->id)['expectedUser'],
+                'forVerification' => $user->getUserTasksInMonth($month, $user->id)['forVerification'],
+                'forVerificationAdmin' => $user->getUserTasksInMonth($month, $user->id)['forVerificationAdmin'],
+                'forVerificationClient' => $user->getUserTasksInMonth($month, $user->id)['forVerificationClient'],
+                'rejected' => $user->getUserTasksInMonth($month, $user->id)['rejected'],
+                'rejectedAdmin' => $user->getUserTasksInMonth($month, $user->id)['rejectedAdmin'],
+                'rejectedClient' => $user->getUserTasksInMonth($month, $user->id)['rejectedClient'],
+            ];
         }
+//dd($arrs);
 
         return response([
-                'statistics' => $tasks->get(),
-            ]);
+                'statistics' => $arrs,
+        ]);
     }
 
 }
