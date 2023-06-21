@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -124,6 +125,12 @@ class GetAllTasksController extends BaseController
             $request->validate([
                 'success_desc' => 'required',
             ]);
+
+            ReportHistoryController::create(
+                $task->slug,
+                Statuses::CONFIRM,
+                $request->input('success_desc')
+            );
 
             $h = new TaskListController();
             $h->stopDeadline($task);

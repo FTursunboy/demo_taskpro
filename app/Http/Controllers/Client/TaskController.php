@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Http\Requests\Client\TaskRequest;
 use App\Jobs\NewOfferStoreJob;
 use App\Jobs\NewOfferStoreJobMake;
@@ -24,6 +25,7 @@ use App\Notifications\Telegram\TelegramClientDecline;
 use App\Notifications\Telegram\TelegramClientReady;
 use App\Notifications\Telegram\TelegramClientTask;
 use Carbon\Carbon;
+use http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -80,7 +82,7 @@ class TaskController extends BaseController
 
         TelegranAdminSendJob::dispatch($request->name, Auth::user()->name);
 
-        
+
 
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 
@@ -148,8 +150,15 @@ class TaskController extends BaseController
         return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
-    public function decline(Offer $offer)
+    public function decline(\Illuminate\Http\Request $request, Offer $offer)
     {
+        ReportHistoryController::create(
+            $offer->slug,
+            Statuses::RESEND,
+            $request->input('reason')
+        );
+
+
         $offer->status_id = 13;
         $offer->is_finished = false;
         $offer->save();
