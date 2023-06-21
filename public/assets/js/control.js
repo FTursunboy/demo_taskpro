@@ -27,6 +27,7 @@ $('#time').on('input', function () {
     let from = $('#from').val();
     let to = $('#to').val();
     let time = $('#time').val();
+    let kpi = $('#type_id').children('option:selected')
     $.get(`/tasks/public/control/${user_id}/${from}/${to}/${time}`, function(response) {
         console.log(response);
         if (response.is_valid === false && kpi.text().toLowerCase() !== 'kpi') {
