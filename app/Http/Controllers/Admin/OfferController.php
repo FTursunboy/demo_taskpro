@@ -326,10 +326,19 @@ class OfferController extends BaseController
         $offer->save();
         $task->save();
 
+
+
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
         $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
 
-        $history->delete();
+        $history?->delete();
+        
+        try {
+            Notification::send(User::find($offer->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
+        }
+        catch (\Exception $exception) {
+
+        }
 
         return redirect()->back()->with('mess', 'Успешно отправлено обратно ');
     }
