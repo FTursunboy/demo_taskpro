@@ -82,8 +82,14 @@ class TaskListController extends BaseController
 
     public function decline(TaskModel $task, Request $request)
     {
-
         $request->validate(['cancel' => ['required']]);
+
+        ReportHistoryController::create(
+            $task->slug,
+            Statuses::CONFIRM,
+            $request->input('cancel')
+        );
+
         $decline = UserTaskHistoryModel::where([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
