@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -37,13 +38,15 @@ class GetAllTasksController extends BaseController
 
         $task = TaskModel::where('slug', $slug)->first();
 
+        $admin = User::role('admin')->first();
+
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
         $histories = History::where([
             ['task_id', '=', $task->id],
             ['type', '=', 'task']
         ])->get();
-        return view('user.all-tasks.show', compact('task', 'messages', 'histories'));
+        return view('user.all-tasks.show', compact('task', 'messages', 'histories', 'admin'));
     }
 
     public function store(Request $request, TaskModel $task)
@@ -124,6 +127,12 @@ class GetAllTasksController extends BaseController
             $request->validate([
                 'success_desc' => 'required',
             ]);
+
+            ReportHistoryController::create(
+                $task->slug,
+                Statuses::CONFIRM,
+                $request->input('success_desc')
+            );
 
             $h = new TaskListController();
             $h->stopDeadline($task);

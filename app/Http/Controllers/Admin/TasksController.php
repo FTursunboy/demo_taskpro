@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Jobs\ChatSendEmailClientJob;
 use App\Jobs\ChatUserNotificationJob;
 use App\Mail\ChatEmail;
@@ -19,6 +20,7 @@ use App\Models\ChatMessageModel;
 use App\Models\CheckDate;
 use App\Models\Client\Offer;
 use App\Models\History;
+use App\Models\ReportHistory;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\Chat;
@@ -431,6 +433,12 @@ class  TasksController extends BaseController
 
 
         } else {
+            ReportHistoryController::create(
+                $task->slug,
+                Statuses::RESEND,
+                $request->input('reason')
+            );
+
             $user = User::where('id', $request->employee)->first();
             if ($user->position === 'Admin') {
                 $task->update([
