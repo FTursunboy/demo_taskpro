@@ -33,30 +33,32 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="media d-flex align-items-center">
-                                    <div class="avatar me-3">
-                                        @if($offer->user?->avatar)
-                                            <img src="{{ asset('storage/'. $offer->user?->avatar)}}">
-                                        @else
-                                            <img src="{{asset('assets/images/avatar-2.png')}}">
-                                        @endif
-                                        <span
-                                            class="avatar-status {{ Cache::has('user-is-online-' . $offer->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
-                                    </div>
-                                    <div class="name me-3">
-                                        <h6 class="mb-0">{{ $offer->user->surname . ' ' . $offer->user->name}}</h6>
-                                        <span class="text-xs">
-                                             @if(Cache::has('user-is-online-' . $offer->user?->id))
-                                                <span class="text-center text-success mx-2"><b>Online</b></span>
+                                    @if($offer->user->id !== $admin->id)
+                                        <div class="avatar me-3">
+                                            @if($offer->user?->avatar)
+                                                <img src="{{ asset('storage/'. $offer->user?->avatar)}}">
                                             @else
-                                                <span class="text-center text-danger  mx-2"><b>Offline</b>
-                                                    @if($offer->user?->last_seen !== null)
-                                                        <span
-                                                            class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer->user?->last_seen)->diffForHumans() }}</span>
-                                                    @endif
-                                                </span>
+                                                <img src="{{asset('assets/images/avatar-2.png')}}">
                                             @endif
+                                            <span
+                                                class="avatar-status {{ Cache::has('user-is-online-' . $offer->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                        </div>
+                                        <div class="name me-3">
+                                            <h6 class="mb-0">{{ $offer->user->surname . ' ' . $offer->user->name}}</h6>
+                                            <span class="text-xs">
+                                             @if(Cache::has('user-is-online-' . $offer->user?->id))
+                                                    <span class="text-center text-success mx-2"><b>Online</b></span>
+                                                @else
+                                                    <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                    @if($offer->user?->last_seen !== null)
+                                                            <span
+                                                                class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer->user?->last_seen)->diffForHumans() }}</span>
+                                                        @endif
+                                                </span>
+                                                @endif
                                         </span>
-                                    </div>
+                                        </div>
+                                    @endif
                                     <div class="avatar me-3">
                                         @if($admin?->avatar)
                                             <img src="{{ asset('storage/'. $admin?->avatar)}}">
