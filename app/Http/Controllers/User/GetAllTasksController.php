@@ -38,13 +38,15 @@ class GetAllTasksController extends BaseController
 
         $task = TaskModel::where('slug', $slug)->first();
 
+        $admin = User::role('admin')->first();
+
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
         $histories = History::where([
             ['task_id', '=', $task->id],
             ['type', '=', 'task']
         ])->get();
-        return view('user.all-tasks.show', compact('task', 'messages', 'histories'));
+        return view('user.all-tasks.show', compact('task', 'messages', 'histories', 'admin'));
     }
 
     public function store(Request $request, TaskModel $task)
