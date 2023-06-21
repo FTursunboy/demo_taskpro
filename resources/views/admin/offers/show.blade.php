@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('title')
+    {{$offer?->name}}
+@endsection
 @section('content')
 
     <div class="page-heading">
@@ -198,7 +201,7 @@
                                                                                     type="text"
                                                                                     class="form-control"
                                                                                     disabled
-                                                                                    >
+                                                                                >
 
                                                                                 <div class="form-group"
                                                                                      id="type_id_group">
@@ -228,7 +231,8 @@
 
                                                                             @if($offer->status_id === 6)
                                                                                 <div class="col-md-6">
-                                                                                    <label class="form-label">Отчёт</label>
+                                                                                    <label
+                                                                                        class="form-label">Отчёт</label>
                                                                                     <textarea
                                                                                         class="form-control"
                                                                                         style="background-color: #208d20; color: white"
@@ -279,8 +283,9 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <a data-bs-target="#decline{{$offer->id}}" data-bs-toggle="modal" value="decline"
-                                                                            class="btn btn-danger form-control">
+                                                                    <a data-bs-target="#decline{{$offer->id}}"
+                                                                       data-bs-toggle="modal" value="decline"
+                                                                       class="btn btn-danger form-control">
                                                                         Отклонить
                                                                     </a>
                                                                 </div>
@@ -314,13 +319,53 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="media d-flex align-items-center">
-                                        <div class="avatar me-3">
-                                            <img src="{{ asset('assets/images/faces/1.jpg')}}" alt="" srcset="">
-                                            <span class="avatar-status bg-success"></span>
+                                        @if($offer->user_id !== null && Auth::id() !== $offer->user_id)
+                                            <div class="avatar me-2">
+                                                @if($offer?->user?->avatar)
+                                                    <img src="{{ asset('storage/'. $offer?->user?->avatar)}}">
+                                                @else
+                                                    <img src="{{asset('assets/images/avatar-2.png')}}">
+                                                @endif
+                                                    <span
+                                                        class="avatar-status {{ Cache::has('user-is-online-' . $offer?->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                            </div>
+                                            <div class="name me-2">
+                                                <h6 class="mb-0">{{ $offer?->user?->name }} {{ $offer?->user?->surname }}</h6>
+                                                <span class="text-xs">
+                                                    @if(Cache::has('user-is-online-' . $offer?->user?->id))
+                                                        <span class="text-center text-success mx-2"><b>Online</b></span>
+                                                    @else
+                                                        <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                             @if($admin?->last_seen !== null)
+                                                                <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer?->user?->last_seen)->diffForHumans() }}</span>
+                                                            @endif
+                                                        </span>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        @endif
+                                        <div class="avatar ms-2 me-2">
+                                            @if($offer->client?->avatar)
+                                                <img src="{{ asset('storage/'. $offer?->client?->avatar)}}">
+                                            @else
+                                                <img src="{{asset('assets/images/avatar-2.png')}}">
+                                            @endif
+                                            <span
+                                                class="avatar-status {{ Cache::has('user-is-online-' . $offer->client?->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                         </div>
-                                        <div class="name flex-grow-1">
-                                            <h6 class="mb-0">{{ $offer->user?->name }} {{ $offer->user?->surname }}</h6>
-                                            <span class="text-xs">Online</span>
+                                        <div class="name me-2">
+                                            <h6 class="mb-0">{{ $offer->client?->name }} {{ $offer->client?->surname }} </h6>
+                                            <span class="text-xs">
+                                                 @if(Cache::has('user-is-online-' . $offer->client?->id))
+                                                    <span class="text-center text-success mx-2"><b>Online</b></span>
+                                                @else
+                                                    <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                         @if($admin?->last_seen !== null)
+                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer->client?->last_seen)->diffForHumans() }}</span>
+                                                        @endif
+                                                    </span>
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -332,9 +377,12 @@
                                                     <div class="chat-body" style="margin-right: 10px">
                                                         <div class="chat-message">
                                                             <p>
-                                                                 <span style="display: flex; justify-content: space-between;">
+                                                                 <span
+                                                                     style="display: flex; justify-content: space-between;">
                                                             <b>{{$mess->sender?->name}}</b>
-                                                            <a style="color: red" href="{{route('tasks.messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
+                                                            <a style="color: red"
+                                                               href="{{route('tasks.messages.delete', $mess->id)}}"><i
+                                                                    class="bi bi-trash"></i></a>
                                                         </span>
                                                                 <span
                                                                     style="margin-top: 10px">{{ $mess->message }}</span>
@@ -460,11 +508,11 @@
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
                                                 <td>{{$history->user?->name }}
-                                                    @if ($history->user->hasRole('admin'))
+                                                    @if ($history?->user?->hasRole('admin'))
                                                         (Админ)
-                                                    @elseif ($history->user->hasRole('user'))
+                                                    @elseif ($history?->user?->hasRole('user'))
                                                         (Сотрудник)
-                                                    @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                                    @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))
                                                         (Клиент)
                                                     @else
                                                         Роль не определена
@@ -515,8 +563,9 @@
                         <textarea required name="reason" class="form-control" id="" cols="30" rows="2"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button  id="reason" type="submit" class="btn btn-danger">Отклонить, Отправить заново</button>
-                        <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
+                        <button id="reason" type="submit" class="btn btn-danger">Отклонить, Отправить заново</button>
+                        <a href="{{route('client.offers.send.client', $offer->id)}}"
+                           class="btn btn-success">Отправить</a>
                     </div>
                 </form>
             </div>
@@ -528,16 +577,16 @@
             <div class="modal-content">
                 <form action="{{route('client.offers.decline', $offer->id)}}" method="post">
                     @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title">Вы действительно хотите отклонить задачу</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <textarea name="reason" class="form-control"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Отправить</button>
-                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Вы действительно хотите отклонить задачу</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea name="reason" class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Отправить</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -675,7 +724,7 @@
                         $('#file').val('');
 
                         let fileUrl = route('user.downloadChat', {task: response.messages.id});
-                        let del = route('tasks.messages.delete', { mess: response.messages.id });
+                        let del = route('tasks.messages.delete', {mess: response.messages.id});
                         let newMessage = `
                                 <div class="chat">
                                     <div class="chat-body" style="margin-right: 10px">

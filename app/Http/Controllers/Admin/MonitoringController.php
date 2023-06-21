@@ -62,9 +62,9 @@ class  MonitoringController extends BaseController
 
     public function show($slug)
     {
-        $task = TaskModel::where('slug', $slug)->first();
+       $task = TaskModel::where('slug', $slug)->first();
 
-        $messages = MessagesModel::where('task_slug', $task->slug)->get();
+       $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
        $reports = ReportHistory::where('task_slug', $slug)->get();
 

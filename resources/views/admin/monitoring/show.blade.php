@@ -289,13 +289,53 @@
                             <div class="card-header">
                                 <div class="media d-flex align-items-center">
                                     <div class="avatar me-3">
-                                        <img src="{{ asset('assets/images/faces/1.jpg')}}" alt="" srcset="">
-                                        <span class="avatar-status bg-success"></span>
+                                        @if($task?->user?->avatar)
+                                            <img
+                                                src="{{ asset('storage/'. $task?->user?->avatar)}}">
+                                        @else
+                                            <img src="{{asset('assets/images/avatar-2.png')}}">
+                                        @endif
+                                        <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->user->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                     </div>
-                                    <div class="name flex-grow-1">
+                                    <div class="name me-3">
                                         <h6 class="mb-0">{{ $task->user->name }} {{ $task->user->surname }}</h6>
-                                        <span class="text-xs">Online</span>
+                                        <span class="text-xs">
+                                             @if(Cache::has('user-is-online-' . $task?->user->id))
+                                                <span class="text-center text-success mx-2"><b>Online</b></span>
+                                            @else
+                                                <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                    @if($task?->user->last_seen !== null)
+                                                        <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->user->last_seen)->diffForHumans() }}</span>
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        </span>
                                     </div>
+                                    @if($task?->author->id !== \Illuminate\Support\Facades\Auth::id() )
+                                        <div class="avatar me-3">
+                                            @if($task?->author?->avatar)
+                                                <img
+                                                    src="{{ asset('storage/'. $task?->author?->avatar)}}">
+                                            @else
+                                                <img src="{{asset('assets/images/avatar-2.png')}}">
+                                            @endif
+                                            <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->author->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                        </div>
+                                        <div class="name me-3">
+                                            <h6 class="mb-0">{{ $task->author->name }} {{ $task->author->surname }}</h6>
+                                            <span class="text-xs">
+                                             @if(Cache::has('user-is-online-' . $task?->author->id))
+                                                    <span class="text-center text-success mx-2"><b>Online</b></span>
+                                                @else
+                                                    <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                         @if($task?->author->last_seen !== null)
+                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->author->last_seen)->diffForHumans() }}</span>
+                                                        @endif
+                                                </span>
+                                                @endif
+                                        </span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-body pt-4 bg-grey">
@@ -469,16 +509,16 @@
                                                 @foreach($histories as $history)
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
-                                                        <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                        <td>{{$history->user->name }}</td>
+                                                        <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
+                                                        <td>{{$history?->user->name }}</td>
                                                         <td>
-                                                            {{ $history->status?->name }}
+                                                            {{ $history?->status?->name }}
 
-                                                            @if ($history->user->hasRole('admin'))
+                                                            @if ($history?->user->hasRole('admin'))
                                                                 (Админ)
-                                                            @elseif ($history->user->hasRole('user'))
+                                                            @elseif ($history?->user->hasRole('user'))
                                                                 (Сотрудник)
-                                                            @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                                            @elseif ($history?->user?->hasRole('client') || $history?->user->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
                                                                 (Система)
@@ -492,16 +532,16 @@
 
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
-                                                        <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                        <td>{{$history->sender->name }}</td>
+                                                        <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
+                                                        <td>{{$history->sender?->name }}</td>
                                                         <td>
-                                                            {{ $history->status?->name }}
+                                                            {{ $history?->status?->name }}
 
-                                                            @if ($history->user->hasRole('admin'))
+                                                            @if ($history?->user?->hasRole('admin'))
                                                                 (Админ)
-                                                            @elseif ($history->user->hasRole('user'))
+                                                            @elseif ($history?->user?->hasRole('user'))
                                                                 (Сотрудник)
-                                                            @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                                            @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
                                                                 (Система)

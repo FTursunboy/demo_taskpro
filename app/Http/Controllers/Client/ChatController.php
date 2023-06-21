@@ -24,7 +24,9 @@ class ChatController extends BaseController
     {
         $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
-        return view('client.offers.chat', compact('messages', 'offer'));
+        $admin = User::role('admin')->first();
+
+        return view('client.offers.chat', compact('messages', 'offer', 'admin'));
     }
 
     public function store(Request $request, Offer $offer)

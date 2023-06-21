@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-
-
     <div id="page-heading">
         <div class="page-title">
             <div class="row">
@@ -36,12 +34,52 @@
                             <div class="card-header">
                                 <div class="media d-flex align-items-center">
                                     <div class="avatar me-3">
-                                        <img src="{{ asset('assets/images/faces/1.jpg')}}" alt="" srcset="">
-                                        <span class="avatar-status bg-success"></span>
+                                        @if($offer->user?->avatar)
+                                            <img src="{{ asset('storage/'. $offer->user?->avatar)}}">
+                                        @else
+                                            <img src="{{asset('assets/images/avatar-2.png')}}">
+                                        @endif
+                                        <span
+                                            class="avatar-status {{ Cache::has('user-is-online-' . $offer->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                     </div>
-                                    <div class="name flex-grow-1">
-                                        <h6 class="mb-0">{{ $offer->user?->name }} {{ $offer->user?->surname }}</h6>
-                                        <span class="text-xs">Online</span>
+                                    <div class="name me-3">
+                                        <h6 class="mb-0">{{ $offer->user->surname . ' ' . $offer->user->name}}</h6>
+                                        <span class="text-xs">
+                                             @if(Cache::has('user-is-online-' . $offer->user?->id))
+                                                <span class="text-center text-success mx-2"><b>Online</b></span>
+                                            @else
+                                                <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                    @if($offer->user?->last_seen !== null)
+                                                        <span
+                                                            class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer->user?->last_seen)->diffForHumans() }}</span>
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="avatar me-3">
+                                        @if($admin?->avatar)
+                                            <img src="{{ asset('storage/'. $admin?->avatar)}}">
+                                        @else
+                                            <img src="{{asset('assets/images/avatar-2.png')}}">
+                                        @endif
+                                        <span
+                                            class="avatar-status {{ Cache::has('user-is-online-' . $admin?->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                    </div>
+                                    <div class="name me-3">
+                                        <h6 class="mb-0">{{ $admin->surname . ' ' . $admin->name}}</h6>
+                                        <span class="text-xs">
+                                             @if(Cache::has('user-is-online-' . $admin?->id))
+                                                <span class="text-center text-success mx-2"><b>Online</b></span>
+                                            @else
+                                                <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                    @if($admin?->last_seen !== null)
+                                                        <span
+                                                            class="text-gray-600"> - {{ \Carbon\Carbon::parse($admin?->last_seen)->diffForHumans() }}</span>
+                                                    @endif
+                                                </span>
+                                            @endif
+                                        </span>
                                     </div>
                                 </div>
                             </div>
