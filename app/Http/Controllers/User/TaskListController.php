@@ -30,9 +30,9 @@ class TaskListController extends BaseController
     public function show($slug)
     {
         $task = TaskModel::where('slug', $slug)->first();
-
+        $admin = User::role('admin')->first();
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
-        return view('user.tasks.show', compact('task', 'messages'));
+        return view('user.tasks.show', compact('task', 'messages', 'admin'));
     }
 
     public function removeNotification(TaskModel $task)

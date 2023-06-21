@@ -250,6 +250,7 @@ class OfferController extends BaseController
         $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
 
+
         $users = User::role(['user', 'admin'])->get();
 
         $types = TaskTypeModel::get();

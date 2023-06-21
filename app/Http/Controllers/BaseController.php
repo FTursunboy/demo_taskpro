@@ -48,6 +48,7 @@ class BaseController extends Controller
             $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
 
             $notes = Auth::user()->notesList(Auth::id());
+
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -70,7 +71,7 @@ class BaseController extends Controller
 
                 'notes' => $notes,
 
-                'system_idea_count' => $system_idea_count
+                'system_idea_count' => $system_idea_count,
 
             ]);
             return $next($request);
