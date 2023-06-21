@@ -530,12 +530,17 @@ class  TasksController extends BaseController
 
         $allow = $total - $hour;
 
+
+
         if($allow > 0) {
             $is_valid = true;
         }
 
         if ($time > $allow) {
             $is_valid = false;
+        }
+        if ($allow < 0) {
+            $allow = 0;
         }
 
 
