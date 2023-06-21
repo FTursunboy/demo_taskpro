@@ -213,7 +213,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks-team/leads/decline/{slug}',[\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'declineTaskCommand'])->name('declineTaskCommand');
     });
 
-    Route::get('/tasks/public/control/{user_id}/{from}/{to}/{time}', [\App\Http\Controllers\Admin\TasksController::class, 'control'])->name('control');
+    Route::get('/tasks/public/tasks/create/control/{user_id}/{from}/{to}/{time}', [\App\Http\Controllers\Admin\TasksController::class, 'control'])->name('control');
 
 
 });
