@@ -47,6 +47,7 @@ class User extends Authenticatable
         'email',
         'client_id',
         'birthday',
+        'last_seen',
     ];
 
     /**

@@ -96,6 +96,25 @@
                                             <th>Идеи :</th>
                                             <th><span class="mx-2"> {{ $user->ideaCount($user->id) }}</span></th>
                                         </tr>
+
+                                        <tr>
+                                            <th>Статус :</th>
+                                            <th>
+                                                @if(Cache::has('user-is-online-' . $user->id))
+                                                    <span class="text-center text-success mx-2"><b>Online</b></span>
+                                                @else
+                                                    <span class="text-center text-danger  mx-2"><b>Offline</b></span>
+                                                @endif
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Последнее посещение :</th>
+                                            <th>
+                                                @if($user->last_seen !== null)
+                                                    {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
+                                                @endif
+                                            </th>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>

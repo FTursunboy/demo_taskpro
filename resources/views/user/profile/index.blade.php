@@ -45,6 +45,8 @@
                                     <th>#</th>
                                     <th>ФИО</th>
                                     <th>Должность</th>
+                                    <th>Статус</th>
+                                    <th>Последнее посещение</th>
                                     <th>Телефон</th>
                                     <th>Прогресс (макс: 1000)</th>
                                 </tr>
@@ -55,6 +57,14 @@
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $employee->surname. ' '. $employee->name.' '. $employee->lastname }}</td>
                                         <td>{{ $employee->position }}</td>
+                                        <td>
+                                            @if(Cache::has('user-is-online-' . $employee?->id))
+                                                <span class="text-center text-success mx-2"><b>Online</b></span>
+                                            @else
+                                                <span class="text-center text-danger  mx-2"><b>Offline</b></span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $employee->last_seen === null || Cache::has('user-is-online-' . $employee?->id) === true ? " " : \Carbon\Carbon::parse($employee?->last_seen)->diffForHumans()}}</td>
                                         <td>{{ $employee->phone }}</td>
                                         <td>
                                             @switch($employee->xp)
