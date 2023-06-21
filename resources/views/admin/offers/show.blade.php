@@ -336,8 +336,10 @@
                                                         <span class="text-center text-success mx-2"><b>Online</b></span>
                                                     @else
                                                         <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                            @if(isset($admin))
                                                              @if($admin?->last_seen !== null)
                                                                 <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer?->user?->last_seen)->diffForHumans() }}</span>
+                                                            @endif
                                                             @endif
                                                         </span>
                                                     @endif
@@ -360,8 +362,10 @@
                                                     <span class="text-center text-success mx-2"><b>Online</b></span>
                                                 @else
                                                     <span class="text-center text-danger  mx-2"><b>Offline</b>
+                                                        @if(isset($admin))
                                                          @if($admin?->last_seen !== null)
                                                             <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer->client?->last_seen)->diffForHumans() }}</span>
+                                                        @endif
                                                         @endif
                                                     </span>
                                                 @endif

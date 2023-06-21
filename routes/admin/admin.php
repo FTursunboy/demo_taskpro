@@ -89,6 +89,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/tasks/message/delete/{mess}', [\App\Http\Controllers\Admin\TasksController::class, 'delete'])->name('messages.delete');
         Route::get('/tasks/new-message/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'removeNotification'])->name('removeNotification');
         Route::get('/tasks/messages/download/{mess}', [\App\Http\Controllers\Admin\ChatController::class, 'downloadFile'])->name('messages.download');
+        Route::get('/tasks/user/send/back/{task}', [\App\Http\Controllers\Admin\TasksController::class, 'userSendBack'])->name('user.send.back');
 
         Route::post('/tasks/score', [\App\Http\Controllers\Admin\AdminRatingController::class, 'score'])->name('score');
     });

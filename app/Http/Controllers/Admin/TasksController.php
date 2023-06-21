@@ -554,4 +554,18 @@ class  TasksController extends BaseController
         ]);
 
     }
+
+    public function userSendBack(TaskModel $task) {
+        $task->status_id = 1;
+        $offer = Offer::find($task->offer_id);
+        $offer->status_id = 9;
+        $offer->save();
+        $task->save();
+
+        HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
+        $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
+
+        $history?->delete();
+        return back();
+    }
 }
