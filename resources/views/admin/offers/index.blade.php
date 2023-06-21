@@ -55,23 +55,19 @@
                             </div>
                         </div>
                         <div class="card-body">
-
                             <table class="table table-striped table-responsive" id="example">
-
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Название</th>
-                                    <th>Oписание</th>
+                                    <th>Описание</th>
                                     <th>Исполнитель</th>
                                     <th>Проект</th>
                                     <th>Статус</th>
                                     <th class="text-center">Действие</th>
                                 </tr>
                                 </thead>
-
                                 <tbody>
-
                                 @forelse($offers as $offer)
                                     <tr>
                                         <td >{{$loop->iteration}}</td>

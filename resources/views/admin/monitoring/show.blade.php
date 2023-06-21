@@ -576,7 +576,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            
+
                             <button data-bs-target="#reason{{$task->id}}" data-bs-toggle="modal" type="button" class="btn btn-warning">
                                 Перенаправить
                             </button>
