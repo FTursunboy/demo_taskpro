@@ -57,7 +57,7 @@ class MyTasksController extends BaseController
                 'success_desc' => $request->report,
             ]);
 
-            return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
+            return redirect()->route('mon.index')->with('update', 'Задача успешно завершена!');
         } else {
             $task->update([
                 'status_id' => 10,
@@ -79,7 +79,7 @@ class MyTasksController extends BaseController
 
             }
 
-            return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
+            return redirect()->route('mon.index')->with('update', 'Задача успешно завершена!');
         }
 
     }

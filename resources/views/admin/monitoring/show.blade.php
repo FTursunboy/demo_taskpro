@@ -88,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="user">Сотрудник</label>
                                     <input type="text" id="user" class="form-control"
-                                           value="{{ $task->user->name }} {{ $task->user->surname }}"
+                                           value="{{ $task->user?->name }} {{ $task->user->surname }}"
                                            disabled>
                                 </div>
 
@@ -582,7 +582,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal" tabindex="-1" id="admin">
+        <div class="modal" tabindex="-1" id="admin{{$task->id}}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
