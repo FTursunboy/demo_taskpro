@@ -332,7 +332,7 @@ class OfferController extends BaseController
         $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
 
         $history?->delete();
-        
+
         try {
             Notification::send(User::find($offer->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
         }

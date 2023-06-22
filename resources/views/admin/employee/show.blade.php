@@ -440,7 +440,7 @@
                                                 @break
                                             @endswitch
                                             <td class="">
-                                                <a href="{{ route('tasks.show', $project_task->id) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                                                <a href="{{ route('mon.show', $project_task->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                             </td>
                                         </tr>
                                 @endforeach
