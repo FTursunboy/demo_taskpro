@@ -40,7 +40,7 @@
                     <div class="col-md-2">
                         <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
                     </div>
-                    @if($task->user_id == \Illuminate\Support\Facades\Auth::id() && $task->status_id !== 3)
+                    @if($task->user_id == \Illuminate\Support\Facades\Auth::id())
                         <div class="col-md-2">
                             <button data-bs-target="#admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>

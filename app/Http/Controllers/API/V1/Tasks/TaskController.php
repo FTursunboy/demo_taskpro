@@ -56,7 +56,7 @@ class TaskController extends Controller
         $task->update([
             'status_id' => 4
         ]);
-        
+
         if ($task->to < now()->toDateString()) {
             $task->status_id = 7;
             $task->save();
@@ -68,7 +68,7 @@ class TaskController extends Controller
             $offer = Offer::find($task->offer_id);
             $offer->status_id = 2;
             $offer->save();
-            HistoryController::client($offer->id, $offer->user_id, $offer->client_id, Statuses::ACCEPT);
+            HistoryController::client($offer->id, $offer->id, $offer->client_id, Statuses::ACCEPT);
         }
         try {
             Notification::send(User::role('admin')->first(), new TelegramUserAccept($task->name, Auth::user()->name));
