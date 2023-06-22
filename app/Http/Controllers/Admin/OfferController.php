@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Http\Requests\Admin\TaskClientRequest;
 use App\Http\Requests\Client\TaskRequest;
 use App\Mail\ChatEmail;
@@ -229,6 +230,11 @@ class OfferController extends BaseController
         $offer->is_finished = true;
         $offer->status_id = 10;
         $offer->save();
+
+        $user = User::find($offer->client_id);
+        $email = $user?->clientEmail?->email;
+        MailToSendClientController::send($email, $offer->name);
+
 
         $tasks = TaskModel::where('offer_id', $offer->id)->first();
         if ($tasks !== null) {
