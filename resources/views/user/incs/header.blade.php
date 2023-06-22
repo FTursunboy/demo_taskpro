@@ -304,8 +304,7 @@
                                                    class="badge bg-success" role="button"><i class="bi bi-eye"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserEdit{{ $idea->id }}"
                                                    class="badge bg-primary" role="button"><i class="bi bi-pencil"></i></a>
-                                                <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserDelete{{ $idea->id }}"
-                                                   class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>
+
                                             </td>
                                         </tr>
 
@@ -527,38 +526,7 @@
 
 
                                         <!-- Modal Delete Start -->
-                                        <div class="modal fade" id="ideasShowDashboardUserDelete{{ $idea->id }}"
-                                             data-bs-backdrop="static"
-                                             data-bs-keyboard="false" tabindex="-1"
-                                             aria-labelledby="ideasShowDashboardUserDelete{{ $idea->id }}"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="ideasShowDashboardUserDelete{{ $idea->id }}">
-                                                            Названия: {{\Str::limit($idea->title, 60)}}</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                    </div>
-                                                    <form method="post" action="{{ route('idea.idea.destroy', $idea->id) }}"
-                                                          enctype="multipart/form-data">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <div class="modal-body">
-                                                            <p class="text-center">Точно хотите удалить идею?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                                Назад
-                                                            </button>
-                                                            <button type="submit" class="btn btn-danger">
-                                                                Удалить идею
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                      
                                         <!-- Modal Delete End -->
 
 
