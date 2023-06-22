@@ -102,7 +102,7 @@ class  MonitoringController extends BaseController
 
         $types = TaskTypeModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
-        $users = User::role('user')->get();
+        $users = User::role(['user', 'admin'])->get();
         $type_kpi = TaskTypesTypeModel::get();
 
         return view('admin.monitoring.edit', compact('types', 'projects', 'users', 'task', 'type_kpi'));
@@ -203,6 +203,15 @@ class  MonitoringController extends BaseController
         $task1 = new TasksController();
 
         $task1->check();
+
+        $admin = User::role('admin')->first();
+
+        if ($request->user_id == $admin->id) {
+            $task->update([
+                'status_id' => 2,
+            ]);
+        }
+
         return redirect()->route('mon.index')->with('update', 'Задача успешно обновлена');
     }
 
