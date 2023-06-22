@@ -40,6 +40,11 @@
                     <div class="col-md-2">
                         <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
                     </div>
+                    @if($task->user_id == \Illuminate\Support\Facades\Auth::id())
+                        <div class="col-md-2">
+                            <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
+                        </div>
+                    @endif
                     @if($task->status->id == 6)
                         <div class="col-md-2">
                             <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
