@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
@@ -72,6 +73,13 @@ class TasksController extends BaseController
             'cancel' => $request->cancel,
             'status_id' => 5,
         ]);
+
+        ReportHistoryController::create(
+            $task->slug,
+            Statuses::RESEND,
+            $request->input('cancel')
+        );
+
 
         HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
 
