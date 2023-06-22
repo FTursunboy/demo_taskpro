@@ -607,7 +607,7 @@
                                     </option>
                                     @foreach($users as $user)
                                         <option
-                                            value="{{ $user->id }}" {{$user->id == $task->user_id ? 'selected' : ''}}>{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
                                     @endforeach
                                 </select>
                             </div>

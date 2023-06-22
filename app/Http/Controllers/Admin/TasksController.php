@@ -413,6 +413,7 @@ class  TasksController extends BaseController
 
             if ($offer !== null) {
                 $client = User::find($offer->client_id);
+
                 if ($client !== null) {
                     $email = $client?->clientEmail?->email;
                     if ($email) {
