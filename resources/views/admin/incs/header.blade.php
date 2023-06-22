@@ -93,7 +93,7 @@
                             </a>
                         @else
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px">
-                                <i style="font-size: 30px" class="bi bi-lightbulb"></i>
+                                <i style="font-size: 30px" class="bi bi-lightbulb-fill"></i>
                             </a>
                         @endif
                         <style>
