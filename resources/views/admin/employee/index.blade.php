@@ -87,7 +87,7 @@
                                         <div class="progress-bar" role="progressbar" aria-label="Basic example"
                                              style="width: {{$user->xp / 10}}%" aria-valuenow="{{ $user->xp }}"
                                              aria-valuemin="0"
-                                             aria-valuemax="1000"></div>
+                                             aria-valuemax="10000"></div>
                                     </div>
                                     @break
                                 @endswitch
