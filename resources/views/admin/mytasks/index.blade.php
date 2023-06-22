@@ -140,7 +140,7 @@
                                                             Проверить задачу
                                                         </a>
                                                     @else
-                                                        <a href="{{ route('tasks.show', $task->id) }}"
+                                                        <a href="{{ route('mon.show', $task->id) }}"
                                                            class="btn btn-outline-success w-100">
                                                             <i class="bi bi-eye mx-2" ></i>
                                                             Просмотреть
@@ -172,7 +172,7 @@
                                                     </div>
                                                 @else
                                                     <div class="col-4">
-                                                        <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-outline-primary w-100">
+                                                        <a href="{{route('mon.edit', $task->id)}}" class="btn btn-outline-primary w-100">
                                                             <i class="bi bi-pencil"></i>
                                                             Изменить
                                                         </a>
