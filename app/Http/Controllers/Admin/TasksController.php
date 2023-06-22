@@ -412,15 +412,6 @@ class  TasksController extends BaseController
             $offer = Offer::find($task->offer_id);
 
             if ($offer !== null) {
-                $client = User::find($offer->client_id);
-
-                if ($client !== null) {
-                    $email = $client?->clientEmail?->email;
-                    if ($email) {
-                        Mail::to($email)->send(new OfferReady($offer));
-                    }
-                }
-
 
                 $offer->status_id = 10;
                 $offer->save();
