@@ -599,7 +599,7 @@
                                           disabled>{{ $task->success_desc }} </textarea>
                             </div>
                             <div class="form-group">
-                                <label for="employee">Исполнители</label>
+                                <label for="employee">Исполнителя</label>
                                 <select name="employee" id="employee"
                                         class="form-control">
                                     <option disabled value="0" selected>Выберите
@@ -607,7 +607,7 @@
                                     </option>
                                     @foreach($users as $user)
                                         <option
-                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                            value="{{ $user->id }}" {{$user->id == $task->user_id ? 'selected' : ''}}>{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
                                     @endforeach
                                 </select>
                             </div>
