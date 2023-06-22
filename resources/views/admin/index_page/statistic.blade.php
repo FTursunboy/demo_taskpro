@@ -32,16 +32,11 @@
                     <th class="text-center">Все задачи</th>
                     <th class="text-center">Долг</th>
                     <th class="text-center">В процессе</th>
-                    <th class="text-center">Принято</th>
                     <th class="text-center">Готово</th>
                     <th class="text-center">Просроченное</th>
-                    <th class="text-center">Ожидается</th>
-                    <th class="text-center">Ожидается (Админ)</th>
                     <th class="text-center">Ожидается (Сотрудник)</th>
-                    <th class="text-center">На проверку</th>
                     <th class="text-center">На проверке (У админа)</th>
                     <th class="text-center">На проверке (У клиента)</th>
-                    <th class="text-center">Отклонено</th>
                     <th class="text-center">Отклонено (Администратором)</th>
                     <th class="text-center">Отклонено (Сотрудником)</th>
                 </tr>
@@ -54,16 +49,11 @@
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['debt'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['process'] }}</td>
-                        <td class="text-center">{{ $user->usersCountTasks($user->id)['accept'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['ready'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['speed'] }}</td>
-                        <td class="text-center">{{ $user->usersCountTasks($user->id)['expected'] }}</td>
-                        <td class="text-center">{{ $user->usersCountTasks($user->id)['expectedAdmin'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['expectedUser'] }}</td>
-                        <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerification'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationAdmin'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationClient'] }}</td>
-                        <td class="text-center">{{ $user->usersCountTasks($user->id)['rejected'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedAdmin'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedClient'] }}</td>
                     </tr>
@@ -110,16 +100,11 @@
                     <td class="text-center">${item.total !== null ? item.total : 0}</td>
                     <td class="text-center">${item.debt !== null ? item.debt : 0}</td>
                     <td class="text-center">${item.process !== null ? item.process : 0}</td>
-                    <td class="text-center">${item.accept !== null ? item.accept : 0}</td>
                     <td class="text-center">${item.ready !== null ? item.ready : 0}</td>
                     <td class="text-center">${item.speed !== null ? item.speed : 0}</td>
-                    <td class="text-center">${item.expected !== null ? item.expected : 0}</td>
-                    <td class="text-center">${item.expectedAdmin !== null ? item.expectedAdmin : 0}</td>
                     <td class="text-center">${item.expectedUser !== null ? item.expectedUser : 0}</td>
-                    <td class="text-center">${item.forVerification !== null ? item.forVerification : 0}</td>
                     <td class="text-center">${item.forVerificationAdmin !== null ? item.forVerificationAdmin : 0}</td>
                     <td class="text-center">${item.forVerificationClient !== null ? item.forVerificationClient : 0}</td>
-                    <td class="text-center">${item.rejected !== null ? item.rejected : 0}</td>
                     <td class="text-center">${item.rejectedAdmin !== null ? item.rejectedAdmin : 0}</td>
                     <td class="text-center">${item.rejectedClient !== null ? item.rejectedClient : 0}</td>
                 </tr>`;
