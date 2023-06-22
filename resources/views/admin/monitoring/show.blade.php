@@ -269,18 +269,7 @@
                                             >{{ $task->cancel }}</textarea>
                                         </div>
                                     @endif
-                                    @if($task->status_id === 6)
-                                        <div class="form-group">
-                                            <label for="success_desc">Отчёт</label>
-                                            <textarea
-                                                id="success_desc"
-                                                class="form-control"
-                                                style="color: white;
-                                                background: #1b981b;"
-                                                disabled
-                                            >{{ $task->success_desc }}</textarea>
-                                        </div>
-                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
