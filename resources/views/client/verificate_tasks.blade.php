@@ -184,7 +184,7 @@
 
                                                 <div style="display: none;" id="reason">
                                                     <label for="reason">Причина отклонения</label>
-                                                    <textarea name="reason" cols="30" rows="5" class="form-control" required></textarea>
+                                                    <textarea name="cancel" cols="30" rows="5" class="form-control" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
