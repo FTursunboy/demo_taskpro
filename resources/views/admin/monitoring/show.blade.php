@@ -602,7 +602,7 @@
                                 <select name="employee" id="employee"
                                         class="form-control">
                                     <option disabled value="0" selected>Выберите
-                                        исполнители
+                                        исполнителя
                                     </option>
                                     @foreach($users as $user)
                                         <option

@@ -55,9 +55,41 @@ class ProjectModel extends Model
         return $this->hasOne(TaskModel::class, 'project_id');
     }
 
+
     public function count_task()
     {
         return $this->tasks()->count();
+    }
+
+    public function count_ready()
+    {
+        return $this->tasks()->where('status_id', '=', 3)->count();
+    }
+
+    public function count_process()
+    {
+       $process =  $this->tasks()->where('status_id', '=', 4)->count();
+       $accept =  $this->tasks()->where('status_id', '=', 2)->count();
+
+       return $process + $accept;
+    }
+
+    public function count_verificateClient()
+    {
+        return $this->tasks()->where('status_id', '=', 10)->count();
+    }
+
+    public function count_verificateAdmin()
+    {
+        $verificateAdminCount = $this->tasks()->where('status_id', 6)->count();
+        $verificateCount = $this->tasks()->where('status_id', 14)->count();
+
+        return $verificateAdminCount + $verificateCount;
+    }
+
+    public function count_outOfDate()
+    {
+        return $this->tasks()->where('status_id', '=', 7)->count();
     }
 
 

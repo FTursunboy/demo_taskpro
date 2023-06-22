@@ -111,10 +111,10 @@
                                             </div>
                                             <div class="modal-body">
                                                 <label>Отчет:</label>
-                                                <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
+                                                <textarea disabled class="form-control" name="cancel" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
                                                 <div style="display: none;" id="d_r">
                                                     <label for="reason">Причина отклонения</label>
-                                                    <textarea id="decline_reason" name="decline_reason" cols="30" rows="5" class="form-control" ></textarea>
+                                                    <textarea id="decline_reason" name="cancel" cols="30" rows="5" class="form-control" ></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

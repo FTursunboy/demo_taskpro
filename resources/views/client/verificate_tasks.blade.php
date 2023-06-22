@@ -180,11 +180,11 @@
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
+                                                <textarea disabled class="form-control" name="cancel" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
 
                                                 <div style="display: none;" id="reason">
                                                     <label for="reason">Причина отклонения</label>
-                                                    <textarea name="reason" cols="30" rows="5" class="form-control" required></textarea>
+                                                    <textarea name="cancel" cols="30" rows="5" class="form-control" required></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

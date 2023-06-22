@@ -412,15 +412,6 @@ class  TasksController extends BaseController
             $offer = Offer::find($task->offer_id);
 
             if ($offer !== null) {
-                $client = User::find($offer->client_id);
-
-                if ($client !== null) {
-                    $email = $client?->clientEmail?->email;
-                    if ($email) {
-                        Mail::to($email)->send(new OfferReady($offer));
-                    }
-                }
-
 
                 $offer->status_id = 10;
                 $offer->save();
@@ -582,7 +573,7 @@ class  TasksController extends BaseController
         $task->save();
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
-        $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
+        $history = UserTaskHistoryModel::where('task_id', $task->id)->first();
 
         $history?->delete();
         return back();

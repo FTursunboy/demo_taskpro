@@ -163,6 +163,13 @@ class TaskController extends BaseController
         }
 
 
+        ReportHistoryController::create(
+            $offer->slug,
+            Statuses::RESEND,
+            $request->cancel
+        );
+
+
         $offer->status_id = 13;
         $offer->is_finished = false;
         $offer->save();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TasksController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Http\Controllers\ReportHistoryController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
@@ -148,6 +149,10 @@ class GetAllTasksController extends BaseController
             $offer->status_id = 10;
             $offer->save();
 
+            $client = User::find($task->client_id);
+            $email = $client?->clientEmail?->email;
+            $taskName = $task->name;
+            MailToSendClientController::send($email, $taskName);
 
             HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
 
