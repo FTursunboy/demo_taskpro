@@ -15,6 +15,7 @@
                 <thead>
                 <tr>
                 <th>#</th>
+                <th>Проект</th>
                 <th>ФИО</th>
                 <th>Отправлено задач</th>
                 <th>Принято задач</th>
@@ -26,6 +27,7 @@
                 @foreach($users as $user)
                 <tr>
                 <td>{{ $loop->iteration}}</td>
+                <td>{{$user->project }}</td>
                 <td>{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</td>
                  <td>{{ $user->offers_count }}</td>
                  <td>{{ ($user->status2_count) ? $user->status2_count : 0 }}</td>

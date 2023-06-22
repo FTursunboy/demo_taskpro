@@ -27,8 +27,10 @@ class ClientController extends BaseController
     {
         $users = User::role('client')
             ->leftJoin('offers', 'users.id', '=', 'offers.client_id')
-            ->select('users.id', 'users.name', 'users.slug', 'users.surname', 'users.last_seen', DB::raw('COUNT(offers.id) as offers_count'), DB::raw('SUM(offers.status_id = 3) as status2_count'))
-            ->groupBy('users.id', 'users.name', 'users.slug', 'users.surname', 'users.last_seen')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'users.id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->select('users.id', 'p.name as project', 'users.name', 'users.slug', 'users.surname', 'users.last_seen', DB::raw('COUNT(offers.id) as offers_count'), DB::raw('SUM(offers.status_id = 3) as status2_count'))
+            ->groupBy('users.id', 'users.name','p.name', 'users.slug', 'users.surname', 'users.last_seen')
             ->get();
 
 
