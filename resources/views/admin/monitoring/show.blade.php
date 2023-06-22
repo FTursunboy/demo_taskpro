@@ -699,7 +699,7 @@
                             <button type="submit" class="btn btn-success">
                                 Перенаправить
                             </button>
-                            <a href="{{route('mon.edit', $task->id)}}"
+                            <a href="{{route('mon.edit', $task->slug)}}"
                                class="btn btn-primary">
                                 Изменить
                             </a>
