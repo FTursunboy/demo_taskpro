@@ -562,12 +562,13 @@
                                                                         <input disabled name="from" value="{{$idea->from}}" type="text" class="form-control"/>
 
                                                                     </div>
+                                                                    @if($idea->file !== null)
                                                                     <div style="margin-top: 30px" class="col md-3">
                                                                         <i class="bi bi-paperclip">
                                                                             <a style="margin-left: 0px" href="{{ route('admin.ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
                                                                         </i>
                                                                     </div>
-
+                                                                    @endif
                                                                 </div>
                                                                 <div class="col-md-3">
 
