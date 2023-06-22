@@ -152,7 +152,7 @@ class TaskController extends BaseController
 
     public function decline(\Illuminate\Http\Request $request, Offer $offer)
     {
-    
+
 
         ReportHistoryController::create(
             $offer->slug,
