@@ -15,6 +15,7 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\Client\Offer;
 use App\Models\History;
+use App\Models\ReportHistory;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\Chat;
@@ -36,18 +37,18 @@ class GetAllTasksController extends BaseController
 
     public function show($slug)
     {
-
         $task = TaskModel::where('slug', $slug)->first();
 
         $admin = User::role('admin')->first();
 
         $messages = MessagesModel::where('task_slug', $task->slug)->get();
 
+        $reports = ReportHistory::where('task_slug', $slug)->get();
         $histories = History::where([
             ['task_id', '=', $task->id],
             ['type', '=', 'task']
         ])->get();
-        return view('user.all-tasks.show', compact('task', 'messages', 'histories', 'admin'));
+        return view('user.all-tasks.show', compact('task', 'messages', 'histories', 'admin', 'reports'));
     }
 
     public function store(Request $request, TaskModel $task)

@@ -764,7 +764,7 @@
             reasonField.style.display = 'block';
             redirect.style.display = 'block';
             redirectButton.style.display = 'none';
-            end.style.dispay = 'none';
+            end.style.display = 'none';
             isReasonFieldVisible = true;
         });
     </script>
