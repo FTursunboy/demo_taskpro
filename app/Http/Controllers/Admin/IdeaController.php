@@ -42,4 +42,10 @@ class IdeaController extends BaseController
 
         return response()->download($path, $idea->file_name, $headers);
     }
+
+    public function delete(Idea $idea) {
+        $idea->delete();
+
+        return redirect()->back()->with('mess', 'Успешно удалено');
+    }
 }
