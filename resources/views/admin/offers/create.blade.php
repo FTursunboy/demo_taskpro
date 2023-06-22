@@ -79,7 +79,7 @@
                                                     <div class="form-group mt-2">
                                                         <label class="form-label">Клиент</label>
                                                             <select name="client_id" class="form-control" required>
-                                                                <option value="0">Выберите клиента</option>
+                                                                <option>Выберите клиента</option>
                                                                 @foreach($offers as $offer)
                                                                     <option value="{{ $offer->id }}">{{ $offer->surname . " " . $offer->name . " " . $offer->lastname}}</option>
                                                                 @endforeach
