@@ -155,7 +155,7 @@ class TaskController extends BaseController
         ReportHistoryController::create(
             $offer->slug,
             Statuses::RESEND,
-            $request->input('reason')
+            $request->cancel
         );
 
 
