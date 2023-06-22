@@ -111,20 +111,19 @@
                                             </div>
                                             <div class="modal-body">
                                                 <label>Отчет:</label>
-                                                <textarea disabled class="form-control" name="report" id="" cols="30"
-                                                          rows="4">{{$task?->tasks?->success_desc}}</textarea>
-                                                <div style="display: none;" id="reason">
+                                                <textarea disabled class="form-control" name="report" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
+                                                <div style="display: none;" id="d_r">
                                                     <label for="reason">Причина отклонения</label>
-                                                    <textarea name="reason" cols="30" rows="5" class="form-control" required></textarea>
+                                                    <textarea id="decline_reason" name="decline_reason" cols="30" rows="5" class="form-control" ></textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" id="declineButton1" class="btn btn-danger">Отправить заново</button>
-                                                <button type="submit" class="btn btn-danger" id="declineButtonSubmit" style="display: none">Отправить заново</button>
-                                                <a href="#" class="btn btn-success" role="button" data-bs-toggle="modal"
-                                                   data-bs-target="#ready{{ $task->id }}">Завершить</a>
+                                                <button type="button" id="send_back" class="btn btn-danger" onclick="toggleSendBack()">Отправить заново</button>
+                                                <button type="submit" id="send_back_submit" class="btn btn-danger" style="display: none"> заново</button>
+                                                <a href="#" class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -339,17 +338,20 @@
 @endsection
 @section('script')
     <script src="{{asset('assets/js/filter3.js')}}"></script>
+
     <script>
-        const declineButton = document.getElementById('declineButton1');
+        function toggleSendBack() {
+            const sendBackButton = document.getElementById('send_back');
+            const sendBackSubmitButton = document.getElementById('send_back_submit');
+            const dRBlock = document.getElementById('d_r');
 
-        const declineButtonSubmit = document.getElementById('declineButtonSubmit');
-        const reasonField = document.getElementById('reason');
-        let isReasonFieldVisible = false;
+            sendBackButton.style.display = 'none';
+            sendBackSubmitButton.style.display = 'inline-block';
+            dRBlock.style.display = 'block';
+        }
 
-        declineButton.addEventListener('click', function(event) {
-            alert("s");
-        });
     </script>
+
     <script type="text/javascript">
         "use strict";
 
