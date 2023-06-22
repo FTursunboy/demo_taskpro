@@ -526,7 +526,7 @@
 
 
                                         <!-- Modal Delete Start -->
-                                      
+
                                         <!-- Modal Delete End -->
 
 
@@ -610,8 +610,7 @@
                                                    class="badge bg-success" role="button"><i class="bi bi-eye"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboardUserEdit{{ $idea->id }}"
                                                    class="badge bg-primary" role="button"><i class="bi bi-pencil"></i></a>
-                                                <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboardUserDelete{{ $idea->id }}"
-                                                   class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>
+                                               
                                             </td>
                                         </tr>
 
