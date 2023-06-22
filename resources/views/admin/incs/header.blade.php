@@ -832,6 +832,11 @@
                                 <th>№</th>
                                 <th>Название</th>
                                 <th class="text-center">Количество задач</th>
+                                <th class="text-center">Готовые</th>
+                                <th class="text-center">В процессе</th>
+                                <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
+                                <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
+                                <th class="text-center" style="width: 130px;">Просроченное</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -840,6 +845,11 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $task->name }}</td>
                                     <td class="text-center">{{ $task->count_task() }}</td>
+                                    <td class="text-center">{{ $task->count_ready() }}</td>
+                                    <td class="text-center">{{ $task->count_process() }}</td>
+                                    <td class="text-center">{{ $task->count_verificateClient() }}</td>
+                                    <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
+                                    <td class="text-center">{{ $task->count_outOfDate() }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
