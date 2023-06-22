@@ -77,6 +77,19 @@
                                              aria-valuemax="1000"></div>
                                     </div>
                                     @break
+                                    @case($user->xp > 1000 && $user->xp < 10000 )
+                                    <div>
+                                        <div class="d-flex justify-content-end">
+                                            {{ $user->xp }} / 10000 (xp)
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                                             style="width: {{$user->xp / 10}}%" aria-valuenow="{{ $user->xp }}"
+                                             aria-valuemin="0"
+                                             aria-valuemax="1000"></div>
+                                    </div>
+                                    @break
                                 @endswitch
 
                             </div>
