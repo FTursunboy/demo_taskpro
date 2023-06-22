@@ -150,7 +150,7 @@ class GetAllTasksController extends BaseController
             $offer->save();
 
             $client = User::find($task->client_id);
-            $email = $client->clientEmail->email;
+            $email = $client?->clientEmail?->email;
             $taskName = $task->name;
             MailToSendClientController::send($email, $taskName);
 
