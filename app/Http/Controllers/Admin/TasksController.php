@@ -10,6 +10,8 @@ use App\Http\Controllers\ReportHistoryController;
 use App\Jobs\ChatSendEmailClientJob;
 use App\Jobs\ChatUserNotificationJob;
 use App\Mail\ChatEmail;
+use App\Mail\OfferReady;
+use App\Mail\Send;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -410,6 +412,15 @@ class  TasksController extends BaseController
             $offer = Offer::find($task->offer_id);
 
             if ($offer !== null) {
+                $client = User::find($offer->client_id);
+                if ($client !== null) {
+                    $email = $client?->clientEmail?->email;
+                    if ($email) {
+                        Mail::to($email)->send(new OfferReady($offer));
+                    }
+                }
+
+
                 $offer->status_id = 10;
                 $offer->save();
                 $task->status_id = 10;
