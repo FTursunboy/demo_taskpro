@@ -6,10 +6,12 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Controllers\Mail\MailToSendClientController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Mail\SendReportToClient;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
 use App\Models\Report;
+use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use Carbon\Carbon;
@@ -43,7 +45,11 @@ class MyTasksController extends BaseController
 
     public function done(\Illuminate\Http\Request $request, TaskModel $task)
     {
-
+        ReportHistoryController::create(
+            $task->slug,
+            Statuses::SEND_TO_TEST,
+            $request->report
+        );
         if ($task->client_id == null) {
             $task->update([
                 'status_id' => 3,

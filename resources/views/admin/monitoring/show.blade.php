@@ -42,7 +42,7 @@
                     </div>
                     @if($task->user_id == \Illuminate\Support\Facades\Auth::id())
                         <div class="col-md-2">
-                            <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
+                            <button data-bs-target="#check_admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>
                     @endif
                     @if($task->status->id == 6)
@@ -579,6 +579,27 @@
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" id="ready">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title">Подтверждение</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="">Отчет проделанной работы</label>
+                            <textarea name="report" id="" cols="30" rows="4" class="form-control"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-success">Подтвердить!</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
