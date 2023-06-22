@@ -42,7 +42,7 @@
                     </div>
                     @if($task->user_id == \Illuminate\Support\Facades\Auth::id())
                         <div class="col-md-2">
-                            <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
+                            <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>
                     @endif
                     @if($task->status->id == 6)
