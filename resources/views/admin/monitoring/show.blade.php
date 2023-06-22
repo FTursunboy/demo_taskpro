@@ -42,7 +42,7 @@
                     </div>
                     @if($task->user_id == \Illuminate\Support\Facades\Auth::id())
                         <div class="col-md-2">
-                            <button data-bs-target="#check_admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
+                            <button data-bs-target="#admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>
                     @endif
                     @if($task->status->id == 6)
@@ -582,7 +582,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal" tabindex="-1" id="check_admin">
+        <div class="modal" tabindex="-1" id="admin">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
