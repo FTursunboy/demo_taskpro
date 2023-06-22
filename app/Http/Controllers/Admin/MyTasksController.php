@@ -63,7 +63,7 @@ class MyTasksController extends BaseController
             $offer = Offer::find($task->offer_id);
             $offer->status_id = 10;
             $offer->save();
-            HistoryController::client($task->id, Auth::id(), $offer->client_id,Statuses::SEND_TO_TEST);
+            HistoryController::client($offer->id, Auth::id(), Auth::id(), Statuses::SEND_TO_TEST);
             try {
                 $client = User::find($offer->client_id);
                 $email = $client->clientEmail->email;
