@@ -299,9 +299,9 @@ class User extends Authenticatable
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
             ->selectRaw("
             COUNT(*) as total,
-            SUM(CASE WHEN status_id = [4, 7]  THEN 1 ELSE 0 END) as debt,
+            SUM(CASE WHEN status_id IN (4, 7) THEN 1 ELSE 0 END) as debt,
             SUM(CASE WHEN status_id = 2 THEN 1 ELSE 0 END) as process,
-            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as accept,
+           SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as accept,
             SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
             SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expected,
             SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
