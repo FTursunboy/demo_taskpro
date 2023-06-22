@@ -11,60 +11,37 @@
         @include('inc.messages')
 
         <div class="row pt-4">
-            @foreach($users as $user)
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-center mb-3">
-                                @if(isset($user->avatar))
-                                    <img style="border-radius: 50% " src="{{ \Illuminate\Support\Facades\Storage::url($user->avatar) }}" alt="" width="100" height="100" >
-                                @else
-                                    <img style="border-radius: 50% " src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
-                                @endif
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="text-center">{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</h5>
-                            <div>
-                                <table class="mt-3" cellpadding="5">
-                                    <tr>
-                                        <th>Отправлено задач: </th>
-                                        <th><span class="mx-2">{{ $user->offers_count }}</span></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Принято задач :</th>
-                                        <th><span class="mx-2">{{ ($user->status2_count) ? $user->status2_count : 0 }}</span></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Проект: </th>
-                                        <th><span class="mx-2"> 1</span></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Cтатус: </th>
-                                        <th>
-                                            @if(Cache::has('user-is-online-' . $user?->id))
-                                                <span class="text-center text-success mx-2"><b>Online</b></span>
-                                            @else
-                                                <span class="text-center text-danger  mx-2"><b>Offline</b>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                <th>ФИО</th>
+                <th>Отправлено задач</th>
+                <th>Принято задач</th>
+                <th>Статус</th>
+                <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($users as $user)
+                <tr>
+                <td>{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</td>
+                 <td>{{ $user->offers_count }}</td>
+                 <td>{{ ($user->status2_count) ? $user->status2_count : 0 }}</td>
+                 <td>@if(Cache::has('user-is-online-' . $user?->id))
+                         <span class="text-center text-success mx-2"><b>Online</b></span>
+                     @else
+                         <span class="text-center text-danger  mx-2"><b>Offline</b>
                                                      @if($user->last_seen !== null)
-                                                        <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($user?->last_seen)->diffForHumans() }}</span>
-                                                     @endif
+                                 <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($user?->last_seen)->diffForHumans() }}</span>
+                             @endif
                                                 </span>
-                                            @endif
-                                        </th>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('employee.client.show', $user->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                <a href="{{ route('employee.client.edit', $user->slug) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
-                                <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     @endif</td>
+                 <td>
+                     <a href="{{ route('employee.client.show', $user->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                     <a href="{{ route('employee.client.edit', $user->slug) }}" class="btn btn-primary mx-2"><i class="bi bi-pencil"></i></a>
+                     <a role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
+                 </td>
+                </tr>
 
                 <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -87,8 +64,10 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
+                </tbody>
 
-            @endforeach
+            </table>
         </div>
 
 
