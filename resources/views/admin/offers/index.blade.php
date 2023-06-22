@@ -58,7 +58,6 @@
                             <table class="table table-striped table-responsive" id="example">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Название</th>
                                     <th>Описание</th>
                                     <th>Исполнитель</th>
@@ -70,7 +69,6 @@
                                 <tbody>
                                 @forelse($offers as $offer)
                                     <tr>
-                                        <td >{{$loop->iteration}}</td>
                                         <td width="20%">{{\Illuminate\Support\Str::limit($offer->name, 35)}}</td>
                                         <td width="15%">{{\Illuminate\Support\Str::limit($offer->description, 35)}}</td>
                                         @if($offer->user_id)
