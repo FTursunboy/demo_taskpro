@@ -20,7 +20,10 @@ class BaseController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $offers_count = Offer::where('user_id', null)->get()->count();
+            $offers_count = Offer::where([
+                ['user_id', null],
+                ['status_id', '!=', 11]
+            ])->get()->count();
             $ideas_count = Idea::where('status_id', 1)->get()->count();
             $ready = TaskModel::where('status_id', 3)->get()->count();
             $all_tasks = TaskModel::get()->count();

@@ -269,7 +269,7 @@
                                             >{{ $task->cancel }}</textarea>
                                         </div>
                                     @endif
-                                    
+
                                 </div>
                             </div>
                         </div>
