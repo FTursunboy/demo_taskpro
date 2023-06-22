@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Http\Controllers\ReportHistoryController;
@@ -56,7 +57,7 @@ class MyTasksController extends BaseController
                 'finish' => Carbon::now(),
                 'success_desc' => $request->report,
             ]);
-
+            HistoryController::task($task->id, Auth::user(), Statuses::FINISH);
             return redirect()->route('mon.index')->with('update', 'Задача успешно завершена!');
         } else {
             $task->update([
@@ -66,7 +67,7 @@ class MyTasksController extends BaseController
             $offer = Offer::find($task->offer_id);
             $offer->status_id = 10;
             $offer->save();
-
+            HistoryController::client($task->id, Auth::user(), $offer->client_id,Statuses::SEND_TO_TEST);
             try {
                 $client = User::find($offer->client_id);
                 $email = $client->clientEmail->email;
