@@ -49,7 +49,7 @@
                 <tbody id="tableBodyMonitoring">
                 @foreach($statistics as $user)
                     <tr>
-                        <td class="text-center">{{$user->id }}</td>
+                        <td class="text-center">{{$loop->iteration }}</td>
                         <td>{{ \Illuminate\Support\Str::limit($user->name . " " . $user->surname, 50)  }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
                         <td class="text-center">{{ $user->usersCountTasks($user->id)['debt'] }}</td>
