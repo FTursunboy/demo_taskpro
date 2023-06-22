@@ -191,7 +191,7 @@
                                                 <button type="button" id="declineButton" class="btn btn-danger">Отправить заново</button>
                                                 <button type="submit" class="btn btn-danger" id="decline" style="display: none">Отправить
                                                     заново</button>
-                                                <a href="#" class="btn btn-success" role="button"  data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
+                                                <a href="#" class="btn btn-success" role="button" id="end"  data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
                                             </div>
                                         </form>
                                     </div>
@@ -322,12 +322,14 @@
         const decline = document.getElementById('decline');
         const declineButton = document.getElementById('declineButton');
         const reasonField = document.getElementById('reason');
+        const end = document.getElementById('end');
         let isReasonFieldVisible = false;
 
         declineButton.addEventListener('click', function(event) {
             reasonField.style.display = 'block';
             decline.style.display = 'block';
             declineButton.style.display = 'none';
+            end.style.display = 'none';
             isReasonFieldVisible = true;
         });
     </script>

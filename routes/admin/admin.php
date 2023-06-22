@@ -162,7 +162,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::group(['as' => 'client.offers.'], function () {
         Route::get('clients/offers', [\App\Http\Controllers\Admin\OfferController::class, 'index'])->name('index');
-        Route::get('clients/offers/show/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'show'])->name('show');
+        Route::get('clients/offers/show/{slug}', [\App\Http\Controllers\Admin\OfferController::class, 'show'])->name('show');
         Route::get('clients/offers/show/{offer}/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'showSearch'])->name('show.search');
         Route::get('clients/offers/delete/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'delete'])->name('delete');
         Route::post('clients/offers/send/user/{offer}/{search}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUserSearch'])

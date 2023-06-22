@@ -46,11 +46,73 @@
                         </button>
                     </div>
                 @endif
+                @if($task->status->id != 10 && $task->status_id != 6 && $task->status_id != 3 && $task->status_id != 5)
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                data-bs-target="#declineTask{{ $task->id }}">Отклонить
+                        </button>
+                    </div>
+                @endif
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                            data-bs-target="#declineTask{{ $task->id }}">Отклонить
-                    </button>
+                    <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
                 </div>
+
+                <div class="modal" tabindex="-1" id="reports">
+                    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Отчеты всех статусов</h5>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="row p-3">
+                                    <div class="card-body">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                <table class="table mb-0 table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="">#</th>
+                                                        <th class="">Дата</th>
+                                                        <th class="">Совершил действия</th>
+                                                        <th class="">Статус</th>
+                                                        <th class="">Отчет</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($reports as $report)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>{{date('d.m.Y H:i:s', strtotime($report->created_at))}}</td>
+                                                            <td>{{$report->user->name }}</td>
+                                                            <td>
+                                                                {{ $report->status?->name }}
+                                                                @if ($report->user->hasRole('admin'))
+                                                                    (Админ)
+                                                                @elseif ($report->user->hasRole('user'))
+                                                                    (Сотрудник)
+                                                                @elseif ($report->user->hasRole('client') || $report->user->hasRole('client-worker'))
+                                                                    (Клиент)
+                                                                @else
+                                                                    (Система)
+                                                                @endif
+                                                            </td>
+                                                            <td>{{$report->text}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="modal fade" id="resend{{ $task->id }}" data-bs-backdrop="static"
                      data-bs-keyboard="false" tabindex="-1"
                      aria-labelledby="staticBackdropLabel{{ $task->id }}" aria-hidden="true">

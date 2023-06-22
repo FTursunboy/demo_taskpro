@@ -22,6 +22,7 @@ use App\Models\Client\Offer;
 use App\Models\ClientNotification;
 use App\Models\History;
 use App\Models\ProjectClient;
+use App\Models\ReportHistory;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -233,15 +234,17 @@ class OfferController extends BaseController
         $offer->save();
 
         $user = User::find($offer->client_id);
-        $email = $user?->clientEmail?->email;
-        MailToSendClientController::send($email, $offer->name);
 
 
         $tasks = TaskModel::where('offer_id', $offer->id)->first();
+
         if ($tasks !== null) {
             $tasks->status_id = 10;
             $tasks->save();
         }
+
+        $email = $user?->clientEmail?->email;
+        MailToSendClientController::send($email, $offer->name);
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
 
@@ -250,18 +253,19 @@ class OfferController extends BaseController
 
 
 
-    public function show(Offer $offer) {
+    public function show($slug) {
+
+        $offer = Offer::where('slug', $slug)->first();
 
         $project = ProjectClient::where('user_id', $offer->client_id)->first();
 
         $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
-
-
         $users = User::role(['user', 'admin'])->get();
 
         $types = TaskTypeModel::get();
 
+        $reports = ReportHistory::where('task_slug', $slug)->get();
 
         $histories = History::where([
             ['type', '=', 'offer'],
@@ -269,7 +273,7 @@ class OfferController extends BaseController
         ])->get();
 
 
-        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types'));
+        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types', 'reports'));
     }
 
     public function showSearch(Offer $offer, $search) {
@@ -339,11 +343,14 @@ class OfferController extends BaseController
         $offer->save();
         $task->save();
 
-        ReportHistoryController::create(
-            $task->slug,
-            Statuses::RESEND,
-            $request->input('reason')
-        );
+        if ($request->input('reason1')){
+            ReportHistoryController::create(
+                $task->slug,
+                Statuses::RESEND,
+                $request->input('reason1')
+            );
+        }
+
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
 

@@ -131,14 +131,14 @@
                                             @if(isset($search))
 
                                                 <td class="text-center">
-                                                    <a class="badge bg-success p-2" href="{{ route('client.offers.show.search', ['offer' => $offer->id, 'search' => $search]) }}">
+                                                    <a class="badge bg-success p-2" href="{{ route('client.offers.show.search', ['offer' => $offer->slug, 'search' => $search]) }}">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
                                                     <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             @else
                                                 <td class="text-center">
-                                                    <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
+                                                    <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->slug)}}"><i class="bi bi-eye"></i></a>
                                                     <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             @endif
@@ -147,14 +147,14 @@
                                             @if(isset($search))
 
                                             <td class="text-center">
-                                                <a class="badge bg-success p-2" href="{{ route('client.offers.show.search', ['offer' => $offer->id, 'search' => $search]) }}">
+                                                <a class="badge bg-success p-2" href="{{ route('client.offers.show.search', ['offer' => $offer->slug, 'search' => $search]) }}">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
                                                 <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                                                                            </td>
                                             @else
                                                 <td class="text-center">
-                                                    <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->id)}}"><i class="bi bi-eye"></i></a>
+                                                    <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->slug)}}"><i class="bi bi-eye"></i></a>
                                                     <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             @endif
@@ -201,6 +201,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="modal" tabindex="-1" id="sendBack{{$offer->id}}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -212,6 +213,9 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <p>Вы действительно хотите отправить задачу обратно сотруднику <span style="font-size: 20px" class="text-success">{{$offer->username}}</span></p>
+                                                        <label for="reason1">
+                                                            <textarea required name="reason1" class="form-control" id="" cols="60" rows="2"></textarea>
+                                                        </label>
                                                     </div>
                                                     <div class="modal-footer" id="parent">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
