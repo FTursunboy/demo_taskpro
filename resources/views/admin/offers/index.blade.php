@@ -71,8 +71,8 @@
                                 @forelse($offers as $offer)
                                     <tr>
                                         <td >{{$loop->iteration}}</td>
-                                        <td width="20%">{{\Illuminate\Support\Str::limit($offer->name, 25)}}</td>
-                                        <td width="15%">{{\Illuminate\Support\Str::limit($offer->description, 25)}}</td>
+                                        <td width="20%">{{\Illuminate\Support\Str::limit($offer->name, 35)}}</td>
+                                        <td width="15%">{{\Illuminate\Support\Str::limit($offer->description, 35)}}</td>
                                         @if($offer->user_id)
                                             <td>{{$offer->username}}</td>
                                         @else
