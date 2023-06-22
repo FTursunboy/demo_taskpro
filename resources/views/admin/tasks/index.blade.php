@@ -106,9 +106,9 @@
                                     @endswitch
                                     <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('mon.show', $task->id) }}" class="btn btn-success"><i
+                                        <a href="{{ route('mon.show', $task->slug) }}" class="btn btn-success"><i
                                                     class="bi bi-eye"></i></a>
-                                        <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i
+                                        <a href="{{ route('mon.edit', $task->slug) }}" class="btn btn-primary"><i
                                                     class="bi bi-pencil"></i></a>
 
                                     </td>

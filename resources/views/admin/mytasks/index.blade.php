@@ -172,7 +172,7 @@
                                                     </div>
                                                 @else
                                                     <div class="col-4">
-                                                        <a href="{{route('mon.edit', $task->id)}}" class="btn btn-outline-primary w-100">
+                                                        <a href="{{route('mon.edit', $task->slug)}}" class="btn btn-outline-primary w-100">
                                                             <i class="bi bi-pencil"></i>
                                                             Изменить
                                                         </a>
