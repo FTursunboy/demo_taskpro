@@ -54,7 +54,7 @@ class MyTasksController extends BaseController
                 'success_desc' => $request->report,
             ]);
             HistoryController::task($task->id, Auth::id(), Statuses::FINISH);
-            return redirect()->route('mon.index')->with('update', 'Задача успешно завершена!');
+            return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
         } else {
             $task->update([
                 'status_id' => 10,
@@ -80,7 +80,7 @@ class MyTasksController extends BaseController
 
             }
 
-            return redirect()->route('mon.index')->with('update', 'Задача успешно завершена!');
+            return redirect()->route('mytasks.index')->with('update', 'Задача успешно завершена!');
         }
 
     }
