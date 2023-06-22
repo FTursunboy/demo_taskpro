@@ -24,6 +24,7 @@ class TasksController extends BaseController
     public function index()
     {
         $tasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
+
         return view('user.task.index', compact('tasks'));
 
     }

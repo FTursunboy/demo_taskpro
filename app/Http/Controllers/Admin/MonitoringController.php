@@ -168,11 +168,6 @@ class  MonitoringController extends BaseController
                 }
             }
 
-
-
-
-
-
             if ($request->type_id != 2) {
                 $task->update([
                     'percent' => null,

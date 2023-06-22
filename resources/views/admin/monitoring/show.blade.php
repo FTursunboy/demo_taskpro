@@ -569,7 +569,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -613,14 +612,14 @@
                             </div>
                             <div class="form-group" id="reasonId" style="display: none">
                                 <label>Причина отклонения</label>
-                                <textarea name="reason" cols="30" rows="5" class="form-control"></textarea>
+                                <textarea name="reason" cols="30" rows="5" class="form-control" ></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
 
                             <button type="button" id="redirectButton" class="btn btn-warning">Перенаправить</button>
                             <button type="submit" id="redirect" class="btn btn-warning" style="display: none">Перенаправить</button>
-                            <button type="submit" class="btn btn-success">Готово
+                            <button type="submit" class="btn btn-success" id="end">Готово
                             </button>
                         </div>
                     </form>
@@ -758,12 +757,14 @@
         const redirect = document.getElementById('redirect');
         const redirectButton = document.getElementById('redirectButton');
         const reasonField = document.getElementById('reasonId');
+        const end = document.getElementById('end');
         let isReasonFieldVisible = false;
 
         redirectButton.addEventListener('click', function(event) {
             reasonField.style.display = 'block';
             redirect.style.display = 'block';
             redirectButton.style.display = 'none';
+            end.style.dispay = 'none';
             isReasonFieldVisible = true;
         });
     </script>

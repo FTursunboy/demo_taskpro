@@ -83,8 +83,6 @@
 
                                         <a class="badge bg-success p-2" href="{{route('client.tasks.show', $task->id)}}"><i class="bi bi-eye"></i></a>
 
-
-
                                     </td>
                                     </tr>
                                 @empty

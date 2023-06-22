@@ -188,13 +188,14 @@
                                                         <h5 class="modal-title">Отправление задачи на проверку</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <div class="modal-body">
+                                                    <div class="modal-body" id="reasonSend" style="display: none">
                                                         <p>Вы действительно хотите отправить задачу клиенту</p>
                                                         <textarea required name="reason" class="form-control" id="" cols="30" rows="2"></textarea>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button  id="reason" type="submit" class="btn btn-danger">Отклонить, Отправить заново</button>
-                                                        <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" >Отправить</a>
+                                                        <button  id="reason" type="button" class="btn btn-danger">Отклонить, Отправить заново</button>
+                                                        <button  id="reasonButton" type="submit" class="btn btn-danger" style="display: none">Отклонить, Отправить заново</button>
+                                                        <a href="{{route('client.offers.send.client', $offer->id)}}" class="btn btn-success" id="sendButton">Отправить</a>
                                                     </div>
                                                 </form>
                                             </div>
@@ -223,17 +224,29 @@
 
                                 @empty
                                     <td  colspan="7"><h1 class="text-center">Пока нет задач</h1></td>
-
                                 @endforelse
                                 </tbody>
-
                             </table>
+                        </div>
                     </div>
                 </section>
+            </div
 
 @endsection
 @section('script')
                     <script src="{{asset('assets/js/filter3.js')}}"></script>
+
+                    <script>
+                        $(document).ready(function(){
+                            $('#reason').on('click', function() {
+                                $('#reason').hide();
+                                $('#reasonButton').show();
+                                $('#reasonSend').show();
+                                $('#sendButton').hide();
+                            });
+                        });
+                    </script>
+
 
                     <script>
                         $(document).ready(function () {
