@@ -546,7 +546,6 @@ class  TasksController extends BaseController
 
         if ($time > $allow) {
             $is_valid = false;
-            $allow = 0;
         }
 
 
