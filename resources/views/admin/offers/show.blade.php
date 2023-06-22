@@ -3,7 +3,14 @@
     {{$offer?->name}}
 @endsection
 @section('content')
+    <style>
+        .centered-span {
+            display: flex;
+            justify-content: center;
+            font-size: 24px;
+        }
 
+    </style>
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
@@ -46,6 +53,8 @@
                                         <a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"
                                            class="btn btn-success">Принять и отправить клиенту</a>
                                     @endif
+
+                                    <span class="centered-span" id="info_danger" style="color: red"></span>
                                 </div>
                                 @if(\Session::has('err'))
                                     <div class="alert alert-danger mt-4">
@@ -157,7 +166,7 @@
                                                                                 <label class="form-label">Ответственный
                                                                                     исполнитель</label>
                                                                                 <select required class="form-select"
-                                                                                        name="user_id" id="">
+                                                                                        name="user_id" id="user_id">
                                                                                     <option value="">Выберите
                                                                                         исполнителя
                                                                                     </option>
@@ -193,6 +202,7 @@
                                                                                     type="number"
                                                                                     class="form-control"
                                                                                     name="time"
+                                                                                    id="time"
                                                                                     placeholder="Введите время">
 
                                                                                 <label class="form-label">Клиент</label>
@@ -598,7 +608,7 @@
 @endsection
 
 @section('script')
-
+    <script src="{{asset('assets/js/control_offers.js')}}" ></script>
     <script>
 
         $('#type_id').change(function () {
