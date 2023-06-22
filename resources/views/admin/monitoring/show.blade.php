@@ -582,7 +582,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal" tabindex="-1" id="ready">
+        <div class="modal" tabindex="-1" id="check_admin">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
