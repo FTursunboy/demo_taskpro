@@ -8,7 +8,7 @@ $('#to, #from, #user_id, #type_id').change(function () {
     $.get(`/tasks/public/control/${user_id}/${from}/${to}/${time}`, function(response) {
         console.log(response);
         let kpi = $('#type_id').children('option:selected')
-
+        console.log(kpi)
         if (response.is_valid === false && kpi.text().toLowerCase() !== 'разовые' ) {
             $('#time').addClass('border-danger');
             $('#info_danger').text("У сотрудника " + response.user + " " + response.allowed + " свободных часов");
@@ -28,6 +28,7 @@ $('#time').on('input', function () {
     let to = $('#to').val();
     let time = $('#time').val();
     let kpi = $('#type_id').children('option:selected')
+    console.log(kpi)
     $.get(`/tasks/public/control/${user_id}/${from}/${to}/${time}`, function(response) {
         console.log(response);
         if (response.is_valid === false && kpi.text().toLowerCase() !== 'разовые') {
