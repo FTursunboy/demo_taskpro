@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ReportHistoryController;
 use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Http\Requests\Admin\TaskClientRequest;
 use App\Http\Requests\Client\TaskRequest;
@@ -324,20 +325,28 @@ class OfferController extends BaseController
 
     public function sendBack(Offer $offer, Request $request)
     {
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+
+        $history = UserTaskHistoryModel::where('task_id', $task->id)->first();
+
+
+        $history?->delete();
+
         $offer->status_id = 9;
         $offer->cancel_admin = $request->reason;
-        $task = TaskModel::where('offer_id', $offer->id)->first();
-        $task->status_id = 1;
+        $task->status_id = 9;
         $task->cancel_admin = $request->reason;
         $offer->save();
         $task->save();
 
-
+        ReportHistoryController::create(
+            $task->slug,
+            Statuses::RESEND,
+            $request->input('reason')
+        );
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
-        $history = UserTaskHistoryModel::where('task_id', $task->id)->orWhere('user_id', $task->user_id)->first();
 
-        $history?->delete();
 
         try {
             Notification::send(User::find($offer->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));

@@ -119,8 +119,8 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" id="send_back" class="btn btn-danger" onclick="toggleSendBack()">Отправить заново</button>
-                                                <button type="submit" id="send_back_submit" class="btn btn-danger" style="display: none"> заново</button>
-                                                <a href="#" class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
+                                                <button type="submit" id="send_back_submit" class="btn btn-danger" style="display: none">Отправить заново</button>
+                                                <a href="#" id="end" class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
                                             </div>
                                         </form>
 
@@ -344,10 +344,12 @@
             const sendBackButton = document.getElementById('send_back');
             const sendBackSubmitButton = document.getElementById('send_back_submit');
             const dRBlock = document.getElementById('d_r');
+            const end = document.getElementById('end');
 
             sendBackButton.style.display = 'none';
             sendBackSubmitButton.style.display = 'inline-block';
             dRBlock.style.display = 'block';
+            end.style.display = 'none';
         }
 
     </script>

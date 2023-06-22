@@ -18,6 +18,7 @@ use App\Models\Client\Offer;
 use App\Models\Client\Rating;
 use App\Models\ClientNotification;
 use App\Models\History;
+use App\Models\ReportHistory;
 use App\Models\Statuses;
 use App\Models\User;
 use App\Notifications\Telegram\ClientAccept;
@@ -47,6 +48,7 @@ class TaskController extends BaseController
     public function show($slug) {
 
         $offer = Offer::where('slug', $slug)->first();
+        $reports = ReportHistory::where('task_slug', $slug)->get();
 
         $histories = History::where([
             ['type', '=', 'offer'],
@@ -56,7 +58,7 @@ class TaskController extends BaseController
 
 
 
-        return view('client.offers.show', compact('offer', 'histories'));
+        return view('client.offers.show', compact('offer', 'histories', 'reports'));
     }
 
     public function store(TaskRequest $request)
@@ -152,6 +154,13 @@ class TaskController extends BaseController
 
     public function decline(\Illuminate\Http\Request $request, Offer $offer)
     {
+        if ($request->reason != null) {
+            ReportHistoryController::create(
+                $offer->slug,
+                Statuses::RESEND,
+                $request->input('reason')
+            );
+        }
 
 
         ReportHistoryController::create(
