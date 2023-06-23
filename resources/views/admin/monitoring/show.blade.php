@@ -713,6 +713,10 @@
                             <button type="submit" class="btn btn-success">
                                 Перенаправить
                             </button>
+                            <a href="{{route('mon.archive', $task->slug)}}"
+                               class="btn btn-warning">
+                                Архивировать
+                            </a>
                             <a href="{{route('mon.edit', $task->slug)}}"
                                class="btn btn-primary">
                                 Изменить

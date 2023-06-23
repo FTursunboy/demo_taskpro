@@ -286,5 +286,17 @@ class  MonitoringController extends BaseController
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
     }
 
+    public function archive($slug)
+    {
+        $task = TaskModel::where('slug', $slug)->first();
+
+        $task->update([
+           'status_id' => 3,
+        ]);
+
+        HistoryController::task($task->id, $task->user_id, Statuses::ARCHIVE);
+
+        return redirect()->route('mon.index')->with('mess', 'Успешно архивирована');
+    }
 
 }

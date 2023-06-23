@@ -21,5 +21,6 @@ class Statuses extends Model
     const DELETE = 9;
     const RESEND = 10;
     const SEND_USER = 11;
+    const ARCHIVE = 12;
 
 }
