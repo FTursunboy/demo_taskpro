@@ -218,6 +218,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     });
 
     Route::get('/control/{user_id}/{from}/{to}/{time}', [\App\Http\Controllers\Admin\TasksController::class, 'control'])->name('control');
-
+    Route::get('/kpil/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
 });

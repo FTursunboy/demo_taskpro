@@ -124,10 +124,10 @@ class User extends Authenticatable
     public function countTasks($id)
     {
         $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
-        $inProgress = TaskModel::where('status_id', 4)->where('user_id', $id)->whereIn('id', function ($query) {
+        $inProgress = TaskModel::where('status_id', 2)->where('user_id', $id)->whereIn('id', function ($query) {
             $query->from('user_task_history_models as h')
                 ->select('h.task_id')
-                ->where('h.status_id', 4);
+                ->where('h.status_id', 2);
         })->count();
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)
@@ -301,7 +301,7 @@ class User extends Authenticatable
             ->selectRaw("
             COUNT(*) as total,
             SUM(CASE WHEN status_id IN (4, 7) THEN 1 ELSE 0 END) as debt,
-           SUM(CASE WHEN status_id IN (4, 2) THEN 1 ELSE 0 END) as process,
+            SUM(CASE WHEN status_id IN (4, 2) THEN 1 ELSE 0 END) as process,
             SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
             SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
             SUM(CASE WHEN status_id IN(1, 8) THEN 1 ELSE 0 END) as expectedAdmin,

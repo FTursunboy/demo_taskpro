@@ -62,8 +62,7 @@
                     <li class="nav-item" style="margin-top: -10px;">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
-                           role="button">
-                            <i class="bi bi-wallet" style="font-size: 31px;"></i>
+                           role="button"><i style="font-size: 31px;" class="bi bi-clipboard2-data"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px;">
@@ -78,11 +77,11 @@
                         @if($command_task > 0)
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
                                aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
-                               role="button"><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
+                               role="button"><i id="commandCount" style="font-size: 33px;" class="bi bi-people"></i></a>
                         @else
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
-                               aria-controls="TeamLeadOfCanvas" style="margin-left: 20px" role="button"><i
-                                    style="font-size: 30px" class="bi bi-people"></i></a>
+                               aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;" role="button"><i
+                                    style="font-size: 32px" class="bi bi-people"></i></a>
                         @endif
                         <style>
                             #commandCount {
@@ -111,7 +110,7 @@
                             </a>
                         @else
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px">
-                                <i  style="font-size: 30px;"  class="bi bi-lightbulb"></i>
+                                <i  style="font-size: 28px;"  class="bi bi-lightbulb"></i>
                             </a>
                         @endif
                         <style>
@@ -162,12 +161,8 @@
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
-                        <li>
-                            <h6 class="dropdown-header">Привет, {{ Auth::user()->name }}
-                                !</h6>
-                        </li>
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
-                                    class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
+                                    class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop"><i
@@ -765,10 +760,43 @@
                                             <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
+                                                <a data-bs-toggle="modal" data-bs-target="#SystemIdeasDelete{{ $idea->id }}" class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>
                                             </td>
                                         </tr>
 
                                         <!-- Modal -->
+                                        <div class="modal fade" id="SystemIdeasDelete{{ $idea->id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="ideasShowDashboardUserDelete{{ $idea->id }}"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="ideasShowDashboardUserDelete{{ $idea->id }}">
+                                                            Названия: {{\Str::limit($idea->title, 60)}}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form method="post" action="{{ route('admin.idea.delete', $idea->id) }}"
+                                                          enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="modal-body">
+                                                            <p class="text-center">Точно хотите удалить идею?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                Назад
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger">
+                                                                Удалить идею
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="modal fade" id="SystemIdeasShowDashboard{{ $idea->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SystemIdeasShowDashboard{{ $idea->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-xl modal-dialog-centered">
                                                 <div class="modal-content">
@@ -893,6 +921,7 @@
                                 <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
                                 <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
                                 <th class="text-center" style="width: 130px;">Просроченное</th>
+                                <th class="text-center" style="width: 130px;">Прочее</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -906,6 +935,7 @@
                                     <td class="text-center">{{ $task->count_verificateClient() }}</td>
                                     <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
                                     <td class="text-center">{{ $task->count_outOfDate() }}</td>
+                                    <td class="text-center">{{ $task->count_other() }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -1094,7 +1124,7 @@
                                 <label for="project_id">Проект</label>
                                 <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
                                     <option value="" selected disabled>Выберите проект</option>
-                                    @foreach($projects as $project)
+                                    @foreach($projects1 as $project)
                                         <option
                                             value="{{ $project->id }}" class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}</option>
                                     @endforeach
@@ -1248,7 +1278,7 @@
 
 
 
-                    $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
+                    $.get(`/tasks/public/kpil/${kpi.val()}/`).then((res) => {
                         for (let i = 0; i < res.length; i++) {
                             const item = res[i];
                             console.log(item.name);

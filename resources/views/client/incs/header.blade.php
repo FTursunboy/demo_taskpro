@@ -50,10 +50,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
-                        <li>
-                            <h6 class="dropdown-header">Привет, {{ \Illuminate\Support\Facades\Auth::user()->name }}
-                                !</h6>
-                        </li>
 
                         <li><a class="dropdown-item" href="{{ route('client_profile.index')}}"><i
 

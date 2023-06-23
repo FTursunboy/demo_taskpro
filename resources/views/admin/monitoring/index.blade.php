@@ -28,12 +28,7 @@
         @endif
         <div class="row mt-4">
             <div class="col-md-3">
-                <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
-                    Добавить задачу
-                </a>
-
                 <a href="#" id="excel" class="btn btn-success mb-4"> Excel</a>
-
             </div>
             <div class="col-12">
                 <div class="table-responsive">

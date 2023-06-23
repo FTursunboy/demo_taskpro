@@ -6,7 +6,7 @@
         border-radius: 50%; /* Задание круглой формы */
     }
 </style>
-<header class='mb-3'>
+<header>
     <nav class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
             <a href="#" class="burger-btn d-block">
@@ -25,7 +25,7 @@
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 10px;"
                            role="button">
-                            <i class="bi bi-wallet" style="font-size: 31px;"></i>
+                            <i style="font-size: 31px;" class="bi bi-clipboard2-data"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
@@ -62,10 +62,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
-                        <li>
-                            <h6 class="dropdown-header">Привет, {{ \Illuminate\Support\Facades\Auth::user()->name }}
-                                !</h6>
-                        </li>
                         <li><a class="dropdown-item" href="{{ route('user_profile.index', auth()->id())}}"><i
                                         class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
