@@ -78,11 +78,11 @@
                         @if($command_task > 0)
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
                                aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
-                               role="button"><i id="commandCount" style="font-size: 30px;" class="bi bi-people"></i></a>
+                               role="button"><i id="commandCount" style="font-size: 33px;" class="bi bi-people"></i></a>
                         @else
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
-                               aria-controls="TeamLeadOfCanvas" style="margin-left: 20px" role="button"><i
-                                    style="font-size: 30px" class="bi bi-people"></i></a>
+                               aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;" role="button"><i
+                                    style="font-size: 32px" class="bi bi-people"></i></a>
                         @endif
                         <style>
                             #commandCount {
@@ -111,7 +111,7 @@
                             </a>
                         @else
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px">
-                                <i  style="font-size: 30px;"  class="bi bi-lightbulb"></i>
+                                <i  style="font-size: 28px;"  class="bi bi-lightbulb"></i>
                             </a>
                         @endif
                         <style>
