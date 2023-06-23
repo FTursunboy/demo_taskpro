@@ -33,6 +33,102 @@
 
                     @include('inc.messages')
 
+                    <div id="page-heading">
+                        <p>
+                            <button
+                                class="btn btn-primary w-100 collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample{{ $user->id }}" aria-expanded="false"
+                                aria-controls="collapseExample"><span
+                                    class="d-flex justify-content-start"><i
+                                        class="bi bi-info-circle mx-2"></i> <span>Изменение профиля</span> </span>
+                            </button>
+                        </p>
+                        <div class="collapse my-3" id="collapseExample{{ $user->id }}">
+                            <section class="section">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="{{ route('user_profile.update.a') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PATCH')
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="name">Имя <span class="text-danger">*</span></label>
+                                                        <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
+                                                               value="{{ $user->name }}" required>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="login">Логин<span class="text-danger">*</span></label>
+                                                        <input type="text" id="login" name="login" tabindex="4" class="form-control mt-3"
+                                                               value="{{ $user->login }}" disabled>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="otdel_id">Отдел<span class="text-danger">*</span></label>
+                                                        <select id="otdel_id" name="otdel_id" tabindex="7" class="form-select mt-3" required disabled>
+                                                            @foreach($departs as $depart)
+                                                                <option value="{{ $depart->id }}" {{ ($depart->id === $user->otdel_id) ? 'selected' : '' }}>{{ $depart->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="file">Изображение</label>
+                                                        <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+
+                                                    <div class="form-group">
+                                                        <label for="surname">Фамилия<span class="text-danger">*</span></label>
+                                                        <input type="text" id="surname" name="surname" tabindex="2" class="form-control mt-3" value="{{ $user->surname }}"
+                                                               required>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="phone">Телефон<span class="text-danger">*</span></label>
+                                                        <input type="text" id="phone" name="phone" tabindex="5" class="form-control mt-3" value="{{ $user->phone }}" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="telegram_id">Телеграм ID<span class="text-danger">*</span></label>
+                                                        <input type="number" id="telegram_id" name="telegram_user_id" tabindex="8" class="form-control mt-3" value="{{ $user->telegram_user_id }}" disabled>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="lastname">Отчество<span class="text-danger">*</span></label>
+                                                        <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="position">Должность<span class="text-danger">*</span></label>
+                                                        <input type="text" id="position" name="position" tabindex="6" class="form-control mt-3" value="{{ $user->position }}" disabled>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="birthday">День рождение</label>
+                                                        <input type="date" class="form-control mt-3" name="birthday" id="birthday" tabindex="9" value="{{ $user->birthday }}">
+                                                    </div>
+
+                                                </div>
+                                                <div class="d-flex justify-content-end mt-3">
+                                                    <button type="submit" tabindex="11" class="btn btn-outline-primary">Изменить</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    
                     <div class="card">
                         <div class="card-header">
                             <h3>Список сотрудников</h3>
@@ -99,101 +195,7 @@
                         </div>
                     </div>
 
-                    <div id="page-heading">
-                        <p>
-                            <button
-                                class="btn btn-primary w-100 collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseExample{{ $user->id }}" aria-expanded="false"
-                                aria-controls="collapseExample"><span
-                                    class="d-flex justify-content-start"><i
-                                        class="bi bi-info-circle mx-2"></i> <span>Изменение профиля</span> </span>
-                            </button>
-                        </p>
-                      <div class="collapse my-3" id="collapseExample{{ $user->id }}">
-                        <section class="section">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form action="{{ route('user_profile.update.a') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PATCH')
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="name">Имя <span class="text-danger">*</span></label>
-                                                    <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
-                                                           value="{{ $user->name }}" required>
-                                                </div>
 
-
-                                                <div class="form-group">
-                                                    <label for="login">Логин<span class="text-danger">*</span></label>
-                                                    <input type="text" id="login" name="login" tabindex="4" class="form-control mt-3"
-                                                           value="{{ $user->login }}" disabled>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="otdel_id">Отдел<span class="text-danger">*</span></label>
-                                                    <select id="otdel_id" name="otdel_id" tabindex="7" class="form-select mt-3" required disabled>
-                                                        @foreach($departs as $depart)
-                                                            <option value="{{ $depart->id }}" {{ ($depart->id === $user->otdel_id) ? 'selected' : '' }}>{{ $depart->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="file">Изображение</label>
-                                                    <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-
-                                                <div class="form-group">
-                                                    <label for="surname">Фамилия<span class="text-danger">*</span></label>
-                                                    <input type="text" id="surname" name="surname" tabindex="2" class="form-control mt-3" value="{{ $user->surname }}"
-                                                           required>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="phone">Телефон<span class="text-danger">*</span></label>
-                                                    <input type="text" id="phone" name="phone" tabindex="5" class="form-control mt-3" value="{{ $user->phone }}" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="telegram_id">Телеграм ID<span class="text-danger">*</span></label>
-                                                    <input type="number" id="telegram_id" name="telegram_user_id" tabindex="8" class="form-control mt-3" value="{{ $user->telegram_user_id }}" disabled>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="form-group">
-                                                    <label for="lastname">Отчество<span class="text-danger">*</span></label>
-                                                    <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="position">Должность<span class="text-danger">*</span></label>
-                                                    <input type="text" id="position" name="position" tabindex="6" class="form-control mt-3" value="{{ $user->position }}" disabled>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="birthday">День рождение</label>
-                                                    <input type="date" class="form-control mt-3" name="birthday" id="birthday" tabindex="9" value="{{ $user->birthday }}">
-                                                </div>
-
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <button type="submit" tabindex="11" class="btn btn-outline-primary">Изменить</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </section>
-                      </div>
-                    </div>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePassword" aria-hidden="true">
