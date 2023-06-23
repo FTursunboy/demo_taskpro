@@ -31,7 +31,8 @@ class GetAllTasksController extends BaseController
 {
     public function index()
     {
-        $tasks = TaskModel::where('user_id', Auth::id())->get();
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', '!=', 3)->get();
         return view('user.all-tasks.index', compact('tasks'));
     }
 
@@ -219,6 +220,13 @@ class GetAllTasksController extends BaseController
     {
         $tasks = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 3)->get();
+
+        return view('user.all-tasks.index', compact('tasks'));
+    }
+
+    public function new()
+    {
+        $tasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
 
         return view('user.all-tasks.index', compact('tasks'));
     }
