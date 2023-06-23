@@ -17,6 +17,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('admin/ideas/update/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'update'])->name('ideas.update');
         Route::get('admin/ideas/downloadFile/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'downloadFile'])->name('ideas.downloadFile');
         Route::post('admin/system-ideas/update/{idea}', [\App\Http\Controllers\Admin\SystemIdeaController::class, 'update'])->name('system-ideas.update');
+        Route::delete('admin/system-ideas/delete/{idea}', [\App\Http\Controllers\Admin\SystemIdeaController::class, 'delete'])->name('system-ideas.delete');
         Route::get('admin/system-ideas/downloadFile/{idea}', [\App\Http\Controllers\Admin\SystemIdeaController::class, 'downloadFile'])->name('system-ideas.downloadFile');
         Route::delete('admin/ideas/delete/{idea}', [\App\Http\Controllers\Admin\IdeaController::class, 'delete'])->name('idea.delete');
         Route::get('dashboard-admin/crm', [\App\Http\Controllers\Admin\IndexController::class, 'crm'])->name('crm');
@@ -218,6 +219,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     });
 
     Route::get('/control/{user_id}/{from}/{to}/{time}', [\App\Http\Controllers\Admin\TasksController::class, 'control'])->name('control');
-
+    Route::get('/kpil/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
 });

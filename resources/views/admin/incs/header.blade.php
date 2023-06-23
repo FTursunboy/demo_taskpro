@@ -760,10 +760,43 @@
                                             <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
+                                                <a data-bs-toggle="modal" data-bs-target="#SystemIdeasDelete{{ $idea->id }}" class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>
                                             </td>
                                         </tr>
 
                                         <!-- Modal -->
+                                        <div class="modal fade" id="SystemIdeasDelete{{ $idea->id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="ideasShowDashboardUserDelete{{ $idea->id }}"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="ideasShowDashboardUserDelete{{ $idea->id }}">
+                                                            Названия: {{\Str::limit($idea->name, 60)}}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form method="post" action="{{ route('admin.system-ideas.delete', $idea->id) }}"
+                                                          enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="modal-body">
+                                                            <p class="text-center">Точно хотите удалить идею?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                Назад
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger">
+                                                                Удалить идею
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="modal fade" id="SystemIdeasShowDashboard{{ $idea->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SystemIdeasShowDashboard{{ $idea->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-xl modal-dialog-centered">
                                                 <div class="modal-content">
@@ -1091,7 +1124,7 @@
                                 <label for="project_id">Проект</label>
                                 <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
                                     <option value="" selected disabled>Выберите проект</option>
-                                    @foreach($projects as $project)
+                                    @foreach($projects1 as $project)
                                         <option
                                             value="{{ $project->id }}" class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}</option>
                                     @endforeach
@@ -1245,7 +1278,7 @@
 
 
 
-                    $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
+                    $.get(`/tasks/public/kpil/${kpi.val()}/`).then((res) => {
                         for (let i = 0; i < res.length; i++) {
                             const item = res[i];
                             console.log(item.name);

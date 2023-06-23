@@ -32,6 +32,9 @@
                 <div class="col-md-2">
                     <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                 </div>
+                <div class="col-md-2">
+                    <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
+                </div>
                 @if($task->status->id == 4 || $task->status->id == 7 || $task->status->id == 2 )
                 <div class="col-md-2">
                 <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal"
@@ -46,6 +49,18 @@
                         </button>
                     </div>
                 @endif
+                @if($task->status->id == 9 || $task->status->id == 1)
+                    <div class="col-md-2">
+                        <form action="{{ route('new-task.accept',$task->id) }}"
+                              method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-success w-100">
+                                <i class="bi bi-check-lg mx-2"></i>
+                                Принять
+                            </button>
+                        </form>
+                    </div>
+                @endif
                 @if($task->status->id != 10 && $task->status_id != 6 && $task->status_id != 3 && $task->status_id != 5)
                     <div class="col-md-2">
                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
@@ -53,9 +68,7 @@
                         </button>
                     </div>
                 @endif
-                <div class="col-md-2">
-                    <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
-                </div>
+
 
                 <div class="modal" tabindex="-1" id="reports">
                     <div class="modal-dialog modal-dialog-scrollable modal-xl">

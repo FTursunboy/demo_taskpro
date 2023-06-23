@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Models\Admin\StatusesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TasksClient;
@@ -35,7 +36,7 @@ class TasksClientController extends BaseController
         } else {
             $file = null;
         }
-        TasksClient::create([
+        $task = TasksClient::create([
             'name' => $request->name,
             'from' => $request->from,
             'to' => $request->to,
@@ -46,6 +47,12 @@ class TasksClientController extends BaseController
             'client_id' => $request->client_id,
             'cancel' => $request->cancel ?? null,
         ]);
+        $user = User::find($request->client_id);
+        $email = $user?->clientEmail?->email;
+            if ($email) {
+                MailToSendClientController::send_task_to_client($email, $task);
+            }
+
 
         return redirect()->route('tasks_client.index')->with('create', 'Задача успешно создана!');
     }

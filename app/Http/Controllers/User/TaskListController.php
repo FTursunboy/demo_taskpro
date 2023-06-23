@@ -84,12 +84,6 @@ class TaskListController extends BaseController
     {
         $request->validate(['cancel' => ['required']]);
 
-        ReportHistoryController::create(
-            $task->slug,
-            Statuses::CONFIRM,
-            $request->input('cancel')
-        );
-
         $decline = UserTaskHistoryModel::where([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
@@ -118,7 +112,7 @@ class TaskListController extends BaseController
             Notification::send(User::role('admin')->first(), new TelegramUserDecline($task->name, Auth::user()->name));
         } catch (\Exception $exception) {
         }
-        Artisan::call('update:task-status');
+
         return redirect()->route('user.index')->with('delete', 'Задача отклонена!');
     }
 
