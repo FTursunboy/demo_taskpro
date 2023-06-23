@@ -32,7 +32,7 @@
                 <div class="col-md-2">
                     <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>
                 </div>
-                @if($task->status->id == 4 || $task->status->id == 7)
+                @if($task->status->id == 4 || $task->status->id == 7 || $task->status->id == 2 )
                 <div class="col-md-2">
                 <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop{{ $task->id }}">Я сделал задачу

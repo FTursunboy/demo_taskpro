@@ -211,7 +211,7 @@ class GetAllTasksController extends BaseController
     public function inProgress()
     {
         $tasks = TaskModel::where('user_id', Auth::id())
-            ->where('status_id', 4)->get();
+            ->where('status_id', 2)->orWhere('status_id', 4)->get();
 
         return view('user.all-tasks.index', compact('tasks'));
     }
