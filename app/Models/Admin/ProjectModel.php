@@ -135,6 +135,11 @@ class ProjectModel extends Model
     {
         return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 7)->count();
     }
+
+    public function count_other_user()
+    {
+
+    }
    //TODO: End - Проект (сотрудник)
 
 
