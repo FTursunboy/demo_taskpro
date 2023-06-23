@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class TelegranAdminSendJob implements ShouldQueue
@@ -34,8 +35,18 @@ class TelegranAdminSendJob implements ShouldQueue
      */
     public function handle(): void
     {
+
+        $user = User::role('client')
+            ->leftJoin('offers', 'users.id', '=', 'offers.client_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'users.id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->select('p.name as project', 'users.name')
+            ->where([
+                ['offers.client_id', Auth::id()]
+            ])
+            ->first();
         try {
-            Notification::send(User::role('admin')->first(), new TelegramClientTask($this->name, $this->user));
+            Notification::send(User::role('admin')->first(), new TelegramClientTask($this->name, $this->user, $user->project));
         } catch (\Exception $exception) {
 
         }
