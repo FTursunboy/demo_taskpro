@@ -7,8 +7,8 @@
     }
 </style>
 
-<header class='mb-3'>
-    <nav class="navbar navbar-expand navbar-light navbar-top">
+<header>
+    <nav style="margin-bottom: -20px" class="navbar navbar-expand navbar-light navbar-top">
         <div class="container-fluid">
             <a href="#" class="burger-btn d-block">
                 <i class="bi bi-justify fs-3"></i>
