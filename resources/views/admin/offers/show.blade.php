@@ -291,7 +291,7 @@
                                                                 <div class="col-6">
                                                                     <button name="action" value="accept"
                                                                             class="btn btn-success form-control"
-                                                                            type="button" id="button">
+                                                                            type="submit" id="button">
                                                                         Отправить
                                                                     </button>
                                                                 </div>
