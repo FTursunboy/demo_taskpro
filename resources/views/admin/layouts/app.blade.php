@@ -60,6 +60,13 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     }, false);
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.history.back();
+        }
+    });
+
 </script>
 </body>
 </html>
