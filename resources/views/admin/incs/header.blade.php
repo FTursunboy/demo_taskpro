@@ -893,6 +893,7 @@
                                 <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
                                 <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
                                 <th class="text-center" style="width: 130px;">Просроченное</th>
+                                <th class="text-center" style="width: 130px;">Прочее</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -906,6 +907,7 @@
                                     <td class="text-center">{{ $task->count_verificateClient() }}</td>
                                     <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
                                     <td class="text-center">{{ $task->count_outOfDate() }}</td>
+                                    <td class="text-center">{{ $task->count_other() }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
