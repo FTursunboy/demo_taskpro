@@ -4,11 +4,14 @@ $('#to, #from, #user_id, #type_id').change(function () {
     let from = $('#from').val();
     let to = $('#to').val();
     let time = $('#time').val();
-
+    console.log(user_id)
+    console.log(from)
+    console.log(to)
+    console.log(time)
     $.get(`/tasks/public/control/${user_id}/${from}/${to}/${time}`, function(response) {
         console.log(response);
         let kpi = $('#type_id').children('option:selected')
-
+        console.log(kpi)
         if (response.is_valid === false && kpi.text().toLowerCase() !== 'разовые' ) {
             $('#time').addClass('border-danger');
             $('#info_danger').text("У сотрудника " + response.user + " " + response.allowed + " свободных часов");
