@@ -194,7 +194,7 @@ class User extends Authenticatable
                 ->from('user_task_history_models')
                 ->where('user_id', '=', $id);
         })
-            ->whereIn('status_id', [4, 7])
+            ->whereIn('status_id', [2, 4, 7])
             ->get();
 
     }
