@@ -52,11 +52,11 @@
 {{--                @endif--}}
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
-                    <li class="nav-item" style="margin-top: -13px;">
+                    <li class="nav-item" style="margin-top: -10px;">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
                            role="button">
-                            <i class="bi bi-wallet" style="font-size: 30px;"></i>
+                            <i class="bi bi-wallet" style="font-size: 31px;"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px;">
