@@ -51,14 +51,7 @@
                         <span>Панель</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item {{ (request()->is('new-task') or request()->is('new-task/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('new-task.index') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Новые задачи</span>
-                    </a>
-                </li>
-
+                
                 <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-bookmark"></i>
