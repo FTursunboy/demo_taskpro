@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
     });
 
-    Route::get('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
+    Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
 });
 
 
