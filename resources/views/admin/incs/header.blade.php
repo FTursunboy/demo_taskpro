@@ -894,7 +894,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($tasksOfDashboard as $task)
+                            @foreach($projectTasksOfDashboardAdmin as $task)
                                 <tr class="">
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $task->name }}</td>
