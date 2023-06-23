@@ -15,17 +15,18 @@ class TelegramClientTask extends Notification implements ShouldQueue
     use Queueable;
     public string $name = '';
     public string $user = '';
-
+    public string $project = '';
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($name, $user)
+    public function __construct($name, $user, $project)
     {
         $this->name = $name;
         $this->user = $user;
+        $this->project = $project;
     }
 
     /**
@@ -69,7 +70,7 @@ class TelegramClientTask extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Здравствуйте, наш клиент $this->user, поставил(а) вам задачу.
+            ->content("Здравствуйте, наш клиент $this->user, поставил(а) вам задачу на пректе '$this->project'.
             \n Названия: $this->name");
 
     }
