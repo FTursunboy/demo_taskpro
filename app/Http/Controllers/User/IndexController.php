@@ -35,8 +35,13 @@ class IndexController extends BaseController
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '13']
         ])->count();
+        $ver_admin = TaskModel::where([
+            ['user_id', '=', Auth::id()],
+            ['status_id', '=', '6'],
+            ['client_id', '=', null]
+        ])->count();
 
-        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount'));
+        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount', 'ver_admin'));
     }
 
     public function downloadFile(TaskModel $task)
