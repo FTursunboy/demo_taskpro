@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th class="text-center">#</th>
-            <th data-td="td_one">Имя<span class="btn btn-right">></span></th>
+            <th data-td="td_one">Название<span class="btn btn-right">></span></th>
             <th data-td="td_two">Описание<span class="btn btn-right">></span></th>
             <th class="text-center" data-td="td_two">Время<span class="btn btn-right">></span></th>
             <th class="text-center" data-td="td_three">От<span class="btn btn-right">></span></th>
@@ -20,7 +20,7 @@
             <tr>
                 <td class="text-center">{{ $loop->iteration  }}</td>
                 <td >{{ $task->name }}</td>
-                <td >{{ Str::limit($task->comment, 10) }}</td>
+                <td >{{ Str::limit($task->comment, 100) }}</td>
                 <td class="text-center">{{ $task->time }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
