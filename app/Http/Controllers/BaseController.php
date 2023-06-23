@@ -78,7 +78,7 @@ class BaseController extends Controller
                 'statistics' => $statistics,
                 'notes' => $notes,
                 'types' => TaskTypeModel::get(),
-                'projects' => ProjectModel::where('pro_status', '!=', 3)->get(),
+                'projects1' => ProjectModel::where('pro_status', '!=', 3)->get(),
                 'users1'  => User::role(['user', 'admin'])->get(),
 
                 'system_idea_count' => $system_idea_count,

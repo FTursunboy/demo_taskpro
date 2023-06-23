@@ -1091,7 +1091,7 @@
                                 <label for="project_id">Проект</label>
                                 <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
                                     <option value="" selected disabled>Выберите проект</option>
-                                    @foreach($projects as $project)
+                                    @foreach($projects1 as $project)
                                         <option
                                             value="{{ $project->id }}" class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}</option>
                                     @endforeach
