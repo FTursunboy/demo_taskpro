@@ -34,10 +34,10 @@ class TasksController extends BaseController
         UserTaskHistoryModel::create([
             'user_id' => Auth::id(),
             'task_id' => $task->id,
-            'status_id' => 4,
+            'status_id' => 2,
         ]);
         $task->update([
-            'status_id' => 4
+            'status_id' => 2
         ]);
         if ($task->to < now()->toDateString()) {
                 $task->status_id = 7;
