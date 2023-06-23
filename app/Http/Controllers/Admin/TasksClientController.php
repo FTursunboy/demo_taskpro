@@ -49,8 +49,9 @@ class TasksClientController extends BaseController
         ]);
         $user = User::find($request->client_id);
         $email = $user?->clientEmail?->email;
-
-            MailToSendClientController::send_task_to_client($email, $task);
+            if ($email) {
+                MailToSendClientController::send_task_to_client($email, $task);
+            }
 
 
         return redirect()->route('tasks_client.index')->with('create', 'Задача успешно создана!');

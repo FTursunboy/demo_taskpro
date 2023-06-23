@@ -19,7 +19,7 @@ class MailToSendClientController extends Controller
         Mail::to($email)->send(new ChatEmail($task, $message));
     }
     public static function send_task_to_client($email, $task) {
-        Mail::to('tfaiziev04@gmail.com')->send(new SendTaskToClient($task));
+        Mail::to($email)->send(new SendTaskToClient($task));
     }
 
 }
