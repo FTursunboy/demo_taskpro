@@ -93,40 +93,11 @@
                         <div class="col-6"></div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="button" id="button" class="btn btn-outline-primary" tabindex="7">Сохранить</button>
+                        <button type="submit" id="submit" class="btn btn-outline-primary" tabindex="7">Соxранить</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-@endsection
-
-@section('script')
-    <script>
-        $('#from').change(function () {
-            const to = $('#to')
-            if ($(this).val() > to.val()) {
-                $(this).addClass('border-danger')
-                to.addClass('border-danger')
-                $('#button').attr('type', 'button');
-            } else {
-                $(this).removeClass('border-danger')
-                to.removeClass('border-danger')
-                $('#button').attr('type', 'submit');
-            }
-        })
-        $('#to').change(function () {
-            const from = $('#from')
-            if ($(this).val() < from.val()) {
-                $(this).addClass('border-danger')
-                from.addClass('border-danger')
-                $('#button').attr('type', 'button');
-            } else {
-                $(this).removeClass('border-danger')
-                from.removeClass('border-danger')
-                $('#button').attr('type', 'submit');
-            }
-        })
-    </script>
 @endsection

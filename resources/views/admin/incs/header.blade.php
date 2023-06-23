@@ -774,11 +774,11 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="ideasShowDashboardUserDelete{{ $idea->id }}">
-                                                            Названия: {{\Str::limit($idea->title, 60)}}</h1>
+                                                            Названия: {{\Str::limit($idea->name, 60)}}</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form method="post" action="{{ route('admin.idea.delete', $idea->id) }}"
+                                                    <form method="post" action="{{ route('admin.system-ideas.delete', $idea->id) }}"
                                                           enctype="multipart/form-data">
                                                         @csrf
                                                         @method('DELETE')

@@ -41,4 +41,9 @@ class SystemIdeaController extends Controller
 
         return response()->download($path, $idea->file_name, $headers);
     }
+
+    public function delete(SystemIdea $idea) {
+        $idea->delete();
+        return redirect()->back()->with('mess', 'Успешно удалено');
+    }
 }
