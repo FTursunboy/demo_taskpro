@@ -25,7 +25,7 @@
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvasUser"
                            aria-controls="ideasOfCanvasUser" style="margin-left: 20px;">
-                            <i style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
+                            <i style="font-size: 30px;" class="bi bi-lightbulb"></i>
                         </a>
                     </li>
                 </ul>
