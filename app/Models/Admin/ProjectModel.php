@@ -10,6 +10,7 @@ use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProjectModel extends Model
@@ -55,7 +56,12 @@ class ProjectModel extends Model
         return $this->hasOne(TaskModel::class, 'project_id');
     }
 
+    public function tasks_user()
+    {
+        return $this->hasOne(TaskModel::class, 'project_id');
+    }
 
+ //TODO: Start - Проект (админ)
     public function count_task()
     {
         return $this->tasks()->count();
@@ -91,7 +97,45 @@ class ProjectModel extends Model
     {
         return $this->tasks()->where('status_id', '=', 7)->count();
     }
+    //TODO: End - Проект (админ)
 
+    //TODO: Start - Проект (сотрудник)
+    public function count_task_user()
+    {
+        return $this->tasks()->where('user_id', Auth::id())->count();
+    }
+
+    public function count_ready_user()
+    {
+        return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 3)->count();
+    }
+
+    public function count_process_user()
+    {
+       $process =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 4)->count();
+       $accept =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 2)->count();
+
+       return $process + $accept;
+    }
+
+    public function count_verificateClient_user()
+    {
+        return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 10)->count();
+    }
+
+    public function count_verificateAdmin_user()
+    {
+        $verificateAdminCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 6)->count();
+        $verificateCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 14)->count();
+
+        return $verificateAdminCount + $verificateCount;
+    }
+
+    public function count_outOfDate_user()
+    {
+        return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 7)->count();
+    }
+   //TODO: End - Проект (сотрудник)
 
 
 }

@@ -32,7 +32,8 @@ class BaseController extends Controller
             $out_of_date = TaskModel::where('status_id', 7)->count();
             $rejected = TaskModel::where('status_id', 5)->count();
 
-            $tasksOfDashboard = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
+            $projectTasksOfDashboardAdmin = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
+            $projectTasksOfDashboardUser = TaskModel::where('user_id', Auth::id())->get();
 
             $notifications = ClientNotification::get();
             $newMessage = ChatMessageModel::where('user_id', Auth::id())->orwhere('offer_id', Auth::id())->orderBy('created_at','desc')->get();
@@ -66,7 +67,8 @@ class BaseController extends Controller
                 'command_task' => $command_task,
                 'usersTelegram' => $usersTelegram,
                 'tasksTeamLeads' => $this->taskTeamLead(),
-                'tasksOfDashboard' => $tasksOfDashboard,
+                'projectTasksOfDashboardAdmin' => $projectTasksOfDashboardAdmin,
+                'projectTasksOfDashboardUser' => $projectTasksOfDashboardUser,
                 'ideasOfDashboard' => $ideasOfDashboard,
                 'ideasOfDashboardUser' => $ideasOfDashboardUser,
                 'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
