@@ -193,20 +193,19 @@ class GetAllTasksController extends BaseController
 
     public function speed()
     {
-
         $tasks = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 7)->get();
 
         return view('user.all-tasks.index', compact('tasks'));
     }
 
-     public function reject()
-        {
-            $tasks = TaskModel::where('user_id', Auth::id())
-                ->where('status_id', 13)->get();
+    public function reject()
+    {
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 13)->get();
 
-            return view('user.all-tasks.index', compact('tasks'));
-        }
+        return view('user.all-tasks.index', compact('tasks'));
+    }
 
     public function inProgress()
     {
