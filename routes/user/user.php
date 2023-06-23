@@ -63,6 +63,7 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('/my-all-tasks/inProgress/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'inProgress'])->name('inProgress');
         Route::get('/my-all-tasks/verificate/admin/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'verificate_admin'])->name('verificate_admin');
         Route::get('/my-all-tasks/success/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'success'])->name('success');
+        Route::get('/my-all-tasks/new/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'new'])->name('new');
 
     });
 
