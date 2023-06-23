@@ -21,6 +21,13 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0">
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 10px"" >
+                        <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
+                           aria-controls="ProjectOfCanvas" style="margin-left: 10px;"
+                           role="button">
+                            <i class="bi bi-wallet" style="font-size: 31px;"></i>
+                        </a>
+                    </li>
                     <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvasUser"
                            aria-controls="ideasOfCanvasUser">
@@ -926,5 +933,51 @@
 
 {{-- Create SystemIdead Modal End --}}
 
+
+{{--  Project  --}}
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ProjectOfCanvas"
+     aria-labelledby="ProjectOfCanvas" style="width: 100%; height: 80%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="ProjectOfCanvas">Проекты</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="card">
+            <div class="card-body overflow-hidden">
+                <div>
+                    <table class="table table-hover mt-3 " cellpadding="5">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Название</th>
+                            <th class="text-center">Количество задач</th>
+                            <th class="text-center">Готовые</th>
+                            <th class="text-center">В процессе</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
+                            <th class="text-center" style="width: 130px;">Просроченное</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($projectTasksOfDashboardUser->unique('project_id') as $task)
+                            <tr class="">
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>{{ $task?->project?->name}}</td>
+                                <td class="text-center">{{ $task?->project?->count_task_user()}}</td>
+                                <td class="text-center">{{ $task?->project?->count_ready_user() }}</td>
+                                <td class="text-center">{{ $task?->project?->count_process_user() }}</td>
+                                <td class="text-center">{{ $task?->project?->count_verificateClient_user() }}</td>
+                                <td class="text-center">{{ $task?->project?->count_verificateAdmin_user() }}</td>
+                                <td class="text-center">{{ $task?->project?->count_outOfDate_user() }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{--  Project ofcanvas  end  --}}
 
 
