@@ -22,16 +22,7 @@
 
             <div class="collapse navbar-collapse mr-2" id="navbarSupportedContent">
 
-                <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
-                   aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
-                   role="button">
-                    <i class="bi bi-wallet" style="font-size: 30px;"></i>
-                </a>
-                <a data-bs-toggle="offcanvas" data-bs-target="#Statistic"
-                   aria-controls="Statistic" style="margin-left: 20px;"
-                   role="button">
-                    <i style="font-size: 29px"  class="bi bi-calendar-check"></i>
-                </a>
+
 
 {{--                @if(count($birthdayUsers) > 1)--}}
 {{--                    <div class="dropdown" style="margin-left: 300px;">--}}
@@ -61,7 +52,21 @@
 {{--                @endif--}}
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
+                    <li class="nav-item" style="margin-top: -13px;">
+                        <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
+                           aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
+                           role="button">
+                            <i class="bi bi-wallet" style="font-size: 30px;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: -10px;">
 
+                        <a data-bs-toggle="offcanvas" data-bs-target="#Statistic"
+                           aria-controls="Statistic" style="margin-left: 20px;"
+                           role="button">
+                            <i style="font-size: 29px"  class="bi bi-calendar-check"></i>
+                        </a>
+                    </li>
                     <li class="nav-item" style="margin-top: -10px;">
                         @if($command_task > 0)
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
@@ -94,11 +99,12 @@
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
                         @if($ideas_count > 0 || $system_idea_count > 0)
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px;">
-                                <i id="ideasCount" style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
+
+                                <i id="ideasCount" style="font-size: 30px;"  class="bi bi-lightbulb"></i>
                             </a>
                         @else
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px">
-                                <i style="font-size: 30px" class="bi bi-lightbulb-fill"></i>
+                                <i  style="font-size: 30px;"  class="bi bi-lightbulb"></i>
                             </a>
                         @endif
                         <style>
