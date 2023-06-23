@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div id="page-heading">
-       
+
 
         @include('.inc.messages')
 

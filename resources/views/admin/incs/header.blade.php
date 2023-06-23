@@ -53,6 +53,12 @@
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item" style="margin-top: -10px;">
+
+                        <a style="color: #607080" href="{{ route('tasks.create') }}" >
+                            <i style="font-size: 31px;" class="bi bi-plus-circle"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: -10px;">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
                            role="button">
