@@ -25,10 +25,10 @@
 
         <section class="section">
             <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3  col-md-">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('new-task.index') }}">
+                            <a href="{{ route('all-tasks.index') }}">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -44,8 +44,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Новые задачи</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $task['new'] }}</h6>
+                                        <h6 class="text-muted font-semibold">Все задачи.</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $task['all'] }}</h6>
                                     </div>
                                 </div>
                             </a>
@@ -55,7 +55,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.speed') }}">
+                            <a href="{{ route('new-task.index') }}">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -73,6 +73,76 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Новые задачи</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $task['new'] }}</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <a href="{{ route('all-tasks.inProgress')  }}">
+                                <div class="row">
+                                    <div
+                                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon mb-2" style="background: #eef511;">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 viewBox="0,0,256,256" width="32px" height="32px"
+                                                 fill-rule="nonzero">
+                                                <g fill="#ffffff" fill-rule="nonzero" stroke="none"
+                                                   stroke-width="1" stroke-linecap="butt"
+                                                   stroke-linejoin="miter" stroke-miterlimit="10"
+                                                   stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                                   font-weight="none" font-size="none" text-anchor="none"
+                                                   style="mix-blend-mode: normal">
+                                                    <g transform="scale(8,8)">
+                                                        <path
+                                                            d="M16,4c-6.61719,0 -12,5.38281 -12,12c0,6.61719 5.38281,12 12,12c6.61719,0 12,-5.38281 12,-12c0,-6.61719 -5.38281,-12 -12,-12zM16,6c5.53516,0 10,4.46484 10,10c0,5.53516 -4.46484,10 -10,10c-5.53516,0 -10,-4.46484 -10,-10c0,-5.53516 4.46484,-10 10,-10zM15,8v9h7v-2h-5v-7z"/>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">В процессе</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $task['inProgress'] }}</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <a href="{{ route('all-tasks.speed') }}">
+                                <div class="row">
+                                    <div
+                                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon blue mb-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 viewBox="0,0,256,256" width="32px" height="32px"
+                                                 fill-rule="nonzero">
+                                                <g fill="#ffffff" fill-rule="nonzero" stroke="none"
+                                                   stroke-width="1" stroke-linecap="butt"
+                                                   stroke-linejoin="miter" stroke-miterlimit="10"
+                                                   stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                                   font-weight="none" font-size="none" text-anchor="none"
+                                                   style="mix-blend-mode: normal">
+                                                    <g transform="scale(8,8)">
+                                                        <path
+                                                            d="M16,4c-6.61719,0 -12,5.38281 -12,12c0,6.61719 5.38281,12 12,12c6.61719,0 12,-5.38281 12,-12c0,-6.61719 -5.38281,-12 -12,-12zM16,6c5.53516,0 10,4.46484 10,10c0,5.53516 -4.46484,10 -10,10c-5.53516,0 -10,-4.46484 -10,-10c0,-5.53516 4.46484,-10 10,-10zM15,8v9h7v-2h-5v-7z"/>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">Просроченные</h6>
                                         <h6 class="font-extrabold mb-0">{{ $task['speed'] }}</h6>
                                     </div>
@@ -84,7 +154,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.verificate_client') }}">
+                            <a href="{{ route('all-tasks.verificate_admin') }}">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -108,7 +178,43 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">На проверке (Клиент)</h6>
+                                        <h6 class="text-muted font-semibold">На проверке <b>(Админ)</b></h6>
+                                        <h6 class="font-extrabold mb-0">{{ $ver_admin }}</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <a href="{{ route('all-tasks.verificate_client') }}">
+                                <div class="row">
+                                    <div
+                                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon mb-2" style="background: orange;">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                 viewBox="0,0,256,256" width="32px" height="32px"
+                                                 fill-rule="nonzero">
+                                                <g fill="#ffffff" fill-rule="nonzero" stroke="none"
+                                                   stroke-width="1" stroke-linecap="butt"
+                                                   stroke-linejoin="miter" stroke-miterlimit="10"
+                                                   stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                                   font-weight="none" font-size="none" text-anchor="none"
+                                                   style="mix-blend-mode: normal">
+                                                    <g transform="scale(8,8)">
+                                                        <path
+                                                            d="M16,4c-6.61719,0 -12,5.38281 -12,12c0,6.61719 5.38281,12 12,12c6.61719,0 12,-5.38281 12,-12c0,-6.61719 -5.38281,-12 -12,-12zM16,6c5.53516,0 10,4.46484 10,10c0,5.53516 -4.46484,10 -10,10c-5.53516,0 -10,-4.46484 -10,-10c0,-5.53516 4.46484,-10 10,-10zM15,8v9h7v-2h-5v-7z"/>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">На проверке <b>(Клиент)</b></h6>
                                         <h6 class="font-extrabold mb-0">{{ $tasks_count }}</h6>
                                     </div>
                                 </div>
@@ -133,6 +239,33 @@
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">Отклонено (Клиент)</h6>
                                         <h6 class="font-extrabold mb-0">{{ $rejectClientCount }}</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <a href="{{ route('all-tasks.success') }}">
+                                <div class="row">
+                                    <div
+                                        class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon green mb-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42"
+                                                 fill="currentColor" class="bi bi-check2-all text-white"
+                                                 viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
+                                                <path
+                                                    d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Архив</h6>
+                                        <h6 class="font-extrabold mb-0">{{$task['success']}}</h6>
                                     </div>
                                 </div>
                             </a>

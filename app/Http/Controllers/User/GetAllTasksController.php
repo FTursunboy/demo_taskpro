@@ -181,6 +181,16 @@ class GetAllTasksController extends BaseController
         return view('user.all-tasks.index', compact('tasks'));
     }
 
+    public function verificate_admin()
+    {
+
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 6)
+            ->where('client_id', null)->get();
+
+        return view('user.all-tasks.index', compact('tasks'));
+    }
+
     public function speed()
     {
 
@@ -198,4 +208,19 @@ class GetAllTasksController extends BaseController
             return view('user.all-tasks.index', compact('tasks'));
         }
 
+    public function inProgress()
+    {
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 4)->get();
+
+        return view('user.all-tasks.index', compact('tasks'));
+    }
+
+    public function success()
+    {
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 3)->get();
+
+        return view('user.all-tasks.index', compact('tasks'));
+    }
 }

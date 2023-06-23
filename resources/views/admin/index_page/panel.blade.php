@@ -235,7 +235,6 @@
                                                     <td class="text-center">{{ $team_lead->task_count }}</td>
                                                 </tr>
                                             @endforeach
-
                                             </tbody>
                                         </table>
                                         {{--                                            <p role="button" class="text-primary text-end">Ещё..</p>--}}
