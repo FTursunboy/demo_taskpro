@@ -227,7 +227,7 @@ class  TasksController extends BaseController
         } else {
             $file = null;
         }
-        
+
         $task = TaskModel::create([
             'name' => $request->name,
             'time' => $request->time,
@@ -268,7 +268,7 @@ class  TasksController extends BaseController
         }
 
         HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->route('mon.index')->with('mess', 'Задача успешно создана!');
+        return redirect()->back()->with('mess', 'Задача успешно создана!');
     }
 
     public function downloadFile(TaskModel $task)
