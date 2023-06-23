@@ -30,7 +30,7 @@
                 <a data-bs-toggle="offcanvas" data-bs-target="#Statistic"
                    aria-controls="Statistic" style="margin-left: 20px;"
                    role="button">
-                    <i style="font-size: 31px" class="bi bi-speedometer"></i>
+                    <i style="font-size: 29px"  class="bi bi-calendar-check"></i>
                 </a>
 
 {{--                @if(count($birthdayUsers) > 1)--}}
