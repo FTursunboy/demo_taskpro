@@ -152,11 +152,11 @@
                                                                             <div class="col-md-6">
                                                                                 <label class="form-label">До</label>
                                                                                 <input required
-                                                                                       id="to"
+                                                                                       id="to_1"
                                                                                        value="{{$offer->to}}"
                                                                                        type="date"
                                                                                        class="form-control"
-                                                                                       name="to" id="to">
+                                                                                       name="to">
 
                                                                                 <span id="error-message"
                                                                                       class="d-none text-center mt-3"
@@ -169,7 +169,7 @@
                                                                                 <label class="form-label">Ответственный
                                                                                     исполнитель</label>
                                                                                 <select required class="form-select"
-                                                                                        name="user_id" id="user_id">
+                                                                                        name="user_id_1" id="user_id">
                                                                                     <option value="">Выберите
                                                                                         исполнителя
                                                                                     </option>
@@ -184,7 +184,7 @@
                                                                                 <label class="form-label">Тип</label>
                                                                                 <select name="type_id"
                                                                                         class="form-control"
-                                                                                        id="type_id">
+                                                                                        id="type_id_1">
                                                                                     @foreach($types as $type)
                                                                                         <option
                                                                                             value="{{$type->id}}">{{$type->name}}</option>
@@ -205,7 +205,7 @@
                                                                                     type="number"
                                                                                     class="form-control"
                                                                                     name="time"
-                                                                                    id="time"
+                                                                                    id="time_1"
                                                                                     placeholder="Введите время">
 
                                                                                 <label class="form-label">Клиент</label>
