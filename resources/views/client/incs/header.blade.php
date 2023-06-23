@@ -25,11 +25,11 @@
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvasUser"
                            aria-controls="ideasOfCanvasUser" style="margin-left: 20px;">
-                            <i style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
+                            <i style="font-size: 30px;" class="bi bi-lightbulb"></i>
                         </a>
                     </li>
                 </ul>
-                <div class="drop    down">
+                <div class="drop down">
                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user-menu d-flex">
                             <div class="user-name text-end me-3">
@@ -39,8 +39,7 @@
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
                                     @if(Auth::user()->avatar)
-                                        <img
-                                            src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
+                                        <img src="{{ asset('storage/'. Illuminate\Support\Facades\Auth::user()->avatar)}}">
                                     @else
                                         <img src="{{asset('assets/images/avatar-2.png')}}">
                                     @endif

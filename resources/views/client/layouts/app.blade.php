@@ -39,7 +39,14 @@
 <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('assets/js/my-script.js')}}"></script>
+<script>
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.history.back();
+        }
+    });
 
+</script>
 </body>
 
 </html>
