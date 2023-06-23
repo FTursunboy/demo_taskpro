@@ -25,7 +25,8 @@
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 10px;"
                            role="button">
-                            <i class="bi bi-clipboard2-data"></i>
+                          
+                            <i style="font-size: 31px;" class="bi bi-clipboard2-data"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
@@ -956,7 +957,6 @@
                             <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
                             <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
                             <th class="text-center" style="width: 130px;">Просроченное</th>
-                            <th class="text-center" style="width: 130px;">Прочее</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -970,7 +970,6 @@
                                 <td class="text-center">{{ $task?->project?->count_verificateClient_user() }}</td>
                                 <td class="text-center">{{ $task?->project?->count_verificateAdmin_user() }}</td>
                                 <td class="text-center">{{ $task?->project?->count_outOfDate_user() }}</td>
-                                <td class="text-center">{{ $task?->project?->count_other_user() }}</td>
                             </tr>
                         @endforeach
                         </tbody>
