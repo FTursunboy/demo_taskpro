@@ -62,8 +62,7 @@
                     <li class="nav-item" style="margin-top: -10px;">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
-                           role="button">
-                            <i class="bi bi-wallet" style="font-size: 31px;"></i>
+                           role="button"><i style="font-size: 31px;" class="bi bi-clipboard2-data"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px;">
@@ -162,12 +161,8 @@
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                         style="min-width: 11rem;">
-                        <li>
-                            <h6 class="dropdown-header">Привет, {{ Auth::user()->name }}
-                                !</h6>
-                        </li>
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
-                                    class="icon-mid bi bi-person me-2"></i>Мой профил</a></li>
+                                    class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
                         <hr class="dropdown-divider">
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop"><i
