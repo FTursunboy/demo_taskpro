@@ -4,10 +4,7 @@
             <a class="nav-link active mb-2" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
                aria-controls="home" aria-selected="true">Панель</a>
         </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link mb-2" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
-               aria-controls="profile" aria-selected="false">Статистика</a>
-        </li>
+        
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -325,9 +322,7 @@
                 </div>
             </section>
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            @include('admin.index_page.statistic')
-        </div>
+
     </div>
 </div>
 
