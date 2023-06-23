@@ -25,7 +25,7 @@
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 10px;"
                            role="button">
-                            <i class="bi bi-wallet" style="font-size: 31px;"></i>
+                            <i class="bi bi-clipboard2-data"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
