@@ -65,6 +65,12 @@
                         <span>Мои планы</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ (request()->is('user/clients') or request()->is('user/clients/*'))  ? 'active' : '' }}">
+                    <a href="{{ route('user.clients') }}" class='sidebar-link'>
+                        <i class="bi bi-bookmark-check"></i>
+                        <span>Клиенты</span>
+                    </a>
+                </li>
 
                 @role('team-lead')
                 <li class="sidebar-item {{ (request()->is('my-command') or request()->is('my-command/*'))  ? 'active' : '' }}">

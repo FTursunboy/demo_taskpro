@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['role:user']], function () {
@@ -92,4 +94,6 @@ Route::group(['middleware' => ['role:user']], function () {
        Route::patch('/notes/update/{note}', [\App\Http\Controllers\Users\NotesController::class,'update'])->name('update');
        Route::delete('/notes/delete/{note}', [\App\Http\Controllers\Users\NotesController::class,'destroy'])->name('delete');
     });
+
+    Route::get('user/clients', [\App\Http\Controllers\User\ClientController::class, 'index'])->name('user.clients');
 });
