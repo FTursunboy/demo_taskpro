@@ -75,7 +75,7 @@ class ProjectModel extends Model
     public function count_process()
     {
        $process =  $this->tasks()->where('status_id', '=', 4)->count();
-       $accept =  $this->tasks()->where('status_id', '=', 2)->count();
+       $accept  =  $this->tasks()->where('status_id', '=', 2)->count();
 
        return $process + $accept;
     }
@@ -88,7 +88,7 @@ class ProjectModel extends Model
     public function count_verificateAdmin()
     {
         $verificateAdminCount = $this->tasks()->where('status_id', 6)->count();
-        $verificateCount = $this->tasks()->where('status_id', 14)->count();
+        $verificateCount      = $this->tasks()->where('status_id', 14)->count();
 
         return $verificateAdminCount + $verificateCount;
     }
@@ -96,6 +96,19 @@ class ProjectModel extends Model
     public function count_outOfDate()
     {
         return $this->tasks()->where('status_id', '=', 7)->count();
+    }
+
+    public function count_other()
+    {
+        $expected        = $this->tasks()->where('status_id', 1)->count();
+        $rejected        = $this->tasks()->where('status_id', 5)->count();
+        $expectedAdmin   = $this->tasks()->where('status_id', 8)->count();
+        $expectedUser    = $this->tasks()->where('status_id', 9)->count();
+        $rejectedAdmin   = $this->tasks()->where('status_id', 11)->count();
+        $rejectedUser    = $this->tasks()->where('status_id', 12)->count();
+        $rejectedClient  = $this->tasks()->where('status_id', 13)->count();
+
+        return $expected + $rejected + $expectedAdmin + $expectedUser + $rejectedAdmin + $rejectedUser + $rejectedClient;
     }
     //TODO: End - Проект (админ)
 
@@ -113,7 +126,7 @@ class ProjectModel extends Model
     public function count_process_user()
     {
        $process =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 4)->count();
-       $accept =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 2)->count();
+       $accept  =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 2)->count();
 
        return $process + $accept;
     }
@@ -126,7 +139,7 @@ class ProjectModel extends Model
     public function count_verificateAdmin_user()
     {
         $verificateAdminCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 6)->count();
-        $verificateCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 14)->count();
+        $verificateCount      = $this->tasks()->where('user_id', Auth::id())->where('status_id', 14)->count();
 
         return $verificateAdminCount + $verificateCount;
     }
@@ -138,7 +151,15 @@ class ProjectModel extends Model
 
     public function count_other_user()
     {
+        $expected        = $this->tasks()->where('user_id', Auth::id())->where('status_id', 1)->count();
+        $rejected        = $this->tasks()->where('user_id', Auth::id())->where('status_id', 5)->count();
+        $expectedAdmin   = $this->tasks()->where('user_id', Auth::id())->where('status_id', 8)->count();
+        $expectedUser    = $this->tasks()->where('user_id', Auth::id())->where('status_id', 9)->count();
+        $rejectedAdmin   = $this->tasks()->where('user_id', Auth::id())->where('status_id', 11)->count();
+        $rejectedUser    = $this->tasks()->where('user_id', Auth::id())->where('status_id', 12)->count();
+        $rejectedClient  = $this->tasks()->where('user_id', Auth::id())->where('status_id', 13)->count();
 
+        return $expected + $rejected + $expectedAdmin + $expectedUser + $rejectedAdmin + $rejectedUser + $rejectedClient;
     }
    //TODO: End - Проект (сотрудник)
 
