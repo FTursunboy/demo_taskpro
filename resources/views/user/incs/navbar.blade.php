@@ -51,7 +51,7 @@
                         <span>Панель</span>
                     </a>
                 </li>
-                
+
                 <li class="sidebar-item {{ (request()->is('my-all-tasks') or request()->is('my-all-tasks/*'))  ? 'active' : '' }}">
                     <a href="{{ route('all-tasks.index') }}" class='sidebar-link'>
                         <i class="bi bi-bookmark"></i>
@@ -62,7 +62,7 @@
                 <li class="sidebar-item {{ (request()->is('my-plan') or request()->is('my-plan/*'))  ? 'active' : '' }}">
                     <a href="{{ route('plan.index') }}" class='sidebar-link'>
                         <i class="bi bi-bookmark-check"></i>
-                        <span>Мой план</span>
+                        <span>Мои планы</span>
                     </a>
                 </li>
 
