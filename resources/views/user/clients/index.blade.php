@@ -4,7 +4,7 @@
 
 @section('content')
     <div id="page-heading">
-       
+
 
         <div class="row pt-4">
             <table class="table table-hover">
