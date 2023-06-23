@@ -71,10 +71,10 @@ class IndexController extends BaseController
 
 
 
-        $statistics = User::role('user')->get();
 
 
-        return view('admin.index', compact('task', 'statistics', 'users', 'tasks', 'team_leads', 'ratings', 'admin_users', 'admin_ratings'));
+
+        return view('admin.index', compact('task',  'users', 'tasks', 'team_leads', 'ratings', 'admin_users', 'admin_ratings'));
     }
 
     public function delete(ClientNotification $offer)

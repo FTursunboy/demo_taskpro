@@ -99,7 +99,7 @@
             <div class="row">
                 <p>
                     <button
-                        class="btn btn-{{ ($task->status->name === "Принято") ? 'primary': 'info' }} w-100 collapsed"
+                        class="btn btn-{{($task->status->name === "В процессе") ? 'success' : 'info'}} w-100 collapsed"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
@@ -172,7 +172,7 @@
                                 <label for="sts">Статус</label>
                                 <div class="form-group">
                                     <input type="text"
-                                           class="form-control  bg-{{($task->status->name === "Принято")?'success':'info'}} text-black"
+                                           class="form-control  bg-{{($task->status->name === "В процессе") ? 'success' : 'info'}} text-white"
                                            id="sts" value="{{ $task->status->name }}" disabled>
                                 </div>
 

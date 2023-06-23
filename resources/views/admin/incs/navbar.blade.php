@@ -117,10 +117,10 @@
 
                     <ul class="submenu {{ (request()->is('clients/offers') or request()->is('clients/offers/*') or request()->is('client')or request()->is('client/*') or request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
                         <li class="submenu-item {{ (request()->is('clients/offers') or request()->is('clients/offers/*'))  ? 'active' : '' }}">
-                            <a href="{{route('client.offers.index')}}">Список задач клиентов</a>
+                            <a href="{{route('client.offers.index')}}">Входящие</a>
                         </li>
                         <li class="submenu-item {{ (request()->is('tasks_client')or request()->is('tasks_client/*'))  ? 'active' : '' }}">
-                            <a href="{{route('tasks_client.index')}}">Список задач клиентам</a>
+                            <a href="{{route('tasks_client.index')}}">Исходящие</a>
                         </li>
                         <li class="submenu-item {{ (request()->is('client')or request()->is('client/*'))  ? 'active' : '' }}">
                             <a href="{{route('employee.client')}}">Клиенты</a>

@@ -24,7 +24,7 @@
                     <li class="nav-item" style="margin-top: -10px; margin-right: 10px">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvasUser"
                            aria-controls="ideasOfCanvasUser">
-                            <i style="font-size: 30px;" class="bi bi-lightbulb-fill"></i>
+                            <i id="ideasCount" style="font-size: 30px;"  class="bi bi-lightbulb"></i>
                         </a>
                     </li>
 
@@ -610,7 +610,7 @@
                                                    class="badge bg-success" role="button"><i class="bi bi-eye"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboardUserEdit{{ $idea->id }}"
                                                    class="badge bg-primary" role="button"><i class="bi bi-pencil"></i></a>
-                                               
+
                                             </td>
                                         </tr>
 
