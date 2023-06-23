@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Admin\IndexController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TaskTypeModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
@@ -74,6 +75,9 @@ class BaseController extends Controller
                 'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
                 'statistics' => $statistics,
                 'notes' => $notes,
+                'types' => TaskTypeModel::get(),
+                'projects' => ProjectModel::where('pro_status', '!=', 3)->get(),
+                'users1'  => User::role(['user', 'admin'])->get(),
 
                 'system_idea_count' => $system_idea_count,
 

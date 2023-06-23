@@ -53,7 +53,9 @@
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item" style="margin-top: -10px;">
-                        <a style="color: #607080" href="{{ route('tasks.create') }}" >
+                        <a data-bs-toggle="offcanvas" data-bs-target="#TaskStore"
+                           aria-controls="TaskStore" style="margin-left: 20px;"
+                           role="button">
                             <i style="font-size: 31px;" class="bi bi-plus-circle"></i>
                         </a>
                     </li>
@@ -1044,4 +1046,297 @@
     </div>
 </div>
 
+
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="TaskStore"
+     aria-labelledby="TaskStore" style="width: 100%; height: 80%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="ProjectOfCanvas">Создать</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('tasks.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="name">Имя</label>
+                                <input tabindex="1" type="text" id="name" name="name" class="form-control mt-3"
+                                       placeholder="Имя" value="{{ old('name') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_id">Кому это задача</label>
+
+                                <select tabindex="4" id="user_id" name="user_id" class="form-select mt-3" requi>
+
+                                    <option value="" selected>Выберите сотрудник</option>
+                                    @foreach($users1 as $user)
+                                        <option value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="from">Дата начала задачи</label>
+                                <input disabled tabindex="7" type="date" id="from" name="from" class="form-control mt-3"
+                                       value="{{ old('from') }}" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="time">Время</label>
+                                <input tabindex="2" type="number" id="time" name="time" class="form-control mt-3"
+                                       value="{{ old('time') }}" placeholder="Время"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label for="project_id">Проект</label>
+                                <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
+                                    <option value="" selected disabled>Выберите проект</option>
+                                    @foreach($projects as $project)
+                                        <option
+                                            value="{{ $project->id }}" class="{{ date('Y-m-d', strtotime($project->finish)) }}" {{ ($project->id === old('project_id')) ? 'selected' : '' }}>{{ $project->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="to">Дата окончания задачи  <span  id="project_finish" style="color: red"></span> </label>
+                                <input disabled tabindex="8" type="date" id="to" name="to" class="form-control mt-3" value="{{ old('to') }}"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="type_id">Тип</label>
+                                <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3" required>
+                                    <option value="" tabindex="3" selected>Выберите тип</option>
+
+                                    @foreach($types as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group" id="type_id_group">
+                                <label id="label" class="d-none" for="kpi_id">Вид KPI</label>
+                            </div>
+                            <div class="form-group"  id="percent">
+                                <label id="label1" class="d-none" for="percent">Введите процент</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Комментария</label>
+                            <textarea tabindex="10" name="comment" id="comment"
+                                      class="form-control mt-3">{{ old('comment') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="file">Файл</label>
+                                <input tabindex="11" type="file"  name="file" class="form-control mt-3" id="file">
+                            </div>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button tabindex="12" type="button" id="button" class="btn btn-outline-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="{{asset('assets/js/control.js')}}" ></script>
+
+
+        <script>
+
+
+            const fromInput = document.getElementById('from');
+            let prevValue = fromInput.value;
+
+            fromInput.addEventListener('input', function() {
+                const dateValue = new Date(this.value);
+                const year = dateValue.getFullYear();
+                const maxLength = 4;
+
+                if (year.toString().length > maxLength) {
+                    this.value = prevValue; // Восстанавливаем предыдущее значение
+                } else {
+                    prevValue = this.value; // Сохраняем текущее значение
+                }
+            });
+        </script>
+        <script>
+            const toInput = document.getElementById('to');
+            let prevValue1 = toInput.value;
+
+            toInput.addEventListener('input', function() {
+                const dateValue = new Date(this.value);
+                const year = dateValue.getFullYear();
+                const maxLength = 4;
+
+                if (year.toString().length > maxLength) {
+                    this.value = prevValue1; // Восстанавливаем предыдущее значение
+                } else {
+                    prevValue1 = this.value; // Сохраняем текущее значение
+                }
+            });
+        </script>
+
+
+
+        <script>
+            $('#from').change(function () {
+                const to = $('#to')
+                if ($(this).val() > to.val()) {
+
+                    let selectedOption = $('#project_id option:selected');
+                    let selectedClass = selectedOption.attr('class');
+
+                    let selectedDate = new Date(selectedClass);
+                    let toDate = new Date($(this).val());
+
+                    if (toDate > selectedDate) {
+                        $('#error-message').show();
+                        $(this).addClass('border-danger')
+
+                        let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                        $(this).val(formattedDate)
+                    }
+
+                    to.addClass('border-danger')
+                    $('#button').attr('type', 'button');
+
+
+
+
+                } else {
+                    $(this).removeClass('border-danger')
+                    to.removeClass('border-danger')
+                    $('#button').attr('type', 'submit');
+                }
+            })
+
+
+            $('#to').change(function () {
+                const from = $('#from')
+                if ($(this).val() < from.val()) {
+                    $(this).addClass('border-danger')
+                    from.addClass('border-danger')
+                    $('#button').attr('type', 'button');
+
+                } else {
+                    $(this).removeClass('border-danger')
+                    from.removeClass('border-danger')
+                    $('#button').attr('type', 'submit');
+                }
+            })
+
+            $('#type_id').change(function () {
+                let kpi = $(this).children('option:selected')
+                if (kpi.text().toLowerCase() === 'kpi') {
+                    let kpiType = $('#kpi_id').empty();
+
+                    $('#label').removeClass('d-none');
+                    let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
+                    $('#type_id_group').append(kpi_id);
+
+                    $('#label1').removeClass('d-none');
+                    let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+                    $('#percent').append(percent);
+
+
+
+                    $.get(`tasks/kpi/${kpi.val()}/`).then((res) => {
+                        for (let i = 0; i < res.length; i++) {
+                            const item = res[i];
+                            console.log(item.name);
+                            kpi_id.append($('<option>').val(item.id).text(item.name));
+                        }
+                    });
+
+
+
+
+                } else {
+                    $('#type_id_group').empty();
+
+                    $('#percent').empty();
+
+                }
+            })
+            function checkMaxValue(input) {
+                var maxValue = 150;
+                if (input.value > maxValue) {
+                    input.value = maxValue;
+
+                }
+            }
+
+            $('#project_id').change(function() {
+                let selectedOption = $('#project_id option:selected');
+                let selectedClass = selectedOption.attr('class');
+
+
+            });
+            function formatDate(date) {
+                let year = date.getFullYear();
+                let month = String(date.getMonth() + 1).padStart(2, '0');
+                let day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+            function formatDate1(dateStr) {
+                const [day, month, year] = dateStr.split('-');
+                const date = new Date(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`);
+
+
+                return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+            }
+
+            $('#to').on('input', function() {
+                let project_finish = formatDate1($('#project_finish').text());
+
+                let selectedOption = $('#project_id option:selected');
+                let selectedClass = selectedOption.attr('class');
+
+                let selectedDate = new Date(selectedClass);
+                let toDate = new Date($(this).val());
+
+                if (toDate > selectedDate) {
+                    $('#error-message').show();
+                    $(this).addClass('border-danger')
+
+
+                    let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                    $(this).val(formattedDate)
+
+
+                } else {
+                    $(this).removeClass('border-danger')
+                    $('#error-message').hide();
+                    $('#button').attr('type', 'submit');
+
+
+                }
+                let formattedDate = formatDate(toDate);
+                console.log(formattedDate);
+            });
+
+            $('#project_id').change(function() {
+
+                $('#from').removeAttr('disabled');
+                $('#to').removeAttr('disabled');
+
+                let selectedOption = $('#project_id option:selected');
+                let selectedClass = selectedOption.attr('class');
+                console.log(selectedClass)
+                $('#project_finish').text("Дата окончания выбранного проекта " +  selectedClass);
+
+            });
+
+
+        </script>
+    </div>
+</div>
 
