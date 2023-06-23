@@ -413,7 +413,7 @@
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="ideasOfCanvas"
      aria-labelledby="TeamLeadOfCanvas" style="width: 100%; height: 80%;">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="TelegramOfCanvas">Список идеи</h5>
+        <h5 class="offcanvas-title" id="TelegramOfCanvas">Список идей</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -943,7 +943,7 @@
                             </div>
                         </div>
                     </div>
-                    <table id="example" class="table table-border table-hover">
+                    <table id="example1" class="table table-border table-hover">
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
@@ -985,7 +985,7 @@
         @routes
         <script>
             $(document).ready(function () {
-                var table = $('#example').DataTable({
+                var table = $('#example1').DataTable({
                     initComplete: function () {
 
                     },
