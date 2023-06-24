@@ -100,7 +100,7 @@
         var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
 
 
-        $("#verclientTable thead th").each(function(i) {
+        $("#verClientTable thead th").each(function(i) {
 
             var th = $(this);
             var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
