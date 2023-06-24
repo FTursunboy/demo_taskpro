@@ -50,7 +50,7 @@ class IndexController extends BaseController
             ->where('status_id', 7)->get();
         $tasksVerAdmin = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 6)
-            ->where('client_id', null)->get();
+            ->get();
         $tasksVerClient = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 10)->get();
         $tasksReject = TaskModel::where('user_id', Auth::id())
