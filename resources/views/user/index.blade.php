@@ -288,9 +288,7 @@
                         <div class="card-body px-4 py-4-5">
                             <p>Процент выполненных задач этого месяца</p>
                             <div class="card-body">
-
                                 <div id="radialGradient"></div>
-
                             </div>
                         </div>
                     </div>
@@ -510,7 +508,7 @@
         left: -6px;
         z-index: 999;
     }
-    
+
     #new:hover{
         cursor: pointer;
     }
@@ -532,7 +530,7 @@
     #archiveTasks:hover{
         cursor: pointer;
     }
-    
+
 </style>
 @endsection
 
