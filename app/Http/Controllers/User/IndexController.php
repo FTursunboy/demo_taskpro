@@ -38,7 +38,6 @@ class IndexController extends BaseController
         $ver_admin = TaskModel::where([
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '6'],
-            ['client_id', '=', null]
         ])->count();
         $new_tasks = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 9)
@@ -114,7 +113,7 @@ class IndexController extends BaseController
             ->whereMonth('to', Carbon::now()->month)
             ->get()
             ->count();
-   
+
         $tasks_ready = TaskModel::where('user_id', Auth::id())
             ->whereIn('status_id', [3, 10])
             ->whereMonth('from', Carbon::now()->month)
