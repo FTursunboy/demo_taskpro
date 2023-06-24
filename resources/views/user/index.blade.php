@@ -40,7 +40,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.new', \Illuminate\Support\Facades\Auth::id()) }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#newTasks"
+                               aria-controls="ProjectOfCanvas">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -69,7 +70,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.inProgress')  }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#tasksInProgress"
+                               aria-controls="tasksInProgress">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -104,7 +106,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.speed') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#speed"
+                               aria-controls="speed">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -139,7 +142,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.verificate_admin') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#verAdmin"
+                               aria-controls="verAdmin">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -174,13 +178,14 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.verificate_client') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#verClient"
+                               aria-controls="verClient">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: orange;">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            <svg xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink"
                                                  viewBox="0,0,256,256" width="32px" height="32px"
                                                  fill-rule="nonzero">
@@ -211,12 +216,15 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.reject') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#reject"
+                            aria-controls="reject">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                                         <div class="stats-icon mb-2" style="background: red">
-                                            <svg width="35px" height="35px" viewBox="0 0 48 48" version="1" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48">
-                                                <path fill="#FFFFFF" d="M24,6C14.1,6,6,14.1,6,24s8.1,18,18,18s18-8.1,18-18S33.9,6,24,6z M24,10c3.1,0,6,1.1,8.4,2.8L12.8,32.4 C11.1,30,10,27.1,10,24C10,16.3,16.3,10,24,10z M24,38c-3.1,0-6-1.1-8.4-2.8l19.6-19.6C36.9,18,38,20.9,38,24C38,31.7,31.7,38,24,38z"/>
+                                            <svg width="35px" height="35px" viewBox="0 0 48 48" version="1"
+                                                 xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48">
+                                                <path fill="#FFFFFF"
+                                                      d="M24,6C14.1,6,6,14.1,6,24s8.1,18,18,18s18-8.1,18-18S33.9,6,24,6z M24,10c3.1,0,6,1.1,8.4,2.8L12.8,32.4 C11.1,30,10,27.1,10,24C10,16.3,16.3,10,24,10z M24,38c-3.1,0-6-1.1-8.4-2.8l19.6-19.6C36.9,18,38,20.9,38,24C38,31.7,31.7,38,24,38z"/>
                                             </svg>
 
                                         </div>
@@ -233,7 +241,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.success') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#archive"
+                               aria-controls="archive">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -273,14 +282,33 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-3 col-lg-3-lg-3 col-md-3">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <p>Процент выполненных задач этого месяца</p>
+                            <div class="card-body">
+                                <div id="radialGradient"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
+    @include('user.pages.newTasks')
+    @include('user.pages.tasksInProgress')
+    @include('user.pages.speed')
+    @include('user.pages.verAdmin')
+    @include('user.pages.verClient')
+    @include('user.pages.reject')
+    @include('user.pages.archive')
 @endsection
 
+
 @section('script')
+    <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('assets/js/pages/ui-apexchart.js')}}"></script>
     <script>
         const gaugeElement = document.querySelector(".gauge");
 
@@ -320,5 +348,6 @@
 
     </script>
 @endsection
+
 
 

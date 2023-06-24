@@ -38,7 +38,6 @@ class IndexController extends BaseController
         $ver_admin = TaskModel::where([
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '6'],
-            ['client_id', '=', null]
         ])->count();
         $new_tasks = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 9)
@@ -51,7 +50,24 @@ class IndexController extends BaseController
             ->value('average_rating');
 
 
-        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks', 'admin_rating'));
+        $newTasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
+        $tasksInProgress = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 2)->get();
+        $tasksSpeed = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 7)->get();
+        $tasksVerAdmin = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 6)
+            ->get();
+        $tasksVerClient = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 10)->get();
+        $tasksReject = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 13)->get();
+        $tasksInArchive = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 3)->get();
+      
+        return view('user.index', compact('task', 'user', 'tasks',
+            'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks', 'newTasks', 'tasksInProgress',
+            'tasksSpeed', 'tasksVerAdmin', 'tasksVerClient', 'tasksReject', 'tasksInArchive', 'admin_rating'));
     }
 
     public function downloadFile(TaskModel $task)
@@ -78,7 +94,7 @@ class IndexController extends BaseController
 
     public function verificate_client()
     {
-        $clientVerification  = TaskModel::where([
+        $clientVerification = TaskModel::where([
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '10']
         ])->get();
@@ -93,6 +109,31 @@ class IndexController extends BaseController
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '13']
         ])->get();
+
+    }
+
+    public function chart()
+    {
+
+
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->whereMonth('from', Carbon::now()->month)
+            ->whereMonth('to', Carbon::now()->month)
+            ->get()
+            ->count();
+
+        $tasks_ready = TaskModel::where('user_id', Auth::id())
+            ->whereIn('status_id', [3, 10])
+            ->whereMonth('from', Carbon::now()->month)
+            ->whereMonth('to', Carbon::now()->month)
+            ->get()
+            ->count();
+
+        $result = ($tasks_ready / $tasks) * 100;
+
+        return response([
+           'result' => round($result)
+        ]);
 
     }
 }

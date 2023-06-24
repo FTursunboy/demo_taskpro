@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Admin\IndexController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TasksClient;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
@@ -54,6 +55,8 @@ class BaseController extends Controller
             $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
 
             $notes = Auth::user()->notesList(Auth::id());
+            $client_tasks = TasksClient::where('client_id', Auth::id())->get()->count();
+
 
             view()->share([
                 'notifications' => $notifications,
@@ -80,7 +83,7 @@ class BaseController extends Controller
                 'types' => TaskTypeModel::get(),
                 'projects1' => ProjectModel::where('pro_status', '!=', 3)->get(),
                 'users1'  => User::role(['user', 'admin'])->get(),
-
+                'client_tasks' => $client_tasks,
                 'system_idea_count' => $system_idea_count,
 
             ]);

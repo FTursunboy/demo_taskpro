@@ -5,7 +5,6 @@
             <th class="text-center">#</th>
             <th data-td="td_one">Название<span class="btn btn-right">></span></th>
             <th data-td="td_two">Описание<span class="btn btn-right">></span></th>
-            <th class="text-center" data-td="td_two">Время<span class="btn btn-right">></span></th>
             <th class="text-center" data-td="td_three">От<span class="btn btn-right">></span></th>
             <th class="text-center" data-td="td_four">До<span class="btn btn-right">></span></th>
             <th class="text-center">Проект</th>
@@ -21,7 +20,6 @@
                 <td class="text-center">{{ $loop->iteration  }}</td>
                 <td >{{ $task->name }}</td>
                 <td >{{ Str::limit($task->comment, 100) }}</td>
-                <td class="text-center">{{ $task->time }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
                 <td class="text-center">{{ $task->project->name  }}</td>
@@ -33,7 +31,48 @@
                         {{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? ' - '.$task->typeType?->name : '' }}
                     @endif
                 </td>
-                <td class="text-center">{{ $task->status->name}}</td>
+                @switch($task->status->id)
+                    @case(1)
+                        <td><span class="badge bg-warning p-2">Ожидаеться</span></td>
+                        @break
+                    @case(2)
+                        <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                        @break
+                    @case(3)
+                        <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                        @break
+                    @case(4)
+                        <td><span class="badge bg-success p-2">В процессе</span></td>
+                        @break
+                    @case(5)
+                        <td><span class="badge bg-warning p-2">Отклон.(сотруд.)</span></td>
+                        @break
+                    @case(6)
+                        <td><span class="badge bg-success p-2">На проверке (Адм)</span></td>
+                        @break
+                    @case(7)
+                        <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
+                        @break
+                    @case(8)
+                        <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                        @break
+                    @case(9)
+                        <td><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
+                        @break
+                    @case(10)
+                        <td><span class="badge bg-success p-2">У клиента</span></td>
+                        @break
+                    @case(11)
+                        <td><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
+                        @break
+                    @case(12)
+                        <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
+                        @break
+                    @case(13)
+                        <td><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> @break
+                    @case(14)
+                        <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
+                @endswitch
                 <td class="text-center">
                     <a href="{{ route('all-tasks.show', $task->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
 {{--                    <a href="{{ route('mon.edit', $task->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>--}}
