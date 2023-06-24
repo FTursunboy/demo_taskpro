@@ -359,7 +359,7 @@ var barOptions = {
   },
 };
 var result = 0;
-$.get("/chart", function(response) {
+$.get("/tasks/public/chart", function(response) {
     var result = response.result;
 
     var radialGradientOptions = {
