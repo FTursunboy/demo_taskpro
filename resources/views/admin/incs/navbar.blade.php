@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
@@ -40,7 +40,9 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
-                <li class="sidebar-title">Меню</li>
+                <li class="sidebar-title">Меню
+                    <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
+                </li>
                 <li class="sidebar-item {{ (request()->is('dashboard-admin') or request()->is('dashboard-admin/*'))  ? 'active' : '' }}">
                     <a href="{{ route('admin.index') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -215,3 +217,28 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var fixCheckbox = document.getElementById("fix");
+        var isSidebarFixed = localStorage.getItem("sidebarFixed");
+
+        if (isSidebarFixed === "true") {
+            fixCheckbox.checked = true;
+            toggleSidebar();
+        }
+    });
+
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var fixCheckbox = document.getElementById("fix");
+
+        if (fixCheckbox.checked) {
+            sidebar.classList.remove("active");
+
+            localStorage.setItem("sidebarFixed", "true");
+        } else {
+            sidebar.classList.add("active");
+            localStorage.setItem("sidebarFixed", "false");
+        }
+    }
+</script>
