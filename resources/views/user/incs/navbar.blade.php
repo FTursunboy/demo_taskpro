@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
@@ -149,10 +149,11 @@
         var fixCheckbox = document.getElementById("fix");
 
         if (fixCheckbox.checked) {
-            sidebar.classList.add("active");
+            sidebar.classList.remove("active");
+
             localStorage.setItem("sidebarFixed", "true");
         } else {
-            sidebar.classList.remove("active");
+            sidebar.classList.add("active");
             localStorage.setItem("sidebarFixed", "false");
         }
     }
