@@ -24,9 +24,7 @@
 
         <section class="section">
             <div class="row mt-4">
-                <div class="col-md-3">
-                    <a href="#" id="excel" class="btn btn-success mb-4"> Excel</a>
-                </div>
+        
                 <div class="col-12">
                     <div class="table-responsive">
                         <table id="example" class="table table-hover">
