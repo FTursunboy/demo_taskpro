@@ -23,8 +23,7 @@
            aria-controls="creatTaskClient">Добавить</a>
 
         <section class="section">
-            <div class="row mt-4">
-        
+            <div class="row mt-4">x
                 <div class="col-12">
                     <div class="table-responsive">
                         <table id="example" class="table table-hover">
