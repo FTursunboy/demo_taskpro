@@ -49,6 +49,12 @@ class IndexController extends BaseController
             ->where('admin_ratings.rating', '>', 0)
             ->value('average_rating');
 
+        $user_rating = User::selectRaw('AVG(ratings.rating) AS average_rating')
+            ->leftJoin('ratings', 'users.id', '=', 'ratings.user_id')
+            ->where('users.id', Auth::id())
+            ->where('ratings.rating', '>', 0)
+            ->value('average_rating');
+
 
         $newTasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
         $tasksInProgress = TaskModel::where('user_id', Auth::id())
@@ -64,10 +70,10 @@ class IndexController extends BaseController
             ->where('status_id', 13)->get();
         $tasksInArchive = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 3)->get();
-      
+
         return view('user.index', compact('task', 'user', 'tasks',
             'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks', 'newTasks', 'tasksInProgress',
-            'tasksSpeed', 'tasksVerAdmin', 'tasksVerClient', 'tasksReject', 'tasksInArchive', 'admin_rating'));
+            'tasksSpeed', 'tasksVerAdmin', 'tasksVerClient', 'tasksReject', 'tasksInArchive', 'admin_rating', 'user_rating'));
     }
 
     public function downloadFile(TaskModel $task)
