@@ -40,7 +40,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.new', \Illuminate\Support\Facades\Auth::id()) }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#newTasks"
+                               aria-controls="ProjectOfCanvas">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -69,7 +70,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.inProgress')  }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#tasksInProgress"
+                               aria-controls="tasksInProgress">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -104,7 +106,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.speed') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#speed"
+                               aria-controls="speed">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -139,7 +142,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.verificate_admin') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#verAdmin"
+                               aria-controls="verAdmin">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -174,7 +178,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.verificate_client') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#verClient"
+                               aria-controls="verClient">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -211,7 +216,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.reject') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#reject"
+                            aria-controls="reject">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
                                         <div class="stats-icon mb-2" style="background: red">
@@ -235,7 +241,8 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('all-tasks.success') }}">
+                            <a data-bs-toggle="offcanvas" data-bs-target="#archive"
+                               aria-controls="archive">
                                 <div class="row">
                                     <div
                                         class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -286,6 +293,13 @@
         </section>
     </div>
 
+    @include('user.pages.newTasks')
+    @include('user.pages.tasksInProgress')
+    @include('user.pages.speed')
+    @include('user.pages.verAdmin')
+    @include('user.pages.verClient')
+    @include('user.pages.reject')
+    @include('user.pages.archive')
 @endsection
 
 
