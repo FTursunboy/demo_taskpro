@@ -1,6 +1,4 @@
-
-<div id="sidebar" class="active">
-
+<div id="sidebar">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
@@ -108,6 +106,10 @@
                 @endif
             </ul>
         </div>
+        <div class="form-check form-switch mt-10">
+            <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Закрепить сайдбар</label>
+        </div>
     </div>
 </div>
 
@@ -130,3 +132,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var fixCheckbox = document.getElementById("fix");
+        var isSidebarFixed = localStorage.getItem("sidebarFixed");
+
+        if (isSidebarFixed === "true") {
+            fixCheckbox.checked = true;
+            toggleSidebar();
+        }
+    });
+
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var fixCheckbox = document.getElementById("fix");
+
+        if (fixCheckbox.checked) {
+            sidebar.classList.add("active");
+            localStorage.setItem("sidebarFixed", "true");
+        } else {
+            sidebar.classList.remove("active");
+            localStorage.setItem("sidebarFixed", "false");
+        }
+    }
+</script>
