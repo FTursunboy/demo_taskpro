@@ -267,14 +267,17 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-lg-6 col-md-6">
+                <div class="col-6 col-lg-4 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <div class="gauge">
+                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>
                                 <div class="gauge__body">
                                     <div class="gauge__fill"></div>
-                                    <div class="gauge__cover"></div>
+                                    <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>
+                                    <div id="arrow" class="arrow"></div>
                                 </div>
+                                    <input id="testParam" type="hidden" min="0" value="{{ $admin_rating * 20 }}" max="100">
                             </div>
                         </div>
                     </div>
@@ -322,7 +325,27 @@
             )}%`;
         }
 
+
         setGaugeValue(gaugeElement, 1);
+
+        $(document).ready(function() {
+            function setValue(_val) {
+                var START = -90;
+                var delta = 1.8;
+                $('#counter').text(Math.round(_val * 10) / 10 + '%');
+                deg = START + _val * delta;
+                if (deg > 120) {
+                    deg = 120;
+                }
+                $('#arrow').css({ "transform": 'rotate(' + deg + 'deg)' });
+            };
+
+            $("#testParam").change(function() {
+                var value = $(this).val();
+                setValue(value);
+            }).change();
+        });
+
     </script>
 @endsection
 
