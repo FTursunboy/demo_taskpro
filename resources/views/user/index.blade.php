@@ -296,8 +296,22 @@
                     </div>
                 </div>
 
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="gauge_user">
+                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>
+                                <div class="gauge__body_user">
+                                    <div class="gauge__fill_user"></div>
+                                    <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>
+                                    <div id="arrow_user" class="arrow_user"></div>
+                                </div>
+                                <input id="testParam_user" type="hidden" min="0" value="{{ $user_rating * 20 }}" max="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                
             </div>
         </section>
     </div>
@@ -404,6 +418,98 @@
         left: -6px;
         z-index: 999;
     }
+
+    .gauge_user {
+        width: 100%;
+        max-width: 520px;
+        font-family: "Roboto", sans-serif;
+        font-size: 32px;
+        color: #004033;
+    }
+
+    .gauge__body_user {
+        width: 100%;
+        height: 0;
+        padding-bottom: 50%;
+        background: #b4c0be;
+        position: relative;
+        border-top-left-radius: 100% 200%;
+        border-top-right-radius: 100% 200%;
+        overflow: hidden;
+    }
+
+    .gauge__fill_user {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: inherit;
+        height: 100%;
+        background: #009578;
+        transform-origin: center top;
+        transform: rotate(0.25turn);
+        transition: transform 0.2s ease-out;
+    }
+
+    .gauge__cover_user {
+        width: 75%;
+        height: 150%;
+        background: #ffffff;
+        border-radius: 50%;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        /* Text */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 25%;
+        box-sizing: border-box;
+    }
+    .gauge__fill_user {
+        /* Добавьте следующую строку */
+        background-image: linear-gradient(to left, red 5%, yellow 50%, green 100%);
+    }
+
+    .counter_user {
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #2c3e50;
+        margin: 0.3em 0;
+        z-index: 999;
+    }
+
+    .arrow_user {
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        margin-left: -1px;
+        width: 1px;
+        height: 143px;
+        border: 1px solid;
+        border-color: #2c3e50;
+        border-radius: 100% 100% 0 0;
+        background-color: black;
+        transform: rotate(-50deg);
+        transform-origin: bottom center;
+        transition: transform 0.8s;
+        transition-timing-function: cubic-bezier(0.65, 1.95, 0.03, 0.32);
+        z-index: 999;
+    }
+
+    .arrow_user:after {
+        content: "";
+        display: block;
+        height: 14px;
+        width: 14px;
+        background-color: #2c3e50;
+        border-radius: 100%;
+        position: absolute;
+        bottom: -1px;
+        left: -6px;
+        z-index: 999;
+    }
 </style>
 @endsection
 
@@ -445,6 +551,42 @@
             $("#testParam").change(function() {
                 var value = $(this).val();
                 setValue(value);
+            }).change();
+        });
+// =======================================================================================
+        const gaugeElement_user = document.querySelector(".gauge_user");
+
+        function setGaugeValue_user(gauge, value) {
+            if (value < 0 || value > 1) {
+                return;
+            }
+
+            gauge.querySelector(".gauge__fill_user").style.transform = `rotate(${
+                value / 2
+            }turn)`;
+            gauge.querySelector(".gauge__cover_user").textContent = `${Math.round(
+                value * 100
+            )}%`;
+        }
+
+
+        setGaugeValue_user(gaugeElement_user, 1);
+
+        $(document).ready(function() {
+            function setValue_user(_val) {
+                var START = -90;
+                var delta = 1.8;
+                $('#counter_user').text(Math.round(_val * 10) / 10 + '%');
+                deg = START + _val * delta;
+                if (deg > 120) {
+                    deg = 120;
+                }
+                $('#arrow_user').css({ "transform": 'rotate(' + deg + 'deg)' });
+            };
+
+            $("#testParam_user").change(function() {
+                var value = $(this).val();
+                setValue_user(value);
             }).change();
         });
 
