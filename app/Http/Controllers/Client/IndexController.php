@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TasksClient;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\User;
@@ -22,6 +23,7 @@ class IndexController extends BaseController
         ->where('client_id', Auth::id())->count();
         $inProgress = Offer::where('status_id', 2)
         ->where('client_id', Auth::id())->count();
+
 
         return view('client.index', compact('task', 'all', 'ready', 'inProgress'));
     }

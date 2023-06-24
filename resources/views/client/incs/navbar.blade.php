@@ -60,9 +60,51 @@
                 <li class="sidebar-item {{ (request()->is('client/task') or request()->is('client/task/*')) ? 'active' : '' }}">
                     <a href="{{ route('client.tasks.index') }}" class="sidebar-link">
                         <i class="bi bi-journal-text"></i>
-                        <span>Входящие задачи</span>
+                        <span>Входяшие
+                            @if($client_tasks > 0)
+                                <span class="offers-count">
+                                    <span style="font-size: 13px; color: red">{{$client_tasks}}</span>
+                                </span>
+                            @endif
+                        </span>
+                        @if($client_tasks > 0)
+                            <div class="notification-dot"></div>
+                        @endif
                     </a>
                 </li>
+                <style>
+                    .sidebar-link {
+                        position: relative;
+                    }
+
+                    .notification-dot {
+                        position: absolute;
+                        top: 50%;
+                        right: -10px;
+                        transform: translate(50%, -50%);
+                        width: 10px;
+                        height: 10px;
+                        background-color: red;
+                        border-radius: 50%;
+                        animation: blink-animation 1s infinite;
+                    }
+
+                    @keyframes blink-animation {
+                        0% {
+                            opacity: 1;
+                        }
+                        50% {
+                            opacity: 0;
+                        }
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+
+                    .offers-count {
+                        margin-left: 5px;
+                    }
+                </style>
                 @endrole
                 @role('client')
                 <li class="sidebar-item {{ (request()->is('client/worker') or request()->is('client/worker/*')) ? 'active' : '' }}">
@@ -72,19 +114,6 @@
                     </a>
                 </li>
                 @endrole
-                <li class="sidebar-item {{ (request()->is('client_profile') or request()->is('client_profile/*'))  ? 'active' : '' }}">
-                    <a href="{{ route('client_profile.index') }}" class='sidebar-link'>
-                        <i class="bi bi-person"></i>
-                        <span>Профиль</span>
-                    </a>
-                </li>
-                <li
-                    class="sidebar-item">
-                    <a role="button" class='sidebar-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-door-open"></i>
-                        <span>Выход</span>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
