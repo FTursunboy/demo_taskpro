@@ -5,7 +5,9 @@
                 <div class="logo">
                     <a href="{{ route('user.index') }}"><img src="{{asset('assets/images/logo/logo2.svg')}}" alt="Logo"
                                                               srcset=""></a>
+
                 </div>
+
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2" id="toggle-dark">
 {{--                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"--}}
 {{--                         aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20"--}}
@@ -39,12 +41,10 @@
             </div>
         </div>
         <div class="sidebar-menu">
-            <div class="form-check form-switch mt-10">
-                <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть меню</label>
-            </div>
+
             <ul class="menu">
-                <li class="sidebar-title">Меню</li>
+                <li class="sidebar-title">Меню
+                    <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()"></li>
 
                 <li
                     class="sidebar-item {{ (request()->is('dashboard-user') or request()->is('task-list/*'))  ? 'active' : '' }}">

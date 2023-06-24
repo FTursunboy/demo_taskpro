@@ -64,6 +64,7 @@
                         style="min-width: 11rem;">
                         <li><a class="dropdown-item" href="{{ route('user_profile.index', auth()->id())}}"><i
                                         class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
+
                         <hr class="dropdown-divider">
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop"><i
