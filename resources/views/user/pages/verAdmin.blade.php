@@ -96,28 +96,20 @@
             "stateSave": true
         });
 
-
         var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
 
-
         $("#verAdminTable thead th").each(function(i) {
-
             var th = $(this);
             var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
 
             if (filterColumns.includes(th.text().trim())) {
-
                 if (th.text().trim() === 'Статус') {
-
                     var select = th.find('select');
-
                     select.val(statusParam);
                     select.trigger('change');
                 }
             }
         });
-
-
 
         var filters = JSON.parse(localStorage.getItem('datatableFilters'));
         if (filters) {
@@ -140,21 +132,9 @@
                         var columnIndex = i;
                         var value = $(this).val();
                         table.column(columnIndex).search(value).draw();
-
-
-                        var filters = [];
-                        $("#verAdminTable thead select").each(function () {
-                            var filter = {
-                                columnIndex: $(this).closest('th').index(),
-                                value: $(this).val()
-                            };
-                            filters.push(filter);
-                        });
-                        localStorage.setItem('datatableFilters', JSON.stringify(filters));
                     });
 
-
-                $('<option value="" selected>Все</o ption>').appendTo(select);
+                $('<option value="" selected>Все</option>').appendTo(select);
 
                 var options = table.column(i).data().unique().sort().toArray();
 
@@ -189,28 +169,21 @@
             .addClass('btn btn-primary')
             .text('X')
             .on('click', function () {
-
                 table
                     .search('')
                     .columns()
                     .search('')
                     .draw();
-
-
-                localStorage.removeItem('datatableFilters');
-
                 $("#verAdminTable thead select").val('');
-
-                $('#example_filter input').val('');
+                $('#example_filter1 input').val('');
             });
 
-        var searchWrapper = $('#example_filter');
+        var searchWrapper = $('#example_filter1');
         searchWrapper.addClass('d-flex align-items-center');
         resetButton.addClass('ml-2');
         resetButton.appendTo(searchWrapper);
-
-
     });
+
 
 
 </script>

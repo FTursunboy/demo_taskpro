@@ -95,37 +95,20 @@
             "stateSave": true
         });
 
-
         var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
 
-
         $("#archiveTable thead th").each(function(i) {
-
             var th = $(this);
             var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
 
             if (filterColumns.includes(th.text().trim())) {
-
                 if (th.text().trim() === 'Статус') {
-
                     var select = th.find('select');
-
                     select.val(statusParam);
                     select.trigger('change');
                 }
             }
         });
-
-
-
-        var filters = JSON.parse(localStorage.getItem('datatableFilters'));
-        if (filters) {
-            for (var i = 0; i < filters.length; i++) {
-                var filter = filters[i];
-                table.column(filter.columnIndex).search(filter.value);
-            }
-            table.draw();
-        }
 
         $("#archiveTable thead th").each(function (i) {
             var th = $(this);
@@ -139,19 +122,7 @@
                         var columnIndex = i;
                         var value = $(this).val();
                         table.column(columnIndex).search(value).draw();
-
-
-                        var filters = [];
-                        $("#archiveTable thead select").each(function () {
-                            var filter = {
-                                columnIndex: $(this).closest('th').index(),
-                                value: $(this).val()
-                            };
-                            filters.push(filter);
-                        });
-                        localStorage.setItem('datatableFilters', JSON.stringify(filters));
                     });
-
 
                 $('<option value="" selected>Все</option>').appendTo(select);
 
@@ -188,18 +159,12 @@
             .addClass('btn btn-primary')
             .text('X')
             .on('click', function () {
-
                 table
                     .search('')
                     .columns()
                     .search('')
                     .draw();
-
-
-                localStorage.removeItem('datatableFilters');
-
                 $("#archiveTable thead select").val('');
-
                 $('#example_filter input').val('');
             });
 
@@ -207,9 +172,8 @@
         searchWrapper.addClass('d-flex align-items-center');
         resetButton.addClass('ml-2');
         resetButton.appendTo(searchWrapper);
-
-
     });
+
 
 
 </script>
