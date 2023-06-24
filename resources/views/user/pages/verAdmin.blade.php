@@ -175,7 +175,7 @@
                     .search('')
                     .draw();
                 $("#verAdminTable thead select").val('');
-                $('#example_filter1 input').val('');
+                $('#example_filter input').val('');
             });
 
         var searchWrapper = $('#example_filter1');
