@@ -128,7 +128,7 @@
                             </section>
                         </div>
                     </div>
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h3>Список сотрудников</h3>
@@ -181,6 +181,11 @@
                                                     @break
                                                 @case($employee->xp > 699 && $employee->xp < 1000 )
                                                     <div class="progress progress-success progress-sm" title="{{ $employee->xp }}xp">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{ $employee->xp / 10 }}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    @break
+                                                @case($employee->xp > 1000 && $employee->xp < 5000 )
+                                                    <div class="progress progress-success progress-sm" title="1000xp">
                                                         <div class="progress-bar" role="progressbar" style="width: {{ $employee->xp / 10 }}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                     @break
