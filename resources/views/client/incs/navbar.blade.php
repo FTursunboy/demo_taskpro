@@ -40,7 +40,9 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
-                <li class="sidebar-title">Меню</li>
+                <li class="sidebar-title">Меню
+                    <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
+                </li>
 
                 <li
                     class="sidebar-item {{ (request()->is('dashboard-client') or request()->is('dashboard-client/*'))  ? 'active' : '' }}">
@@ -137,3 +139,28 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var fixCheckbox = document.getElementById("fix");
+        var isSidebarFixed = localStorage.getItem("sidebarFixed");
+
+        if (isSidebarFixed === "true") {
+            fixCheckbox.checked = true;
+            toggleSidebar();
+        }
+    });
+
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        var fixCheckbox = document.getElementById("fix");
+
+        if (fixCheckbox.checked) {
+            sidebar.classList.remove("active");
+
+            localStorage.setItem("sidebarFixed", "true");
+        } else {
+            sidebar.classList.add("active");
+            localStorage.setItem("sidebarFixed", "false");
+        }
+    }
+</script>
