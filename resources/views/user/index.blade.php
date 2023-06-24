@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="new">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#newTasks"
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="progress">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#tasksInProgress"
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="inspeed">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#speed"
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="admin">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#verAdmin"
@@ -175,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="client">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#verClient"
@@ -213,7 +213,7 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="rejectClient">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#reject"
@@ -238,7 +238,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6" id="archiveTasks">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <a data-bs-toggle="offcanvas" data-bs-target="#archive"
@@ -510,6 +510,29 @@
         left: -6px;
         z-index: 999;
     }
+    
+    #new:hover{
+        cursor: pointer;
+    }
+    #progress:hover{
+        cursor: pointer;
+    }
+    #inspeed:hover{
+        cursor: pointer;
+    }
+    #admin:hover{
+        cursor: pointer;
+    }
+    #client:hover{
+        cursor: pointer;
+    }
+    #rejectClient:hover{
+        cursor: pointer;
+    }
+    #archiveTasks:hover{
+        cursor: pointer;
+    }
+    
 </style>
 @endsection
 
