@@ -44,7 +44,23 @@ class IndexController extends BaseController
             ->where('status_id', 9)
             ->where('status_id', 1)->count();
 
-        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks'));
+        $newTasks = User::findOrFail(Auth::id())->getNewTasks(Auth::id());
+        $tasksInProgress = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 2)->get();
+        $tasksSpeed = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 7)->get();
+        $tasksVerAdmin = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 6)
+            ->where('client_id', null)->get();
+        $tasksVerClient = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 10)->get();
+        $tasksReject = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 13)->get();
+        $tasksInArchive = TaskModel::where('user_id', Auth::id())
+            ->where('status_id', 3)->get();
+        return view('user.index', compact('task', 'user', 'tasks',
+            'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks', 'newTasks', 'tasksInProgress',
+            'tasksSpeed', 'tasksVerAdmin', 'tasksVerClient', 'tasksReject', 'tasksInArchive'));
     }
 
     public function downloadFile(TaskModel $task)

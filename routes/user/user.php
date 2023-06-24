@@ -59,14 +59,6 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::post('/my-all-tasks/{task}/store', [\App\Http\Controllers\User\GetAllTasksController::class, 'store'])->name('store');
         Route::get('/my-all-tasks/download/{mess}', [\App\Http\Controllers\User\GetAllTasksController::class, 'downloadFile'])->name('download');
 
-        Route::get('/my-all-tasks/verificate/client/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'verificate_client'])->name('verificate_client');
-        Route::get('/my-all-tasks/speed/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'speed'])->name('speed');
-        Route::get('/my-all-tasks/reject/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'reject'])->name('reject');
-        Route::get('/my-all-tasks/inProgress/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'inProgress'])->name('inProgress');
-        Route::get('/my-all-tasks/verificate/admin/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'verificate_admin'])->name('verificate_admin');
-        Route::get('/my-all-tasks/success/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'success'])->name('success');
-        Route::get('/my-all-tasks/new/tasks', [\App\Http\Controllers\User\GetAllTasksController::class, 'new'])->name('new');
-
     });
 
     Route::group(['as' => 'my-command.'], function () {
