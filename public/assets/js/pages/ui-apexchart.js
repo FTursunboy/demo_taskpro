@@ -365,7 +365,7 @@ $.get("/tasks/public/chart", function(response) {
     var radialGradientOptions = {
         series: [result],
         chart: {
-            height: 450,
+            height: 260,
             type: "radialBar",
             toolbar: {
                 show: true,
@@ -453,7 +453,7 @@ $.get("/tasks/public/chart", function(response) {
             },
         ],
         chart: {
-            height: 350,
+            height: 250,
             type: "area",
         },
         dataLabels: {
@@ -484,7 +484,7 @@ $.get("/tasks/public/chart", function(response) {
     var radialBarOptions = {
         series: [44, 55, 67, 83],
         chart: {
-            height: 350,
+            height: 250,
             type: "radialBar",
         },
         plotOptions: {
