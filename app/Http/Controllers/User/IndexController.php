@@ -44,7 +44,14 @@ class IndexController extends BaseController
             ->where('status_id', 9)
             ->where('status_id', 1)->count();
 
-        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks'));
+        $admin_rating = User::selectRaw('AVG(admin_ratings.rating) AS average_rating')
+            ->leftJoin('admin_ratings', 'users.id', '=', 'admin_ratings.user_id')
+            ->where('users.id', Auth::id())
+            ->where('admin_ratings.rating', '>', 0)
+            ->value('average_rating');
+
+
+        return view('user.index', compact('task', 'user', 'tasks', 'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks', 'admin_rating'));
     }
 
     public function downloadFile(TaskModel $task)
