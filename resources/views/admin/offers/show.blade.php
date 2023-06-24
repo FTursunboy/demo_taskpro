@@ -169,7 +169,7 @@
                                                                                 <label class="form-label">Ответственный
                                                                                     исполнитель</label>
                                                                                 <select required class="form-select"
-                                                                                        name="user_id_1" id="user_id">
+                                                                                        name="user_id" id="user_id">
                                                                                     <option value="">Выберите
                                                                                         исполнителя
                                                                                     </option>
