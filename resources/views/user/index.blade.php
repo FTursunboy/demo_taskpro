@@ -305,6 +305,102 @@
     @include('user.pages.archive')
 @endsection
 
+@section('css')
+<style>
+    .gauge {
+        width: 100%;
+        max-width: 520px;
+        font-family: "Roboto", sans-serif;
+        font-size: 32px;
+        color: #004033;
+    }
+
+    .gauge__body {
+        width: 100%;
+        height: 0;
+        padding-bottom: 50%;
+        background: #b4c0be;
+        position: relative;
+        border-top-left-radius: 100% 200%;
+        border-top-right-radius: 100% 200%;
+        overflow: hidden;
+    }
+
+    .gauge__fill {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: inherit;
+        height: 100%;
+        background: #009578;
+        transform-origin: center top;
+        transform: rotate(0.25turn);
+        transition: transform 0.2s ease-out;
+    }
+
+    .gauge__cover {
+        width: 75%;
+        height: 150%;
+        background: #ffffff;
+        border-radius: 50%;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        /* Text */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 25%;
+        box-sizing: border-box;
+    }
+    .gauge__fill {
+        /* Добавьте следующую строку */
+        background-image: linear-gradient(to left, red 5%, yellow 50%, green 100%);
+    }
+
+    .counter {
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #2c3e50;
+        margin: 0.3em 0;
+        z-index: 999;
+    }
+
+    .arrow {
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        margin-left: -1px;
+        width: 1px;
+        height: 143px;
+        border: 1px solid;
+        border-color: #2c3e50;
+        border-radius: 100% 100% 0 0;
+        background-color: black;
+        transform: rotate(-50deg);
+        transform-origin: bottom center;
+        transition: transform 0.8s;
+        transition-timing-function: cubic-bezier(0.65, 1.95, 0.03, 0.32);
+        z-index: 999;
+    }
+
+    .arrow:after {
+        content: "";
+        display: block;
+        height: 14px;
+        width: 14px;
+        background-color: #2c3e50;
+        border-radius: 100%;
+        position: absolute;
+        bottom: -1px;
+        left: -6px;
+        z-index: 999;
+    }
+</style>
+@endsection
+
 
 @section('script')
     <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
