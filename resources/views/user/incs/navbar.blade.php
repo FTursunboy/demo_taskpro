@@ -107,7 +107,7 @@
             </ul>
         </div>
         <div class="form-check form-switch mt-10">
-            <input checked class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
+            <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
             <label class="form-check-label" for="flexSwitchCheckDefault">Закрепить сайдбар</label>
         </div>
     </div>
