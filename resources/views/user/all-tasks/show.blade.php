@@ -391,7 +391,7 @@
                                 <div class="form-group">
                                     <label for="type">Тип</label>
                                     <input type="text" id="type" class="form-control"
-                                           value="{{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? '- '.$task->typeType?->name : '' }}"
+                                           value="{{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? '- '.$task->typeType?->name : '' }} {{ (isset($task?->percent)) ? '- '.$task?->percent : '' }}"
                                            disabled>
                                 </div>
                                 <div class="form-group">

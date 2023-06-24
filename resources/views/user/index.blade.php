@@ -263,7 +263,12 @@
                 <div class="col-6 col-lg-6 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-
+                            <div class="gauge">
+                                <div class="gauge__body">
+                                    <div class="gauge__fill"></div>
+                                    <div class="gauge__cover"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,8 +287,30 @@
     </div>
 
 @endsection
+
+
 @section('script')
     <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/ui-apexchart.js')}}"></script>
+    <script>
+        const gaugeElement = document.querySelector(".gauge");
+
+        function setGaugeValue(gauge, value) {
+            if (value < 0 || value > 1) {
+                return;
+            }
+
+            gauge.querySelector(".gauge__fill").style.transform = `rotate(${
+                value / 2
+            }turn)`;
+            gauge.querySelector(".gauge__cover").textContent = `${Math.round(
+                value * 100
+            )}%`;
+        }
+
+        setGaugeValue(gaugeElement, 1);
+    </script>
 @endsection
+
+
 
