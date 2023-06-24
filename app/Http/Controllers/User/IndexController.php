@@ -71,7 +71,7 @@ class IndexController extends BaseController
 
     public function verificate_client()
     {
-        $clientVerification  = TaskModel::where([
+        $clientVerification = TaskModel::where([
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '10']
         ])->get();
@@ -86,6 +86,29 @@ class IndexController extends BaseController
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '13']
         ])->get();
+
+    }
+
+    public function chart()
+    {
+
+
+        $tasks = TaskModel::where('user_id', Auth::id())
+            ->whereMonth('from', Carbon::now()->month)
+            ->whereMonth('to', Carbon::now()->month)
+            ->get()
+            ->count();
+        $tasks_ready = TaskModel::where([
+            ['user_id', Auth::id()],
+            ['status_id', 3]
+        ])->whereMonth('from', Carbon::now()->month)->whereMonth('to', Carbon::now()->month)
+            ->get()
+            ->count();
+        $result = ($tasks_ready / $tasks) * 100;
+
+        return response([
+           'result' => round($result)
+        ]);
 
     }
 }

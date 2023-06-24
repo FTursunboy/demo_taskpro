@@ -327,7 +327,7 @@ var barOptions = {
   plotOptions: {
     bar: {
       horizontal: false,
-      columnWidth: "55%",
+      columnWidth: "77%",
       endingShape: "rounded",
     },
   },
@@ -358,162 +358,168 @@ var barOptions = {
     },
   },
 };
+var result = 0;
+$.get("/tasks/public/chart", function(response) {
+    var result = response.result;
 
+    var radialGradientOptions = {
+        series: [result],
+        chart: {
+            height: 450,
+            type: "radialBar",
+            toolbar: {
+                show: true,
+            },
+        },
+        plotOptions: {
+            radialBar: {
+                startAngle: -135,
+                endAngle: 225,
+                hollow: {
+                    margin: 0,
+                    size: "50%",
+                    background: "#fff",
+                    image: undefined,
+                    imageOffsetX: 0,
+                    imageOffsetY: 0,
+                    position: "front",
+                    dropShadow: {
+                        enabled: true,
+                        top: 3,
+                        left: 0,
+                        blur: 4,
+                        opacity: 0.24,
+                    },
+                },
+                track: {
+                    background: "#fff",
+                    strokeWidth: "100%",
+                    margin: 0,
+                    dropShadow: {
+                        enabled: true,
+                        top: -3,
+                        left: 0,
+                        blur: 4,
+                        opacity: 0.35,
+                    },
+                },
+                dataLabels: {
+                    show: true,
+                    name: {
+                        offsetY: -10,
+                        show: true,
+                        color: "#888",
+                        fontSize: "27px",
+                    },
+                    value: {
+                        formatter: function(val) {
+                            return parseInt(val);
+                        },
+                        color: "#111",
+                        fontSize: "50px",
+                        show: true,
+                    },
+                },
+            },
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                shade: "dark",
+                type: "horizontal",
+                shadeIntensity: 0.5,
+                gradientToColors: ["#ABE5A1"],
+                inverseColors: true,
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 100],
+            },
+        },
+        stroke: {
+            lineCap: "round",
+        },
+        labels: ["%"],
+    };
 
-var radialGradientOptions = {
-  series: [75],
-  chart: {
-    height: 350,
-    type: "radialBar",
-    toolbar: {
-      show: true,
-    },
-  },
-  plotOptions: {
-    radialBar: {
-      startAngle: -135,
-      endAngle: 225,
-      hollow: {
-        margin: 0,
-        size: "70%",
-        background: "#fff",
-        image: undefined,
-        imageOffsetX: 0,
-        imageOffsetY: 0,
-        position: "front",
-        dropShadow: {
-          enabled: true,
-          top: 3,
-          left: 0,
-          blur: 4,
-          opacity: 0.24,
+    var areaOptions = {
+        series: [
+            {
+                name: "series1",
+                data: [31, 40, 28, 51, 42, 109, 100],
+            },
+            {
+                name: "series2",
+                data: [11, 32, 45, 32, 34, 52, 41],
+            },
+        ],
+        chart: {
+            height: 350,
+            type: "area",
         },
-      },
-      track: {
-        background: "#fff",
-        strokeWidth: "67%",
-        margin: 0, // margin is in pixels
-        dropShadow: {
-          enabled: true,
-          top: -3,
-          left: 0,
-          blur: 4,
-          opacity: 0.35,
+        dataLabels: {
+            enabled: false,
         },
-      },
+        stroke: {
+            curve: "smooth",
+        },
+        xaxis: {
+            type: "datetime",
+            categories: [
+                "2018-09-19T00:00:00.000Z",
+                "2018-09-19T01:30:00.000Z",
+                "2018-09-19T02:30:00.000Z",
+                "2018-09-19T03:30:00.000Z",
+                "2018-09-19T04:30:00.000Z",
+                "2018-09-19T05:30:00.000Z",
+                "2018-09-19T06:30:00.000Z",
+            ],
+        },
+        tooltip: {
+            x: {
+                format: "dd/MM/yy HH:mm",
+            },
+        },
+    };
 
-      dataLabels: {
-        show: true,
-        name: {
-          offsetY: -10,
-          show: true,
-          color: "#888",
-          fontSize: "17px",
+    var radialBarOptions = {
+        series: [44, 55, 67, 83],
+        chart: {
+            height: 350,
+            type: "radialBar",
         },
-        value: {
-          formatter: function(val) {
-            return parseInt(val);
-          },
-          color: "#111",
-          fontSize: "36px",
-          show: true,
+        plotOptions: {
+            radialBar: {
+                dataLabels: {
+                    name: {
+                        fontSize: "42px",
+                    },
+                    value: {
+                        fontSize: "66px",
+                    },
+                    total: {
+                        show: true,
+                        label: "Total",
+                        formatter: function(w) {
+                            return 249;
+                        },
+                    },
+                },
+            },
         },
-      },
-    },
-  },
-  fill: {
-    type: "gradient",
-    gradient: {
-      shade: "dark",
-      type: "horizontal",
-      shadeIntensity: 0.5,
-      gradientToColors: ["#ABE5A1"],
-      inverseColors: true,
-      opacityFrom: 1,
-      opacityTo: 1,
-      stops: [0, 100],
-    },
-  },
-  stroke: {
-    lineCap: "round",
-  },
-  labels: ["Percent"],
-};
- var areaOptions = {
-   series: [
-     {
-       name: "series1",
-       data: [31, 40, 28, 51, 42, 109, 100],
-     },
-     {
-       name: "series2",
-       data: [11, 32, 45, 32, 34, 52, 41],
-     },
-   ],
-   chart: {
-     height: 350,
-     type: "area",
-   },
-   dataLabels: {
-     enabled: false,
-   },
-   stroke: {
-     curve: "smooth",
-   },
-   xaxis: {
-     type: "datetime",
-     categories: [
-       "2018-09-19T00:00:00.000Z",
-       "2018-09-19T01:30:00.000Z",
-       "2018-09-19T02:30:00.000Z",
-       "2018-09-19T03:30:00.000Z",
-       "2018-09-19T04:30:00.000Z",
-       "2018-09-19T05:30:00.000Z",
-       "2018-09-19T06:30:00.000Z",
-     ],
-   },
-   tooltip: {
-     x: {
-       format: "dd/MM/yy HH:mm",
-     },
-   },
- };
-var radialBarOptions = {
-  series: [44, 55, 67, 83],
-  chart: {
-    height: 350,
-    type: "radialBar",
-  },
-  plotOptions: {
-    radialBar: {
-      dataLabels: {
-        name: {
-          fontSize: "22px",
-        },
-        value: {
-          fontSize: "16px",
-        },
-        total: {
-          show: true,
-          label: "Total",
-          formatter: function(w) {
-            // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-            return 249;
-          },
-        },
-      },
-    },
-  },
-  labels: ["Apples", "Oranges", "Bananas", "Berries"],
-};
-var bar = new ApexCharts(document.querySelector("#bar"), barOptions);
-var line = new ApexCharts(document.querySelector("#line"), lineOptions);
-var candle = new ApexCharts(document.querySelector("#candle"), candleOptions);
-var radialGradient = new ApexCharts(document.querySelector("#radialGradient"), radialGradientOptions);
-var area = new ApexCharts(document.querySelector("#area"), areaOptions);
+        labels: ["Apples", "Oranges", "Bananas", "Berries"],
+    };
 
-area.render();
-radialGradient.render();
-candle.render();
-bar.render();
-line.render();
+    var bar = new ApexCharts(document.querySelector("#bar"), barOptions);
+    var line = new ApexCharts(document.querySelector("#line"), lineOptions);
+    var candle = new ApexCharts(document.querySelector("#candle"), candleOptions);
+    var radialGradient = new ApexCharts(document.querySelector("#radialGradient"), radialGradientOptions);
+    var area = new ApexCharts(document.querySelector("#area"), areaOptions);
+
+    area.render();
+    radialGradient.render();
+    candle.render();
+    bar.render();
+    line.render();
+
+});
+
