@@ -33,7 +33,7 @@
                 </td>
                 @switch($task->status->id)
                     @case(1)
-                        <td><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
+                        <td><span class="badge bg-warning p-2">Ожидаеться</span></td>
                         @break
                     @case(2)
                         <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
