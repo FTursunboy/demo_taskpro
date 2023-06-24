@@ -282,7 +282,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3 col-lg-3-lg-3 col-md-3">
+                <div class="col-5 col-lg-3-lg-5 col-md-5">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <p>Процент выполненных задач этого месяца</p>

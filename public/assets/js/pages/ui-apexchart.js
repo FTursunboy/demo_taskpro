@@ -453,7 +453,7 @@ $.get("/tasks/public/chart", function(response) {
             },
         ],
         chart: {
-            height: 250,
+            height: 150,
             type: "area",
         },
         dataLabels: {
