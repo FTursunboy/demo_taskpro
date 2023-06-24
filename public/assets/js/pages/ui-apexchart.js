@@ -359,13 +359,13 @@ var barOptions = {
   },
 };
 var result = 0;
-$.get("/tasks/public/chart", function(response) {
+$.get("/chart", function(response) {
     var result = response.result;
 
     var radialGradientOptions = {
         series: [result],
         chart: {
-            height: 260,
+            height: 460,
             type: "radialBar",
             toolbar: {
                 show: true,
@@ -377,7 +377,7 @@ $.get("/tasks/public/chart", function(response) {
                 endAngle: 225,
                 hollow: {
                     margin: 0,
-                    size: "50%",
+                    size: "40%",
                     background: "#fff",
                     image: undefined,
                     imageOffsetX: 0,
@@ -385,7 +385,7 @@ $.get("/tasks/public/chart", function(response) {
                     position: "front",
                     dropShadow: {
                         enabled: true,
-                        top: 3,
+                        top: 0,
                         left: 0,
                         blur: 4,
                         opacity: 0.24,
@@ -453,7 +453,7 @@ $.get("/tasks/public/chart", function(response) {
             },
         ],
         chart: {
-            height: 150,
+            height: 0,
             type: "area",
         },
         dataLabels: {

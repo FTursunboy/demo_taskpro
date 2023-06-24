@@ -282,16 +282,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-5 col-lg-3-lg-5 col-md-5">
+
+                <div class="col-4 col-lg-4-lg-4 col-md-4">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <p>Процент выполненных задач этого месяца</p>
                             <div class="card-body">
+
                                 <div id="radialGradient"></div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                
             </div>
         </section>
     </div>
