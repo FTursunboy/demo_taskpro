@@ -154,7 +154,7 @@
                     });
 
 
-                $('<option value="" selected>Все</option>').appendTo(select);
+                $('<option value="" selected>Все</o ption>').appendTo(select);
 
                 var options = table.column(i).data().unique().sort().toArray();
 
