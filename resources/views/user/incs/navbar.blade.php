@@ -39,6 +39,10 @@
             </div>
         </div>
         <div class="sidebar-menu">
+            <div class="form-check form-switch mt-10">
+                <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Скрыть меню</label>
+            </div>
             <ul class="menu">
                 <li class="sidebar-title">Меню</li>
 
@@ -106,10 +110,7 @@
                 @endif
             </ul>
         </div>
-        <div class="form-check form-switch mt-10">
-            <input class="form-check-input" type="checkbox" id="fix" onchange="toggleSidebar()">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Закрепить сайдбар</label>
-        </div>
+
     </div>
 </div>
 
