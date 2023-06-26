@@ -108,7 +108,7 @@
                                             <div class="modal-body">
                                                 <input type="hidden" name="rating" value="1">
                                                 <div class="form-group">
-                                                    <span style="font-size: 20px;">Подтверждаете оценку ?</span>
+                                                    <span style="font-size: 20px;">Подтверждаете оценку <span class="star p-2">1</span> ? </span>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -130,7 +130,7 @@
                                             <div class="modal-body">
                                                 <input type="hidden" name="rating" value="2">
                                                 <div class="form-group">
-                                                    <span style="font-size: 20px;">Подтверждаете оценку ?</span>
+                                                    <span style="font-size: 20px;">Подтверждаете оценку <span class="star2 p-2">2</span> ?</span>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -152,7 +152,7 @@
                                             <div class="modal-body">
                                                 <input type="hidden" name="rating" value="3">
                                                 <div class="form-group">
-                                                    <span style="font-size: 20px;">Подтверждаете оценку ?</span>
+                                                    <span style="font-size: 20px;">Подтверждаете оценку <span class="star3 p-2">3</span> ?</span>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -174,7 +174,7 @@
                                             <div class="modal-body">
                                                 <input type="hidden" name="rating" value="4">
                                                 <div class="form-group">
-                                                    <span style="font-size: 20px;">Подтверждаете оценку ?</span>
+                                                    <span style="font-size: 20px;">Подтверждаете оценку <span class="star4 p-2">4</span> ?</span>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -196,7 +196,7 @@
                                             <div class="modal-body">
                                                 <input type="hidden" name="rating" value="5">
                                                 <div class="form-group">
-                                                    <span style="font-size: 20px;">Подтверждаете оценку ?</span>
+                                                    <span style="font-size: 20px;">Подтверждаете оценку <span class="star5 p-2">5</span> ?</span>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -212,7 +212,7 @@
                             {{--                        Начало: Причины низкой оценки --}}
                             @php
                                 $i = 1;
-                                $totalIterations = 3; // Replace with the total number of iterations you need
+                                $totalIterations = 3;
                             @endphp
 
                             @while($i <= $totalIterations)
@@ -569,7 +569,7 @@
 
 
 
-            const numModals = 3; // Total number of modals
+            const numModals = 3;
 
             for (let i = 1; i <= numModals; i++) {
                 const modalId = `RatingReason${i}`;
