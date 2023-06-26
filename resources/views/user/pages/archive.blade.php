@@ -57,144 +57,144 @@
 </div>
 
 @section('script')
-    <script src="{{asset('assets/js/filter3.js')}}"></script>
-    <script type="text/javascript">
-        "use strict";
+{{--    <script src="{{asset('assets/js/filter3.js')}}"></script>--}}
+{{--    <script type="text/javascript">--}}
+{{--        "use strict";--}}
 
-        let tMouse = {
-            // isMouseDown
-            // tMouse.target
-            // tMouse.targetWidth
-            // targetPosX
-        };
-        const eventNames = ["mousedown", "mouseup", "mousemove"];
-        eventNames.forEach((e) => window.addEventListener(e, handle));
+{{--        let tMouse = {--}}
+{{--            // isMouseDown--}}
+{{--            // tMouse.target--}}
+{{--            // tMouse.targetWidth--}}
+{{--            // targetPosX--}}
+{{--        };--}}
+{{--        const eventNames = ["mousedown", "mouseup", "mousemove"];--}}
+{{--        eventNames.forEach((e) => window.addEventListener(e, handle));--}}
 
-        function handle(e) {
-            if (e.type === eventNames[0]) {
-                tMouse.isMouseDown = true;
-                let element = e.target.parentElement;
-                if (!element.dataset[`td`]) return false;
-                let th = document.querySelector(`th[data-td='${element.dataset[`td`]}']`);
-                tMouse.target = th;
-                tMouse.targetWidth = th.clientWidth;
-                tMouse.targetPosX = th.getBoundingClientRect().x;
-            }
-            if (e.type === eventNames[1]) tMouse = {};
-            if (e.type === eventNames[2]) {
-                if (!tMouse.target || !tMouse.isMouseDown) return false;
-                let size = (e.clientX - tMouse.targetWidth) - tMouse.targetPosX;
-                tMouse.target.style.width = tMouse.targetWidth + size + "px";
-            }
-        }
-    </script>
+{{--        function handle(e) {--}}
+{{--            if (e.type === eventNames[0]) {--}}
+{{--                tMouse.isMouseDown = true;--}}
+{{--                let element = e.target.parentElement;--}}
+{{--                if (!element.dataset[`td`]) return false;--}}
+{{--                let th = document.querySelector(`th[data-td='${element.dataset[`td`]}']`);--}}
+{{--                tMouse.target = th;--}}
+{{--                tMouse.targetWidth = th.clientWidth;--}}
+{{--                tMouse.targetPosX = th.getBoundingClientRect().x;--}}
+{{--            }--}}
+{{--            if (e.type === eventNames[1]) tMouse = {};--}}
+{{--            if (e.type === eventNames[2]) {--}}
+{{--                if (!tMouse.target || !tMouse.isMouseDown) return false;--}}
+{{--                let size = (e.clientX - tMouse.targetWidth) - tMouse.targetPosX;--}}
+{{--                tMouse.target.style.width = tMouse.targetWidth + size + "px";--}}
+{{--            }--}}
+{{--        }--}}
+{{--    </script>--}}
 
-    <script>
-        $(document).ready(function () {
-            var table = $('#archiveTable').DataTable({
-                "processing": true,
+{{--    <script>--}}
+{{--        $(document).ready(function () {--}}
+{{--            var table = $('#archiveTable').DataTable({--}}
+{{--                "processing": true,--}}
 
-            });
-
-
-            var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
+{{--            });--}}
 
 
-            $("#archiveTable thead th").each(function(i) {
-
-                var th = $(this);
-                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
-
-                if (filterColumns.includes(th.text().trim())) {
-
-                    if (th.text().trim() === 'Статус') {
-
-                        var select = th.find('select');
-
-                        select.val(statusParam);
-                        select.trigger('change');
-                    }
-                }
-            });
+{{--            var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());--}}
 
 
+{{--            $("#archiveTable thead th").each(function(i) {--}}
 
-            var filters = JSON.parse(localStorage.getItem('datatableFilters'));
-            if (filters) {
-                for (var i = 0; i < filters.length; i++) {
-                    var filter = filters[i];
-                    table.column(filter.columnIndex).search(filter.value);
-                }
-                table.draw();
-            }
+{{--                var th = $(this);--}}
+{{--                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];--}}
 
-            $("#archiveTable thead th").each(function (i) {
-                var th = $(this);
-                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
+{{--                if (filterColumns.includes(th.text().trim())) {--}}
 
-                if (filterColumns.includes(th.text().trim())) {
-                    var select = $('<select></select>')
-                        .appendTo(th.empty())
-                        .addClass('form-control')
-                        .on('change', function () {
-                            var columnIndex = i;
-                            var value = $(this).val();
-                            table.column(columnIndex).search(value).draw();
+{{--                    if (th.text().trim() === 'Статус') {--}}
 
+{{--                        var select = th.find('select');--}}
 
-                            var filters = [];
-                            $("#archiveTable thead select").each(function () {
-                                var filter = {
-                                    columnIndex: $(this).closest('th').index(),
-                                    value: $(this).val()
-                                };
-                                filters.push(filter);
-                            });
-
-                        });
-
-
-                    $('<option value="" selected>Все</option>').appendTo(select);
-
-                    var options = table.column(i).data().unique().sort().toArray();
-
-                    options = options.map(function (option) {
-                        var tempElement = $('<div>').html(option);
-                        return tempElement.text();
-                    });
-
-                    var uniqueOptions = [];
-                    options.forEach(function (option) {
-                        if (!uniqueOptions.includes(option)) {
-                            uniqueOptions.push(option);
-                            var optionText = option === null ? 'Нет данных' : option;
-                            var optionElement = $('<option></option>').attr('value', option).text(optionText);
-                            select.append(optionElement);
-                        }
-                    });
-
-                    var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));
-                    if (storedFilters) {
-                        var storedFilter = storedFilters.find(function (filter) {
-                            return filter.columnIndex === i;
-                        });
-                        if (storedFilter) {
-                            select.val(storedFilter.value);
-                        }
-                    }
-                }
-            });
+{{--                        select.val(statusParam);--}}
+{{--                        select.trigger('change');--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            });--}}
 
 
 
-        });
+{{--            var filters = JSON.parse(localStorage.getItem('datatableFilters'));--}}
+{{--            if (filters) {--}}
+{{--                for (var i = 0; i < filters.length; i++) {--}}
+{{--                    var filter = filters[i];--}}
+{{--                    table.column(filter.columnIndex).search(filter.value);--}}
+{{--                }--}}
+{{--                table.draw();--}}
+{{--            }--}}
+
+{{--            $("#archiveTable thead th").each(function (i) {--}}
+{{--                var th = $(this);--}}
+{{--                var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];--}}
+
+{{--                if (filterColumns.includes(th.text().trim())) {--}}
+{{--                    var select = $('<select></select>')--}}
+{{--                        .appendTo(th.empty())--}}
+{{--                        .addClass('form-control')--}}
+{{--                        .on('change', function () {--}}
+{{--                            var columnIndex = i;--}}
+{{--                            var value = $(this).val();--}}
+{{--                            table.column(columnIndex).search(value).draw();--}}
 
 
-    </script>
+{{--                            var filters = [];--}}
+{{--                            $("#archiveTable thead select").each(function () {--}}
+{{--                                var filter = {--}}
+{{--                                    columnIndex: $(this).closest('th').index(),--}}
+{{--                                    value: $(this).val()--}}
+{{--                                };--}}
+{{--                                filters.push(filter);--}}
+{{--                            });--}}
+{{--                            --}}
+{{--                        });--}}
 
 
-    <script src="{{asset('assets/js/search.js')}}"></script>
-    <script src="{{asset('assets/js/datatable.js')}}"></script>
+{{--                    $('<option value="" selected>Все</option>').appendTo(select);--}}
+
+{{--                    var options = table.column(i).data().unique().sort().toArray();--}}
+
+{{--                    options = options.map(function (option) {--}}
+{{--                        var tempElement = $('<div>').html(option);--}}
+{{--                        return tempElement.text();--}}
+{{--                    });--}}
+
+{{--                    var uniqueOptions = [];--}}
+{{--                    options.forEach(function (option) {--}}
+{{--                        if (!uniqueOptions.includes(option)) {--}}
+{{--                            uniqueOptions.push(option);--}}
+{{--                            var optionText = option === null ? 'Нет данных' : option;--}}
+{{--                            var optionElement = $('<option></option>').attr('value', option).text(optionText);--}}
+{{--                            select.append(optionElement);--}}
+{{--                        }--}}
+{{--                    });--}}
+
+{{--                    var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));--}}
+{{--                    if (storedFilters) {--}}
+{{--                        var storedFilter = storedFilters.find(function (filter) {--}}
+{{--                            return filter.columnIndex === i;--}}
+{{--                        });--}}
+{{--                        if (storedFilter) {--}}
+{{--                            select.val(storedFilter.value);--}}
+{{--                        }--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            });--}}
+
+{{--           --}}
+
+{{--        });--}}
+
+
+{{--    </script>--}}
+
+
+{{--    <script src="{{asset('assets/js/search.js')}}"></script>--}}
+{{--    <script src="{{asset('assets/js/datatable.js')}}"></script>--}}
 
 
 
