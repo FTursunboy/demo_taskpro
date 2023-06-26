@@ -21,7 +21,7 @@ class RatingController extends BaseController
         $task = TaskModel::where('offer_id', $offer->id)->first();
         $client = User::find($offer->client_id);
 
-       $rating = Rating::updateOrCreate(
+        $rating = Rating::updateOrCreate(
             ['task_slug' => $task->slug],
             [
                 'rating' => $rating,
@@ -29,7 +29,6 @@ class RatingController extends BaseController
                 'client_id' => $client->id,
             ]
         );
-
         if ($request->reason) {
             $rating->reason = $request->reason;
             $rating->save();
