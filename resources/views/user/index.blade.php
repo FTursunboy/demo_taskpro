@@ -297,7 +297,7 @@
                 </div>
 
 
-                
+
             </div>
         </section>
     </div>
@@ -426,7 +426,7 @@
     #archiveTasks:hover{
         cursor: pointer;
     }
-    
+
 </style>
 @endsection
 
