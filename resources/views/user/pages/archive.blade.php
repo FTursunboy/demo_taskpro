@@ -56,7 +56,6 @@
     </div>
 </div>
 
-@section('script')
 {{--    <script src="{{asset('assets/js/filter3.js')}}"></script>--}}
 {{--    <script type="text/javascript">--}}
 {{--        "use strict";--}}
@@ -198,8 +197,6 @@
 
 
 
-
-@endsection
 
 
 
