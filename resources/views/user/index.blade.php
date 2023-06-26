@@ -271,7 +271,7 @@
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <div class="gauge">
-                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>
+                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>
                                 <div class="gauge__body">
                                     <div class="gauge__fill"></div>
                                     <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>
@@ -286,8 +286,8 @@
                 <div class="col-4 col-lg-4-lg-4 col-md-4">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <p>Процент выполненных задач этого месяца</p>
-                            <div class="card-body">
+                            <p class="text-center">Процент выполненных задач этого месяца</p>
+                            <div class="card-body" style="margin-top: -70px; margin-bottom: -70px">
                                 <div id="radialGradient"></div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
                             <div class="gauge_user">
-                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>
+                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>
                                 <div class="gauge__body_user">
                                     <div class="gauge__fill_user"></div>
                                     <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>
