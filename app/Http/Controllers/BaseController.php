@@ -26,7 +26,7 @@ class BaseController extends Controller
                 ['user_id', null],
                 ['status_id', '!=', 11]
             ])->get()->count();
-            $statistics = User::role('user')->get();
+            $statistics = User::role(['user', 'admin'])->get();
             $ideas_count = Idea::where('status_id', 1)->get()->count();
             $ready = TaskModel::where('status_id', 3)->get()->count();
             $all_tasks = TaskModel::get()->count();
