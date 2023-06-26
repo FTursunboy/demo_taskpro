@@ -448,6 +448,13 @@ class OfferController extends BaseController
         $offer->save();
         $user = User::find($offer->client_id);
         $email = $user?->clientEmail?->email;
+
+        ReportHistoryController::create(
+            $offer->slug,
+            Statuses::DECLINED,
+            $request->input('reason')
+        );
+
         if ($email) {
             Mail::to($email)->send(new DeclineOffer($offer->name, $offer->cancel_admin));
         }
