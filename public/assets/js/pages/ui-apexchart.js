@@ -322,7 +322,7 @@ var barOptions = {
   ],
   chart: {
     type: "bar",
-    height: 350,
+    height: 355,
   },
   plotOptions: {
     bar: {
@@ -359,7 +359,7 @@ var barOptions = {
   },
 };
 var result = 0;
-$.get("/chart", function(response) {
+$.get("/tasks/public/chart", function(response) {
     var result = response.result;
 
     var radialGradientOptions = {
