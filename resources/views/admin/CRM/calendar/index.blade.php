@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/select/select2.min.css')}}" >
     <link rel="stylesheet" href="{{asset('assets/css/select/style.css')}}" >
 @endsection
-
+     
 @section('content')
 
     <div id="page-heading">
