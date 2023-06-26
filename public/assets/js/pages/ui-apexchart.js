@@ -322,7 +322,7 @@ var barOptions = {
   ],
   chart: {
     type: "bar",
-    height: 350,
+    height: 355,
   },
   plotOptions: {
     bar: {
@@ -359,13 +359,13 @@ var barOptions = {
   },
 };
 var result = 0;
-$.get("/chart", function(response) {
+$.get("/tasks/public/chart", function(response) {
     var result = response.result;
 
     var radialGradientOptions = {
         series: [result],
         chart: {
-            height: 460,
+            height: 300,
             type: "radialBar",
             toolbar: {
                 show: true,
@@ -416,7 +416,7 @@ $.get("/chart", function(response) {
                             return parseInt(val);
                         },
                         color: "#111",
-                        fontSize: "50px",
+                        fontSize: "40px",
                         show: true,
                     },
                 },

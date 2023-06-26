@@ -165,23 +165,6 @@
 {{--            }--}}
 {{--        });--}}
 
-{{--        var resetButton = $('<button></button>')--}}
-{{--            .addClass('btn btn-primary')--}}
-{{--            .text('X')--}}
-{{--            .on('click', function () {--}}
-{{--                table--}}
-{{--                    .search('')--}}
-{{--                    .columns()--}}
-{{--                    .search('')--}}
-{{--                    .draw();--}}
-{{--                $("#verAdminTable thead select").val('');--}}
-{{--                $('#example_filter input').val('');--}}
-{{--            });--}}
-
-{{--        var searchWrapper = $('#example_filter1');--}}
-{{--        searchWrapper.addClass('d-flex align-items-center');--}}
-{{--        resetButton.addClass('ml-2');--}}
-{{--        resetButton.appendTo(searchWrapper);--}}
 {{--    });--}}
 
 
