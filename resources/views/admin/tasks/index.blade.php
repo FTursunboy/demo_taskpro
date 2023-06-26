@@ -20,10 +20,6 @@
             </div>
         </div>
 
-
-        <a href="{{ route('tasks.create') }}" class="btn btn-outline-primary mb-4">
-            Добавить задачу
-        </a>
         <div class="row">
             @if(session('mess'))
                 <div class="alert alert-success">
@@ -43,6 +39,7 @@
                                 <th class="text-center">До</th>
                                 <th class="text-center">Проект</th>
                                 <th class="text-center">Статус</th>
+                                <th class="text-center">КПД</th>
                                 <th class="text-center">Сотрудник</th>
                                 <th class="text-center">Действия</th>
                             </tr>
@@ -106,6 +103,7 @@
                                                 проверку</a></td>
                                         @break
                                     @endswitch
+                                    <td class="text-center">{{ $task->checkDate?->count}}</td>
                                     <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
                                     <td class="text-center">
                                         <a href="{{ route('mon.show', $task->slug) }}" class="btn btn-success"><i
