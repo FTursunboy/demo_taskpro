@@ -416,7 +416,7 @@ $.get("/tasks/public/chart", function(response) {
                             return parseInt(val);
                         },
                         color: "#111",
-                        fontSize: "50px",
+                        fontSize: "40px",
                         show: true,
                     },
                 },
