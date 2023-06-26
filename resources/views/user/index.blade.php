@@ -574,7 +574,6 @@
                 setValue(value);
             }).change();
         });
-// =======================================================================================
         const gaugeElement_user = document.querySelector(".gauge_user");
 
         function setGaugeValue_user(gauge, value) {
