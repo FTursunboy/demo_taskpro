@@ -302,7 +302,7 @@
                                                         {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
-                                            <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
+                                            <td>{{$idea->user?->surname . ' '.$idea->user->name }}</td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserShow{{ $idea->id }}"
                                                    class="badge bg-success" role="button"><i class="bi bi-eye"></i></a>

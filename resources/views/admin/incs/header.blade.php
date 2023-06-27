@@ -513,7 +513,7 @@
                                                         {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
-                                            <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
+                                            <td>{{$idea->user?->surname . ' '.$idea->user?->name }}</td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#ideasShowDashboardUserDelete{{ $idea->id }}"
@@ -757,7 +757,7 @@
                                                         {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
-                                            <td>{{$idea->user->surname . ' '.$idea->user->name }}</td>
+                                            <td>{{$idea->user?->surname . ' '.$idea->user->name }}</td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#SystemIdeasShowDashboard{{ $idea->id }}" class="badge bg-primary" role="button"><i class="bi bi-eye"></i></a>
                                                 <a data-bs-toggle="modal" data-bs-target="#SystemIdeasDelete{{ $idea->id }}" class="badge bg-danger" role="button"><i class="bi bi-trash"></i></a>

@@ -23,7 +23,7 @@ class EmployeeController extends BaseController
 {
     public function index()
     {
-        $users = User::role('user')->get();
+        $users = User::role('user')->withTrashed()->get();
         return view('admin.employee.index', compact('users'));
     }
 
