@@ -522,4 +522,3 @@ $.get("/tasks/public/chart", function(response) {
     line.render();
 
 });
-
