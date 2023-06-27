@@ -266,50 +266,70 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-6 col-lg-4 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="gauge">
-                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>
-                                <div class="gauge__body">
-                                    <div class="gauge__fill"></div>
-                                    <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>
-                                    <div id="arrow" class="arrow"></div>
-                                </div>
-                                    <input id="testParam" type="hidden" min="0" value="{{ $admin_rating * 20 }}" max="100">
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <input type="hidden" value="{{$task['inProgress'] }}" id="taskProgressId">
+                    <input type="hidden" value="{{$task['speed'] }}" id="taskSpeedId">
+                    <input type="hidden" value="{{$ver_admin }}" id="taskVerAdminId">
+                    <input type="hidden" value="{{$tasks_count }}" id="taskVerClientId">
+                    <input type="hidden" value="{{$rejectClientCount }}" id="taskRejectId">
+                    <input type="hidden" value="{{$task['success'] }}" id="tasksuccessId">
                 </div>
 
-                <div class="col-4 col-lg-4-lg-4 col-md-4">
+{{--                <div class="col-6 col-lg-4 col-md-6">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body px-4 py-4-5">--}}
+{{--                            <div class="gauge">--}}
+{{--                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>--}}
+{{--                                <div class="gauge__body">--}}
+{{--                                    <div class="gauge__fill"></div>--}}
+{{--                                    <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>--}}
+{{--                                    <div id="arrow" class="arrow"></div>--}}
+{{--                                </div>--}}
+{{--                                    <input id="testParam" type="hidden" min="0" value="{{ $admin_rating * 20 }}" max="100">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--                <div class="col-4 col-lg-4-lg-4 col-md-4">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body px-4 py-4-5">--}}
+{{--                            <p>Процент выполненных задач этого месяца</p>--}}
+{{--                            <div class="card-body">--}}
+{{--                                <div id="radialGradient"></div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
+                <div class="col-xl-6">
                     <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <p>Процент выполненных задач этого месяца</p>
-                            <div class="card-body">
-                                <div id="radialGradient"></div>
-                            </div>
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Статистика задач</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="column_chart_datalabel" data-colors='["#5156be"]' class="apex-charts" dir="ltr"></div>
                         </div>
                     </div>
+                    <!--end card-->
                 </div>
 
-                <div class="col-6 col-lg-4 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="gauge_user">
-                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>
-                                <div class="gauge__body_user">
-                                    <div class="gauge__fill_user"></div>
-                                    <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>
-                                    <div id="arrow_user" class="arrow_user"></div>
-                                </div>
-                                <input id="testParam_user" type="hidden" min="0" value="{{ $user_rating * 20 }}" max="100">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+{{--                <div class="col-6 col-lg-4 col-md-6">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body px-4 py-4-5">--}}
+{{--                            <div class="gauge_user">--}}
+{{--                                <span style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>--}}
+{{--                                <div class="gauge__body_user">--}}
+{{--                                    <div class="gauge__fill_user"></div>--}}
+{{--                                    <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>--}}
+{{--                                    <div id="arrow_user" class="arrow_user"></div>--}}
+{{--                                </div>--}}
+{{--                                <input id="testParam_user" type="hidden" min="0" value="{{ $user_rating * 20 }}" max="100">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </section>
     </div>
@@ -321,6 +341,8 @@
     @include('user.pages.verClient')
     @include('user.pages.reject')
     @include('user.pages.archive')
+    @include('user.vendor_scripts')
+
 @endsection
 
 @section('css')
@@ -538,6 +560,130 @@
 @section('script')
     <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/ui-apexchart.js')}}"></script>
+{{--    <script src="{{asset('assets1/libs/apexcharts/apexcharts.min.js')}}"></script>--}}
+    <script src="{{asset('assets1/js/pages/apexcharts.init.js')}}"></script>
+    <script>
+
+
+        var taskProgressId = parseInt(document.getElementById('taskProgressId').value);
+        var taskSpeedId = parseInt(document.getElementById('taskSpeedId').value);
+        var taskVerAdminId = parseInt(document.getElementById('taskVerAdminId').value);
+        var taskVerClientId = parseInt(document.getElementById('taskVerClientId').value);
+        var taskRejectId = parseInt(document.getElementById('taskRejectId').value);
+        var taskSuccessId = parseInt(document.getElementById('tasksuccessId').value);
+
+        var sum = taskProgressId + taskSpeedId + taskVerAdminId + taskVerClientId + taskRejectId + taskSuccessId;
+        taskProgressId = parseFloat(((taskProgressId * 100) / sum).toFixed(2));
+        taskSpeedId = parseFloat(((taskSpeedId * 100) / sum).toFixed(2));
+        taskVerAdminId = parseFloat(((taskVerAdminId * 100) / sum).toFixed(2));
+        taskVerClientId = parseFloat(((taskVerClientId * 100) / sum).toFixed(2));
+        taskRejectId = parseFloat(((taskRejectId * 100) / sum).toFixed(2));
+        taskSuccessId = parseFloat(((taskSuccessId * 100) / sum).toFixed(2));
+        taskSuccessId = (taskSuccessId*100)/sum;
+
+
+var columnDatalabelColors = getChartColorsArray("#column_chart_datalabel");
+var options = {
+    chart: {
+        height: 350,
+        type: 'bar',
+        toolbar: {
+            show: false,
+        }
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: 10,
+            dataLabels: {
+                position: 'top', // top, center, bottom
+            },
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+            return val + "%";
+        },
+        offsetY: -22,
+        style: {
+            fontSize: '12px',
+            colors: ["#304758"]
+        }
+    },
+    series: [{
+        name: 'Процент',
+        data: [taskSuccessId, taskProgressId, taskSpeedId, taskVerAdminId, taskVerClientId, taskRejectId]
+    }],
+    colors: columnDatalabelColors,
+    grid: {
+        borderColor: '#f1f1f1',
+    },
+    xaxis: {
+        categories: ["Готовые", "В процессе", "Просроченные", "На проверке (Админ)", "На проверке (Клиент)", "Отклонено(Клиент)"],
+        position: 'top',
+        labels: {
+            offsetY: -10,
+
+        },
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false
+        },
+        crosshairs: {
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    colorFrom: '#D8E3F0',
+                    colorTo: '#BED1E6',
+                    stops: [0, 100],
+                    opacityFrom: 0.4,
+                    opacityTo: 0.5,
+                }
+            }
+        },
+        tooltip: {
+            enabled: true,
+            offsetY: -35,
+        }
+    },
+
+    yaxis: {
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false,
+        },
+        labels: {
+            show: false,
+            formatter: function (val) {
+                return val + "%";
+            }
+        }
+
+    },
+    // title: {
+    //     // text: 'Monthly Inflation in Argentina, 2002',
+    //     floating: true,
+    //     offsetY: 330,
+    //     align: 'center',
+    //     style: {
+    //         color: '#444',
+    //         fontWeight:  '500',
+    //     }
+    // },
+}
+
+var chart = new ApexCharts(
+    document.querySelector("#column_chart_datalabel"),
+    options
+);
+
+chart.render();
+
+    </script>
     <script>
         const gaugeElement = document.querySelector(".gauge");
 
@@ -612,6 +758,4 @@
 
     </script>
 @endsection
-
-
 
