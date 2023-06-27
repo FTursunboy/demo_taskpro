@@ -18,7 +18,8 @@
                         <th>ФИО</th>
                         <th>Телефон</th>
                         <th>Задачи</th>
-                        <th>Готовы</th>
+                        <th>Готовыe</th>
+                        <th>Статус</th>
                         <th>Действия</th>
 
                     </thead>
@@ -30,6 +31,12 @@
                         <td>{{$user->phone}}</td>
                         <td>{{$user->taskCount($user->id)}} </td>
                         <td>{{$user->taskSuccessCount($user->id) }}</td>
+                        <td>@if($user->deleted_at)
+                        Неактивен
+                            @else
+                            Активен
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('employee.show', $user->slug) }}" class="btn btn-success"><i
                                     class="bi bi-eye"></i></a>
