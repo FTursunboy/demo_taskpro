@@ -986,7 +986,7 @@
                             <th class="text-center">#</th>
                             <th class="text-center">ФИО</th>
                             <th class="text-center">Все задачи</th>
-                            <th class="text-center">Долг</th>
+                            <th class="text-center">Задача прошлых месяцов</th>
                             <th class="text-center">В процессе</th>
                             <th class="text-center">Готово</th>
                             <th class="text-center">Просроченное</th>

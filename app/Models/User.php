@@ -317,6 +317,16 @@ class User extends Authenticatable
         return $tasks;
     }
 
+    public function debt($month, $id){
+        $startOfMonth = Carbon::now()->month($month)->startOfMonth();
+        $endOfMonth = Carbon::now()->month($month)->endOfMonth();
+
+
+
+
+
+    }
+
 
 
 }
