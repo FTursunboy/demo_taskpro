@@ -948,17 +948,15 @@
 {{--  Project ofcanvas  end  --}}
 
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="Statistic"
-     aria-labelledby="Statistic" style="width: 100%; height: 90%;">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="Statistic">Проекты</h5>
+     aria-labelledby="Statistic" style="width: 100%; height: 100%;">
+    <div class="offcanvas-header d-flex justify-content-end">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header "></div>
                 <div class="card-body overflow-auto">
-                    <div class="row">
+                    <div class="row" style="margin-top: -34px">
                         <div class="col-9"></div>
                         <div class="col">
                             <div class="form-group">
