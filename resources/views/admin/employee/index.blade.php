@@ -37,14 +37,19 @@
                             <span style="color: green; font-weight: bold">Активен</span>
                             @endif
                         </td>
-                        <td>
-                            <a href="{{ route('employee.show', $user->slug) }}" class="btn btn-success"><i
-                                    class="bi bi-eye"></i></a>
-                            <a href="{{ route('employee.edit', $user->slug) }}" class="btn btn-primary mx-2"><i
-                                    class="bi bi-pencil"></i></a>
-                            <a role="button" class="btn btn-danger" data-bs-toggle="modal"
-                               data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
-                        </td>
+                        @if($user->deleted_at)
+                            <td></td>
+                        @else
+                            <td>
+                                <a href="{{ route('employee.show', $user->slug) }}" class="btn btn-success"><i
+                                        class="bi bi-eye"></i></a>
+                                <a href="{{ route('employee.edit', $user->slug) }}" class="btn btn-primary mx-2"><i
+                                        class="bi bi-pencil"></i></a>
+                                <a role="button" class="btn btn-danger" data-bs-toggle="modal"
+                                   data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
+                            </td>
+                        @endif
+
                     </tr>
                     <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}"
                          aria-hidden="true">
