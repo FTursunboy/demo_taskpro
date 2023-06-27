@@ -621,7 +621,7 @@
                                     </option>
                                     @foreach($users as $user)
                                         <option
-                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user?->name .' '.$user?->lastname }}</option>
                                     @endforeach
                                 </select>
                             </div>
