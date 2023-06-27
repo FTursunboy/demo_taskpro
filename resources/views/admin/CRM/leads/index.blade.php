@@ -94,6 +94,7 @@
                             <th data-td="td_three">Источник<span class="btn btn-right">></span></th>
                             <th data-td="td_four">Состояние<span class="btn btn-right">></span></th>
                             <th>Создал</th>
+                            <th>Дата создания</th>
                             <th class="text-center">Действия</th>
                         </tr>
                         </thead>
@@ -119,6 +120,7 @@
                                 <td>{{ Str::limit($lead->leadSource?->name, 20) }}</td>
                                 <td>{{ Str::limit($lead->state?->name, 20) }}</td>
                                 <td>{{ Str::limit($lead->author, 20) }}</td>
+                                <td>{{ $dateFormatted = date('d-m-Y', strtotime($lead->created_at)) }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('lead.show', $lead->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
