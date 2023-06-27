@@ -1003,7 +1003,7 @@
                                 <td class="text-center">{{$loop->iteration }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit($user->name . " " . $user->surname, 50)  }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['debt'] }}</td>
+                                <td class="text-center">{{ $user->debt_tasks($user->id) }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['process'] }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['ready'] }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['speed'] }}</td>
@@ -1037,6 +1037,7 @@
 
                     $.get(`/tasks/public/monitoring-statistics-filter/${month}`, function (response) {
                         let tableBody = $('#tableBodyMonitoring');
+                        console.log(response)
                         table.clear().draw();
                         tableBody.empty()
 
