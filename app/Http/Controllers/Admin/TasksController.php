@@ -421,7 +421,7 @@ class  TasksController extends BaseController
                 HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
                 HistoryController::task($task->id, $task->user_id, Statuses::FINISH);
 
-                return redirect()->back()->with('mess', 'Успешно отправлено');
+                return redirect()->route('mon.index')->with('mess', 'Успешно отправлено');
             } else {
 
                 $user = User::where('id', $task->user_id)->first();
@@ -432,7 +432,7 @@ class  TasksController extends BaseController
                 $task1 = $task->id;
                 $task->save();
 
-                return redirect()->back()->with(['mess' => 'Успешно завершено', 'task1' => $task1]);
+                return redirect()->route('mon.index')->with(['mess' => 'Успешно завершено', 'task1' => $task1]);
             }
 
 
@@ -465,7 +465,7 @@ class  TasksController extends BaseController
 
         }
 
-        return redirect()->back()->with('mess', 'Успешно отправлено');
+        return redirect()->route('mon.index')->with('mess', 'Успешно отправлено');
     }
 
 
