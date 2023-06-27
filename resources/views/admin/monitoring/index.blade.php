@@ -110,11 +110,12 @@
                                     <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
                                 @endswitch
                                 <td class="text-center">{{$task->checkDate?->count}}</td>
-                                @if($task->user?->deleted_at)
+                                @if($task->user && $task->user?->deleted_at)
                                     <td class="text-center">Удаленный аккаунт</td>
                                 @else
-                                    <td class="text-center">{{ $task->user?->surname . ' ' . $task->user?->name}}</td>
+                                    <td class="text-center">{{ $task->user ? $task->user->surname . ' ' . $task->user->name : '' }}</td>
                                 @endif
+
                                 <td class="text-center">
                                     <a href="{{ route('mon.show', $task->slug) }}" class="btn btn-success"><i
                                             class="bi bi-eye"></i></a>
