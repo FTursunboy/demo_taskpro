@@ -34,6 +34,7 @@ class  MonitoringController extends BaseController
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->withTrashed()->get();
+        dd($users);
         $clients = User::role('client')->get();
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
     }
