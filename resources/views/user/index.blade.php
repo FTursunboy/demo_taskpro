@@ -274,24 +274,24 @@
                     <input type="hidden" value="{{$tasks_count }}" id="taskVerClientId">
                     <input type="hidden" value="{{$rejectClientCount }}" id="taskRejectId">
                     <input type="hidden" value="{{$task['success'] }}" id="tasksuccessId">
-
-
-                <div class="col-6 col-lg-4 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="gauge">
-                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>
-                                <div class="gauge__body">
-                                    <div class="gauge__fill"></div>
-                                    <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>
-                                    <div id="arrow" class="arrow"></div>
-                                </div>
-                                    <input id="testParam" type="hidden" min="0" value="{{ $admin_rating * 20 }}" max="100">
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+{{--                <div class="col-6 col-lg-4 col-md-6">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body px-4 py-4-5">--}}
+{{--                            <div class="gauge">--}}
+{{--                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>--}}
+{{--                                <div class="gauge__body">--}}
+{{--                                    <div class="gauge__fill"></div>--}}
+{{--                                    <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>--}}
+{{--                                    <div id="arrow" class="arrow"></div>--}}
+{{--                                </div>--}}
+{{--                                    <input id="testParam" type="hidden" min="0" value="{{ $admin_rating * 20 }}" max="100">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+{{--                </div>--}}
 
 {{--                <div class="col-6 col-lg-4 col-md-6">--}}
 {{--                    <div class="card">--}}
@@ -339,23 +339,23 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-lg-4 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="gauge_user">
-                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>
-                                <div class="gauge__body_user">
-                                    <div class="gauge__fill_user"></div>
-                                    <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>
-                                    <div id="arrow_user" class="arrow_user"></div>
-                                </div>
-                                <input id="testParam_user" type="hidden" min="0" value="{{ $user_rating * 20 }}" max="100">
-                            </div>
+{{--                <div class="col-6 col-lg-4 col-md-6">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body px-4 py-4-5">--}}
+{{--                            <div class="gauge_user">--}}
+{{--                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>--}}
+{{--                                <div class="gauge__body_user">--}}
+{{--                                    <div class="gauge__fill_user"></div>--}}
+{{--                                    <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>--}}
+{{--                                    <div id="arrow_user" class="arrow_user"></div>--}}
+{{--                                </div>--}}
+{{--                                <input id="testParam_user" type="hidden" min="0" value="{{ $user_rating * 20 }}" max="100">--}}
+{{--                            </div>--}}
 
-                        </div>
-                    </div>
-                    <!--end card-->
-                </div>
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <!--end card-->--}}
+{{--                </div>--}}
 
 {{--                <div class="col-6 col-lg-4 col-md-6">--}}
 {{--                    <div class="card">--}}
@@ -621,7 +621,6 @@
         taskVerClientId = parseFloat(((taskVerClientId * 100) / sum).toFixed(2));
         taskRejectId = parseFloat(((taskRejectId * 100) / sum).toFixed(2));
         taskSuccessId = parseFloat(((taskSuccessId * 100) / sum).toFixed(2));
-        taskSuccessId = (taskSuccessId*100)/sum;
 
 
 var columnDatalabelColors = getChartColorsArray("#column_chart_datalabel");
