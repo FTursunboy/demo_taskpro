@@ -32,7 +32,7 @@
                         <td>{{$user->taskCount($user->id)}} </td>
                         <td>{{$user->taskSuccessCount($user->id) }}</td>
                         <td>@if($user->deleted_at)
-                           <span style="color: red; font-weight: bold"></span>Неактивен
+                           <span style="color: red; font-weight: bold">Неактивен</span>
                             @else
                             <span style="color: green; font-weight: bold">Активен</span>
                             @endif
