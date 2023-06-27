@@ -129,39 +129,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="ready{{ $task->id }}" data-bs-backdrop="static"
-                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready{{ $task->id }}"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="ready{{ $task->id }}">Поставте оценку
-                                                    исполнителю</h1>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
-                                                <div class="gezdvu">
-                                                    <div class="ponavues">
-
-                                                        <label class="eysan">
-                                                            <form id="scoreForm" action="{{route('score', $task->id)}}"
-                                                                  method="post">
-                                                                @csrf
-                                                                <input data-bs-toggle="modal" data-bs-target="#RatingOne" type="button"  class="star" value="1"  >
-                                                                <input data-bs-toggle="modal" data-bs-target="#RatingTwo" type="button"  class="star2" value="2" >
-                                                                <input data-bs-toggle="modal" data-bs-target="#RatingThree" type="button"  class="star3" value="3" >
-                                                                <input type="submit" name="rating" class="star4" value="4">
-                                                                <input type="submit" name="rating" class="star5" value="5">
-                                                            </form>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 {{--  EditTaskClient  ofCanvas Start --}}
@@ -232,80 +199,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{--  creatTaskClient  ofCanvas Start  --}}
-                                <div class="modal fade" id="RatingOne" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
-                                                @csrf
-                                                <div class="modal-header">
 
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Причина</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-
-                                                    <input type="hidden" name="rating" value="1">
-                                                    <div class="form-group">
-                                                        <label for="">Причина низкой оценки</label>
-                                                        <textarea class="form-control" name="reason" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">Отправить</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal fade" id="RatingTwo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
-                                                @csrf
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Причина</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="rating" value="2">
-                                                    <div class="form-group">
-                                                        <label for="">Причина низкой оценки</label>
-                                                        <textarea class="form-control" name="reason" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">Отправить</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal fade" id="RatingThree" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form id="scoreForm" action="{{route('score', $task->id)}}" method="post">
-                                                @csrf
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Причина</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="rating" value="3">
-                                                    <div class="form-group">
-                                                        <label for="">Причина низкой оценки</label>
-                                                        <textarea class="form-control" name="reason" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">Отправить</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             @empty
                                 <td colspan="5"><h1 class="text-center">Пока нет задач</h1></td>
                             @endforelse
