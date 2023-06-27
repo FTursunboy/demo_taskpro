@@ -266,6 +266,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div>
                     <input type="hidden" value="{{$task['inProgress'] }}" id="taskProgressId">
                     <input type="hidden" value="{{$task['speed'] }}" id="taskSpeedId">
@@ -273,6 +274,23 @@
                     <input type="hidden" value="{{$tasks_count }}" id="taskVerClientId">
                     <input type="hidden" value="{{$rejectClientCount }}" id="taskRejectId">
                     <input type="hidden" value="{{$task['success'] }}" id="tasksuccessId">
+
+
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="gauge">
+                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны администратора</span>
+                                <div class="gauge__body">
+                                    <div class="gauge__fill"></div>
+                                    <div id="counter"  class="gauge__cover"></div><span class="z-10">%</span>
+                                    <div id="arrow" class="arrow"></div>
+                                </div>
+                                    <input id="testParam" type="hidden" min="0" value="{{ $admin_rating * 20 }}" max="100">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
 {{--                <div class="col-6 col-lg-4 col-md-6">--}}
@@ -305,11 +323,35 @@
 
                 <div class="col-xl-6">
                     <div class="card">
+
                         <div class="card-header">
                             <h4 class="card-title mb-0">Статистика задач</h4>
                         </div>
                         <div class="card-body">
                             <div id="column_chart_datalabel" data-colors='["#5156be"]' class="apex-charts" dir="ltr"></div>
+
+                        <div class="card-body px-4 py-4-5">
+                            <p class="text-center">Процент выполненных задач этого месяца</p>
+                            <div class="card-body" style="margin-top: -70px; margin-bottom: -70px">
+                                <div id="radialGradient"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-4 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="gauge_user">
+                                <span class="text-center" style="font-size: 18px; float: right; margin-right: 40px">Оценка со стороны клиента</span>
+                                <div class="gauge__body_user">
+                                    <div class="gauge__fill_user"></div>
+                                    <div id="counter_user"  class="gauge__cover_user"></div><span class="z-10">%</span>
+                                    <div id="arrow_user" class="arrow_user"></div>
+                                </div>
+                                <input id="testParam_user" type="hidden" min="0" value="{{ $user_rating * 20 }}" max="100">
+                            </div>
+
                         </div>
                     </div>
                     <!--end card-->

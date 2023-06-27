@@ -6,17 +6,11 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ReportHistoryController;
 use App\Http\Requests\Client\TaskRequest;
-use App\Jobs\NewOfferStoreJob;
 use App\Jobs\NewOfferStoreJobMake;
-use App\Jobs\StoreOfferJob;
 use App\Jobs\TelegranAdminSendJob;
-use App\Mail\Send;
-use App\Models\Admin\EmailModel;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
-use App\Models\Client\Rating;
-use App\Models\ClientNotification;
 use App\Models\History;
 use App\Models\ReportHistory;
 use App\Models\Statuses;
@@ -24,13 +18,9 @@ use App\Models\User;
 use App\Notifications\Telegram\ClientAccept;
 use App\Notifications\Telegram\TelegramClientDecline;
 use App\Notifications\Telegram\TelegramClientReady;
-use App\Notifications\Telegram\TelegramClientTask;
 use Carbon\Carbon;
-use http\Client\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Str;
 
 class TaskController extends BaseController
 {
@@ -38,7 +28,7 @@ class TaskController extends BaseController
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-        ])->get();
+        ])->where('status_id', '!=', 10)->get();
 
 
         return view('client.offers.index', compact('tasks'));
@@ -258,6 +248,6 @@ class TaskController extends BaseController
 
         }
 
-        return redirect()->back()->with('create', 'Задача успешно завершена!');
+        return redirect()->back()->with('create', 'Спасибо за оценку!');
     }
 }

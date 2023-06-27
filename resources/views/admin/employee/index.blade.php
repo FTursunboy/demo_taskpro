@@ -12,118 +12,45 @@
 
         <section class="section">
             <div class="row pt-4">
-                @foreach($users as $user)
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-center mb-3">
-                                    @if(isset($user->avatar))
-                                        <img style="border-radius: 50%; border: 3px solid #0dcaf0" src="{{ asset('storage/'.$user->avatar)}}" alt="" width="100" height="100" class="">
-                                    @else
-                                        <img style="border-radius: 50%; border: 3px solid #0dcaf0 " src="{{ asset('assets/images/logo/favicon.svg') }}" alt="" width="100" height="100">
-                                    @endif
-                                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <th>#</th>
+                        <th>ФИО</th>
+                        <th>Телефон</th>
+                        <th>Задачи</th>
+                        <th>Готовыe</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
 
-                                @switch($user->xp)
-                                    @case($user->xp > 0 && $user->xp <= 99 )
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-                                            {{ $user->xp }} / 100
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-3">
-                                        <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                             style="width: {{ $user->xp }}%" aria-valuenow="{{ $user->xp }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="300"></div>
-                                    </div>
-                                    @break
-                                    @case($user->xp > 99 && $user->xp < 299 )
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-                                            {{ $user->xp }} / 300 (xp)
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-3">
-                                        <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                             style="width: {{$user->xp/3}}%" aria-valuenow="{{ $user->xp }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="300"></div>
-                                    </div>
-                                    @break
-                                    @case($user->xp > 299 && $user->xp < 700 )
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-                                            {{ $user->xp }}xp / 700 (xp)
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-3">
-                                        <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                             style="width: {{$user->xp / 7}}%" aria-valuenow="{{ $user->xp }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="700"></div>
-                                    </div>
-                                    @break
-                                    @case($user->xp > 699 && $user->xp < 1000 )
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-                                            {{ $user->xp }} / 1000 (xp)
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-3">
-                                        <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                             style="width: {{$user->xp / 10}}%" aria-valuenow="{{ $user->xp }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="1000"></div>
-                                    </div>
-                                    @break
-                                    @case($user->xp > 1000 && $user->xp < 10000 )
-                                    <div>
-                                        <div class="d-flex justify-content-end">
-                                            {{ $user->xp }} / 10000 (xp)
-                                        </div>
-                                    </div>
-                                    <div class="progress mt-3">
-                                        <div class="progress-bar" role="progressbar" aria-label="Basic example"
-                                             style="width: {{$user->xp / 10}}%" aria-valuenow="{{ $user->xp }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="10000"></div>
-                                    </div>
-                                    @break
-                                @endswitch
+                    </thead>
+                    <tbody>
+                    @foreach($users as $user)
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$user->surname . ' ' . $user->name .' '. $user->lastname}}</td>
+                        <td>{{$user->phone}}</td>
+                        <td>{{$user->taskCount($user->id)}} </td>
+                        <td>{{$user->taskSuccessCount($user->id) }}</td>
+                        <td>@if($user->deleted_at)
+                           <span style="color: red; font-weight: bold">Неактивен</span>
+                            @else
+                            <span style="color: green; font-weight: bold">Активен</span>
+                            @endif
+                        </td>
+                        @if($user->deleted_at)
+                            <td></td>
+                        @else
+                            <td>
+                                <a href="{{ route('employee.show', $user->slug) }}" class="btn btn-success"><i
+                                        class="bi bi-eye"></i></a>
+                                <a href="{{ route('employee.edit', $user->slug) }}" class="btn btn-primary mx-2"><i
+                                        class="bi bi-pencil"></i></a>
+                                <a role="button" class="btn btn-danger" data-bs-toggle="modal"
+                                   data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
+                            </td>
+                        @endif
 
-                            </div>
-                            <div class="card-body">
-                                <h5 class="text-center">{{ $user->surname . ' ' . $user->name .' '. $user->lastname}}</h5>
-                                <div>
-                                    <table class="mt-3" cellpadding="5">
-                                        <tr>
-                                            <th>Задачи:</th>
-                                            <th><span class="mx-2">{{ $user->taskCount($user->id) }}</span></th>
-                                        </tr>
-                                        <tr>
-                                            <th>Готовые :</th>
-                                            <th><span class="mx-2">{{ $user->taskSuccessCount($user->id) }}</span></th>
-                                        </tr>
-                                        <tr>
-                                            <th>Идеи :</th>
-                                            <th><span class="mx-2"> {{ $user->ideaCount($user->id) }}</span></th>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="d-flex justify-content-center">
-                                    <a href="{{ route('employee.show', $user->slug) }}" class="btn btn-success"><i
-                                            class="bi bi-eye"></i></a>
-                                    <a href="{{ route('employee.edit', $user->slug) }}" class="btn btn-primary mx-2"><i
-                                            class="bi bi-pencil"></i></a>
-                                    <a role="button" class="btn btn-danger" data-bs-toggle="modal"
-                                       data-bs-target="#delete{{$user->slug}}"><i class="bi bi-trash"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </tr>
                     <div class="modal fade" id="delete{{$user->slug}}" tabindex="-1" aria-labelledby="delete{{$user->slug}}"
                          aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -148,9 +75,13 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </section>
     </div>
+
+
+
 @endsection

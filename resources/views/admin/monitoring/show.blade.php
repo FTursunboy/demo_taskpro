@@ -444,9 +444,9 @@
                                                             {{ $report->status?->name }}
                                                             @if ($report->user->hasRole('admin'))
                                                                 (Админ)
-                                                            @elseif ($report->user->hasRole('user'))
+                                                            @elseif ($report->user?->hasRole('user'))
                                                                 (Сотрудник)
-                                                            @elseif ($report->user->hasRole('client') || $report->user->hasRole('client-worker'))
+                                                            @elseif ($report->user?->hasRole('client') || $report->user->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
                                                                 (Система)
@@ -621,7 +621,7 @@
                                     </option>
                                     @foreach($users as $user)
                                         <option
-                                            value="{{ $user->id }}">{{ $user->surname .' ' . $user->name .' '.$user->lastname }}</option>
+                                            value="{{ $user?->id }}">{{ $user?->surname .' ' . $user?->name .' '.$user?->lastname }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -703,7 +703,7 @@
                                             class="form-select">
                                         @foreach($users as $user)
                                             <option
-                                                value="{{ $user->id }}" {{ ($user->id === old('user_id') or $user->id === $task->user->id ) ? 'selected' : '' }}>{{ $user->name }}</option>
+                                                value="{{ $user?->id }}" {{ ($user?->id === old('user_id') or $user?->id === $task->user?->id ) ? 'selected' : '' }}>{{ $user?->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

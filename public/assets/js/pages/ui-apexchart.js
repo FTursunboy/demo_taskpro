@@ -365,7 +365,7 @@ $.get("/tasks/public/chart", function(response) {
     var radialGradientOptions = {
         series: [result],
         chart: {
-            height: 460,
+            height: 300,
             type: "radialBar",
             toolbar: {
                 show: true,
@@ -416,7 +416,7 @@ $.get("/tasks/public/chart", function(response) {
                             return parseInt(val);
                         },
                         color: "#111",
-                        fontSize: "50px",
+                        fontSize: "40px",
                         show: true,
                     },
                 },

@@ -13,11 +13,11 @@ class History extends Model
     protected $fillable = ['task_id', 'user_id', 'client_id', 'status_id', 'type', 'sender_id'];
 
     public function user() {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function client() {
-        return $this->belongsTo(User::class, 'client_id');
+        return $this->belongsTo(User::class, 'client_id')->withTrashed();
     }
 
     public function status() {
@@ -36,6 +36,6 @@ class History extends Model
     }
 
     public function sender() {
-        return $this->belongsTo(User::class, 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id')->withTrashed();
     }
 }

@@ -33,7 +33,8 @@ class  MonitoringController extends BaseController
         $tasks = TaskModel::where('status_id', '!=', 3)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
-        $users = User::role('user')->get();
+        $users = User::role('user')->withTrashed()->get();
+
         $clients = User::role('client')->get();
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
     }
@@ -91,7 +92,7 @@ class  MonitoringController extends BaseController
         }
 
 
-        $users = User::role('user')->get();
+        $users = User::withTrashed()->role('user')->get();
 
         return view('admin.monitoring.show', compact('task', 'messages', 'histories_task', 'users', 'reports'));
     }

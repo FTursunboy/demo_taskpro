@@ -29,6 +29,6 @@ class AdminRatingController extends Controller
         );
         session()->forget('mess');
         session()->forget('task1');
-        return redirect()->back()->with('update', 'Спасибо за отзыв');
+        return redirect()->route('mon.index')->with('update', 'Спасибо за отзыв');
     }
 }
