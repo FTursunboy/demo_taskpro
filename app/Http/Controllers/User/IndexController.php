@@ -60,8 +60,9 @@ class IndexController extends BaseController
         $tasksInProgress = TaskModel::where([
             ['status_id', 2],
             ['user_id', Auth::id()]
-        ])->orWhere(['status_id', 4],
-            ['user_id', Auth::id()])->get();
+        ])->orWhere([
+            ['status_id', 4],
+            ['user_id', Auth::id()]])->get();
         $tasksSpeed = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 7)->get();
         $tasksVerAdmin = TaskModel::where('user_id', Auth::id())
