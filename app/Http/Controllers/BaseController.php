@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\IndexController;
+use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadStatus;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TasksClient;
 use App\Models\Admin\TaskTypeModel;
+use App\Models\Admin\TaskTypesTypeModel;
 use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
@@ -59,6 +61,27 @@ class BaseController extends Controller
             $client_tasks = TasksClient::where('client_id', Auth::id())->get()->count();
 
             $leadStatuses = LeadStatus::all();
+            $monthInRu = TaskTypesTypeModel::all();
+            $months = ['Январь' => 'January',  'Февраль' => 'February', 'Март' => 'March', 'Апрель' => 'April', 'Май' => 'May', 'Июнь' => 'June', 'Июль' => 'July', 'Авуст' => 'August', 'Сентябрь' => 'September', 'Октябрь' => 'October', 'Ноябрь' => 'November', 'Декабрь' => 'December'];
+            $dataByMonth = [];
+
+            foreach ($months as $month) {
+                $count = Lead::whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $first_meet = Lead::where('lead_status_id', 1)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $potential_client = Lead::where('lead_status_id', 2)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $treaty = Lead::where('lead_status_id', 3)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $payment = Lead::where('lead_status_id', 4)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $unquality_lead = Lead::where('lead_status_id', 5)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+
+                $dataByMonth[$month] = [
+                    'count' => $count,
+                    'first_meet' => $first_meet,
+                    'potential_client' => $potential_client,
+                    'treaty' => $treaty,
+                    'payment' => $payment,
+                    'unquality_lead' => $unquality_lead,
+                ];
+            }
 
             view()->share([
                 'notifications' => $notifications,
@@ -88,6 +111,9 @@ class BaseController extends Controller
                 'client_tasks' => $client_tasks,
                 'system_idea_count' => $system_idea_count,
                 'leadStatuses' => $leadStatuses,
+                'months' => $months,
+                'dataByMonth' => $dataByMonth,
+                'monthInRu' => $monthInRu,
 
             ]);
             return $next($request);
@@ -109,6 +135,5 @@ class BaseController extends Controller
             ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
             ->get();
     }
-
 
 }
