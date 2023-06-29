@@ -171,19 +171,6 @@ class GetAllTasksController extends BaseController
         return response()->download($path, $mess->file_name, $headers);
     }
 
-    public function chikipuki() {
-        $tasks = TaskModel::get();
-
-        foreach ($tasks as $task) {
-
-            $offer = Offer::where('id', $task->id)->first();
-            if ($offer !== null) {
-                $offer->status_id = $task->status_id;
-                $offer->save();
-            }
-        }
-
-    }
-
+    
 
 }
