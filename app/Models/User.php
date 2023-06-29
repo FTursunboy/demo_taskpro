@@ -251,7 +251,19 @@ class User extends Authenticatable
             ->groupBy('tlc.teamLead_id', 'p.NAME',  'u.avatar', 'u.surname', 'u.lastname',  'u.name')
             ->get();
     }
+    public function debt_tasks($id) {
+        $currentYear = Carbon::now()->year;
+        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
+        $endOfMay = Carbon::now()->year($currentYear)->subMonths(1)->endOfMonth();
 
+        $debt = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '!=', 3]
+        ])->whereBetween('to', [$startOfYear, $endOfMay])->get()->count();
+
+        return $debt;
+
+    }
 
 
     public function notesList($userID)
