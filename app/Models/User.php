@@ -127,7 +127,7 @@ class User extends Authenticatable
         $inProgress = TaskModel::where('status_id', 2)->where('user_id', $id)->whereIn('id', function ($query) {
             $query->from('user_task_history_models as h')
                 ->select('h.task_id')
-                ->where('h.status_id', 2);
+                ->where('h.status_id', [2, 4]);
         })->count();
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)

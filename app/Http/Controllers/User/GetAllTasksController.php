@@ -171,6 +171,6 @@ class GetAllTasksController extends BaseController
         return response()->download($path, $mess->file_name, $headers);
     }
 
-    
+
 
 }
