@@ -1,5 +1,5 @@
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="verAdmin"
-     aria-labelledby="verAdmin" style="width: 100%; height: 80%;">
+     aria-labelledby="verAdmin" style="width: 100%; height: 100%;">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="ProjectOfCanvas">На проверке (Админ)</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

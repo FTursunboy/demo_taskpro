@@ -1,5 +1,5 @@
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="reject"
-     aria-labelledby="reject" style="width: 100%; height: 80%;">
+     aria-labelledby="reject" style="width: 100%; height: 100%;">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="ProjectOfCanvas">Отклонено (Клиент)</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
