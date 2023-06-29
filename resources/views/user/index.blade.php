@@ -603,9 +603,10 @@
 {{--    <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>--}}
 {{--    <script src="{{asset('assets/js/pages/ui-apexchart.js')}}"></script>--}}
 {{--    <script src="{{asset('assets1/libs/apexcharts/apexcharts.min.js')}}"></script>--}}
-    <script src="{{asset('assets1/js/pages/apexcharts.init.js')}}"></script>
-    <script>
 
+<script src="{{asset('assets/js/apexcharts.init.js')}}"></script>
+
+    <script>
 
         var taskProgressId = parseInt(document.getElementById('taskProgressId').value);
         var taskSpeedId = parseInt(document.getElementById('taskSpeedId').value);
