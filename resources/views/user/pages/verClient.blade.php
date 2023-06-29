@@ -200,10 +200,10 @@
 
                 $("#verClientTable thead select").val('');
 
-                $('#example_filter input').val('');
+                $('#verClientTable_filter input').val('');
             });
 
-        var searchWrapper = $('#example_filter');
+        var searchWrapper = $('#verClientTable_filter');
         searchWrapper.addClass('d-flex align-items-center');
         resetButton.addClass('ml-2');
         resetButton.appendTo(searchWrapper);
