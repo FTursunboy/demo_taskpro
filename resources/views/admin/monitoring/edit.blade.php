@@ -97,7 +97,7 @@
 
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-                                <select id="type_id" name="type_id" tabindex="3" class="form-select mt-3" required>
+                                <select id="type_id_1" name="type_id" tabindex="3" class="form-select mt-3" required>
                                     <option value="" selected>Выбирите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}" {{ ($type->id === old('type_id') or $type->id === $task->type_id ) ? 'selected' : '' }}>{{ $type->name }}</option>
@@ -107,8 +107,8 @@
 
                             @if(isset($task->kpi_id))
                                 <div class="form-group  {{ $task->kpi_id ? '' : 'd-none'  }} " id="type_id_group">
-                                    <label for="kpi_id">Вид KPI</label>
-                                    <select name="kpi_id" id="kpi_id" tabindex="6" class="form-select mt-3">
+                                    <label for="kpi_id_1">Вид KPI</label>
+                                    <select name="kpi_id" id="kpi_id_1" tabindex="6" class="form-select mt-3">
                                         @foreach($type_kpi as $types_kpi)
                                             <option value="{{ $types_kpi->id }}" {{ ($types_kpi->id === $task->typeType->id) ? 'selected' : '' }}>
                                                 {{ $types_kpi->name }}
@@ -118,10 +118,10 @@
                                 </div>
                                 <div class="form-group {{ $task->kpi_id ? '' : 'd-none'  }}" style="margin-top: 27px" id="percent">
                                     <label for="percent">Введите процент</label>
-                                    <input  type="number" step="any" max="150" class="form-control" id="percent" tabindex="9" name="percent" value="{{ $task->percent }}" oninput="checkMaxValue(this)">
+                                    <input  type="number" step="any" max="150" class="form-control" id="percent_1" tabindex="9" name="percent" value="{{ $task->percent }}" oninput="checkMaxValue(this)">
                                 </div>
                             @elseif($task->kpi_id === null)
-                                <div class="form-group" id="type_id_group" style="margin-top: 51px">
+                                <div class="form-group" id="type_id_group_1" style="margin-top: 51px">
 
                                 </div>
                                 <div class="form-group" style="margin-top: 50px" id="percent">
@@ -198,18 +198,18 @@
         }
     })
 
-    $('#type_id').change(function () {
+    $('#type_id_1').change(function () {
         let kpi = $(this).children('option:selected')
         if (kpi.text().toLowerCase() === 'kpi') {
-            let kpiType = $('#kpi_id').empty();
+            let kpiType = $('#kpi_id_1').empty();
 
             $('#label').removeClass('d-none');
             let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
-            $('#type_id_group').append(kpi_id);
+            $('#type_id_group_1').append(kpi_id);
 
             $('#label1').removeClass('d-none');
             let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
-            $('#percent').append(percent);
+            $('#percent_1').append(percent);
 
 
             $.get(`/tasks/public/kpil/${kpi.val()}/`).then((res) => {
@@ -224,7 +224,7 @@
 
 
         } else {
-            $('#type_id_group').empty();
+            $('#type_id_group_1').empty();
 
             $('#percent').empty();
 
