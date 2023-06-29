@@ -27,7 +27,7 @@
         <div class="page-content">
             <div class="row my-4">
                 <div class="col-1">
-                    <a href="{{ route('all-tasks.index') }}" class="btn btn-outline-danger">Назад</a>
+                    <a href="#" onclick="history.back()" class="btn btn-outline-danger">Назад</a>
                 </div>
                 <div class="col-md-2">
                     <button data-bs-target="#history" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">История задачи</button>

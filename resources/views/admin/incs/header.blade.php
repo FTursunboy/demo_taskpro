@@ -74,6 +74,14 @@
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px;">
+
+                        <a data-bs-toggle="offcanvas" data-bs-target="#LeadStatistic"
+                           aria-controls="LeadStatistic" style="margin-left: 20px;"
+                           role="button">
+                            <i style="font-size: 29px"  class="bi bi-calendar-check"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: -10px;">
                         @if($command_task > 0)
                             <a data-bs-toggle="offcanvas" data-bs-target="#TeamLeadOfCanvas"
                                aria-controls="TeamLeadOfCanvas" style="margin-left: 20px;"
@@ -945,7 +953,7 @@
         </div>
     </div>
 </div>
-  Project ofcanvas  end
+
 
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="Statistic"
      aria-labelledby="Statistic" style="width: 100%; height: 90%;">
@@ -1073,6 +1081,72 @@
             });
         </script>
 
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="LeadStatistic"
+     aria-labelledby="leadStatisticTitle" style="width: 100%; height: 90%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="leadStatisticTitle">Статистика лидов</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body overflow-auto">
+                    <table id="leadStatistic" class="table table-border table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Месяц</th>
+                            <th class="text-center">Лиды</th>
+                            @foreach($leadStatuses as $lead)
+                                <th class="text-center">{{ $lead->name }}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody id="tableBodyMonitoring">
+                            <tr>
+                                <td class="text-center">Январь</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Февраль</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Март</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Апрель</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Май</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Июнь</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Июль</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Август</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Сентябрь</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Октябрь</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Ноябрь</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Декабрь</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
