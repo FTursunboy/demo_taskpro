@@ -172,12 +172,17 @@ class GetAllTasksController extends BaseController
     }
 
     public function chikipuki() {
-        $tasks = TaskModel::with('offers');
+        $tasks = TaskModel::get();
+
         foreach ($tasks as $task) {
+
             $offer = Offer::where('id', $task->id)->first();
-            $offer->status_id = $task->status_id;
-            $offer->save();
+            if ($offer !== null) {
+                $offer->status_id = $task->status_id;
+                $offer->save();
+            }
         }
+
     }
 
 
