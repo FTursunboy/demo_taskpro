@@ -317,9 +317,9 @@ class User extends Authenticatable
         return $tasks;
     }
 
-    public function debt($month, $id){
-        $startOfMonth = Carbon::now()->month($month)->startOfMonth();
-        $endOfMonth = Carbon::now()->month($month)->endOfMonth();
+    public function debt($id){
+        $startOfMonth = Carbon::now()->month(1)->startOfMonth();
+        $endOfMonth = Carbon::now()->month(1)->endOfMonth();
 
         $debt = TaskModel::where('user_id', $id)->whereBetween('to', [$endOfMonth])->get()->count();
         return $debt;
