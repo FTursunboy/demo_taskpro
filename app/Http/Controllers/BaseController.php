@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\IndexController;
+use App\Models\Admin\CRM\LeadStatus;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TasksClient;
@@ -57,6 +58,7 @@ class BaseController extends Controller
             $notes = Auth::user()->notesList(Auth::id());
             $client_tasks = TasksClient::where('client_id', Auth::id())->get()->count();
 
+            $leadStatuses = LeadStatus::all();
 
             view()->share([
                 'notifications' => $notifications,
@@ -85,6 +87,7 @@ class BaseController extends Controller
                 'users1'  => User::role(['user', 'admin'])->get(),
                 'client_tasks' => $client_tasks,
                 'system_idea_count' => $system_idea_count,
+                'leadStatuses' => $leadStatuses,
 
             ]);
             return $next($request);
