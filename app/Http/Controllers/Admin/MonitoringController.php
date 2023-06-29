@@ -150,7 +150,6 @@ class  MonitoringController extends BaseController
                 'client_id' => $request->client_id ?? null,
                 'cancel' => $request->cancel ?? null,
                 'cancel_admin' => $request->cancel_admin ?? null,
-                'slug' => Str::slug($request->name . ' ' . Str::random(5)),
             ]);
             if (isset($history)) {
                 if ($history?->user_id != $task->user_id) {
@@ -183,6 +182,7 @@ class  MonitoringController extends BaseController
                 $offer->description = $request->comment ?? null;
                 $offer->file = $file ?? null;
                 $offer->file_name = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
+                $offer->user_id = $request->user_id;
                 $offer->save();
             }
 
