@@ -11,7 +11,6 @@ use App\Models\Client\Offer;
 use App\Models\User\TeamLeadCommandModel;
 use App\Models\Users\NotesModels;
 use Carbon\Carbon;
-use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -289,20 +288,6 @@ class User extends Authenticatable
         return $counts->toArray();
     }
 
-    public function debt_tasks($id) {
-        $currentYear = Carbon::now()->year;
-        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
-        $endOfMay = Carbon::now()->year($currentYear)->subMonths(1)->endOfMonth();
-
-        $debt = TaskModel::where([
-            ['user_id', $id],
-            ['status_id', '!=', 3]
-        ])->whereBetween('to', [$startOfYear, $endOfMay])->get()->count();
-
-        return $debt;
-
-    }
-
 
     public static function getUserTasksInMonth($month, $id)
     {
@@ -332,19 +317,18 @@ class User extends Authenticatable
         return $tasks;
     }
 
-    public function debt($month, $id)
-    {
-        $currentYear = Carbon::now()->year;
-        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
-        $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
+    public function debt($month, $id){
+        $startOfMonth = Carbon::now()->month($month)->startOfMonth();
+        $endOfMonth = Carbon::now()->month($month)->endOfMonth();
 
-        $debt = TaskModel::where([
-            ['user_id', $id],
-            ['status_id', '!=', 3]
-        ])->whereBetween('to', [$startOfYear, $endOfMonth])->get()->count();
-
+        $debt = TaskModel::where('user_id', $id)->whereBetween('to', [$endOfMonth])->get()->count();
         return $debt;
+
+
+
+
     }
+
 
 
 }

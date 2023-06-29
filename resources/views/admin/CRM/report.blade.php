@@ -21,7 +21,42 @@
             </div>
         </div>
         @include('.inc.messages')
-
+        <div class="card">
+            <div class="card-body overflow-hidden">
+                <div>
+                    <table class="table table-hover mt-3 " cellpadding="5">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Название</th>
+                            <th class="text-center">Количество задач</th>
+                            <th class="text-center">Готовые</th>
+                            <th class="text-center">В процессе</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
+                            <th class="text-center" style="width: 130px;">Просроченное</th>
+                            <th class="text-center" style="width: 130px;">Прочее</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($projectTasksOfDashboardAdmin as $task)
+                            <tr class="">
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>{{  }}</td>
+                                <td class="text-center">{{ $task->count_task() }}</td>
+                                <td class="text-center">{{ $task->count_ready() }}</td>
+                                <td class="text-center">{{ $task->count_process() }}</td>
+                                <td class="text-center">{{ $task->count_verificateClient() }}</td>
+                                <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
+                                <td class="text-center">{{ $task->count_outOfDate() }}</td>
+                                <td class="text-center">{{ $task->count_other() }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </div>
 @endsection

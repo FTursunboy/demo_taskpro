@@ -60,4 +60,7 @@ Route::group(['middleware' => ['role:crm|admin', 'redirectIfUnauthorized']], fun
     Route::patch('setting/event-status/{eventStatus}', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'update'])->name('setting.event-status.update');
     Route::delete('setting/event-status/{eventStatus}', [\App\Http\Controllers\Admin\Crm\EventStatusController::class, 'destroy'])->name('setting.event-status.destroy');
 
+    Route::get('months', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
+
+
 });

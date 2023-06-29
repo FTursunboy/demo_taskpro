@@ -87,6 +87,7 @@ Route::group(['middleware' => ['role:user']], function () {
        Route::delete('/notes/delete/{note}', [\App\Http\Controllers\Users\NotesController::class,'destroy'])->name('delete');
     });
 
+
     Route::get('user/clients', [\App\Http\Controllers\User\ClientController::class, 'index'])->name('user.clients');
     Route::get('/chart', [\App\Http\Controllers\User\IndexController::class, 'chart']);
 });

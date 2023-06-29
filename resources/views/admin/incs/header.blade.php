@@ -948,15 +948,17 @@
 {{--  Project ofcanvas  end  --}}
 
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="Statistic"
-     aria-labelledby="Statistic" style="width: 100%; height: 100%;">
-    <div class="offcanvas-header d-flex justify-content-end">
+     aria-labelledby="Statistic" style="width: 100%; height: 90%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="Statistic">Проекты</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-header "></div>
                 <div class="card-body overflow-auto">
-                    <div class="row" style="margin-top: -34px">
+                    <div class="row">
                         <div class="col-9"></div>
                         <div class="col">
                             <div class="form-group">
@@ -1001,7 +1003,7 @@
                                 <td class="text-center">{{$loop->iteration }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit($user->name . " " . $user->surname, 50)  }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
-                                <td class="text-center">{{ $user->debt_tasks($user->id) }}</td>
+                                <td class="text-center">{{ $user->debt($user->id)}}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['process'] }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['ready'] }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['speed'] }}</td>
@@ -1035,7 +1037,6 @@
 
                     $.get(`/tasks/public/monitoring-statistics-filter/${month}`, function (response) {
                         let tableBody = $('#tableBodyMonitoring');
-                        console.log(response)
                         table.clear().draw();
                         tableBody.empty()
 
