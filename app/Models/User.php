@@ -124,7 +124,7 @@ class User extends Authenticatable
     public function countTasks($id)
     {
         $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
-        $inProgress = TaskModel::where('status_id', 2)->orWhere('status_id', 4)->where('user_id', $id)->whereIn('id', function ($query) {
+        $inProgress = TaskModel::where('status_id', [2,4])->where('user_id', $id)->whereIn('id', function ($query) {
             $query->from('user_task_history_models as h')
                 ->select('h.task_id')
                 ->where('h.status_id', 2);
