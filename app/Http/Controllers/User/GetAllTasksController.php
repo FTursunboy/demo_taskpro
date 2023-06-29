@@ -107,8 +107,6 @@ class GetAllTasksController extends BaseController
             HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
 
             if ($task->offer_id) {
-
-
                 $offer = Offer::find($task->offer_id);
                 $offer->status_id = 6;
                 $offer->save();
@@ -171,6 +169,15 @@ class GetAllTasksController extends BaseController
         ];
 
         return response()->download($path, $mess->file_name, $headers);
+    }
+
+    public function chikipuki() {
+        $tasks = TaskModel::with('offers');
+        foreach ($tasks as $task) {
+            $offer = Offer::where('id', $task->id)->first();
+            $offer->status_id = $task->status_id;
+            $offer->save();
+        }
     }
 
 
