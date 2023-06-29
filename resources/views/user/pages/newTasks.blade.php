@@ -183,6 +183,30 @@
                 }
             }
         });
+        var resetButton = $('<button></button>')
+            .addClass('btn btn-primary')
+            .text('X')
+            .on('click', function () {
+
+                table
+                    .search('')
+                    .columns()
+                    .search('')
+                    .draw();
+
+
+                localStorage.removeItem('datatableFilters');
+
+                $("#newTasksTable thead select").val('');
+
+                $('#newTasksTable_filter input').val('');
+            });
+
+        var searchWrapper = $('#newTasksTable_filter');
+        searchWrapper.addClass('d-flex align-items-center');
+        resetButton.addClass('ml-2');
+        resetButton.appendTo(searchWrapper);
+
 
 
     });
