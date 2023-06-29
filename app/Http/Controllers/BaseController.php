@@ -72,6 +72,9 @@ class BaseController extends Controller
                 $treaty = Lead::where('lead_status_id', 3)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
                 $payment = Lead::where('lead_status_id', 4)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
                 $unquality_lead = Lead::where('lead_status_id', 5)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $test_stage = Lead::where('lead_status_id', 6)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $kp = Lead::where('lead_status_id', 7)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+
 
                 $dataByMonth[$month] = [
                     'count' => $count,
@@ -80,6 +83,8 @@ class BaseController extends Controller
                     'treaty' => $treaty,
                     'payment' => $payment,
                     'unquality_lead' => $unquality_lead,
+                    'test_stage' => $test_stage,
+                    'kp' => $kp,
                 ];
             }
 

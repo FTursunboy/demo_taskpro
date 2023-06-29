@@ -1115,6 +1115,8 @@
                                 <td class="text-center">{{ $dataByMonth[$month]['treaty'] }}</td>
                                 <td class="text-center">{{ $dataByMonth[$month]['payment'] }}</td>
                                 <td class="text-center">{{ $dataByMonth[$month]['unquality_lead'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['test_stage'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['kp'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
