@@ -329,7 +329,8 @@ class User extends Authenticatable
         return $tasks;
     }
 
-    public function debt($id, $month){
+    public function debt($month, $id)
+    {
         $currentYear = Carbon::now()->year;
         $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
         $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
@@ -341,6 +342,7 @@ class User extends Authenticatable
 
         return $debt;
     }
+
 
 
 
