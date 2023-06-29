@@ -78,7 +78,7 @@
                         <a data-bs-toggle="offcanvas" data-bs-target="#LeadStatistic"
                            aria-controls="LeadStatistic" style="margin-left: 20px;"
                            role="button">
-                            <i style="font-size: 29px"  class="bi bi-calendar-check"></i>
+                            <i style="font-size: 33px"  class="bi bi-card-checklist"></i>
                         </a>
                     </li>
                     <li class="nav-item" style="margin-top: -10px;">
@@ -1020,7 +1020,7 @@
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationClient'] }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedAdmin'] }}</td>
                                 <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedClient'] }}</td>
-                            </tr>
+                            </tr>User
                         @endforeach
                         </tbody>
                     </table>
@@ -1106,42 +1106,17 @@
                         </tr>
                         </thead>
                         <tbody id="tableBodyMonitoring">
+                        @foreach($months as $key => $month)
                             <tr>
-                                <td class="text-center">Январь</td>
+                                <td class="text-center">{{ $key }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['count'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['first_meet'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['potential_client'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['treaty'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['payment'] }}</td>
+                                <td class="text-center">{{ $dataByMonth[$month]['unquality_lead'] }}</td>
                             </tr>
-                            <tr>
-                                <td class="text-center">Февраль</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Март</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Апрель</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Май</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Июнь</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Июль</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Август</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Сентябрь</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Октябрь</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Ноябрь</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Декабрь</td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

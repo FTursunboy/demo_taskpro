@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\StatusesModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TaskTypeModel;
 use App\Models\Client\Rating;
 use App\Models\ClientNotification;
 use App\Models\User;
