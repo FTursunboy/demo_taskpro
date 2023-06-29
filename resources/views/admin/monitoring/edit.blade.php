@@ -116,7 +116,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group {{ $task->kpi_id ? '' : 'd-none'  }}" style="margin-top: 27px" id="percent">
+                                <div class="form-group {{ $task->kpi_id ? '' : 'd-none'  }}" style="margin-top: 27px" id="percent_1">
                                     <label for="percent">Введите процент</label>
                                     <input  type="number" step="any" max="150" class="form-control" id="percent_1" tabindex="9" name="percent" value="{{ $task->percent }}" oninput="checkMaxValue(this)">
                                 </div>
@@ -124,7 +124,7 @@
                                 <div class="form-group" id="type_id_group_1" style="margin-top: 51px">
 
                                 </div>
-                                <div class="form-group" style="margin-top: 50px" id="percent">
+                                <div class="form-group" style="margin-top: 50px" id="percent_1">
 
                                 </div>
                             @endif
@@ -208,7 +208,7 @@
             $('#type_id_group_1').append(kpi_id);
 
             $('#label1').removeClass('d-none');
-            let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+            let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent_1" step="any" name="percent" class="form-control mt-3">');
             $('#percent_1').append(percent);
 
 
@@ -226,7 +226,7 @@
         } else {
             $('#type_id_group_1').empty();
 
-            $('#percent').empty();
+            $('#percent_1').empty();
 
         }
     })
