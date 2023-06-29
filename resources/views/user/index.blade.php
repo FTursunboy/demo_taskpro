@@ -600,7 +600,7 @@
 
 
 @section('script')
-    <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+{{--    <script src="{{asset('assets/extensions/apexcharts/apexcharts.min.js')}}"></script>--}}
 {{--    <script src="{{asset('assets/js/pages/ui-apexchart.js')}}"></script>--}}
 {{--    <script src="{{asset('assets1/libs/apexcharts/apexcharts.min.js')}}"></script>--}}
     <script src="{{asset('assets1/js/pages/apexcharts.init.js')}}"></script>
@@ -703,18 +703,7 @@ var options = {
                 return val + "%";
             }
         }
-
     },
-    // title: {
-    //     // text: 'Monthly Inflation in Argentina, 2002',
-    //     floating: true,
-    //     offsetY: 330,
-    //     align: 'center',
-    //     style: {
-    //         color: '#444',
-    //         fontWeight:  '500',
-    //     }
-    // },
 }
 
 var chart = new ApexCharts(
