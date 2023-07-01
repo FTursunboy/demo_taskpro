@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1\Crm;
 
+use App\Models\Admin\CRM\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,9 +22,9 @@ class ContactResource extends JsonResource
             'email' => $this->email,
             'position' => $this->position,
             'address' => $this->address,
-            'lead_source' => $this->leadSource->name,
-            'lead' => $this->lead->name,
+            'is_client' => $this->is_client,
             'company' => $this->company,
+            'leads' => $this->leads,
         ];
     }
 }
