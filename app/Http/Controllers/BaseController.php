@@ -88,6 +88,24 @@ class BaseController extends Controller
                 ];
             }
 
+            $expected_admin = Offer::where([
+                ['client_id', Auth::id()],
+                ['status_id', 8]
+            ])->count();
+            $admin_verification = Offer::where([
+                ['client_id', Auth::id()],
+                ['status_id', 14]
+            ])->count();
+            $cancel_admin = Offer::where([
+                ['client_id', Auth::id()],
+                ['status_id', 11]
+            ])->count();
+            $client_reject = Offer::where([
+                ['client_id', Auth::id()],
+                ['status_id', 13]
+            ])->count();
+
+
             view()->share([
                 'notifications' => $notifications,
                 'newMessage' => $newMessage,
@@ -119,6 +137,10 @@ class BaseController extends Controller
                 'months' => $months,
                 'dataByMonth' => $dataByMonth,
                 'monthInRu' => $monthInRu,
+                'admin_verification' => $admin_verification,
+                'expected_admin' => $expected_admin,
+                'client_reject' => $client_reject,
+                'cancel_admin' => $cancel_admin
 
             ]);
             return $next($request);
