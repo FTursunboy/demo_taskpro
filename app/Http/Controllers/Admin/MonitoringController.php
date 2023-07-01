@@ -130,8 +130,6 @@ class  MonitoringController extends BaseController
         ])->first();
 
 
-
-
             $task->update([
                 'name' => $request->name,
                 'time' => $request->time,
