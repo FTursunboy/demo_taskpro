@@ -4,7 +4,11 @@ namespace App\Http\Controllers\API\V1\Crm;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Crm\LeadRequest;
+use App\Http\Resources\Api\V1\Crm\ContactResource;
 use App\Http\Resources\Api\V1\Crm\LeadResource;
+use App\Http\Resources\Api\V1\Crm\LeadSourceResource;
+use App\Http\Resources\Api\V1\Crm\LeadStateResource;
+use App\Http\Resources\Api\V1\Crm\LeadStatusResource;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
@@ -14,26 +18,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LeadController extends BaseController
 {
-    public function index() {
-
-        $statuses = LeadStatus::get();
-        $states = LeadState::get();
-        $sources = LeadSource::get();
-
+    public function index()
+    {
         $leads = Lead::orderByDesc('created_at')->get();
 
         $response = [
-            'statuses' => new LeadResource($statuses),
-            'states' => new LeadResource($states),
-            'sources' => new LeadResource($sources),
-            'leads' => new LeadResource($leads),
+            'leads' => LeadResource::collection($leads),
         ];
 
         return response($response);
-
     }
 
+
     public function store(LeadRequest $request) {
+
         $is_client = true;
         $existingContact = Contact::where('phone', $request->phone)
             ->first();
@@ -69,7 +67,14 @@ class LeadController extends BaseController
 
         $contact->lead_id = $lead->id;
         $contact->save();
-        return redirect()->route('lead.index')->with('create', 'Лид успешно создан!');
+
+        $response = [
+          'contact' => new ContactResource($contact),
+          'lead' => new LeadResource($lead),
+          'message' => true,
+        ];
+
+        return response($response);
 
     }
 
