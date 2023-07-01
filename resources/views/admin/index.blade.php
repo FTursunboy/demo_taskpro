@@ -17,7 +17,6 @@
 
 @endsection
 
-
 @section('script')
     <script src="{{asset('assets/js/filter3.js')}}"></script>
 
