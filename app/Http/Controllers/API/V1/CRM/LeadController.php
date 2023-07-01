@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\V1\CRM;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Crm\LeadRequest;
-use App\Http\Resources\Api\V1\CRM\ContactResource;
-use App\Http\Resources\Api\V1\CRM\LeadResource;
+use App\Http\Resources\API\V1\ContactResource;
+use App\Http\Resources\API\V1\LeadResource;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Lead;
 use Illuminate\Support\Facades\Auth;

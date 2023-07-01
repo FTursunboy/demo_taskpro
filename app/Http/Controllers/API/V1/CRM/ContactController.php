@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\V1\CRM;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Crm\ContactRequest;
-use App\Http\Resources\Api\V1\Crm\ContactResource;
+use App\Http\Resources\API\V1\ContactResource;
 use App\Models\Admin\CRM\Contact;
 
 class ContactController extends BaseController
