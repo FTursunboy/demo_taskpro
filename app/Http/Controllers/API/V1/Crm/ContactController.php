@@ -29,11 +29,9 @@ class ContactController extends BaseController
     public function index()
     {
         $contacts = Contact::orderBy('created_at', 'desc')->where('is_client', true)->get();
-        $lead = Lead::all();
 
         $response = [
             'contact' => ContactResource::collection($contacts),
-            'lead' => LeadResource::collection($lead),
             'message' => true,
         ];
         return response($response);

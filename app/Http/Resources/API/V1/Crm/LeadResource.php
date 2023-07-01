@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\V1\Crm;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class LeadResource extends JsonResource
 {
@@ -17,10 +18,11 @@ class LeadResource extends JsonResource
         return [
             'id' => $this->id,
             'contact' => $this->contact,
-            'lead_status' => $this->leadStatus->name,
-            'lead_source' => $this->leadSource->name,
-            'lead_state' => $this->leadState->name,
             'author' => $this->author,
+            'status' => new LeadResource($this->status),
+            'state' => new LeadResource($this->state),
+            'source' => new LeadResource($this->leadSource),
+
         ];
     }
 }

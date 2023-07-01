@@ -24,7 +24,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/tasks', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'store']);
     });
 
-//    Route::group(['as' => ''])
+    Route::group(['as' => 'lead'], function () {
+        Route::get('/lead/', [\App\Http\Controllers\API\V1\Crm\LeadController::class, 'index']);
+        Route::post('/lead/create/', [\App\Http\Controllers\API\V1\Crm\LeadController::class, 'store']);
+    });
+
+    Route::group(['as' => 'contact'], function () {
+        Route::get('/contact/', [\App\Http\Controllers\API\V1\Crm\ContactController::class, 'index']);
+        Route::post('/contact/create/', [\App\Http\Controllers\API\V1\Crm\ContactController::class, 'store']);
+    });
 
     Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
 });
