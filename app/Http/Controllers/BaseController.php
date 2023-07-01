@@ -104,6 +104,10 @@ class BaseController extends Controller
                 ['client_id', Auth::id()],
                 ['status_id', 13]
             ])->count();
+            $in_progress = Offer::where([
+                ['client_id', Auth::id()]
+            ])->whereIn('status_id', [2, 7])->count();
+
 
 
             view()->share([
@@ -140,7 +144,8 @@ class BaseController extends Controller
                 'admin_verification' => $admin_verification,
                 'expected_admin' => $expected_admin,
                 'client_reject' => $client_reject,
-                'cancel_admin' => $cancel_admin
+                'cancel_admin' => $cancel_admin,
+                'in_progress' => $in_progress
 
             ]);
             return $next($request);
