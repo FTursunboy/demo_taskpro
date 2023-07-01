@@ -98,7 +98,7 @@ class BaseController extends Controller
             ])->count();
             $cancel_admin = Offer::where([
                 ['client_id', Auth::id()],
-                ['status_id', 11]
+                ['status_id', 9]
             ])->count();
             $client_reject = Offer::where([
                 ['client_id', Auth::id()],
