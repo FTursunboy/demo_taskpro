@@ -69,8 +69,9 @@ class TaskController extends BaseController
 
     public function show_progress() {
         $tasks = Offer::where([
-            ['client_id', '=', Auth::id()],
-        ])->where('status_id', '=', 2)->get();
+            ['client_id', Auth::id()]
+        ])->whereIn('status_id', [2, 7])->count();
+
         return view('client.offers.index', compact('tasks'));
     }
 
