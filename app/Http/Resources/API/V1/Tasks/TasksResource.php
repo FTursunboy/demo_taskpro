@@ -4,6 +4,7 @@ namespace App\Http\Resources\API\V1\Tasks;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class TasksResource extends JsonResource
 {
@@ -14,6 +15,18 @@ class TasksResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if ($this->file) {
+            $filePath = Storage::disk('public')->path($this->file);
+            if (file_exists($filePath)) {
+                $fileData = file_get_contents($filePath);
+                $file = base64_encode($fileData);
+            }
+        }
+        $file = null;
+        if ($this->file) {
+            $file = url('public' . $this->file);
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -28,6 +41,8 @@ class TasksResource extends JsonResource
             'project' => $this->project->name,
             'client' => ($this->client === null) ? null : $this->client->surname . ' ' . $this->client->name,
             'status' => $this->status->name,
+            'file' => $file,
+            'file_name' => $this->file_name,
             'slug' => $this->slug,
         ];
     }

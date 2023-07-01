@@ -4,20 +4,25 @@ namespace App\Http\Controllers\API\V1\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\Admin\TasksController;
 use App\Http\Resources\API\V1\Tasks\GetTasksResource;
 use App\Http\Resources\API\V1\Tasks\NewTasksResource;
 use App\Http\Resources\API\V1\Tasks\TasksResource;
+use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
+use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
 use App\Models\Statuses;
 use App\Models\User;
+use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramUserAccept;
 use App\Notifications\Telegram\TelegramUserDecline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -126,5 +131,66 @@ class TaskController extends Controller
             'message' => true,
             'info' => 'Задача отклонено!',
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $tasks = new TasksController();
+
+        if ($request->file('file') !== null) {
+            $file = $request->file('file')->store('public/docs');
+        } else {
+            $file = null;
+        }
+
+        $task = TaskModel::create([
+            'name' => $request->name,
+            'time' => $request->time,
+            'from' => $request->from,
+            'to' => $request->to,
+            'comment' => $request->comment ?? null,
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
+            'project_id' => $request->project_id,
+            'type_id' => $request->type_id,
+            'percent' => $request->percent,
+            'kpi_id' => $request->kpi_id ?: null,
+            'user_id' => $request->user_id,
+            'author_id' => Auth::id(),
+            'status_id' => 1,
+            'client_id' => $request->client_id ?? null,
+            'cancel' => $request->cancel ?? null,
+            'cancel_admin' => $request->cancel_admin ?? null,
+            'slug' => Str::slug($request->name . ' ' . Str::random(5)),
+        ]);
+
+        $project = ProjectModel::where('id', $request->project_id)->first();
+        $project->update([
+            'pro_status' => 2,
+        ]);
+
+        if ($request->user_id == Auth::id()) {
+            $task->update([
+                'status_id' => 2,
+            ]);
+        }
+
+        $tasks->check();
+        $type = TaskTypeModel::find($request->type_id)->name;
+
+        try {
+            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $project->finish, $type));
+        } catch (\Exception $exception) {
+
+        }
+
+        HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+
+        $taskResource = new TasksResource($task);
+
+        return response()->json([
+            'message' => 'Задача успешно создано!',
+            'task' => $taskResource,
+        ], 201);
     }
 }

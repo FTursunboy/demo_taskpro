@@ -60,7 +60,6 @@
                             </td>
                         </tr>
 
-
                         {{--  Show Plan Canvas Start  --}}
                         <div style="width: 70%" class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="showPlanUsers{{ $plan->id }}" aria-labelledby="showPlanUsers{{ $plan->id }}">
                             <div class="offcanvas-header">
@@ -96,8 +95,6 @@
                                                 <textarea name="description" id="description" cols="30" rows="5" class="form-control" disabled>{{ $plan->description }}</textarea>
                                             </div>
                                         </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -202,7 +199,6 @@
                         </button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

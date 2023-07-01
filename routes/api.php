@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/get-tasks/', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'getTasks']);
         Route::post('/get-tasks/accept/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskAccept']);
         Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
+        Route::post('/tasks', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'store']);
     });
 
 //    Route::group(['as' => ''])
