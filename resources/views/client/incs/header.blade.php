@@ -22,6 +22,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-lg-0">
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 0px">
+                        <a data-bs-toggle="offcanvas" data-bs-target="#creatTaskClient"
+                           aria-controls="ideasOfCanvasUser" style="margin-left: 20px;">
+                            <i style="font-size: 31px;" class="bi bi-plus-circle"></i>
+                        </a>
+                    </li>
                     <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvasUser"
                            aria-controls="ideasOfCanvasUser" style="margin-left: 20px;">
@@ -401,6 +407,91 @@
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="creatTaskClient"
+     aria-labelledby="createtaskClient" style="width: 100%; height: 80%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="createtaskClient">Новая задача</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="container my-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-9">
+                    <form method="post" action="{{route('offers.store')}}"
+                          enctype="multipart/form-data"
+                          autocomplete="off">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Название задачи</label>
+                                <textarea id="name" class="form-control"
+                                          name="name"
+                                          rows="5" required>{{ old('name') }}</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Ответственный сотрудник со стороны
+                                    компании</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="author_name" id="author_name"
+                                       value="{{ auth()->user()->name ?? old('author_name') }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Телефон ответсвенного сотрудника</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="author_phone" id="author_phone"
+                                       value="{{ auth()->user()->phone ?? old('author_phone') }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Выберите файл</label>
+                                <input type="file"
+                                       class="form-control"
+                                       name="file">
+                            </div>
+                            <div class="col-12">
+                                <label for="your-message" class="form-label">Описание
+                                    задачи</label>
+                                <textarea id="description" class="form-control"
+                                          name="description"
+                                          rows="5">{{ old('description') }}</textarea>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-success form-control"
+                                        id="btnSend">
+                                    Отправить
+                                </button>
+                            </div>
+                            <script>
+                                const btn = document.getElementById('btnSend')
+                                btn.addEventListener('click', function () {
+                                    const name = document.getElementById('name')
+                                    const author_name = document.getElementById('author_name')
+                                    const phone = document.getElementById('author_phone')
+                                    if (name.value !== '' && author_name.value !== '' && phone.value !== '') {
+                                        btn.type = 'submit';
+                                        btn.click();
+                                        btn.classList.add('disabled')
+                                    } else {
+                                        name.classList.add('border-danger')
+                                        author_name.classList.add('border-danger')
+                                        phone.classList.add('border-danger')
+                                        btn.classList.remove('disabled')
+                                    }
+                                })
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
