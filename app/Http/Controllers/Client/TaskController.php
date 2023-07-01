@@ -29,7 +29,7 @@ class TaskController extends BaseController
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-        ])->where('status_id', '!=', 10)->get();
+        ])->get();
 
 
         return view('client.offers.index', compact('tasks'));
@@ -197,7 +197,7 @@ class TaskController extends BaseController
 
         }
 
-        return redirect()->route('client.verificate_tasks')->with('create', 'Успешно отклонено!');
+        return redirect()->route('offers.index')->with('create', 'Успешно отклонено!');
     }
 
     public function downloadFile(Offer $offer)
@@ -261,6 +261,6 @@ class TaskController extends BaseController
 
         }
 
-        return redirect()->route('client.verificate_tasks')->with('create', 'Задача готова. Спасибо за оценку');
+        return redirect()->route('offers.index')->with('create', 'Задача готова. Спасибо за оценку');
     }
 }
