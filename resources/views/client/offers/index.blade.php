@@ -69,7 +69,7 @@
                                         </td>
                                     @elseif($task->status->id == 10)
                                         <td><span
-                                                    class="badge bg-success p-2">Задача сделана, нажмите чтобы завершить</span></a>
+                                                    class="badge bg-success p-2">На проверке (У клиента)</span></a>
                                         </td>
                                     @elseif($task->status->id == 11)
                                         <td><span class="badge bg-danger p-2">{{$task->status->name}}</span>
