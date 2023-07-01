@@ -21,6 +21,7 @@ use App\Notifications\Telegram\TelegramClientReady;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Http\Request;
 
 class TaskController extends BaseController
 {
@@ -40,6 +41,7 @@ class TaskController extends BaseController
         $offer = Offer::where('slug', $slug)->first();
         $reports = ReportHistory::where('task_slug', $slug)->get();
 
+
         $histories = History::where([
             ['type', '=', 'offer'],
             ['task_id', '=', $offer->id]
@@ -49,6 +51,27 @@ class TaskController extends BaseController
 
 
         return view('client.offers.show', compact('offer', 'histories', 'reports'));
+    }
+    public function show_ready() {
+        $tasks = Offer::where([
+            ['client_id', '=', Auth::id()],
+        ])->where('status_id', '=', 10)->get();
+
+        return view('client.offers.index', compact('tasks'));
+    }
+
+    public function show_done() {
+        $tasks = Offer::where([
+            ['client_id', '=', Auth::id()],
+        ])->where('status_id', '=', 3)->get();
+        return view('client.offers.index', compact('tasks'));
+    }
+
+    public function show_progress() {
+        $tasks = Offer::where([
+            ['client_id', '=', Auth::id()],
+        ])->where('status_id', '=', 2)->get();
+        return view('client.offers.index', compact('tasks'));
     }
 
     public function store(TaskRequest $request)
@@ -142,21 +165,12 @@ class TaskController extends BaseController
         return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
-    public function decline(\Illuminate\Http\Request $request, Offer $offer)
+    public function decline(Request $request, Offer $offer)
     {
-        if ($request->reason != null) {
-            ReportHistoryController::create(
-                $offer->slug,
-                Statuses::RESEND,
-                $request->input('reason')
-            );
-        }
-
-
         ReportHistoryController::create(
             $offer->slug,
             Statuses::RESEND,
-            $request->cancel
+            $request->reason
         );
 
 
@@ -183,7 +197,7 @@ class TaskController extends BaseController
 
         }
 
-        return redirect()->back()->with('mess', 'Успешно отправлено!');
+        return redirect()->route('client.verificate_tasks')->with('create', 'Успешно отклонено!');
     }
 
     public function downloadFile(Offer $offer)
@@ -223,7 +237,6 @@ class TaskController extends BaseController
         $offer->save();
 
 
-
         try {
             Notification::send($user, new ClientAccept($offer));
         } catch (\Exception $exception) {
@@ -248,6 +261,6 @@ class TaskController extends BaseController
 
         }
 
-        return redirect()->back()->with('create', 'Спасибо за оценку!');
+        return redirect()->route('client.verificate_tasks')->with('create', 'Задача готова. Спасибо за оценку');
     }
 }

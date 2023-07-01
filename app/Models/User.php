@@ -136,7 +136,7 @@ class User extends Authenticatable
         $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
         $all = TaskModel::where('user_id', $id)
             ->where('status_id', '!=', 3)->count();
-        $verificate = TaskModel::where('status_id', 10)
+        $verificate = Offer::where('status_id', 10)
             ->where('client_id', Auth::id())->count();
         $new = TaskModel::where('task_models.user_id', $id)
             ->whereIn('task_models.status_id', [1, 7, 9])

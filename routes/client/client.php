@@ -67,5 +67,8 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
     });
 
     Route::post('score/{offer}', [\App\Http\Controllers\Client\RatingController::class, 'score'])->name('score');
+    Route::get('offers/ready/', [\App\Http\Controllers\Client\TaskController::class, 'show_ready'])->name('show_ready');
+    Route::get('offers/done/', [\App\Http\Controllers\Client\TaskController::class, 'show_done'])->name('show_finish');
+    Route::get('offers/in_progress/', [\App\Http\Controllers\Client\TaskController::class, 'show_progress'])->name('show_progress');
 });
 

@@ -68,7 +68,7 @@
                                         <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
                                         </td>
                                     @elseif($task->status->id == 10)
-                                        <td><a href="#" data-bs-target="#send{{$task->id}}" data-bs-toggle="modal"><span
+                                        <td><span
                                                     class="badge bg-success p-2">Задача сделана, нажмите чтобы завершить</span></a>
                                         </td>
                                     @elseif($task->status->id == 11)
@@ -101,33 +101,6 @@
                                     </td>
                                 </tr>
 
-                                <div class="modal" tabindex="-1" id="send{{$task->id}}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form action="{{ route('offers.decline', $task->id) }}" method="post">
-                                                @csrf
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Убедитесь, что задача выполнена</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <label>Отчет:</label>
-                                                    <textarea disabled class="form-control" name="cancel" id="" cols="30" rows="4">{{$task?->tasks?->success_desc}}</textarea>
-                                                    <div style="display: none;" id="d_r">
-                                                        <label for="reason">Причина отклонения</label>
-                                                        <textarea id="decline_reason" name="cancel" cols="30" rows="5" class="form-control" ></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" id="send_back" class="btn btn-danger" onclick="toggleSendBack()">Отправить заново</button>
-                                                    <button type="submit" id="send_back_submit" class="btn btn-danger" style="display: none">Отправить заново</button>
-                                                    <a href="#" id="end" class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#ready{{ $task->id }}">Завершить</a>
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
 
 
 
@@ -433,7 +406,7 @@
 
             var resetButton = $('<button></button>')
                 .addClass('btn btn-primary')
-                .text('Обнулить')
+                .text('X')
                 .on('click', function () {
                     // Сбрасываем фильтры и поиск
                     table
@@ -458,7 +431,29 @@
 
 
         });
+        for (let i = 1; i <= numModals; i++) {
+            const modalId = `RatingReason${i}`;
+            const textareaContainerId = `textareaContainer${i}`;
+            const reasonId = `reason${i}`;
 
+            const reasons = document.querySelectorAll(`#${modalId} input[name="reason"]`);
+            const textareaContainer = document.querySelector(`#${textareaContainerId}`);
+            const reasontext = document.querySelector(`#${reasonId}`);
+
+            reasons.forEach(reason => {
+                reason.addEventListener('change', function () {
+                    if (reason.value === 'Другое' && reason.checked) {
+                        textareaContainer.style.display = 'block';
+                        reasontext.setAttribute('name', 'reason');
+                        reasontext.setAttribute('required', 'required');
+                    } else {
+                        textareaContainer.style.display = 'none';
+                        reasontext.removeAttribute('name');
+                        reasontext.removeAttribute('required');
+                    }
+                });
+            });
+        }
 
     </script>
 @endsection
