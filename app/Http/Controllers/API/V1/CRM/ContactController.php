@@ -1,25 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\V1\Crm;
+namespace App\Http\Controllers\API\V1\CRM;
 
-use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ClientRequest;
 use App\Http\Requests\Admin\Crm\ContactRequest;
-use App\Http\Requests\Admin\Crm\UpdateContactRequest;
 use App\Http\Resources\Api\V1\Crm\ContactResource;
-use App\Http\Resources\Api\V1\Crm\LeadResource;
 use App\Models\Admin\CRM\Contact;
-use App\Models\Admin\CRM\Lead;
-use App\Models\Admin\CRM\LeadSource;
-use App\Models\Admin\ProjectModel;
-use App\Models\ProjectClient;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Session;
 
 class ContactController extends BaseController
 {

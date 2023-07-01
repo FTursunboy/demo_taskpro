@@ -25,13 +25,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     Route::group(['as' => 'lead'], function () {
-        Route::get('/lead/', [\App\Http\Controllers\API\V1\Crm\LeadController::class, 'index']);
-        Route::post('/lead/create/', [\App\Http\Controllers\API\V1\Crm\LeadController::class, 'store']);
+        Route::get('/lead/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'index']);
+        Route::post('/lead/create/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'store']);
     });
 
     Route::group(['as' => 'contact'], function () {
-        Route::get('/contact/', [\App\Http\Controllers\API\V1\Crm\ContactController::class, 'index']);
-        Route::post('/contact/create/', [\App\Http\Controllers\API\V1\Crm\ContactController::class, 'store']);
+        Route::get('/contact/', [\App\Http\Controllers\API\V1\CRM\ContactController::class, 'index']);
+        Route::post('/contact/create/', [\App\Http\Controllers\API\V1\CRM\ContactController::class, 'store']);
     });
 
     Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);

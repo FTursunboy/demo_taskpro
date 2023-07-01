@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Resources\Api\V1\Crm;
+namespace App\Http\Resources\Api\V1\CRM;
 
-use App\Models\Admin\CRM\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Api\V1\Crm;
+namespace App\Http\Resources\Api\V1\CRM;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
 class LeadResource extends JsonResource
 {
