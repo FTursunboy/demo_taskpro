@@ -4,11 +4,8 @@ namespace App\Http\Controllers\API\V1\Crm;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Crm\LeadRequest;
-use App\Http\Resources\Api\V1\Crm\ContactResource;
-use App\Http\Resources\Api\V1\Crm\LeadResource;
-use App\Http\Resources\Api\V1\Crm\LeadSourceResource;
-use App\Http\Resources\Api\V1\Crm\LeadStateResource;
-use App\Http\Resources\Api\V1\Crm\LeadStatusResource;
+use App\Http\Resources\Api\V1\CRM\ContactResource;
+use App\Http\Resources\Api\V1\CRM\LeadResource;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
