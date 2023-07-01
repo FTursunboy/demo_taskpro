@@ -70,5 +70,7 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
     Route::get('offers/ready/', [\App\Http\Controllers\Client\TaskController::class, 'show_ready'])->name('show_ready');
     Route::get('offers/done/', [\App\Http\Controllers\Client\TaskController::class, 'show_done'])->name('show_finish');
     Route::get('offers/in_progress/', [\App\Http\Controllers\Client\TaskController::class, 'show_progress'])->name('show_progress');
+    Route::get('offers/declined_admin/', [\App\Http\Controllers\Client\TaskController::class, 'show_progress'])->name('show_progress');
+
 });
 

@@ -129,7 +129,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('show_progress') }}">
+                            <a href="#">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #eef511;">
@@ -167,7 +167,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('show_progress') }}">
+                            <a href="#">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #eef511;">
@@ -186,7 +186,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('show_progress') }}">
+                            <a href="#">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #eef511;">
