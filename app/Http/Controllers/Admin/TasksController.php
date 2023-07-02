@@ -62,32 +62,13 @@ class  TasksController extends BaseController
                             'deadline' => $task->to,
                             'task_id' => $task->id,
                         ]);
-                    $history = History::where([
-                        ['task_id', $task->id],
-                        ['status_id', 7],
-                        ['user_id', 35]
-                    ])->first();
 
-                    $offer = Offer::where('id', $task->id)->first();
-                    if ($offer !== null) {
 
-                        $history_offer = History::where([
-                            ['task_id', $offer->id],
-                            ['status_id', 7],
-                            ['user_id', 35],
-                        ])->first();
 
-                        if ($history_offer == null) {
-                            HistoryController::out_of_date_offer($offer->id);
-                        }
-                    }
 
-                    if ($history == null) {
-                        HistoryController::out_of_date($task->id);
-                    }
                     $check = CheckDate::where('task_id', $task->id)->first();
                     $date = Carbon::now();
-                    $current_date = $date->format('Y-m-d');
+
                     $deadLine = $check->deadline;
                     $minus = Carbon::create($deadLine);
 
