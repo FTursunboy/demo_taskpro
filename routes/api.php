@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::group(['as' => 'contact'], function () {
         Route::get('/contact/', [\App\Http\Controllers\API\V1\CRM\ContactController::class, 'index']);
+        Route::get('/contact/leads', [\App\Http\Controllers\API\V1\CRM\ContactController::class, 'leads']);
         Route::post('/contact/create/', [\App\Http\Controllers\API\V1\CRM\ContactController::class, 'store']);
     });
 
