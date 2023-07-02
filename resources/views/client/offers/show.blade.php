@@ -30,7 +30,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <a href="{{ route('offers.index') }}" class="btn btn-danger">Назад</a>
+                                        <a href="#" onclick="history.back()" class="btn btn-danger">Назад</a>
                                     </div>
                                     <div class="col-md-2">
                                         <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
@@ -199,11 +199,11 @@
                                                 <td>{{$report->user->name }}</td>
                                                 <td>
                                                     {{ $report->status?->name }}
-                                                    @if ($report->user->hasRole('admin'))
+                                                    @if ($report->sender->hasRole('admin'))
                                                         (Админ)
-                                                    @elseif ($report->user->hasRole('user'))
+                                                    @elseif ($report->sender->hasRole('user'))
                                                         (Сотрудник)
-                                                    @elseif ($report->user->hasRole('client') || $report->user->hasRole('client-worker'))
+                                                    @elseif ($report->sender->hasRole('client') || $report->sender->hasRole('client-worker'))
                                                         (Клиент)
                                                     @else
                                                         (Система)
