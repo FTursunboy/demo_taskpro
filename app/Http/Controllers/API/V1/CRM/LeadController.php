@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\V1\Crm;
+namespace App\Http\Controllers\API\V1\CRM;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Crm\LeadRequest;
-use App\Http\Resources\Api\V1\Crm\ContactResource;
-use App\Http\Resources\Api\V1\Crm\LeadResource;
-use App\Http\Resources\Api\V1\Crm\LeadSourceResource;
-use App\Http\Resources\Api\V1\Crm\LeadStateResource;
-use App\Http\Resources\Api\V1\Crm\LeadStatusResource;
+use App\Http\Resources\API\V1\ContactResource;
+use App\Http\Resources\API\V1\LeadResource;
 use App\Models\Admin\CRM\Contact;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
@@ -18,12 +15,73 @@ use Illuminate\Support\Facades\Auth;
 
 class LeadController extends BaseController
 {
+
     public function index()
     {
         $leads = Lead::orderByDesc('created_at')->get();
 
+
         $response = [
             'leads' => LeadResource::collection($leads),
+        ];
+
+        return response($response);
+    }
+
+    public function leadStatus()
+    {
+        $leadStatus = LeadStatus::pluck('name', 'id');
+
+        $formattedLeadStatus = [];
+        foreach ($leadStatus as $id => $name) {
+            $formattedLeadStatus[] = [
+                'id' => $id,
+                'name' => $name,
+            ];
+        }
+
+        $response = [
+            'leadStatus' => $formattedLeadStatus,
+        ];
+
+        return response($response);
+    }
+
+
+    public function leadState()
+    {
+        $leadState = LeadState::pluck('name', 'id');
+
+        $formattedLeadState  = [];
+        foreach ($leadState as $id => $name) {
+            $formattedLeadState[] = [
+                'id' => $id,
+                'name' => $name,
+            ];
+        }
+
+        $response = [
+            'leadState' => $formattedLeadState,
+        ];
+
+        return response($response);
+    }
+
+
+    public function leadSource()
+    {
+        $leadSource = LeadSource::pluck('name', 'id');
+
+        $formattedLeadSource = [];
+        foreach ($leadSource as $id => $name) {
+            $formattedLeadSource[] = [
+                'id' => $id,
+                'name' => $name,
+            ];
+        }
+
+        $response = [
+            'leadSource' => $formattedLeadSource,
         ];
 
         return response($response);
