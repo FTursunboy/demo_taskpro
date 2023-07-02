@@ -23,7 +23,7 @@ class ContactResource extends JsonResource
             'address' => $this->address,
             'is_client' => $this->is_client,
             'company' => $this->company,
-            'leads' => $this->leads,
+            'lead_id' => $this->lead_id,
         ];
     }
 }

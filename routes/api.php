@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::group(['as' => 'lead'], function () {
         Route::get('/lead/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'index']);
+        Route::get('/leadState/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'leadState']);
+        Route::get('/leadSource/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'leadSource']);
+        Route::get('/leadStatus/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'leadStatus']);
         Route::post('/lead/create/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'store']);
     });
 

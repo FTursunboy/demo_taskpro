@@ -16,6 +16,7 @@ class ContactController extends BaseController
     {
         $contacts = Contact::orderBy('created_at', 'desc')->where('is_client', true)->get();
 
+
         $response = [
             'contact' => ContactResource::collection($contacts),
             'message' => true,
