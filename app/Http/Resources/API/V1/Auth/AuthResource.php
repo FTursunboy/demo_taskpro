@@ -40,7 +40,6 @@ class AuthResource extends JsonResource
             'xp' => $this->xp,
             'slug' => $this->slug,
             'role' => $this->getRoleNames(),
-//            'avatar' => $avatar,
         ];
     }
 }

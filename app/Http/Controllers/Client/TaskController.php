@@ -190,7 +190,7 @@ class TaskController extends BaseController
         if ($task) {
             HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
         }
-        HistoryController::task($offer->id, Auth::id(), Auth::id(), Statuses::DECLINED);
+
 
         try {
             Notification::send(User::role('admin')->first(), new TelegramClientDecline($offer->name, Auth::user()->name));

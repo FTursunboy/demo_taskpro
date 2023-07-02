@@ -507,11 +507,11 @@
                                                         <td>
                                                             {{ $history?->status?->name }}
 
-                                                            @if ($history?->user->hasRole('admin'))
+                                                            @if ($history?->sender->hasRole('admin'))
                                                                 (Админ)
-                                                            @elseif ($history?->user->hasRole('user'))
+                                                            @elseif ($history?->sender->hasRole('user'))
                                                                 (Сотрудник)
-                                                            @elseif ($history?->user?->hasRole('client') || $history?->user->hasRole('client-worker'))
+                                                            @elseif ($history?->sender?->hasRole('client') || $history?->sender->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
                                                                 (Система)
@@ -530,11 +530,11 @@
                                                         <td>
                                                             {{ $history?->status?->name }}
 
-                                                            @if ($history?->user?->hasRole('admin'))
+                                                            @if ($history?->sender?->hasRole('admin'))
                                                                 (Админ)
-                                                            @elseif ($history?->user?->hasRole('user'))
+                                                            @elseif ($history?->sender?->hasRole('user'))
                                                                 (Сотрудник)
-                                                            @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))
+                                                            @elseif ($history?->sender?->hasRole('client') || $history?->sender?->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
                                                                 (Система)
