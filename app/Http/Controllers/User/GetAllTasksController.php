@@ -89,6 +89,7 @@ class GetAllTasksController extends BaseController
 
     public function ready(TaskModel $task, Request $request)
         {
+
             $request->validate([
                 'success_desc' => 'required',
             ]);
@@ -96,14 +97,13 @@ class GetAllTasksController extends BaseController
             $h = new TaskListController();
             $h->stopDeadline($task);
 
-            $successDesc = $request->input('success_desc');
-
-            $task->update([
-                'status_id' => 6,
-                'success_desc' => $successDesc,
-            ]);
 
 
+            ReportHistoryController::create(
+                $task->slug,
+                Statuses::RESEND,
+                $request->success_desc,
+            );
             HistoryController::task($task->id, $task->user_id, Statuses::SEND_TO_TEST);
 
             if ($task->offer_id) {
