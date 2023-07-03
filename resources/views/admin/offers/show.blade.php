@@ -670,8 +670,9 @@
 
         $('#type_id_2').change(function () {
             let kpi = $(this).children('option:selected')
+
             if (kpi.text().toLowerCase() === 'kpi') {
-                console.log(1);
+                console.log(43284972809570230594);
                 let kpiType = $('#kpi_id_2').empty();
 
                 $('#label_2').removeClass('d-none');
