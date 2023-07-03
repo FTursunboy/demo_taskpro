@@ -191,7 +191,7 @@
                                                                                     @endforeach
                                                                                 </select>
 
-                                                                                <div class="form-group" id="percent">
+                                                                                <div class="form-group" id="percent_1">
                                                                                     <label id="label1"
                                                                                            class="d-none mb-2"
                                                                                            for="percent">Введите
@@ -680,13 +680,13 @@
 
                 $('#label1').removeClass('d-none');
                 let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control">');
-                $('#percent').append(percent);
+                $('#percent_1').append(percent);
 
 
                 $.get(`/tasks/publ1ic/kpi/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
-                        console.log(item.name);
+                        alert(1)
                         kpi_id.append($('<option>').val(item.id).text(item.name));
                     }
                 });
@@ -695,7 +695,7 @@
             } else {
                 $('#type_id_group_2').empty();
 
-                $('#percent').empty();
+                $('#percent_1').empty();
 
             }
         })
