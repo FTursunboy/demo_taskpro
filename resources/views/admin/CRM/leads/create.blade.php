@@ -138,12 +138,15 @@
     <script>
         $(document).ready(function() {
             $('#type').change(function() {
-                if ($(this).val() != '1') {
+                if ($(this).val() !== '1') {
                     $('#is_client').addClass('d-none');
+                    $('#is_client input[type="checkbox"]').prop('checked', false);
+                    $('#company').addClass('d-none');
                 } else {
                     $('#is_client').removeClass('d-none');
                 }
             });
+
             $('#is_client input[type="checkbox"]').change(function() {
                 if ($(this).is(':checked')) {
                     $('#company').removeClass('d-none');
@@ -152,5 +155,7 @@
                 }
             });
         });
+
+
     </script>
 @endsection
