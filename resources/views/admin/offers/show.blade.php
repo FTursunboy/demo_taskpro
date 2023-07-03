@@ -683,7 +683,7 @@
                 $('#percent_1').append(percent);
 
 
-                $.get(`/tasks/publ1ic/kpi/${kpi.val()}/`).then((res) => {
+                $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
                         alert(1)
