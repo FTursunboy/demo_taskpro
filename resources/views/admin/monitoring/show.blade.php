@@ -507,15 +507,15 @@
                                                         <td>
                                                             {{ $history?->status?->name }}
 
-                                                            @if ($history?->user->hasRole('admin'))
-                                                                (Админ)
-                                                            @elseif ($history?->user->hasRole('user'))
-                                                                (Сотрудник)
-                                                            @elseif ($history?->user?->hasRole('client') || $history?->user->hasRole('client-worker'))
-                                                                (Клиент)
-                                                            @else
-                                                                (Система)
-                                                            @endif
+{{--                                                            @if ($history?->user->hasRole('admin'))--}}
+{{--                                                                (Админ)--}}
+{{--                                                            @elseif ($history?->user->hasRole('user'))--}}
+{{--                                                                (Сотрудник)--}}
+{{--                                                            @elseif ($history?->user?->hasRole('client') || $history?->user->hasRole('client-worker'))--}}
+{{--                                                                (Клиент)--}}
+{{--                                                            @else--}}
+{{--                                                                (Система)--}}
+{{--                                                            @endif--}}
                                                         </td>
 
                                                     </tr>
@@ -530,15 +530,15 @@
                                                         <td>
                                                             {{ $history?->user?->name }}
 
-                                                            @if ($history?->user?->hasRole('admin'))
-                                                                (Админ)
-                                                            @elseif ($history?->user?->hasRole('user'))
-                                                                (Сотрудник)
-                                                            @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))
-                                                                (Клиент)
-                                                            @else
-                                                                (Система)
-                                                            @endif
+{{--                                                            @if ($history?->user?->hasRole('admin'))--}}
+{{--                                                                (Админ)--}}
+{{--                                                            @elseif ($history?->user?->hasRole('user'))--}}
+{{--                                                                (Сотрудник)--}}
+{{--                                                            @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))--}}
+{{--                                                                (Клиент)--}}
+{{--                                                            @else--}}
+{{--                                                                (Система)--}}
+{{--                                                            @endif--}}
                                                         </td>
 
                                                     </tr>
