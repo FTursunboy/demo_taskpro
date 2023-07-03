@@ -199,11 +199,11 @@
                                                 <td>{{$report->user->name }}</td>
                                                 <td>
                                                     {{ $report->status?->name }}
-                                                    @if ($report->sender->hasRole('admin'))
+                                                    @if ($report->user->hasRole('admin'))
                                                         (Админ)
-                                                    @elseif ($report->sender->hasRole('user'))
+                                                    @elseif ($report->user->hasRole('user'))
                                                         (Сотрудник)
-                                                    @elseif ($report->sender->hasRole('client') || $report->sender->hasRole('client-worker'))
+                                                    @elseif ($report->user->hasRole('client') || $report->sender->hasRole('client-worker'))
                                                         (Клиент)
                                                     @else
                                                         (Система)
