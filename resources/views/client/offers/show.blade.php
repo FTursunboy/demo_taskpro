@@ -263,7 +263,6 @@
                         <a href="#"  class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#ready{{ $offer->id }}">Завершить</a>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
