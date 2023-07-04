@@ -9,7 +9,7 @@
         @include('.inc.messages')
         @if(\Session::has('errorBalance'))
             <div class="alert alert-danger alert-dismissible show fade">
-                {{ \Session::get('errorBalance') . ' ' . \Session::get('balance') }}
+                {{ \Session::get('errorBalance') . '. На вашем счету ' . \Session::get('balance') . 'смн' }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
