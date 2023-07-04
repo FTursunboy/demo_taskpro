@@ -143,7 +143,7 @@ class TaskController extends Controller
            'users' => UserResource::collection(User::role('user')->get),
            'projects' => ProjectResource::collection(ProjectModel::get()),
            'types' => TypeResource::collection(TaskTypeModel::get())
-        ], 201);
+        ], 200);
 
     }
 
