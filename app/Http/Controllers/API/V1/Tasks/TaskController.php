@@ -140,9 +140,9 @@ class TaskController extends Controller
     {
         return response([
            'message' => true,
-           'users' => UserResource::collection(User::role('user')->get),
-           'projects' => ProjectResource::collection(ProjectModel::get()),
-           'types' => TypeResource::collection(TaskTypeModel::get())
+           'users' => UserResource::collection(User::role('user')->get()),
+           'projects' => ProjectResource::collection(ProjectModel::all()),
+           'types' => TypeResource::collection(TaskTypeModel::all())
         ], 200);
 
     }
