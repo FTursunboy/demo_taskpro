@@ -75,15 +75,6 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label">Сотрудник</label>
-                                                        <select name="user_id" class="form-control" required>
-                                                            <option value="">Выберите сотрудника</option>
-                                                            @foreach($users as $user)
-                                                                <option value="{{ $user->id }}" {{$user->id == $offer->user_id ? 'selected' : ''}}>{{ $user->surname . " " . $user->name . " " . $user->lastname}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
                                                 </div>
 
 
