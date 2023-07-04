@@ -137,7 +137,7 @@
                                             @else
                                                 <td class="text-center">
                                                     <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->slug)}}"><i class="bi bi-eye"></i></a>
-                                                    <a class="badge bg-success p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
+                                                    <a class="badge bg-primary p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
                                                     <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             @endif
@@ -154,7 +154,7 @@
                                             @else
                                                 <td class="text-center">
                                                     <a class="badge bg-success p-2" href="{{route('client.offers.show', $offer->slug)}}"><i class="bi bi-eye"></i></a>
-                                                    <a class="badge bg-success p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
+                                                    <a class="badge bg-primary p-2" href="{{route('client.offers.edit', $offer->id)}}"><i class="bi bi-pencil"></i></a>
                                                     <a class="badge bg-danger p-2" href="#" data-bs-toggle="modal" data-bs-target="#delete{{$offer->id}}"><i class="bi bi-trash"></i></a>
                                                 </td>
                                             @endif
