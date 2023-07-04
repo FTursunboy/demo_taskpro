@@ -158,7 +158,7 @@
                      aria-labelledby="staticBackdropLabel{{ $task->id }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <form action="{{ route('all-tasks.ready', $task->id) }}" method="POST">
+                            <form action="{{ route('task-list.ready', $task->id) }}" method="POST">
                                 @csrf
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5"

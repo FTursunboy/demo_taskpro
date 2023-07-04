@@ -12,8 +12,6 @@ class ReportHistoryController extends Controller
 {
     public static function create($task_slug, $status_id, $text) {
 
-
-
         ReportHistory::create([
             'task_slug' => $task_slug,
             'sender_id' => Auth::id(),
