@@ -171,6 +171,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
             ->name('send.user.search');
         Route::post('clients/offers/send/user/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendUser'])
             ->name('send.user');
+        Route::post('clients/offers/update/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'update'])
+            ->name('update');
         Route::get('clients/offers/edit/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'edit'])->name('edit');
         Route::get('clients/offers/send/client/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendClient'])->name('send.client');
         Route::post('clients/offers/send/back/{offer}', [\App\Http\Controllers\Admin\OfferController::class, 'sendBack'])->name('send.back');
