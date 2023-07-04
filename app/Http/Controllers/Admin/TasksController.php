@@ -31,6 +31,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -200,56 +201,69 @@ class  TasksController extends BaseController
         ]);
     }
 
+    private function checkBilling()
+    {
+        $user = Auth::user();
+        $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/checkBalance/$user->account");
+
+        $is_valid =  $response->json()['message'];
+
+        return $is_valid;
+    }
 
     public function store(Request $request)
     {
-        if ($request->file('file') !== null) {
-            $file = $request->file('file')->store('public/docs');
-        } else {
-            $file = null;
-        }
+        if($this->checkBilling()) {
+            if ($request->file('file') !== null) {
+                $file = $request->file('file')->store('public/docs');
+            } else {
+                $file = null;
+            }
 
-        $task = TaskModel::create([
-            'name' => $request->name,
-            'time' => $request->time,
-            'from' => $request->from,
-            'to' => $request->to,
-            'comment' => $request->comment ?? null,
-            'file' => $file ?? null,
-            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
-            'project_id' => $request->project_id,
-            'type_id' => $request->type_id,
-            'percent' => $request->percent,
-            'kpi_id' => $request->kpi_id ?: null,
-            'user_id' => $request->user_id,
-            'author_id' => Auth::id(),
-            'status_id' => 1,
-            'client_id' => $request->client_id ?? null,
-            'cancel' => $request->cancel ?? null,
-            'cancel_admin' => $request->cancel_admin ?? null,
-            'slug' => Str::slug($request->name . ' ' . Str::random(5)),
-        ]);
-        $project = ProjectModel::where('id', $request->project_id)->first();
-        $project->update([
-            'pro_status' => 2,
-        ]);
-
-        if ($request->user_id == Auth::id()) {
-            $task->update([
-                'status_id' => 2,
+            $task = TaskModel::create([
+                'name' => $request->name,
+                'time' => $request->time,
+                'from' => $request->from,
+                'to' => $request->to,
+                'comment' => $request->comment ?? null,
+                'file' => $file ?? null,
+                'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
+                'project_id' => $request->project_id,
+                'type_id' => $request->type_id,
+                'percent' => $request->percent,
+                'kpi_id' => $request->kpi_id ?: null,
+                'user_id' => $request->user_id,
+                'author_id' => Auth::id(),
+                'status_id' => 1,
+                'client_id' => $request->client_id ?? null,
+                'cancel' => $request->cancel ?? null,
+                'cancel_admin' => $request->cancel_admin ?? null,
+                'slug' => Str::slug($request->name . ' ' . Str::random(5)),
             ]);
+            $project = ProjectModel::where('id', $request->project_id)->first();
+            $project->update([
+                'pro_status' => 2,
+            ]);
+
+            if ($request->user_id == Auth::id()) {
+                $task->update([
+                    'status_id' => 2,
+                ]);
+            }
+
+            $this->check();
+            $type = TaskTypeModel::find($request->type_id)->name;
+            try {
+                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $project->finish, $type));
+            } catch (\Exception $exception) {
+
+            }
+
+            HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+            return redirect()->back()->with('mess', 'Задача успешно создана!');
+        }else{
+           return redirect()->back();
         }
-
-        $this->check();
-        $type = TaskTypeModel::find($request->type_id)->name;
-        try {
-            Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $project->finish, $type));
-        } catch (\Exception $exception) {
-
-        }
-
-        HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
-        return redirect()->back()->with('mess', 'Задача успешно создана!');
     }
 
     public function downloadFile(TaskModel $task)
