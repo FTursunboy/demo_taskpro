@@ -5,9 +5,12 @@ namespace App\Http\Controllers\API\V1\Tasks;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Admin\TasksController;
+use App\Http\Resources\API\V1\ProjectResource;
 use App\Http\Resources\API\V1\Tasks\GetTasksResource;
 use App\Http\Resources\API\V1\Tasks\NewTasksResource;
 use App\Http\Resources\API\V1\Tasks\TasksResource;
+use App\Http\Resources\API\V1\TypeResource;
+use App\Http\Resources\API\V1\UserResource;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
@@ -133,6 +136,17 @@ class TaskController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return response([
+           'message' => true,
+           'users' => UserResource::collection(User::role('user')->get()),
+           'projects' => ProjectResource::collection(ProjectModel::all()),
+           'types' => TypeResource::collection(TaskTypeModel::all())
+        ], 200);
+
+    }
+
     public function store(Request $request)
     {
         $tasks = new TasksController();
@@ -171,7 +185,7 @@ class TaskController extends Controller
 
         if ($request->user_id == Auth::id()) {
             $task->update([
-                'status_id' => 2,
+                'status_id' => 1,
             ]);
         }
 

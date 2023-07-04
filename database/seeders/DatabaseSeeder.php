@@ -204,6 +204,7 @@ class DatabaseSeeder extends Seeder
             'otdel_id' => 1,
             'telegram_user_id' => 5205653584,
             'xp' => 100,
+            'account' => '',
             'slug' => Str::slug(Str::random(6) . ' ' . "Nuriddin Shahobov " . Str::random(4), '-'),
         ])->assignRole('admin');
 
