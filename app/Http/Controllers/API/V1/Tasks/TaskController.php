@@ -171,7 +171,7 @@ class TaskController extends Controller
 
         if ($request->user_id == Auth::id()) {
             $task->update([
-                'status_id' => 2,
+                'status_id' => 1,
             ]);
         }
 
