@@ -1191,8 +1191,6 @@
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
                                 <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3" required>
-                                    <option value="" tabindex="3" selected>Выберите тип</option>
-
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
@@ -1409,6 +1407,15 @@
 
                 $('#from').removeAttr('disabled');
                 $('#to').removeAttr('disabled');
+                const today = new Date();
+
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+
+                $('#from').val(formattedDate);
+
 
                 let selectedOption = $('#project_id option:selected');
                 let selectedClass = selectedOption.attr('class');
