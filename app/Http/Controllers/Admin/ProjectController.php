@@ -125,4 +125,17 @@ class ProjectController extends BaseController
         $project->save();
         return redirect()->route('project.index')->with('create', 'Проект успешно закрылось');
     }
+    public function de_active(ProjectModel $project) {
+       $project->is_active = false;
+       $project->save();
+
+       return redirect()->back()->with('mess', 'Успешно деактивировано');
+    }
+    public function active(ProjectModel $project) {
+        $project->is_active = true;
+        $project->save();
+
+        return redirect()->back()->with('mess', 'Успешно активировано');
+    }
+
 }

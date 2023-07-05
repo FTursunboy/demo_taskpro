@@ -38,6 +38,56 @@
                 <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#proReady" role="button">
                     Завершить проект
                 </a>
+                @if($project->is_active)
+                <a class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deactive" role="button">
+                    Деактивировать
+                </a>
+                @else
+                    <a class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#active" role="button">
+                        Активировать
+                    </a>
+                @endif
+
+                <div class="modal fade" id="deactive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proReady" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="proReady">Предупреждение</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('project.de_active', $project->id) }}" method="GET">
+
+                                <div class="modal-body">
+                                    Точно хотите деактивировать?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="active" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proReady" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="proReady">Предупреждение</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('project.active', $project->id) }}" method="GET">
+
+                                <div class="modal-body">
+                                    Точно хотите активировать?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Modal -->
                 <div class="modal fade" id="proReady" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proReady" aria-hidden="true">

@@ -116,7 +116,6 @@
                                 <input type="text" id="name" class="form-control"
                                        value="{{ $task->name }}" disabled>
                             </div>
-
                             <div class="form-group">
                                 <label for="user">Сотрудник</label>
                                 <input type="text" id="user" class="form-control"

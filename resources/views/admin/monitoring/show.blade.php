@@ -507,15 +507,15 @@
                                                         <td>
                                                             {{ $history?->status?->name }}
 
-                                                            @if ($history?->sender->hasRole('admin'))
-                                                                (Админ)
-                                                            @elseif ($history?->sender->hasRole('user'))
-                                                                (Сотрудник)
-                                                            @elseif ($history?->sender?->hasRole('client') || $history?->sender->hasRole('client-worker'))
-                                                                (Клиент)
-                                                            @else
-                                                                (Система)
-                                                            @endif
+{{--                                                            @if ($history?->user->hasRole('admin'))--}}
+{{--                                                                (Админ)--}}
+{{--                                                            @elseif ($history?->user->hasRole('user'))--}}
+{{--                                                                (Сотрудник)--}}
+{{--                                                            @elseif ($history?->user?->hasRole('client') || $history?->user->hasRole('client-worker'))--}}
+{{--                                                                (Клиент)--}}
+{{--                                                            @else--}}
+{{--                                                                (Система)--}}
+{{--                                                            @endif--}}
                                                         </td>
 
                                                     </tr>
@@ -528,17 +528,17 @@
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
                                                         <td>{{$history->sender?->name }}</td>
                                                         <td>
-                                                            {{ $history?->status?->name }}
+                                                            {{ $history?->user?->name }}
 
-                                                            @if ($history?->sender?->hasRole('admin'))
-                                                                (Админ)
-                                                            @elseif ($history?->sender?->hasRole('user'))
-                                                                (Сотрудник)
-                                                            @elseif ($history?->sender?->hasRole('client') || $history?->sender?->hasRole('client-worker'))
-                                                                (Клиент)
-                                                            @else
-                                                                (Система)
-                                                            @endif
+{{--                                                            @if ($history?->user?->hasRole('admin'))--}}
+{{--                                                                (Админ)--}}
+{{--                                                            @elseif ($history?->user?->hasRole('user'))--}}
+{{--                                                                (Сотрудник)--}}
+{{--                                                            @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))--}}
+{{--                                                                (Клиент)--}}
+{{--                                                            @else--}}
+{{--                                                                (Система)--}}
+{{--                                                            @endif--}}
                                                         </td>
 
                                                     </tr>

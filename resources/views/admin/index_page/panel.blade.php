@@ -204,7 +204,6 @@
                                             <thead>
                                             <th>#</th>
                                             <th>ФИО</th>
-                                            <th>Долг</th>
                                             <th>Проекты</th>
                                             <th class="text-center">Кол-во задач</th>
                                             </thead>
@@ -212,13 +211,6 @@
                                             @foreach($team_leads as $team_lead)
                                                 <tr>
                                                     <td>{{ $loop->index + 1 }}</td>
-                                                    <td>
-                                                        @if($team_lead->avatar)
-                                                            <img src="{{ asset('storage/' . $team_lead->avatar)}}" width="40" height="40" style="border-radius: 50%">
-                                                        @else
-                                                            <img src="{{asset('assets/images/avatar-2.png')}}" width="30">
-                                                        @endif
-                                                    </td>
                                                     <td>{{ Str::limit($team_lead->surname .' '. $team_lead->name . ' ' . $team_lead->lastname, 15)}}</td>
                                                     <td>
                                                         {{ Str::limit($team_lead->pro_name, 15) }}

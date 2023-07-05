@@ -12,16 +12,11 @@ class ReportHistoryController extends Controller
 {
     public static function create($task_slug, $status_id, $text) {
 
-        $task = TaskModel::where('slug', $task_slug)->first();
-        if ($task) {
-            $offer = Offer::find($task->offer_id);
-        }
-
         ReportHistory::create([
             'task_slug' => $task_slug,
             'sender_id' => Auth::id(),
             'status_id' => $status_id,
-            'offer_id' => $offer?->id ?? null,
+            'offer_id' => null,
             'text' => $text,
         ]);
     }

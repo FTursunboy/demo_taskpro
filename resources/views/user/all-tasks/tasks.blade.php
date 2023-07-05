@@ -1,4 +1,21 @@
 <div class="table-responsive">
+    <div class="form-group col-3">
+        <select class="form-select" name="month" id="month">
+            <option value="0">фильтр по месяцу</option>
+            <option value="1">Январь</option>
+            <option value="2">Февраль</option>
+            <option value="3">Март</option>
+            <option value="4">Апрель</option>
+            <option value="5">Май</option>
+            <option value="6">Июнь</option>
+            <option value="7">Июль</option>
+            <option value="8">Август</option>
+            <option value="9">Сентябрь</option>
+            <option value="10">Октябрь</option>
+            <option value="11">Ноябрь</option>
+            <option value="12">Декабрь</option>
+        </select>
+    </div>
     <table id="example" class="table table-hover">
         <thead>
         <tr>
@@ -105,5 +122,9 @@
         @endforeach
         </tbody>
     </table>
-
+    <style>
+        #month{
+            background: #F2F7FF;
+           }
+    </style>
 </div>

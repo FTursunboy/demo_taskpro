@@ -141,6 +141,12 @@ class OfferController extends BaseController
 
     }
 
+    public function edit(Offer $offer)  {
+        $users = User::role('user')->get();
+        $clients = User::role('client')->get();
+
+        return view('admin.offers.edit', compact('users', 'clients', 'offer'));
+    }
 
 
 
@@ -311,16 +317,29 @@ class OfferController extends BaseController
     public function update(Request $request, Offer $offer)
     {
         $request->validate([
-            'from' => 'required',
-            'to' => 'required',
-            'user_id' => 'requried'
+            'client_id' => 'required',
+            'user_id' => '',
+            'name' => 'required',
+            'description' => 'required',
         ]);
 
         $offer->update([
-            'from' => $request->from,
-            'to' => $request->to,
-            'user_id' => $request->user_id
+            'client_id' => $request->client_id,
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'description' => $request->description
         ]);
+
+        $task = TaskModel::where('offer_id', $offer->id)->first();
+
+        if ($task) {
+            $task->update([
+                'client_id' => $request->client_id,
+                'user_id' => $request->user_id,
+                'name' => $request->name,
+                'comment' => $request->description,
+            ]);
+        }
 
         HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::UPDATE);
 

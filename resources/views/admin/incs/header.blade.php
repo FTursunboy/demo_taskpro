@@ -24,32 +24,32 @@
 
 
 
-{{--                @if(count($birthdayUsers) > 1)--}}
-{{--                    <div class="dropdown" style="margin-left: 300px;">--}}
-{{--                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                            <div class="user-menu d-flex">--}}
-{{--                                <p>Ближайшие дни рождения: {{ count($birthdayUsers) }} сотрудника</p>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"--}}
-{{--                            style="min-width: 11rem; margin-left: 300px">--}}
-{{--                            <li>--}}
-{{--                                <h6 class="dropdown-header">--}}
-{{--                                    @foreach($birthdayUsers as $birthday)--}}
-{{--                                        <p><b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m' , strtotime($birthday->birthday))}} </p>--}}
-{{--                                        <hr>--}}
-{{--                                    @endforeach--}}
-{{--                                </h6>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
-{{--                @else--}}
-{{--                    <div style="margin-left: 300px;">--}}
-{{--                    @foreach($birthdayUsers as $birthday)--}}
-{{--                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m', strtotime($birthday->birthday))}} </p>--}}
-{{--                    @endforeach--}}
-{{--                    </div>--}}
-{{--                @endif--}}
+                {{--                @if(count($birthdayUsers) > 1)--}}
+                {{--                    <div class="dropdown" style="margin-left: 300px;">--}}
+                {{--                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">--}}
+                {{--                            <div class="user-menu d-flex">--}}
+                {{--                                <p>Ближайшие дни рождения: {{ count($birthdayUsers) }} сотрудника</p>--}}
+                {{--                            </div>--}}
+                {{--                        </a>--}}
+                {{--                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"--}}
+                {{--                            style="min-width: 11rem; margin-left: 300px">--}}
+                {{--                            <li>--}}
+                {{--                                <h6 class="dropdown-header">--}}
+                {{--                                    @foreach($birthdayUsers as $birthday)--}}
+                {{--                                        <p><b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m' , strtotime($birthday->birthday))}} </p>--}}
+                {{--                                        <hr>--}}
+                {{--                                    @endforeach--}}
+                {{--                                </h6>--}}
+                {{--                            </li>--}}
+                {{--                        </ul>--}}
+                {{--                    </div>--}}
+                {{--                @else--}}
+                {{--                    <div style="margin-left: 300px;">--}}
+                {{--                    @foreach($birthdayUsers as $birthday)--}}
+                {{--                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m', strtotime($birthday->birthday))}} </p>--}}
+                {{--                    @endforeach--}}
+                {{--                    </div>--}}
+                {{--                @endif--}}
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item" style="margin-top: -10px;">
@@ -171,21 +171,66 @@
                         style="min-width: 11rem;">
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
                                     class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
+                        @if($settings < 5)
+                            <li>
+                                <a href="#" class="dropdown-item" data-bs-toggle="offcanvas"
+                                   data-bs-target="#addFriend" aria-controls="addFriend">
+                                    <i class="bi bi-person-plus me-2"></i>Добавить друзей</a>
+                            </li>
+                        @endif
                         <hr class="dropdown-divider">
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop"><i
                                     class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
                     </ul>
-
                 </div>
-
             </div>
-
-
         </div>
     </nav>
 </header>
 
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addFriend" aria-labelledby="addFriend">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="addFriend">Добавить друзей</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="{{ route('addFriendController') }}" method="POST">
+            @csrf
+
+            <div class="form-group">
+                <p>Количество добавленных друзей: {{ $settings }}</p>
+                <label for="name">Имя <span class="text-danger">*</span></label>
+                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
+                       value="{{ old('name') }}" required>
+                @if($errors->has('name')) <p
+                    style="color: red;">{{ $errors->first('name') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Отчество <span class="text-danger">*</span></label>
+                <input type="text" id="lastname" name="lastname" tabindex="2" class="form-control mt-3"
+                       value="{{ old('lastname') }}" required>
+                @if($errors->has('lastname')) <p
+                    style="color: red;">{{ $errors->first('lastname') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="text-danger">*</span></label>
+                <input type="email" id="email" name="email" tabindex="3" class="form-control mt-3"
+                       value="{{ old('email') }}" required>
+                @if($errors->has('email')) <p
+                    style="color: red;">{{ $errors->first('email') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Телефон <span class="text-danger">*</span></label>
+                <input type="text" id="phone" name="phone" tabindex="4" class="form-control mt-3"
+                       value="{{ old('phone') }}" required>
+                @if($errors->has('phone')) <p
+                    style="color: red;">{{ $errors->first('phone') }}</p> @endif
+            </div>
+            <button type="submit" class="btn btn-success" tabindex="5">Добавить</button>
+        </form>
+    </div>
+</div>
 
 {{--  Telegram ofcanvas  --}}
 <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="TelegramOfCanvas"
@@ -405,9 +450,9 @@
                                 </div>
                             </div>
                         @endforeach
-                        @else
-                            <td colspan="7" class="bg-secondary"><h3 class="text-center text-white">Пока нет задач</h3></td>
-                        @endif
+                    @else
+                        <td colspan="7" class="bg-secondary"><h3 class="text-center text-white">Пока нет задач</h3></td>
+                    @endif
                     </tbody>
                 </table>
             </div>
@@ -473,52 +518,52 @@
                                             <td>
                                                 @switch($idea->status->id)
                                                     @case($idea->status->id === 1)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 2)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 3)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 4)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 5)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 6)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 7)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 8)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 9)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 10)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 11)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 12)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
 
                                                     @case($idea->status->id === 13)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 14)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                     @case($idea->status->id === 15)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
                                             <td>{{$idea->user?->surname . ' '.$idea->user?->name }}</td>
@@ -621,11 +666,11 @@
 
                                                                     </div>
                                                                     @if($idea->file !== null)
-                                                                    <div style="margin-top: 30px" class="col md-3">
-                                                                        <i class="bi bi-paperclip">
-                                                                            <a style="margin-left: 0px" href="{{ route('admin.ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
-                                                                        </i>
-                                                                    </div>
+                                                                        <div style="margin-top: 30px" class="col md-3">
+                                                                            <i class="bi bi-paperclip">
+                                                                                <a style="margin-left: 0px" href="{{ route('admin.ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                            </i>
+                                                                        </div>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-3">
@@ -648,17 +693,17 @@
                                                                 </div>
                                                             </div>
                                                             @if($idea->status->id ==1)
-                                                            <div class="float-right">
-                                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
-                                                                        id="accept">Принять
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
-                                                                        id="decline">Отклонить
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
-                                                                        id="inWork">На доработку
-                                                                </button>
-                                                            </div>
+                                                                <div class="float-right">
+                                                                    <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
+                                                                            id="accept">Принять
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
+                                                                            id="decline">Отклонить
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
+                                                                            id="inWork">На доработку
+                                                                    </button>
+                                                                </div>
                                                             @endif
                                                             <script>
                                                                 const btn = document.getElementById('accept')
@@ -717,52 +762,52 @@
                                             <td>
                                                 @switch($idea->status->id)
                                                     @case($idea->status->id === 1)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 2)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 3)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 4)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 5)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 6)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 7)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 8)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 9)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 10)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 11)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 12)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
 
                                                     @case($idea->status->id === 13)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 14)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                     @case($idea->status->id === 15)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
                                             <td>{{$idea->user?->surname . ' '.$idea->user->name }}</td>
@@ -846,19 +891,19 @@
                                                                 </div>
 
                                                             </div>
-                                                        @if($idea->status->id == 1)
-                                                            <div class="float-right">
+                                                            @if($idea->status->id == 1)
+                                                                <div class="float-right">
 
-                                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
-                                                                        id="accept">Принять
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
-                                                                        id="decline">Отклонить
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
-                                                                        id="inWork">На доработку
-                                                                </button>
-                                                            </div>
+                                                                    <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
+                                                                            id="accept">Принять
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
+                                                                            id="decline">Отклонить
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
+                                                                            id="inWork">На доработку
+                                                                    </button>
+                                                                </div>
                                                             @endif
                                                             <script>
                                                                 const btn = document.getElementById('accept')
@@ -917,54 +962,53 @@
     <div class="offcanvas-body">
         <div class="card">
             <div class="card-body overflow-hidden">
-                    <div>
-                        <table class="table table-hover mt-3 " cellpadding="5">
-                            <thead>
-                            <tr>
-                                <th>№</th>
-                                <th>Название</th>
-                                <th class="text-center">Количество задач</th>
-                                <th class="text-center">Готовые</th>
-                                <th class="text-center">В процессе</th>
-                                <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
-                                <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
-                                <th class="text-center" style="width: 130px;">Просроченное</th>
-                                <th class="text-center" style="width: 130px;">Прочее</th>
+                <div>
+                    <table class="table table-hover mt-3 " cellpadding="5">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Название</th>
+                            <th class="text-center">Количество задач</th>
+                            <th class="text-center">Готовые</th>
+                            <th class="text-center">В процессе</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
+                            <th class="text-center" style="width: 130px;">Просроченное</th>
+                            <th class="text-center" style="width: 130px;">Прочее</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($projectTasksOfDashboardAdmin as $task)
+                            <tr class="">
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>{{ $task->name }}</td>
+                                <td class="text-center">{{ $task->count_task() }}</td>
+                                <td class="text-center">{{ $task->count_ready() }}</td>
+                                <td class="text-center">{{ $task->count_process() }}</td>
+                                <td class="text-center">{{ $task->count_verificateClient() }}</td>
+                                <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
+                                <td class="text-center">{{ $task->count_outOfDate() }}</td>
+                                <td class="text-center">{{ $task->count_other() }}</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($projectTasksOfDashboardAdmin as $task)
-                                <tr class="">
-                                    <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $task->name }}</td>
-                                    <td class="text-center">{{ $task->count_task() }}</td>
-                                    <td class="text-center">{{ $task->count_ready() }}</td>
-                                    <td class="text-center">{{ $task->count_process() }}</td>
-                                    <td class="text-center">{{ $task->count_verificateClient() }}</td>
-                                    <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
-                                    <td class="text-center">{{ $task->count_outOfDate() }}</td>
-                                    <td class="text-center">{{ $task->count_other() }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="Statistic"
-     aria-labelledby="Statistic" style="width: 100%; height: 90%;">
+
+<div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="Statistic" aria-labelledby="Statistic" style="width: 100%; height: 100%;">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="Statistic">Проекты</h5>
+        <h5 class="offcanvas-title" id="Statistic">Статистика</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header "></div>
                 <div class="card-body overflow-auto">
                     <div class="row">
                         <div class="col-9"></div>
@@ -988,42 +1032,44 @@
                             </div>
                         </div>
                     </div>
-                    <table id="example1" class="table table-border table-hover">
-                        <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">ФИО</th>
-                            <th class="text-center">Все задачи</th>
-                            <th class="text-center">Задача прошлых месяцов</th>
-                            <th class="text-center">В процессе</th>
-                            <th class="text-center">Готово</th>
-                            <th class="text-center">Просроченное</th>
-                            <th class="text-center">Ожидается (Сотрудник)</th>
-                            <th class="text-center">На проверке (У админа)</th>
-                            <th class="text-center">На проверке (У клиента)</th>
-                            <th class="text-center">Отклонено (Администратором)</th>
-                            <th class="text-center">Отклонено (Сотрудником)</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tableBodyMonitoring">
-                        @foreach($statistics as $user)
+                    <div class="table-responsive" style="height: 900px; overflow-y: scroll;">
+                        <table id="example1" class="table table-border table-hover">
+                            <thead style="position: sticky; top: 0; z-index: 1; background-color: #fff;">
                             <tr>
-                                <td class="text-center">{{$loop->iteration }}</td>
-                                <td>{{ \Illuminate\Support\Str::limit($user->name . " " . $user->surname, 50)  }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
-                                <td class="text-center">{{ $user->debt_tasks($user->id)}}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['process'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['ready'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['speed'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['expectedUser'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationAdmin'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationClient'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedAdmin'] }}</td>
-                                <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedClient'] }}</td>
-                            </tr>User
-                        @endforeach
-                        </tbody>
-                    </table>
+                                <th class="text-center">#</th>
+                                <th class="text-center">ФИО</th>
+                                <th class="text-center">Все задачи</th>
+                                <th class="text-center">Задача прошлых месяцов</th>
+                                <th class="text-center">В процессе</th>
+                                <th class="text-center">Готово</th>
+                                <th class="text-center">Просроченное</th>
+                                <th class="text-center">Ожидается (Сотрудник)</th>
+                                <th class="text-center">На проверке (У админа)</th>
+                                <th class="text-center">На проверке (У клиента)</th>
+                                <th class="text-center">Отклонено (Администратором)</th>
+                                <th class="text-center">Отклонено (Сотрудником)</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tableBodyMonitoring">
+                            @foreach($statistics as $user)
+                                <tr>
+                                    <td class="text-center">{{$loop->iteration }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($user->name . " " . $user->surname, 50)  }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['total'] }}</td>
+                                    <td class="text-center">{{ $user->debt_tasks($user->id)}}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['process'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['ready'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['speed'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['expectedUser'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationAdmin'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['forVerificationClient'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedAdmin'] }}</td>
+                                    <td class="text-center">{{ $user->usersCountTasks($user->id)['rejectedClient'] }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1080,9 +1126,9 @@
 
             });
         </script>
-
     </div>
 </div>
+
 
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="LeadStatistic"
      aria-labelledby="leadStatisticTitle" style="width: 100%; height: 90%;">
@@ -1191,8 +1237,6 @@
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
                                 <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3" required>
-                                    <option value="" tabindex="3" selected>Выберите тип</option>
-
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
@@ -1409,6 +1453,15 @@
 
                 $('#from').removeAttr('disabled');
                 $('#to').removeAttr('disabled');
+                const today = new Date();
+
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+
+                $('#from').val(formattedDate);
+
 
                 let selectedOption = $('#project_id option:selected');
                 let selectedClass = selectedOption.attr('class');

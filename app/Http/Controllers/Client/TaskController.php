@@ -20,6 +20,7 @@ use App\Notifications\Telegram\TelegramClientDecline;
 use App\Notifications\Telegram\TelegramClientReady;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 
@@ -77,6 +78,17 @@ class TaskController extends BaseController
 
     public function store(TaskRequest $request)
     {
+        $project = DB::table('project_clients as pc')
+            ->join('project_models as p','p.id', 'pc.project_id')
+            ->join('users as u', 'u.id', 'pc.user_id')
+            ->select('p.is_active')
+            ->where('u.id', Auth::id())
+            ->first();
+        if (!$project->is_active) {
+            return redirect()->route('client.index')->with('error', 'Проект завершился, Вы больше не может отправлять задачи');
+        }
+
+
         $request->validated();
 
         if (isset($request->file)) {
@@ -264,4 +276,5 @@ class TaskController extends BaseController
 
         return redirect()->route('offers.index')->with('create', 'Задача готова. Спасибо за оценку');
     }
+
 }

@@ -184,14 +184,14 @@
                                                                                 <label class="form-label">Тип</label>
                                                                                 <select name="type_id"
                                                                                         class="form-control"
-                                                                                        id="type_id_1">
+                                                                                        id="type_id_2">
                                                                                     @foreach($types as $type)
                                                                                         <option
                                                                                             value="{{$type->id}}">{{$type->name}}</option>
                                                                                     @endforeach
                                                                                 </select>
 
-                                                                                <div class="form-group" id="percent">
+                                                                                <div class="form-group" id="percent_1">
                                                                                     <label id="label1"
                                                                                            class="d-none mb-2"
                                                                                            for="percent">Введите
@@ -217,10 +217,10 @@
                                                                                 >
 
                                                                                 <div class="form-group"
-                                                                                     id="type_id_group">
+                                                                                     id="type_id_group_2">
                                                                                     <label id="label"
                                                                                            class="d-none mb-2"
-                                                                                           for="kpi_id">Вид KPI</label>
+                                                                                           for="kpi_id_2">Вид KPI</label>
                                                                                 </div>
                                                                             </div>
 
@@ -668,34 +668,35 @@
     <script src="{{asset('assets/js/control_offers.js')}}" ></script>
     <script>
 
-        $('#type_id').change(function () {
+        $('#type_id_2').change(function () {
             let kpi = $(this).children('option:selected')
-            if (kpi.text().toLowerCase() === 'kpi') {
-                console.log(1);
-                let kpiType = $('#kpi_id').empty();
 
-                $('#label').removeClass('d-none');
+            if (kpi.text().toLowerCase() === 'kpi') {
+                console.log(43284972809570230594);
+                let kpiType = $('#kpi_id_2').empty();
+
+                $('#label_2').removeClass('d-none');
                 let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select"><option value="">Выберите месяц</option></select>');
-                $('#type_id_group').append(kpi_id);
+                $('#type_id_group_2').append(kpi_id);
 
                 $('#label1').removeClass('d-none');
                 let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control">');
-                $('#percent').append(percent);
+                $('#percent_1').append(percent);
 
 
                 $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
-                        console.log(item.name);
+                        alert(1)
                         kpi_id.append($('<option>').val(item.id).text(item.name));
                     }
                 });
 
 
             } else {
-                $('#type_id_group').empty();
+                $('#type_id_group_2').empty();
 
-                $('#percent').empty();
+                $('#percent_1').empty();
 
             }
         })

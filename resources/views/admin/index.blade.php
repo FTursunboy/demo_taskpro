@@ -7,7 +7,12 @@
 
 
         @include('.inc.messages')
-
+        @if(\Session::has('errorBalance'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                {{ \Session::get('errorBalance') . '. На вашем счету ' . \Session::get('balance') . 'смн' }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <section class="section overflow-hidden">
             <div class="page-content">
                 @include('admin.index_page.panel')
