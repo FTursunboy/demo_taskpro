@@ -264,4 +264,5 @@ class TaskController extends BaseController
 
         return redirect()->route('offers.index')->with('create', 'Задача готова. Спасибо за оценку');
     }
+
 }
