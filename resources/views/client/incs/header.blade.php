@@ -433,35 +433,35 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Название задачи</label>
-                                <textarea {{$project->is_active ? 'disabled' : ''}} id="name" class="form-control"
+                                <textarea {{!$project->is_active ? 'disabled' : ''}} id="name" class="form-control"
                                           name="name"
                                           rows="5" required>{{ old('name') }}</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Ответственный сотрудник со стороны
                                     компании</label>
-                                <input {{$project->is_active ? 'disabled' : ''}} type="text"
+                                <input {{!$project->is_active ? 'disabled' : ''}} type="text"
                                        class="form-control"
                                        name="author_name" id="author_name"
                                        value="{{ auth()->user()->name ?? old('author_name') }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Телефон ответсвенного сотрудника</label>
-                                <input {{$project->is_active ? 'disabled' : ''}} type="text"
+                                <input {{!$project->is_active ? 'disabled' : ''}} type="text"
                                        class="form-control"
                                        name="author_phone" id="author_phone"
                                        value="{{ auth()->user()->phone ?? old('author_phone') }}" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Выберите файл</label>
-                                <input {{$project->is_active ? 'disabled' : ''}} type="file"
+                                <input {{!$project->is_active ? 'disabled' : ''}} type="file"
                                        class="form-control"
                                        name="file">
                             </div>
                             <div class="col-12">
                                 <label for="your-message" class="form-label">Описание
                                     задачи</label>
-                                <textarea {{$project->is_active ? 'disabled' : ''}} id="description" class="form-control"
+                                <textarea {{!$project->is_active ? 'disabled' : ''}} id="description" class="form-control"
                                           name="description"
                                           rows="5">{{ old('description') }}</textarea>
                             </div>
