@@ -171,21 +171,63 @@
                         style="min-width: 11rem;">
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
                                     class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
+                        <li>
+                            <a href="#" class="dropdown-item" data-bs-toggle="offcanvas"
+                               data-bs-target="#addFriend" aria-controls="addFriend">
+                                <i class="bi bi-person-plus me-2"></i>Добавить друзей</a>
+                        </li>
                         <hr class="dropdown-divider">
                         <li><a role="button" class='dropdown-item' data-bs-toggle="modal"
                                data-bs-target="#staticBackdrop"><i
                                     class="icon-mid bi bi-box-arrow-left me-2"></i> Выход</a></li>
                     </ul>
-
                 </div>
-
             </div>
-
-
         </div>
     </nav>
 </header>
 
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addFriend" aria-labelledby="addFriend">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="addFriend">Добавить друзей</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="{{ route('addFriendController') }}" method="POST">
+            @csrf
+
+            <div class="form-group">
+                <label for="name">Имя <span class="text-danger">*</span></label>
+                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
+                       value="{{ old('name') }}" required>
+                @if($errors->has('name')) <p
+                    style="color: red;">{{ $errors->first('name') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Отчество <span class="text-danger">*</span></label>
+                <input type="text" id="lastname" name="lastname" tabindex="2" class="form-control mt-3"
+                       value="{{ old('lastname') }}" required>
+                @if($errors->has('lastname')) <p
+                    style="color: red;">{{ $errors->first('lastname') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="text-danger">*</span></label>
+                <input type="email" id="email" name="email" tabindex="3" class="form-control mt-3"
+                       value="{{ old('email') }}" required>
+                @if($errors->has('email')) <p
+                    style="color: red;">{{ $errors->first('email') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Телефон <span class="text-danger">*</span></label>
+                <input type="text" id="phone" name="phone" tabindex="4" class="form-control mt-3"
+                       value="{{ old('phone') }}" required>
+                @if($errors->has('phone')) <p
+                    style="color: red;">{{ $errors->first('phone') }}</p> @endif
+            </div>
+            <button type="submit" class="btn btn-success" tabindex="5">Добавить</button>
+        </form>
+    </div>
+</div>
 
 {{--  Telegram ofcanvas  --}}
 <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="TelegramOfCanvas"
