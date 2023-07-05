@@ -68,6 +68,13 @@ class BaseController extends Controller
             $months = ['Январь' => 'January',  'Февраль' => 'February', 'Март' => 'March', 'Апрель' => 'April', 'Май' => 'May', 'Июнь' => 'June', 'Июль' => 'July', 'Авуст' => 'August', 'Сентябрь' => 'September', 'Октябрь' => 'October', 'Ноябрь' => 'November', 'Декабрь' => 'December'];
             $dataByMonth = [];
 
+            $project = DB::table('project_clients as pc')
+                ->join('project_models as p','p.id', 'pc.project_id')
+                ->join('users as u', 'u.id', 'pc.user_id')
+                ->select('p.is_active')
+                ->where('u.id', Auth::id())
+                ->first();
+
             foreach ($months as $month) {
                 $count = Lead::whereMonth('created_at', '=', date('m', strtotime($month)))->count();
                 $first_meet = Lead::where('lead_status_id', 1)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
@@ -150,6 +157,7 @@ class BaseController extends Controller
                 'cancel_admin' => $cancel_admin,
                 'in_progress' => $in_progress,
                 'settings' => $settings->invited_friends,
+                'project' => $project
 
             ]);
             return $next($request);

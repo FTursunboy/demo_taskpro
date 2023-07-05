@@ -257,7 +257,7 @@
                     </div>
                     <div class="modal-body">
                         <label>Отчет:</label>
-                        <textarea disabled class="form-control" name="cancel" id="" cols="30" rows="4">{{$offer->tasks->success_desc}}</textarea>
+                        <textarea disabled class="form-control" name="cancel" id="" cols="30" rows="4">{{$offer->tasks?->success_desc}}</textarea>
                     </div>
                     <div class="modal-footer">
                         <a href="#"  class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#ready{{ $offer->id }}">Завершить</a>

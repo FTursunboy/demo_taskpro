@@ -88,7 +88,6 @@ class TaskController extends BaseController
             return redirect()->route('client.index')->with('error', 'Ваш договор СОПР не активен');
         }
 
-
         $request->validated();
 
         if (isset($request->file)) {
