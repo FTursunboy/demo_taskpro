@@ -85,7 +85,7 @@ class TaskController extends BaseController
             ->where('u.id', Auth::id())
             ->first();
         if (!$project->is_active) {
-            return redirect()->route('client.index')->with('error', 'Проект завершился, Вы больше не может отправлять задачи');
+            return redirect()->route('client.index')->with('error', 'Ваш договор СОПР не активен');
         }
 
 
