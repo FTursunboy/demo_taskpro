@@ -20,12 +20,11 @@ class AuthController extends Controller
         }
         $token = $user->createToken('android-token')->plainTextToken;
         $this->user = $user;
-        $response = [
+        return response()->json([
             'message' => true,
             'token' => $token,
             'user' => new AuthResource($user),
-        ];
-        return response()->json($response, 200);
+        ]);
     }
 
 
