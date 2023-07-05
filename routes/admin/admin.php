@@ -212,6 +212,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::post('offers/chat/message/store/{offer}', [\App\Http\Controllers\Admin\TasksController::class, 'message_offer'])->name('offers.chat.message.store');
 
+    Route::post('/addFriendController', [\App\Http\Controllers\Admin\AddFriendController::class, 'store'])->name('addFriendController');
+
 
     Route::group(['as' => 'tasks-team-leads.'], function () {
         Route::get('/tasks-team/leads', [\App\Http\Controllers\Admin\TasksTeamLeadController::class, 'index'])->name('all-tasks');
