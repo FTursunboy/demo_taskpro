@@ -35,6 +35,54 @@
 
 @section('script')
         <script src="{{asset('assets/js/filter3.js')}}"></script>
+        <script>
+            $(document).ready(function () {
+                var table = $('#example1').DataTable({
+                    initComplete: function () {
+
+                    },
+                });
+
+                $('#month').on('change', function () {
+                    filterMonth()
+                });
+
+                function filterMonth() {
+                    let month = $('#month').val();
+
+                    $.get(`/tasks/public/all-task/public/monitoring-statistics-filter/${month}`, function (response) {
+                        let tableBody = $('#tableBodyMonitoring');
+                        table.clear().draw();
+                        tableBody.empty()
+
+                        if (response.statistics.length > 0) {
+                            buildTable(response.months, tableBody);
+                        }
+
+                    });
+                }
+
+                function buildTable(data, tableBody) {
+                    $.each(data, function (i, item) {
+                        let row = `
+                <tr>
+                    <td class="text-center">${i + 1}</td>
+                    <td>${item.name}</td>
+                    <td class="text-center">${item.description}</td>
+                    <td class="text-center">${item.from}</td>
+                    <td class="text-center">${item.project.name}</td>
+                    <td class="text-center">${item.project.author}</td>
+                    <td class="text-center">${item.project.type}</td>
+                    <td class="text-center">${item.project.status.name}</td>
+                </tr>`;
+
+                        tableBody.append(row);
+                    });
+                }
+
+
+            });
+        </script>
         <script type="text/javascript">
             "use strict";
 
@@ -185,7 +233,6 @@
                 searchWrapper.addClass('d-flex align-items-center');
                 resetButton.addClass('ml-2');
                 resetButton.appendTo(searchWrapper);
-
 
             });
 

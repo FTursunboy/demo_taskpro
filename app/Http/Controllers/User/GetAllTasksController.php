@@ -171,6 +171,20 @@ class GetAllTasksController extends BaseController
         return response()->download($path, $mess->file_name, $headers);
     }
 
+    public function filter($month)
+    {
 
+        return $this->getFilter($month);
+    }
+
+    public function getFilter($month)
+    {
+        $tasks = TaskModel::whereMonth('created_at', $month)->get();
+
+        return response([
+            'months' => $tasks,
+        ]);
+
+    }
 
 }
