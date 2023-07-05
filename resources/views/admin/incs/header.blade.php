@@ -24,32 +24,32 @@
 
 
 
-{{--                @if(count($birthdayUsers) > 1)--}}
-{{--                    <div class="dropdown" style="margin-left: 300px;">--}}
-{{--                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                            <div class="user-menu d-flex">--}}
-{{--                                <p>Ближайшие дни рождения: {{ count($birthdayUsers) }} сотрудника</p>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"--}}
-{{--                            style="min-width: 11rem; margin-left: 300px">--}}
-{{--                            <li>--}}
-{{--                                <h6 class="dropdown-header">--}}
-{{--                                    @foreach($birthdayUsers as $birthday)--}}
-{{--                                        <p><b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m' , strtotime($birthday->birthday))}} </p>--}}
-{{--                                        <hr>--}}
-{{--                                    @endforeach--}}
-{{--                                </h6>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                    </div>--}}
-{{--                @else--}}
-{{--                    <div style="margin-left: 300px;">--}}
-{{--                    @foreach($birthdayUsers as $birthday)--}}
-{{--                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m', strtotime($birthday->birthday))}} </p>--}}
-{{--                    @endforeach--}}
-{{--                    </div>--}}
-{{--                @endif--}}
+                {{--                @if(count($birthdayUsers) > 1)--}}
+                {{--                    <div class="dropdown" style="margin-left: 300px;">--}}
+                {{--                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">--}}
+                {{--                            <div class="user-menu d-flex">--}}
+                {{--                                <p>Ближайшие дни рождения: {{ count($birthdayUsers) }} сотрудника</p>--}}
+                {{--                            </div>--}}
+                {{--                        </a>--}}
+                {{--                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"--}}
+                {{--                            style="min-width: 11rem; margin-left: 300px">--}}
+                {{--                            <li>--}}
+                {{--                                <h6 class="dropdown-header">--}}
+                {{--                                    @foreach($birthdayUsers as $birthday)--}}
+                {{--                                        <p><b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m' , strtotime($birthday->birthday))}} </p>--}}
+                {{--                                        <hr>--}}
+                {{--                                    @endforeach--}}
+                {{--                                </h6>--}}
+                {{--                            </li>--}}
+                {{--                        </ul>--}}
+                {{--                    </div>--}}
+                {{--                @else--}}
+                {{--                    <div style="margin-left: 300px;">--}}
+                {{--                    @foreach($birthdayUsers as $birthday)--}}
+                {{--                            <p>Ближайшее день рождение: <b>{{ $birthday->name . " " . $birthday->surname }}</b> - {{ date('d-m', strtotime($birthday->birthday))}} </p>--}}
+                {{--                    @endforeach--}}
+                {{--                    </div>--}}
+                {{--                @endif--}}
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item" style="margin-top: -10px;">
@@ -198,36 +198,36 @@
         <form action="{{ route('addFriendController') }}" method="POST">
             @csrf
 
-                <div class="form-group">
-                    <p>Количество добавленных друзей: {{ $settings }}</p>
-                    <label for="name">Имя <span class="text-danger">*</span></label>
-                    <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
-                           value="{{ old('name') }}" required>
-                    @if($errors->has('name')) <p
-                        style="color: red;">{{ $errors->first('name') }}</p> @endif
-                </div>
-                <div class="form-group">
-                    <label for="name">Отчество <span class="text-danger">*</span></label>
-                    <input type="text" id="lastname" name="lastname" tabindex="2" class="form-control mt-3"
-                           value="{{ old('lastname') }}" required>
-                    @if($errors->has('lastname')) <p
-                        style="color: red;">{{ $errors->first('lastname') }}</p> @endif
-                </div>
-                <div class="form-group">
-                    <label for="email">Email <span class="text-danger">*</span></label>
-                    <input type="email" id="email" name="email" tabindex="3" class="form-control mt-3"
-                           value="{{ old('email') }}" required>
-                    @if($errors->has('email')) <p
-                        style="color: red;">{{ $errors->first('email') }}</p> @endif
-                </div>
-                <div class="form-group">
-                    <label for="name">Телефон <span class="text-danger">*</span></label>
-                    <input type="text" id="phone" name="phone" tabindex="4" class="form-control mt-3"
-                           value="{{ old('phone') }}" required>
-                    @if($errors->has('phone')) <p
-                        style="color: red;">{{ $errors->first('phone') }}</p> @endif
-                </div>
-                <button type="submit" class="btn btn-success" tabindex="5">Добавить</button>
+            <div class="form-group">
+                <p>Количество добавленных друзей: {{ $settings }}</p>
+                <label for="name">Имя <span class="text-danger">*</span></label>
+                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
+                       value="{{ old('name') }}" required>
+                @if($errors->has('name')) <p
+                    style="color: red;">{{ $errors->first('name') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Отчество <span class="text-danger">*</span></label>
+                <input type="text" id="lastname" name="lastname" tabindex="2" class="form-control mt-3"
+                       value="{{ old('lastname') }}" required>
+                @if($errors->has('lastname')) <p
+                    style="color: red;">{{ $errors->first('lastname') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="text-danger">*</span></label>
+                <input type="email" id="email" name="email" tabindex="3" class="form-control mt-3"
+                       value="{{ old('email') }}" required>
+                @if($errors->has('email')) <p
+                    style="color: red;">{{ $errors->first('email') }}</p> @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Телефон <span class="text-danger">*</span></label>
+                <input type="text" id="phone" name="phone" tabindex="4" class="form-control mt-3"
+                       value="{{ old('phone') }}" required>
+                @if($errors->has('phone')) <p
+                    style="color: red;">{{ $errors->first('phone') }}</p> @endif
+            </div>
+            <button type="submit" class="btn btn-success" tabindex="5">Добавить</button>
         </form>
     </div>
 </div>
@@ -450,9 +450,9 @@
                                 </div>
                             </div>
                         @endforeach
-                        @else
-                            <td colspan="7" class="bg-secondary"><h3 class="text-center text-white">Пока нет задач</h3></td>
-                        @endif
+                    @else
+                        <td colspan="7" class="bg-secondary"><h3 class="text-center text-white">Пока нет задач</h3></td>
+                    @endif
                     </tbody>
                 </table>
             </div>
@@ -518,52 +518,52 @@
                                             <td>
                                                 @switch($idea->status->id)
                                                     @case($idea->status->id === 1)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 2)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 3)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 4)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 5)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 6)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 7)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 8)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 9)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 10)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 11)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 12)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
 
                                                     @case($idea->status->id === 13)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 14)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                     @case($idea->status->id === 15)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
                                             <td>{{$idea->user?->surname . ' '.$idea->user?->name }}</td>
@@ -666,11 +666,11 @@
 
                                                                     </div>
                                                                     @if($idea->file !== null)
-                                                                    <div style="margin-top: 30px" class="col md-3">
-                                                                        <i class="bi bi-paperclip">
-                                                                            <a style="margin-left: 0px" href="{{ route('admin.ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
-                                                                        </i>
-                                                                    </div>
+                                                                        <div style="margin-top: 30px" class="col md-3">
+                                                                            <i class="bi bi-paperclip">
+                                                                                <a style="margin-left: 0px" href="{{ route('admin.ideas.downloadFile', $idea->id) }}" download>Просмотреть файл</a>
+                                                                            </i>
+                                                                        </div>
                                                                     @endif
                                                                 </div>
                                                                 <div class="col-md-3">
@@ -693,17 +693,17 @@
                                                                 </div>
                                                             </div>
                                                             @if($idea->status->id ==1)
-                                                            <div class="float-right">
-                                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
-                                                                        id="accept">Принять
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
-                                                                        id="decline">Отклонить
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
-                                                                        id="inWork">На доработку
-                                                                </button>
-                                                            </div>
+                                                                <div class="float-right">
+                                                                    <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
+                                                                            id="accept">Принять
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
+                                                                            id="decline">Отклонить
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
+                                                                            id="inWork">На доработку
+                                                                    </button>
+                                                                </div>
                                                             @endif
                                                             <script>
                                                                 const btn = document.getElementById('accept')
@@ -762,52 +762,52 @@
                                             <td>
                                                 @switch($idea->status->id)
                                                     @case($idea->status->id === 1)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 2)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 3)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 4)
-                                                        {{$idea->status->name}}
-                                                        @break
+                                                    {{$idea->status->name}}
+                                                    @break
 
                                                     @case($idea->status->id === 5)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 6)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 7)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 8)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 9)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 10)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 11)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 12)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
 
                                                     @case($idea->status->id === 13)
-                                                        {{$idea->status->name}}@break
+                                                    {{$idea->status->name}}@break
 
                                                     @case($idea->status->id === 14)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                     @case($idea->status->id === 15)
-                                                        {{$idea->status->name}} @break
+                                                    {{$idea->status->name}} @break
                                                 @endswitch
                                             </td>
                                             <td>{{$idea->user?->surname . ' '.$idea->user->name }}</td>
@@ -891,19 +891,19 @@
                                                                 </div>
 
                                                             </div>
-                                                        @if($idea->status->id == 1)
-                                                            <div class="float-right">
+                                                            @if($idea->status->id == 1)
+                                                                <div class="float-right">
 
-                                                                <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
-                                                                        id="accept">Принять
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
-                                                                        id="decline">Отклонить
-                                                                </button>
-                                                                <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
-                                                                        id="inWork">На доработку
-                                                                </button>
-                                                            </div>
+                                                                    <button typeof="button" class="btn btn-success" name="action" value="accept" type="submit"
+                                                                            id="accept">Принять
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-danger" name="action" value="decline" type="submit"
+                                                                            id="decline">Отклонить
+                                                                    </button>
+                                                                    <button typeof="button" class="btn btn-warning" name="action" value="update" type="submit"
+                                                                            id="inWork">На доработку
+                                                                    </button>
+                                                                </div>
                                                             @endif
                                                             <script>
                                                                 const btn = document.getElementById('accept')
@@ -962,38 +962,38 @@
     <div class="offcanvas-body">
         <div class="card">
             <div class="card-body overflow-hidden">
-                    <div>
-                        <table class="table table-hover mt-3 " cellpadding="5">
-                            <thead>
-                            <tr>
-                                <th>№</th>
-                                <th>Название</th>
-                                <th class="text-center">Количество задач</th>
-                                <th class="text-center">Готовые</th>
-                                <th class="text-center">В процессе</th>
-                                <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
-                                <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
-                                <th class="text-center" style="width: 130px;">Просроченное</th>
-                                <th class="text-center" style="width: 130px;">Прочее</th>
+                <div>
+                    <table class="table table-hover mt-3 " cellpadding="5">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Название</th>
+                            <th class="text-center">Количество задач</th>
+                            <th class="text-center">Готовые</th>
+                            <th class="text-center">В процессе</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У клиента)</th>
+                            <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
+                            <th class="text-center" style="width: 130px;">Просроченное</th>
+                            <th class="text-center" style="width: 130px;">Прочее</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($projectTasksOfDashboardAdmin as $task)
+                            <tr class="">
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>{{ $task->name }}</td>
+                                <td class="text-center">{{ $task->count_task() }}</td>
+                                <td class="text-center">{{ $task->count_ready() }}</td>
+                                <td class="text-center">{{ $task->count_process() }}</td>
+                                <td class="text-center">{{ $task->count_verificateClient() }}</td>
+                                <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
+                                <td class="text-center">{{ $task->count_outOfDate() }}</td>
+                                <td class="text-center">{{ $task->count_other() }}</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($projectTasksOfDashboardAdmin as $task)
-                                <tr class="">
-                                    <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $task->name }}</td>
-                                    <td class="text-center">{{ $task->count_task() }}</td>
-                                    <td class="text-center">{{ $task->count_ready() }}</td>
-                                    <td class="text-center">{{ $task->count_process() }}</td>
-                                    <td class="text-center">{{ $task->count_verificateClient() }}</td>
-                                    <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
-                                    <td class="text-center">{{ $task->count_outOfDate() }}</td>
-                                    <td class="text-center">{{ $task->count_other() }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -1032,7 +1032,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive" style="height: 1000px; overflow-y: scroll;">
+                    <div class="table-responsive" style="height: 500px; overflow-y: scroll;">
                         <table id="example1" class="table table-border table-hover">
                             <thead style="position: sticky; top: 0; z-index: 1; background-color: #fff;">
                             <tr>
