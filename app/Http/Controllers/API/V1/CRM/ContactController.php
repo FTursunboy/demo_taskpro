@@ -23,7 +23,7 @@ class ContactController extends BaseController
             'contact' => ContactResource::collection($contacts),
             'message' => true,
         ];
-        return response($response);
+        return response($response, 200);
     }
 
     public function leads()
@@ -45,7 +45,7 @@ class ContactController extends BaseController
             'leads' => $formattedLeads,
         ];
 
-        return response($response);
+        return response($response, 200);
     }
 
 
