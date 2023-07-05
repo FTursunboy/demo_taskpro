@@ -14,6 +14,7 @@ use App\Models\ChatMessageModel;
 use App\Models\Client\Offer;
 use App\Models\ClientNotification;
 use App\Models\Idea;
+use App\Models\Setting;
 use App\Models\SystemIdea;
 use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
@@ -35,6 +36,8 @@ class BaseController extends Controller
             $all_tasks = TaskModel::get()->count();
             $out_of_date = TaskModel::where('status_id', 7)->count();
             $rejected = TaskModel::where('status_id', 5)->count();
+
+            $settings = Setting::first();
 
             $projectTasksOfDashboardAdmin = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
             $projectTasksOfDashboardUser = TaskModel::where('user_id', Auth::id())->get();
@@ -145,7 +148,8 @@ class BaseController extends Controller
                 'expected_admin' => $expected_admin,
                 'client_reject' => $client_reject,
                 'cancel_admin' => $cancel_admin,
-                'in_progress' => $in_progress
+                'in_progress' => $in_progress,
+                'settings' => $settings->invited_friends,
 
             ]);
             return $next($request);
