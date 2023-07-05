@@ -13,7 +13,9 @@
             <a href="#" class="burger-btn d-block">
                 <i class="bi bi-justify fs-3"></i>
             </a>
-
+            @if(!$project->is_active)
+                <h3 style="margin-left: 100px" class="offcanvas-title" id="createtaskClient">Ваш договор СОПР не активен. Вы не можете отправить задачу</h3>
+            @endif
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -415,6 +417,9 @@
      aria-labelledby="createtaskClient" style="width: 100%; height: 80%;">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="createtaskClient">Новая задача</h5>
+        @if(!$project->is_active)
+            <h5 class="offcanvas-title" id="createtaskClient">Ваш договор СОПР не активен. Вы не можете отправить задачу</h5>
+        @endif
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
