@@ -1032,7 +1032,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive" style="height: 100%; overflow-y: scroll;">
+                    <div class="table-responsive" style="height: 1000px; overflow-y: scroll;">
                         <table id="example1" class="table table-border table-hover">
                             <thead style="position: sticky; top: 0; z-index: 1; background-color: #fff;">
                             <tr>
@@ -1120,59 +1120,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        var table = $('#example1').DataTable({
-            initComplete: function () {
-
-            },
-        });
-
-        $('#month').on('change', function () {
-            filterStatistic()
-        });
-
-        function filterStatistic() {
-            let month = $('#month').val();
-
-            $.get(`/tasks/public/monitoring-statistics-filter/${month}`, function (response) {
-                let tableBody = $('#tableBodyMonitoring');
-                table.clear().draw();
-                tableBody.empty()
-
-                if (response.statistics.length > 0) {
-                    buildTable(response.statistics, tableBody);
-                }
-
-            });
-        }
-
-        function buildTable(data, tableBody) {
-            $.each(data, function (i, item) {
-                let row = `
-                <tr>
-                    <td class="text-center">${i + 1}</td>
-                    <td>${item.user}</td>
-                    <td class="text-center">${item.total !== null ? item.total : 0}</td>
-                    <td class="text-center">${item.debt !== null ? item.debt : 0}</td>
-                    <td class="text-center">${item.process !== null ? item.process : 0}</td>
-                    <td class="text-center">${item.ready !== null ? item.ready : 0}</td>
-                    <td class="text-center">${item.speed !== null ? item.speed : 0}</td>
-                    <td class="text-center">${item.expectedUser !== null ? item.expectedUser : 0}</td>
-                    <td class="text-center">${item.forVerificationAdmin !== null ? item.forVerificationAdmin : 0}</td>
-                    <td class="text-center">${item.forVerificationClient !== null ? item.forVerificationClient : 0}</td>
-                    <td class="text-center">${item.rejectedAdmin !== null ? item.rejectedAdmin : 0}</td>
-                    <td class="text-center">${item.rejectedClient !== null ? item.rejectedClient : 0}</td>
-                </tr>`;
-
-                tableBody.append(row);
-            });
-        }
-
-
-    });
-</script>
 
 
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="TaskStore"
