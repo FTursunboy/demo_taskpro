@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $user = User::where('login', $request->login)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response([
-                'message' => false,
-                'info' => 'Пароль или логин введены неправильно'
-            ]);
+            return response()->json([
+                'message' => 'Пароль или логин введены неправильно'
+            ], 401);
         }
         $token = $user->createToken('android-token')->plainTextToken;
         $this->user = $user;
@@ -25,8 +25,9 @@ class AuthController extends Controller
             'token' => $token,
             'user' => new AuthResource($user),
         ];
-        return response($response);
+        return response()->json($response, 200);
     }
+
 
     public function logout()
     {
