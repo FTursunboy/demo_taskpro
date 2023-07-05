@@ -25,7 +25,7 @@ class LeadController extends BaseController
             'leads' => LeadResource::collection($leads),
         ];
 
-        return response($response);
+        return response($response, 200);
     }
 
     public function leadStatus()
@@ -64,7 +64,7 @@ class LeadController extends BaseController
             'leadState' => $formattedLeadState,
         ];
 
-        return response($response);
+        return response($response, 200);
     }
 
 
@@ -84,7 +84,7 @@ class LeadController extends BaseController
             'leadSource' => $formattedLeadSource,
         ];
 
-        return response($response);
+        return response($response, 200);
     }
 
 
@@ -132,7 +132,7 @@ class LeadController extends BaseController
           'message' => true,
         ];
 
-        return response($response);
+        return response($response, 200);
 
     }
 
