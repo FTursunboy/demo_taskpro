@@ -14,7 +14,7 @@
                 <i class="bi bi-justify fs-3"></i>
             </a>
             @if(!$project->is_active)
-                <h3 style="margin-left: 100px" class="offcanvas-title" id="createtaskClient">Ваш договор СОПР не активен. Вы не можете отправить задачу</h3>
+                <h5 style="margin-left: 100px" class="offcanvas-title" id="createtaskClient">Ваш договор СОПР не активен. Вы не можете отправить задачу</h5>
             @endif
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
