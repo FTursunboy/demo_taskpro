@@ -29,7 +29,8 @@ class ProjectModel extends Model
         'status',
         'types_id',
         'file',
-        'file_name'
+        'file_name',
+        'is_active'
     ];
 
     public function type(){
