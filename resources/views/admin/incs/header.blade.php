@@ -1032,7 +1032,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive" style="height: 700px; overflow-y: scroll;">
+                    <div class="table-responsive" style="height: 900px; overflow-y: scroll;">
                         <table id="example1" class="table table-border table-hover">
                             <thead style="position: sticky; top: 0; z-index: 1; background-color: #fff;">
                             <tr>
