@@ -1089,7 +1089,7 @@
                 function filterStatistic() {
                     let month = $('#month').val();
 
-                    $.get(/tasks/public/monitoring-statistics-filter/${month}, function (response) {
+                    $.get('/tasks/public/monitoring-statistics-filter/${month}', function (response) {
                         let tableBody = $('#tableBodyMonitoring');
                         table.clear().draw();
                         tableBody.empty()
