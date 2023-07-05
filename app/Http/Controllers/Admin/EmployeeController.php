@@ -10,13 +10,16 @@ use App\Models\Admin\OtdelsModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\ClientMail;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\DbDumper\DbDumper;
 use Spatie\Permission\Models\Role;
 
 class EmployeeController extends BaseController
@@ -34,24 +37,57 @@ class EmployeeController extends BaseController
         return view('admin.employee.create', compact('roles', 'departs'));
     }
 
+    private function check_user()
+    {
+        $account = Auth::user()->account;
+
+        $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/check_user/$account");
+
+        $is_valid =  $response->json('message');
+        $max = $response->json('max');
+        $setting = Setting::first();
+        $setting->max_users = $max;
+        $setting->save();
+        return [$is_valid, $setting->max_users];
+    }
+
+
+
     public function store(EmployeeRequest $request)
     {
-        $data = $request->validated();
-        $user = User::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'lastname' => $data['lastname'] ?? null,
-            'login' => $data['login'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            'position' => $data['position'],
-            'otdel_id' => $data['otdel_id'],
-            'telegram_user_id' => $data['telegram_id'],
-            'birthday' => $data['birthday'],
-            'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
-        ]);
-        $user->assignRole('user');
-        return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан!');
+
+        $result = $this->check_user();
+        $is_valid = $result[0];
+        $max_users = $result[1];
+
+        $users = User::get()->count();
+
+
+        if (!$is_valid) {
+            return redirect()->route('employee.index')->with('error', 'Произошла ошибка при проверке сотрудников');
+        }
+
+        if ($users >= $max_users) {
+            return redirect()->route('employee.index')->with('error', 'Лимит превышен, для создания перейдите в другой тариф');
+        } else {
+            $data = $request->validated();
+            $user = User::create([
+                'name' => $data['name'],
+                'surname' => $data['surname'],
+                'lastname' => $data['lastname'] ?? null,
+                'login' => $data['login'],
+                'password' => Hash::make($data['password']),
+                'phone' => $data['phone'],
+                'position' => $data['position'],
+                'otdel_id' => $data['otdel_id'],
+                'telegram_user_id' => $data['telegram_id'],
+                'birthday' => $data['birthday'],
+                'slug' => Str::slug(Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5), '-'),
+            ]);
+            $user->assignRole('user');
+            return redirect()->route('employee.index')->with('create', 'Сотрудник успешно создан!');
+        }
+
     }
 
     public function show($slug)
