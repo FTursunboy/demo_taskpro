@@ -75,7 +75,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::post('/projects/show/close/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'close'])->name('close');
         Route::get('/projects/show/de_active/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'de_active'])->name('de_active');
         Route::get('/projects/show/active/{project}', [\App\Http\Controllers\Admin\ProjectController::class, 'active'])->name('active');
-
     });
 
     Route::group(['as' => 'tasks.'], function () {
@@ -227,7 +226,6 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
 
     Route::get('/control/{user_id}/{from}/{to}/{time}', [\App\Http\Controllers\Admin\TasksController::class, 'control'])->name('control');
     Route::get('/kpil/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
-    Route::get('/chiki', [\App\Http\Controllers\User\GetAllTasksController::class, 'chikipuki']);
-    Route::get('/checks', [\App\Http\Controllers\Admin\EmployeeController::class, 'check']);
+
 
 });

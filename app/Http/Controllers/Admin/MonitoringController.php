@@ -181,6 +181,8 @@ class  MonitoringController extends BaseController
                 $offer->file = $file ?? null;
                 $offer->file_name = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
                 $offer->user_id = $request->user_id;
+                $offer->from = $task->from;
+                $offer->to = $task->to;
                 $offer->save();
             }
 
