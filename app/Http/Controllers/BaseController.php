@@ -156,7 +156,7 @@ class BaseController extends Controller
                 'client_reject' => $client_reject,
                 'cancel_admin' => $cancel_admin,
                 'in_progress' => $in_progress,
-                'settings' => $settings->invited_friends,
+                'settings' => $settings,
                 'project' => $project
 
             ]);
