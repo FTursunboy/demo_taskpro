@@ -37,7 +37,7 @@
         <script src="{{asset('assets/js/filter3.js')}}"></script>
         <script>
             $(document).ready(function () {
-                var table = $('#example1').DataTable({
+                var table = $('#example_1').DataTable({
                     initComplete: function () {
 
                     },
@@ -50,38 +50,42 @@
                 function filterMonth() {
                     let month = $('#month').val();
 
-                    $.get(`/tasks/public/all-task/public/monitoring-statistics-filter/${month}`, function (response) {
-                        let tableBody = $('#tableBodyMonitoring');
-                        table.clear().draw();
-                        tableBody.empty()
+                    $.get(`/filter_month/${month}`, function (response) {
+                        var table = $('#example_1').DataTable();
 
-                        if (response.statistics.length > 0) {
-                            buildTable(response.months, tableBody);
+                        table.clear().draw();
+
+                        if (response.tasks.length > 0) {
+                            buildTable(response.tasks, table);
                         }
 
                     });
                 }
 
-                function buildTable(data, tableBody) {
+                function buildTable(data, table) {
                     $.each(data, function (i, item) {
-                        let row = `
-                <tr>
-                    <td class="text-center">${i + 1}</td>
-                    <td>${item.name}</td>
-                    <td class="text-center">${item.description}</td>
-                    <td class="text-center">${item.from}</td>
-                    <td class="text-center">${item.project.name}</td>
-                    <td class="text-center">${item.project.author}</td>
-                    <td class="text-center">${item.project.type}</td>
-                    <td class="text-center">${item.project.status.name}</td>
-                </tr>`;
+                        var routeName = 'all-tasks.show'; // Замените 'route.name' на фактическое имя маршрута в Laravel
+                        var routeUrl = "{{ route('all-tasks.show', ':slug') }}"; // Замените 'route.name' на фактическое имя маршрута в Laravel
+                        routeUrl = routeUrl.replace(':slug', item.slug); // Замените 'slug' на фактический параметр маршрута
 
-                        tableBody.append(row);
+                        table.row.add([
+                            i + 1,
+                            item.task_name,
+                            item.task_description,
+                            item.from,
+                            item.to,
+                            item.project,
+                            item.author,
+                            item.type,
+                            item.status,
+                            `<a href="${routeUrl}" class="btn btn-success"><i class="bi bi-eye"></i></a>`
+
+                        ]).draw(false);
                     });
                 }
 
-
             });
+
         </script>
         <script type="text/javascript">
             "use strict";
@@ -116,7 +120,7 @@
 
         <script>
             $(document).ready(function () {
-                var table = $('#example').DataTable({
+                var table = $('#example_1').DataTable({
                     "processing": true,
                     "stateSave": true
                 });
@@ -125,7 +129,7 @@
                 var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
 
 
-                $("#example thead th").each(function(i) {
+                $("#example_1 thead th").each(function(i) {
 
                     var th = $(this);
                     var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
@@ -153,7 +157,7 @@
                     table.draw();
                 }
 
-                $("#example thead th").each(function (i) {
+                $("#example_1 thead th").each(function (i) {
                     var th = $(this);
                     var filterColumns = ['Проект', 'Автор', 'Тип', 'Статус', 'Сотрудник'];
 
@@ -168,7 +172,7 @@
 
 
                                 var filters = [];
-                                $("#example thead select").each(function () {
+                                $("#example_1 thead select").each(function () {
                                     var filter = {
                                         columnIndex: $(this).closest('th').index(),
                                         value: $(this).val()
@@ -224,12 +228,12 @@
 
                         localStorage.removeItem('datatableFilters');
 
-                        $("#example thead select").val('');
+                        $("#example_1 thead select").val('');
 
-                        $('#example_filter input').val('');
+                        $('#example_1_filter input').val('');
                     });
 
-                var searchWrapper = $('#example_filter');
+                var searchWrapper = $('#example_1_filter');
                 searchWrapper.addClass('d-flex align-items-center');
                 resetButton.addClass('ml-2');
                 resetButton.appendTo(searchWrapper);

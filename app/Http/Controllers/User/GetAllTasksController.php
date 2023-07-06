@@ -21,8 +21,10 @@ use App\Models\User;
 use App\Notifications\Telegram\Chat;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramReady;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -177,14 +179,39 @@ class GetAllTasksController extends BaseController
         return $this->getFilter($month);
     }
 
+//    public function getFilter($month)
+//    {
+//        $tasks = TaskModel::whereMonth('created_at', $month)->get();
+//
+//        return response([
+//            'months' => $tasks,
+//        ]);
+//
+//    }
     public function getFilter($month)
     {
-        $tasks = TaskModel::whereMonth('created_at', $month)->get();
+        $startOfMonth = Carbon::now()->startOfMonth()->month($month);
+        $endOfMonth = Carbon::now()->endOfMonth()->month($month);
+
+        $tasks =  DB::table('task_models as t')
+            ->join('users as u', 'u.id', 't.user_id')
+            ->join('statuses_models as s', 's.id', 't.status_id')
+            ->join('users as a', 'a.id', 't.author_id')
+            ->join('project_models as p', 'p.id', 't.project_id')
+            ->join('task_type_models as tt', 'tt.id', 't.type_id')
+            ->select('t.name as task_name', 't.comment as task_description', 's.name as status', 'p.name as project', 'tt.name as type', 't.slug as slug', 't.created_at as create','t.comment', 't.from', 't.to', 'a.name as author')
+            ->whereBetween('t.created_at', [$startOfMonth->toDateString(), $endOfMonth->toDateString()])
+            ->where([
+                ['t.user_id', Auth::id()],
+                ['s.id', '!=', 3],
+                ['t.deleted_at', null]
+            ])
+            ->get();
 
         return response([
-            'months' => $tasks,
+            'tasks' => $tasks
         ]);
-
     }
+
 
 }
