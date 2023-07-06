@@ -200,25 +200,11 @@
 
             <div class="form-group">
                 <p>Количество добавленных друзей: {{ $settings }}</p>
-                <label for="name">Имя <span class="text-danger">*</span></label>
-                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
-                       value="{{ old('name') }}" required>
-                @if($errors->has('name')) <p
-                    style="color: red;">{{ $errors->first('name') }}</p> @endif
-            </div>
-            <div class="form-group">
-                <label for="name">Отчество <span class="text-danger">*</span></label>
-                <input type="text" id="lastname" name="lastname" tabindex="2" class="form-control mt-3"
-                       value="{{ old('lastname') }}" required>
-                @if($errors->has('lastname')) <p
-                    style="color: red;">{{ $errors->first('lastname') }}</p> @endif
-            </div>
-            <div class="form-group">
-                <label for="email">Email <span class="text-danger">*</span></label>
-                <input type="email" id="email" name="email" tabindex="3" class="form-control mt-3"
-                       value="{{ old('email') }}" required>
-                @if($errors->has('email')) <p
-                    style="color: red;">{{ $errors->first('email') }}</p> @endif
+                <label for="name">Наименование клиента <span class="text-danger">*</span></label>
+                <input type="text" id="client_name" name="client_name" tabindex="1" class="form-control mt-3"
+                       value="{{ old('client_name') }}" required>
+                @if($errors->has('client_name')) <p
+                    style="color: red;">{{ $errors->first('client_name') }}</p> @endif
             </div>
             <div class="form-group">
                 <label for="name">Телефон <span class="text-danger">*</span></label>
@@ -227,7 +213,7 @@
                 @if($errors->has('phone')) <p
                     style="color: red;">{{ $errors->first('phone') }}</p> @endif
             </div>
-            <button type="submit" class="btn btn-success" tabindex="5">Добавить</button>
+            <button type="submit" class="btn btn-success" style="width: 100%" tabindex="5">Добавить</button>
         </form>
     </div>
 </div>
