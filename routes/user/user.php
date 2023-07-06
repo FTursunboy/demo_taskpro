@@ -59,9 +59,6 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::post('/my-all-tasks/{task}/store', [\App\Http\Controllers\User\GetAllTasksController::class, 'store'])->name('store');
         Route::get('/my-all-tasks/download/{mess}', [\App\Http\Controllers\User\GetAllTasksController::class, 'downloadFile'])->name('download');
 
-        Route::get('/monitoring-statistics-filter/{month}', [\App\Http\Controllers\User\GetAllTasksController::class, 'filter'])->name('filter');
-
-
     });
 
     Route::group(['as' => 'my-command.'], function () {
@@ -93,4 +90,7 @@ Route::group(['middleware' => ['role:user']], function () {
 
     Route::get('user/clients', [\App\Http\Controllers\User\ClientController::class, 'index'])->name('user.clients');
     Route::get('/chart', [\App\Http\Controllers\User\IndexController::class, 'chart']);
+
+    Route::get('/filter_month/{month}', [\App\Http\Controllers\User\GetAllTasksController::class, 'filter'])->name('filter');
+
 });
