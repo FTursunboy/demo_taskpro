@@ -204,6 +204,7 @@ class TaskController extends Controller
 
         return response()->json([
             'message' => 'Задача успешно создано!',
+            'message_bool' => true,
             'task' => $taskResource,
         ], 201);
     }
