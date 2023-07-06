@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('check-balance')->hourly()->withoutOverlapping();
-        $schedule->command('backup')->everyMinute()->withoutOverlapping();
+        $schedule->command('check-balance')->everyMinute()->withoutOverlapping();
+        $schedule->command('backup')->daily()->withoutOverlapping();
         $schedule->command('report:send')->twiceDaily(12, 18);
     }
 
