@@ -1164,6 +1164,7 @@
      aria-labelledby="TaskStore" style="width: 100%; height: 80%;">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="ProjectOfCanvas">Создать</h5>
+        <h4 style="margin-left: 30px; color: red" class="offcanvas-title" id="ProjectOfCanvas">Вы не можете создать задачу, Пополните баланс</h4>
         <span class="centered-span" id="info_danger" style="color: red"></span>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
