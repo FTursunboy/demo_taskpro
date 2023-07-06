@@ -171,7 +171,7 @@
                         style="min-width: 11rem;">
                         <li><a class="dropdown-item" href="{{ route('profile.index') }}"><i
                                     class="icon-mid bi bi-person me-2"></i>Мой профиль</a></li>
-                        @if($settings < 5)
+                        @if($settings->invited_friends < 5)
                             <li>
                                 <a href="#" class="dropdown-item" data-bs-toggle="offcanvas"
                                    data-bs-target="#addFriend" aria-controls="addFriend">
@@ -199,26 +199,12 @@
             @csrf
 
             <div class="form-group">
-                <p>Количество добавленных друзей: {{ $settings }}</p>
-                <label for="name">Имя <span class="text-danger">*</span></label>
-                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
-                       value="{{ old('name') }}" required>
-                @if($errors->has('name')) <p
-                    style="color: red;">{{ $errors->first('name') }}</p> @endif
-            </div>
-            <div class="form-group">
-                <label for="name">Отчество <span class="text-danger">*</span></label>
-                <input type="text" id="lastname" name="lastname" tabindex="2" class="form-control mt-3"
-                       value="{{ old('lastname') }}" required>
-                @if($errors->has('lastname')) <p
-                    style="color: red;">{{ $errors->first('lastname') }}</p> @endif
-            </div>
-            <div class="form-group">
-                <label for="email">Email <span class="text-danger">*</span></label>
-                <input type="email" id="email" name="email" tabindex="3" class="form-control mt-3"
-                       value="{{ old('email') }}" required>
-                @if($errors->has('email')) <p
-                    style="color: red;">{{ $errors->first('email') }}</p> @endif
+                <p>Количество добавленных друзей: {{ $settings->invited_friends }}</p>
+                <label for="name">Наименование клиента <span class="text-danger">*</span></label>
+                <input type="text" id="client_name" name="client_name" tabindex="1" class="form-control mt-3"
+                       value="{{ old('client_name') }}" required>
+                @if($errors->has('client_name')) <p
+                    style="color: red;">{{ $errors->first('client_name') }}</p> @endif
             </div>
             <div class="form-group">
                 <label for="name">Телефон <span class="text-danger">*</span></label>
@@ -227,7 +213,7 @@
                 @if($errors->has('phone')) <p
                     style="color: red;">{{ $errors->first('phone') }}</p> @endif
             </div>
-            <button type="submit" class="btn btn-success" tabindex="5">Добавить</button>
+            <button type="submit" class="btn btn-success" style="width: 100%" tabindex="5">Добавить</button>
         </form>
     </div>
 </div>
@@ -1190,13 +1176,13 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="name">Имя</label>
-                                <input tabindex="1" type="text" id="name" name="name" class="form-control mt-3"
+                                <input {{$settings->has_access ? '' : 'disabled'}} tabindex="1" type="text" id="name" name="name" class="form-control mt-3"
                                        placeholder="Имя" value="{{ old('name') }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="user_id">Кому это задача</label>
 
-                                <select tabindex="4" id="user_id" name="user_id" class="form-select mt-3" requi>
+                                <select tabindex="4" id="user_id" name="user_id" class="form-select mt-3" required {{$settings->has_access ? '' : 'disabled'}}>
 
                                     <option value="" selected>Выберите сотрудник</option>
                                     @foreach($users1 as $user)
@@ -1213,13 +1199,13 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="time">Время</label>
-                                <input tabindex="2" type="number" id="time" name="time" class="form-control mt-3"
+                                <input {{$settings->has_access ? '' : 'disabled'}} tabindex="2" type="number" id="time" name="time" class="form-control mt-3"
                                        value="{{ old('time') }}" placeholder="Время"
                                        required>
                             </div>
                             <div class="form-group">
                                 <label for="project_id">Проект</label>
-                                <select  tabindex="5" id="project_id" name="project_id" class="form-select mt-3">
+                                <select  tabindex="5" id="project_id" name="project_id" {{$settings->has_access ? '' : 'disabled'}} class="form-select mt-3">
                                     <option value="" selected disabled>Выберите проект</option>
                                     @foreach($projects1 as $project)
                                         <option
@@ -1236,7 +1222,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="type_id">Тип</label>
-                                <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3" required>
+                                <select tabindex="3" id="type_id" name="type_id" class="form-select mt-3" required {{$settings->has_access ? '' : 'disabled'}}>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
@@ -1251,7 +1237,7 @@
                         </div>
                         <div class="form-group">
                             <label for="comment">Комментария</label>
-                            <textarea tabindex="10" name="comment" id="comment"
+                            <textarea tabindex="10" name="comment" {{$settings->has_access ? '' : 'disabled'}} id="comment"
                                       class="form-control mt-3">{{ old('comment') }}</textarea>
                         </div>
                     </div>
@@ -1259,7 +1245,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="file">Файл</label>
-                                <input tabindex="11" type="file"  name="file" class="form-control mt-3" id="file">
+                                <input tabindex="11" type="file"  name="file" class="form-control mt-3" id="file" {{$settings->has_access ? '' : 'disabled'}}>
                             </div>
                         </div>
                         <div class="col-6"></div>

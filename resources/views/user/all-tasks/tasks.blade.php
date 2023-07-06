@@ -16,7 +16,7 @@
             <option value="12">Декабрь</option>
         </select>
     </div>
-    <table id="example" class="table table-hover">
+    <table id="example_1" class="table table-hover">
         <thead>
         <tr>
             <th class="text-center">#</th>
