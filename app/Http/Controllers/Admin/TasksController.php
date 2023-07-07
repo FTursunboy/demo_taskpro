@@ -203,10 +203,10 @@ class  TasksController extends BaseController
 
 
 
+
+
     public function store(Request $request)
     {
-
-
             if ($request->file('file') !== null) {
                 $file = $request->file('file')->store('public/docs');
             } else {
@@ -254,7 +254,7 @@ class  TasksController extends BaseController
 
             HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
             return redirect()->back()->with('mess', 'Задача успешно создана!');
-        
+
     }
 
     public function downloadFile(TaskModel $task)
