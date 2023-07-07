@@ -40,6 +40,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/contact/create/', [\App\Http\Controllers\API\V1\CRM\ContactController::class, 'store']);
     });
 
+    Route::group(['as' => 'statistics'], function () {
+        Route::get('/statisticsProjectTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'projectStatic']);
+    });
+
     Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
 });
 
