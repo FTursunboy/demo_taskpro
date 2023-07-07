@@ -50,7 +50,7 @@
                 function filterMonth() {
                     let month = $('#month').val();
 
-                    $.get(`/tasks/publiс/filter_month/${month}`, function (response) {
+                    $.get(`/tasks/public/filter_month/${month}`, function (response) {
                         var table = $('#example_1').DataTable();
 
                         table.clear().draw();
