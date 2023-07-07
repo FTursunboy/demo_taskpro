@@ -37,8 +37,10 @@ class CheckBalance extends Command
 
         if ($response->json()['message'] === true){
             $settings->has_access = true;
+            $settings->balance = $response->json()['balance'];
         }else{
             $settings->has_access = false;
+            $settings->balance = $response->json()['balance'];
         }
 
         $settings->save();

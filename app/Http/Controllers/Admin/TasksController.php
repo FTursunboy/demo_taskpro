@@ -205,7 +205,7 @@ class  TasksController extends BaseController
     {
         $user = Auth::user();
         $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/checkBalance/$user->account");
-        dd($response->json()['message']);
+
         $is_valid = $response->json()['message'];
         $balance = $response->json()['balance'];
 
