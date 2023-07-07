@@ -50,7 +50,7 @@
                 function filterMonth() {
                     let month = $('#month').val();
 
-                    $.get(`/filter_month/${month}`, function (response) {
+                    $.get(`/tasks/public/filter_month/${month}`, function (response) {
                         var table = $('#example_1').DataTable();
 
                         table.clear().draw();
@@ -64,9 +64,11 @@
 
                 function buildTable(data, table) {
                     $.each(data, function (i, item) {
-                        var routeName = 'all-tasks.show'; // Замените 'route.name' на фактическое имя маршрута в Laravel
-                        var routeUrl = "{{ route('all-tasks.show', ':slug') }}"; // Замените 'route.name' на фактическое имя маршрута в Laravel
-                        routeUrl = routeUrl.replace(':slug', item.slug); // Замените 'slug' на фактический параметр маршрута
+                        var routeName = 'all-tasks.show';
+
+                        var routeUrl = "{{ route('all-tasks.show', ':slug') }}";
+
+                        routeUrl = routeUrl.replace(':slug', item.slug);
 
                         table.row.add([
                             i + 1,
