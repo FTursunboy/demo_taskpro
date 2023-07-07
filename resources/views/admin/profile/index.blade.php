@@ -122,6 +122,10 @@
                                     <th>Идеи :</th>
                                     <th><span class="mx-2"> {{ $user->ideaCountProfile() }}</span></th>
                                 </tr>
+                                <tr>
+                                    <th>Баланс :</th>
+                                    <th><span class="mx-2"> {{ $settings->balance }} </span></th>
+                                </tr>
                             </table>
                         </div>
                     </div>
