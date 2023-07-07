@@ -41,7 +41,9 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @if($settings?->has_access == false)
+                                <h4 style="margin-left: 30px; color: red" class="offcanvas-title" id="ProjectOfCanvas">Вы не можете создать задачу от имени клиента. Пополните баланс!</h4>
+                            @endif
 
                             @if(\Session::has('err'))
                                 <div class="alert alert-danger mt-4">
@@ -60,7 +62,7 @@
                                             <div class="row g-3">
                                                 <div class="col-md-6">
                                                     <label class="form-label">Название задачи</label>
-                                                    <textarea id="name" class="form-control"
+                                                    <textarea {{$settings?->has_access ? '' : 'disabled'}} id="name" class="form-control"
                                                               name="name"
                                                               rows="5" required>{{ old('name') }}</textarea>
                                                 </div>
@@ -69,7 +71,7 @@
                                                     <div class="form-group">
                                                         <label class="form-label">Ответственный сотрудник со стороны
                                                             компании</label>
-                                                        <input type="text"
+                                                        <input {{$settings?->has_access ? '' : 'disabled'}} type="text"
                                                                class="form-control"
                                                                name="author_name" id="author_name"
                                                                value="{{ old('author_name') }}" required>
@@ -77,7 +79,7 @@
 
                                                     <div class="form-group mt-2">
                                                         <label class="form-label">Клиент</label>
-                                                            <select name="client_id" class="form-control" required>
+                                                            <select {{$settings?->has_access ? '' : 'disabled'}} name="client_id" class="form-control" required>
                                                                 <option>Выберите клиента</option>
                                                                 @foreach($offers as $offer)
                                                                     <option value="{{ $offer->id }}">{{ $offer->surname . " " . $offer->name . " " . $offer->lastname}}</option>
@@ -88,21 +90,21 @@
 
                                                 <div class="col-md-6">
                                                     <label class="form-label">Телефон ответсвенного сотрудника</label>
-                                                    <input type="text"
+                                                    <input {{$settings?->has_access ? '' : 'disabled'}} type="text"
                                                            class="form-control"
                                                            name="author_phone" id="author_phone"
                                                            value="{{ old('author_phone') }}" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label">Выберите файл</label>
-                                                    <input type="file"
+                                                    <input {{$settings?->has_access ? '' : 'disabled'}} type="file"
                                                            class="form-control"
                                                            name="file">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="your-message" class="form-label">Описание
                                                         задачи</label>
-                                                    <textarea id="description" class="form-control"
+                                                    <textarea {{$settings?->has_access ? '' : 'disabled'}} id="description" class="form-control"
                                                               name="description"
                                                               rows="5">{{ old('description') }}</textarea>
                                                 </div>
@@ -112,7 +114,7 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-success form-control"
+                                                    <button {{$settings?->has_access ? '' : 'disabled'}} type="submit" class="btn btn-success form-control"
                                                             id="btnSend">
                                                         Отправить
                                                     </button>

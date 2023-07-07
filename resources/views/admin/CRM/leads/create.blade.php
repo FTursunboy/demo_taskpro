@@ -32,6 +32,9 @@
                     {{$error}}
                 @endforeach
                 @endif
+            @if($settings?->has_access == false)
+                <h4 style="margin-left: 30px; color: red" class="offcanvas-title" id="ProjectOfCanvas">Вы не можете создать лида. Пополните баланс!</h4>
+            @endif
             <div class="card-body">
                 <form action="{{ route('lead.store') }}" method="POST">
                     @csrf
@@ -40,7 +43,7 @@
                             <div class="form-group">
                                 <label for="fio">ФИО <span
                                         class="text-danger">*</span></label>
-                                <input type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
                                        placeholder="Введите ФИО" value="{{ old('fio') }}"  required>
                                 @if($errors->has('fio')) <p
                                     style="color: red;">{{ $errors->first('fio') }}</p> @endif
@@ -48,14 +51,14 @@
                             <div class="form-group">
                                 <label for="start">Телефон <span
                                         class="text-danger">*</span></label>
-                                <input placeholder="Введите номер телефона" type="text" id="phone" name="phone" class="form-control mt-3" tabindex="4" value="{{ old('phone') }}" required>
+                                <input {{$settings?->has_access ? '' : 'disabled'}} placeholder="Введите номер телефона" type="text" id="phone" name="phone" class="form-control mt-3" tabindex="4" value="{{ old('phone') }}" required>
                                 @if($errors->has('phone')) <p
                                     style="color: red;">{{ $errors->first('phone') }}</p> @endif
                             </div>
                             <div class="form-group">
                                 <label for="">Стадии<span
                                         class="text-danger">*</span></label>
-                                <select id="type" name="status_id" tabindex="7" class="form-select mt-3" required>
+                                <select {{$settings?->has_access ? '' : 'disabled'}} id="type" name="status_id" tabindex="7" class="form-select mt-3" required>
                                     @foreach($statuses as $status)
                                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                                     @endforeach
@@ -65,18 +68,18 @@
 
                             <div class="form-group" id="is_client">
                                 <label for="is_client" class="custom-label">Сохранение контакта</label>
-                                <input type="checkbox" class="custom-control-input" name="is_client">
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="checkbox" class="custom-control-input" name="is_client">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="finish">Email</label>
-                                <input placeholder="Введите Email" type="text" id="email" name="email" class="form-control mt-3" tabindex="2" value="{{ old('email') }}" >
+                                <input {{$settings?->has_access ? '' : 'disabled'}} placeholder="Введите Email" type="text" id="email" name="email" class="form-control mt-3" tabindex="2" value="{{ old('email') }}" >
                             </div>
                             <div class="form-group">
                                 <label for="">Источник лида
                                     <span class="text-danger">*</span></label>
-                                <select  id="type" name="source_id" tabindex="5" class="form-select mt-3" required>
+                                <select {{$settings?->has_access ? '' : 'disabled'}} id="type" name="source_id" tabindex="5" class="form-select mt-3" required>
                                     <option value="">Выберите источник</option>
                                     @foreach($sources as $source)
                                         <option value="{{ $source->id }}">{{ $source->name }}</option>
@@ -87,18 +90,18 @@
                             </div>
                              <div class="form-group col-12">
                                   <label for="description">Описание</label>
-                                 <textarea id="description" name="description" class="form-control mt-3" tabindex="8" value="{{ old('description') }}" ></textarea>
+                                 <textarea {{$settings?->has_access ? '' : 'disabled'}} id="description" name="description" class="form-control mt-3" tabindex="8" value="{{ old('description') }}" ></textarea>
                              </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="type">Адрес</label>
-                                <input type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" class="form-control mt-3" tabindex="3">
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" class="form-control mt-3" tabindex="3">
                             </div>
                             <div class="form-group">
                                 <label for="">Состояние
                                     <span class="text-danger">*</span></label>
-                                <select id="type" name="state_id" tabindex="6" class="form-select mt-3" required>
+                                <select {{$settings?->has_access ? '' : 'disabled'}} id="type" name="state_id" tabindex="6" class="form-select mt-3" required>
                                     @foreach($states as $state)
                                         <option value="{{ $state->id }}">{{ $state->name }}</option>
                                     @endforeach
@@ -111,19 +114,19 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Компания</label>
-                                    <input type="text" class="form-control mt-3" name="company" placeholder="Введите компанию">
+                                    <input {{$settings?->has_access ? '' : 'disabled'}} type="text" class="form-control mt-3" name="company" placeholder="Введите компанию">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Должность</label>
-                                    <input type="text" name="position" placeholder="Должность" class="form-control mt-3">
+                                    <input {{$settings?->has_access ? '' : 'disabled'}} type="text" name="position" placeholder="Должность" class="form-control mt-3">
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Сохранить</button>
+                            <button {{$settings?->has_access ? '' : 'disabled'}} type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Сохранить</button>
                         </div>
                     </div>
                 </form>

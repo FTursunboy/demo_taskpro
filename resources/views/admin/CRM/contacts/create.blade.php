@@ -29,6 +29,9 @@
                     Назад
                 </a>
             </div>
+            @if($settings?->has_access == false)
+                <h4 style="margin-left: 30px; color: red" class="offcanvas-title" id="ProjectOfCanvas">Вы не можете создать контакт. Пополните баланс!</h4>
+            @endif
             <div class="card-body">
                 <form action="{{ route('contact.store') }}" method="POST">
                     @csrf
@@ -37,25 +40,25 @@
                             <div class="form-group">
                                 <label for="fio">ФИО <span
                                             class="text-danger">*</span></label>
-                                <input type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" id="fio" name="fio" tabindex="1" class="form-control mt-3"
                                        placeholder="Введите ФИО" value="{{ old('fio') }}" required>
                                 @if($errors->has('fio')) <p
                                     style="color: red;">{{ $errors->first('fio') }}</p> @endif
                             </div>
                             <div class="form-group">
                                 <label for="name">Должность</label>
-                                <input type="text" id="position" name="position" tabindex="4" class="form-control mt-3"
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" id="position" name="position" tabindex="4" class="form-control mt-3"
                                        placeholder="Должность" value="{{ old('position') }}">
                             </div>
                             <div class="form-group">
                                 <label for="client_id">Лиды <span
                                         class="text-danger">*</span></label>
                                 @if(isset($leades))
-                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" required>
+                                    <select {{$settings?->has_access ? '' : 'disabled'}} class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" required>
                                         <option value="{{$leades?->id}}" selected>{{$leades?->contact?->fio}}</option>
                                     </select>
                                 @else
-                                    <select class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" required>
+                                    <select {{$settings?->has_access ? '' : 'disabled'}} class="form-select mt-3" name="lead_id" id="leadId" tabindex="7" required>
                                         <option disabled selected>Выберите лида</option>
                                         @foreach($leads as $lead)
                                             <option value="{{ $lead?->id }}">{{ $lead?->contact?->fio }}</option>
@@ -70,26 +73,26 @@
                             <div class="form-group">
                                 <label for="start">Телефон <span
                                         class="text-danger">*</span></label>
-                                <input placeholder="Введите номер телефона" type="text" id="phone" name="phone" class="form-control mt-3" tabindex="2" value="{{ old('phone') }}" required>
+                                <input {{$settings?->has_access ? '' : 'disabled'}} placeholder="Введите номер телефона" type="text" id="phone" name="phone" class="form-control mt-3" tabindex="2" value="{{ old('phone') }}" required>
                                 @if($errors->has('phone')) <p
                                     style="color: red;">{{ $errors->first('phone') }}</p> @endif
                             </div>
 
                             <div class="form-group">
                                 <label for="type">Адрес</label>
-                                <input type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" tabindex="5" class="form-control mt-3">
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" name="address" placeholder="Введите адрес" value="{{old('address')}}" tabindex="5" class="form-control mt-3">
                             </div>
                         </div>
                         <div class="col-4">
 
                             <div class="form-group">
                                 <label for="finish">Email</label>
-                                <input placeholder="Введите Email" type="text" id="email" name="email" class="form-control mt-3" tabindex="3" value="{{ old('email') }}" >
+                                <input {{$settings?->has_access ? '' : 'disabled'}} placeholder="Введите Email" type="text" id="email" name="email" class="form-control mt-3" tabindex="3" value="{{ old('email') }}" >
                             </div>
                             <div class="form-group">
                                 <label for="fio">Компания <span
                                         class="text-danger">*</span></label>
-                                <input type="text" id="company" name="company" tabindex="6" class="form-control mt-3"
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" id="company" name="company" tabindex="6" class="form-control mt-3"
                                        placeholder="Введите компанию" value="{{ old('company') }}" required>
                                 @if($errors->has('company')) <p
                                     style="color: red;">{{ $errors->first('company') }}</p> @endif
@@ -97,7 +100,7 @@
 
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Сохранить</button>
+                            <button {{$settings?->has_access ? '' : 'disabled'}} type="submit" id="button" class="btn btn-outline-primary" tabindex="9">Сохранить</button>
                         </div>
                     </div>
                 </form>

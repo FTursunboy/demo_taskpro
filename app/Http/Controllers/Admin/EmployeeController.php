@@ -37,37 +37,13 @@ class EmployeeController extends BaseController
         return view('admin.employee.create', compact('roles', 'departs'));
     }
 
-    private function check_user()
-    {
-        $account = Auth::user()->account;
-
-        $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/check_user/$account");
-
-        $is_valid =  $response->json('message');
-        $max = $response->json('max');
-        $setting = Setting::first();
-        $setting->max_users = $max;
-        $setting->save();
-        return [$is_valid, $setting->max_users];
-    }
-
-
-
     public function store(EmployeeRequest $request)
     {
 
-        $result = $this->check_user();
-        $is_valid = $result[0];
-        $max_users = $result[1];
-
         $users = User::get()->count();
+        $settings = Setting::first();
 
-
-        if (!$is_valid) {
-            return redirect()->route('employee.index')->with('error', 'Произошла ошибка при проверке сотрудников');
-        }
-
-        if ($users >= $max_users) {
+        if ($users >= $settings->max_users + 1) {
             return redirect()->route('employee.index')->with('error', 'Лимит превышен, для создания перейдите в другой тариф');
         } else {
             $data = $request->validated();
