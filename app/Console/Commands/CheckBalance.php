@@ -30,7 +30,7 @@ class CheckBalance extends Command
     public function handle()
     {
 
-        $user = User::find(23);
+        $user = User::find(1);
 
         $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/checkBalance/$user->account");
         $settings = Setting::first();
