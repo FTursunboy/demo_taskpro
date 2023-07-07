@@ -226,7 +226,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-
+        @if($settings?->has_access == false)
+            <h4 style="margin-left: 30px; color: red" class="offcanvas-title" id="ProjectOfCanvas">Вы не можете отправить сообщение. Пополните баланс!</h4>
+        @endif
         <a role="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#telegramAll">
             Написать всем сразу
         </a>
@@ -248,7 +250,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                            <button type="submit" class="btn btn-primary">Отправить</button>
+                            <button {{$settings?->has_access ? '' : 'disabled'}} type="submit" class="btn btn-primary">Отправить</button>
                         </div>
                     </form>
                 </div>
@@ -270,7 +272,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $user->surname .' '.$user->name.' '. $user->lastname }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button {{$settings?->has_access ? '' : 'disabled'}} type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#onePerson{{ $user->id }}">Написать
                         </button>
                     </td>
