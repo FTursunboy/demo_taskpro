@@ -64,13 +64,11 @@
 
                 function buildTable(data, table) {
                     $.each(data, function (i, item) {
-                        var routeName = 'all-tasks.show'; // Замените 'route.name' на фактическое имя маршрута в Laravel
-<<<<<<< Updated upstream
-                        var routeUrl = "{{ route('/all-tasks.show', ':slug') }}"; // Замените 'route.name' на фактическое имя маршрута в Laravel
-=======
-                        var routeUrl = "{{ route('all-tasks.show', ':slug') }}"; // Замените 'route.name' на фактическое имя маршрута в Laravel
->>>>>>> Stashed changes
-                        routeUrl = routeUrl.replace(':slug', item.slug); // Замените 'slug' на фактический параметр маршрута
+                        var routeName = 'all-tasks.show';
+
+                        var routeUrl = "{{ route('all-tasks.show', ':slug') }}";
+
+                        routeUrl = routeUrl.replace(':slug', item.slug);
 
                         table.row.add([
                             i + 1,
