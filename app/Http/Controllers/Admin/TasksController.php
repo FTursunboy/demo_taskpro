@@ -201,29 +201,12 @@ class  TasksController extends BaseController
         ]);
     }
 
-    private function checkBilling()
-    {
-        $user = Auth::user();
-        $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/checkBalance/$user->account");
-        $response->json()['message'];
-        $is_valid = $response->json()['message'];
-        $balance = $response->json()['balance'];
 
-
-        return [$is_valid, $balance];
-    }
 
     public function store(Request $request)
     {
 
-        if ($request->file('file') !== null) {
-            $file = $request->file('file')->store('public/docs');
-        } else {
-            $file = null;
-        }
 
-        [$is_valid, $balance] = $this->checkBilling();
-        if($is_valid) {
             if ($request->file('file') !== null) {
                 $file = $request->file('file')->store('public/docs');
             } else {
@@ -271,9 +254,7 @@ class  TasksController extends BaseController
 
             HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
             return redirect()->back()->with('mess', 'Задача успешно создана!');
-        }else{
-           return redirect()->back()->with(['errorBalance' => 'Ваш аккуант заблокирован!', 'balance' => $balance]);
-        }
+        
     }
 
     public function downloadFile(TaskModel $task)
