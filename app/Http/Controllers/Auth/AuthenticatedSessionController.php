@@ -39,8 +39,8 @@ class AuthenticatedSessionController extends Controller
         $role = Auth::user()->getRoleNames()[0];
         AuthNotifyJob::dispatch(Auth::user());
         return match ($role) {
-            'admin' => redirect()->intended(RouteServiceProvider::HOME),
             'user' => redirect()->intended(RouteServiceProvider::USER),
+            'admin' => redirect()->intended(RouteServiceProvider::HOME),
             'client' => redirect()->intended(RouteServiceProvider::CLIENT),
             'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
             default => redirect()->back()->with('err', 'Что то пошло не так'),
