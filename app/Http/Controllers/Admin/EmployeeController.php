@@ -34,7 +34,8 @@ class EmployeeController extends BaseController
     {
         $roles = Role::where('name', 'user')->get();
         $departs = OtdelsModel::get();
-        return view('admin.employee.create', compact('roles', 'departs'));
+        $userscount = User::get()->count();
+        return view('admin.employee.create', compact('roles', 'departs', 'userscount'));
     }
 
     private function check_user()
