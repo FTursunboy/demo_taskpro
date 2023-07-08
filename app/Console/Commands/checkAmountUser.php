@@ -36,7 +36,7 @@ class checkAmountUser extends Command
         $max = $response->json('max');
         $setting = Setting::first();
         $setting->max_users = $max;
-        dd($setting->max_users);
+
         $setting->save();
 
     }
