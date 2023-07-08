@@ -22,8 +22,10 @@
             </div>
         </div>
 
-
         <div class="card">
+            @if($settings?->has_access == false)
+                <h4 style="margin-left: 30px; color: red" class="offcanvas-title" id="ProjectOfCanvas">Вы не можете создать проект. Пополните баланс!</h4>
+            @endif
             <div class="card-header">
                 <a href="{{ route('project.index') }}" class="btn btn-outline-danger">
                     Назад
@@ -37,13 +39,13 @@
 
                             <div class="form-group">
                                 <label for="name">Имя проекта</label>
-                                <input type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="text" id="name" name="name" tabindex="1" class="form-control mt-3"
                                        placeholder="Имя проекта" value="{{ old('name') }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="start">Дата начала проекта</label>
-                                <input type="date" id="start" name="start" class="form-control mt-3" tabindex="4" value="{{ old('start') }}" required>
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="date" id="start" name="start" class="form-control mt-3" tabindex="4" value="{{ old('start') }}" required>
                             </div>
 
                         </div>
@@ -51,7 +53,7 @@
 
                             <div class="form-group">
                                 <label for="time">Время</label>
-                                <input type="number" id="time" name="time" class="form-control mt-3" tabindex="2" value="{{ old('time') }}" placeholder="Время">
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="number" id="time" name="time" class="form-control mt-3" tabindex="2" value="{{ old('time') }}" placeholder="Время">
                                 @if($errors->has('time')) <p
                                     style="color: red;">{{ $errors->first('time') }}</p> @endif
                             </div>
@@ -59,15 +61,14 @@
 
                             <div class="form-group">
                                 <label for="finish">Дата окончания проекта</label>
-                                <input type="date" id="finish" name="finish" class="form-control mt-3" tabindex="5" value="{{ old('finish') }}" required>
+                                <input {{$settings?->has_access ? '' : 'disabled'}} type="date" id="finish" name="finish" class="form-control mt-3" tabindex="5" value="{{ old('finish') }}" required>
                             </div>
 
                         </div>
                         <div class="col-4">
-
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <select id="type" name="type_id" tabindex="3" class="form-select mt-3" required>
+                                <select {{$settings?->has_access ? '' : 'disabled'}} id="type" name="type_id" tabindex="3" class="form-select mt-3" required>
                                     <option value="" selected>Выберите тип</option>
                                     @foreach($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -76,7 +77,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="type">Тип</label>
-                                <select id="type" name="types_id" tabindex="6" class="form-select mt-3" required>
+                                <select {{$settings?->has_access ? '' : 'disabled'}} id="type" name="types_id" tabindex="6" class="form-select mt-3" required>
                                     <option value="" selected>Выберите тип проекта</option>
                                     @foreach($typesOf as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -87,20 +88,20 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="comment">Комментария</label>
-                                <textarea name="comment" id="comment" class="form-control mt-3" tabindex="7">{{ old('comment') }}</textarea>
+                                <textarea {{$settings?->has_access ? '' : 'disabled'}} name="comment" id="comment" class="form-control mt-3" tabindex="7">{{ old('comment') }}</textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="file">Файл</label>
-                                    <input tabindex="7" type="file"  name="file" class="form-control mt-3" id="file">
+                                    <input {{$settings?->has_access ? '' : 'disabled'}} tabindex="7" type="file"  name="file" class="form-control mt-3" id="file">
                                 </div>
                             </div>
                             <div class="col-6"></div>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" id="button" class="btn btn-outline-primary" tabindex="8">Сохранить</button>
+                            <button {{$settings?->has_access ? '' : 'disabled'}} type="submit" id="button" class="btn btn-outline-primary" tabindex="8">Сохранить</button>
                         </div>
                     </div>
                 </form>
