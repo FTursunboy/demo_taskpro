@@ -31,7 +31,7 @@ class checkAmountUser extends Command
     {
         $account = User::find(1)->account;
 
-        $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/check_user/$account");
+        $response = Http::get("http://www.billing.taskpro.tj/billing/public/api/check_user/$account");
 
         $max = $response->json('max');
         $setting = Setting::first();

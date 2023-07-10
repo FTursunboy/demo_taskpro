@@ -129,7 +129,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="#">
+                            <a href="{{ route('expected_admin') }}">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #eef511;">
@@ -148,7 +148,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="{{ route('show_progress') }}">
+                            <a href="{{ route('verificate_admin') }}">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #2cec1e;">
@@ -157,7 +157,7 @@
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">На проверке (Админ)</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $inProgress }}</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $verificate_admin }}</h6>
                                     </div>
                                 </div>
                             </a>
@@ -167,7 +167,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="#">
+                            <a href="{{ route('expected_user') }}">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #eef511;">
@@ -186,7 +186,7 @@
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body px-4 py-4-5">
-                            <a href="#">
+                            <a href="{{ route('reject_client') }}">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
                                         <div class="stats-icon mb-2" style="background: #e10f0f;">

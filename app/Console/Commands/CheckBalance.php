@@ -32,7 +32,7 @@ class CheckBalance extends Command
 
         $user = User::find(1);
 
-        $response = Http::get("http://www.billng.fingroup.tj/billing/public/api/checkBalance/$user->account");
+        $response = Http::get("http://www.billing.taskpro.tj/billing/public/api/checkBalance/$user->account");
         $settings = Setting::first();
 
         if ($response->json()['message'] === true){

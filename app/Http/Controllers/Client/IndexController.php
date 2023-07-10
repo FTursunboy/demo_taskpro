@@ -23,10 +23,14 @@ class IndexController extends BaseController
         ->where('client_id', Auth::id())->count();
         $inProgress = Offer::where('status_id', 2)
         ->where('client_id', Auth::id())->count();
+        $verificate_admin = Offer::where([
+            ['status_id', 14],
+            ['client_id', Auth::id()]
+        ])->count();
 
 
 
-        return view('client.index', compact('task', 'all', 'ready', 'inProgress'));
+        return view('client.index', compact('task', 'all', 'ready', 'inProgress', 'verificate_admin'));
     }
 
     public function verificate_tasks()

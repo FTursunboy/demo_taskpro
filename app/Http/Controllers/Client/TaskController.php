@@ -76,6 +76,42 @@ class TaskController extends BaseController
         return view('client.offers.index', compact('tasks'));
     }
 
+    public function expected_admin() {
+        $tasks = Offer::where([
+            ['client_id', Auth::id()],
+            ['status_id', 8]
+        ])->get();
+
+        return view('client.offers.index', compact('tasks'));
+    }
+
+    public function expected_user() {
+        $tasks = Offer::where([
+            ['client_id', Auth::id()],
+            ['status_id', 9]
+        ])->get();
+
+        return view('client.offers.index', compact('tasks'));
+    }
+
+    public function reject_client() {
+        $tasks = Offer::where([
+            ['client_id', Auth::id()],
+            ['status_id', 13]
+        ])->get();
+
+        return view('client.offers.index', compact('tasks'));
+    }
+
+    public function verificate_admin() {
+        $tasks = Offer::where([
+            ['client_id', Auth::id()],
+            ['status_id', 14]
+        ])->get();
+
+        return view('client.offers.index', compact('tasks'));
+    }
+
     public function store(TaskRequest $request)
     {
         $project = DB::table('project_clients as pc')

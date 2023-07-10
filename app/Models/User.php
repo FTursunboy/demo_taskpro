@@ -140,7 +140,7 @@ class User extends Authenticatable
         $verificate = Offer::where('status_id', 10)
             ->where('client_id', Auth::id())->count();
         $new = TaskModel::where('task_models.user_id', $id)
-            ->whereIn('task_models.status_id', [1, 7, 9])
+            ->whereIn('task_models.status_id', [1, 9])
             ->whereNotIn('task_models.id', function ($subquery) use ($id) {
                 $subquery->select('h.task_id')
                     ->from('user_task_history_models as h')
@@ -160,7 +160,7 @@ class User extends Authenticatable
     public function getNewTasks($id)
     {
         $tasks = TaskModel::where('task_models.user_id', $id)
-            ->whereIn('task_models.status_id', [1, 7, 9])
+            ->whereIn('task_models.status_id', [1, 9])
             ->whereNotIn('task_models.id', function ($subquery) use ($id) {
                 $subquery->select('h.task_id')
                     ->from('user_task_history_models as h')
