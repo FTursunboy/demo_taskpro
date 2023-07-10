@@ -71,6 +71,10 @@ Route::group(['middleware' => ['role:client|client-worker']], function () {
     Route::get('offers/done/', [\App\Http\Controllers\Client\TaskController::class, 'show_done'])->name('show_finish');
     Route::get('offers/in_progress/', [\App\Http\Controllers\Client\TaskController::class, 'show_progress'])->name('show_progress');
     Route::get('offers/declined_admin/', [\App\Http\Controllers\Client\TaskController::class, 'show_progress'])->name('show_progress');
+    Route::get('offers/expected_admin/', [\App\Http\Controllers\Client\TaskController::class, 'expected_admin'])->name('expected_admin');
+    Route::get('offers/expected_user/', [\App\Http\Controllers\Client\TaskController::class, 'expected_user'])->name('expected_user');
+    Route::get('offers/reject_client/', [\App\Http\Controllers\Client\TaskController::class, 'reject_client'])->name('reject_client');
+    Route::get('offers/verificate_admin/', [\App\Http\Controllers\Client\TaskController::class, 'verificate_admin'])->name('verificate_admin');
 
 });
 

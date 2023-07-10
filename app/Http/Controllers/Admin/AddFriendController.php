@@ -14,7 +14,7 @@ class AddFriendController extends Controller
     {
         try {
             $user = Auth::user()->account;
-            $response = Http::post("http://www.billng.fingroup.tj/billing/public/api/referal/store/$user", [
+            $response = Http::post("http://www.billing.taskpro.tj/billing/public/api/referal/store/$user", [
                 'client_name' => $request->client_name,
                 'phone' => $request->phone
             ]);
