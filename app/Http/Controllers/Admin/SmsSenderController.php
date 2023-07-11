@@ -37,7 +37,7 @@ class SmsSenderController extends Controller
 
         if ($response->successful()) {
             $result = $response->json();
-            return back();
+            return redirect()->back();
 
         } else {
             $error = $response->json();
