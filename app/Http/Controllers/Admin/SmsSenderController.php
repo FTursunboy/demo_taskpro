@@ -17,7 +17,7 @@ class SmsSenderController extends Controller
             'sender' => 'TaskPRO.tj',
             'server' => 'https://api.osonsms.com/sendsms_v1.php'
         ];
-        dd($phone);
+
 
 
 
