@@ -30,6 +30,10 @@ class AddFriendController extends Controller
                     $settings = Setting::first();
                     $settings->invited_friends++;
                     $settings->save();
+                    $sms = new SmsSenderController();
+                    $sms->send($request->phone);
+
+
                     return redirect()->back()->with("create", $response->json('info'));
                 }else{
                     return redirect()->back()->with("error", $response->json('info'));
