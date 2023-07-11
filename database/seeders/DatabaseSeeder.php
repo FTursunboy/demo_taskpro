@@ -194,17 +194,17 @@ class DatabaseSeeder extends Seeder
             'name' => 'FIN Group',
         ]);
         User::create([
-            'name' => 'Nuriddin',
-            'surname' => 'Shahobov',
-            'lastname' => 'Farrukhovich',
-            'phone' => '+992987671091',
+            'name' => 'Demo',
+            'surname' => 'Demo',
+            'lastname' => 'Demo',
+            'phone' => '+925556363',
             'login' => 'admin',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('demo'),
             'position' => 'Admin',
             'otdel_id' => 1,
-            'telegram_user_id' => 5205653584,
+            'telegram_user_id' => 5002918981,
             'xp' => 100,
-            'account' => '',
+            'account' => 123141241,
             'slug' => Str::slug(Str::random(6) . ' ' . "Nuriddin Shahobov " . Str::random(4), '-'),
         ])->assignRole('admin');
 
