@@ -12,6 +12,8 @@ use App\Models\Admin\TaskModel;
 use App\Models\ClientMail;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\User\MyPlanModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +29,7 @@ class EmployeeController extends BaseController
     public function index()
     {
         $users = User::role('user')->withTrashed()->get();
+
         return view('admin.employee.index', compact('users'));
     }
 
@@ -276,5 +279,6 @@ class EmployeeController extends BaseController
         return redirect()->route('employee.show', $employee->slug)->with('delete', "Теперь у $employee->surname $employee->name $employee->lastname нет доступ к CRM");
 
     }
+
 
 }

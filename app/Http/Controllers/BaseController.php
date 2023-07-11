@@ -18,6 +18,8 @@ use App\Models\Setting;
 use App\Models\SystemIdea;
 use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
+use App\Models\User\MyPlanModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -67,6 +69,9 @@ class BaseController extends Controller
             $monthInRu = TaskTypesTypeModel::all();
             $months = ['Январь' => 'January',  'Февраль' => 'February', 'Март' => 'March', 'Апрель' => 'April', 'Май' => 'May', 'Июнь' => 'June', 'Июль' => 'July', 'Авуст' => 'August', 'Сентябрь' => 'September', 'Октябрь' => 'October', 'Ноябрь' => 'November', 'Декабрь' => 'December'];
             $dataByMonth = [];
+
+            $employees = User::role('user')->get();
+            $plans = User\MyPlanModel::get();
 
             $project = DB::table('project_clients as pc')
                 ->join('project_models as p','p.id', 'pc.project_id')
@@ -157,11 +162,12 @@ class BaseController extends Controller
                 'cancel_admin' => $cancel_admin,
                 'in_progress' => $in_progress,
                 'settings' => $settings,
-                'project' => $project
+                'project' => $project,
+                'employees' => $employees,
+                'plans' => $plans
 
             ]);
             return $next($request);
-
         });
     }
 
@@ -178,6 +184,17 @@ class BaseController extends Controller
             })
             ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
             ->get();
+    }
+
+    public function employeePlan($employeePlan, $days)
+    {
+        $formattedDate = date("Y-m-d", strtotime($days));
+        $plans = MyPlanModel::whereDate('created_at', '=', $formattedDate)->where('user_id', $employeePlan)->get();
+
+        return response([
+            'plans' => $plans
+        ]);
+
     }
 
 }
