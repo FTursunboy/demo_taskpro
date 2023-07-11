@@ -10,12 +10,14 @@ class SmsSenderController extends Controller
 {
 
     public function send($phone) {
+
         $config = [
             'login' => 'fingroup',
             'hash' => 'f0dbc1cf10a89595dcce511b6c11cb55',
             'sender' => 'TaskPRO.tj',
             'server' => 'https://api.osonsms.com/sendsms_v1.php'
         ];
+        dd($phone);
 
 
 
