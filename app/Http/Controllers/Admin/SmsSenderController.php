@@ -18,9 +18,6 @@ class SmsSenderController extends Controller
             'server' => 'https://api.osonsms.com/sendsms_v1.php'
         ];
 
-
-
-
         $dlm = ";";
         $phone_number = $phone;
         $txn_id = uniqid();
@@ -38,7 +35,6 @@ class SmsSenderController extends Controller
         $response = Http::get($config['server'], $params);
 
         if ($response->successful()) {
-            $result = $response->json();
             return redirect()->back();
 
         } else {
