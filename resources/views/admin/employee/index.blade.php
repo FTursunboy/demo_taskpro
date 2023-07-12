@@ -8,6 +8,7 @@
         <a href="{{ route('employee.create') }}" class="btn btn-outline-primary mb-2">
             Добавить нового сотрудника
         </a>
+
         @include('inc.messages')
 
         <section class="section">
@@ -81,7 +82,5 @@
             </div>
         </section>
     </div>
-
-
 
 @endsection

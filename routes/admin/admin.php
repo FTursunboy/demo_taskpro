@@ -113,6 +113,8 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::patch('/employees/update/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('update');
         Route::patch('/employees/addRole/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'addRole'])->name('addRole');
         Route::delete('/employees/destroy/{slug}', [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('destroy');
+        Route::get('/employees/plan/{id}', [\App\Http\Controllers\Admin\EmployeeController::class, 'plan'])->name('plan');
+        Route::get('/filter_day/{day}', [\App\Http\Controllers\Admin\EmployeeController::class, 'filter_day'])->name('filter_day');
 
         Route::get('/client', [\App\Http\Controllers\Admin\ClientController::class, 'index'])->name('client');
         Route::get('/client/show/{slug}', [\App\Http\Controllers\Admin\ClientController::class, 'show'])->name('client.show');
@@ -227,6 +229,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
     Route::get('/control/{user_id}/{from}/{to}/{time}', [\App\Http\Controllers\Admin\TasksController::class, 'control'])->name('control');
     Route::get('/kpil/{id}', [\App\Http\Controllers\Admin\TasksController::class, 'kpi']);
 
+    Route::get('employee/plan/{employeePlan}/{days}', [\App\Http\Controllers\BaseController::class, 'employeePlan'])->name('employeePlan');
 
 
 

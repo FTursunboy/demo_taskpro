@@ -52,29 +52,33 @@
                 {{--                @endif--}}
 
                 <ul class="navbar-nav ms-auto mb-lg-0">
-                    <li class="nav-item" style="margin-top: -10px;">
+                    <li class="nav-item" style="margin-top: -10px;" title="Создать задачу">
                         <a data-bs-toggle="offcanvas" data-bs-target="#TaskStore"
                            aria-controls="TaskStore" style="margin-left: 20px;"
                            role="button">
                             <i style="font-size: 31px;" class="bi bi-plus-circle"></i>
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: -10px;">
+                    <li class="nav-item" style="margin-top: -10px;" title="Планы сотрудников">
+                        <a  data-bs-toggle="offcanvas" data-bs-target="#employeePlan" aria-controls="employeePlan" style="margin-left: 20px;"
+                           role="button">
+                            <i class="bi bi-card-list" style="font-size: 31px"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" style="margin-top: -10px;" title="Проекты">
                         <a data-bs-toggle="offcanvas" data-bs-target="#ProjectOfCanvas"
                            aria-controls="ProjectOfCanvas" style="margin-left: 20px;"
                            role="button"><i style="font-size: 31px;" class="bi bi-clipboard2-data"></i>
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: -10px;">
-
+                    <li class="nav-item" style="margin-top: -10px;" title="Статистика">
                         <a data-bs-toggle="offcanvas" data-bs-target="#Statistic"
                            aria-controls="Statistic" style="margin-left: 20px;"
                            role="button">
                             <i style="font-size: 29px"  class="bi bi-calendar-check"></i>
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: -10px;">
-
+                    <li class="nav-item" style="margin-top: -10px;" title="Статистика лидов">
                         <a data-bs-toggle="offcanvas" data-bs-target="#LeadStatistic"
                            aria-controls="LeadStatistic" style="margin-left: 20px;"
                            role="button">
@@ -110,7 +114,7 @@
                         </style>
                     </li>
 
-                    <li class="nav-item" style="margin-top: -10px; margin-right: 20px">
+                    <li class="nav-item" style="margin-top: -10px; margin-right: 20px" title="Список идей">
                         @if($ideas_count > 0 || $system_idea_count > 0)
                             <a  data-bs-toggle="offcanvas" data-bs-target="#ideasOfCanvas" aria-controls="ideasOfCanvas" style="margin-left: 20px;">
 
@@ -1265,8 +1269,6 @@
 
 
         <script>
-
-
             const fromInput = document.getElementById('from');
             let prevValue = fromInput.value;
 
@@ -1466,3 +1468,92 @@
     </div>
 </div>
 
+
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="employeePlan" aria-labelledby="employeePlan" style="height: 100%">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Планы сотрудников</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body large">
+        <form id="employeePlanForm">
+            @csrf
+
+            <div class="row">
+                <div class="col-3">
+                    <label>Выберите сотрудника</label>
+                    <select name="employee" id="employee" class="form-control mt-3">
+                        <option disabled selected>Выберите сотрудника</option>
+                        @foreach($employees as $employee)
+                            <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label for="day">Выберите дату</label>
+                    <input id="dayPlan" type="date" name="day" class="form-control mt-3">
+                </div>
+
+            </div>
+        </form>
+        <hr>
+        <table class="table table-hover mt-5" id="">
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Имя</th>
+                <th>Описание</th>
+                <th>Статус</th>
+                <th>Время (в часах)</th>
+            </tr>
+            </thead>
+            <tbody id="plan_table">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#employee, #dayPlan').on('change', function() {
+                filterLeads()
+            });
+
+            function filterLeads() {
+                let employee = $('#employee').val();
+                let days = $('#dayPlan').val();
+
+
+                $.get(`employee/plan/${employee}/${days}`, function(responce) {
+                    let table = $('#plan_table').empty();
+                    console.log(responce);
+                    buildTable(responce.plans, table);
+
+                });
+            }
+
+            function formatDate(date) {
+                const d = new Date(date);
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            function buildTable(data, table) {
+                $.each(data, function(i, item) {
+                    const formattedDate = formatDate(item.created_at);
+                    const statusText = (item.status === 1) ? 'Завершен' : 'Не завершен';
+
+                    let row = `<tr>
+                  <td>${(formattedDate)}</td>
+                  <td>${item.name}</td>
+                  <td>${item.description}</td>
+                  <td>${statusText}</td>
+                  <td>${item.hour}</td>
+                </tr>`;
+                    table.append(row);
+                });
+            }
+        });
+</script>
