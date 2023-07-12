@@ -7,16 +7,59 @@
             <th>Статус</th>
             <th>Исполнитель</th>
             <th>Проект</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody id="tableBodyMonitoringCommand">
         @foreach($userListTasks as $task)
-            <tr class="text-center">
+            <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $task->task }}</td>
-                <td>{{ $task->sts }}</td>
+                @switch($task->status_id)
+                    @case(1)
+                        <td><span class="badge bg-warning p-2">Ожидается</span></td>
+                        @break
+                    @case(2)
+                        <td><span class="badge bg-success p-2">{{$task->sts}}</span></td>
+                        @break
+                    @case(3)
+                        <td><span class="badge bg-success p-2">{{$task->sts}}</span></td>
+                        @break
+                    @case(4)
+                        <td><span class="badge bg-success p-2">В процессе</span></td>
+                        @break
+                    @case(5)
+                        <td><span class="badge bg-warning p-2">Отклон.(сотруд.)</span></td>
+                        @break
+                    @case(6)
+                        <td><span class="badge bg-success p-2">На проверке (Адм)</span></td>
+                        @break
+                    @case(7)
+                        <td><span class="badge bg-danger p-2">{{$task->sts}}</span></td>
+                        @break
+                    @case(8)
+                        <td><span class="badge bg-warning p-2">{{$task->sts}}</span></td>
+                        @break
+                    @case(9)
+                        <td><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
+                        @break
+                    @case(10)
+                        <td><span class="badge bg-success p-2">У клиента</span></td>
+                        @break
+                    @case(11)
+                        <td><span class="badge bg-danger p-2">{{$task->sts}}</span></td>
+                        @break
+                    @case(12)
+                        <td><span class="badge bg-warning p-2">{{$task->sts}}</span></td>
+                        @break
+                    @case(13)
+                        <td><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> @break
+                    @case(14)
+                        <td><span class="badge bg-warning p-2">{{$task->sts}}</span></td> @break
+                @endswitch
                 <td>{{ $task->surname . ' ' . $task->name. ' '. $task->lastname}}</td>
                 <td>{{ $task->group}}</td>
+                <td><a href="{{ route('my-command.show', $task->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a></td>
             </tr>
         @endforeach
         </tbody>

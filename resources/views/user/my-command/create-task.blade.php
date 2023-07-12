@@ -19,14 +19,14 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="name">Имя</label>
+                                    <label for="name">Название</label>
                                     <input tabindex="1" type="text" id="name" name="name" class="form-control mt-3"
                                            placeholder="Имя" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="user_id">Кому это задача</label>
                                     <select tabindex="4" id="user_id" name="user_id" class="form-select mt-3">
-                                        <option value="" selected>Выберите сотрудник</option>
+                                        <option value="" selected>Выберите сотрудника</option>
                                         @foreach($myCommand as $command)
                                                 <option value="{{ $command->id }}">{{ $command->surname . ' ' . $command->name . ' ' . $command->lastname }}</option>
                                         @endforeach
@@ -71,7 +71,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="comment">Комментария</label>
+                                    <label for="comment">Комментарие</label>
                                     <textarea tabindex="10" name="comment" id="comment" rows="4"
                                               class="form-control mt-3">{{ old('comment') }}</textarea>
                                 </div>

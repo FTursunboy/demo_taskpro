@@ -50,7 +50,7 @@
                                             <td>{{ \Str::limit($task->name, 20) }}</td>
                                             <td>{{ $task->project->name }}</td>
                                             <td>{{ $task->user->surname . ' ' . $task->user->name }}</td>
-                                            <td>На рассматрения у админа</td>
+                                            <td>На рассмотрении у админа</td>
                                             <td>
                                                 <a role="button" class="btn btn-success" data-bs-toggle="modal"
                                                    data-bs-target="#taskTeamLead{{ $task->id }}"><i
@@ -68,7 +68,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5"
-                                                            id="taskTeamLeadDelete{{ $task->id }}">Информатция</h1>
+                                                            id="taskTeamLeadDelete{{ $task->id }}">Информация</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
@@ -97,7 +97,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="taskTeamLead{{ $task->id }}">
-                                                            Информатция</h1>
+                                                            Информация</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
@@ -105,7 +105,7 @@
                                                         <div class="row">
                                                             <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label for="name">Имя</label>
+                                                                    <label for="name">Название</label>
                                                                     <input type="text" class="form-control mt-3"
                                                                            value="{{ $task->name }}" disabled>
                                                                 </div>
@@ -148,7 +148,7 @@
                                                                            value="{{ $task->type->name }}" disabled>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="comment">Комментария</label>
+                                                                    <label for="comment">Комментарие</label>
                                                                     <textarea tabindex="10" name="comment" id="comment"
                                                                               rows="4"
                                                                               class="form-control mt-3" disabled>{{ $task->comment }}</textarea>

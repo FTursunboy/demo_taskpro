@@ -5,9 +5,12 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateMuCommandTaskRequest;
+use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
+use App\Models\History;
+use App\Models\ReportHistory;
 use App\Models\Types;
 use App\Models\User;
 use App\Notifications\Telegram\TelegramSendTaskInAdmin;
@@ -85,5 +88,22 @@ class MyCommandController extends BaseController
         $copy?->delete();
         $task->forceDelete();
         return back()->with('delete', 'Задача успешно удалено');
+    }
+
+    public function show($slug) {
+
+        $task = TaskModel::where('slug', $slug)->first();
+
+        $admin = User::role('admin')->first();
+
+        $messages = MessagesModel::where('task_slug', $task->slug)->get();
+
+        $reports = ReportHistory::where('task_slug', $slug)->get();
+        $histories = History::where([
+            ['task_id', '=', $task->id],
+                ['type', '=', 'task']
+        ])->get();
+
+        return view('user.my-command.show', compact('task', 'admin', 'messages', 'reports', 'histories'));
     }
 }
