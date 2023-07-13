@@ -60,5 +60,42 @@ class StatisticController extends Controller
         return response($response, 200);
     }
 
+    public function filter($month)
+    {
+        return $this->getFilter($month);
+    }
+
+    public function getFilter($month)
+    {
+        $arrs = [];
+        $users = User::role('user')->get();
+        foreach ($users as $user) {
+            $arrs[] = [
+                'user' => $user->name . " " . $user->surname,
+                'total' => $user->getUserTasksInMonth($month, $user->id)['total'],
+                'debt' => $user->debt($month, $user->id),
+                'process' => $user->getUserTasksInMonth($month, $user->id)['process'],
+                'accept' => $user->getUserTasksInMonth($month, $user->id)['accept'],
+                'ready' => $user->getUserTasksInMonth($month, $user->id)['ready'],
+                'speed' => $user->getUserTasksInMonth($month, $user->id)['speed'],
+                'expected' => $user->getUserTasksInMonth($month, $user->id)['expected'],
+                'expectedAdmin' => $user->getUserTasksInMonth($month, $user->id)['expectedAdmin'],
+                'expectedUser' => $user->getUserTasksInMonth($month, $user->id)['expectedUser'],
+                'forVerification' => $user->getUserTasksInMonth($month, $user->id)['forVerification'],
+                'forVerificationAdmin' => $user->getUserTasksInMonth($month, $user->id)['forVerificationAdmin'],
+                'forVerificationClient' => $user->getUserTasksInMonth($month, $user->id)['forVerificationClient'],
+                'rejected' => $user->getUserTasksInMonth($month, $user->id)['rejected'],
+                'rejectedAdmin' => $user->getUserTasksInMonth($month, $user->id)['rejectedAdmin'],
+                'rejectedClient' => $user->getUserTasksInMonth($month, $user->id)['rejectedClient'],
+            ];
+        }
+//dd($arrs);
+
+        return response([
+            'statistics' => $arrs,
+        ]);
+    }
+
+
 
 }
