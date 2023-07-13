@@ -49,7 +49,6 @@ class  TasksController extends BaseController
 
     public function check()
     {
-
         $tasks = TaskModel::orderBy('created_at', 'desc')->get();
         foreach ($tasks as $task) {
             if ($task->to < now()->toDateString()) {
@@ -64,9 +63,6 @@ class  TasksController extends BaseController
                             'task_id' => $task->id,
                         ]);
 
-
-
-
                     $check = CheckDate::where('task_id', $task->id)->first();
                     $date = Carbon::now();
 
@@ -77,7 +73,6 @@ class  TasksController extends BaseController
 
                     $check->count = $result->format('%a');
                     $check->save();
-
                 }
             }
         }
