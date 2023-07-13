@@ -28,8 +28,6 @@ class  MonitoringController extends BaseController
 {
     public function index()
     {
-        $task = new TasksController();
-        $task->check();
         $tasks = TaskModel::where('status_id', '!=', 3)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -196,10 +194,6 @@ class  MonitoringController extends BaseController
 
         HistoryController::task($task->id, $task->user_id, Statuses::UPDATE);
 
-        $task1 = new TasksController();
-
-        $task1->check();
-
         $admin = User::role('admin')->first();
 
         if ($request->user_id == $admin->id) {
@@ -218,8 +212,6 @@ class  MonitoringController extends BaseController
 
 
     public function ready() {
-        $task = new TasksController();
-        $task->check();
         $tasks = TaskModel::where('status_id', 3)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -230,8 +222,6 @@ class  MonitoringController extends BaseController
 
     public function progress()
     {
-        $task = new TasksController();
-        $task->check();
         $tasks = TaskModel::where('status_id', 2)->orWhere('status_id', 4)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -242,8 +232,7 @@ class  MonitoringController extends BaseController
 
     public function clientVerification()
     {
-        $task = new TasksController();
-        $task->check();
+
         $tasks = TaskModel::where('status_id', 10)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -254,8 +243,7 @@ class  MonitoringController extends BaseController
 
     public function adminVerification()
     {
-        $task = new TasksController();
-        $task->check();
+
         $tasks = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -266,8 +254,6 @@ class  MonitoringController extends BaseController
 
     public function out_of_date()
     {
-        $task = new TasksController();
-        $task->check();
         $tasks = TaskModel::where('status_id', 7)->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
@@ -277,8 +263,7 @@ class  MonitoringController extends BaseController
     }
 
     public function all() {
-        $task = new TasksController();
-        $task->check();
+
         $tasks = TaskModel::get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();

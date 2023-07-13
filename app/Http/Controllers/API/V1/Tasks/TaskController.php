@@ -189,7 +189,6 @@ class TaskController extends Controller
             ]);
         }
 
-        $tasks->check();
         $type = TaskTypeModel::find($request->type_id)->name;
 
         try {
