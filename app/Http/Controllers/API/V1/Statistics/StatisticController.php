@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\V1\Statistics;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\V1\Statistics\ProjectTasksResource;
 use App\Models\Admin\ProjectModel;
+use App\Models\Admin\TaskModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StatisticController extends Controller
@@ -27,6 +29,32 @@ class StatisticController extends Controller
                 ];
             }),
             'message' => true,
+        ];
+
+        return response($response, 200);
+    }
+
+    public function taskStatistic()
+    {
+        $taskStatistic = User::role(['admin', 'user'])->withCount('taskUser')->get();
+
+        $response = [
+            'TaskModels' => $taskStatistic->map(function ($task){
+                return [
+                    'name' => $task->name,
+                    'all_tasks' => $task->taskCount($task->id),
+                    'debt_tasks' => $task->debt_tasks($task->id),
+                    'taskProgress' => $task->taskProgress($task->id),
+                    'taskReady' => $task->taskReady($task->id),
+                    'out_of_date' => $task->out_of_date($task->id),
+                    'expected_user' => $task->expected_user($task->id),
+                    'verificateAdmin' => $task->verificateAdmin($task->id),
+                    'verificateClient' => $task->verificateClient($task->id),
+                    'rejectAdmin' => $task->rejectAdmin($task->id),
+                    'rejectClient' => $task->rejectClient($task->id),
+
+                ];
+            })
         ];
 
         return response($response, 200);

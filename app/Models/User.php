@@ -70,6 +70,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function taskUser()
+    {
+        return $this->hasMany(TaskModel::class, 'user_id');
+    }
+
     public function otdel()
     {
         return $this->belongsTo(OtdelsModel::class);
@@ -256,6 +261,7 @@ class User extends Authenticatable
             ->groupBy('tlc.teamLead_id', 'p.NAME',  'u.avatar', 'u.surname', 'u.lastname',  'u.name')
             ->get();
     }
+
     public function debt_tasks($id) {
         $currentYear = Carbon::now()->year;
         $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
@@ -267,9 +273,80 @@ class User extends Authenticatable
         ])->whereBetween('to', [$startOfYear, $endOfMay])->get()->count();
 
         return $debt;
-
     }
 
+    public function taskProgress($id)
+    {
+        $taskProgress = TaskModel::where('user_id', $id)
+            ->whereIn('status_id', [2, 4])->count();
+
+        return $taskProgress;
+    }
+
+    public function taskReady($id)
+    {
+        $taskReady = TaskModel::where('user_id', $id)
+            ->whereIn('status_id', [3])->count();
+
+        return $taskReady;
+    }
+
+    public function out_of_date($id)
+    {
+        $out_of_date = TaskModel::where('user_id', $id)
+            ->whereIn('status_id', [7])->count();
+        return $out_of_date;
+    }
+
+    public function expected_user($id)
+    {
+        $expected_user = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '=', 9]
+        ])->count();
+
+        return $expected_user;
+    }
+
+    public function verificateAdmin($id)
+    {
+        $verificateAdmin = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '=', 6]
+            ])->count();
+
+        return $verificateAdmin;
+    }
+
+    public function verificateClient($id)
+    {
+        $verificateClient = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '=', 10]
+        ])->count();
+
+        return $verificateClient;
+    }
+
+    public function rejectAdmin($id)
+    {
+        $rejectAdmin = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '=', 11]
+        ])->count();
+
+        return $rejectAdmin;
+    }
+
+    public function rejectClient($id)
+    {
+        $rejectClient = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '=', 13]
+        ])->count();
+
+        return $rejectClient;
+    }
 
 
 
