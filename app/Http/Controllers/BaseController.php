@@ -60,12 +60,12 @@ class BaseController extends Controller
             $ideasOfDashboard = Idea::get();
             $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();
             $systemIdeasOfDashboard = SystemIdea::get();
-            $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->count();
+            $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->get();
 
 
             $system_idea_count = SystemIdea::where('status_id', 1)->count();
 
-            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->count();
+            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
 
             $notes = $this->notesList(Auth::id());
 
