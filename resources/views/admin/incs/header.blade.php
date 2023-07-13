@@ -1039,7 +1039,7 @@
                                 <th class="text-center">На проверке (У админа)</th>
                                 <th class="text-center">На проверке (У клиента)</th>
                                 <th class="text-center">Отклонено (Администратором)</th>
-                                <th class="text-center">Отклонено (Сотрудником)</th>
+                                <th class="text-center">Отклонено (Клиентом)</th>
                             </tr>
                             </thead>
                             <tbody id="tableBodyMonitoring">
