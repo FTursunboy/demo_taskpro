@@ -36,7 +36,7 @@ class StatisticController extends Controller
 
     public function taskStatistic()
     {
-        $taskStatistic = User::role(['admin', 'user'])->withCount('taskUser')->get();
+        $taskStatistic = User::role('user')->withCount('taskUser')->get();
 
         $response = [
             'TaskModels' => $taskStatistic->map(function ($task){
@@ -71,22 +71,17 @@ class StatisticController extends Controller
         $users = User::role('user')->get();
         foreach ($users as $user) {
             $arrs[] = [
-                'user' => $user->name . " " . $user->surname,
-                'total' => $user->getUserTasksInMonth($month, $user->id)['total'],
-                'debt' => $user->debt($month, $user->id),
-                'process' => $user->getUserTasksInMonth($month, $user->id)['process'],
-                'accept' => $user->getUserTasksInMonth($month, $user->id)['accept'],
-                'ready' => $user->getUserTasksInMonth($month, $user->id)['ready'],
-                'speed' => $user->getUserTasksInMonth($month, $user->id)['speed'],
-                'expected' => $user->getUserTasksInMonth($month, $user->id)['expected'],
-                'expectedAdmin' => $user->getUserTasksInMonth($month, $user->id)['expectedAdmin'],
-                'expectedUser' => $user->getUserTasksInMonth($month, $user->id)['expectedUser'],
-                'forVerification' => $user->getUserTasksInMonth($month, $user->id)['forVerification'],
-                'forVerificationAdmin' => $user->getUserTasksInMonth($month, $user->id)['forVerificationAdmin'],
-                'forVerificationClient' => $user->getUserTasksInMonth($month, $user->id)['forVerificationClient'],
-                'rejected' => $user->getUserTasksInMonth($month, $user->id)['rejected'],
-                'rejectedAdmin' => $user->getUserTasksInMonth($month, $user->id)['rejectedAdmin'],
-                'rejectedClient' => $user->getUserTasksInMonth($month, $user->id)['rejectedClient'],
+                'name' => $user->name . " " . $user->surname,
+                'all_tasks' => $user->getUserTasksInMonth($month, $user->id)['total'],
+                'debt_tasks' => $user->debt($month, $user->id),
+                'taskProgress' => $user->getUserTasksInMonth($month, $user->id)['process'],
+                'taskReady' => $user->getUserTasksInMonth($month, $user->id)['ready'],
+                'out_of_date' => $user->getUserTasksInMonth($month, $user->id)['speed'],
+                'expected_user' => $user->getUserTasksInMonth($month, $user->id)['expectedUser'],
+                'verificateAdmin' => $user->getUserTasksInMonth($month, $user->id)['forVerificationAdmin'],
+                'verificateClient' => $user->getUserTasksInMonth($month, $user->id)['forVerificationClient'],
+                'rejectAdmin' => $user->getUserTasksInMonth($month, $user->id)['rejectedAdmin'],
+                'rejectClient' => $user->getUserTasksInMonth($month, $user->id)['rejectedClient'],
             ];
         }
 //dd($arrs);
