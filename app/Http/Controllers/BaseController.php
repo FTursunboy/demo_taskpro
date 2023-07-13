@@ -58,7 +58,7 @@ class BaseController extends Controller
             $usersTelegram = User::role('user')->get();
 
             $ideasOfDashboard = Idea::get();
-            $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->count();
+            $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();
             $systemIdeasOfDashboard = SystemIdea::get();
             $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->count();
 
