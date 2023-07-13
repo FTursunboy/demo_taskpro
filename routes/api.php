@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::group(['as' => 'statistics'], function () {
         Route::get('/statisticsProjectTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'projectStatic']);
+        Route::get('/statisticsUserTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'taskStatistic']);
     });
 
     Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
