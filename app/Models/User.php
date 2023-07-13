@@ -271,10 +271,7 @@ class User extends Authenticatable
     }
 
 
-    public function notesList($userID)
-    {
-        return NotesModels::where('user_id', $userID)->get();
-    }
+
 
     public function usersCountTasks($id)
     {

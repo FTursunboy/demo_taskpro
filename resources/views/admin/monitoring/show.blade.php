@@ -528,7 +528,7 @@
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
                                                         <td>{{$history->sender?->name }}</td>
                                                         <td>
-                                                            {{ $history?->user?->name }}
+                                                            {{ $history?->status?->name }}
 
 {{--                                                            @if ($history?->user?->hasRole('admin'))--}}
 {{--                                                                (Админ)--}}

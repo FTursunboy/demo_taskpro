@@ -19,6 +19,7 @@ use App\Models\SystemIdea;
 use App\Models\User;
 use App\Models\User\CreateMyCommandTaskModel;
 use App\Models\User\MyPlanModel;
+use App\Models\Users\NotesModels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,37 +34,42 @@ class BaseController extends Controller
                 ['status_id', '!=', 11]
             ])->get()->count();
             $statistics = User::role(['user', 'admin'])->get();
-            $ideas_count = Idea::where('status_id', 1)->get()->count();
-            $ready = TaskModel::where('status_id', 3)->get()->count();
-            $all_tasks = TaskModel::get()->count();
-            $out_of_date = TaskModel::where('status_id', 7)->count();
-            $rejected = TaskModel::where('status_id', 5)->count();
+            $ideas_count = Idea::where('status_id', 1)->count();
+            $taskStatuses = [3, 7, 5];
+
+            $counts = TaskModel::whereIn('status_id', $taskStatuses)
+                ->selectRaw('status_id, COUNT(*) as count')
+                ->groupBy('status_id')
+                ->pluck('count', 'status_id');
+
+            $ready = $counts->get(3, 0);
+            $all_tasks = $counts->sum();
+            $out_of_date = $counts->get(7, 0);
+            $rejected = $counts->get(5, 0);
 
             $settings = Setting::first();
 
             $projectTasksOfDashboardAdmin = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
             $projectTasksOfDashboardUser = TaskModel::where('user_id', Auth::id())->get();
 
-            $notifications = ClientNotification::get();
-            $newMessage = ChatMessageModel::where('user_id', Auth::id())->orwhere('offer_id', Auth::id())->orderBy('created_at','desc')->get();
-            $command_task = CreateMyCommandTaskModel::get()->count();
+            $notifications = ClientNotification::count();
+            $newMessage = ChatMessageModel::where('user_id', Auth::id())->orWhere('offer_id', Auth::id())->orderBy('created_at', 'desc')->get();
+            $command_task = CreateMyCommandTaskModel::count();
             $usersTelegram = User::role('user')->get();
 
             $ideasOfDashboard = Idea::get();
-            $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->get();
+            $ideasOfDashboardUser = Idea::where('user_id', Auth::id())->count();
             $systemIdeasOfDashboard = SystemIdea::get();
-            $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->get();
+            $systemIdeasOfDashboardUser = SystemIdea::where('user_id', Auth::id())->count();
 
-            $birthday = new IndexController();
-            $birthdayUsers = $birthday->birthday();
 
             $system_idea_count = SystemIdea::where('status_id', 1)->count();
 
+            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->count();
 
-            $systemIdeasOfDashboardClient = SystemIdea::where('user_id', Auth::id())->get();
+            $notes = $this->notesList(Auth::id());
 
-            $notes = Auth::user()->notesList(Auth::id());
-            $client_tasks = TasksClient::where('client_id', Auth::id())->get()->count();
+            $client_tasks = TasksClient::where('client_id', Auth::id())->count();
 
             $leadStatuses = LeadStatus::all();
             $monthInRu = TaskTypesTypeModel::all();
@@ -71,7 +77,8 @@ class BaseController extends Controller
             $dataByMonth = [];
 
             $employees = User::role('user')->get();
-            $plans = User\MyPlanModel::get();
+            $plans = User\MyPlanModel::count();
+
 
             $project = DB::table('project_clients as pc')
                 ->join('project_models as p','p.id', 'pc.project_id')
@@ -79,29 +86,32 @@ class BaseController extends Controller
                 ->select('p.is_active')
                 ->where('u.id', Auth::id())
                 ->first();
+        //шуд
+            $leadStatusIds = [1, 2, 3, 4, 5, 6, 7];
 
             foreach ($months as $month) {
-                $count = Lead::whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $first_meet = Lead::where('lead_status_id', 1)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $potential_client = Lead::where('lead_status_id', 2)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $treaty = Lead::where('lead_status_id', 3)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $payment = Lead::where('lead_status_id', 4)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $unquality_lead = Lead::where('lead_status_id', 5)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $test_stage = Lead::where('lead_status_id', 6)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
-                $kp = Lead::where('lead_status_id', 7)->whereMonth('created_at', '=', date('m', strtotime($month)))->count();
+                $monthTimestamp = strtotime($month);
+                $monthNumber = date('m', $monthTimestamp);
 
+                $counts = Lead::whereIn('lead_status_id', $leadStatusIds)
+                    ->whereMonth('created_at', $monthNumber)
+                    ->groupBy('lead_status_id')
+                    ->selectRaw('lead_status_id, COUNT(*) as count')
+                    ->pluck('count', 'lead_status_id');
 
                 $dataByMonth[$month] = [
-                    'count' => $count,
-                    'first_meet' => $first_meet,
-                    'potential_client' => $potential_client,
-                    'treaty' => $treaty,
-                    'payment' => $payment,
-                    'unquality_lead' => $unquality_lead,
-                    'test_stage' => $test_stage,
-                    'kp' => $kp,
+                    'count' => $counts->sum(),
+                    'first_meet' => $counts->get(1, 0),
+                    'potential_client' => $counts->get(2, 0),
+                    'treaty' => $counts->get(3, 0),
+                    'payment' => $counts->get(4, 0),
+                    'unquality_lead' => $counts->get(5, 0),
+                    'test_stage' => $counts->get(6, 0),
+                    'kp' => $counts->get(7, 0),
                 ];
             }
+            //
+
 
             $expected_admin = Offer::where([
                 ['client_id', Auth::id()],
@@ -143,7 +153,6 @@ class BaseController extends Controller
                 'ideasOfDashboardUser' => $ideasOfDashboardUser,
                 'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
                 'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
-                'birthdayUsers' => $birthdayUsers,
                 'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
                 'statistics' => $statistics,
                 'notes' => $notes,
@@ -195,6 +204,10 @@ class BaseController extends Controller
             'plans' => $plans
         ]);
 
+    }
+    public function notesList($userID)
+    {
+        return NotesModels::where('user_id', $userID)->get();
     }
 
 }

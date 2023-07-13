@@ -134,30 +134,7 @@ class IndexController extends BaseController
         return view('admin.tasks.clientVerification', compact('adminVerifications'));
     }
 
-    public function birthday()
-    {
 
-
-        $today = Carbon::now();
-        $endRange = $today->copy()->addDays(11);
-        $startMonthDay = $today->format('m-d');
-        $endMonthDay = $endRange->format('m-d');
-
-        if ($endRange->isBefore($today)) {
-            $startMonthDay = '12-31';
-            $endMonthDay = $endRange->format('m-d');
-            $endRange = $endRange->copy()->addYear();
-        }
-
-        $birthdays = User::role('user')
-            ->whereRaw('DATE_FORMAT(birthday, "%m-%d") >= ?', [$startMonthDay])
-            ->whereRaw('DATE_FORMAT(birthday, "%m-%d") <= ?', [$endMonthDay])
-            ->orderByRaw('DATE_FORMAT(birthday, "%m-%d")')
-            ->get();
-
-        return $birthdays;
-
-    }
 
     public function filter($month)
     {
