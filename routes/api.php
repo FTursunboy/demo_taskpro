@@ -49,3 +49,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
 Route::post('/login/', [\App\Http\Controllers\API\V1\AuthController::class, 'login']);
+Route::get('/test/', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'test']);

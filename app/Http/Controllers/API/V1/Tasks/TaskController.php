@@ -17,6 +17,7 @@ use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
 use App\Models\Client\Offer;
 use App\Models\Statuses;
+use App\Models\SystemIdea;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramUserAccept;
@@ -206,5 +207,14 @@ class TaskController extends Controller
             'message_bool' => true,
             'task' => $taskResource,
         ], 201);
+    }
+
+
+    public function test() {
+        $system = SystemIdea::get();
+
+        return response()->json([
+            'result' => $system
+        ]);
     }
 }
