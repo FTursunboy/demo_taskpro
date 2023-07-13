@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('backup')->daily()->withoutOverlapping();
         $schedule->command('report:send')->twiceDaily(12, 18);
         $schedule->command('check-amount-user')->hourly()->withoutOverlapping();
+        $schedule->command('check-task')->daily()->withoutOverlapping();
     }
 
     /**

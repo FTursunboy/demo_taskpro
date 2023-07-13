@@ -45,6 +45,5 @@ class CheckBalance extends Command
 
         $settings->save();
 
-
     }
 }
