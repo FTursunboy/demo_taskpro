@@ -39,9 +39,9 @@ class StatisticController extends Controller
         $taskStatistic = User::role('user')->withCount('taskUser')->get();
 
         $response = [
+            'message' => true,
             'TaskModels' => $taskStatistic->map(function ($task){
                 return [
-                    'message' => true,
                     'name' => $task->name,
                     'all_tasks' => $task->taskCount($task->id),
                     'debt_tasks' => $task->debt_tasks($task->id),
@@ -55,7 +55,7 @@ class StatisticController extends Controller
                     'rejectClient' => $task->rejectClient($task->id),
 
                 ];
-            })
+            }),
         ];
 
         return response($response, 200);
