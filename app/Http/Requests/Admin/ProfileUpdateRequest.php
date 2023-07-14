@@ -26,9 +26,6 @@ class ProfileUpdateRequest extends FormRequest
             'lastname' => [''],
             'surname' => ['required'],
             'phone' => ['required'],
-            'otdel_id' => ['required'],
-            'telegram_id' => ['required'],
-            'avatar' => [''],
         ];
     }
 }

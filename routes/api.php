@@ -46,8 +46,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/statisticsUserTasks/{month}', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'filter']);
 
     });
+    Route::group(['middleware' => 'role:admin'], function() {
+        Route::get('/adminProfile/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'index']);
+        Route::put('/adminProfile/{id}/update', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'update']);
+    });
+
+
 
     Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
+
 });
 
 
