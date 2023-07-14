@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
     Route::group(['middleware' => 'role:admin'], function() {
         Route::get('/adminProfile/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'index']);
-        Route::put('/adminProfile/{id}/update', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'update']);
+        Route::put('/adminProfile/update/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'update']);
     });
 
 
