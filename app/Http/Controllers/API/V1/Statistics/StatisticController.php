@@ -41,6 +41,7 @@ class StatisticController extends Controller
         $response = [
             'TaskModels' => $taskStatistic->map(function ($task){
                 return [
+                    'message' => true,
                     'name' => $task->name,
                     'all_tasks' => $task->taskCount($task->id),
                     'debt_tasks' => $task->debt_tasks($task->id),
