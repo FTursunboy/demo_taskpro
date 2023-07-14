@@ -44,8 +44,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/statisticsProjectTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'projectStatic']);
         Route::get('/statisticsUserTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'taskStatistic']);
         Route::get('/statisticsUserTasks/{month}', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'filter']);
+        Route::get('/leadStatistics', [\App\Http\Controllers\API\V1\Statistics\LeadStatisticController::class, 'LeadStatistic']);
 
     });
+
     Route::group(['middleware' => 'role:admin'], function() {
         Route::get('/adminProfile/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'index']);
         Route::put('/adminProfile/update/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'update']);
