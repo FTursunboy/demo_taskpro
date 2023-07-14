@@ -669,6 +669,7 @@
     <script>
 
         $('#type_id_2').change(function () {
+            console.log(1);
             let kpi = $(this).children('option:selected')
 
             if (kpi.text().toLowerCase() === 'kpi') {
@@ -685,9 +686,10 @@
 
 
                 $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
+                    console.log(1);
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
-                        alert(1)
+
                         kpi_id.append($('<option>').val(item.id).text(item.name));
                     }
                 });
