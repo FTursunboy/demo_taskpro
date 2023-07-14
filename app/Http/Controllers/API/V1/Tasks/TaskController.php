@@ -12,6 +12,7 @@ use App\Http\Resources\API\V1\Tasks\TasksResource;
 use App\Http\Resources\API\V1\TypeResource;
 use App\Http\Resources\API\V1\UserResource;
 use App\Models\Admin\ProjectModel;
+use App\Models\Admin\StatusesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\UserTaskHistoryModel;
@@ -23,6 +24,7 @@ use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramUserAccept;
 use App\Notifications\Telegram\TelegramUserDecline;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -51,6 +53,24 @@ class TaskController extends Controller
         return response([
             'message' => true,
             'tasks' => GetTasksResource::collection(Auth::user()->getUsersTasks(Auth::id())),
+        ]);
+    }
+
+    public function getAllTasks()
+    {
+        $tasks = TaskModel::where('status_id', '!=', 3)->get();
+        $statuses = StatusesModel::get();
+        $projects = ProjectModel::where('pro_status', '!=', 3)->get();
+        $users = User::role('user')->withTrashed()->get();
+
+        $clients = User::role('client')->get();
+
+        return response([
+           'tasks' => new Collection($tasks),
+           'statuses' => $statuses,
+           'projects' => new Collection($projects),
+           'users' => new Collection($users),
+           'clients' => new Collection($clients)
         ]);
     }
 
