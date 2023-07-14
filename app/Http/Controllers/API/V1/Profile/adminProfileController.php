@@ -34,6 +34,7 @@ class adminProfileController extends Controller
         } else {
             $file = $user->avatar;
         }
+
         $user->update([
             'name' => $data['name'],
             'surname' => $data['surname'],
@@ -41,6 +42,7 @@ class adminProfileController extends Controller
             'phone' => $data['phone'],
             'avatar' => $file
         ]);
+
         return response([
             'message' => 'Данные обновлены',
             'user' => new UserResource($user)
