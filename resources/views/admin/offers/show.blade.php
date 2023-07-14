@@ -669,11 +669,11 @@
     <script>
 
         $('#type_id_2').change(function () {
-            console.log(1);
+            alert(1)
             let kpi = $(this).children('option:selected')
 
             if (kpi.text().toLowerCase() === 'kpi') {
-                console.log(43284972809570230594);
+
                 let kpiType = $('#kpi_id_2').empty();
 
                 $('#label_2').removeClass('d-none');
@@ -686,7 +686,7 @@
 
 
                 $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
-                    console.log(1);
+
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
 
