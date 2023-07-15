@@ -42,7 +42,7 @@ class StatisticController extends Controller
             'message' => true,
             'statistics' => $taskStatistic->map(function ($task){
                 return [
-                    'name' => $task->name,
+                    'name' => $task->name . " " . $task->surname,
                     'all_tasks' => $task->taskCount($task->id),
                     'debt_tasks' => $task->debt_tasks($task->id),
                     'taskProgress' => $task->taskProgress($task->id),
