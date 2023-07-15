@@ -367,7 +367,7 @@ class User extends Authenticatable
             SUM(CASE WHEN status_id = 8 THEN 1 ELSE 0 END) as expectedAdmin,
             SUM(CASE WHEN status_id = 9 THEN 1 ELSE 0 END) as expectedUser,
             SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
-            SUM(CASE WHEN status_id = 14 THEN 1 ELSE 0 END) as forVerificationAdmin,
+            SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerificationAdmin,
             SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerification,
             SUM(CASE WHEN status_id = 5 THEN 1 ELSE 0 END) as rejected,
             SUM(CASE WHEN status_id = 11 THEN 1 ELSE 0 END) as rejectedAdmin,
