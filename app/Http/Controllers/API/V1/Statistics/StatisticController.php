@@ -40,7 +40,7 @@ class StatisticController extends Controller
 
         $response = [
             'message' => true,
-            'TaskModels' => $taskStatistic->map(function ($task){
+            'statistics' => $taskStatistic->map(function ($task){
                 return [
                     'name' => $task->name,
                     'all_tasks' => $task->taskCount($task->id),
@@ -88,6 +88,7 @@ class StatisticController extends Controller
 //dd($arrs);
 
         return response([
+            'message' => true,
             'statistics' => $arrs,
         ]);
     }
