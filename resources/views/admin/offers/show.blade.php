@@ -142,7 +142,7 @@
                                                                             <div class="col-md-6">
                                                                                 <label class="form-label">От</label>
                                                                                 <input required
-                                                                                       id="from"
+                                                                                       id="from_1"
                                                                                        value="{{$offer->from}}"
                                                                                        type="date"
                                                                                        class="form-control"
@@ -704,37 +704,35 @@
     </script>
 
     <script>
-        const fromInput_1 = document.getElementById('from');
+            const fromInput_1 = document.getElementById('from');
         let prevValue_1 = fromInput_1.value;
 
         fromInput_1.addEventListener('input', function () {
-            const dateValue = new Date(this.value);
-            const year = dateValue.getFullYear();
-            const maxLength = 4;
+            const dateValue_2 = new Date(this.value);
+            const year_2 = dateValue_2.getFullYear();
+            const maxLength_1 = 4;
 
-            if (year.toString().length > maxLength) {
+            if (year.toString().length > maxLength_1) {
                 this.value = prevValue_1;
             } else {
                 prevValue_1 = this.value;
             }
         });
-    </script>
 
-    <script>
-        const toInput = document.getElementById('to');
-        let prevValue1 = toInput.value;
+                const toInput_1 = document.getElementById('to_1');
+                let prevValue1_1 = toInput_1.value;
 
-        toInput.addEventListener('input', function () {
-            const dateValue = new Date(this.value);
-            const year = dateValue.getFullYear();
-            const maxLength = 4;
+                toInput_1.addEventListener('input', function () {
+                const dateValue_1 = new Date(this.value);
+                const year_1 = dateValue_1.getFullYear();
+                const maxLength_1 = 4;
 
-            if (year.toString().length > maxLength) {
-                this.value = prevValue1; // Восстанавливаем предыдущее значение
+                if (year_1.toString().length > maxLength_1) {
+                this.value = prevValue1_1; // Восстанавливаем предыдущее значение
             } else {
-                prevValue1 = this.value; // Сохраняем текущее значение
+                prevValue1_1 = this.value; // Сохраняем текущее значение
             }
-        });
+            });
     </script>
 
     @routes
@@ -751,6 +749,7 @@
             });
         });
     </script>
+
     <script>
         $(document).ready(function () {
             $('#file').change(function () {
@@ -793,35 +792,33 @@
                         let fileUrl = route('user.downloadChat', {task: response.messages.id});
                         let del = route('tasks.messages.delete', {mess: response.messages.id});
                         let newMessage = `
-                                <div class="chat">
-                                    <div class="chat-body" style="margin-right: 10px">
-                                        <div class="chat-message">
-                                            <p>
-                                                <span style="display: flex; justify-content: space-between;">
-                                                            <b>${response.name}</b>
-                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
-                                                        </span>
-                                                <span style="margin-top: 10px">${response.messages.message}</span>
-                                                ${response.messages.file !== null ? `
-                                                        <div class="form-group">
-                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
-                                                        </div>
-                                                    ` : ''}
-                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                    ${response.created_at}
-                                                </span>
-                                            </p>
-                                        </div>
+                            <div class="chat">
+                                <div class="chat-body" style="margin-right: 10px">
+                                    <div class="chat-message">
+                                        <p>
+                                            <span style="display: flex; justify-content: space-between;">
+                                                        <b>${response.name}</b>
+                                                        <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
+                                                    </span>
+                                            <span style="margin-top: 10px">${response.messages.message}</span>
+                                            ${response.messages.file !== null ? `
+                                                    <div class="form-group">
+                                                        <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                    </div>
+                                                ` : ''}
+                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                ${response.created_at}
+                                            </span>
+                                        </p>
                                     </div>
                                 </div>
-                        `;
+                            </div>
+                    `;
 
                         $('#block').append(newMessage);
 
-
                         let block = document.getElementById("block");
                         block.scrollTop = block.scrollHeight;
-
                     },
                     error: function (xhr, status, error) {
                         alert('Ошибка при отправке сообщения');
@@ -832,101 +829,100 @@
     </script>
 
     <script>
-        $('#from').change(function () {
-            const to = $('#to')
-            if ($(this).val() > to.val()) {
+        $('#from_1').change(function () {
+            const to_1 = $('#to_1');
+            if ($(this).val() > to_1.val()) {
 
                 let selectedOption = $('#project_id option:selected');
                 let selectedClass = selectedOption.attr('class');
 
-                let selectedDate = new Date(selectedClass);
-                let toDate = new Date($(this).val());
+                let selectedDate_1 = new Date(selectedClass);
+                let toDate_1 = new Date($(this).val());
 
-                if (toDate > selectedDate) {
+                if (toDate_1 > selectedDate_1) {
                     $('#error-message').show();
-                    $(this).addClass('border-danger')
+                    $(this).addClass('border-danger');
 
-                    let formattedDate = selectedDate.toISOString().split('T')[0];
+                    let formattedDate_1 = selectedDate_1.toISOString().split('T')[0];
 
-                    $(this).val(formattedDate)
+                    $(this).val(formattedDate_1);
                 }
 
-                to.addClass('border-danger')
+                to_1.addClass('border-danger');
                 $('#button').attr('type', 'button');
             } else {
-                $(this).removeClass('border-danger')
-                to.removeClass('border-danger')
+                $(this).removeClass('border-danger');
+                to_1.removeClass('border-danger');
                 $('#button').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
-        })
+        });
 
-        $('#to').change(function () {
-            const from = $('#from')
-            if ($(this).val() < from.val()) {
-                $(this).addClass('border-danger')
-                from.addClass('border-danger')
+        $('#to_1').change(function () {
+            const from_1 = $('#from_1');
+            if ($(this).val() < from_1.val()) {
+                $(this).addClass('border-danger');
+                from_1.addClass('border-danger');
                 $('#button').attr('type', 'button');
             } else {
-                $(this).removeClass('border-danger')
-                from.removeClass('border-danger')
+                $(this).removeClass('border-danger');
+                from_1.removeClass('border-danger');
                 $('#button').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
-        })
+        });
 
-        function formatDate(date) {
-            let year = date.getFullYear();
-            let month = String(date.getMonth() + 1).padStart(2, '0');
-            let day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+        function formatDate_1(date) {
+            let year_1 = date.getFullYear();
+            let month_1 = String(date.getMonth() + 1).padStart(2, '0');
+            let day_1 = String(date.getDate()).padStart(2, '0');
+            return `${year_1}-${month_1}-${day_1}`;
         }
 
-        function formatDate1(dateStr) {
-            const [day, month, year] = dateStr.split('-');
-            const date = new Date(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`);
-            return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+        function formatDate1(dateStr_1) {
+            const [day_1, month_1, year_1] = dateStr_1.split('-');
+            const date_1 = new Date(`${year_1}-${month_1.toString().padStart(2, '0')}-${day_1.toString().padStart(2, '0')}`);
+            return `${date_1.getDate()}-${(date_1.getMonth() + 1).toString().padStart(2, '0')}-${date_1.getFullYear()}`;
         }
 
-        $('#to').on('input', function () {
-            let project_finish = formatDate1($('#project_finish').text());
+        $('#to_1').on('input', function () {
+            let project_finish_1 = formatDate1($('#project_finish').text());
 
-            let selectedOption = $('#project_id option:selected');
-            let selectedClass = selectedOption.attr('class');
+            let selectedOption_1 = $('#project_id option:selected');
+            let selectedClass_1 = selectedOption_1.attr('class');
 
-            let selectedDate = new Date(selectedClass);
-            let toDate = new Date($(this).val());
+            let selectedDate_1 = new Date(selectedClass_1);
+            let toDate_1 = new Date($(this).val());
 
-            if (toDate > selectedDate) {
+            if (toDate_1 > selectedDate_1) {
                 $('#error-message').show();
-                $(this).addClass('border-danger')
+                $(this).addClass('border-danger');
 
-                let formattedDate = selectedDate.toISOString().split('T')[0];
+                let formattedDate_1 = selectedDate_1.toISOString().split('T')[0];
 
-                $(this).val(formattedDate)
+                $(this).val(formattedDate_1);
             } else {
-                $(this).removeClass('border-danger')
+                $(this).removeClass('border-danger');
                 $('#error-message').hide();
                 $('#button').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
-            let formattedDate = formatDate(toDate);
-            console.log(formattedDate);
+            let formattedDate_1 = formatDate_1(toDate_1);
+            console.log(formattedDate_1);
         });
 
         function updateErrorMessageVisibility() {
-            const errorMessage = $('#error-message');
-            const from = $('#from');
-            const to = $('#to');
-            if (from.hasClass('border-danger') || to.hasClass('border-danger')) {
-                errorMessage.removeClass('d-none');
+            const errorMessage_1 = $('#error-message');
+            const from_1 = $('#from_1');
+            const to_1 = $('#to');
+            if (from_1.hasClass('border-danger') || to_1.hasClass('border-danger')) {
+                errorMessage_1.removeClass('d-none');
             } else {
-                errorMessage.addClass('d-none');
+                errorMessage_1.addClass('d-none');
             }
         }
-
-
     </script>
+
     <script>
         $(document).ready(function(){
             $('#reason').on('click', function() {
@@ -937,6 +933,7 @@
             });
         });
     </script>
+
 
 @endsection
 
