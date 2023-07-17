@@ -36,7 +36,6 @@ class TaskController extends BaseController
         return view('client.offers.index', compact('tasks'));
     }
 
-
     public function show($slug) {
 
         $offer = Offer::where('slug', $slug)->first();
@@ -48,8 +47,6 @@ class TaskController extends BaseController
             ['task_id', '=', $offer->id]
 
         ])->orderBy('created_at')->get();
-
-
 
         return view('client.offers.show', compact('offer', 'histories', 'reports'));
     }

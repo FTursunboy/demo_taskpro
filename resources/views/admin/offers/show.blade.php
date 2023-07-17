@@ -291,7 +291,8 @@
                                                                 <div class="col-6">
                                                                     <button name="action" value="accept"
                                                                             class="btn btn-success form-control"
-                                                                            type="submit" id="button_1">
+                                                                            type="submit" id="button" onclick="buttonFn()">
+
                                                                         Отправить
                                                                     </button>
                                                                 </div>
@@ -589,7 +590,7 @@
                         <textarea name="reason" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Отправить</button>
+                        <button type="submit" id="rejectBtn" onclick="rejectBtnFn()" class="btn btn-success">Отправить</button>
                     </div>
                 </form>
             </div>
@@ -932,6 +933,29 @@
                 $('#sendButton').hide();
             });
         });
+    </script>
+
+    <script>
+        var counter = 0;
+
+        function buttonFn() {
+            counter++;
+
+            if (counter === 1) {
+                var button = document.getElementById('button');
+                button.type = "button";
+            }
+        }
+
+        function rejectBtnFn()
+        {
+            counter++
+
+            if (counter === 2){
+                var button = document.getElementById('rejectBtn')
+                button.type = "button"
+            }
+        }
     </script>
 
 

@@ -399,6 +399,7 @@
                                                 </div>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
                                                     Отправить
+                                                    Отправить
                                                 </button>
                                             </div>
                                         </div>
@@ -503,7 +504,7 @@
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
-                                                        <td>{{$history?->user->name }}</td>
+                                                        <td>{{$history->user?->name }}</td>
                                                         <td>
                                                             {{ $history?->status?->name }}
 
@@ -633,8 +634,8 @@
                         <div class="modal-footer">
 
                             <button type="button" id="redirectButton" class="btn btn-warning">Перенаправить</button>
-                            <button type="submit" id="redirect" class="btn btn-warning" style="display: none">Перенаправить</button>
-                            <button type="submit" class="btn btn-success" id="end">Готово
+                            <button type="submit" id="redirect" onclick="redirectFn()" class="btn btn-warning" style="display: none">Перенаправить</button>
+                            <button type="submit" class="btn btn-success" id="end" onclick="endFn()">Готово
                             </button>
                         </div>
                     </form>
@@ -870,5 +871,28 @@
                 });
             });
         });
+    </script>
+    <script>
+        var counter = 0;
+
+        function redirectFn()
+        {
+            counter++
+
+            if (counter === 2){
+                var button = document.getElementById('redirect')
+                button.type = "button"
+            }
+        }
+
+        function endFn()
+        {
+            counter++
+
+            if (counter === 2){
+                var button = document.getElementById('end')
+                button.type = "button"
+            }
+        }
     </script>
 @endsection
