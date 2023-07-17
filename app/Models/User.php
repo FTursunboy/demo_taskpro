@@ -302,7 +302,7 @@ class User extends Authenticatable
     {
         $expected_user = TaskModel::where([
             ['user_id', $id],
-            ['status_id', '=', 9]
+            ['status_id', '=', 1]
         ])->count();
 
         return $expected_user;
