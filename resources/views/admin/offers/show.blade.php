@@ -653,7 +653,7 @@
 @endsection
 
 @section('script')
-
+    <script src="{{asset('assets/js/control_offers.js')}}" ></script>
     <script>
 
         $('#id_type').change(function () {
