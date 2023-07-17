@@ -704,7 +704,7 @@
     </script>
 
     <script>
-            const fromInput_1 = document.getElementById('from');
+            const fromInput_1 = document.getElementById('from_1');
         let prevValue_1 = fromInput_1.value;
 
         fromInput_1.addEventListener('input', function () {
@@ -712,7 +712,7 @@
             const year_2 = dateValue_2.getFullYear();
             const maxLength_1 = 4;
 
-            if (year.toString().length > maxLength_1) {
+            if (year_2.toString().length > maxLength_1) {
                 this.value = prevValue_1;
             } else {
                 prevValue_1 = this.value;
