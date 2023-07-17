@@ -169,7 +169,7 @@
                                                                                 <label class="form-label">Ответственный
                                                                                     исполнитель</label>
                                                                                 <select required class="form-select"
-                                                                                        name="user_id" id="user_id">
+                                                                                        name="user_id" id="user_id_1">
                                                                                     <option value="">Выберите
                                                                                         исполнителя
                                                                                     </option>
@@ -291,7 +291,7 @@
                                                                 <div class="col-6">
                                                                     <button name="action" value="accept"
                                                                             class="btn btn-success form-control"
-                                                                            type="submit" id="button">
+                                                                            type="submit" id="button_1">
                                                                         Отправить
                                                                     </button>
                                                                 </div>
@@ -849,11 +849,11 @@
                 }
 
                 to_1.addClass('border-danger');
-                $('#button').attr('type', 'button');
+                $('#button_1').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger');
                 to_1.removeClass('border-danger');
-                $('#button').attr('type', 'submit');
+                $('#button_1').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
         });
@@ -863,11 +863,11 @@
             if ($(this).val() < from_1.val()) {
                 $(this).addClass('border-danger');
                 from_1.addClass('border-danger');
-                $('#button').attr('type', 'button');
+                $('#button_1').attr('type', 'button');
             } else {
                 $(this).removeClass('border-danger');
                 from_1.removeClass('border-danger');
-                $('#button').attr('type', 'submit');
+                $('#button_1').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
         });
@@ -904,7 +904,7 @@
             } else {
                 $(this).removeClass('border-danger');
                 $('#error-message').hide();
-                $('#button').attr('type', 'submit');
+                $('#button_1').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
             let formattedDate_1 = formatDate_1(toDate_1);
