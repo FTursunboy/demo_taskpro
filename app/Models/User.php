@@ -302,7 +302,7 @@ class User extends Authenticatable
     {
         $expected_user = TaskModel::where([
             ['user_id', $id],
-            ['status_id', '=', 9]
+            ['status_id', '=', 1]
         ])->count();
 
         return $expected_user;
@@ -365,7 +365,7 @@ class User extends Authenticatable
             SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expected,
             SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
             SUM(CASE WHEN status_id = 8 THEN 1 ELSE 0 END) as expectedAdmin,
-            SUM(CASE WHEN status_id = 9 THEN 1 ELSE 0 END) as expectedUser,
+            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expectedUser,
             SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
             SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerificationAdmin,
             SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerification,
@@ -396,7 +396,7 @@ class User extends Authenticatable
             SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
             SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
             SUM(CASE WHEN status_id IN(1, 8) THEN 1 ELSE 0 END) as expectedAdmin,
-            SUM(CASE WHEN status_id = 9 THEN 1 ELSE 0 END) as expectedUser,
+            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expectedUser,
             SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
             SUM(CASE WHEN status_id IN(6, 14) THEN 1 ELSE 0 END) as forVerificationAdmin,
             SUM(CASE WHEN status_id IN(5, 11) THEN 1 ELSE 0 END) as rejectedAdmin,
