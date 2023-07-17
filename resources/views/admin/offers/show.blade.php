@@ -691,6 +691,13 @@
             }
         })
 
+        function checkMaxValue(input) {
+            var maxValue = 150;
+            if (input.value > maxValue) {
+                input.value = maxValue;
+
+            }
+        }
 
 
     </script>
