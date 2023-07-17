@@ -666,7 +666,7 @@
                 let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
                 $('#2_type_group').append(kpi_id);
 
-                $('#label_2').removeClass('d-none');
+                $('#label_1').removeClass('d-none');
                 let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
                 $('#1_percent').append(percent);
 
