@@ -715,118 +715,104 @@
             }
         });
     </script>
+  
+
     <script>
-        const toInput = document.getElementById('to');
-        let prevValue1 = toInput.value;
+        $('#from').change(function () {
+            const to = $('#to')
+            if ($(this).val() > to.val()) {
 
-        toInput.addEventListener('input', function () {
-            const dateValue = new Date(this.value);
-            const year = dateValue.getFullYear();
-            const maxLength = 4;
+                let selectedOption = $('#project_id option:selected');
+                let selectedClass = selectedOption.attr('class');
 
-            if (year.toString().length > maxLength) {
-                this.value = prevValue1; // Восстанавливаем предыдущее значение
+                let selectedDate = new Date(selectedClass);
+                let toDate = new Date($(this).val());
+
+                if (toDate > selectedDate) {
+                    $('#error-message').show();
+                    $(this).addClass('border-danger')
+
+                    let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                    $(this).val(formattedDate)
+                }
+
+                to.addClass('border-danger')
+                $('#button').attr('type', 'button');
             } else {
-                prevValue1 = this.value; // Сохраняем текущее значение
+                $(this).removeClass('border-danger')
+                to.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
             }
+            updateErrorMessageVisibility();
+        })
+
+        $('#to').change(function () {
+            const from = $('#from')
+            if ($(this).val() < from.val()) {
+                $(this).addClass('border-danger')
+                from.addClass('border-danger')
+                $('#button').attr('type', 'button');
+            } else {
+                $(this).removeClass('border-danger')
+                from.removeClass('border-danger')
+                $('#button').attr('type', 'submit');
+            }
+            updateErrorMessageVisibility();
+        })
+
+        function formatDate(date) {
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatDate1(dateStr) {
+            const [day, month, year] = dateStr.split('-');
+            const date = new Date(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`);
+            return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+        }
+
+        $('#to').on('input', function () {
+            let project_finish = formatDate1($('#project_finish').text());
+
+            let selectedOption = $('#project_id option:selected');
+            let selectedClass = selectedOption.attr('class');
+
+            let selectedDate = new Date(selectedClass);
+            let toDate = new Date($(this).val());
+
+            if (toDate > selectedDate) {
+                $('#error-message').show();
+                $(this).addClass('border-danger')
+
+                let formattedDate = selectedDate.toISOString().split('T')[0];
+
+                $(this).val(formattedDate)
+            } else {
+                $(this).removeClass('border-danger')
+                $('#error-message').hide();
+                $('#button').attr('type', 'submit');
+            }
+            updateErrorMessageVisibility();
+            let formattedDate = formatDate(toDate);
+            console.log(formattedDate);
         });
+
+        function updateErrorMessageVisibility() {
+            const errorMessage = $('#error-message');
+            const from = $('#from');
+            const to = $('#to');
+            if (from.hasClass('border-danger') || to.hasClass('border-danger')) {
+                errorMessage.removeClass('d-none');
+            } else {
+                errorMessage.addClass('d-none');
+            }
+        }
+
+
     </script>
-
-    @routes
-
-    <script>
-        $(document).ready(function () {
-            $('#fileInput').change(function () {
-                const selectedFile = $(this).prop('files')[0];
-                if (selectedFile) {
-                    $('#message').val('Файл');
-                } else {
-                    $('#message').val('');
-                }
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#file').change(function () {
-                const selectedFile = $(this).prop('files')[0];
-                if (selectedFile) {
-                    $('#message').val('Файл');
-                } else {
-                    $('#message').val('');
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('#formMessage').submit(function (e) {
-                e.preventDefault();
-
-                let formData = new FormData(this);
-                let fileInput = $('#file')[0];
-                let selectedFile = fileInput.files[0];
-                formData.append('file', selectedFile);
-
-                $.ajax({
-                    url: "{{ route('offers.chat.message.store', $offer->id) }}",
-                    method: "POST",
-                    data: formData,
-                    dataType: 'json',
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-
-                        $('#message').val(' ');
-                        $('#file').val('');
-
-                        let fileUrl = route('user.downloadChat', {task: response.messages.id});
-                        let del = route('tasks.messages.delete', {mess: response.messages.id});
-                        let newMessage = `
-                                <div class="chat">
-                                    <div class="chat-body" style="margin-right: 10px">
-                                        <div class="chat-message">
-                                            <p>
-                                                <span style="display: flex; justify-content: space-between;">
-                                                            <b>${response.name}</b>
-                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
-                                                        </span>
-                                                <span style="margin-top: 10px">${response.messages.message}</span>
-                                                ${response.messages.file !== null ? `
-                                                        <div class="form-group">
-                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
-                                                        </div>
-                                                    ` : ''}
-                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                    ${response.created_at}
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                        `;
-
-                        $('#block').append(newMessage);
-
-
-                        let block = document.getElementById("block");
-                        block.scrollTop = block.scrollHeight;
-
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Ошибка при отправке сообщения');
-                    }
-                });
-            });
-        });
-    </script>
-
-   
     <script>
         $(document).ready(function(){
             $('#reason').on('click', function() {
