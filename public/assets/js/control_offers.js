@@ -1,6 +1,6 @@
 
 $('#to_1, #from_1, #user_id_1, #id_type').change(function () {
-    alert(1)
+
     let user_id_1 = $('#user_id_1').val();
     let from_1 = $('#from_1').val();
     let to_1 = $('#to_1').val();
