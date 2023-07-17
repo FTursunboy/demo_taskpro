@@ -22,15 +22,17 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
     public ?int $taskTime ;
     public string $taskFrom = '';
     public string $taskTo = '';
+    public string $finish = '';
     public ?string $tasktype = '';
 
-    public function __construct($id, $name, $time, $from, $to, $type)
+    public function __construct($id, $name, $time, $from, $to, $finish, $type)
     {
         $this->taskID = $id;
         $this->taskName = $name;
         $this->taskTime = $time;
         $this->taskFrom = date('d-m-Y', strtotime($from));
-        $this->taskTo = date('d-m-Y', strtotime($to));
+        $this->finish = date('d-m-Y', strtotime($to));
+        $this->taskTo = date('d-m-Y', strtotime($finish));
         $this->tasktype = $type;
     }
 
@@ -76,7 +78,9 @@ class SendNewTaskInUser extends Notification implements ShouldQueue
                 \n Название : {$this->taskName}
                 \n Время в часах: {$this->taskTime}
                 \n От : {$this->taskFrom}
-                \n До : {$this->taskTo}
+                \n До : {$this->taskTo }
+                \n Дедлайн : {$this->finish }
+                \n Тип : {$this->tasktype}
                 ")
             ->button('Войти', $url);
     }

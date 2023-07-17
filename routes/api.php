@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::group(['as' => 'tasks'], function (){
         Route::get('/tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'index']);
         Route::get('/new-tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'newTasks']);
+        Route::get('/getAllTasks', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'getAllTasks']);
         Route::get('/get-tasks/', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'getTasks']);
         Route::post('/get-tasks/accept/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskAccept']);
         Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
@@ -44,10 +45,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/statisticsProjectTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'projectStatic']);
         Route::get('/statisticsUserTasks', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'taskStatistic']);
         Route::get('/statisticsUserTasks/{month}', [\App\Http\Controllers\API\V1\Statistics\StatisticController::class, 'filter']);
+        Route::get('/leadStatistics', [\App\Http\Controllers\API\V1\Statistics\LeadStatisticController::class, 'LeadStatistic']);
 
     });
 
+    Route::group(['middleware' => 'role:admin'], function() {
+        Route::get('/adminProfile/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'index']);
+        Route::put('/adminProfile/update/{id}', [\App\Http\Controllers\API\V1\Profile\adminProfileController::class, 'update']);
+    });
+
+
+
     Route::post('/logout', [\App\Http\Controllers\API\V1\AuthController::class, 'logout']);
+
 });
 
 

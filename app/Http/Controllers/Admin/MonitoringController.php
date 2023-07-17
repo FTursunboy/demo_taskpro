@@ -157,7 +157,7 @@ class  MonitoringController extends BaseController
 
 
                     try {
-                        Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->finish, $task->type->name));
+                        Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->finish, $task->type->name));
                     } catch (\Exception $exception) {
 
                     }

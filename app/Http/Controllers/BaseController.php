@@ -73,7 +73,8 @@ class BaseController extends Controller
 
             $leadStatuses = LeadStatus::all();
             $monthInRu = TaskTypesTypeModel::all();
-            $months = ['Январь' => 'January',  'Февраль' => 'February', 'Март' => 'March', 'Апрель' => 'April', 'Май' => 'May', 'Июнь' => 'June', 'Июль' => 'July', 'Авуст' => 'August', 'Сентябрь' => 'September', 'Октябрь' => 'October', 'Ноябрь' => 'November', 'Декабрь' => 'December'];
+            $months = ['Январь' => 'January',  'Февраль' => 'February', 'Март' => 'March', 'Апрель' => 'April', 'Май' => 'May', 'Июнь' => 'June', 'Июль' => 'July',
+                'Авуст' => 'August', 'Сентябрь' => 'September', 'Октябрь' => 'October', 'Ноябрь' => 'November', 'Декабрь' => 'December'];
             $dataByMonth = [];
 
             $employees = User::role('user')->get();
@@ -110,8 +111,6 @@ class BaseController extends Controller
                     'kp' => $counts->get(7, 0),
                 ];
             }
-            //
-
 
             $expected_admin = Offer::where([
                 ['client_id', Auth::id()],

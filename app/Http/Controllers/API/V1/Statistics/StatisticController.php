@@ -39,9 +39,10 @@ class StatisticController extends Controller
         $taskStatistic = User::role('user')->withCount('taskUser')->get();
 
         $response = [
-            'TaskModels' => $taskStatistic->map(function ($task){
+            'message' => true,
+            'statistics' => $taskStatistic->map(function ($task){
                 return [
-                    'name' => $task->name,
+                    'name' => $task->name . " " . $task->surname,
                     'all_tasks' => $task->taskCount($task->id),
                     'debt_tasks' => $task->debt_tasks($task->id),
                     'taskProgress' => $task->taskProgress($task->id),
@@ -54,7 +55,7 @@ class StatisticController extends Controller
                     'rejectClient' => $task->rejectClient($task->id),
 
                 ];
-            })
+            }),
         ];
 
         return response($response, 200);
@@ -87,6 +88,7 @@ class StatisticController extends Controller
 //dd($arrs);
 
         return response([
+            'message' => true,
             'statistics' => $arrs,
         ]);
     }
