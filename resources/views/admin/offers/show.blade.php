@@ -663,7 +663,7 @@
                 let kpiType = $('#2_kpi_id').empty();
 
                 $('#label_2').removeClass('d-none');
-                let kpi_id = $('<selec  tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
+                let kpi_id = $('<select  tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
                 $('#2_type_group').append(kpi_id);
 
                 $('#label_1').removeClass('d-none');
