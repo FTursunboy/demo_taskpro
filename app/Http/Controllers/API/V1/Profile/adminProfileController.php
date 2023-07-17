@@ -23,7 +23,6 @@ class adminProfileController extends Controller
 
     public function update(ProfileUpdateRequest $request, $id)
     {
-
         $data = $request->validated();
         $user = User::findOrFail($id);
         if ($request->file('avatar') !== null) {
