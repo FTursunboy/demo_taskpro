@@ -50,7 +50,8 @@ class UserProfileController extends Controller
 
         return response([
             'message' => 'Данные обновлены',
-            'user' => new UserResource($user)
+            'user' => new UserResource($user),
+            'avatar' => '/tasks/public'.Storage::url($file)
         ]);
     }
 
