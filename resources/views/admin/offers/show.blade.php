@@ -702,6 +702,24 @@
 
 
     </script>
+
+    <script>
+        const fromInput_1 = document.getElementById('from');
+        let prevValue_1 = fromInput_1.value;
+
+        fromInput_1.addEventListener('input', function () {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue;
+            } else {
+                prevValue_1 = this.value;
+            }
+        });
+    </script>
+
     <script>
         const toInput = document.getElementById('to');
         let prevValue1 = toInput.value;
