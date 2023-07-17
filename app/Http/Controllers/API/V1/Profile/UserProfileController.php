@@ -22,7 +22,7 @@ class UserProfileController extends Controller
         return response([
             'message' => true,
             'user' => new UserResource($user),
-            'avatar' => 'tasks/public'.Storage::url($file)
+            'avatar' => '/tasks/public'.Storage::url($file)
         ]);
     }
 
