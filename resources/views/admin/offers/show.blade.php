@@ -713,7 +713,7 @@
             const maxLength = 4;
 
             if (year.toString().length > maxLength) {
-                this.value = prevValue;
+                this.value = prevValue_1;
             } else {
                 prevValue_1 = this.value;
             }
