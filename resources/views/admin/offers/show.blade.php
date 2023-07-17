@@ -700,7 +700,22 @@
         }
 
 
+        const fromInput = document.getElementById('from');
+        let prevValue = fromInput.value;
+
+        fromInput.addEventListener('input', function () {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue = this.value; // Сохраняем текущее значение
+            }
+        });
     </script>
+    
 @endsection
 
 
