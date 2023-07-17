@@ -142,7 +142,7 @@
                                                                             <div class="col-md-6">
                                                                                 <label class="form-label">От</label>
                                                                                 <input required
-                                                                                       id="from"
+                                                                                       id="from_1"
                                                                                        value="{{$offer->from}}"
                                                                                        type="date"
                                                                                        class="form-control"
@@ -169,7 +169,7 @@
                                                                                 <label class="form-label">Ответственный
                                                                                     исполнитель</label>
                                                                                 <select required class="form-select"
-                                                                                        name="user_id" id="user_id">
+                                                                                        name="user_id" id="user_id_1">
                                                                                     <option value="">Выберите
                                                                                         исполнителя
                                                                                     </option>
@@ -184,15 +184,15 @@
                                                                                 <label class="form-label">Тип</label>
                                                                                 <select name="type_id"
                                                                                         class="form-control"
-                                                                                        id="type_id_2">
+                                                                                        id="id_type">
                                                                                     @foreach($types as $type)
                                                                                         <option
                                                                                             value="{{$type->id}}">{{$type->name}}</option>
                                                                                     @endforeach
                                                                                 </select>
 
-                                                                                <div class="form-group" id="percent_1">
-                                                                                    <label id="label1"
+                                                                                <div class="form-group" id="1_percent">
+                                                                                    <label id="label_1"
                                                                                            class="d-none mb-2"
                                                                                            for="percent">Введите
                                                                                         процент</label>
@@ -217,10 +217,10 @@
                                                                                 >
 
                                                                                 <div class="form-group"
-                                                                                     id="type_id_group_2">
-                                                                                    <label id="label"
+                                                                                     id="2_type_group">
+                                                                                    <label id="label_2"
                                                                                            class="d-none mb-2"
-                                                                                           for="kpi_id_2">Вид KPI</label>
+                                                                                           for="2_kpi_id">Вид KPI</label>
                                                                                 </div>
                                                                             </div>
 
@@ -292,6 +292,7 @@
                                                                     <button name="action" value="accept"
                                                                             class="btn btn-success form-control"
                                                                             type="submit" id="button" onclick="buttonFn()">
+
                                                                         Отправить
                                                                     </button>
                                                                 </div>
@@ -490,26 +491,21 @@
                 <div class="modal-body">
                     <div class="row p-3">
                         <div class="card-header p-0 pt-1">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist"
-                                style="border-radius: 20px">
-                                <li class="nav-item">
-                                    <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
-                                       id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
-                                       role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История
-                                        задачи</a>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="home" data-bs-toggle="tab" data-bs-target="#home-tab" role="tab"
+                                       aria-controls="home-tab" aria-selected="true">История</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
-                                       data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
-                                       aria-controls="custom-tabs-one-profile" aria-selected="false">Время задачи</a>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
+                                       aria-controls="profile-tab" aria-selected="false">Потраченное время</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="card-body">
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-home-tab">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home-tab" role="tabpanel" aria-labelledby="home-tab">
                                     <table class="table mb-0 table-hover">
                                         <thead>
                                         <tr>
@@ -520,29 +516,22 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($histories as $history)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                <td>{{$history->user?->name }}
-                                                    @if ($history?->user?->hasRole('admin'))
-                                                        (Админ)
-                                                    @elseif ($history?->user?->hasRole('user'))
-                                                        (Сотрудник)
-                                                    @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))
-                                                        (Клиент)
-                                                    @else
-                                                        Роль не определена
-                                                    @endif
-                                                </td>
-                                                <td>{{$history->status?->name}}</td>
-                                            </tr>
-                                        @endforeach
+
+                                            @foreach($histories as $history)
+                                                <tr>
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
+                                                    <td>{{$history?->user->name }}</td>
+                                                    <td>
+                                                        {{ $history?->status?->name }}
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-profile-tab">
+                                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                     <table class="table mb-0 table-hover">
                                         <thead>
                                         <tr>
@@ -668,37 +657,37 @@
     <script src="{{asset('assets/js/control_offers.js')}}" ></script>
     <script>
 
-        $('#type_id_2').change(function () {
+        $('#id_type').change(function () {
 
             let kpi = $(this).children('option:selected')
-
             if (kpi.text().toLowerCase() === 'kpi') {
-
-                let kpiType = $('#kpi_id_2').empty();
+                let kpiType = $('#2_kpi_id').empty();
 
                 $('#label_2').removeClass('d-none');
-                let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select"><option value="">Выберите месяц</option></select>');
-                $('#type_id_group_2').append(kpi_id);
+                let kpi_id = $('<select  tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
+                $('#2_type_group').append(kpi_id);
 
-                $('#label1').removeClass('d-none');
-                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control">');
-                $('#percent_1').append(percent);
+                $('#label_1').removeClass('d-none');
+                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+                $('#1_percent').append(percent);
 
 
-                $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
 
+                $.get(`/tasks/public/kpil/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
-
+                        console.log(item.name);
                         kpi_id.append($('<option>').val(item.id).text(item.name));
                     }
                 });
 
 
-            } else {
-                $('#type_id_group_2').empty();
 
-                $('#percent_1').empty();
+
+            } else {
+                $('#2_type_group').empty();
+
+                $('#1_percent').empty();
 
             }
         })
@@ -712,36 +701,39 @@
         }
 
 
-        const fromInput = document.getElementById('from');
-        let prevValue = fromInput.value;
 
-        fromInput.addEventListener('input', function () {
-            const dateValue = new Date(this.value);
-            const year = dateValue.getFullYear();
-            const maxLength = 4;
-
-            if (year.toString().length > maxLength) {
-                this.value = prevValue; // Восстанавливаем предыдущее значение
-            } else {
-                prevValue = this.value; // Сохраняем текущее значение
-            }
-        });
     </script>
+
     <script>
-        const toInput = document.getElementById('to');
-        let prevValue1 = toInput.value;
+            const fromInput_1 = document.getElementById('from_1');
+        let prevValue_1 = fromInput_1.value;
 
-        toInput.addEventListener('input', function () {
-            const dateValue = new Date(this.value);
-            const year = dateValue.getFullYear();
-            const maxLength = 4;
+        fromInput_1.addEventListener('input', function () {
+            const dateValue_2 = new Date(this.value);
+            const year_2 = dateValue_2.getFullYear();
+            const maxLength_1 = 4;
 
-            if (year.toString().length > maxLength) {
-                this.value = prevValue1; // Восстанавливаем предыдущее значение
+            if (year_2.toString().length > maxLength_1) {
+                this.value = prevValue_1;
             } else {
-                prevValue1 = this.value; // Сохраняем текущее значение
+                prevValue_1 = this.value;
             }
         });
+
+                const toInput_1 = document.getElementById('to_1');
+                let prevValue1_1 = toInput_1.value;
+
+                toInput_1.addEventListener('input', function () {
+                const dateValue_1 = new Date(this.value);
+                const year_1 = dateValue_1.getFullYear();
+                const maxLength_1 = 4;
+
+                if (year_1.toString().length > maxLength_1) {
+                this.value = prevValue1_1; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue1_1 = this.value; // Сохраняем текущее значение
+            }
+            });
     </script>
 
     @routes
@@ -758,6 +750,7 @@
             });
         });
     </script>
+
     <script>
         $(document).ready(function () {
             $('#file').change(function () {
@@ -800,35 +793,33 @@
                         let fileUrl = route('user.downloadChat', {task: response.messages.id});
                         let del = route('tasks.messages.delete', {mess: response.messages.id});
                         let newMessage = `
-                                <div class="chat">
-                                    <div class="chat-body" style="margin-right: 10px">
-                                        <div class="chat-message">
-                                            <p>
-                                                <span style="display: flex; justify-content: space-between;">
-                                                            <b>${response.name}</b>
-                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
-                                                        </span>
-                                                <span style="margin-top: 10px">${response.messages.message}</span>
-                                                ${response.messages.file !== null ? `
-                                                        <div class="form-group">
-                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
-                                                        </div>
-                                                    ` : ''}
-                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                    ${response.created_at}
-                                                </span>
-                                            </p>
-                                        </div>
+                            <div class="chat">
+                                <div class="chat-body" style="margin-right: 10px">
+                                    <div class="chat-message">
+                                        <p>
+                                            <span style="display: flex; justify-content: space-between;">
+                                                        <b>${response.name}</b>
+                                                        <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
+                                                    </span>
+                                            <span style="margin-top: 10px">${response.messages.message}</span>
+                                            ${response.messages.file !== null ? `
+                                                    <div class="form-group">
+                                                        <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                    </div>
+                                                ` : ''}
+                                            <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                ${response.created_at}
+                                            </span>
+                                        </p>
                                     </div>
                                 </div>
-                        `;
+                            </div>
+                    `;
 
                         $('#block').append(newMessage);
 
-
                         let block = document.getElementById("block");
                         block.scrollTop = block.scrollHeight;
-
                     },
                     error: function (xhr, status, error) {
                         alert('Ошибка при отправке сообщения');
@@ -839,101 +830,100 @@
     </script>
 
     <script>
-        $('#from').change(function () {
-            const to = $('#to')
-            if ($(this).val() > to.val()) {
+        $('#from_1').change(function () {
+            const to_1 = $('#to_1');
+            if ($(this).val() > to_1.val()) {
 
                 let selectedOption = $('#project_id option:selected');
                 let selectedClass = selectedOption.attr('class');
 
-                let selectedDate = new Date(selectedClass);
-                let toDate = new Date($(this).val());
+                let selectedDate_1 = new Date(selectedClass);
+                let toDate_1 = new Date($(this).val());
 
-                if (toDate > selectedDate) {
+                if (toDate_1 > selectedDate_1) {
                     $('#error-message').show();
-                    $(this).addClass('border-danger')
+                    $(this).addClass('border-danger');
 
-                    let formattedDate = selectedDate.toISOString().split('T')[0];
+                    let formattedDate_1 = selectedDate_1.toISOString().split('T')[0];
 
-                    $(this).val(formattedDate)
+                    $(this).val(formattedDate_1);
                 }
 
-                to.addClass('border-danger')
-                $('#button').attr('type', 'button');
+                to_1.addClass('border-danger');
+                $('#button_1').attr('type', 'button');
             } else {
-                $(this).removeClass('border-danger')
-                to.removeClass('border-danger')
-                $('#button').attr('type', 'submit');
+                $(this).removeClass('border-danger');
+                to_1.removeClass('border-danger');
+                $('#button_1').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
-        })
+        });
 
-        $('#to').change(function () {
-            const from = $('#from')
-            if ($(this).val() < from.val()) {
-                $(this).addClass('border-danger')
-                from.addClass('border-danger')
-                $('#button').attr('type', 'button');
+        $('#to_1').change(function () {
+            const from_1 = $('#from_1');
+            if ($(this).val() < from_1.val()) {
+                $(this).addClass('border-danger');
+                from_1.addClass('border-danger');
+                $('#button_1').attr('type', 'button');
             } else {
-                $(this).removeClass('border-danger')
-                from.removeClass('border-danger')
-                $('#button').attr('type', 'submit');
+                $(this).removeClass('border-danger');
+                from_1.removeClass('border-danger');
+                $('#button_1').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
-        })
+        });
 
-        function formatDate(date) {
-            let year = date.getFullYear();
-            let month = String(date.getMonth() + 1).padStart(2, '0');
-            let day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+        function formatDate_1(date) {
+            let year_1 = date.getFullYear();
+            let month_1 = String(date.getMonth() + 1).padStart(2, '0');
+            let day_1 = String(date.getDate()).padStart(2, '0');
+            return `${year_1}-${month_1}-${day_1}`;
         }
 
-        function formatDate1(dateStr) {
-            const [day, month, year] = dateStr.split('-');
-            const date = new Date(`${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`);
-            return `${date.getDate()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+        function formatDate1(dateStr_1) {
+            const [day_1, month_1, year_1] = dateStr_1.split('-');
+            const date_1 = new Date(`${year_1}-${month_1.toString().padStart(2, '0')}-${day_1.toString().padStart(2, '0')}`);
+            return `${date_1.getDate()}-${(date_1.getMonth() + 1).toString().padStart(2, '0')}-${date_1.getFullYear()}`;
         }
 
-        $('#to').on('input', function () {
-            let project_finish = formatDate1($('#project_finish').text());
+        $('#to_1').on('input', function () {
+            let project_finish_1 = formatDate1($('#project_finish').text());
 
-            let selectedOption = $('#project_id option:selected');
-            let selectedClass = selectedOption.attr('class');
+            let selectedOption_1 = $('#project_id option:selected');
+            let selectedClass_1 = selectedOption_1.attr('class');
 
-            let selectedDate = new Date(selectedClass);
-            let toDate = new Date($(this).val());
+            let selectedDate_1 = new Date(selectedClass_1);
+            let toDate_1 = new Date($(this).val());
 
-            if (toDate > selectedDate) {
+            if (toDate_1 > selectedDate_1) {
                 $('#error-message').show();
-                $(this).addClass('border-danger')
+                $(this).addClass('border-danger');
 
-                let formattedDate = selectedDate.toISOString().split('T')[0];
+                let formattedDate_1 = selectedDate_1.toISOString().split('T')[0];
 
-                $(this).val(formattedDate)
+                $(this).val(formattedDate_1);
             } else {
-                $(this).removeClass('border-danger')
+                $(this).removeClass('border-danger');
                 $('#error-message').hide();
-                $('#button').attr('type', 'submit');
+                $('#button_1').attr('type', 'submit');
             }
             updateErrorMessageVisibility();
-            let formattedDate = formatDate(toDate);
-            console.log(formattedDate);
+            let formattedDate_1 = formatDate_1(toDate_1);
+            console.log(formattedDate_1);
         });
 
         function updateErrorMessageVisibility() {
-            const errorMessage = $('#error-message');
-            const from = $('#from');
-            const to = $('#to');
-            if (from.hasClass('border-danger') || to.hasClass('border-danger')) {
-                errorMessage.removeClass('d-none');
+            const errorMessage_1 = $('#error-message');
+            const from_1 = $('#from_1');
+            const to_1 = $('#to');
+            if (from_1.hasClass('border-danger') || to_1.hasClass('border-danger')) {
+                errorMessage_1.removeClass('d-none');
             } else {
-                errorMessage.addClass('d-none');
+                errorMessage_1.addClass('d-none');
             }
         }
-
-
     </script>
+
     <script>
         $(document).ready(function(){
             $('#reason').on('click', function() {
@@ -967,6 +957,8 @@
             }
         }
     </script>
+
+
 @endsection
 
 

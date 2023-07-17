@@ -479,16 +479,16 @@
                             <div class="card-body">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
-                                           aria-controls="home" aria-selected="true">История</a>
+                                        <a class="nav-link active" id="home" data-bs-toggle="tab" data-bs-target="#home-tab" role="tab"
+                                           aria-controls="home-tab" aria-selected="true">История</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
-                                           aria-controls="profile" aria-selected="false">Потраченное время</a>
+                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
+                                           aria-controls="profile-tab" aria-selected="false">Потраченное время</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="tab-pane fade show active" id="home-tab" role="tabpanel" aria-labelledby="home-tab">
                                         <table class="table mb-0 table-hover">
                                             <thead>
                                             <tr>
@@ -548,7 +548,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <table class="table mb-0 table-hover">
                                             <thead>
                                             <tr>

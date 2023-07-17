@@ -20,7 +20,6 @@ class LeadController extends BaseController
     {
         $leads = Lead::orderByDesc('created_at')->get();
 
-
         $response = [
             'leads' => LeadResource::collection($leads),
         ];
