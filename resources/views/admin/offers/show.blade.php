@@ -184,15 +184,15 @@
                                                                                 <label class="form-label">Тип</label>
                                                                                 <select name="type_id"
                                                                                         class="form-control"
-                                                                                        id="type_id_2">
+                                                                                        id="id_type">
                                                                                     @foreach($types as $type)
                                                                                         <option
                                                                                             value="{{$type->id}}">{{$type->name}}</option>
                                                                                     @endforeach
                                                                                 </select>
 
-                                                                                <div class="form-group" id="percent_1">
-                                                                                    <label id="label1"
+                                                                                <div class="form-group" id="1_percent">
+                                                                                    <label id="label_1"
                                                                                            class="d-none mb-2"
                                                                                            for="percent">Введите
                                                                                         процент</label>
@@ -217,10 +217,10 @@
                                                                                 >
 
                                                                                 <div class="form-group"
-                                                                                     id="type_id_group_2">
+                                                                                     id="2_type_group">
                                                                                     <label id="label"
                                                                                            class="d-none mb-2"
-                                                                                           for="kpi_id_2">Вид KPI</label>
+                                                                                           for="2_kpi_id">Вид KPI</label>
                                                                                 </div>
                                                                             </div>
 
@@ -490,26 +490,21 @@
                 <div class="modal-body">
                     <div class="row p-3">
                         <div class="card-header p-0 pt-1">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist"
-                                style="border-radius: 20px">
-                                <li class="nav-item">
-                                    <a style="border-radius: 5px; margin-top: -4px" class="nav-link active"
-                                       id="custom-tabs-one-home-tab" data-bs-toggle="pill" href="#custom-tabs-one-home"
-                                       role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">История
-                                        задачи</a>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="home" data-bs-toggle="tab" data-bs-target="#home-tab" role="tab"
+                                       aria-controls="home-tab" aria-selected="true">История</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" style="margin-top: -4px" id="custom-tabs-one-profile-tab"
-                                       data-bs-toggle="pill" href="#custom-tabs-one-profile" role="tab"
-                                       aria-controls="custom-tabs-one-profile" aria-selected="false">Время задачи</a>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab"
+                                       aria-controls="profile-tab" aria-selected="false">Потраченное время</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="card-body">
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-home-tab">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home-tab" role="tabpanel" aria-labelledby="home-tab">
                                     <table class="table mb-0 table-hover">
                                         <thead>
                                         <tr>
@@ -520,29 +515,22 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($histories as $history)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                                <td>{{$history->user?->name }}
-                                                    @if ($history?->user?->hasRole('admin'))
-                                                        (Админ)
-                                                    @elseif ($history?->user?->hasRole('user'))
-                                                        (Сотрудник)
-                                                    @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))
-                                                        (Клиент)
-                                                    @else
-                                                        Роль не определена
-                                                    @endif
-                                                </td>
-                                                <td>{{$history->status?->name}}</td>
-                                            </tr>
-                                        @endforeach
+
+                                            @foreach($histories as $history)
+                                                <tr>
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
+                                                    <td>{{$history?->user->name }}</td>
+                                                    <td>
+                                                        {{ $history?->status?->name }}
+                                                    </td>
+
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-profile-tab">
+                                <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                     <table class="table mb-0 table-hover">
                                         <thead>
                                         <tr>
@@ -668,37 +656,37 @@
     <script src="{{asset('assets/js/control_offers.js')}}" ></script>
     <script>
 
-        $('#type_id_2').change(function () {
-
+        $('#id_type').change(function () {
+            alert(1)
             let kpi = $(this).children('option:selected')
-
             if (kpi.text().toLowerCase() === 'kpi') {
+                let kpiType = $('#2_kpi_id').empty();
+                    alert(2)
+                $('#label').removeClass('d-none');
+                let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
+                $('#2_type_group').append(kpi_id);
 
-                let kpiType = $('#kpi_id_2').empty();
-
-                $('#label_2').removeClass('d-none');
-                let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select"><option value="">Выберите месяц</option></select>');
-                $('#type_id_group_2').append(kpi_id);
-
-                $('#label1').removeClass('d-none');
-                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control">');
-                $('#percent_1').append(percent);
+                $('#label_1').removeClass('d-none');
+                let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
+                $('#1_percent').append(percent);
 
 
-                $.get(`/tasks/public/kpi/${kpi.val()}/`).then((res) => {
 
+                $.get(`/tasks/public/kpil/${kpi.val()}/`).then((res) => {
                     for (let i = 0; i < res.length; i++) {
                         const item = res[i];
-
+                        console.log(item.name);
                         kpi_id.append($('<option>').val(item.id).text(item.name));
                     }
                 });
 
 
-            } else {
-                $('#type_id_group_2').empty();
 
-                $('#percent_1').empty();
+
+            } else {
+                $('#type_id_group').empty();
+
+                $('#percent').empty();
 
             }
         })
