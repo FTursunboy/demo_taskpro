@@ -218,7 +218,7 @@
 
                                                                                 <div class="form-group"
                                                                                      id="2_type_group">
-                                                                                    <label id="label"
+                                                                                    <label id="label_2"
                                                                                            class="d-none mb-2"
                                                                                            for="2_kpi_id">Вид KPI</label>
                                                                                 </div>
@@ -666,7 +666,7 @@
                 let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
                 $('#2_type_group').append(kpi_id);
 
-                $('#label_1').removeClass('d-none');
+                $('#label_2').removeClass('d-none');
                 let percent = $('<input tabindex="9"  required type="number" oninput="checkMaxValue(this)" id="percent" step="any" name="percent" class="form-control mt-3">');
                 $('#1_percent').append(percent);
 
@@ -691,7 +691,152 @@
             }
         })
 
-  
+        function checkMaxValue(input) {
+            var maxValue = 150;
+            if (input.value > maxValue) {
+                input.value = maxValue;
+
+            }
+        }
+
+
+        const fromInput = document.getElementById('from');
+        let prevValue = fromInput.value;
+
+        fromInput.addEventListener('input', function () {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue = this.value; // Сохраняем текущее значение
+            }
+        });
+    </script>
+    <script>
+        const toInput = document.getElementById('to');
+        let prevValue1 = toInput.value;
+
+        toInput.addEventListener('input', function () {
+            const dateValue = new Date(this.value);
+            const year = dateValue.getFullYear();
+            const maxLength = 4;
+
+            if (year.toString().length > maxLength) {
+                this.value = prevValue1; // Восстанавливаем предыдущее значение
+            } else {
+                prevValue1 = this.value; // Сохраняем текущее значение
+            }
+        });
+    </script>
+
+    @routes
+
+    <script>
+        $(document).ready(function () {
+            $('#fileInput').change(function () {
+                const selectedFile = $(this).prop('files')[0];
+                if (selectedFile) {
+                    $('#message').val('Файл');
+                } else {
+                    $('#message').val('');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#file').change(function () {
+                const selectedFile = $(this).prop('files')[0];
+                if (selectedFile) {
+                    $('#message').val('Файл');
+                } else {
+                    $('#message').val('');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#formMessage').submit(function (e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+                let fileInput = $('#file')[0];
+                let selectedFile = fileInput.files[0];
+                formData.append('file', selectedFile);
+
+                $.ajax({
+                    url: "{{ route('offers.chat.message.store', $offer->id) }}",
+                    method: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                        $('#message').val(' ');
+                        $('#file').val('');
+
+                        let fileUrl = route('user.downloadChat', {task: response.messages.id});
+                        let del = route('tasks.messages.delete', {mess: response.messages.id});
+                        let newMessage = `
+                                <div class="chat">
+                                    <div class="chat-body" style="margin-right: 10px">
+                                        <div class="chat-message">
+                                            <p>
+                                                <span style="display: flex; justify-content: space-between;">
+                                                            <b>${response.name}</b>
+                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
+                                                        </span>
+                                                <span style="margin-top: 10px">${response.messages.message}</span>
+                                                ${response.messages.file !== null ? `
+                                                        <div class="form-group">
+                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
+                                                        </div>
+                                                    ` : ''}
+                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                    ${response.created_at}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                        `;
+
+                        $('#block').append(newMessage);
+
+
+                        let block = document.getElementById("block");
+                        block.scrollTop = block.scrollHeight;
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Ошибка при отправке сообщения');
+                    }
+                });
+            });
+        });
+    </script>
+
+   
+    <script>
+        $(document).ready(function(){
+            $('#reason').on('click', function() {
+                $('#reason').hide();
+                $('#reasonButton').show();
+                $('#reasonSend').show();
+                $('#sendButton').hide();
+            });
+        });
+    </script>
 @endsection
 
 
