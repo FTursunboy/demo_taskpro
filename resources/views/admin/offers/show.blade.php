@@ -657,12 +657,12 @@
     <script>
 
         $('#id_type').change(function () {
-            alert(1)
+
             let kpi = $(this).children('option:selected')
             if (kpi.text().toLowerCase() === 'kpi') {
                 let kpiType = $('#2_kpi_id').empty();
-                    alert(2)
-                $('#label').removeClass('d-none');
+
+                $('#label_2').removeClass('d-none');
                 let kpi_id = $('<select tabindex="6"  required name="kpi_id" class="form-select mt-3"><option value="">Выберите месяц</option></select>');
                 $('#2_type_group').append(kpi_id);
 
@@ -684,9 +684,9 @@
 
 
             } else {
-                $('#type_id_group').empty();
+                $('#2_type_group').empty();
 
-                $('#percent').empty();
+                $('#1_percent').empty();
 
             }
         })
