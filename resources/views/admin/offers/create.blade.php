@@ -115,7 +115,7 @@
                                             <div class="row mt-4">
                                                 <div class="col-12">
                                                     <button {{$settings?->has_access ? '' : 'disabled'}} type="submit" class="btn btn-success form-control"
-                                                            id="btnSend">
+                                                            id="btnSend" onclick="btnSendFn()">
                                                         Отправить
                                                     </button>
                                                 </div>
@@ -135,6 +135,21 @@
     </div>
 
 
+@endsection
+@section('script')
+    <script>
+        var counter = 0;
+
+        function btnSendFn()
+        {
+            counter++
+
+            if (counter === 2){
+                var button = document.getElementById('btnSend')
+                button.type = "button"
+            }
+        }
+    </script>
 @endsection
 
 

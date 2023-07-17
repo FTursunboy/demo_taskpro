@@ -32,7 +32,6 @@
                             data-bs-target="#staticBackdrop{{ $task->id }}">Я сделал задачу
                     </button>
 
-                    <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop{{ $task->id }}" data-bs-backdrop="static"
                          data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel{{ $task->id }}"
                          aria-hidden="true">
@@ -54,7 +53,7 @@
                                         <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Отмена
                                         </button>
-                                        <button type="submit" class="btn btn-primary">Отправить!
+                                        <button type="submit" class="btn btn-primary" id="sendBtn" onclick="sendFn()">Отправить!
                                         </button>
                                     </div>
                                 </form>
@@ -87,7 +86,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена
                                         </button>
-                                           <button type="submit" class="btn btn-primary">Подтвердить</button>
+                                           <button type="submit" class="btn btn-primary" id="rejectBtn" onclick="rejectFn()">Подтвердить</button>
                                     </div>
                                 </form>
                             </div>
@@ -420,6 +419,28 @@
                 });
             });
         });
+    </script>
+    <script>
+        var counter = 0
+
+        function sendFn()
+        {
+            counter++;
+
+            if(counter === 2){
+                var btn = document.getElementById('sendBtn');
+                btn.type = "button"
+            }
+        }
+
+        function rejectFn(){
+            counter++
+
+            if (counter === 2){
+                var btn = document.getElementById('rejectBtn')
+                btn.type = "button"
+            }
+        }
     </script>
 @endsection
 

@@ -54,7 +54,7 @@
                         <form action="{{ route('new-task.accept',$task->id) }}"
                               method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-outline-success w-100">
+                            <button type="submit" id="acceptBtn" onclick="countBtnClick()" class="btn btn-outline-success w-100">
                                 <i class="bi bi-check-lg mx-2"></i>
                                 Принять
                             </button>
@@ -173,7 +173,7 @@
                                     <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Отмена
                                     </button>
-                                    <button type="submit" class="btn btn-primary">Отправить!
+                                    <button type="submit" class="btn btn-primary" id="sendBtn" onclick="sendBtnFn()">Отправить!
                                     </button>
                                 </div>
                             </form>
@@ -198,7 +198,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                                    <button type="submit" class="btn btn-primary">Подтвердить</button>
+                                    <button type="submit" id="rejectBtn" onclick="countRejectBtnClick()" class="btn btn-primary">Подтвердить</button>
                                 </div>
                             </form>
                         </div>
@@ -783,5 +783,48 @@
                 });
             });
         });
+    </script>
+    <script>
+      var clickBtn = 0;
+
+      function countBtnClick()
+      {
+          clickBtn++
+
+          if(clickBtn === 2){
+              var button = document.getElementById('acceptBtn')
+              button.type = "button";
+          }
+      }
+
+      function countRejectBtnClick()
+      {
+          clickBtn++;
+
+          if(clickBtn === 2){
+              var button = document.getElementById('rejectBtn');
+              button.type = "button"
+          }
+      }
+
+      function sendBtnFn()
+      {
+          clickBtn++
+
+          if(clickBtn === 2){
+              var button = document.getElementById('sendBtn');
+              button.type = "button"
+          }
+      }
+
+      // function sendBtnFn(event) {
+      //     var button = event.target;
+      //
+      //     if (button.type === "submit") {
+      //         button.type = "button";
+      //         // Здесь вы можете выполнить дополнительные действия, связанные с отправкой формы
+      //         console.log("Форма отправлена!");
+      //     }
+      // }
     </script>
 @endsection
