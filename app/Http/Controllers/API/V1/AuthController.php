@@ -15,14 +15,6 @@ class AuthController extends Controller
     {
         $user = User::where('login', $request->login)->first();
 
-        if ($request->file('avatar') !== null) {
-            if ($user->avatar !== null) {
-                Storage::disk('public')->delete($user->avatar);
-            }
-            $file = Storage::disk('public')->put('/user_img', $request->file('avatar'));
-        } else {
-            $file = $user->avatar;
-        }
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
@@ -31,11 +23,12 @@ class AuthController extends Controller
         }
         $token = $user->createToken('android-token')->plainTextToken;
         $this->user = $user;
+
         return response()->json([
             'message' => true,
             'token' => $token,
             'user' => new AuthResource($user),
-            'avatar' => '/tasks/public'.Storage::url($file)
+            'avatar' => $user->avatar ? '/tasks/public'.Storage::url($user->avatar) : null
         ]);
     }
 
