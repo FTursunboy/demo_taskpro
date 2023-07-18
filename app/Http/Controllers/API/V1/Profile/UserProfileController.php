@@ -26,10 +26,8 @@ class UserProfileController extends Controller
         ]);
     }
 
-    public function update(ProfileUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-
-        $data = $request->validated();
         $user = User::findOrFail($id);
         if ($request->file('avatar') !== null) {
             if ($user->avatar !== null) {
@@ -41,10 +39,10 @@ class UserProfileController extends Controller
         }
 
         $user->update([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'lastname' => $data['lastname'] ?? null,
-            'phone' => $data['phone'],
+            'name' => $request->name ?? $user->name,
+            'surname' => $request->surname ?? $user->surname,
+            'lastname' => $request->lastname ?? $user->lastname,
+            'phone' => $request->phone ?? $user->phone,
             'avatar' => $file
         ]);
 
