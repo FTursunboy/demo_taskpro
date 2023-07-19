@@ -24,7 +24,8 @@ class LeadStatisticController
                 ->selectRaw('lead_status_id, COUNT(*) as count')
                 ->pluck('count', 'lead_status_id');
 
-            $dataByMonth[$month] = [
+            $dataByMonth[] = [
+                'month' => $month,
                 'count' => $counts->sum(),
                 'first_meet' => $counts->get(1, 0),
                 'potential_client' => $counts->get(2, 0),
@@ -37,6 +38,7 @@ class LeadStatisticController
         }
 
         return response([
+            'message' => true,
             'dataByMonth' => $dataByMonth
         ]);
     }
