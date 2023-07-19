@@ -103,7 +103,7 @@ class TaskController extends BaseController
     public function verificate_admin() {
         $tasks = Offer::where([
             ['client_id', Auth::id()],
-            ['status_id', 14]
+            ['status_id', 6]
         ])->get();
 
         return view('client.offers.index', compact('tasks'));
