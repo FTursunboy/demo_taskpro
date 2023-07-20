@@ -189,7 +189,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body" id="reasonSend" style="display: none">
-                                                        <p>Вы действительно хотите отправить задачу клиенту</p>
+                                                        <p>Вы действительно хотите отклонить задачу</p>
                                                         <textarea required name="reason" class="form-control" id="" cols="30" rows="2"></textarea>
                                                     </div>
                                                     <div class="modal-footer">
