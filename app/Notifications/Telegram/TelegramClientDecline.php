@@ -68,7 +68,7 @@ class TelegramClientDecline extends Notification implements ShouldQueue
     public function toTelegram($notifiable)
     {
         return TelegramMessage::create()
-            ->content("Здравствуйте, наш клиент $this->user, отклонил(а) задачу.
+            ->content("Здравствуйте, клиент $this->user, отклонил(а) задачу.
             \n Названия: $this->name");
 
     }
