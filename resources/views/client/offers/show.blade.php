@@ -238,7 +238,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
                         <button class="btn btn-danger" type="submit" id="declineBtn" onclick="declineBtnFn()">Отклонить</button>
                     </div>
                 </form>

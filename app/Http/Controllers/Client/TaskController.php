@@ -238,6 +238,7 @@ class TaskController extends BaseController
 
         try {
             Notification::send(User::role('admin')->first(), new TelegramClientDecline($offer->name, Auth::user()->name));
+            Notification::send(User::where('id', $offer->user_id)->first(), new TelegramClientDecline($offer->name, Auth::user()->name));
         } catch (\Exception $exception) {
 
         }
