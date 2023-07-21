@@ -33,6 +33,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/leadSource/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'leadSource']);
         Route::get('/leadStatus/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'leadStatus']);
         Route::post('/lead/create/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'store']);
+        Route::get('/lead/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'show']);
+        Route::delete('/lead/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'delete']);
+        Route::delete('/eventDelete/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'eventDelete']);
+        Route::delete('/contactDelete/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'contactDelete']);
     });
 
     Route::group(['as' => 'contact'], function () {

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API\V1\CRM;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Admin\Crm\LeadRequest;
 use App\Http\Resources\API\V1\ContactResource;
+use App\Http\Resources\API\V1\EventResource;
 use App\Http\Resources\API\V1\LeadResource;
 use App\Models\Admin\CRM\Contact;
+use App\Models\Admin\CRM\Event;
 use App\Models\Admin\CRM\Lead;
 use App\Models\Admin\CRM\LeadSource;
 use App\Models\Admin\CRM\LeadState;
@@ -133,6 +135,47 @@ class LeadController extends BaseController
 
         return response($response, 200);
 
+    }
+
+    public function show($id)
+    {
+        $lead = Lead::find($id);
+
+        $response = [
+            'lead' => new LeadResource($lead),
+            'events' => EventResource::collection($lead?->events),
+            'contacts' => ContactResource::collection($lead?->contacts)
+        ];
+
+        return response($response, 200);
+    }
+
+
+    public function delete($id)
+    {
+        Lead::find($id)->delete();
+
+        return response([
+           'message' => true
+        ]);
+    }
+
+    public function eventDelete($id)
+    {
+        Event::find($id)->delete();
+
+        return response([
+           'message' => true
+        ]);
+    }
+
+    public function contactDelete($id)
+    {
+        Contact::find($id)->delete();
+
+        return response([
+            'message' => true
+        ]);
     }
 
 }
