@@ -22,7 +22,7 @@ class Contact extends Model
         return $this->belongsTo(User::class, 'client_id');
     }
     public function leads() {
-        return $this->belongsTo(Lead::class, 'client_id');
+        return $this->belongsTo(Lead::class, 'lead_id');
     }
 
 

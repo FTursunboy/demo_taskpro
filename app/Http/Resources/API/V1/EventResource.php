@@ -5,7 +5,7 @@ namespace App\Http\Resources\API\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LeadResource extends JsonResource
+class EventResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,11 @@ class LeadResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'contact' => $this->contact,
-            'author' => $this->author,
-            'status' =>$this->status?->name,
-            'state' => $this->state?->name,
-            'source' => $this->leadSource?->name,
+            'description' => $this->description,
+            'date' => $this->date,
+            'type_event' => $this->typeEvent->name,
+            'theme_event' => $this->themeEvent->theme,
+            'event_status' => $this->eventStatus->name,
         ];
     }
 }
