@@ -25,6 +25,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/task/getData', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'create']);
         Route::post('/tasks/create', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'store'])->middleware('role:admin');
 
+        Route::get('taskTeamLead', [\App\Http\Controllers\API\V1\Tasks\TaskTeamLead::class, 'taskTeamLead']);
+        Route::get('taskTeamLead/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskTeamLead::class, 'show']);
+        Route::get('taskTeamLead/accept/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskTeamLead::class, 'accept']);
+        Route::get('taskTeamLead/decline/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskTeamLead::class, 'decline']);
+
     });
 
     Route::group(['as' => 'lead'], function () {
