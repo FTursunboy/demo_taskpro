@@ -27,4 +27,7 @@ class Lead extends Model
     public function state() {
         return $this->belongsTo(LeadState::class, 'lead_state_id');
     }
+    public function events() {
+        return $this->hasMany(Event::class, 'lead_id');
+    }
 }

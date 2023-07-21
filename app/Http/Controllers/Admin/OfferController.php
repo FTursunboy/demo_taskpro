@@ -368,6 +368,12 @@ class OfferController extends BaseController
                 Statuses::RESEND,
                 $request->input('reason1')
             );
+        }elseif ($request->input('reason')){
+            ReportHistoryController::create(
+                $task->slug,
+                Statuses::RESEND,
+                $request->input('reason')
+            );
         }
 
 

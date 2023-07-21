@@ -6,24 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProfileUpdateRequest;
 use App\Http\Resources\API\V1\UserResource;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-
-class adminProfileController extends Controller
+class UserProfileController extends Controller
 {
     public function index($id)
     {
+        $user = User::findorfail($id);
+
+
+        $file = $user->avatar;
+
 
         return response([
-           'message' => true,
-           'user' => UserResource::collection(User::where('id', $id)->get())
+            'message' => true,
+            'user' => new UserResource($user),
+            'avatar' => '/tasks/public'.Storage::url($file)
         ]);
     }
 
-    public function update(ProfileUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->validated();
         $user = User::findOrFail($id);
         if ($request->file('avatar') !== null) {
             if ($user->avatar !== null) {
@@ -35,16 +39,18 @@ class adminProfileController extends Controller
         }
 
         $user->update([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'lastname' => $data['lastname'] ?? null,
-            'phone' => $data['phone'],
+            'name' => $request->name ?? $user->name,
+            'surname' => $request->surname ?? $user->surname,
+            'lastname' => $request->lastname ?? $user->lastname,
+            'phone' => $request->phone ?? $user->phone,
             'avatar' => $file
         ]);
 
         return response([
-            'message' => 'Данные обновлены',
-            'user' => new UserResource($user)
+            'message' => true,
+            'user' => new UserResource($user),
+            'avatar' => '/tasks/public'.Storage::url($file)
         ]);
     }
+
 }

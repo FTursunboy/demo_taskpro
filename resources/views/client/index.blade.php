@@ -138,7 +138,7 @@
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">Ожидается (Админ)</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $admin_verification }}</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $expected_admin }}</h6>
                                     </div>
                                 </div>
                             </a>

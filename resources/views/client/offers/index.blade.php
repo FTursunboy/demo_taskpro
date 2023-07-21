@@ -59,7 +59,7 @@
                                         <td><span class="badge bg-primary p-2">На проверке (У админа)</span>
                                         </td>
                                     @elseif($task->status->id == 7)
-                                        <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>
+                                        <td><span class="badge bg-primary p-2">В процессе</span>
                                         </td>
                                     @elseif($task->status->id == 8)
                                         <td><span class="badge bg-warning p-2">{{$task->status->name}}</span>

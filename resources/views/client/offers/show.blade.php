@@ -238,8 +238,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-danger" type="submit">Отклонить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button class="btn btn-danger" type="submit" id="declineBtn" onclick="declineBtnFn()">Отклонить</button>
                     </div>
                 </form>
 
@@ -445,8 +445,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button data-bs-target="#ready{{$offer->id}}" data-bs-toggle="modal" type="button" class="btn btn-danger">Отмена</button>
-                            <button type="submit" class="btn btn-success">Отправить</button>
+                            <button type="button" class="btn btn-danger">Отмена</button>
+                            <button type="submit" id="sendReasonBtn" onclick="sendReasonBtnFn()" class="btn btn-success">Отправить</button>
                         </div>
                     </form>
                 </div>
@@ -475,7 +475,7 @@
 
                         <div style="display: none;" id="reason">
                             <label for="reason">Причина отклонения</label>
-                            <textarea name="cancel" cols="30" rows="5" class="form-control" ></textarea>
+                            <textarea name="cancel" cols="30" rows="5" required class="form-control" ></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -510,18 +510,18 @@
                             <tbody>
 
                             @foreach($histories as $history)
-
+{{--                                {{dd($history)}}--}}
                                 <tr>
                                     <td>{{date('d.m.Y H:i:s', strtotime($history->created_at))}}</td>
-                                    <td>{{$history->user->name }}</td>
+                                    <td>{{$history->user?->name }}</td>
                                     <td>
                                         {{ $history->status?->name }}
 
-                                        @if ($history->user->hasRole('admin'))
+                                        @if ($history->user?->hasRole('admin'))
                                             (Админ)
-                                        @elseif ($history->user->hasRole('user'))
+                                        @elseif ($history->user?->hasRole('user'))
                                             (Сотрудник)
-                                        @elseif ($history->user->hasRole('client') || $history->user->hasRole('client-worker'))
+                                        @elseif ($history->user?->hasRole('client') || $history->user?->hasRole('client-worker'))
                                             (Клиент)
                                         @endif
                                     </td>
@@ -565,6 +565,30 @@
             });
         }
 
+    </script>
+    <script>
+        var counter = 0;
+
+        function declineBtnFn()
+        {
+            counter++
+
+            if (counter === 2)
+            {
+                var button = document.getElementById('declineBtn')
+                button.type = "button"
+            }
+        }
+
+        function sendReasonBtnFn()
+        {
+            counter++
+
+            if (counter === 2){
+                var button = document.getElementById('sendReasonBtn')
+                button.type = "button"
+            }
+        }
     </script>
 @endsection
 

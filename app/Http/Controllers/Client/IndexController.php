@@ -24,7 +24,7 @@ class IndexController extends BaseController
         $inProgress = Offer::where('status_id', 2)
         ->where('client_id', Auth::id())->count();
         $verificate_admin = Offer::where([
-            ['status_id', 14],
+            ['status_id', 6],
             ['client_id', Auth::id()]
         ])->count();
 

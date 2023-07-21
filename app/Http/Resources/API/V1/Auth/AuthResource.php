@@ -15,17 +15,7 @@ class AuthResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        if ($this->avatar) {
-//            $filePath = Storage::disk('public')->path($this->avatar);
-//            if (file_exists($filePath)) {
-//                $fileData = file_get_contents($filePath);
-//                $avatar = base64_encode($fileData);
-//            }
-//        }
-////        $avatar = null;
-////        if ($this->avatar) {
-////            $avatar = url('public/' . $this->avatar);
-////        }
+
 
         return [
             'id' => $this->id,

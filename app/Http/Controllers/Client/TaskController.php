@@ -36,7 +36,6 @@ class TaskController extends BaseController
         return view('client.offers.index', compact('tasks'));
     }
 
-
     public function show($slug) {
 
         $offer = Offer::where('slug', $slug)->first();
@@ -48,8 +47,6 @@ class TaskController extends BaseController
             ['task_id', '=', $offer->id]
 
         ])->orderBy('created_at')->get();
-
-
 
         return view('client.offers.show', compact('offer', 'histories', 'reports'));
     }
@@ -106,7 +103,7 @@ class TaskController extends BaseController
     public function verificate_admin() {
         $tasks = Offer::where([
             ['client_id', Auth::id()],
-            ['status_id', 14]
+            ['status_id', 6]
         ])->get();
 
         return view('client.offers.index', compact('tasks'));
@@ -241,6 +238,7 @@ class TaskController extends BaseController
 
         try {
             Notification::send(User::role('admin')->first(), new TelegramClientDecline($offer->name, Auth::user()->name));
+            Notification::send(User::where('id', $offer->user_id)->first(), new TelegramClientDecline($offer->name, Auth::user()->name));
         } catch (\Exception $exception) {
 
         }
