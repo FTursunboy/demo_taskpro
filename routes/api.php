@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/leadStatus/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'leadStatus']);
         Route::post('/lead/create/', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'store']);
         Route::get('/lead/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'show']);
+        Route::patch('/lead/update/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'update']);
+        Route::patch('/lead/updateEvent/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'updateEvent']);
+        Route::patch('/lead/updateContact/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'updateContact']);
         Route::delete('/lead/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'delete']);
         Route::delete('/eventDelete/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'eventDelete']);
         Route::delete('/contactDelete/{id}', [\App\Http\Controllers\API\V1\CRM\LeadController::class, 'contactDelete']);
