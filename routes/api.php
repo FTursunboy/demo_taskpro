@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('taskTeamLead/decline/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskTeamLead::class, 'decline']);
 
         Route::get('task_client', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'index']);
+        Route::get('task_client_filter', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'index_filter']);
 
     });
 
