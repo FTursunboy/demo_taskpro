@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\V1\CRM;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\Admin\Crm\ContactRequest;
+use App\Http\Requests\Admin\Crm\EventRequest;
 use App\Http\Requests\Admin\Crm\LeadRequest;
 use App\Http\Resources\API\V1\ContactResource;
 use App\Http\Resources\API\V1\EventResource;
@@ -128,9 +130,9 @@ class LeadController extends BaseController
         $contact->save();
 
         $response = [
+          'message' => true,
           'contact' => new ContactResource($contact),
           'lead' => new LeadResource($lead),
-          'message' => true,
         ];
 
         return response($response, 200);
@@ -150,6 +152,95 @@ class LeadController extends BaseController
         return response($response, 200);
     }
 
+    public function update(LeadRequest $request, $id)
+    {
+        $lead = Lead::findOrFail($id);
+
+        $is_client = true;
+        $existingContact = Contact::where('phone', $request->phone)
+            ->first();
+        if ($existingContact) {
+            $contact = $existingContact;
+        }
+        else {
+            if ($request->status_id == 1) {
+                $is_client = $request->has('is_client');
+            }
+
+            $contact = Contact::where('lead_id', $id)->first();
+
+            $contact->update([
+                'fio' => $request->fio,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'email' => $request->email,
+                'lead_source_id' => $request->source_id,
+                'is_client' => $is_client,
+                'company' => $request->input('company'),
+                'position' => $request->input('position'),
+            ]);
+        }
+
+        $lead->update([
+            'contact_id' => $contact->id,
+            'description' => $request->description,
+            'lead_source_id' => $request->source_id,
+            'lead_status_id' => $request->status_id,
+            'lead_state_id' => $request->state_id,
+            'author' => Auth::user()->name,
+        ]);
+
+        $contact->lead_id = $lead->id;
+        $contact->update();
+
+        $response = [
+            'contact' => new ContactResource($contact),
+            'lead' => new LeadResource($lead),
+            'message' => true,
+        ];
+
+        return response($response, 200);
+
+    }
+
+    public function updateEvent(EventRequest $request, $id)
+    {
+        $event = Event::findOrFail($id);
+
+        $event->update([
+            'themeEvent_id' => $request->themeEvent_id,
+            'description' => $request->description,
+            'date' => $request->date,
+            'lead_id' => $request->lead_id,
+            'type_event_id' => $request->type_event_id,
+            'event_status_id' => $request->event_status_id,
+        ]);
+
+        return response([
+            'message' => true,
+            'event' => new EventResource($event)
+        ], 200);
+    }
+
+    public function updateContact(ContactRequest $request, $id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        $contact->update([
+            'fio' => $request['fio'],
+            'phone' => $request['phone'],
+            'email' => $request['email'],
+            'position' => $request['position'],
+            'lead_id' => $request['lead_id'],
+            'address' => $request['address'],
+            'company' => $request['company'],
+        ]);
+
+        return response([
+            'message' => true,
+            'contact' => new ContactResource($contact)
+        ], 200);
+    }
 
     public function delete($id)
     {
