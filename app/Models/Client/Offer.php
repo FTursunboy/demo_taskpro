@@ -25,6 +25,10 @@ class Offer extends Model
         return $this->belongsTo(StatusesModel::class);
     }
 
+    public function statuses(){
+        return $this->belongsTo(StatusesModel::class, 'status_id');
+    }
+
     public function projects()
     {
         return $this->belongsTo(ProjectModel::class, 'project_id');
