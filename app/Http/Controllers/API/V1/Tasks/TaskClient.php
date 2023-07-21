@@ -32,4 +32,24 @@ class TaskClient extends Controller
             'task_client' =>$offers // OffersResource::collection($offers)
         ]);
     }
+
+    public function index_filter()
+    {
+        $offers = DB::table('offers as of')
+            ->leftJoin('users as u', 'u.id', 'of.user_id')
+            ->leftJoin('users as client', 'client.id', 'of.client_id')
+            ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
+            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+            ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
+            ->whereNull('of.deleted_at')
+            ->where('status_id', 8)
+            ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username', 'client.name as client_name')
+            ->orderBy('of.created_at', 'desc')
+            ->get();
+
+        return response([
+            'message' => true,
+            'task_client' =>$offers // OffersResource::collection($offers)
+        ]);
+    }
 }
