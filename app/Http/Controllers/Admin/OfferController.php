@@ -522,13 +522,11 @@ class OfferController extends BaseController
             'offer_id' => $offer->id
         ]);
 
-
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
-
-
 
         return redirect()->route('client.offers.index')->with('create', 'Успешно создано!');
 
     }
+
 
 }

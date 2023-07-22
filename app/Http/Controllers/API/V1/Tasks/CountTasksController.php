@@ -13,6 +13,7 @@ class CountTasksController extends Controller
     public function panelAdmin()
     {
         return response([
+            'message' => true,
            'all_tasks' => TaskModel::count(),
            'task_speed' => TaskModel::where('status_id', 7)->count(),
            'task_progress' => TaskModel::whereIn('status_id', [2, 4])->count(),
@@ -28,6 +29,7 @@ class CountTasksController extends Controller
         $endDate = Carbon::now()->addDays(7)->format('Y-m-d');
 
         return response([
+           'message' => true,
            'ready' => TaskModel::where([
                ['user_id', '=', Auth::id()],
                ['status_id', '=', 3]
