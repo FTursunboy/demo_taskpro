@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/task/accept/{id}', [App\Http\Controllers\API\V2\Tasks\TasksController::class, 'accept']);
         Route::get('/task/decline/{id}', [App\Http\Controllers\API\V2\Tasks\TasksController::class, 'decline']);
 
+        Route::get('/history/{id}', [\App\Http\Controllers\API\V1\Tasks\HistoryController::class, 'history']);
+
     });
 
     Route::group(['as' => 'lead'], function () {
