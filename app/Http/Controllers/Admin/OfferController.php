@@ -233,6 +233,7 @@ class OfferController extends BaseController
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
 
     }
+
     public  function sendClient(Offer $offer)
     {
         $offer->is_finished = true;
