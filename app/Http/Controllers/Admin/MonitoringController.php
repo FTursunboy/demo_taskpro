@@ -67,7 +67,6 @@ class  MonitoringController extends BaseController
 
        $reports = ReportHistory::where('task_slug', $slug)->get();
 
-
         $offer = Offer::where('slug', $task->slug)->first();
         if ($offer !== null) {
 
@@ -80,15 +79,11 @@ class  MonitoringController extends BaseController
             return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users', 'reports'));
         }
         else {
-
             $histories_task = History::where([
                 ['task_id', '=', $task->id],
                 ['sender_id', '!=', 'null']
             ])->get();
-
-
         }
-
 
         $users = User::withTrashed()->role('user')->get();
 

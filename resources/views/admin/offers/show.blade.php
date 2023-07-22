@@ -94,7 +94,6 @@
                                                                       enctype="multipart/form-data" autocomplete="off">
                                                                     @endif
 
-
                                                                     @csrf
                                                                     <div class="collapse my-3 show"
                                                                          id="collapseExample">
