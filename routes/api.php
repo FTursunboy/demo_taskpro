@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::get('/history/{id}', [\App\Http\Controllers\API\V1\Tasks\HistoryController::class, 'history']);
 
+        Route::get('/task/sendUser', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'create']);
+        Route::post('/task/sendUser/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'sendUser']);
+
     });
 
     Route::group(['as' => 'lead'], function () {
