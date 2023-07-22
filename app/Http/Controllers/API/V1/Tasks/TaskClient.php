@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
+use App\Http\Requests\Admin\TaskClientApiRequest;
 use App\Http\Requests\Admin\TaskClientRequest;
 use App\Http\Resources\API\V1\Tasks\OffersResource;
 use App\Http\Resources\API\V1\TypeResource;
@@ -86,7 +87,7 @@ class TaskClient extends Controller
 
             $offer->update([
                 'from' => $data['from'],
-                'to' => $data['from'],
+                'to' => $data['to'],
                 'time' => $data['time'],
                 'user_id' => $data['user_id'],
                 'status_id' => 9
@@ -131,7 +132,19 @@ class TaskClient extends Controller
 
     }
 
-    public function createTaskAsClient(TaskClientRequest $request)
+
+    public function createTaskAsClient()
+    {
+        return response([
+            'message' => true,
+            'users' => UserResource::collection(User::role('user')->get()),
+            'types' => TypeResource::collection(TaskTypeModel::all()),
+            'clients' => UserResource::collection(User::role('client')->get())
+        ]);
+    }
+
+
+    public function storeTaskAsClient(TaskClientApiRequest $request)
     {
         $request->validated();
         if (isset($request->file)) {
@@ -160,5 +173,55 @@ class TaskClient extends Controller
         ]);
 
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
+
+        if ($request->user_id !== null && $request->from !== null && $request->to !== null){
+
+            $offer->update([
+                'from' => $request->from,
+                'to' => $request->to,
+                'time' => $request->time,
+                'user_id' => $request->user_id,
+                'status_id' => 9
+            ]);
+
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::ACCEPT);
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_USER);
+
+            $project_id = ProjectClient::where('user_id', $offer->client_id)->first()->project_id;
+
+
+            $task = TaskModel::create([
+                'name' => $offer->name,
+                'user_id' => $request->user_id,
+                'from' => $request->from,
+                'to' => $request->to,
+                'time' => $request->time,
+                'offer_id' => $offer->id,
+                'file' => $offer->file,
+                'file_name' => $offer->file_name,
+                'author_id' => $offer->client_id,
+                'client_id' => $offer->client_id,
+                'comment' => $offer->description,
+                'project_id' => $project_id,
+                'status_id' => 9,
+                'type_id' => $request->type_id,
+                'percent' => $request->percent,
+                'kpi_id' => $request->kpi_id ?: null,
+                'slug' => $offer->slug,
+            ]);
+
+            HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+
+            try {
+                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
+            } catch (\Exception $exception) {
+            }
+
+        }
+
+
+        return response([
+           'message' => true
+        ]);
     }
 }

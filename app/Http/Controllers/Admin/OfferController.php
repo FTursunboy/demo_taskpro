@@ -177,7 +177,7 @@ class OfferController extends BaseController
 
             $offer->update([
                 'from' => $data['from'],
-                'to' => $data['from'],
+                'to' => $data['to'],
                 'time' => $data['time'],
                 'user_id' => $data['user_id'],
                 'status_id' => 9

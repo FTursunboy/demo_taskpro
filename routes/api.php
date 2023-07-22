@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::get('task_client', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'index']);
         Route::get('task_client_filter', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'index_filter']);
+        Route::get('getData', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'createTaskAsClient']);
+        Route::post('/createTaskAsClient', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'storeTaskAsClient']);
 
         Route::get('countTasksAdmin', [\App\Http\Controllers\API\V1\Tasks\CountTasksController::class, 'panelAdmin']);
         Route::get('countTasksUser', [\App\Http\Controllers\API\V1\Tasks\CountTasksController::class, 'panelUser']);
