@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'index']);
         Route::get('/new-tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'newTasks']);
         Route::get('/getAllTasks', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'getAllTasks']);
+        Route::get('/getAllTasks/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'show']);
         Route::get('/get-tasks/', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'getTasks']);
         Route::post('/get-tasks/accept/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskAccept']);
         Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
@@ -32,6 +33,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::get('task_client', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'index']);
         Route::get('task_client_filter', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'index_filter']);
+
+        Route::get('countTasks', [\App\Http\Controllers\API\V1\Tasks\CountTasksController::class, 'panelAdmin']);
 
     });
 
