@@ -70,11 +70,6 @@ class IndexController extends BaseController
             ->orderByDesc('r.rating')
             ->get();
 
-
-
-
-
-
         return view('admin.index', compact('task',  'users', 'tasks', 'team_leads', 'ratings', 'admin_users', 'admin_ratings'));
     }
 
