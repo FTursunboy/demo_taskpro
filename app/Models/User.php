@@ -268,8 +268,9 @@ class User extends Authenticatable
 
         $debt = TaskModel::where([
             ['user_id', $id],
-            ['status_id', '!=', 3]
-        ])->where('to', '<', $startOfMonth)->count();
+            ['status_id', '!=', 3],
+            ['to', '<', $startOfMonth]
+        ])->count();
 
         return $debt;
     }
