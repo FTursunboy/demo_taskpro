@@ -264,16 +264,16 @@ class User extends Authenticatable
 
     public function debt_tasks($id) {
         $currentYear = Carbon::now()->year;
-        $startOfMonth = Carbon::now()->year($currentYear)->startOfMonth();
-        $endOfMonth = $startOfMonth->copy()->endOfMonth();
+        $startOfMonth = Carbon::now()->startOfMonth();
 
         $debt = TaskModel::where([
             ['user_id', $id],
             ['status_id', '!=', 3]
-        ])->whereBetween('to', [$startOfMonth, $endOfMonth])->get()->count();
+        ])->where('to', '<', $startOfMonth)->count();
 
         return $debt;
     }
+
 
     public function taskProgress($id)
     {
