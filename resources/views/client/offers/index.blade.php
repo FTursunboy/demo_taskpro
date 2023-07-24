@@ -90,8 +90,8 @@
                                         <a data-bs-toggle="offcanvas" data-bs-target="#EditTaskClient{{ $task->id }}"
                                            aria-controls="EditTaskClient{{ $task->id }}" class=" badge bg-primary p-2" href="{{route('offers.edit', $task->id)}}"><i
                                                 class="bi bi-pencil"></i></a>
-                                        <a class=" badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i
-                                                class="bi bi-chat"></i></a>
+{{--                                        <a class=" badge bg-warning p-2" href="{{route('offers.chat', $task->id)}}"><i--}}
+{{--                                                class="bi bi-chat"></i></a>--}}
                                     </td>
                                 </tr>
 
