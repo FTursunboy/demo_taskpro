@@ -166,7 +166,6 @@
                 </div>
             </div>
         </section>
-
     </div>
 
     <div class="modal" tabindex="-1" id="reports">
@@ -535,6 +534,7 @@
             </div>
         </div>
     </div>
+
 
 @endsection
 @section('script')
