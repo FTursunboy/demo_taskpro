@@ -172,7 +172,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="media d-flex align-items-center">
-                                @if($offer->user->id !== $admin->id)
+                                @if($offer?->user->id !== $admin?->id)
                                     <div class="avatar me-3">
                                         @if($offer->user?->avatar)
                                             <img src="{{ asset('storage/'. $offer->user?->avatar)}}">
@@ -226,50 +226,52 @@
                         </div>
                         <div class="card-body pt-4 bg-grey">
                             <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
-                                @foreach($messages as $mess)
-                                    @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
-                                        <div class="chat id">
-                                            <div class="chat-body" style="margin-right: 10px">
-                                                <div class="chat-message">
-                                                    <p>
-                                                        <span style="display: flex; justify-content: space-between;">
-                                                            <b>{{$mess->sender?->name}}</b>
-                                                            <a style="color: red" href="{{route('offers.messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
+                                @if(isset($messages))
+                                    @foreach($messages as $mess)
+                                        @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
+                                            <div class="chat id">
+                                                <div class="chat-body" style="margin-right: 10px">
+                                                    <div class="chat-message">
+                                                        <p>
+                                                            <span style="display: flex; justify-content: space-between;">
+                                                                <b>{{$mess->sender?->name}}</b>
+                                                                <a style="color: red" href="{{route('offers.messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
+                                                            </span>
+                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
+                                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                            {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
                                                         </span>
-                                                        <span style="margin-top: 10px">{{ $mess->message }}</span>
-                                                    @if($mess->file !== null)
-                                                        <div class="form-group">
-                                                            <a href="{{ route('offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
-                                                                файл</a>
-                                                        </div>
-                                                    @endif
-                                                    <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                        {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @else
-                                        <div class="chat chat-left id">
-                                            <div class="chat-body">
-                                                <div class="chat-message">
-                                                    <p>
-                                                        <span><b>{{$mess->sender?->name}}</b><br></span>
-                                                        <span style="margin-top: 10px">{{ $mess->message }}</span>
-                                                    @if($mess->file !== null)
-                                                        <div class="form-group">
-                                                            <a href="{{ route('offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
-                                                                файл</a>
-                                                        </div>
-                                                    @endif
-                                                    <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                        {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                    </span>
+                                        @else
+                                            <div class="chat chat-left id">
+                                                <div class="chat-body">
+                                                    <div class="chat-message">
+                                                        <p>
+                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
+                                                        @if($mess->file !== null)
+                                                            <div class="form-group">
+                                                                <a href="{{ route('offers.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                    файл</a>
+                                                            </div>
+                                                        @endif
+                                                        <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
+                                                            {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endif
-                                @endforeach
+                                        @endif
+                                    @endforeach
+                                @endif
                             </div>
                             <script>
                                 let block = document.getElementById("block");
