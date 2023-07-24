@@ -44,6 +44,7 @@ class TasksResource extends JsonResource
             'file' => $file,
             'file_name' => $this->file_name,
             'user_id' => $this->user_id,
+            'user_name' => $this->user->name,
             'kpd' => $this->checkDate?->count,
             'slug' => $this->slug,
         ];
