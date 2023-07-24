@@ -14,6 +14,7 @@ use App\Models\Admin\CRM\LeadSource;
 use App\Models\Admin\CRM\LeadState;
 use App\Models\Admin\CRM\LeadStatus;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LeadController extends BaseController
 {
@@ -102,16 +103,28 @@ class LeadController extends BaseController
                 $is_client = $request->has('is_client');
             }
 
-        $contact = Contact::create([
-                'fio' => $request->fio,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'email' => $request->email,
-                'lead_source_id' => $request->source_id,
-                'is_client' => $is_client,
-                'company' => $request->input('company'),
-                'position' => $request->input('position'),
-            ]);
+            $validator = Validator::make(
+                ['phone' => $request->telephone],
+                ['phone' => 'required|phone:TJ']
+            );
+            if ($validator->fails()){
+                return response()->json([
+                    'message' => false,
+                    'info' => 'Данные, которые вы отправили, не правильные'
+                ],200);
+            } else {
+                $contact = Contact::create([
+                    'fio' => $request->fio,
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'email' => $request->email,
+                    'lead_source_id' => $request->source_id,
+                    'is_client' => $is_client,
+                    'company' => $request->input('company'),
+                    'position' => $request->input('position'),
+                ]);
+            }
+
         }
 
 

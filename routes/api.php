@@ -3,17 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::group(['as' => 'tasks'], function (){
         Route::get('/tasks/',[\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'index']);
@@ -24,7 +13,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
         Route::get('/task/getData', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'create']);
         Route::post('/tasks/create', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'store'])->middleware('role:admin');
-
     });
 
     Route::group(['as' => 'lead'], function () {

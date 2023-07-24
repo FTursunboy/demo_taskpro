@@ -188,7 +188,7 @@ class TaskController extends Controller
             'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
             'project_id' => $request->project_id,
             'type_id' => $request->type_id,
-            'percent' => $request->percent,
+            'percent' => $request->kpi_percent,
             'kpi_id' => $request->kpi_id ?: null,
             'user_id' => $request->user_id,
             'author_id' => Auth::id(),
@@ -223,8 +223,8 @@ class TaskController extends Controller
         $taskResource = new TasksResource($task);
 
         return response()->json([
-            'message' => 'Задача успешно создано!',
-            'message_bool' => true,
+            'message' => true,
+            'message_bool' => 'Задача успешно создано!',
             'task' => $taskResource,
         ], 201);
     }
