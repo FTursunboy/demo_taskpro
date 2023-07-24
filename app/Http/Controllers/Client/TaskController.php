@@ -37,14 +37,13 @@ class TaskController extends BaseController
     }
 
     public function show($slug) {
-
+        dd(1);
         $offer = Offer::where('slug', $slug)->first();
         $reports = ReportHistory::where('task_slug', $slug)->get();
 
         $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
         $admin = User::role('admin')->first();
-
 
         $histories = History::where([
             ['type', '=', 'offer'],
