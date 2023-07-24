@@ -33,7 +33,7 @@ class TasksResource extends JsonResource
             'time' => $this->time,
             'from' => $this->from,
             'to' => $this->to,
-            'type' => $this->type->name,
+            'type' => $this?->type?->name,
             'kpi' => ($this->typeType === null) ? null : $this->typeType->name,
             'percent' => ($this->percent === null) ? null : $this->percent,
             'comment' => $this->comment,
