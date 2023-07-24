@@ -44,7 +44,7 @@ class TaskController extends BaseController
         $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
         $admin = User::role('admin')->first();
-      
+
         $histories = History::where([
             ['type', '=', 'offer'],
             ['task_id', '=', $offer->id]
