@@ -429,7 +429,7 @@ class User extends Authenticatable
     public function debt($month, $id)
     {
         $currentYear = Carbon::now()->year;
-        $endOfMonth = Carbon::now()->year($currentYear)->month($month)->endOfMonth();
+        $endOfMonth = Carbon::now()->year($currentYear)->month($month)->startOfMonth();
 
         $debt = TaskModel::where([
             ['user_id', $id],
