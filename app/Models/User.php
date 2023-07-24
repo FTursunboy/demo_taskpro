@@ -262,9 +262,9 @@ class User extends Authenticatable
             ->get();
     }
 
-    public function debt_tasks($id, $month) {
+    public function debt_tasks($id) {
         $currentYear = Carbon::now()->year;
-        $startOfMonth = Carbon::now()->year($currentYear)->month($month)->startOfMonth();
+        $startOfMonth = Carbon::now()->year($currentYear)->startOfMonth();
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
         $debt = TaskModel::where([
