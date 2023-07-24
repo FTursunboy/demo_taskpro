@@ -726,87 +726,87 @@
             }
         }
     </script>
-            <script>
+{{--            <script>--}}
 
-                $(document).ready(function() {
-                    $('#file').change(function() {
-                        const selectedFile = $(this).prop('files')[0];
-                        if (selectedFile) {
-                            $('#message').val('Файл');
-                        } else {
-                            $('#message').val('');
-                        }
-                    });
-                });
+{{--                $(document).ready(function() {--}}
+{{--                    $('#file').change(function() {--}}
+{{--                        const selectedFile = $(this).prop('files')[0];--}}
+{{--                        if (selectedFile) {--}}
+{{--                            $('#message').val('Файл');--}}
+{{--                        } else {--}}
+{{--                            $('#message').val('');--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                });--}}
 
-                $(document).ready(function () {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+{{--                $(document).ready(function () {--}}
+{{--                    $.ajaxSetup({--}}
+{{--                        headers: {--}}
+{{--                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                        }--}}
+{{--                    });--}}
 
-                    $('#formMessage').submit(function (e) {
-                        e.preventDefault();
+{{--                    $('#formMessage').submit(function (e) {--}}
+{{--                        e.preventDefault();--}}
 
-                        let formData = new FormData(this);
-                        let fileInput = $('#file')[0];
-                        let selectedFile = fileInput.files[0];
-                        formData.append('file', selectedFile);
+{{--                        let formData = new FormData(this);--}}
+{{--                        let fileInput = $('#file')[0];--}}
+{{--                        let selectedFile = fileInput.files[0];--}}
+{{--                        formData.append('file', selectedFile);--}}
 
-                        $.ajax({
-                            url: "{{ route('offers.message', $offer->id) }}",
-                            method: "POST",
-                            data: formData,
-                            dataType: 'json',
-                            contentType: false,
-                            processData: false,
-                            success: function (response) {
-                                console.log(response)
-                                $('#message').val('');
-                                $('#file').val('');
+{{--                        $.ajax({--}}
+{{--                            url: "{{ route('offers.message', $offer->id) }}",--}}
+{{--                            method: "POST",--}}
+{{--                            data: formData,--}}
+{{--                            dataType: 'json',--}}
+{{--                            contentType: false,--}}
+{{--                            processData: false,--}}
+{{--                            success: function (response) {--}}
+{{--                                console.log(response)--}}
+{{--                                $('#message').val('');--}}
+{{--                                $('#file').val('');--}}
 
-                                let fileUrl = route('offers.messages.download', { mess: response.messages.id });
-                                let del = route('offers.messages.delete', { mess: response.messages.id });
-                                let newMessage = `
-                                <div class="chat">
-                                    <div class="chat-body" style="margin-right: 10px">
-                                        <div class="chat-message">
-                                            <p>
-                                                 <span style="display: flex; justify-content: space-between;">
-                                                            <b>${response.name}</b>
-                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>
-                                                        </span>
-                                                <span style="margin-top: 10px">${response.messages.message}</span>
-                                                ${response.messages.file !== null ? `
-                                                        <div class="form-group">
-                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>
-                                                        </div>
-                                                    ` : ''}
-                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                    ${response.created_at}
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                        `;
+{{--                                let fileUrl = route('offers.messages.download', { mess: response.messages.id });--}}
+{{--                                let del = route('offers.messages.delete', { mess: response.messages.id });--}}
+{{--                                let newMessage = `--}}
+{{--                                <div class="chat">--}}
+{{--                                    <div class="chat-body" style="margin-right: 10px">--}}
+{{--                                        <div class="chat-message">--}}
+{{--                                            <p>--}}
+{{--                                                 <span style="display: flex; justify-content: space-between;">--}}
+{{--                                                            <b>${response.name}</b>--}}
+{{--                                                            <a style="color: red" href="${del}"><i class="bi bi-trash"></i></a>--}}
+{{--                                                        </span>--}}
+{{--                                                <span style="margin-top: 10px">${response.messages.message}</span>--}}
+{{--                                                ${response.messages.file !== null ? `--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <a href="${fileUrl}" download class="form-control text-bold">Просмотреть файл</a>--}}
+{{--                                                        </div>--}}
+{{--                                                    ` : ''}--}}
+{{--                                                <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">--}}
+{{--                                                    ${response.created_at}--}}
+{{--                                                </span>--}}
+{{--                                            </p>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                        `;--}}
 
-                                $('#block').append(newMessage);
+{{--                                $('#block').append(newMessage);--}}
 
 
 
-                                let block = document.getElementById("block");
-                                block.scrollTop = block.scrollHeight;
+{{--                                let block = document.getElementById("block");--}}
+{{--                                block.scrollTop = block.scrollHeight;--}}
 
-                            },
-                            error: function (xhr, status, error) {
-                                alert('Ошибка при отправке сообщения');
-                            }
-                        });
-                    });
-                });
-            </script>
+{{--                            },--}}
+{{--                            error: function (xhr, status, error) {--}}
+{{--                                alert('Ошибка при отправке сообщения');--}}
+{{--                            }--}}
+{{--                        });--}}
+{{--                    });--}}
+{{--                });--}}
+{{--            </script>--}}
 @endsection
 
 
