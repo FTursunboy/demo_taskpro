@@ -275,6 +275,7 @@ class User extends Authenticatable
         return $debt;
     }
 
+
     public function taskProgress($id)
     {
         $taskProgress = TaskModel::where('user_id', $id)
@@ -382,17 +383,19 @@ class User extends Authenticatable
 
     public static function getUserTasksInMonth($month, $id)
     {
+
         $startOfMonth = Carbon::now()->month($month)->startOfMonth();
         $endOfMonth = Carbon::now()->month($month)->endOfMonth();
 
         $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
+
         $tasks = TaskModel::where('user_id', $id)
             ->whereIn('status_id', $statusIds)
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
             ->selectRaw("
             COUNT(*) as total,
             SUM(CASE WHEN status_id IN (4, 7) THEN 1 ELSE 0 END) as debt,
-            SUM(CASE WHEN status_id IN (4, 2) THEN 1 ELSE 0 END) as process,
+            SUM(CASE WHEN status_id IN (2) THEN 1 ELSE 0 END) as process,
             SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
             SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
             SUM(CASE WHEN status_id IN(1, 8) THEN 1 ELSE 0 END) as expectedAdmin,
@@ -408,19 +411,34 @@ class User extends Authenticatable
         return $tasks;
     }
 
+
+//    public function debt($month, $id)
+//    {
+//        $currentYear = Carbon::now()->year;
+//        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
+//        $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
+//
+//        $debt = TaskModel::where([
+//            ['user_id', $id],
+//            ['status_id', '!=', 3]
+//        ])->whereBetween('to', [$startOfYear, $endOfMonth])->get()->count();
+//
+//        return $debt;
+//    }
+
     public function debt($month, $id)
     {
         $currentYear = Carbon::now()->year;
-        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
-        $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
+        $endOfMonth = Carbon::now()->year($currentYear)->month($month)->startOfMonth();
 
         $debt = TaskModel::where([
             ['user_id', $id],
             ['status_id', '!=', 3]
-        ])->whereBetween('to', [$startOfYear, $endOfMonth])->get()->count();
+        ])->where('to', '<', $endOfMonth)->get()->count();
 
         return $debt;
     }
+
 
 
 

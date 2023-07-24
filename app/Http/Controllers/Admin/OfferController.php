@@ -177,7 +177,7 @@ class OfferController extends BaseController
 
             $offer->update([
                 'from' => $data['from'],
-                'to' => $data['from'],
+                'to' => $data['to'],
                 'time' => $data['time'],
                 'user_id' => $data['user_id'],
                 'status_id' => 9
@@ -233,6 +233,7 @@ class OfferController extends BaseController
         return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
 
     }
+
     public  function sendClient(Offer $offer)
     {
         $offer->is_finished = true;
@@ -521,13 +522,11 @@ class OfferController extends BaseController
             'offer_id' => $offer->id
         ]);
 
-
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 2);
-
-
 
         return redirect()->route('client.offers.index')->with('create', 'Успешно создано!');
 
     }
+
 
 }

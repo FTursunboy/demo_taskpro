@@ -74,6 +74,16 @@ class TaskController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $task = TaskModel::where('id', $id)->first();
+
+        return response([
+            'message' => true,
+            'task' => new TasksResource($task)
+        ]);
+    }
+
     public function taskAccept(TaskModel $task)
     {
         UserTaskHistoryModel::create([

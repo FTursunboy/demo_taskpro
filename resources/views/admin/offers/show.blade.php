@@ -94,7 +94,6 @@
                                                                       enctype="multipart/form-data" autocomplete="off">
                                                                     @endif
 
-
                                                                     @csrf
                                                                     <div class="collapse my-3 show"
                                                                          id="collapseExample">
@@ -112,7 +111,7 @@
                                                                             <div class="col-md-6">
                                                                                 <label class="form-label">Проект</label>
                                                                                 <input type="text" class="form-control"
-                                                                                       value="{{$project->projects?->name}}"
+                                                                                       value="{{$project?->projects?->name}}"
                                                                                        disabled name="project">
                                                                             </div>
 
