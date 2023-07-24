@@ -352,8 +352,8 @@
                                                             </div>
                                                         @endif
                                                         <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px; margin-bottom: -25px">
-        {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-    </span>
+                                                            {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                        </span>
                                                         </p>
 
                                                     </div>
@@ -398,7 +398,6 @@
                                                     <input type="file" name="file" class="form-control" id="file">
                                                 </div>
                                                 <button type="submit" class="btn btn-primary" id="messageBTN">
-                                                    Отправить
                                                     Отправить
                                                 </button>
                                             </div>

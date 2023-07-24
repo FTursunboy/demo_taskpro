@@ -41,6 +41,10 @@ class TaskController extends BaseController
         $offer = Offer::where('slug', $slug)->first();
         $reports = ReportHistory::where('task_slug', $slug)->get();
 
+        $messages = MessagesModel::where('task_slug', $offer->slug)->get();
+
+        $admin = User::role('admin')->first();
+
 
         $histories = History::where([
             ['type', '=', 'offer'],
@@ -48,7 +52,7 @@ class TaskController extends BaseController
 
         ])->orderBy('created_at')->get();
 
-        return view('client.offers.show', compact('offer', 'histories', 'reports'));
+        return view('client.offers.show', compact('offer', 'histories', 'reports', 'messages', 'admin'));
     }
     public function show_ready() {
         $tasks = Offer::where([
