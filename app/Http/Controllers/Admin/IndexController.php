@@ -143,7 +143,7 @@ class IndexController extends BaseController
             $arrs[] = [
                 'user' => $user->name . " " . $user->surname,
                 'total' => $user->getUserTasksInMonth($month, $user->id)['total'],
-                'debt' => $user->getUserTasksInMonth($month, $user->id)['debt'],
+                'debt' => $user->debt($month, $user->id)['debt'],
                 'process' => $user->getUserTasksInMonth($month, $user->id)['process'],
                 'accept' => $user->getUserTasksInMonth($month, $user->id)['accept'],
                 'ready' => $user->getUserTasksInMonth($month, $user->id)['ready'],
