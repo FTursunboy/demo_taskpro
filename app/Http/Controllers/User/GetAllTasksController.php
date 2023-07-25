@@ -200,7 +200,7 @@ class GetAllTasksController extends BaseController
             ->join('project_models as p', 'p.id', 't.project_id')
             ->join('task_type_models as tt', 'tt.id', 't.type_id')
             ->select('t.name as task_name', 't.comment as task_description', 's.name as status', 'p.name as project', 'tt.name as type', 't.slug as slug', 't.created_at as create','t.comment', 't.from', 't.to', 'a.name as author')
-            ->whereBetween('t.created_at', [$startOfMonth->toDateString(), $endOfMonth->toDateString()])
+            ->whereBetween('t.from', [$startOfMonth->toDateString(), $endOfMonth->toDateString()])
             ->where([
                 ['t.user_id', Auth::id()],
                 ['s.id', '!=', 3],
