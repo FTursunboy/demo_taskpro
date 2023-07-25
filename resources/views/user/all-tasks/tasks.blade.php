@@ -24,6 +24,7 @@
             <th data-td="td_two">Описание<span class="btn btn-right">></span></th>
             <th class="text-center" data-td="td_three">От<span class="btn btn-right">></span></th>
             <th class="text-center" data-td="td_four">До<span class="btn btn-right">></span></th>
+            <th class="text-center">Время<span class="btn btn-right"></span></th>
             <th class="text-center">Проект</th>
             <th class="text-center">Автор</th>
             <th class="text-center">Тип</th>
@@ -39,6 +40,7 @@
                 <td >{{ Str::limit($task->comment, 100) }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->to))  }}</td>
+                <td class="text-center">{{ $task?->time  }}</td>
                 <td class="text-center">{{ $task->project->name  }}</td>
                 <td class="text-center">{{ $task->author->name  }}</td>
                 <td class="text-center">
