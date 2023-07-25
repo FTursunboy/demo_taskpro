@@ -176,7 +176,6 @@
 
         });
 
-
     </script>
     <script>
         $(document).ready(function () {
@@ -185,9 +184,7 @@
                 "stateSave": true
             });
 
-
             var statusParam = decodeURIComponent(window.location.pathname.split('/').pop());
-
 
             $("#example thead th").each(function(i) {
                 var th = $(this);
@@ -195,8 +192,6 @@
 
 
             });
-
-
 
             var filters = JSON.parse(localStorage.getItem('datatableFilters'));
             if (filters) {
@@ -219,7 +214,6 @@
                             var columnIndex = i;
                             var value = $(this).val();
                             table.column(columnIndex).search(value).draw();
-
 
                             var filters = [];
                             $("#example thead select").each(function () {
