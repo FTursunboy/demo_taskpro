@@ -394,7 +394,7 @@ class User extends Authenticatable
             ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
             ->selectRaw("
             COUNT(*) as total,
-            SUM(CASE WHEN status_id IN (1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13) THEN 1 ELSE 0 END) as debt,
+            SUM(CASE WHEN status_id IN (4, 7) THEN 1 ELSE 0 END) as debt,
             SUM(CASE WHEN status_id IN (2) THEN 1 ELSE 0 END) as process,
             SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
             SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
@@ -426,19 +426,36 @@ class User extends Authenticatable
 //        return $debt;
 //    }
 
+
     public function debt($month, $id)
     {
-        $selectedMonth = Carbon::createFromDate(null, $month, 1);
-        $startOfMonth = $selectedMonth->startOfMonth();
+        $currentYear = Carbon::now()->year;
+        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
+        $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
 
-        $debt = TaskModel::where([
-            ['user_id', $id],
-            ['status_id', '!=', 3],
-            ['to', '<', $startOfMonth]
-        ])->count();
+        $debt = TaskModel::where('user_id', $id)
+            ->whereBetween('to', [$startOfYear, $endOfMonth])
+            ->selectRaw("
+            COUNT(*) as total,
+            SUM(CASE WHEN status_id IN (1, 2, 4, 5, 6, 7, 8, 9, 10 ,11, 12, 13) THEN 1 ELSE 0 END) as debt,
+            ")->first();
 
         return $debt;
     }
+
+//    public function debt($month, $id)
+//    {
+//        $selectedMonth = Carbon::createFromDate(null, $month, 1);
+//        $startOfMonth = $selectedMonth->startOfMonth();
+//
+//        $debt = TaskModel::where([
+//            ['user_id', $id],
+//            ['status_id', '!=', 3],
+//            ['to', '<', $startOfMonth]
+//        ])->count();
+//
+//        return $debt;
+//    }
 
 
 
