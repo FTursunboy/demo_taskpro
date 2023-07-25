@@ -22,7 +22,6 @@ class IndexController extends BaseController
 {
     public function index()
     {
-
         $users = User::select('users.id', 'users.name', 'users.surname', 'users.lastname', 'users.login', 'users.avatar', 'users.phone', 'users.position', 'users.xp')
             ->selectRaw('AVG(ratings.rating) AS average_rating')
             ->leftJoin('ratings', 'users.id', '=', 'ratings.user_id')
