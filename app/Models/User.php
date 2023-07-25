@@ -412,19 +412,19 @@ class User extends Authenticatable
     }
 
 
-//    public function debt($month, $id)
-//    {
-//        $currentYear = Carbon::now()->year;
-//        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
-//        $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
-//
-//        $debt = TaskModel::where([
-//            ['user_id', $id],
-//            ['status_id', '!=', 3]
-//        ])->whereBetween('to', [$startOfYear, $endOfMonth])->get()->count();
-//
-//        return $debt;
-//    }
+    public function debt($month, $id)
+    {
+        $currentYear = Carbon::now()->year;
+        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
+        $endOfMonth = Carbon::now()->year($currentYear)->month($month - 1)->endOfMonth();
+
+        $debt = TaskModel::where([
+            ['user_id', $id],
+            ['status_id', '!=', 3]
+        ])->whereBetween('to', [$startOfYear, $endOfMonth])->get()->count();
+
+        return $debt;
+    }
 
 //    public function debt($month, $id)
 //    {
