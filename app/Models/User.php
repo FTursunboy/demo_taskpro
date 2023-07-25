@@ -426,18 +426,18 @@ class User extends Authenticatable
 //        return $debt;
 //    }
 
-    public function debt($month, $id)
-    {
-        $selectedMonth = Carbon::createFromDate(null, $month, 1);
-        $startOfMonth = $selectedMonth->startOfMonth();
-
-        $debt = TaskModel::where([
-            ['user_id', $id],
-            ['status_id', '!=', 3]
-        ])->where('to', '<', $startOfMonth)->count();
-
-        return $debt;
-    }
+//    public function debt($month, $id)
+//    {
+//        $selectedMonth = Carbon::createFromDate(null, $month, 1);
+//        $startOfMonth = $selectedMonth->startOfMonth();
+//
+//        $debt = TaskModel::where([
+//            ['user_id', $id],
+//            ['status_id', '!=', 3]
+//        ])->where('to', '<', $startOfMonth)->count();
+//
+//        return $debt;
+//    }
 
 
 
