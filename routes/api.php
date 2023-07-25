@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/task/sendUser/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskClient::class, 'sendUser']);
 
         Route::get('monitoring', [\App\Http\Controllers\API\V1\Tasks\MonitoringController::class, 'index']);
+        Route::get('filter_monitoring', [\App\Http\Controllers\API\V1\Tasks\MonitoringController::class, 'filter_monitoring']);
 
 
     });
