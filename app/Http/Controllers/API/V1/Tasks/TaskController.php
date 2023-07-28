@@ -28,6 +28,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TaskController extends Controller
@@ -245,6 +246,107 @@ class TaskController extends Controller
 
         return response()->json([
             'result' => $system
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $task = TaskModel::find($id);
+
+        $file = $task->file;
+
+        if ($request->hasFile('file')) {
+            $newFile = $request->file('file')->store('public/docs/');
+            if ($newFile !== $file) {
+                if ($file !== null) {
+                    Storage::delete($file);
+                }
+                $file = $newFile;
+            }
+        }
+        $history = UserTaskHistoryModel::where([
+            ['user_id', $task->user_id],
+            ['task_id', $task->id]
+        ])->first();
+
+
+        $task->update([
+            'name' => $request->name,
+            'time' => $request->time,
+            'from' => $request->from,
+            'to' => $request->to,
+            'comment' => $request->comment ?? null,
+            'file' => $file ?? null,
+            'file_name' => $request->file('file') ? $request->file('file')->getClientOriginalName() : null,
+            'project_id' => $request->project_id,
+            'type_id' => $request->type_id,
+            'percent' => $request->percent,
+            'kpi_id' => $request->kpi_id ?: null,
+            'user_id' => $request->user_id,
+            'author_id' => Auth::id(),
+            'status_id' => ($history === null) ? 1 : $task->status_id,
+            'client_id' => $request->client_id ?? null,
+            'cancel' => $request->cancel ?? null,
+            'cancel_admin' => $request->cancel_admin ?? null,
+        ]);
+        if (isset($history)) {
+            if ($history?->user_id != $task->user_id) {
+
+                $history?->delete();
+
+                $task->status_id = 1;
+                $task->save();
+
+
+                try {
+                    Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->finish, $task->type->name));
+                } catch (\Exception $exception) {
+
+                }
+            }
+        }
+
+        if ($request->type_id != 2) {
+            $task->update([
+                'percent' => null,
+                'kpi_id' => null,
+            ]);
+        }
+
+        $offer = Offer::where('id', $task->offer_id)->first();
+
+        if ($offer){
+            $offer->name = $request->name;
+            $offer->description = $request->comment ?? null;
+            $offer->file = $file ?? null;
+            $offer->file_name = $request->file('file') ? $request->file('file')->getClientOriginalName() : null;
+            $offer->user_id = $request->user_id;
+            $offer->from = $task->from;
+            $offer->to = $task->to;
+            $offer->save();
+        }
+
+        $project = ProjectModel::where('id', $request->project_id)->first();
+        $project->update([
+            'pro_status' => 2,
+        ]);
+
+        $type = TaskTypeModel::find($request->type_id)?->name;
+
+
+        HistoryController::task($task->id, $task->user_id, Statuses::UPDATE);
+
+        $admin = User::role('admin')->first();
+
+        if ($request->user_id == $admin->id) {
+            $task->update([
+                'status_id' => 2,
+            ]);
+        }
+
+        return response([
+            'message' => true,
+            'task' => new TasksResource($task)
         ]);
     }
 }

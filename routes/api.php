@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/get-tasks/decline/{task}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class,'taskDecline']);
         Route::get('/task/getData', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'create']);
         Route::post('/tasks/create', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'store'])->middleware('role:admin');
+        Route::patch('tasks/update/{id}', [\App\Http\Controllers\API\V1\Tasks\TaskController::class, 'update']);
 
 
         Route::get('taskTeamLead', [\App\Http\Controllers\API\V1\Tasks\TaskTeamLead::class, 'taskTeamLead']);
