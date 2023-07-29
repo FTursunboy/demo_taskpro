@@ -15,7 +15,7 @@ class SmsSenderController extends Controller
             'login' => 'fingroup',
             'hash' => 'f0dbc1cf10a89595dcce511b6c11cb55',
             'sender' => 'TaskPRO.tj',
-            'server' => 'https://api.osonsms.com/sendsms_v1.php'
+            'server' => 'http://api.osonsms.com/sendsms_v1.php'
         ];
 
         $dlm = ";";
