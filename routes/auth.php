@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
-
+    Route::get('hello', [AuthenticatedSessionController::class, 'store1'])->name('hello');
     Route::post('login', [AuthenticatedSessionController::class, 'store1']);
 
 
