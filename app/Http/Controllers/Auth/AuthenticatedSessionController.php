@@ -28,27 +28,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        dd(1);
-
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        $role = Auth::user()->getRoleNames()[0];
-
-//        AuthNotifyJob::dispatch(Auth::user());
-        return match ($role) {
-
-            'user' => redirect()->intended(RouteServiceProvider::USER),
-            'admin' => redirect()->intended(RouteServiceProvider::HOME),
-            'client' => redirect()->intended(RouteServiceProvider::CLIENT),
-            'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
-            default => redirect()->back()->with('err', 'Что то пошло не так'),
-        };
-
-    }
+//    public function store(LoginRequest $request): RedirectResponse
+//    {
+//
+//
+//        $request->authenticate();
+//
+//        $request->session()->regenerate();
+//
+//        $role = Auth::user()->getRoleNames()[0];
+//
+////        AuthNotifyJob::dispatch(Auth::user());
+//        return match ($role) {
+//
+//            'user' => redirect()->intended(RouteServiceProvider::USER),
+//            'admin' => redirect()->intended(RouteServiceProvider::HOME),
+//            'client' => redirect()->intended(RouteServiceProvider::CLIENT),
+//            'client-worker' => redirect()->intended(RouteServiceProvider::WORKER),
+//            default => redirect()->back()->with('err', 'Что то пошло не так'),
+//        };
+//
+//    }
 
     /**
      * Destroy an authenticated session.
