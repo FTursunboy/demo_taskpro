@@ -6,7 +6,6 @@
 
 @section('content')
 
-
         <div id="page-heading">
             <div class="page-title">
                 <div class="row">

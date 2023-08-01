@@ -159,11 +159,33 @@ class IndexController extends BaseController
                 'rejectedClient' => $user->getUserTasksInMonth($month, $user->id)['rejectedClient'],
             ];
         }
-//dd($arrs);
 
         return response([
                 'statistics' => $arrs,
         ]);
+    }
+
+    public function statisticProject($id)
+    {
+        $tasks = DB::table('users as u')
+            ->leftJoin('task_models as t', 'u.id', '=', 't.user_id')
+            ->where('t.project_id', $id)
+            ->select('u.id as user_id', 'u.name as user_name', 'u.surname as user_surname',
+                DB::raw('COUNT(t.id) as task_count'),
+                DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as task_ready'),
+                DB::raw('COUNT(CASE WHEN t.status_id = 2 OR t.status_id = 4 THEN 1 ELSE NULL END) as task_process'),
+                DB::raw('COUNT(CASE WHEN t.status_id = 10 THEN 1 ELSE NULL END) as task_ver_client'),
+                DB::raw('COUNT(CASE WHEN t.status_id = 6 OR t.status_id = 14 THEN 1 ELSE NULL END) as task_ver_admin'),
+                DB::raw('COUNT(CASE WHEN t.status_id = 7 THEN 1 ELSE NULL END) as task_out_of_date'),
+                DB::raw('COUNT(CASE WHEN t.status_id = 1 OR t.status_id = 5 OR t.status_id = 8 OR t.status_id = 9
+                OR t.status_id = 11 OR t.status_id = 12 OR t.status_id = 13 THEN 1 ELSE NULL END) as task_other')
+            )
+            ->groupBy('u.id', 'u.name', 'u.surname')
+            ->get();
+
+        $project = ProjectModel::where('id', $id)->first();
+
+        return view('admin.index_page.statistic_project', compact('tasks', 'project'));
     }
 
 }

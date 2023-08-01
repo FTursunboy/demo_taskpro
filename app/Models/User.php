@@ -441,13 +441,4 @@ class User extends Authenticatable
         return $debt;
     }
 
-
-
-
-
-
-
-
-
-
 }
