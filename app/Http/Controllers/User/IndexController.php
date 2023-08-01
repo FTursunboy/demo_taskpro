@@ -17,6 +17,13 @@ class IndexController extends BaseController
 
     public function index()
     {
+
+
+        session(['hello' => 'test']);
+            
+
+
+
 //
 //        $plans = new MyPlanController();
 //        $myPlan = $plans->myPlan(Auth::id(), Carbon::now()->format('Y-m-d'));

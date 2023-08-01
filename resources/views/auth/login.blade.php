@@ -27,6 +27,7 @@
                     <a href="#"><img src="{{ asset('assets/images/logo/logo 12.svg') }}" alt="Logo"></a>
                 </div>
                 <h2 class="auth-title">Вход</h2>
+                <a href="{{route('hello')}}">fsdsad</a>
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     @include('inc.messages')

@@ -28,10 +28,10 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store1(): RedirectResponse
+    public function store1(LoginRequest $request): RedirectResponse
     {
 
-        dd(1);
+
 
 
         $request->authenticate();
