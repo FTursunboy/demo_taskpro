@@ -24,8 +24,9 @@ class IndexController extends BaseController
      Session::put('hello', 'jkfldsjaklfjds');
 
    $g  =  Session::get('hello');
+   dd($g);
 
-        return redirect()->back()->with('mess', $g);
+        return redirect()->back();
 
 
 
