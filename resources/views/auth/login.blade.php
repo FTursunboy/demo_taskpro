@@ -27,7 +27,7 @@
                     <a href="#"><img src="{{ asset('assets/images/logo/logo 12.svg') }}" alt="Logo"></a>
                 </div>
                 <h2 class="auth-title">Вход</h2>
-                <form action="{{ route('hello') }}" method="GET">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
                     @include('inc.messages')
                     <div class="form-group position-relative has-icon-left mb-4">
