@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "content-hash": "83717b658379037eee42522cc4464bf1",
+=======
     "content-hash": "c0eab1e654be2b4971a28182e815abfe",
+>>>>>>> 28bf4a8fb7176b4cb65a4918996e1f0ee2bdd59b
     "packages": [
         {
             "name": "box/spout",
@@ -5828,6 +5832,8 @@
                 }
             ],
             "time": "2023-07-31T07:08:24+00:00"
+<<<<<<< HEAD
+=======
         },
         {
             "name": "tightenco/ziggy",
@@ -5895,6 +5901,7 @@
                 "source": "https://github.com/tighten/ziggy/tree/v1.6.0"
             },
             "time": "2023-05-12T20:08:56+00:00"
+>>>>>>> 28bf4a8fb7176b4cb65a4918996e1f0ee2bdd59b
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
