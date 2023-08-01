@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class IndexController extends BaseController
 {
@@ -19,8 +21,11 @@ class IndexController extends BaseController
     {
 
 
-        session(['hello' => 'test']);
-            
+     Session::put('hello', 'jkfldsjaklfjds');
+
+   $g  =  Session::get('hello');
+
+        return redirect()->back()->with('mess', $g);
 
 
 
