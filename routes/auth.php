@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store1']);
+    Route::post('logifsdn', [AuthenticatedSessionController::class, 'store1']);
 
 
 
