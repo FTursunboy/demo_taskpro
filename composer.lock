@@ -4,7 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "3fb32dbf84f85845f5bba5f5c3478d67",
+=======
+>>>>>>> 302072fed2cbf855c9ba197696a9805b5be58452
     "packages": [
         {
             "name": "brick/math",
@@ -5753,6 +5756,10 @@
                 }
             ],
             "time": "2023-07-31T07:08:24+00:00"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 302072fed2cbf855c9ba197696a9805b5be58452
         },
         {
             "name": "tightenco/ziggy",
