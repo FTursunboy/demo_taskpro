@@ -36,6 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         $role = Auth::user()->getRoleNames()[0];
 //        AuthNotifyJob::dispatch(Auth::user());
+        dd($role);
         return match ($role) {
             'user' => redirect()->intended(RouteServiceProvider::USER),
             'admin' => redirect()->intended(RouteServiceProvider::HOME),
