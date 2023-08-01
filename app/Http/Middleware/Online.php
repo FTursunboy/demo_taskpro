@@ -23,7 +23,6 @@ class Online
             $expireAt = now()->addMinutes(2);
             Cache::put('user-is-online-' . Auth::id(), true, $expireAt);
 
-            //TODO Сделать через job
             User::where('id', Auth::id())->update([
                 'last_seen' => now(),
             ]);
