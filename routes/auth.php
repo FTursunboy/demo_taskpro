@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
                 ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store1']);
-    Route::get('ffdsfds', [\App\Http\Controllers\User\IndexController::class, 'index'])->name('hello');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
