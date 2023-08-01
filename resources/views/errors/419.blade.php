@@ -182,7 +182,7 @@
             <h1>419</h1>
         </div>
         <h2>Страница устарела</h2>
-        <a href="#" class="home-btn">Go Home</a>
+        <a href="{{route('logout')}}" class="home-btn">Go Home</a>
         <a href="#" class="contact-btn">Contact us</a>
         <div class="notfound-social">
             <a href="#"><i class="fa fa-facebook"></i></a>
