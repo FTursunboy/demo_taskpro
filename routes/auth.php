@@ -12,10 +12,10 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 
-    Route::get('login', [\App\Http\Controllers\Admin\IndexController::class, 'index'])
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('login', [\App\Http\Controllers\User\IndexController::class, 'index']);
 
 
 
