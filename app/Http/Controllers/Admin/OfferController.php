@@ -42,19 +42,18 @@ class OfferController extends BaseController
     public function index()
     {
         $offers = DB::table('offers as of')
-            ->leftJoin('users as u', 'u.id', 'of.user_id')
-            ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
-            ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
-            ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
-            ->whereNull('of.deleted_at')
-            ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
-            ->orderBy('of.created_at', 'desc')
-            ->get();
+                ->leftJoin('users as u', 'u.id', 'of.user_id')
+                ->leftJoin('project_clients as pc', 'pc.user_id', 'of.client_id')
+                ->leftJoin('project_models as p', 'p.id', 'pc.project_id')
+                ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
+                ->whereNull('of.deleted_at')
+                ->select('of.*', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
+                ->orderBy('of.created_at', 'desc')
+                ->get();
 
-        $users = User::role('user')->get();
-        $statuses = Statuses::get();
-        $projects = ProjectModel::where('type_id', 2)->get();
-        return view('admin.offers.index', compact('offers', 'users', 'statuses', 'projects'));
+
+
+        return view('admin.offers.index', compact('offers'));
     }
 
     public function sendUserSearch(Request $request, Offer $offer, $search)
@@ -152,6 +151,7 @@ class OfferController extends BaseController
 
     public function sendUser(Request $request, Offer $offer)
     {
+
         if ($_POST['action'] === 'decline') {
             $offer->status_id = 11;
             $offer->save();

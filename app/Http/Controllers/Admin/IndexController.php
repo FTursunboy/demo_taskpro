@@ -51,7 +51,8 @@ class IndexController extends BaseController
 
         $tasks = ProjectModel::get()->take(5);
 
-        $team_leads = Auth::user()->TeamLeadProject()->take(5);
+
+        $team_leads = Auth::user()->TeamLeadProject();
 
         $ratings = DB::table('ratings as r')
             ->join('users as u', 'u.id', 'r.user_id')
