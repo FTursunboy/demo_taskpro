@@ -17,7 +17,6 @@ class IndexController extends BaseController
 
     public function index()
     {
-
 //
 //        $plans = new MyPlanController();
 //        $myPlan = $plans->myPlan(Auth::id(), Carbon::now()->format('Y-m-d'));
@@ -75,7 +74,7 @@ class IndexController extends BaseController
             ->where('status_id', 13)->get();
         $tasksInArchive = TaskModel::where('user_id', Auth::id())
             ->where('status_id', 3)->get();
-            dd('omad');
+
         return view('user.index', compact('task', 'user', 'tasks',
             'tasks_count', 'rejectClientCount', 'ver_admin', 'new_tasks', 'newTasks', 'tasksInProgress',
             'tasksSpeed', 'tasksVerAdmin', 'tasksVerClient', 'tasksReject', 'tasksInArchive', 'admin_rating', 'user_rating'));
