@@ -17,7 +17,7 @@
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="css/style.css" />
-        {{dd(\Illuminate\Support\Facades\Auth::user())}}
+     
 
     <style>
         * {
