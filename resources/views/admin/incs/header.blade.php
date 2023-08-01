@@ -967,6 +967,7 @@
                             <th class="text-center" style="width: 130px;">На проверке (У админа)</th>
                             <th class="text-center" style="width: 130px;">Просроченное</th>
                             <th class="text-center" style="width: 130px;">Прочее</th>
+                            <th class="text-center" style="width: 130px;">Подробнее</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -981,6 +982,11 @@
                                 <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
                                 <td class="text-center">{{ $task->count_outOfDate() }}</td>
                                 <td class="text-center">{{ $task->count_other() }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('admin.statisticProject', $task->id) }}" class="btn btn-success">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -990,8 +996,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="offcanvas offcanvas-bottom" data-bs-backdrop="static" tabindex="-1" id="Statistic" aria-labelledby="Statistic" style="width: 100%; height: 100%;">
     <div class="offcanvas-header">
@@ -1556,3 +1560,4 @@
             }
         });
 </script>
+
