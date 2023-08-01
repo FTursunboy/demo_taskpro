@@ -17,6 +17,7 @@ class IndexController extends BaseController
 
     public function index()
     {
+        dd(1);
 //
 //        $plans = new MyPlanController();
 //        $myPlan = $plans->myPlan(Auth::id(), Carbon::now()->format('Y-m-d'));
