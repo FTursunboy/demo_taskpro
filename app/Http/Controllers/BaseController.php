@@ -262,7 +262,6 @@ class BaseController extends Controller
 
     public function taskTeamLead()
     {
-        return cache()->remember('vdd', 5, function () {
             return DB::table('task_models AS t')
                 ->join('users AS u', 't.user_id', '=', 'u.id')
                 ->join('project_models AS p', 't.project_id', '=', 'p.id')
@@ -274,13 +273,13 @@ class BaseController extends Controller
                 })
                 ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
                 ->get();
-        } );
+
 
     }
 
     public function employeePlan($employeePlan, $days)
     {
-        return cache()->remember('vdd', 5, function () {
+        return cache()->remember('vdd', 5, function () use ($employeePlan, $days) {
             $formattedDate = date("Y-m-d", strtotime($days));
             $plans = MyPlanModel::whereDate('created_at', '=', $formattedDate)->where('user_id', $employeePlan)->get();
 
