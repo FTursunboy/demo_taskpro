@@ -22,7 +22,7 @@ class ForgotController extends Controller
             try {
                Notification::send(SendNewPassword::class, $user);
             } catch (\Exception $exception) {
-                return redirect()->route('forgot.index')->with('error','Невозможно изменить пароль. Обратитесь к администратору');
+                dd($exception->getMessage());
             }
         } else {
             return redirect()->route('forgot.index')->with('error', 'Вы ввели неправильный пароль');
