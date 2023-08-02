@@ -19,11 +19,6 @@ class IndexController extends BaseController
 
     public function index()
     {
-
-
-
-
-
 //
 //        $plans = new MyPlanController();
 //        $myPlan = $plans->myPlan(Auth::id(), Carbon::now()->format('Y-m-d'));
@@ -46,9 +41,13 @@ class IndexController extends BaseController
             ['user_id', '=', Auth::id()],
             ['status_id', '=', '6'],
         ])->count();
-        $new_tasks = TaskModel::where('user_id', Auth::id())
-            ->where('status_id', 9)
-            ->where('status_id', 1)->count();
+        $new_tasks = TaskModel::where([
+            ['user_id', Auth::id()],
+            ['status_id', '=', 9],
+            ])->orWhere([
+                ['user_id', Auth::id()],
+                ['status_id', '=', 1],
+            ])->count();
 
         $admin_rating = User::selectRaw('AVG(admin_ratings.rating) AS average_rating')
             ->leftJoin('admin_ratings', 'users.id', '=', 'admin_ratings.user_id')
@@ -131,8 +130,6 @@ class IndexController extends BaseController
 
     public function chart()
     {
-
-
         $tasks = TaskModel::where('user_id', Auth::id())
             ->whereMonth('from', Carbon::now()->month)
             ->whereMonth('to', Carbon::now()->month)
