@@ -19,8 +19,9 @@ class ForgotController extends Controller
     public function update(Request $request)
     {
         $user = User::where('login', '=', $request->login)->first();
-        dd($user);
+
         if ($user !== null) {
+            dd(1);
             try {
                Notification::send($user, new SendNewPassword($user->id));
             } catch (\Exception $exception) {
