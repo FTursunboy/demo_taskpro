@@ -260,7 +260,7 @@ class OfferController extends BaseController
 
     public function show($slug) {
 
-        $offer = Offer::where('slug', $slug)->first();
+        $offer = Offer::with('status', 'tasks', 'projects', 'client')->where('slug', $slug)->first();
 
         $project = ProjectClient::where('user_id', $offer->client_id)->first();
 
