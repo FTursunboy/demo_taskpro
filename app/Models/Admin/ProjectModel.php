@@ -69,10 +69,6 @@ class ProjectModel extends Model
         return $this->hasOne(TaskModel::class, 'project_id');
     }
 
-    //TODO: Start - Проект (админ)
-    use Illuminate\Support\Facades\Auth;
-
-// ...
 
     public function count_task()
     {
