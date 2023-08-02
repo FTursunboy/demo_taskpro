@@ -975,13 +975,13 @@
                             <tr class="">
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $task->name }}</td>
-                                <td class="text-center">{{ $task->count_task() }}</td>
-                                <td class="text-center">{{ $task->count_ready() }}</td>
-                                <td class="text-center">{{ $task->count_process() }}</td>
-                                <td class="text-center">{{ $task->count_verificateClient() }}</td>
-                                <td class="text-center">{{ $task->count_verificateAdmin() }}</td>
-                                <td class="text-center">{{ $task->count_outOfDate() }}</td>
-                                <td class="text-center">{{ $task->count_other() }}</td>
+                                <td class="text-center">{{ $task->count_task }}</td>
+                                <td class="text-center">{{ $task->count_ready }}</td>
+                                <td class="text-center">{{ $task->count_process }}</td>
+                                <td class="text-center">{{ $task->count_verificateClient }}</td>
+                                <td class="text-center">{{ $task->count_verificateAdmin }}</td>
+                                <td class="text-center">{{ $task->count_outOfDate }}</td>
+                                <td class="text-center">{{ $task->count_other }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('admin.statisticProject', $task->id) }}" class="btn btn-success">
                                         <i class="bi bi-eye"></i>
