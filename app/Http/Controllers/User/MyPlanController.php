@@ -4,12 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserBaseController;
 use App\Models\User\MyPlanModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class MyPlanController extends BaseController
+class MyPlanController extends UserBaseController
 {
     public function index()
     {

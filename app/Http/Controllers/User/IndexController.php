@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserBaseController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Client\Offer;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 
-class IndexController extends BaseController
+class IndexController extends UserBaseController
 {
 
     public function index()

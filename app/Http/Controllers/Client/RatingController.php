@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ClientBaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\RatingRequest;
 use App\Models\Admin\TaskModel;
@@ -11,7 +12,7 @@ use App\Models\Client\Rating;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class RatingController extends BaseController
+class RatingController extends ClientBaseController
 {
 
     public function score(Offer $offer, RatingRequest $request)
