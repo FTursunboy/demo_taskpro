@@ -7,34 +7,28 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-
 class SendNewPassword extends Notification implements ShouldQueue
 {
     use Queueable;
-
-    public int $userID;
-
+    public $id;
     /**
      * Create a new notification instance.
-     *
-     * @return void
      */
-    public function __construct($ID)
+    public function __construct($id)
     {
-        $this->userID = $ID;
+        $this->id = $id;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
-     * @return array
+     * @return array<int, string>
      */
     public function via(object $notifiable): array
     {
@@ -43,11 +37,8 @@ class SendNewPassword extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
             ->line('The introduction to the notification.')
@@ -58,26 +49,24 @@ class SendNewPassword extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param mixed $notifiable
-     * @return array
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable)
+    public function toArray(object $notifiable): array
     {
         return [
             //
         ];
     }
 
-    public function toTelegram($notifiable)
-    {
 
+    public function toTelegram()
+    {
         $newPass = Str::random(8);
         $user = User::find($this->userID);
         $user->password = Hash::make($newPass);
         $user->save();
 
-
         return TelegramMessage::create()
-            ->content("Здравствуйте, Ваш пароль успешно изменён! \nНовый пароль: $newPass");
+            ->content("Ваш новый пароль, $newPass");
     }
 }
