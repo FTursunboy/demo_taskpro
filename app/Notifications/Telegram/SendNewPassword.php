@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use NotificationChannels\Telegram\TelegramChannel;
@@ -69,12 +70,21 @@ class SendNewPassword extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
+        $user = DB::table('users')->find($this->userID); // Retrieve the user from the database
+
+        if (!$user) {
+            // Handle the case where the user with the specified ID is not found
+            // You can log an error, throw an exception, or return an error message
+            return TelegramMessage::create()
+                ->content("Error: User with ID {$this->userID} not found.");
+        }
+
         $newPass = Str::random(8);
-        User::where('id', $this->userID)->first()->update([
+        DB::table('users')->where('id', $this->userID)->update([
             'password' => Hash::make($newPass)
         ]);
+
         return TelegramMessage::create()
             ->content("Здравствуйте, Ваш пароль успешно изменён! \nНовый пароль: $newPass");
-
     }
 }
