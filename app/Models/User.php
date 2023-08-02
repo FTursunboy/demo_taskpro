@@ -217,6 +217,11 @@ class User extends Authenticatable
 
     }
 
+    /**
+     * Route notifications for the Telegram channel.
+     *
+     * @return int
+     */
     public function routeNotificationForTelegram()
     {
         return $this->telegram_user_id;
