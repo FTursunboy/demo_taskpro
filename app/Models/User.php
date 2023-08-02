@@ -137,7 +137,8 @@ class User extends Authenticatable
 
 
     public function countTasks($id)
-    {return cache()->remember('countTasks' . $id, 1000, function () use ($id) {
+    {
+        return cache()->remember('countTasks' . $id, 1000, function () use ($id) {
 
             $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
             $inProgress = TaskModel::where('user_id', $id)
