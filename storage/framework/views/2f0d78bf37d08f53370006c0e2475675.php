@@ -983,13 +983,13 @@
                             <tr class="">
                                 <td><?php echo e($loop->index+1); ?></td>
                                 <td><?php echo e($task->name); ?></td>
-                                <td class="text-center"><?php echo e($task->count_task()); ?></td>
-                                <td class="text-center"><?php echo e($task->count_ready()); ?></td>
-                                <td class="text-center"><?php echo e($task->count_process()); ?></td>
-                                <td class="text-center"><?php echo e($task->count_verificateClient()); ?></td>
-                                <td class="text-center"><?php echo e($task->count_verificateAdmin()); ?></td>
-                                <td class="text-center"><?php echo e($task->count_outOfDate()); ?></td>
-                                <td class="text-center"><?php echo e($task->count_other()); ?></td>
+                                <td class="text-center"><?php echo e($task->count_task); ?></td>
+                                <td class="text-center"><?php echo e($task->count_ready); ?></td>
+                                <td class="text-center"><?php echo e($task->count_process); ?></td>
+                                <td class="text-center"><?php echo e($task->count_verificateClient); ?></td>
+                                <td class="text-center"><?php echo e($task->count_verificateAdmin); ?></td>
+                                <td class="text-center"><?php echo e($task->count_outOfDate); ?></td>
+                                <td class="text-center"><?php echo e($task->count_other); ?></td>
                                 <td class="text-center">
                                     <a href="<?php echo e(route('admin.statisticProject', $task->id)); ?>" class="btn btn-success">
                                         <i class="bi bi-eye"></i>

@@ -241,42 +241,50 @@
     <script src="<?php echo e(asset('assets/js/filter3.js')); ?>"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
             $('#reason').on('click', function() {
                 $('#reason').hide();
                 $('#reasonButton').show();
                 $('#reasonSend').show();
                 $('#sendButton').hide();
             });
+        });
+    </script>
 
+
+    <script>
+        $(document).ready(function () {
             var table = $('#example').DataTable({
                 "processing": true,
                 "stateSave": true // Включаем сохранение состояния
             });
 
-            var filters = JSON.parse(localStorage.getItem('datatableFilters')) || [];
-            filters.forEach(function(filter) {
-                table.column(filter.columnIndex).search(filter.value);
-            });
-            table.draw();
 
-            var filterColumns = ['Проект', 'Статус', 'Исполнитель'];
+            var filters = JSON.parse(localStorage.getItem('datatableFilters'));
+            if (filters) {
+                for (var i = 0; i < filters.length; i++) {
+                    var filter = filters[i];
+                    table.column(filter.columnIndex).search(filter.value);
+                }
+                table.draw();
+            }
 
-            $("#example thead th").each(function(i) {
+            $("#example thead th").each(function (i) {
                 var th = $(this);
-                var columnText = th.text().trim();
+                var filterColumns = ['Проект', 'Статус', 'Исполнитель'];
 
-                if (filterColumns.includes(columnText)) {
+                if (filterColumns.includes(th.text().trim())) {
                     var select = $('<select></select>')
                         .appendTo(th.empty())
                         .addClass('form-control')
-                        .on('change', function() {
+                        .on('change', function () {
                             var columnIndex = i;
                             var value = $(this).val();
                             table.column(columnIndex).search(value).draw();
 
+
                             var filters = [];
-                            $("#example thead select").each(function() {
+                            $("#example thead select").each(function () {
                                 var filter = {
                                     columnIndex: $(this).closest('th').index(),
                                     value: $(this).val()
@@ -286,25 +294,34 @@
                             localStorage.setItem('datatableFilters', JSON.stringify(filters));
                         });
 
+
                     $('<option value="" selected>Все</option>').appendTo(select);
 
                     var options = table.column(i).data().unique().sort().toArray();
-                    var uniqueOptions = [];
 
-                    options.forEach(function(option) {
-                        var optionText = option === null ? 'Нет данных' : option;
+                    options = options.map(function (option) {
+                        var tempElement = $('<div>').html(option);
+                        return tempElement.text();
+                    });
+
+                    var uniqueOptions = [];
+                    options.forEach(function (option) {
                         if (!uniqueOptions.includes(option)) {
                             uniqueOptions.push(option);
+                            var optionText = option === null ? 'Нет данных' : option;
                             var optionElement = $('<option></option>').attr('value', option).text(optionText);
                             select.append(optionElement);
                         }
                     });
 
-                    var storedFilter = filters.find(function(filter) {
-                        return filter.columnIndex === i;
-                    });
-                    if (storedFilter) {
-                        select.val(storedFilter.value);
+                    var storedFilters = JSON.parse(localStorage.getItem('datatableFilters'));
+                    if (storedFilters) {
+                        var storedFilter = storedFilters.find(function (filter) {
+                            return filter.columnIndex === i;
+                        });
+                        if (storedFilter) {
+                            select.val(storedFilter.value);
+                        }
                     }
                 }
             });
@@ -312,7 +329,7 @@
             var resetButton = $('<button></button>')
                 .addClass('btn btn-primary')
                 .text('X')
-                .on('click', function() {
+                .on('click', function () {
                     // Сбрасываем фильтры и поиск
                     table
                         .search('')
@@ -320,8 +337,12 @@
                         .search('')
                         .draw();
 
+
                     localStorage.removeItem('datatableFilters');
+
                     $("#example thead select").val('');
+
+
                     $('#example_filter input').val('');
                 });
 
@@ -329,9 +350,14 @@
             searchWrapper.addClass('d-flex align-items-center');
             resetButton.addClass('ml-2');
             resetButton.appendTo(searchWrapper);
-        });
-    </script>
 
+
+        });
+
+
+
+
+    </script>
 <?php $__env->stopSection(); ?>
 
 
