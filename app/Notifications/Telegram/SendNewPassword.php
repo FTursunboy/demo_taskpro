@@ -75,7 +75,7 @@ class SendNewPassword extends Notification implements ShouldQueue
         $user = User::find($this->userID);
         $user->password = Hash::make($newPass);
         $user->save();
-        dd($user);
+
 
         return TelegramMessage::create()
             ->content("Здравствуйте, Ваш пароль успешно изменён! \nНовый пароль: $newPass");
