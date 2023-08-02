@@ -21,7 +21,7 @@ class ForgotController extends Controller
 
         if ($user !== null) {
             try {
-               Notification::send(SendNewPassword::class, $user);
+               Notification::send($user, SendNewPassword::class);
             } catch (\Exception $exception) {
                 dd($exception->getMessage());
             }
