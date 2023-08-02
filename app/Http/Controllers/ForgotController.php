@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Notifications\Telegram\SendNewPassword;
+use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramSendAllUsers;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,10 @@ class ForgotController extends Controller
 
         if ($user !== null) {
             try {
-                dd("trye");
+
                Notification::send($user, new SendNewPassword($user->id));
+                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
+
             } catch (\Exception $exception) {
                 dd($exception->getMessage());
             }
