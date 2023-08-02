@@ -27,7 +27,7 @@ class ForgotController extends Controller
                 dd($exception->getMessage());
             }
         } else {
-            dd(1);
+
             return redirect()->route('forgot.index')->with('error', 'Вы ввели неправильный пароль');
         }
 
