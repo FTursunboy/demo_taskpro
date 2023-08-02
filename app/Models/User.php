@@ -113,100 +113,105 @@ class User extends Authenticatable
     // profile
     public function projectCount()
     {
-        return ProjectModel::count();
+        return cache()->remember('countTasks', 30, function () {
+            return ProjectModel::count();
+        });
     }
 
     public function clientCount()
     {
-        return User::role('client')->count();
+        return cache()->remember('countTasks', 1000, function () {
+            return User::role('client')->count();
+        });
+
     }
 
     public function ideaCountProfile()
     {
-        return Idea::count();
+        return cache()->remember('countTasks', 1000, function () {
+            return Idea::count();
+        });
+
+
     }
 
 
     public function countTasks($id)
-    {
-        $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
-        $inProgress = TaskModel::where('user_id', $id)
-            ->whereIn('status_id', [2, 4])
-            ->whereIn('id', function ($query) {
-                $query->from('user_task_history_models as h')
-                    ->select('h.task_id')
-                    ->whereIn('h.status_id', [2, 4]);
-            })
-            ->count();
+    {return cache()->remember('countTasks' . $id, 1000, function () use ($id) {
 
-        $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
-        $all = TaskModel::where('user_id', $id)
-            ->where('status_id', '!=', 3)->count();
-        $verificate = Offer::where('status_id', 10)
-            ->where('client_id', Auth::id())->count();
-        $new = TaskModel::where('task_models.user_id', $id)
-            ->whereIn('task_models.status_id', [1, 9])
-            ->whereNotIn('task_models.id', function ($subquery) use ($id) {
-                $subquery->select('h.task_id')
-                    ->from('user_task_history_models as h')
-                    ->where('h.user_id', $id);
-            })
-            ->count();
-        return [
-            'success' => $success,
-            'inProgress' => $inProgress,
-            'speed' => $speed,
-            'all' => $all,
-            'verificate' => $verificate,
-            'new' => $new
-        ];
+            $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
+            $inProgress = TaskModel::where('user_id', $id)
+                ->whereIn('status_id', [2, 4])
+                ->whereIn('id', function ($query) {
+                    $query->from('user_task_history_models as h')
+                        ->select('h.task_id')
+                        ->whereIn('h.status_id', [2, 4]);
+                })
+                ->count();
+
+            $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
+            $all = TaskModel::where('user_id', $id)->where('status_id', '!=', 3)->count();
+            $verificate = Offer::where('status_id', 10)->where('client_id', Auth::id())->count();
+            $new = TaskModel::where('task_models.user_id', $id)
+                ->whereIn('task_models.status_id', [1, 9])
+                ->whereNotIn('task_models.id', function ($subquery) use ($id) {
+                    $subquery->select('h.task_id')
+                        ->from('user_task_history_models as h')
+                        ->where('h.user_id', $id);
+                })
+                ->count();
+
+            return [
+                'success' => $success,
+                'inProgress' => $inProgress,
+                'speed' => $speed,
+                'all' => $all,
+                'verificate' => $verificate,
+                'new' => $new
+            ];
+        });
     }
+
 
     public function getNewTasks($id)
     {
-        $tasks = TaskModel::where('task_models.user_id', $id)
-            ->whereIn('task_models.status_id', [1, 9])
-            ->whereNotIn('task_models.id', function ($subquery) use ($id) {
-                $subquery->select('h.task_id')
-                    ->from('user_task_history_models as h')
-                    ->where('h.user_id', $id);
-            })
-            ->orderBy('task_models.status_id', 'desc')
-            ->get();
+        return cache()->remember('getNewTasks', 1000, function () use ($id) {
+            return TaskModel::where('task_models.user_id', $id)
+                ->whereIn('task_models.status_id', [1, 9])
+                ->whereNotIn('task_models.id', function ($subquery) use ($id) {
+                    $subquery->select('h.task_id')
+                        ->from('user_task_history_models as h')
+                        ->where('h.user_id', $id);
+                })
+                ->orderBy('task_models.status_id', 'desc')
+                ->get();
+        });
 
-        return $tasks;
     }
 
     public function offers($id)
     {
-        $offers = Offer::where([
-            'user_id' => $id,
-            'status_id' => 1
-        ]);
-
-        return $offers;
-
+        return cache()->remember('offers' . $id, 1000, function () use ($id) {
+            return Offer::where([
+                'user_id' => $id,
+                'status_id' => 1
+            ])->get();
+        });
     }
+
 
     public function getUsersTasks($id)
     {
-        TaskModel::where('task_models.user_id', $id)
-            ->orderByRaw('task_models.status_id = 3 ASC')
-            ->whereNotIn('task_models.id', function ($subquery) use ($id) {
-                $subquery->from('user_task_history_models as h')
-                    ->select('h.task_id')
-                    ->where('h.status_id', '=', 3);
+        return cache()->remember('getUsersTasks', 1000, function () use ($id) {
+            return TaskModel::whereIn('id', function ($query) use ($id) {
+                $query->select('task_id')
+                    ->from('user_task_history_models')
+                    ->where('user_id', '=', $id);
             })
-            ->orderBy('task_models.status_id', 'desc')
-            ->get();
+                ->whereIn('status_id', [2, 4, 7])
+                ->get();
+        });
 
-        return TaskModel::whereIn('id', function ($query) use ($id) {
-            $query->select('task_id')
-                ->from('user_task_history_models')
-                ->where('user_id', '=', $id);
-        })
-            ->whereIn('status_id', [2, 4, 7])
-            ->get();
 
     }
 
@@ -253,6 +258,8 @@ class User extends Authenticatable
 
     public function TeamLeadProject()
     {
+
+        return  cache()->remember('team_lead_project', 1000, function () {
             return DB::table('team_lead_command_models AS tlc')
                 ->select('tlc.teamLead_id', 'p.NAME AS pro_name', 'u.name',  'u.avatar', 'u.surname', 'u.lastname',  DB::raw('COUNT(t.id) AS task_count'))
                 ->join('project_models AS p', 'tlc.project_id', '=', 'p.id')
@@ -260,20 +267,25 @@ class User extends Authenticatable
                 ->join('task_models AS t', 'tlc.project_id', '=', 't.id')
                 ->groupBy('tlc.teamLead_id', 'p.NAME',  'u.avatar', 'u.surname', 'u.lastname',  'u.name')
                 ->get();
-
+        });
     }
 
     public function debt_tasks($id) {
-        $currentYear = Carbon::now()->year;
-        $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
-        $endOfMay = Carbon::now()->year($currentYear)->subMonths(1)->endOfMonth();
 
-        $debt = TaskModel::where([
-            ['user_id', $id],
-            ['status_id', '!=', 3]
-        ])->whereBetween('to', [$startOfYear, $endOfMay])->get()->count();
+        return cache()->remember('deb_tasks', 1000, function () use ($id) {
+            $currentYear = Carbon::now()->year;
+            $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
+            $endOfMay = Carbon::now()->year($currentYear)->subMonths(1)->endOfMonth();
 
-        return $debt;
+            $debt = TaskModel::where([
+                ['user_id', $id],
+                ['status_id', '!=', 3]
+            ])->whereBetween('to', [$startOfYear, $endOfMay])->count();
+
+            return $debt;
+        });
+
+
     }
 
     public function taskProgress($id)
@@ -314,7 +326,7 @@ class User extends Authenticatable
         $verificateAdmin = TaskModel::where([
             ['user_id', $id],
             ['status_id', '=', 6]
-            ])->count();
+        ])->count();
 
         return $verificateAdmin;
     }
@@ -353,45 +365,48 @@ class User extends Authenticatable
 
     public function usersCountTasks($id)
     {
+        return cache()->remember('usersCountTasks', 1000, function () use ($id) {
+            $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
 
-        $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
+            $counts = TaskModel::where('user_id', $id)
+                ->whereIn('status_id', $statusIds)
+                ->selectRaw("
+                COUNT(*) as total,
+                SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as debt,
+                SUM(CASE WHEN status_id = 2 THEN 1 ELSE 0 END) as process,
+                SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as accept,
+                SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
+                SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expected,
+                SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
+                SUM(CASE WHEN status_id = 8 THEN 1 ELSE 0 END) as expectedAdmin,
+                SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expectedUser,
+                SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
+                SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerificationAdmin,
+                SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerification,
+                SUM(CASE WHEN status_id = 5 THEN 1 ELSE 0 END) as rejected,
+                SUM(CASE WHEN status_id = 11 THEN 1 ELSE 0 END) as rejectedAdmin,
+                SUM(CASE WHEN status_id = 13 THEN 1 ELSE 0 END) as rejectedClient,
+                SUM(CASE WHEN status_id = 12 THEN 1 ELSE 0 END) as rejectedUser
+            ")
+                ->first();
 
-        $counts = TaskModel::where('user_id', $id)
-            ->whereIn('status_id', $statusIds)
-            ->selectRaw("
-            COUNT(*) as total,
-            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as debt,
-            SUM(CASE WHEN status_id = 2 THEN 1 ELSE 0 END) as process,
-            SUM(CASE WHEN status_id = 4 THEN 1 ELSE 0 END) as accept,
-            SUM(CASE WHEN status_id = 3 THEN 1 ELSE 0 END) as ready,
-            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expected,
-            SUM(CASE WHEN status_id = 7 THEN 1 ELSE 0 END) as speed,
-            SUM(CASE WHEN status_id = 8 THEN 1 ELSE 0 END) as expectedAdmin,
-            SUM(CASE WHEN status_id = 1 THEN 1 ELSE 0 END) as expectedUser,
-            SUM(CASE WHEN status_id = 10 THEN 1 ELSE 0 END) as forVerificationClient,
-            SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerificationAdmin,
-            SUM(CASE WHEN status_id = 6 THEN 1 ELSE 0 END) as forVerification,
-            SUM(CASE WHEN status_id = 5 THEN 1 ELSE 0 END) as rejected,
-            SUM(CASE WHEN status_id = 11 THEN 1 ELSE 0 END) as rejectedAdmin,
-            SUM(CASE WHEN status_id = 13 THEN 1 ELSE 0 END) as rejectedClient,
-            SUM(CASE WHEN status_id = 12 THEN 1 ELSE 0 END) as rejectedUser
-        ")
-            ->first();
-
-        return $counts->toArray();
+            return $counts->toArray();
+        });
     }
+
 
 
     public static function getUserTasksInMonth($month, $id)
     {
-        $startOfMonth = Carbon::now()->month($month)->startOfMonth();
-        $endOfMonth = Carbon::now()->month($month)->endOfMonth();
+        return cache()->remember('getUserTasksInMonth', 1000, function () use ($id, $month) {
+            $startOfMonth = Carbon::now()->month($month)->startOfMonth();
+            $endOfMonth = Carbon::now()->month($month)->endOfMonth();
 
-        $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
-        $tasks = TaskModel::where('user_id', $id)
-            ->whereIn('status_id', $statusIds)
-            ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
-            ->selectRaw("
+            $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
+            $tasks = TaskModel::where('user_id', $id)
+                ->whereIn('status_id', $statusIds)
+                ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                ->selectRaw("
             COUNT(*) as total,
             SUM(CASE WHEN status_id IN (4, 7) THEN 1 ELSE 0 END) as debt,
             SUM(CASE WHEN status_id IN (4, 2) THEN 1 ELSE 0 END) as process,
@@ -405,9 +420,12 @@ class User extends Authenticatable
             SUM(CASE WHEN status_id = 13 THEN 1 ELSE 0 END) as rejectedClient,
             SUM(CASE WHEN status_id = 12 THEN 1 ELSE 0 END) as rejectedUser
         ")
-            ->first();
+                ->first();
 
-        return $tasks;
+            return $tasks;
+
+        });
+
     }
 
     public function debt($month, $id)
