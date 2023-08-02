@@ -19,7 +19,7 @@ class ForgotController extends Controller
     public function update(Request $request)
     {
         $user = User::where('login', '=', $request->login)->first();
-
+        dd($user);
         if ($user !== null) {
             try {
                Notification::send($user, new SendNewPassword($user->id));
@@ -29,7 +29,7 @@ class ForgotController extends Controller
         } else {
             return redirect()->route('forgot.index')->with('error', 'Вы ввели неправильный пароль');
         }
-        dd(1);
+
         return redirect()->route('login');
     }
 }
