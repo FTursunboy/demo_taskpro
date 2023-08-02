@@ -51,10 +51,8 @@ class OfferController extends BaseController
             ->orderBy('of.created_at', 'desc')
             ->get();
 
-        $users = User::role('user')->get();
-        $statuses = Statuses::get();
-        $projects = ProjectModel::where('type_id', 2)->get();
-        return view('admin.offers.index', compact('offers', 'users', 'statuses', 'projects'));
+
+        return view('admin.offers.index', compact('offers'));
     }
 
     public function sendUserSearch(Request $request, Offer $offer, $search)
