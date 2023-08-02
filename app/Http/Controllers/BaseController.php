@@ -208,6 +208,12 @@ class BaseController extends Controller
                     ['client_id', Auth::id()]
                 ])->whereIn('status_id', [2, 7])->count();
             });
+            $taskType = cache()->remember('fsdfsfs', 300, function () {
+                return TaskTypeModel::get();
+            });
+            $users1 = cache()->remember('fsfsdf', 1000, function () {
+                return User::role(['user', 'admin'])->get() ;
+            });
 
             view()->share([
                 'notifications' => $notifications,
@@ -230,9 +236,9 @@ class BaseController extends Controller
                 'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
                 'statistics' => $statistics,
                 'notes' => $notes,
-                'types' => TaskTypeModel::get(),
+                'types' => $taskType,
                 'projects1' => ProjectModel::where('pro_status', '!=', 3)->get(),
-                'users1'  => User::role(['user', 'admin'])->get(),
+                'users1'  => $users1,
                 'client_tasks' => $client_tasks,
                 'system_idea_count' => $system_idea_count,
                 'leadStatuses' => $leadStatuses,
@@ -256,32 +262,41 @@ class BaseController extends Controller
 
     public function taskTeamLead()
     {
-        return DB::table('task_models AS t')
-            ->join('users AS u', 't.user_id', '=', 'u.id')
-            ->join('project_models AS p', 't.project_id', '=', 'p.id')
-            ->join('users AS author', 't.author_id', '=', 'author.id')
-            ->join('task_type_models AS types', 't.type_id', '=', 'types.id')
-            ->whereIn('t.id', function ($query) {
-                $query->select('cmc.task_id')
-                    ->from('create_my_command_task_models AS cmc');
-            })
-            ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
-            ->get();
+        return cache()->remember('vdd', 5, function () {
+            return DB::table('task_models AS t')
+                ->join('users AS u', 't.user_id', '=', 'u.id')
+                ->join('project_models AS p', 't.project_id', '=', 'p.id')
+                ->join('users AS author', 't.author_id', '=', 'author.id')
+                ->join('task_type_models AS types', 't.type_id', '=', 'types.id')
+                ->whereIn('t.id', function ($query) {
+                    $query->select('cmc.task_id')
+                        ->from('create_my_command_task_models AS cmc');
+                })
+                ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
+                ->get();
+        } );
+
     }
 
     public function employeePlan($employeePlan, $days)
     {
-        $formattedDate = date("Y-m-d", strtotime($days));
-        $plans = MyPlanModel::whereDate('created_at', '=', $formattedDate)->where('user_id', $employeePlan)->get();
+        return cache()->remember('vdd', 5, function () {
+            $formattedDate = date("Y-m-d", strtotime($days));
+            $plans = MyPlanModel::whereDate('created_at', '=', $formattedDate)->where('user_id', $employeePlan)->get();
 
-        return response([
-            'plans' => $plans
-        ]);
+            return response([
+                'plans' => $plans
+            ]);
+        });
+
 
     }
     public function notesList($userID)
     {
-        return NotesModels::where('user_id', $userID)->get();
+        return cache()->remember('vdd', 5, function () use($userID) {
+            return NotesModels::where('user_id', $userID)->get();
+        });
+
     }
 
 }
