@@ -70,14 +70,6 @@ class SendNewPassword extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
-        $user = DB::table('users')->find($this->userID); // Retrieve the user from the database
-
-        if (!$user) {
-            // Handle the case where the user with the specified ID is not found
-            // You can log an error, throw an exception, or return an error message
-            return TelegramMessage::create()
-                ->content("Error: User with ID {$this->userID} not found.");
-        }
 
         $newPass = Str::random(8);
         DB::table('users')->where('id', $this->userID)->update([
