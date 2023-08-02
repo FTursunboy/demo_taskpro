@@ -21,13 +21,13 @@ class ForgotController extends Controller
         $user = User::where('login', '=', $request->login)->first();
 
         if ($user !== null) {
-            dd(1);
             try {
                Notification::send($user, new SendNewPassword($user->id));
             } catch (\Exception $exception) {
                 dd($exception->getMessage());
             }
         } else {
+            dd(1);
             return redirect()->route('forgot.index')->with('error', 'Вы ввели неправильный пароль');
         }
 
