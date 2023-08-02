@@ -25,7 +25,6 @@ class ForgotController extends Controller
             try {
 
                Notification::send($user, new SendNewPassword($user->id));
-                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
 
             } catch (\Exception $exception) {
                 dd($exception->getMessage());
