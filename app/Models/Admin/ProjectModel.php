@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 class ProjectModel extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'name',
         'type_id',
@@ -33,17 +34,23 @@ class ProjectModel extends Model
         'is_active'
     ];
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(ProjectTypeModel::class);
     }
-    public function status(){
-        return $this->belongsTo(StatusesModel::class,'pro_status');
+
+    public function status()
+    {
+        return $this->belongsTo(StatusesModel::class, 'pro_status');
     }
-    public function types() {
+
+    public function types()
+    {
         return $this->belongsTo(Types::class);
     }
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany(User::class);
     }
 
@@ -62,107 +69,135 @@ class ProjectModel extends Model
         return $this->hasOne(TaskModel::class, 'project_id');
     }
 
- //TODO: Start - Проект (админ)
+    //TODO: Start - Проект (админ)
+    use Illuminate\Support\Facades\Auth;
+
+// ...
+
     public function count_task()
     {
-        return $this->tasks()->count();
+        return cache()->remember('count_task', 300, function () {
+            return $this->tasks()->count();
+        });
     }
 
     public function count_ready()
     {
-        return $this->tasks()->where('status_id', '=', 3)->count();
+        return cache()->remember('count_ready', 300, function () {
+            return $this->tasks()->where('status_id', 3)->count();
+        });
     }
 
     public function count_process()
     {
-       $process =  $this->tasks()->where('status_id', '=', 4)->count();
-       $accept  =  $this->tasks()->where('status_id', '=', 2)->count();
-
-       return $process + $accept;
+        return cache()->remember('count_process', 300, function () {
+            $process = $this->tasks()->where('status_id', 4)->count();
+            $accept = $this->tasks()->where('status_id', 2)->count();
+            return $process + $accept;
+        });
     }
 
     public function count_verificateClient()
     {
-        return $this->tasks()->where('status_id', '=', 10)->count();
+        return cache()->remember('count_verificateClient', 300, function () {
+            return $this->tasks()->where('status_id', 10)->count();
+        });
     }
 
     public function count_verificateAdmin()
     {
-        $verificateAdminCount = $this->tasks()->where('status_id', 6)->count();
-        $verificateCount      = $this->tasks()->where('status_id', 14)->count();
-
-        return $verificateAdminCount + $verificateCount;
+        return cache()->remember('count_verificateAdmin', 300, function () {
+            $verificateAdminCount = $this->tasks()->where('status_id', 6)->count();
+            $verificateCount = $this->tasks()->where('status_id', 14)->count();
+            return $verificateAdminCount + $verificateCount;
+        });
     }
 
     public function count_outOfDate()
     {
-        return $this->tasks()->where('status_id', '=', 7)->count();
+        return cache()->remember('count_outOfDate', 300, function () {
+            return $this->tasks()->where('status_id', 7)->count();
+        });
     }
 
     public function count_other()
     {
-        $expected        = $this->tasks()->where('status_id', 1)->count();
-        $rejected        = $this->tasks()->where('status_id', 5)->count();
-        $expectedAdmin   = $this->tasks()->where('status_id', 8)->count();
-        $expectedUser    = $this->tasks()->where('status_id', 9)->count();
-        $rejectedAdmin   = $this->tasks()->where('status_id', 11)->count();
-        $rejectedUser    = $this->tasks()->where('status_id', 12)->count();
-        $rejectedClient  = $this->tasks()->where('status_id', 13)->count();
-
-        return $expected + $rejected + $expectedAdmin + $expectedUser + $rejectedAdmin + $rejectedUser + $rejectedClient;
+        return cache()->remember('count_other', 300, function () {
+            $expected = $this->tasks()->where('status_id', 1)->count();
+            $rejected = $this->tasks()->where('status_id', 5)->count();
+            $expectedAdmin = $this->tasks()->where('status_id', 8)->count();
+            $expectedUser = $this->tasks()->where('status_id', 9)->count();
+            $rejectedAdmin = $this->tasks()->where('status_id', 11)->count();
+            $rejectedUser = $this->tasks()->where('status_id', 12)->count();
+            $rejectedClient = $this->tasks()->where('status_id', 13)->count();
+            return $expected + $rejected + $expectedAdmin + $expectedUser + $rejectedAdmin + $rejectedUser + $rejectedClient;
+        });
     }
-    //TODO: End - Проект (админ)
 
-    //TODO: Start - Проект (сотрудник)
+// ...
+
+//TODO: Start - Проект (сотрудник)
     public function count_task_user()
     {
-        return $this->tasks()->where('user_id', Auth::id())->count();
+        return cache()->remember('count_task_user_' . Auth::id(), 300, function () {
+            return $this->tasks()->where('user_id', Auth::id())->count();
+        });
     }
 
     public function count_ready_user()
     {
-        return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 3)->count();
+        return cache()->remember('count_ready_user_' . Auth::id(), 300, function () {
+            return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 3)->count();
+        });
     }
 
     public function count_process_user()
     {
-       $process =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 4)->count();
-       $accept  =  $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 2)->count();
-
-       return $process + $accept;
+        return cache()->remember('count_process_user_' . Auth::id(), 300, function () {
+            $process = $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 4)->count();
+            $accept = $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 2)->count();
+            return $process + $accept;
+        });
     }
 
     public function count_verificateClient_user()
     {
-        return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 10)->count();
+        return cache()->remember('count_verificateClient_user_' . Auth::id(), 300, function () {
+            return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 10)->count();
+        });
     }
 
     public function count_verificateAdmin_user()
     {
-        $verificateAdminCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 6)->count();
-        $verificateCount      = $this->tasks()->where('user_id', Auth::id())->where('status_id', 14)->count();
-
-        return $verificateAdminCount + $verificateCount;
+        return cache()->remember('count_verificateAdmin_user_' . Auth::id(), 300, function () {
+            $verificateAdminCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 6)->count();
+            $verificateCount = $this->tasks()->where('user_id', Auth::id())->where('status_id', 14)->count();
+            return $verificateAdminCount + $verificateCount;
+        });
     }
 
     public function count_outOfDate_user()
     {
-        return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 7)->count();
+        return cache()->remember('count_outOfDate_user_' . Auth::id(), 300, function () {
+            return $this->tasks()->where('user_id', Auth::id())->where('status_id', '=', 7)->count();
+        });
     }
 
     public function count_other_user()
     {
-        $expected        = $this->tasks()->where('user_id', Auth::id())->where('status_id', 1)->count();
-        $rejected        = $this->tasks()->where('user_id', Auth::id())->where('status_id', 5)->count();
-        $expectedAdmin   = $this->tasks()->where('user_id', Auth::id())->where('status_id', 8)->count();
-        $expectedUser    = $this->tasks()->where('user_id', Auth::id())->where('status_id', 9)->count();
-        $rejectedAdmin   = $this->tasks()->where('user_id', Auth::id())->where('status_id', 11)->count();
-        $rejectedUser    = $this->tasks()->where('user_id', Auth::id())->where('status_id', 12)->count();
-        $rejectedClient  = $this->tasks()->where('user_id', Auth::id())->where('status_id', 13)->count();
+        return cache()->remember('count_other_user_' . Auth::id(), 300, function () {
+            $expected = $this->tasks()->where('user_id', Auth::id())->where('status_id', 1)->count();
+            $rejected = $this->tasks()->where('user_id', Auth::id())->where('status_id', 5)->count();
+            $expectedAdmin = $this->tasks()->where('user_id', Auth::id())->where('status_id', 8)->count();
+            $expectedUser = $this->tasks()->where('user_id', Auth::id())->where('status_id', 9)->count();
+            $rejectedAdmin = $this->tasks()->where('user_id', Auth::id())->where('status_id', 11)->count();
+            $rejectedUser = $this->tasks()->where('user_id', Auth::id())->where('status_id', 12)->count();
+            $rejectedClient  = $this->tasks()->where('user_id', Auth::id())->where('status_id', 13)->count();
 
-        return $expected + $rejected + $expectedAdmin + $expectedUser + $rejectedAdmin + $rejectedUser + $rejectedClient;
+            return $expected + $rejected + $expectedAdmin + $expectedUser + $rejectedAdmin + $rejectedUser + $rejectedClient;
+            });
     }
-   //TODO: End - Проект (сотрудник)
+    //TODO: End - Проект (сотрудник)
 
 
 }
