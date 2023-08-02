@@ -62,7 +62,7 @@ class SendNewPassword extends Notification implements ShouldQueue
     public function toTelegram()
     {
         $newPass = Str::random(8);
-        $user = User::find($this->userID);
+        $user = User::find($this->id);
         $user->password = Hash::make($newPass);
         $user->save();
 
