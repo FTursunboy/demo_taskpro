@@ -153,9 +153,9 @@ class User extends Authenticatable
             $speed = TaskModel::where('status_id', 7)->where('user_id', $id)->count();
             $all = TaskModel::where('user_id', $id)->where('status_id', '!=', 3)->count();
             $verificate = Offer::where('status_id', 10)->where('client_id', Auth::id())->count();
-            $new = TaskModel::where('task_models.user_id', $id)
-                ->whereIn('task_models.status_id', [1, 9])
-                ->whereNotIn('task_models.id', function ($subquery) use ($id) {
+            $new = TaskModel::where('user_id', $id)
+                ->whereIn('status_id', [1, 9])
+                ->whereNotIn('id', function ($subquery) use ($id) {
                     $subquery->select('h.task_id')
                         ->from('user_task_history_models as h')
                         ->where('h.user_id', $id);
@@ -176,15 +176,15 @@ class User extends Authenticatable
 
     public function getNewTasks($id)
     {
-        return cache()->remember('getNewTasks', 1000, function () use ($id) {
-            return TaskModel::where('task_models.user_id', $id)
-                ->whereIn('task_models.status_id', [1, 9])
-                ->whereNotIn('task_models.id', function ($subquery) use ($id) {
+        return cache()->remember('getNewTasks', 10, function () use ($id) {
+            return TaskModel::where('user_id', $id)
+                ->whereIn('status_id', [1, 9])
+                ->whereNotIn('id', function ($subquery) use ($id) {
                     $subquery->select('h.task_id')
                         ->from('user_task_history_models as h')
                         ->where('h.user_id', $id);
                 })
-                ->orderBy('task_models.status_id', 'desc')
+                ->orderBy('status_id', 'desc')
                 ->get();
         });
 
