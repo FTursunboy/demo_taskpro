@@ -48,7 +48,7 @@ class OfferController extends BaseController
             ->leftJoin('statuses_models as status', 'status.id', 'of.status_id')
             ->whereNull('of.deleted_at')
             ->where('status_id', '<>', 3)
-            ->select('of.user_id', 'of.name', 'of.description', 'of.slug', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
+            ->select('of.user_id', 'of.name', 'of.description', 'of.slug', 'of.id', 'p.name as project_name', 'status.id as status', 'status.name as status_name', 'u.name as username')
             ->orderBy('of.created_at', 'desc')
             ->get();
 
