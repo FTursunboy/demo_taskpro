@@ -28,7 +28,7 @@ class LeadController extends BaseController
         $states = LeadState::get();
         $sources = LeadSource::get();
 
-        $leads = Lead::orderBy('created_at', 'desc')->get();
+        $leads = Lead::with('contact', 'status', 'leadSource', 'state')->orderBy('created_at', 'desc')->get();
 
         return view('admin.CRM.leads.index', compact('leads', 'statuses', 'states', 'sources'));
     }
@@ -114,11 +114,7 @@ class LeadController extends BaseController
             'author' => Auth::user()->name,
         ]);
 
-
-
         return redirect()->route('lead.index')->with('update', 'Лид успешно обновлён!');
-
-
     }
 
     public function destroy(Lead $lead) {
@@ -131,7 +127,7 @@ class LeadController extends BaseController
     }
 
     public function show(Lead $lead) {
-        $events = Event::where('lead_id', $lead->id)->get();
+        $events = Event::where('lead_id', $lead->id)->with('themeEvent', 'typeEvent', 'eventStatus')->get();
         $themeEvents = ThemeEvent::get();
         $typeEvents = TypeEvent::get();
         $eventStatuses = EventStatus::get();
@@ -179,8 +175,6 @@ class LeadController extends BaseController
         ]);
     }
 
-
-
     public function contact(Lead $lead) {
         $contacts = Contact::where('contact_id', $lead->id)->get();
 
@@ -190,7 +184,7 @@ class LeadController extends BaseController
     }
 
     public function events(Lead $lead) {
-        $events = Event::where('lead_id', $lead->id)->get();
+        $events = Event::where('lead_id', $lead->id)->with('themeEvent', 'typeEvent', 'eventStatus')->get();
         $themeEvents = ThemeEvent::get();
         $typeEvents = TypeEvent::get();
         $eventStatuses = EventStatus::get();
@@ -203,6 +197,7 @@ class LeadController extends BaseController
         $typeEvents = TypeEvent::get();
         $themeEvents = ThemeEvent::get();
         $eventStatuses = EventStatus::get();
+
         return view('admin.CRM.events.create', compact('typeEvents', 'themeEvents', 'lead', 'eventStatuses'));
     }
 
