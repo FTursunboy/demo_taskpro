@@ -79,22 +79,6 @@ class BaseController extends Controller
                     ->get();
             });
 
-            $projectTasksOfDashboardUser = cache()->remember('project_tasks_user_' . Auth::id(), 300, function () {
-                return DB::table('project_models as p')
-                    ->leftJoin('task_models as t', 'p.id', '=', 't.project_id')
-                    ->where('user_id', Auth::id())
-                    ->select('p.name as name',
-                    DB::raw('COUNT(t.id) as count_task_user'),
-                    DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as count_task_ready'),
-                    DB::raw('COUNT(CASE WHEN t.status_id = 2 OR t.status_id = 4 THEN 1 ELSE NULL END) as count_task_progress'),
-                    DB::raw('COUNT(CASE WHEN t.status_id = 10 THEN 1 ELSE NULL END) as count_task_verificateClient'),
-                    DB::raw('COUNT(CASE WHEN t.status_id = 6 OR t.status_id = 14 THEN 1 ELSE NULL END) as count_task_verificateAdmin'),
-                    DB::raw('COUNT(CASE WHEN t.status_id = 7 THEN 1 ELSE NULL END) as count_task_outOfDate'),
-                    DB::raw('COUNT(CASE WHEN t.status_id = 1 OR t.status_id = 5 OR t.status_id = 8 OR t.status_id = 9
-                               OR t.status_id = 11 OR t.status_id = 12 OR t.status_id = 13 THEN 1 ELSE NULL END) as count_task_other')
-                    )->groupBy('p.name')
-                    ->get();
-            });
             //TODO НАЙТИ И УДАЛИТЬ
             $notifications = cache()->remember('client_notifications', 300, function () {
                 return ClientNotification::count();
@@ -117,33 +101,21 @@ class BaseController extends Controller
                 return Idea::with('status', 'user')->get();
             });
 
-            $ideasOfDashboardUser = cache()->remember('ideas_user_dashboard_' . Auth::id(), 1000, function () {
-                return Idea::where('user_id', Auth::id())->with('status', 'user')->get();
-            });
-
             $systemIdeasOfDashboard = cache()->remember('system_ideas_dashboard', 1000, function () {
                 return SystemIdea::with('status', 'user')->get();
-            });
-
-            $systemIdeasOfDashboardUser = cache()->remember('system_ideas_user_dashboard_' . Auth::id(), 1000, function () {
-                return SystemIdea::where('user_id', Auth::id())->with('status', 'user')->get();
             });
 
             $system_idea_count = cache()->remember('system_idea_count', 300, function () {
                 return SystemIdea::where('status_id', 1)->count();
             });
 
-            $systemIdeasOfDashboardClient = cache()->remember('system_ideas_client_dashboard_' . Auth::id(), 1000, function () {
-                return SystemIdea::where('user_id', Auth::id())->with('status', 'user')->get();
-            });
+//            $systemIdeasOfDashboardClient = cache()->remember('system_ideas_client_dashboard_' . Auth::id(), 1000, function () {
+//                return SystemIdea::where('user_id', Auth::id())->with('status', 'user')->get();
+//            });
 
-            $notes = cache()->remember('user_notes_' . Auth::id(), 300, function () {
-                return $this->notesList(Auth::id());
-            });
-
-            $client_tasks = cache()->remember('client_tasks_' . Auth::id(), 300, function () {
-                return TasksClient::where('client_id', Auth::id())->count();
-            });
+//            $client_tasks = cache()->remember('client_tasks_' . Auth::id(), 300, function () {
+//                return TasksClient::where('client_id', Auth::id())->count();
+//            });
 
             $leadStatuses = cache()->remember('lead_statuses', 300, function () {
                 return LeadStatus::all();
@@ -201,42 +173,10 @@ class BaseController extends Controller
                 ];
             }
 
-            $expected_admin = cache()->remember('expected_admin_' . Auth::id(), 300, function () {
-                return Offer::where([
-                    ['client_id', Auth::id()],
-                    ['status_id', 8]
-                ])->count();
-            });
-
-            $admin_verification = cache()->remember('admin_verification_' . Auth::id(), 300, function () {
-                return Offer::where([
-                    ['client_id', Auth::id()],
-                    ['status_id', 14]
-                ])->count();
-            });
-
-            $cancel_admin = cache()->remember('cancel_admin_' . Auth::id(), 300, function () {
-                return Offer::where([
-                    ['client_id', Auth::id()],
-                    ['status_id', 9]
-                ])->count();
-            });
-
-            $client_reject = cache()->remember('client_reject_' . Auth::id(), 300, function () {
-                return Offer::where([
-                    ['client_id', Auth::id()],
-                    ['status_id', 13]
-                ])->count();
-            });
-
-            $in_progress = cache()->remember('in_progress_' . Auth::id(), 180, function () {
-                return Offer::where([
-                    ['client_id', Auth::id()]
-                ])->whereIn('status_id', [2, 7])->count();
-            });
             $taskType = cache()->remember('fsdfsfs', 300, function () {
                 return TaskTypeModel::get();
             });
+
             $users1 = cache()->remember('fsfsdf', 1000, function () {
                 return User::role(['user', 'admin'])->get() ;
             });
@@ -254,28 +194,17 @@ class BaseController extends Controller
                 'usersTelegram' => $usersTelegram,
                 'tasksTeamLeads' => $this->taskTeamLead(),
                 'projectTasksOfDashboardAdmin' => $projectTasksOfDashboardAdmin,
-                'projectTasksOfDashboardUser' => $projectTasksOfDashboardUser,
                 'ideasOfDashboard' => $ideasOfDashboard,
-                'ideasOfDashboardUser' => $ideasOfDashboardUser,
                 'systemIdeasOfDashboard' => $systemIdeasOfDashboard,
-                'systemIdeasOfDashboardUser' => $systemIdeasOfDashboardUser,
-                'systemIdeasOfDashboardClient' => $systemIdeasOfDashboardClient,
                 'statistics' => $statistics,
-                'notes' => $notes,
                 'types' => $taskType,
                 'projects1' => ProjectModel::where('pro_status', '!=', 3)->get(),
                 'users1'  => $users1,
-                'client_tasks' => $client_tasks,
                 'system_idea_count' => $system_idea_count,
                 'leadStatuses' => $leadStatuses,
                 'months' => $months,
                 'dataByMonth' => $dataByMonth,
                 'monthInRu' => $monthInRu,
-                'admin_verification' => $admin_verification,
-                'expected_admin' => $expected_admin,
-                'client_reject' => $client_reject,
-                'cancel_admin' => $cancel_admin,
-                'in_progress' => $in_progress,
                 'settings' => $settings,
                 'project' => $project,
                 'employees' => $employees,
