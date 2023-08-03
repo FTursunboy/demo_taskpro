@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ClientBaseController;
 use App\Http\Controllers\Controller;
 use App\Jobs\ChatTelegramNotification;
 use App\Models\Admin\MessagesModel;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use function Symfony\Component\String\b;
 
-class ChatController extends BaseController
+class ChatController extends ClientBaseController
 {
     public function index(Offer $offer)
     {

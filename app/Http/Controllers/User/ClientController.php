@@ -4,11 +4,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserBaseController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ClientController extends BaseController
+class ClientController extends UserBaseController
 {
     public function index() {
         $users = User::role('client')

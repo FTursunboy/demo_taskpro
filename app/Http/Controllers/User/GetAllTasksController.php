@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Http\Controllers\ReportHistoryController;
+use App\Http\Controllers\UserBaseController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class GetAllTasksController extends BaseController
+class GetAllTasksController extends UserBaseController
 {
     public function index()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ClientBaseController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ReportHistoryController;
 use App\Http\Requests\Client\TaskRequest;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 
-class TaskController extends BaseController
+class TaskController extends ClientBaseController
 {
     public function index()
     {
