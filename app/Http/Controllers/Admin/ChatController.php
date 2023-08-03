@@ -19,7 +19,6 @@ class ChatController extends BaseController
 
         $messages = MessagesModel::where('task_slug', $offer->slug)->get();
 
-
         return view('admin.offers.chat', compact('messages', 'offer'));
     }
 
