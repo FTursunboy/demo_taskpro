@@ -19,7 +19,6 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class WorkerController extends ClientBaseController
 {
     public function index()

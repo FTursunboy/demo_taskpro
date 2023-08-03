@@ -29,8 +29,6 @@ class IndexController extends ClientBaseController
             ['client_id', Auth::id()]
         ])->count();
 
-
-
         return view('client.index', compact('task', 'all', 'ready', 'inProgress', 'verificate_admin'));
     }
 

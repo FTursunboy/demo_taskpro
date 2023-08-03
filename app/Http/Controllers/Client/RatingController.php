@@ -35,7 +35,6 @@ class RatingController extends ClientBaseController
             $rating->save();
         }
 
-
         return redirect()->route('offers.ready', $offer->id)->with('update', 'Спасибо за отзыв');
     }
 
