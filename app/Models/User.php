@@ -139,7 +139,6 @@ class User extends Authenticatable
 
     public function countTasks($id)
     {
-        return cache()->remember('countTasks' . $id, 1000, function () use ($id) {
 
             $success = TaskModel::where('status_id', 3)->where('user_id', $id)->count();
             $inProgress = TaskModel::where('user_id', $id)
@@ -171,7 +170,7 @@ class User extends Authenticatable
                 'verificate' => $verificate,
                 'new' => $new
             ];
-        });
+        
     }
 
 
@@ -204,7 +203,7 @@ class User extends Authenticatable
 
     public function getUsersTasks($id)
     {
-        return cache()->remember('getUsersTasks', 1000, function () use ($id) {
+
             return TaskModel::whereIn('id', function ($query) use ($id) {
                 $query->select('task_id')
                     ->from('user_task_history_models')
@@ -212,7 +211,6 @@ class User extends Authenticatable
             })
                 ->whereIn('status_id', [2, 4, 7])
                 ->get();
-        });
 
 
     }
@@ -266,7 +264,7 @@ class User extends Authenticatable
     public function TeamLeadProject()
     {
 
-        return  cache()->remember('team_lead_project', 1000, function () {
+
             return DB::table('team_lead_command_models AS tlc')
                 ->select('tlc.teamLead_id', 'p.NAME AS pro_name', 'u.name',  'u.avatar', 'u.surname', 'u.lastname',  DB::raw('COUNT(t.id) AS task_count'))
                 ->join('project_models AS p', 'tlc.project_id', '=', 'p.id')
@@ -274,12 +272,12 @@ class User extends Authenticatable
                 ->join('task_models AS t', 'tlc.project_id', '=', 't.id')
                 ->groupBy('tlc.teamLead_id', 'p.NAME',  'u.avatar', 'u.surname', 'u.lastname',  'u.name')
                 ->get();
-        });
+
     }
 
     public function debt_tasks($id) {
 
-        return cache()->remember('deb_tasks', 1000, function () use ($id) {
+
             $currentYear = Carbon::now()->year;
             $startOfYear = Carbon::now()->year($currentYear)->startOfYear();
             $endOfMay = Carbon::now()->year($currentYear)->subMonths(1)->endOfMonth();
@@ -290,7 +288,7 @@ class User extends Authenticatable
             ])->whereBetween('to', [$startOfYear, $endOfMay])->count();
 
             return $debt;
-        });
+
 
 
     }
@@ -372,7 +370,7 @@ class User extends Authenticatable
 
     public function usersCountTasks($id)
     {
-        return cache()->remember('usersCountTasks', 1000, function () use ($id) {
+
             $statusIds = [2, 4, 3, 1, 7, 8, 9, 10, 14, 6, 5, 11, 13, 12];
 
             $counts = TaskModel::where('user_id', $id)
@@ -398,14 +396,14 @@ class User extends Authenticatable
                 ->first();
 
             return $counts->toArray();
-        });
+
     }
 
 
 
     public static function getUserTasksInMonth($month, $id)
     {
-        return cache()->remember('getUserTasksInMonth', 1000, function () use ($id, $month) {
+
             $startOfMonth = Carbon::now()->month($month)->startOfMonth();
             $endOfMonth = Carbon::now()->month($month)->endOfMonth();
 
@@ -431,7 +429,7 @@ class User extends Authenticatable
 
             return $tasks;
 
-        });
+
 
     }
 
