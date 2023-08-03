@@ -955,17 +955,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($projectTasksOfDashboardUser->unique('project_id') as $task)
+                        @foreach($projectTasksOfDashboardUser as $task)
                             <tr class="">
                                 <td>{{ $loop->index+1 }}</td>
-                                <td>{{ $task?->project?->name}}</td>
-                                <td class="text-center">{{ $task?->project?->count_task_user()}}</td>
-                                <td class="text-center">{{ $task?->project?->count_ready_user() }}</td>
-                                <td class="text-center">{{ $task?->project?->count_process_user() }}</td>
-                                <td class="text-center">{{ $task?->project?->count_verificateClient_user() }}</td>
-                                <td class="text-center">{{ $task?->project?->count_verificateAdmin_user() }}</td>
-                                <td class="text-center">{{ $task?->project?->count_outOfDate_user() }}</td>
-                                <td class="text-center">{{ $task?->project?->count_other_user() }}</td>
+                                <td>{{ $task->name}}</td>
+                                <td class="text-center">{{ $task->count_task_user}}</td>
+                                <td class="text-center">{{ $task->count_task_ready }}</td>
+                                <td class="text-center">{{ $task->count_task_progress }}</td>
+                                <td class="text-center">{{ $task->count_task_verificateClient }}</td>
+                                <td class="text-center">{{ $task->count_task_verificateAdmin }}</td>
+                                <td class="text-center">{{ $task->count_task_outOfDate }}</td>
+                                <td class="text-center">{{ $task->count_task_other }}</td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -52,7 +52,7 @@
                                     <a role="button" data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success text-left">
                                         Отчеты
                                     </a>
-                                    @if($offer->status->id == 6)
+                                    @if($offer->status?->id == 6)
                                         <a href="#" data-bs-target="#send{{$offer->id}}" data-bs-toggle="modal"
                                            class="btn btn-success">Принять и отправить клиенту</a>
                                     @endif
@@ -209,7 +209,7 @@
 
                                                                                 <label class="form-label">Клиент</label>
                                                                                 <input
-                                                                                    value="{{$offer->client->surname . " " . $offer->client->name . " " . $offer->client->lastname}}"
+                                                                                    value="{{$offer->client?->surname . " " . $offer->client?->name . " " . $offer->client?->lastname}}"
                                                                                     type="text"
                                                                                     class="form-control"
                                                                                     disabled
@@ -248,7 +248,7 @@
                                                                                     <textarea
                                                                                         class="form-control"
                                                                                         style="background-color: #208d20; color: white"
-                                                                                    >{{$offer->tasks->success_desc}}</textarea>
+                                                                                    >{{$offer->tasks?->success_desc}}</textarea>
                                                                                 </div>
                                                                             @endif
 

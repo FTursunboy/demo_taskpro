@@ -306,8 +306,6 @@
             $(this).val('');
         }
     });
-
-
 </script>
 
 @endsection

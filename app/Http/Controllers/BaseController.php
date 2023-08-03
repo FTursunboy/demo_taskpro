@@ -63,11 +63,37 @@ class BaseController extends Controller
             });
 
             $projectTasksOfDashboardAdmin = cache()->remember('project_tasks_admin', 300, function () {
-                return ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
+                return DB::table('project_models as p')
+                    ->leftJoin('task_models as t', 'p.id', '=', 't.project_id')
+                    ->select('p.name as name', 'p.id as id',
+                        DB::raw('COUNT(t.id) as count_task'),
+                        DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as count_ready'),
+                        DB::raw('COUNT(CASE WHEN t.status_id = 2 OR t.status_id = 4 THEN 1 ELSE NULL END) as count_process'),
+                        DB::raw('COUNT(CASE WHEN t.status_id = 10 THEN 1 ELSE NULL END) as count_verificateClient'),
+                        DB::raw('COUNT(CASE WHEN t.status_id = 6 OR t.status_id = 14 THEN 1 ELSE NULL END) as count_verificateAdmin'),
+                        DB::raw('COUNT(CASE WHEN t.status_id = 7 THEN 1 ELSE NULL END) as count_outOfDate'),
+                        DB::raw('COUNT(CASE WHEN t.status_id = 1 OR t.status_id = 5 OR t.status_id = 8 OR t.status_id = 9
+                               OR t.status_id = 11 OR t.status_id = 12 OR t.status_id = 13 THEN 1 ELSE NULL END) as count_other')
+                    )
+                    ->groupBy('p.name', 'p.id')
+                    ->get();
             });
 
             $projectTasksOfDashboardUser = cache()->remember('project_tasks_user_' . Auth::id(), 300, function () {
-                return TaskModel::where('user_id', Auth::id())->get();
+                return DB::table('project_models as p')
+                    ->leftJoin('task_models as t', 'p.id', '=', 't.project_id')
+                    ->where('user_id', Auth::id())
+                    ->select('p.name as name',
+                    DB::raw('COUNT(t.id) as count_task_user'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as count_task_ready'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 2 OR t.status_id = 4 THEN 1 ELSE NULL END) as count_task_progress'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 10 THEN 1 ELSE NULL END) as count_task_verificateClient'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 6 OR t.status_id = 14 THEN 1 ELSE NULL END) as count_task_verificateAdmin'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 7 THEN 1 ELSE NULL END) as count_task_outOfDate'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 1 OR t.status_id = 5 OR t.status_id = 8 OR t.status_id = 9
+                               OR t.status_id = 11 OR t.status_id = 12 OR t.status_id = 13 THEN 1 ELSE NULL END) as count_task_other')
+                    )->groupBy('p.name')
+                    ->get();
             });
             //TODO НАЙТИ И УДАЛИТЬ
             $notifications = cache()->remember('client_notifications', 300, function () {
@@ -87,20 +113,20 @@ class BaseController extends Controller
                 return User::role('user')->get();
             });
 
-            $ideasOfDashboard = cache()->remember('ideas_dashboard', 1000, function () {
-                return Idea::get();
+            $ideasOfDashboard = cache()->remember('ideas_dashboard', 1, function () {
+                return Idea::with('status', 'user')->get();
             });
 
             $ideasOfDashboardUser = cache()->remember('ideas_user_dashboard_' . Auth::id(), 1000, function () {
-                return Idea::where('user_id', Auth::id())->get();
+                return Idea::where('user_id', Auth::id())->with('status', 'user')->get();
             });
 
             $systemIdeasOfDashboard = cache()->remember('system_ideas_dashboard', 1000, function () {
-                return SystemIdea::get();
+                return SystemIdea::with('status', 'user')->get();
             });
 
             $systemIdeasOfDashboardUser = cache()->remember('system_ideas_user_dashboard_' . Auth::id(), 1000, function () {
-                return SystemIdea::where('user_id', Auth::id())->get();
+                return SystemIdea::where('user_id', Auth::id())->with('status', 'user')->get();
             });
 
             $system_idea_count = cache()->remember('system_idea_count', 300, function () {
@@ -108,7 +134,7 @@ class BaseController extends Controller
             });
 
             $systemIdeasOfDashboardClient = cache()->remember('system_ideas_client_dashboard_' . Auth::id(), 1000, function () {
-                return SystemIdea::where('user_id', Auth::id())->get();
+                return SystemIdea::where('user_id', Auth::id())->with('status', 'user')->get();
             });
 
             $notes = cache()->remember('user_notes_' . Auth::id(), 300, function () {
@@ -273,8 +299,6 @@ class BaseController extends Controller
                 })
                 ->select('t.id AS task_id', 't.name AS task_name', 't.time AS time', 't.from AS from', 't.to AS to', 't.comment AS comment', 'types.name AS type', 'p.name AS project',  'author.surname AS author_surname', 'author.name AS author_name', 'u.surname AS author_task_surname', 'u.name AS author_task_name', 't.slug AS task_slug')
                 ->get();
-
-
     }
 
     public function employeePlan($employeePlan, $days)

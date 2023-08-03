@@ -23,17 +23,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class  MonitoringController extends BaseController
 {
     public function index()
     {
-        $tasks = TaskModel::where('status_id', '!=', 3)->get();
+        $tasks = TaskModel::where('status_id', '!=', 3)->with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->withTrashed()->get();
-
         $clients = User::role('client')->get();
+
         return view('admin.monitoring.index', compact('tasks', 'statuses', 'projects', 'users', 'clients'));
     }
 
@@ -61,11 +62,9 @@ class  MonitoringController extends BaseController
 
     public function show($slug)
     {
-       $task = TaskModel::where('slug', $slug)->first();
-
-       $messages = MessagesModel::where('task_slug', $task->slug)->get();
-
-       $reports = ReportHistory::where('task_slug', $slug)->get();
+       $task = TaskModel::where('slug', $slug)->with('user', 'project', 'status', 'type', 'typeType', 'author')->first();
+       $messages = MessagesModel::where('task_slug', $task->slug)->with('sender')->get();
+       $reports = ReportHistory::where('task_slug', $slug)->with('user')->get();
 
         $offer = Offer::where('slug', $task->slug)->first();
         if ($offer !== null) {
@@ -73,7 +72,7 @@ class  MonitoringController extends BaseController
             $histories = History::where([
                 ['task_id', '=', $offer->id],
                 ['type', '=', 'offer']
-            ])->get();
+            ])->with('user', 'status', 'sender')->get();
             $users = User::role('user')->get();
 
             return view('admin.monitoring.show', compact('task', 'messages', 'histories', 'users', 'reports'));
@@ -121,7 +120,6 @@ class  MonitoringController extends BaseController
             ['user_id', $task->user_id],
             ['task_id', $task->id]
         ])->first();
-
 
             $task->update([
                 'name' => $request->name,
@@ -207,7 +205,7 @@ class  MonitoringController extends BaseController
 
 
     public function ready() {
-        $tasks = TaskModel::where('status_id', 3)->get();
+        $tasks = TaskModel::where('status_id', 3)->with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -217,7 +215,7 @@ class  MonitoringController extends BaseController
 
     public function progress()
     {
-        $tasks = TaskModel::where('status_id', 2)->orWhere('status_id', 4)->get();
+        $tasks = TaskModel::where('status_id', 2)->orWhere('status_id', 4)->with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -227,8 +225,7 @@ class  MonitoringController extends BaseController
 
     public function clientVerification()
     {
-
-        $tasks = TaskModel::where('status_id', 10)->get();
+        $tasks = TaskModel::where('status_id', 10)->with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -239,7 +236,7 @@ class  MonitoringController extends BaseController
     public function adminVerification()
     {
 
-        $tasks = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->get();
+        $tasks = TaskModel::where('status_id', 6)->orWhere('status_id', 14)->with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -249,7 +246,7 @@ class  MonitoringController extends BaseController
 
     public function out_of_date()
     {
-        $tasks = TaskModel::where('status_id', 7)->get();
+        $tasks = TaskModel::where('status_id', 7)->with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
@@ -258,8 +255,7 @@ class  MonitoringController extends BaseController
     }
 
     public function all() {
-
-        $tasks = TaskModel::get();
+        $tasks = TaskModel::with('project', 'author', 'type', 'status', 'user')->get();
         $statuses = StatusesModel::get();
         $projects = ProjectModel::where('pro_status', '!=', 3)->get();
         $users = User::role('user')->get();
