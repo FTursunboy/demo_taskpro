@@ -244,9 +244,8 @@
                                                         </div>
                                                     @endif
                                                     <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                            </span>
-                                                    </p>
+                                                        {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -791,8 +790,6 @@
                         `;
 
                         $('#block').append(newMessage);
-
-
 
                         let block = document.getElementById("block");
                         block.scrollTop = block.scrollHeight;

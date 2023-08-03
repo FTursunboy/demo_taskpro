@@ -31,7 +31,7 @@ class TaskController extends ClientBaseController
     {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-        ])->get();
+        ])->with('status')->get();
 
 
         return view('client.offers.index', compact('tasks'));
@@ -39,25 +39,23 @@ class TaskController extends ClientBaseController
 
     public function show($slug) {
 
-        $offer = Offer::where('slug', $slug)->first();
-        $reports = ReportHistory::where('task_slug', $slug)->get();
-
-        $messages = MessagesModel::where('task_slug', $offer->slug)->get();
-
+        $offer = Offer::where('slug', $slug)->with('user', 'tasks')->first();
+        $reports = ReportHistory::where('task_slug', $slug)->with('user')->get();
+        $messages = MessagesModel::where('task_slug', $offer->slug)->with('sender')->get();
         $admin = User::role('admin')->first();
 
         $histories = History::where([
             ['type', '=', 'offer'],
             ['task_id', '=', $offer->id]
-
-        ])->orderBy('created_at')->get();
+        ])->with('user', 'status')->orderBy('created_at')->get();
 
         return view('client.offers.show', compact('offer', 'histories', 'reports', 'messages', 'admin'));
     }
+
     public function show_ready() {
         $tasks = Offer::where([
             ['client_id', '=', Auth::id()],
-        ])->where('status_id', '=', 10)->get();
+        ])->where('status_id', '=', 10)->with('status')->get();
 
         return view('client.offers.index', compact('tasks'));
     }
@@ -146,12 +144,9 @@ class TaskController extends ClientBaseController
 
         TelegranAdminSendJob::dispatch($request->name, Auth::user()->name);
 
-
-
         return redirect()->route('offers.index')->with('create', 'Успешно создано!');
 
     }
-
 
     public function update(TaskRequest $request, Offer $offer)
     {
@@ -211,6 +206,7 @@ class TaskController extends ClientBaseController
         if ($task) {
             HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
         }
+
         return redirect()->back()->with('mess', 'Успешно отправлено!');
     }
 
@@ -221,7 +217,6 @@ class TaskController extends ClientBaseController
             Statuses::RESEND,
             $request->reason
         );
-
 
         $offer->status_id = 13;
         $offer->is_finished = false;
@@ -238,7 +233,6 @@ class TaskController extends ClientBaseController
         if ($task) {
             HistoryController::task($task->id, $task->user_id, Statuses::DECLINED);
         }
-
 
         try {
             Notification::send(User::role('admin')->first(), new TelegramClientDecline($offer->name, Auth::user()->name));
@@ -262,7 +256,6 @@ class TaskController extends ClientBaseController
         return response()->download($path, $offer->file_name, $headers);
     }
 
-
     public function download_file_chat(MessagesModel $messagesModel)  {
         $path = storage_path('app/public/' . $messagesModel->file);
 
@@ -277,7 +270,6 @@ class TaskController extends ClientBaseController
 
     public function ready(Offer $offer)
     {
-
         $offer->status_id = 3;
         $user = User::find($offer->user_id);
 
@@ -286,12 +278,9 @@ class TaskController extends ClientBaseController
         $offer->finish = Carbon::now();
         $offer->save();
 
-
         try {
             Notification::send($user, new ClientAccept($offer));
-        } catch (\Exception $exception) {
-        }
-
+        } catch (\Exception $exception) {}
 
         $tasks = TaskModel::where('offer_id', $offer->id)->first();
         if ($tasks !== null) {
@@ -300,16 +289,11 @@ class TaskController extends ClientBaseController
             HistoryController::task($tasks->id, $tasks->user_id, Statuses::FINISH);
         }
 
-
-
         HistoryController::client($offer->id, Auth::id(), Auth::id(), 5);
-
 
         try {
             Notification::send(User::role('admin')->first(), new TelegramClientReady($offer->name, Auth::user()->name));
-        } catch (\Exception $exception) {
-
-        }
+        } catch (\Exception $exception) {}
 
         return redirect()->route('offers.index')->with('create', 'Задача готова. Спасибо за оценку');
     }
