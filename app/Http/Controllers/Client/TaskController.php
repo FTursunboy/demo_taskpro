@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TaskController extends ClientBaseController
 {
@@ -133,14 +134,19 @@ class TaskController extends ClientBaseController
             $file = null;
             $file_name = null;
         }
+        $slug = Str::slug($request->name . ' ' . Str::random(5), '-');
 
-
-        NewOfferStoreJobMake::dispatch(
-            $request->except('file'),
-            $file,
-            $file_name,
-            Auth::id()
-        );
+        Offer::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'author_name' => $request->authorName,
+            'author_phone' => $request->authorPhone,
+            'file' => $file,
+            'file_name' => $file_name,
+            'status_id' => 8,
+            'client_id' => Auth::id(),
+            'slug' => $slug,
+        ]);
 
         TelegranAdminSendJob::dispatch($request->name, Auth::user()->name);
 
