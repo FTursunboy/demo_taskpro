@@ -172,7 +172,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="media d-flex align-items-center">
-                                @if($offer->user->id !== $admin->id)
+                                @if($offer->user?->id !== $admin->id)
                                     <div class="avatar me-3">
                                         @if($offer->user?->avatar)
                                             <img src="{{ asset('storage/'. $offer->user?->avatar)}}">
@@ -183,7 +183,7 @@
                                             class="avatar-status {{ Cache::has('user-is-online-' . $offer->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                     </div>
                                     <div class="name me-3">
-                                        <h6 class="mb-0">{{ $offer->user->surname . ' ' . $offer->user->name}}</h6>
+                                        <h6 class="mb-0">{{ $offer->user?->surname . ' ' . $offer->user?->name}}</h6>
                                         <span class="text-xs">
                                              @if(Cache::has('user-is-online-' . $offer->user?->id))
                                                 <span class="text-center text-success mx-2"><b>Online</b></span>
@@ -244,9 +244,8 @@
                                                         </div>
                                                     @endif
                                                     <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
-                                                            </span>
-                                                    </p>
+                                                        {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -791,8 +790,6 @@
                         `;
 
                         $('#block').append(newMessage);
-
-
 
                         let block = document.getElementById("block");
                         block.scrollTop = block.scrollHeight;

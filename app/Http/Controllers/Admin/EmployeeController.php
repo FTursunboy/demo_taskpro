@@ -43,7 +43,6 @@ class EmployeeController extends BaseController
 
     public function store(EmployeeRequest $request)
     {
-
         $users = User::get()->count();
         $settings = Setting::first();
 

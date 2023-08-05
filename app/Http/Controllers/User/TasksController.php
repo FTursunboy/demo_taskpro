@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ReportHistoryController;
+use App\Http\Controllers\UserBaseController;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\UserTaskHistoryModel;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
-class TasksController extends BaseController
+class TasksController extends UserBaseController
 {
     public function index()
     {

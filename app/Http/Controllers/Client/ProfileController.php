@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ClientBaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\UpdateClientRequest;
 use App\Models\User;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class ProfileController extends BaseController
+class ProfileController extends ClientBaseController
 {
     public function index()
     {

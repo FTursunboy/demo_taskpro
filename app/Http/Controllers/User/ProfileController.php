@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserBaseController;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\Admin\OtdelsModel;
 use App\Models\User;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class ProfileController extends BaseController
+class ProfileController extends UserBaseController
 {
     public function index()
     {
