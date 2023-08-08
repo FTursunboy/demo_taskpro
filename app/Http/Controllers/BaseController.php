@@ -65,6 +65,7 @@ class BaseController extends Controller
             $projectTasksOfDashboardAdmin = cache()->remember('project_tasks_admin', 300, function () {
                 return DB::table('project_models as p')
                     ->leftJoin('task_models as t', 'p.id', '=', 't.project_id')
+                    ->where('t.deleted_at', '=', null)
                     ->select('p.name as name', 'p.id as id',
                         DB::raw('COUNT(t.id) as count_task'),
                         DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as count_ready'),
@@ -108,14 +109,6 @@ class BaseController extends Controller
             $system_idea_count = cache()->remember('system_idea_count', 300, function () {
                 return SystemIdea::where('status_id', 1)->count();
             });
-
-//            $systemIdeasOfDashboardClient = cache()->remember('system_ideas_client_dashboard_' . Auth::id(), 1000, function () {
-//                return SystemIdea::where('user_id', Auth::id())->with('status', 'user')->get();
-//            });
-
-//            $client_tasks = cache()->remember('client_tasks_' . Auth::id(), 300, function () {
-//                return TasksClient::where('client_id', Auth::id())->count();
-//            });
 
             $leadStatuses = cache()->remember('lead_statuses', 300, function () {
                 return LeadStatus::all();
@@ -177,7 +170,7 @@ class BaseController extends Controller
                 return TaskTypeModel::get();
             });
 
-            $users1 = cache()->remember('fsfsdf', 1000, function () {
+            $users1 = cache()->remember('fsfsdf', 60, function () {
                 return User::role(['user', 'admin'])->get() ;
             });
 
