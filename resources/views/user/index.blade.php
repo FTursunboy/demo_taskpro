@@ -331,7 +331,7 @@
                             <div id="column_chart_datalabel" data-colors='["#5156be"]' class="apex-charts" dir="ltr"></div>
 
                         <div class="card-body px-4 py-4-5">
-                            <p class="text-center">Процент выполненных задач этого месяца</p>
+                            <p class="text-center">Процент выполненных задач</p>
                             <div class="card-body" style="margin-top: -70px; margin-bottom: -70px">
                                 <div id="radialGradient"></div>
                             </div>
