@@ -173,7 +173,10 @@ class IndexController extends BaseController
     {
         $tasks = DB::table('users as u')
             ->leftJoin('task_models as t', 'u.id', '=', 't.user_id')
-            ->where('t.project_id', $id)
+            ->where([
+                ['t.project_id', $id],
+                ['t.deleted_at', null]
+            ])
             ->select('u.id as user_id', 'u.name as user_name', 'u.surname as user_surname',
                 DB::raw('COUNT(t.id) as task_count'),
                 DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as task_ready'),
