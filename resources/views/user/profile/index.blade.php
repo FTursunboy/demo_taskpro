@@ -68,13 +68,10 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="otdel_id">Отдел<span class="text-danger">*</span></label>
-                                                        <select id="otdel_id" name="otdel_id" tabindex="7" class="form-select mt-3" required disabled>
-                                                            @foreach($departs as $depart)
-                                                                <option value="{{ $depart->id }}" {{ ($depart->id === $user->otdel_id) ? 'selected' : '' }}>{{ $depart->name }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <label for="position">Должность<span class="text-danger">*</span></label>
+                                                        <input type="text" id="position" name="position" tabindex="6" class="form-control mt-3" value="{{ $user->position }}" disabled>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label for="file">Изображение</label>
                                                         <input type="file" name="avatar" tabindex="10" class="form-control mt-3" id="file">
@@ -88,6 +85,32 @@
                                                                required>
                                                     </div>
 
+                                                    <div class="form-group">
+                                                        <label for="phone">E-mail<span class="text-danger">*</span></label>
+                                                        <input type="email" id="email" name="email" tabindex="5" class="form-control mt-3" value="{{ $user?->clientEmail?->email }}" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="otdel_id">Отдел<span class="text-danger">*</span></label>
+                                                        <select id="otdel_id" name="otdel_id" tabindex="7" class="form-select mt-3" required disabled>
+                                                            @foreach($departs as $depart)
+                                                                <option value="{{ $depart->id }}" {{ ($depart->id === $user->otdel_id) ? 'selected' : '' }}>{{ $depart->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="birthday">День рождение</label>
+                                                        <input type="date" class="form-control mt-3" name="birthday" id="birthday" tabindex="9" value="{{ $user->birthday }}">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="lastname">Отчество<span class="text-danger">*</span></label>
+                                                        <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
+                                                    </div>
 
                                                     <div class="form-group">
                                                         <label for="phone">Телефон<span class="text-danger">*</span></label>
@@ -97,24 +120,6 @@
                                                     <div class="form-group">
                                                         <label for="telegram_id">Телеграм ID<span class="text-danger">*</span></label>
                                                         <input type="number" id="telegram_id" name="telegram_user_id" tabindex="8" class="form-control mt-3" value="{{ $user->telegram_user_id }}" disabled>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="form-group">
-                                                        <label for="lastname">Отчество<span class="text-danger">*</span></label>
-                                                        <input type="text" id="lastname" name="lastname" tabindex="3" class="form-control mt-3" value="{{ $user->lastname }}" required>
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <label for="position">Должность<span class="text-danger">*</span></label>
-                                                        <input type="text" id="position" name="position" tabindex="6" class="form-control mt-3" value="{{ $user->position }}" disabled>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="birthday">День рождение</label>
-                                                        <input type="date" class="form-control mt-3" name="birthday" id="birthday" tabindex="9" value="{{ $user->birthday }}">
                                                     </div>
 
                                                 </div>

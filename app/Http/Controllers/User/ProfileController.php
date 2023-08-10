@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserBaseController;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\Admin\OtdelsModel;
+use App\Models\ClientMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,18 @@ class ProfileController extends UserBaseController
             'birthday' => $data['birthday'],
             'avatar' => $file,
         ]);
+
+        $clientMail = ClientMail::where('user_id', $user->id)->first();
+        if ($clientMail) {
+            $clientMail->update([
+                'email' => $data['email'],
+            ]);
+        } else {
+            ClientMail::create([
+                'user_id' => $user->id,
+                'email' => $data['email'],
+            ]);
+        }
 
         return redirect()->route('user_profile.index')->with('update', "Данные успешно изменены!");
     }
