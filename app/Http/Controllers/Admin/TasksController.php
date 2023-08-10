@@ -9,9 +9,11 @@ use App\Http\Controllers\Mail\MailToSendClientController;
 use App\Http\Controllers\ReportHistoryController;
 use App\Jobs\ChatSendEmailClientJob;
 use App\Jobs\ChatUserNotificationJob;
+use App\Jobs\SendTaskJob;
 use App\Mail\ChatEmail;
 use App\Mail\OfferReady;
 use App\Mail\Send;
+use App\Mail\SendTaskToUser;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
@@ -229,6 +231,8 @@ class  TasksController extends BaseController
                 'pro_status' => 2,
             ]);
 
+            $user = User::find($task->user_id);
+
             if ($request->user_id == Auth::id()) {
                 $task->update([
                     'status_id' => 2,
@@ -238,8 +242,14 @@ class  TasksController extends BaseController
             $this->check();
             $type = TaskTypeModel::find($request->type_id)->name;
             try {
-                Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $project->finish, $type));
+                Notification::send($user, new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $project->finish, $type));
             } catch (\Exception $exception) {
+
+            }
+
+            try {
+                SendTaskJob::dispatch($user, $task);
+            } catch (\Exception $e) {
 
             }
 
