@@ -31,6 +31,7 @@
                             <tr>
                                 <th>#</th>
                                 <th data-td="td_one">Название<span class="btn btn-right">></span></th>
+                                <th>Описание</th>
                                 <th>Статус</th>
                                 <th>Действие</th>
                             </tr>
@@ -40,6 +41,7 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{\Str::limit($task->name,50)}}</td>
+                                    <td>{{\Str::limit($task->description,50)}}</td>
                                     @if($task->status->id == 1)
                                         <td><span class="badge bg-success p-2">{{$task->status->name}}</span>
                                         </td>
