@@ -18,7 +18,7 @@ class RatingController extends ClientBaseController
     public function score(Offer $offer, RatingRequest $request)
     {
         $rating = $request->input('rating');
-        $user = User::find($offer->user_id);
+        $user = User::withTrashed()->find($offer->user_id);
         $task = TaskModel::where('offer_id', $offer->id)->first();
         $client = User::find($offer->client_id);
 

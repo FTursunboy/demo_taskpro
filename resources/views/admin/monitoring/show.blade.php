@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+ @extends('admin.layouts.app')
 
 @section('title')
     {{ $task->name }}
@@ -59,8 +59,6 @@
                         <a href="{{route('mon.edit', $task->slug)}}" class="btn btn-outline-primary">Изменить</a>
                     </div>
 
-
-
                 </div>
 
                 <div class="row">
@@ -87,7 +85,7 @@
                                 <div class="form-group">
                                     <label for="user">Сотрудник</label>
                                     <input type="text" id="user" class="form-control"
-                                           value="{{ $task->user?->name }} {{ $task->user->surname }}"
+                                           value="{{ $task->user?->name }} {{ $task?->user?->surname }}"
                                            disabled>
                                 </div>
 
@@ -341,7 +339,7 @@
                                                     <div class="chat-message">
                                                         <p>
                                                         <span style="display: flex; justify-content: space-between;">
-                                                            <b>{{$mess->sender?->name}}</b>
+                                                            <b>{{$mess?->sender?->name}}</b>
                                                             <a style="color: red" href="{{route('tasks.messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
                                                         </span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
@@ -438,14 +436,14 @@
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{date('d.m.Y H:i:s', strtotime($report->created_at))}}</td>
-                                                        <td>{{$report->user->name }}</td>
+                                                        <td>{{$report?->user?->name }}</td>
                                                         <td>
-                                                            {{ $report->status?->name }}
-                                                            @if ($report->user->hasRole('admin'))
+                                                            {{ $report?->status?->name }}
+                                                            @if ($report?->user->hasRole('admin'))
                                                                 (Админ)
                                                             @elseif ($report->user?->hasRole('user'))
                                                                 (Сотрудник)
-                                                            @elseif ($report->user?->hasRole('client') || $report->user->hasRole('client-worker'))
+                                                            @elseif ($report?->user?->hasRole('client') || $report?->user?->hasRole('client-worker'))
                                                                 (Клиент)
                                                             @else
                                                                 (Система)
