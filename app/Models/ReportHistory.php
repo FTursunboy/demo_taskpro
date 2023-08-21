@@ -13,7 +13,7 @@ class ReportHistory extends Model
 
 
     public function user() {
-        return $this->belongsTo(User::class, 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id')->withTrashed();
     }
 
     public function offer() {
