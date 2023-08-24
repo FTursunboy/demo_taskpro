@@ -44,12 +44,12 @@
                             <button data-bs-target="#admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>
                     @endif
-                    @if($task->status->id == 6)
+                    @if($task?->status?->id == 6)
                         <div class="col-md-2">
                             <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
                         </div>
                     @endif
-                    @if($task->status->id == 5)
+                    @if($task?->status?->id == 5)
                         <div class="col-md-2">
                             <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
                         </div>
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <label for="user">Сотрудник</label>
                                     <input type="text" id="user" class="form-control"
-                                           value="{{ $task->user?->name }} {{ $task?->user?->surname }}"
+                                           value="{{ $task?->user?->name }} {{ $task?->user?->surname }}"
                                            disabled>
                                 </div>
 
@@ -120,7 +120,7 @@
                                 <div class="form-group">
                                     <label for="project">Проект</label>
                                     <input type="text" id="project" class="form-control"
-                                           value="{{$task->project?->name}}" disabled>
+                                           value="{{$task?->project?->name}}" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="to">До</label>
@@ -136,20 +136,20 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="sts">Статус</label>
-                                    @switch($task->status->id)
-                                        @case($task->status->id === 1)
+                                    @switch($task?->status?->id)
+                                        @case($task?->status?->id === 1)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-warning text-black"
-                                                       id="sts" value="{{ $task->status->name }}"
+                                                       id="sts" value="{{ $task?->status?->name }}"
                                                        disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 2)
+                                        @case($task?->status?->id === 2)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-success text-white"
-                                                       id="sts" value="{{ $task->status->name }}"
+                                                       id="sts" value="{{ $task?->status?->name }}"
                                                        disabled>
                                             </div>
                                             @break
@@ -157,7 +157,7 @@
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-success text-white"
-                                                       id="sts" value="{{ $task->status->name }}"
+                                                       id="sts" value="{{ $task?->status?->name }}"
                                                        disabled>
                                             </div>
                                             @break
@@ -165,79 +165,79 @@
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-primary text-white"
-                                                       id="sts" value="{{ $task->status->name }}"
+                                                       id="sts" value="{{ $task?->status?->name }}"
                                                        disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 5)
+                                        @case($task?->status?->id === 5)
                                             <div class="form-group">
                                                 <input type="text" class="form-control text-white" id="sts"
-                                                       value="{{ $task->status->name }}" disabled
+                                                       value="{{ $task?->status?->name }}" disabled
                                                        style="background-color: #fc0404">
                                             </div>
                                             @break
-                                        @case($task->status->id === 6)
+                                        @case($task?->status?->id === 6)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-secondary text-white"
-                                                       id="sts" value="{{ $task->status->name }}"
+                                                       id="sts" value="{{ $task?->status?->name }}"
                                                        disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 7)
+                                        @case($task?->status?->id === 7)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
                                         @case($task->status->id === 8)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 9)
+                                        @case($task?->status?->id === 9)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-warning text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 10)
+                                        @case($task?->status?->id === 10)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 11)
+                                        @case($task?->status?->id === 11)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 12)
+                                        @case($task?->status?->id === 12)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 13)
+                                        @case($task?->status?->id === 13)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
-                                        @case($task->status->id === 14)
+                                        @case($task?->status?->id === 14)
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task->status->name }}" disabled>
+                                                       value="{{ $task?->status?->name }}" disabled>
                                             </div>
                                             @break
                                     @endswitch
@@ -245,13 +245,13 @@
                                     <div class="form-group">
                                         <label for="type">Тип</label>
                                         <input type="text" id="type" class="form-control"
-                                               value="{{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? '- '.$task->typeType?->name . ' - ' . $task->percent . ' %' : '' }}"
+                                               value="{{ $task?->type?->name }} {{  (isset($task?->typeType?->name)) ? '- '.$task?->typeType?->name . ' - ' . $task->percent . ' %' : '' }}"
                                                disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="author">Автор</label>
                                         <input type="text" id="author" class="form-control"
-                                               value="{{ $task->author?->name .' '. $task->author->surname}}"
+                                               value="{{ $task?->author?->name .' '. $task?->author?->surname}}"
                                                disabled>
                                     </div>
                                     @if($task->status_id === 5 || $task->status_id === 12)
@@ -286,23 +286,23 @@
                                         @else
                                             <img src="{{asset('assets/images/avatar-2.png')}}">
                                         @endif
-                                        <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->user->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                        <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                     </div>
                                     <div class="name me-3">
-                                        <h6 class="mb-0">{{ $task->user->name }} {{ $task->user->surname }}</h6>
+                                        <h6 class="mb-0">{{ $task?->user?->name }} {{ $task?->user?->surname }}</h6>
                                         <span class="text-xs">
-                                             @if(Cache::has('user-is-online-' . $task?->user->id))
+                                             @if(Cache::has('user-is-online-' . $task?->user?->id))
                                                 <span class="text-center text-success mx-2"><b>Online</b></span>
                                             @else
                                                 <span class="text-center text-danger  mx-2"><b>Offline</b>
-                                                    @if($task?->user->last_seen !== null)
-                                                        <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->user->last_seen)->diffForHumans() }}</span>
+                                                    @if($task?->user?->last_seen !== null)
+                                                        <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->user?->last_seen)->diffForHumans() }}</span>
                                                     @endif
                                                 </span>
                                             @endif
                                         </span>
                                     </div>
-                                    @if($task?->author->id !== \Illuminate\Support\Facades\Auth::id() )
+                                    @if($task?->author?->id !== \Illuminate\Support\Facades\Auth::id() )
                                         <div class="avatar me-3">
                                             @if($task?->author?->avatar)
                                                 <img
@@ -310,17 +310,17 @@
                                             @else
                                                 <img src="{{asset('assets/images/avatar-2.png')}}">
                                             @endif
-                                            <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->author->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                            <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->author?->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                         </div>
                                         <div class="name me-3">
-                                            <h6 class="mb-0">{{ $task->author->name }} {{ $task->author->surname }}</h6>
+                                            <h6 class="mb-0">{{ $task?->author?->name }} {{ $task?->author?->surname }}</h6>
                                             <span class="text-xs">
-                                             @if(Cache::has('user-is-online-' . $task?->author->id))
+                                             @if(Cache::has('user-is-online-' . $task?->author?->id))
                                                     <span class="text-center text-success mx-2"><b>Online</b></span>
                                                 @else
                                                     <span class="text-center text-danger  mx-2"><b>Offline</b>
-                                                         @if($task?->author->last_seen !== null)
-                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->author->last_seen)->diffForHumans() }}</span>
+                                                         @if($task?->author?->last_seen !== null)
+                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->author?->last_seen)->diffForHumans() }}</span>
                                                         @endif
                                                 </span>
                                                 @endif
@@ -361,7 +361,7 @@
                                                 <div class="chat-body">
                                                     <div class="chat-message">
                                                         <p>
-                                                            <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                            <span><b>{{$mess?->sender?->name}}</b><br></span>
                                                             <span style="margin-top: 10px">{{ $mess->message }}</span>
                                                         @if($mess->file !== null)
                                                             <div class="form-group">
@@ -439,9 +439,9 @@
                                                         <td>{{$report?->user?->name }}</td>
                                                         <td>
                                                             {{ $report?->status?->name }}
-                                                            @if ($report?->user->hasRole('admin'))
+                                                            @if ($report?->user?->hasRole('admin'))
                                                                 (Админ)
-                                                            @elseif ($report->user?->hasRole('user'))
+                                                            @elseif ($report?->user?->hasRole('user'))
                                                                 (Сотрудник)
                                                             @elseif ($report?->user?->hasRole('client') || $report?->user?->hasRole('client-worker'))
                                                                 (Клиент)
@@ -500,7 +500,7 @@
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
-                                                        <td>{{$history->user?->name }}</td>
+                                                        <td>{{$history?->user?->name }}</td>
                                                         <td>
                                                             {{ $history?->status?->name }}
 
@@ -523,7 +523,7 @@
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
-                                                        <td>{{$history->sender?->name }}</td>
+                                                        <td>{{$history?->sender?->name }}</td>
                                                         <td>
                                                             {{ $history?->status?->name }}
 
@@ -700,7 +700,7 @@
                                             class="form-select">
                                         @foreach($users as $user)
                                             <option
-                                                value="{{ $user?->id }}" {{ ($user?->id === old('user_id') or $user?->id === $task->user?->id ) ? 'selected' : '' }}>{{ $user?->name }}</option>
+                                                value="{{ $user?->id }}" {{ ($user?->id === old('user_id') or $user?->id === $task?->user?->id ) ? 'selected' : '' }}>{{ $user?->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
