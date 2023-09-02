@@ -20,7 +20,7 @@ class StatisticController extends Controller
                 ->leftJoin('task_models as t', 'p.id', '=', 't.project_id')
                 ->where('t.deleted_at', '=', null)
                 ->select('p.name as name', 'p.id as id',
-                    DB::raw('COUNT(t.id) as count_task'),
+                    DB::raw('COUNT(t.*) as count_task'),
                     DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as count_ready'),
                     DB::raw('COUNT(CASE WHEN t.status_id = 2 OR t.status_id = 4 THEN 1 ELSE NULL END) as count_process'),
                     DB::raw('COUNT(CASE WHEN t.status_id = 10 THEN 1 ELSE NULL END) as count_verificateClient'),
