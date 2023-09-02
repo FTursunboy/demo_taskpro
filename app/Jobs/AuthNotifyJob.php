@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
-class AuthNotifyJob implements ShouldQueue
+class AuthNotifyJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -31,6 +31,12 @@ class AuthNotifyJob implements ShouldQueue
      */
     public function handle(): void
     {
+        try {
 
+            Notification::send($this->user, new AuthNotification($this->user->surname, $this->user->name));
+        }
+        catch (\Exception $e)  {
+            Log::info("chat not found");
+        }
     }
 }
