@@ -11,7 +11,7 @@ use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
 
-class Chat extends Notification implements ShouldQueue
+class Chat extends Notification
 {
     use Queueable;
 

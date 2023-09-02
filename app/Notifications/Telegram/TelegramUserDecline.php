@@ -10,7 +10,7 @@ use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
 
-class TelegramUserDecline extends Notification implements ShouldQueue
+class TelegramUserDecline extends Notification
 {
     use Queueable;
 

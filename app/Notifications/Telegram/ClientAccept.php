@@ -14,7 +14,7 @@ use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
 
-class ClientAccept extends Notification implements ShouldQueue
+class ClientAccept extends Notification
 {
     use Queueable;
 
