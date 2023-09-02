@@ -31,12 +31,6 @@ class AuthNotifyJob implements ShouldQueue
      */
     public function handle(): void
     {
-        try {
 
-            Notification::send($this->user, new AuthNotification($this->user->surname, $this->user->name));
-        }
-        catch (\Exception $e)  {
-            Log::info("chat not found");
-        }
     }
 }
