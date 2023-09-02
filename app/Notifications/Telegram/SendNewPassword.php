@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class SendNewPassword extends Notification implements ShouldQueue
+class SendNewPassword extends Notification
 {
     use Queueable;
     public $id;

@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class TelegramClientDecline extends Notification implements ShouldQueue
+class TelegramClientDecline extends Notification
 {
     use Queueable;
     public string $name = '';

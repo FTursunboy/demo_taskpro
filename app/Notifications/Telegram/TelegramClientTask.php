@@ -10,7 +10,7 @@ use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
 
-class TelegramClientTask extends Notification implements ShouldQueue
+class TelegramClientTask extends Notification
 {
     use Queueable;
     public string $name = '';
