@@ -8,30 +8,48 @@ use App\Models\Admin\ProjectModel;
 use App\Models\Admin\TaskModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatisticController extends Controller
 {
     public function projectStatic()
     {
-        $projectTasksAdmin = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
-
-        $response = [
-            'ProjectTasks' => $projectTasksAdmin->map(function ($project) {
-                return [
-                    'name' => $project->name,
-                    'count_tasks' => $project->tasks_count,
-                    'count_ready' => $project->count_ready(),
-                    'count_process' => $project->count_process(),
-                    'count_verificateClient' => $project->count_verificateClient(),
-                    'count_verificateAdmin' => $project->count_verificateAdmin(),
-                    'count_outOfDate' => $project->count_outOfDate(),
-                    'count_other' => $project->count_other(),
-                ];
-            }),
+//        $projectTasksAdmin = ProjectModel::withCount('tasks')->orderByDesc('tasks_count')->get();
+        return response()->json([
+            'ProjectTasks' => DB::table('project_models as p')
+                ->leftJoin('task_models as t', 'p.id', '=', 't.project_id')
+                ->where('t.deleted_at', '=', null)
+                ->select('p.name as name', 'p.id as id',
+                    DB::raw('COUNT(t.id) as count_task'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 3 THEN 1 ELSE NULL END) as count_ready'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 2 OR t.status_id = 4 THEN 1 ELSE NULL END) as count_process'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 10 THEN 1 ELSE NULL END) as count_verificateClient'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 6 OR t.status_id = 14 THEN 1 ELSE NULL END) as count_verificateAdmin'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 7 THEN 1 ELSE NULL END) as count_outOfDate'),
+                    DB::raw('COUNT(CASE WHEN t.status_id = 1 OR t.status_id = 5 OR t.status_id = 8 OR t.status_id = 9
+                               OR t.status_id = 11 OR t.status_id = 12 OR t.status_id = 13 THEN 1 ELSE NULL END) as count_other')
+                )
+                ->groupBy('p.name', 'p.id')
+                ->get(),
             'message' => true,
-        ];
+        ]);
+//        $response = [
+//            'ProjectTasks' => $projectTasksAdmin->map(function ($project) {
+//                return [
+//                    'name' => $project->name,
+//                    'count_tasks' => $project->tasks_count,
+//                    'count_ready' => $project->count_ready(),
+//                    'count_process' => $project->count_process(),
+//                    'count_verificateClient' => $project->count_verificateClient(),
+//                    'count_verificateAdmin' => $project->count_verificateAdmin(),
+//                    'count_outOfDate' => $project->count_outOfDate(),
+//                    'count_other' => $project->count_other(),
+//                ];
+//            }),
+//            'message' => true,
+//        ];
 
-        return response($response, 200);
+//        return response($response, 200);
     }
 
     public function taskStatistic()
@@ -40,7 +58,7 @@ class StatisticController extends Controller
 
         $response = [
             'message' => true,
-            'statistics' => $taskStatistic->map(function ($task){
+            'statistics' => $taskStatistic->map(function ($task) {
                 return [
                     'name' => $task->name . " " . $task->surname,
                     'all_tasks' => $task->taskCount($task->id),
@@ -92,7 +110,6 @@ class StatisticController extends Controller
             'statistics' => $arrs,
         ]);
     }
-
 
 
 }
