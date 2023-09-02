@@ -12,7 +12,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
@@ -38,13 +37,7 @@ class AuthenticatedSessionController extends Controller
 
         $role = Auth::user()->getRoleNames()[0];
 
-        try {
-
-            Notification::send(Auth::user(), new AuthNotification(Auth::user()->surname, Auth::user()->name));
-        }
-        catch (\Exception $e)  {
-            Log::info("chat not found");
-        }
+        AuthNotifyJob::dispatch(Auth::user());
         return match ($role) {
 
             'user' => redirect()->intended(RouteServiceProvider::USER),
