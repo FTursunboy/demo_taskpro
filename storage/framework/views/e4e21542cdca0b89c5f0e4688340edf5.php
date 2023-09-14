@@ -1,10 +1,8 @@
-@extends(auth()->user()->hasRole('crm') ? 'user.layouts.app' : 'admin.layouts.app')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
     Лиды
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div id="page-heading">
         <div class="page-title">
             <div class="row">
@@ -20,13 +18,13 @@
                 </div>
             </div>
         </div>
-        @include('.inc.messages')
+        <?php echo $__env->make('.inc.messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <section class="section">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <a href="{{ route('lead.create') }}" class="btn btn-outline-primary">
+                            <a href="<?php echo e(route('lead.create')); ?>" class="btn btn-outline-primary">
                                 Добавить лид
                             </a>
                         </div>
@@ -53,9 +51,9 @@
                             <div class="form-group">
                                 <select class="form-select" name="status" id="status">
                                     <option value="0">фильтр по стадию</option>
-                                    @foreach($statuses as $status)
-                                        <option value="{{$status->id}}">{{$status->name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $statuses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($status->id); ?>"><?php echo e($status->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -63,9 +61,9 @@
                             <div class="form-group">
                                 <select class="form-select" name="status" id="source">
                                     <option value="0">фильтр по источнику</option>
-                                    @foreach($sources as $source)
-                                        <option value="{{$source->id}}">{{$source->name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $sources; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $source): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($source->id); ?>"><?php echo e($source->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -73,9 +71,9 @@
                             <div class="form-group">
                                 <select class="form-select" name="state" id="state">
                                     <option value="0">фильтр по состоянию</option>
-                                    @foreach($states as $state)
-                                        <option value="{{$state->id}}">{{$state->name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $states; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($state->id); ?>"><?php echo e($state->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -101,46 +99,48 @@
                         </thead>
                         <tbody id="tbody" >
 
-                        @foreach($leads as $lead)
+                        <?php $__currentLoopData = $leads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{ $dateFormatted = date('d-m-Y', strtotime($lead->created_at)) }}</td>
+                                <td><?php echo e($loop->iteration); ?></td>
+                                <td><?php echo e($dateFormatted = date('d-m-Y', strtotime($lead->created_at))); ?></td>
                                 <td>
-                                    @if ($lead->contact?->fio)
-                                             {{ Str::limit($lead->contact?->fio, 50) }}
-                                    @else
+                                    <?php if($lead->contact?->fio): ?>
+                                             <?php echo e(Str::limit($lead->contact?->fio, 50)); ?>
+
+                                    <?php else: ?>
                                         <span style='color: lightcoral;'>Удалённый аккаунт</span>
-                                    @endif
+                                    <?php endif; ?>
                                 </td>
                                 <td>
-                                    @if($lead->status?->id === 5)
-                                        <span style='color: lightcoral;'>{{$lead->status?->name}}</span>
-                                    @else
-                                        {{$lead->status?->name}}
-                                    @endif
+                                    <?php if($lead->status?->id === 5): ?>
+                                        <span style='color: lightcoral;'><?php echo e($lead->status?->name); ?></span>
+                                    <?php else: ?>
+                                        <?php echo e($lead->status?->name); ?>
+
+                                    <?php endif; ?>
                                 </td>
-                                <td>{{ Str::limit($lead->leadSource?->name, 20) }}</td>
-                                <td>{{ Str::limit($lead->state?->name, 20) }}</td>
-                                <td>{{ Str::limit($lead->author, 20) }}</td>
+                                <td><?php echo e(Str::limit($lead->leadSource?->name, 20)); ?></td>
+                                <td><?php echo e(Str::limit($lead->state?->name, 20)); ?></td>
+                                <td><?php echo e(Str::limit($lead->author, 20)); ?></td>
 
                                 <td class="text-center">
-                                    <a href="{{ route('lead.show', $lead->id)   }}" class="btn btn-success"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('lead.edit', $lead->id) }}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
+                                    <a href="<?php echo e(route('lead.show', $lead->id)); ?>" class="btn btn-success"><i class="bi bi-eye"></i></a>
+                                    <a href="<?php echo e(route('lead.edit', $lead->id)); ?>" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                                     <a class="btn btn-danger" data-bs-toggle="modal"
-                                       data-bs-target="#delete{{$lead->id}}"><i class="bi bi-trash"></i></a>
+                                       data-bs-target="#delete<?php echo e($lead->id); ?>"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>
 
 
-                            <div class="modal fade text-left" id="delete{{$lead->id}}" tabindex="-1" role="dialog"
-                                 aria-labelledby="delete{{$lead->id}}" data-bs-backdrop="false" aria-hidden="true">
+                            <div class="modal fade text-left" id="delete<?php echo e($lead->id); ?>" tabindex="-1" role="dialog"
+                                 aria-labelledby="delete<?php echo e($lead->id); ?>" data-bs-backdrop="false" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                    <form action="{{ route('lead.destroy', $lead->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
+                                    <form action="<?php echo e(route('lead.destroy', $lead->id)); ?>" method="POST">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" id="delete{{$lead->id}}">Предупреждение</h4>
+                                                <h4 class="modal-title" id="delete<?php echo e($lead->id); ?>">Предупреждение</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <p>
@@ -162,7 +162,7 @@
                                     </form>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
                 </div>
@@ -170,10 +170,10 @@
         </section>
 
     </div>
-@endsection
-@section('script')
-    <script src="{{asset('assets/js/search.js')}}"></script>
-    <script src="{{asset('assets/js/datatable.js')}}"></script>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
+    <script src="<?php echo e(asset('assets/js/search.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/datatable.js')); ?>"></script>
     <script type="text/javascript">
         "use strict";
 
@@ -226,7 +226,7 @@
         });
         };
     </script>
-    @routes
+    <?php echo app('Tightenco\Ziggy\BladeRouteGenerator')->generate(); ?>
     <script>
 
         $(document).ready(function () {
@@ -300,5 +300,7 @@
         });
 
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make(auth()->user()->hasRole('crm') ? 'user.layouts.app' : 'admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Faiziev Tursunboy\Documents\GitHub\tasks\resources\views/admin/CRM/leads/index.blade.php ENDPATH**/ ?>

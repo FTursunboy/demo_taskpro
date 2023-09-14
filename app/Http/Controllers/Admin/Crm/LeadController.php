@@ -158,6 +158,7 @@ class LeadController extends BaseController
         }
 
         if ($month  !== '0') {
+
             $leads->where(function ($query) use ($month) {
                 $query->whereMonth('leads.created_at', '=', $month);
             });
