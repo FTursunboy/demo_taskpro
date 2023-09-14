@@ -28,7 +28,8 @@
         @endif
         <div class="row mt-4">
             <div class="col-md-3">
-                <a href="#" id="excel" class="btn btn-success mb-4"> Excel</a>
+{{--                <a href="#" id="excel" class="btn btn-success mb-4"> Excel</a>--}}
+                <a href="#" id="exportButton" class="btn btn-danger mb-4"> Excel</a>
             </div>
             <div class="col-12">
                 <div class="table-responsive">
@@ -54,7 +55,7 @@
                             <tr>
                                 <td class="text-center">{{$task->id + 1000 }}</td>
                                 <td>{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
-                                <td>{{ \Illuminate\Support\Str::limit($task->comment, 51)  }}</td>
+                                <td>{{ $task->comment  }}</td>
                                 <td  >{{ date('d-m-Y', strtotime($task->from))  }}</td>
                                 <td  >{{ date('d-m-Y', strtotime($task->to))  }}</td>
                                 <td class="text-center">{{ $task->project->name  }}</td>
@@ -135,6 +136,56 @@
 @endsection
 
 @section('script')
+
+{{--    New export to js --}}
+<!-- Подключение библиотеки exceljs через CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+
+    <script>
+        // Function to export HTML table to Excel using exceljs
+        function exportToExcel() {
+            const table = document.getElementById('example');
+
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Sheet 1');
+
+            // Iterate through table rows and cells and add data to the worksheet
+            table.querySelectorAll('tr').forEach((row) => {
+                const rowData = [];
+                row.querySelectorAll('td, th').forEach((cell) => {
+                    rowData.push(cell.textContent);
+                });
+                worksheet.addRow(rowData);
+            });
+
+            // Create a blob from the workbook and save it as a .xlsx file
+            workbook.xlsx.writeBuffer().then((buffer) => {
+                const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = window.URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'table-export.xlsx';
+
+                // Trigger a click event on the link to download the file
+                a.click();
+
+                // Clean up
+                window.URL.revokeObjectURL(url);
+            });
+        }
+        // Attach the exportToExcel function to the button click event
+        const exportButton = document.getElementById('exportButton');
+        exportButton.addEventListener('click', exportToExcel);
+
+    </script>
+
+
+
+
+
+
+
     <script src="{{asset('assets/js/filter3.js')}}"></script>
     <script src="{{asset('assets/js/table2excel.js')}}" ></script>
     <script type="text/javascript">
@@ -282,6 +333,9 @@
             resetButton.addClass('ml-2');
             resetButton.appendTo(searchWrapper);
         });
+
+
+
 
 
     </script>

@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
-class AuthNotifyJob implements ShouldQueue
+class AuthNotifyJob
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

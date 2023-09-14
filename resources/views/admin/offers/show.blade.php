@@ -160,7 +160,6 @@
                                                                                 <span id="error-message"
                                                                                       class="d-none text-center mt-3"
                                                                                       style="color: red">Дата окончания задачи не может превышать дату начало задачи</span>
-
                                                                             </div>
 
 
@@ -209,7 +208,7 @@
 
                                                                                 <label class="form-label">Клиент</label>
                                                                                 <input
-                                                                                    value="{{$offer->client?->surname . " " . $offer->client?->name . " " . $offer->client?->lastname}}"
+                                                                                    value="{{$offer?->client?->surname . " " . $offer?->client?->name . " " . $offer?->client?->lastname}}"
                                                                                     type="text"
                                                                                     class="form-control"
                                                                                     disabled
@@ -248,7 +247,7 @@
                                                                                     <textarea
                                                                                         class="form-control"
                                                                                         style="background-color: #208d20; color: white"
-                                                                                    >{{$offer->tasks?->success_desc}}</textarea>
+                                                                                    >{{$offer?->tasks?->success_desc}}</textarea>
                                                                                 </div>
                                                                             @endif
 
@@ -366,18 +365,18 @@
                                                 <img src="{{asset('assets/images/avatar-2.png')}}">
                                             @endif
                                             <span
-                                                class="avatar-status {{ Cache::has('user-is-online-' . $offer->client?->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                                class="avatar-status {{ Cache::has('user-is-online-' . $offer?->client?->id) ? 'bg-success' : 'bg-danger' }}"></span>
                                         </div>
                                         <div class="name me-2">
-                                            <h6 class="mb-0">{{ $offer->client?->name }} {{ $offer->client?->surname }} </h6>
+                                            <h6 class="mb-0">{{ $offer?->client?->name }} {{ $offer?->client?->surname }} </h6>
                                             <span class="text-xs">
-                                                 @if(Cache::has('user-is-online-' . $offer->client?->id))
+                                                 @if(Cache::has('user-is-online-' . $offer?->client?->id))
                                                     <span class="text-center text-success mx-2"><b>Online</b></span>
                                                 @else
                                                     <span class="text-center text-danger  mx-2"><b>Offline</b>
                                                         @if(isset($admin))
                                                          @if($admin?->last_seen !== null)
-                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer->client?->last_seen)->diffForHumans() }}</span>
+                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($offer?->client?->last_seen)->diffForHumans() }}</span>
                                                         @endif
                                                         @endif
                                                     </span>
@@ -396,7 +395,7 @@
                                                             <p>
                                                                  <span
                                                                      style="display: flex; justify-content: space-between;">
-                                                            <b>{{$mess->sender?->name}}</b>
+                                                            <b>{{$mess?->sender?->name}}</b>
                                                             <a style="color: red"
                                                                href="{{route('tasks.messages.delete', $mess->id)}}"><i
                                                                     class="bi bi-trash"></i></a>
@@ -423,7 +422,7 @@
                                                     <div class="chat-body">
                                                         <div class="chat-message">
                                                             <p>
-                                                                <span><b>{{$mess->sender?->name}}</b><br></span>
+                                                                <span><b>{{$mess?->sender?->name}}</b><br></span>
                                                                 <span
                                                                     style="margin-top: 10px">{{ $mess->message }}</span>
                                                             @if($mess->file !== null)
@@ -520,7 +519,7 @@
                                                 <tr>
                                                     <td>{{$loop->iteration}}</td>
                                                     <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
-                                                    <td>{{$history?->user->name }}</td>
+                                                    <td>{{$history?->user?->name }}</td>
                                                     <td>
                                                         {{ $history?->status?->name }}
                                                     </td>
@@ -623,14 +622,14 @@
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{date('d.m.Y H:i:s', strtotime($report->created_at))}}</td>
-                                                <td>{{$report->user->name }}</td>
+                                                <td>{{$report?->user?->name }}</td>
                                                 <td>
-                                                    {{ $report->status?->name }}
-                                                    @if ($report->user->hasRole('admin'))
+                                                    {{ $report?->status?->name }}
+                                                    @if ($report?->user?->hasRole('admin'))
                                                         (Админ)
-                                                    @elseif ($report->user->hasRole('user'))
+                                                    @elseif ($report?->user?->hasRole('user'))
                                                         (Сотрудник)
-                                                    @elseif ($report->user->hasRole('client') || $report->user->hasRole('client-worker'))
+                                                    @elseif ($report?->user?->hasRole('client') || $report->user->hasRole('client-worker'))
                                                         (Клиент)
                                                     @else
                                                         (Система)

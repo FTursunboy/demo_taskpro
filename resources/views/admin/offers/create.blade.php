@@ -119,7 +119,6 @@
                                                         Отправить
                                                     </button>
                                                 </div>
-
                                             </div>
                                         </form>
                                     </div>

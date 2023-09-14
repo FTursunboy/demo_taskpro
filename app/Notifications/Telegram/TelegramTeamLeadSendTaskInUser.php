@@ -10,7 +10,7 @@ use NotificationChannels\Telegram\Telegram;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class TelegramTeamLeadSendTaskInUser extends Notification implements ShouldQueue
+class TelegramTeamLeadSendTaskInUser extends Notification
 {
     use Queueable;
 

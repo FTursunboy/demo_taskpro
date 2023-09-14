@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ClientBaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\WokerRequest;
 use App\Models\Admin\OtdelsModel;
@@ -18,8 +19,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Request;
 
-
-class WorkerController extends BaseController
+class WorkerController extends ClientBaseController
 {
     public function index()
     {

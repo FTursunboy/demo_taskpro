@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class AuthNotification extends Notification implements ShouldQueue
+class AuthNotification extends Notification
 {
     use Queueable;
     public string $name = '';

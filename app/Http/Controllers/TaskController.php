@@ -7,7 +7,7 @@ use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TaskController extends BaseController
+class TaskController extends ClientBaseController
 {
     public function index() {
         $tasks = TasksClient::where('client_id', Auth::id())->get();
