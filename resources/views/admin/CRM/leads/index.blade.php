@@ -266,6 +266,7 @@
 
                     let row = `<tr>
                   <td>${i + 1}</td>
+                  <td>${(item.date)}</td>
                   <td>${(item.contact_name)}</td>
                   <td>${item.status}</td>
                   <td>${item.source}</td>
