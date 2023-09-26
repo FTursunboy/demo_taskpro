@@ -153,7 +153,7 @@ class MyCommandController extends UserBaseController
     public function sendAdmin($slug) {
         $task = TaskModel::where('slug', $slug)->first();
 
-        $task->status_id = 14;
+        $task->status_id = 16;
         $task->save();
 
         if ($task->client_id !== null) {
@@ -161,7 +161,7 @@ class MyCommandController extends UserBaseController
 
             $offer->is_finished = true;
             $offer->status_id = 14;
-            $task->status_id = 14;
+            $task->status_id = 16;
             $task->save();
             $offer->save();
 
