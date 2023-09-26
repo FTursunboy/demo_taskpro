@@ -24,6 +24,7 @@ use App\Models\History;
 use App\Models\ProjectClient;
 use App\Models\ReportHistory;
 use App\Models\Statuses;
+use App\Models\TeamLeadTask;
 use App\Models\User;
 use App\Notifications\Telegram\SendNewTaskInUser;
 use App\Notifications\Telegram\TelegramClientTask;
@@ -167,6 +168,13 @@ class OfferController extends BaseController
             return redirect()->route('client.offers.index')->with('mess', 'Успешно отправлено!');
         }
         if ($_POST['action'] == 'accept') {
+
+            $is_teamlead = false;
+
+            $is_teamlead = $request->has('is_teamlead');
+
+
+
             $data = $request->validate([
                 'user_id' => 'required',
                 'from' => 'required',
@@ -213,6 +221,15 @@ class OfferController extends BaseController
                 'slug' => $offer->slug,
             ]);
 
+
+            if ($is_teamlead) {
+                $teamLead = User\TeamLeadCommandModel::where('project_id', $task->project_id)->first();
+                TeamLeadTask::create([
+                    'task_id' => $task->id,
+                    'user_id' => $teamLead->id
+                ]);
+            }
+
             if ($task->user_id == Auth::id()) {
                 $task->user_id = Auth::id();
                 $task->status_id = 2;
@@ -225,6 +242,13 @@ class OfferController extends BaseController
                 Notification::send(User::find($task->user_id), new SendNewTaskInUser($task->id, $task->name, $task->time, $task->from, $task->to, $task->to, 'От клиента'));
             } catch (\Exception $exception) {
             }
+
+
+
+
+
+
+
         }
         if (isset($search)) {
             return redirect()->route('client.offers.search.results.parameter', $search);
@@ -277,8 +301,11 @@ class OfferController extends BaseController
             ['task_id', '=', $offer->id]
         ])->get();
 
+        $has_teamLead = User\TeamLeadCommandModel::where('project_id', $project?->projects?->id)->first();
 
-        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types', 'reports'));
+
+
+        return view('admin.offers.show', compact('offer', 'users', 'project', 'histories', 'messages', 'types', 'reports', 'has_teamLead'));
     }
 
     public function showSearch(Offer $offer, $search) {
