@@ -66,6 +66,7 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('/my-command/show/{slug}', [\App\Http\Controllers\User\MyCommandController::class, 'show'])->name('show');
 
         Route::get('/my-command/accept/{slug}', [\App\Http\Controllers\User\MyCommandController::class, 'accept'])->name('accept');
+        Route::get('/my-command/send/{slug}', [\App\Http\Controllers\User\MyCommandController::class, 'sendAdmin'])->name('sendAdmin');
 
         Route::post('/my-command/create-task', [\App\Http\Controllers\User\MyCommandController::class, 'createTaskInCommand'])->name('createTaskInCommand');
         Route::get('/my-command/tasks-in-query/', [\App\Http\Controllers\User\MyCommandController::class, 'taskInQuery'])->name('taskInQuery');

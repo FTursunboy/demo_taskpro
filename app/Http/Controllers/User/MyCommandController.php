@@ -148,4 +148,35 @@ class MyCommandController extends UserBaseController
 
 
     }
+
+
+    public function sendAdmin($slug) {
+        $task = TaskModel::where('slug', $slug)->first();
+
+        $task->status_id = 14;
+        $task->save();
+
+        if ($task->client_id !== null) {
+            $offer = Offer::find($task->offer_id);
+
+            $offer->is_finished = true;
+            $offer->status_id = 14;
+            $task->status_id = 14;
+            $task->save();
+            $offer->save();
+
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+        }
+
+
+        $teamlead =  TeamLeadTask::where('task_id', $task->id)->first();
+        $teamlead->delete();
+
+
+        return redirect()->back();
+
+
+
+
+    }
 }

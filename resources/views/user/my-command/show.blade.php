@@ -40,6 +40,10 @@
                 <div class="col-md-2 ">
                     <a href="{{route('my-command.accept', $task->slug)}}" class="btn btn-outline-success w-100 text-left">Проверить задачу</a>
                 </div>
+                @else
+                    <div class="col-md-2 ">
+                        <a href="{{route('my-command.sendAdmin', $task->slug)}}" class="btn btn-outline-success w-100 text-left">Отправить администратору</a>
+                    </div>
                 @endif
 
                 <div class="modal" tabindex="-1" id="reports">
