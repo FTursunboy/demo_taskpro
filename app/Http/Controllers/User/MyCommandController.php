@@ -159,18 +159,15 @@ class MyCommandController extends UserBaseController
         if ($task->client_id !== null) {
             $offer = Offer::find($task->offer_id);
 
-            $offer->is_finished = true;
-            $offer->status_id = 14;
-            $task->status_id = 16;
-            $task->save();
-            $offer->save();
+            if ($offer) {
+                $offer->is_finished = true;
+                $offer->status_id = 14;
+                $offer->save();
 
-            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+                HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+            }
         }
-
-
-        $teamlead =  TeamLeadTask::where('task_id', $task->id)->first();
-        $teamlead->delete();
+        
 
 
         return redirect()->back();
