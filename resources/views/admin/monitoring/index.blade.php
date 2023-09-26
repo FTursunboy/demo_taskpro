@@ -109,6 +109,11 @@
                                     <td><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> @break
                                     @case(14)
                                     <td><span class="badge bg-warning p-2">{{$task->status->name}}</span></td> @break
+                                    @case(15)
+                                        <td><span class="badge bg-green p-2">{{$task->status->name}}</span></td> @break
+                                    @case(16)
+                                        <td><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
+                                        @break
                                 @endswitch
                                 <td class="text-center">{{$task->checkDate?->count}}</td>
                                 @if($task->user && $task->user?->deleted_at)

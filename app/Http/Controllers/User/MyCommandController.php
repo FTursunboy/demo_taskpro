@@ -4,14 +4,18 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\UserBaseController;
 use App\Http\Requests\User\CreateMuCommandTaskRequest;
 use App\Models\Admin\MessagesModel;
 use App\Models\Admin\TaskModel;
 use App\Models\Admin\TaskTypeModel;
 use App\Models\Admin\TaskTypesTypeModel;
+use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\ReportHistory;
+use App\Models\Statuses;
+use App\Models\TeamLeadTask;
 use App\Models\Types;
 use App\Models\User;
 use App\Notifications\Telegram\TelegramSendTaskInAdmin;
@@ -31,6 +35,8 @@ class MyCommandController extends UserBaseController
         $myProject = $commands->commandProjects(Auth::id());
         $userListTasks = $commands->userTaskList(Auth::id());
         $types = TaskTypeModel::where('name', '!=', 'KPI')->get();
+
+
         return view('user.my-command.index', compact('myCommand', 'myProject', 'types', 'userListTasks'));
     }
 
@@ -105,6 +111,41 @@ class MyCommandController extends UserBaseController
                 ['type', '=', 'task']
         ])->get();
 
-        return view('user.my-command.show', compact('task', 'admin', 'messages', 'reports', 'histories'));
+        $is_teamlead = TeamLeadTask::where('task_id', $task->id)->first();
+
+
+
+        return view('user.my-command.show', compact('task', 'admin', 'messages', 'reports', 'histories', 'is_teamlead'));
+    }
+
+
+    public function accept($slug) {
+        $task = TaskModel::where('slug', $slug)->first();
+
+        $task->status_id = 16;
+        $task->save();
+
+        if ($task->client_id !== null) {
+            $offer = Offer::find($task->offer_id);
+
+            $offer->is_finished = true;
+            $offer->status_id = 10;
+            $task->status_id = 10;
+            $task->save();
+            $offer->save();
+
+            HistoryController::client($offer->id, Auth::id(), $offer->client_id, Statuses::SEND_TO_TEST);
+        }
+
+
+       $teamlead =  TeamLeadTask::where('task_id', $task->id)->first();
+       $teamlead->delete();
+
+
+        return redirect()->back();
+
+
+
+
     }
 }

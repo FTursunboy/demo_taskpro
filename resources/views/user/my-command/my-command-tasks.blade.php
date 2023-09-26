@@ -56,6 +56,11 @@
                         <td><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> @break
                     @case(14)
                         <td><span class="badge bg-warning p-2">{{$task->sts}}</span></td> @break
+                    @case(15)
+                        <td><span class="badge bg-warning p-2">{{$task->sts}}</span></td> @break
+                    @case(16)
+                        <td><span class="badge bg-warning p-2">{{$task->sts}}</span></td> @break
+
                 @endswitch
                 <td>{{ $task->surname . ' ' . $task->name. ' '. $task->lastname}}</td>
                 <td>{{ $task->group}}</td>

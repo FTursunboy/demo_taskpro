@@ -26,6 +26,7 @@ use App\Models\Client\Offer;
 use App\Models\History;
 use App\Models\ReportHistory;
 use App\Models\Statuses;
+use App\Models\TeamLeadTask;
 use App\Models\User;
 use App\Notifications\Telegram\Chat;
 use App\Notifications\Telegram\SendNewTaskInUser;
@@ -200,11 +201,15 @@ class  TasksController extends BaseController
 
     public function store(Request $request)
     {
+            $is_teamlead = false;
+
             if ($request->file('file') !== null) {
                 $file = $request->file('file')->store('public/docs');
             } else {
                 $file = null;
             }
+
+
 
             $task = TaskModel::create([
                 'name' => $request->name,
@@ -226,6 +231,7 @@ class  TasksController extends BaseController
                 'cancel_admin' => $request->cancel_admin ?? null,
                 'slug' => Str::slug($request->name . ' ' . Str::random(5)),
             ]);
+
             $project = ProjectModel::where('id', $request->project_id)->first();
             $project->update([
                 'pro_status' => 2,
@@ -254,6 +260,19 @@ class  TasksController extends BaseController
             }
 
             HistoryController::task($task->id, $task->user_id, Statuses::CREATE);
+
+            $is_teamlead = $request->has('is_teamlead');
+
+            if ($is_teamlead) {
+                $teamLead = User\TeamLeadCommandModel::where('project_id', $task->project_id)->first();
+                if ($teamLead) {
+                    TeamLeadTask::create([
+                        'task_id' => $task->id,
+                        'user_id' => $teamLead->id
+                    ]);
+                }
+            }
+
 
             return redirect()->back()->with('mess', 'Задача успешно создана!');
 

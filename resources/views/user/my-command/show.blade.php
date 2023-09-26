@@ -36,7 +36,11 @@
                     <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
                 </div>
 
-
+                @if($is_teamlead)
+                <div class="col-md-2 ">
+                    <a href="{{route('my-command.accept', $task->slug)}}" class="btn btn-outline-success w-100 text-left">Проверить задачу</a>
+                </div>
+                @endif
 
                 <div class="modal" tabindex="-1" id="reports">
                     <div class="modal-dialog modal-dialog-scrollable modal-xl">
@@ -348,6 +352,13 @@
                                         </div>
                                         @break
                                     @case($task->status->id === 14)
+                                        <div class="form-group">
+                                            <input type="text"
+                                                   class="form-control  bg-info text-black" id="sts"
+                                                   value="{{ $task->status->name }}" disabled>
+                                        </div>
+                                        @break
+                                    @case($task->status->id === 16)
                                         <div class="form-group">
                                             <input type="text"
                                                    class="form-control  bg-info text-black" id="sts"

@@ -1260,7 +1260,12 @@
                                 <input tabindex="11" type="file"  name="file" class="form-control mt-3" id="file" {{$settings?->has_access ? '' : 'disabled'}}>
                             </div>
                         </div>
-                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <div class="form-group" >
+                                <label for="is_client">Подтвердить тимлидом</label>
+                                <input style="margin-top: 30px" type="checkbox" class="custom-control-input" name="is_teamlead">
+                            </div>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <button tabindex="12" type="button" id="button" class="btn btn-outline-primary">Сохранить</button>

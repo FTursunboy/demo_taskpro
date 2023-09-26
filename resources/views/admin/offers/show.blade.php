@@ -266,6 +266,12 @@
                                                                                           required>{{$offer->description}} </textarea>
                                                                             </div>
 
+                                                                            @if($has_teamLead)
+                                                                            <div class="form-group" >
+                                                                                <label for="is_client">Подтвердить тимлидом</label>
+                                                                                <input style="margin-top: 30px" type="checkbox" class="custom-control-input" name="is_teamlead">
+                                                                            </div>
+                                                                            @endif
                                                                             @if($offer->cancel)
                                                                                 <div class="col-md-12">
                                                                                     <label for="">Причина отклонениня
