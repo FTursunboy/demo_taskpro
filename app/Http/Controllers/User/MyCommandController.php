@@ -129,8 +129,8 @@ class MyCommandController extends UserBaseController
             $offer = Offer::find($task->offer_id);
 
             $offer->is_finished = true;
-            $offer->status_id = 6;
-            $task->status_id = 6;
+            $offer->status_id = 10;
+            $task->status_id = 10;
             $task->save();
             $offer->save();
 
