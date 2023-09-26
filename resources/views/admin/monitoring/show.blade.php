@@ -44,7 +44,7 @@
                             <button data-bs-target="#admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>
                     @endif
-                    @if($task?->status?->id == 6)
+                    @if($task?->status?->id == 6 || $task?->status?->id == 16)
                         <div class="col-md-2">
                             <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
                         </div>
