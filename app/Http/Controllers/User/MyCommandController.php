@@ -122,15 +122,15 @@ class MyCommandController extends UserBaseController
     public function accept($slug) {
         $task = TaskModel::where('slug', $slug)->first();
 
-        $task->status_id = 16;
+        $task->status_id = 3;
         $task->save();
 
         if ($task->client_id !== null) {
             $offer = Offer::find($task->offer_id);
 
             $offer->is_finished = true;
-            $offer->status_id = 10;
-            $task->status_id = 10;
+            $offer->status_id = 6;
+            $task->status_id = 6;
             $task->save();
             $offer->save();
 
