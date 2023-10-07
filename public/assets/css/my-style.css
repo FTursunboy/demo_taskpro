@@ -12,7 +12,29 @@
 .event-completed {
     background-color: green;
 }
+.hidden {
+    display: none;
+}
 
+/* Стиль для видимых полей */
+.visible {
+    background-color: #b3e0ff; /* Цвет для видимых полей */
+}
+
+/* Стиль для скрытых полей */
+.hidden1 {
+    display: none; /* Скрыть скрытые поля */
+    background-color: #ffc0cb; /* Цвет для скрытых полей */
+}
+label {
+    font-weight: bold; /* Добавь нужные стили для label */
+    margin-right: 10px; /* Расстояние между label и checkbox */
+    margin-left: 10px; /* Расстояние между label и checkbox */
+}
+
+input[type="checkbox"] {
+    /* Твои стили для checkbox */
+}
 .event-pending {
     background-color: yellow;
 }

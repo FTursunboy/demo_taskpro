@@ -1,10 +1,8 @@
-@extends('admin.layouts.app')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
     Мониторинг
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div id="page-heading">
         <div class="page-title">
             <div class="row">
@@ -14,18 +12,19 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Панель</a></li>
+                            <li class="breadcrumb-item"><a href="<?php echo e(route('admin.index')); ?>">Панель</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Мониторинг</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
-        @if(session('mess'))
+        <?php if(session('mess')): ?>
             <div class="alert alert-success">
-                {{session('mess')}}
+                <?php echo e(session('mess')); ?>
+
             </div>
-        @endif
+        <?php endif; ?>
         <div class="row mt-12">
             <div id="controls" class="col-md-12">
                 <a href="#" id="exportButton" class="btn btn-danger mb-4"> Excel</a>
@@ -72,85 +71,86 @@
                         </tr>
                         </thead>
                         <tbody id="tableBodyMonitoring">
-                        @foreach($tasks as $task)
+                        <?php $__currentLoopData = $tasks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $task): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td class="text-center">{{$task->id + 1000 }}</td>
-                                <td class="col-1">{{ \Illuminate\Support\Str::limit($task->name, 50)  }}</td>
-                                <td class="col-2">{{ $task->comment  }}</td>
-                                <td class="col-3">{{ date('d-m-Y', strtotime($task->from))  }}</td>
-                                <td class="col-4">{{ date('d-m-Y', strtotime($task->to))  }}</td>
-                                <td class="col-5" class="text-center">{{ $task->project->name  }}</td>
-                                <td class="col-6" class="text-center">{{ $task->author->name  }}</td>
+                                <td class="text-center"><?php echo e($task->id + 1000); ?></td>
+                                <td class="col-1"><?php echo e(\Illuminate\Support\Str::limit($task->name, 50)); ?></td>
+                                <td class="col-2"><?php echo e($task->comment); ?></td>
+                                <td class="col-3"><?php echo e(date('d-m-Y', strtotime($task->from))); ?></td>
+                                <td class="col-4"><?php echo e(date('d-m-Y', strtotime($task->to))); ?></td>
+                                <td class="col-5" class="text-center"><?php echo e($task->project->name); ?></td>
+                                <td class="col-6" class="text-center"><?php echo e($task->author->name); ?></td>
                                 <td class="text-center col-7">
-                                    @if($task->type === null)
+                                    <?php if($task->type === null): ?>
                                         От клиента
-                                    @elseif($task->type !== null)
-                                        {{ $task->type?->name }} {{  (isset($task->typeType?->name)) ? ' - '.$task->typeType?->name : '' }}
-                                    @endif
+                                    <?php elseif($task->type !== null): ?>
+                                        <?php echo e($task->type?->name); ?> <?php echo e((isset($task->typeType?->name)) ? ' - '.$task->typeType?->name : ''); ?>
+
+                                    <?php endif; ?>
                                 </td>
 
-                                @switch($task->status->id)
-                                    @case(1)
+                                <?php switch($task->status->id):
+                                    case (1): ?>
                                         <td class="col-8"><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
-                                        @break
-                                    @case(2)
-                                        <td class="col-8"><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                    @case(3)
-                                        <td class="col-8"><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                    @case(4)
+                                        <?php break; ?>
+                                    <?php case (2): ?>
+                                        <td class="col-8"><span class="badge bg-success p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                    <?php case (3): ?>
+                                        <td class="col-8"><span class="badge bg-success p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                    <?php case (4): ?>
                                         <td class="col-8"><span class="badge bg-success p-2">В процессе</span></td>
-                                        @break
-                                    @case(5)
+                                        <?php break; ?>
+                                    <?php case (5): ?>
                                         <td class="col-8"><span class="badge bg-warning p-2">Отклон.(сотруд.)</span></td>
-                                        @break
-                                    @case(6)
+                                        <?php break; ?>
+                                    <?php case (6): ?>
                                         <td class="col-8"><span class="badge bg-success p-2">На проверке (Адм)</span></td>
-                                        @break
-                                    @case(7)
-                                        <td class="col-8"><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                    @case(8)
-                                        <td class="col-8"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                    @case(9)
+                                        <?php break; ?>
+                                    <?php case (7): ?>
+                                        <td class="col-8"><span class="badge bg-danger p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                    <?php case (8): ?>
+                                        <td class="col-8"><span class="badge bg-warning p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                    <?php case (9): ?>
                                         <td class="col-8"><span class="badge bg-warning p-2">Ожид. (Сотруд)</span></td>
-                                        @break
-                                    @case(10)
+                                        <?php break; ?>
+                                    <?php case (10): ?>
                                         <td class="col-8"><span class="badge bg-success p-2">У клиента</span></td>
-                                        @break
-                                    @case(11)
-                                        <td class="col-8"><span class="badge bg-danger p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                    @case(12)
-                                        <td class="col-8"><span class="badge bg-warning p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                    @case(13)
-                                        <td class="col-8"><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> @break
-                                    @case(14)
-                                        <td class="col-8"><span class="badge bg-warning p-2">{{$task->status->name}}</span>
-                                        </td> @break
-                                    @case(15)
-                                        <td class="col-8"><span class="badge bg-green p-2">{{$task->status->name}}</span></td> @break
-                                    @case(16)
-                                        <td class="col-8"><span class="badge bg-success p-2">{{$task->status->name}}</span></td>
-                                        @break
-                                @endswitch
-                                <td class="col-9" class="text-center">{{$task->checkDate?->count}}</td>
-                                @if($task->user && $task->user?->deleted_at)
+                                        <?php break; ?>
+                                    <?php case (11): ?>
+                                        <td class="col-8"><span class="badge bg-danger p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                    <?php case (12): ?>
+                                        <td class="col-8"><span class="badge bg-warning p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                    <?php case (13): ?>
+                                        <td class="col-8"><span class="badge bg-danger p-2">Отклон.(клиент.)</span></td> <?php break; ?>
+                                    <?php case (14): ?>
+                                        <td class="col-8"><span class="badge bg-warning p-2"><?php echo e($task->status->name); ?></span>
+                                        </td> <?php break; ?>
+                                    <?php case (15): ?>
+                                        <td class="col-8"><span class="badge bg-green p-2"><?php echo e($task->status->name); ?></span></td> <?php break; ?>
+                                    <?php case (16): ?>
+                                        <td class="col-8"><span class="badge bg-success p-2"><?php echo e($task->status->name); ?></span></td>
+                                        <?php break; ?>
+                                <?php endswitch; ?>
+                                <td class="col-9" class="text-center"><?php echo e($task->checkDate?->count); ?></td>
+                                <?php if($task->user && $task->user?->deleted_at): ?>
                                     <td  class="text-center col-10">Удаленный аккаунт</td>
-                                @else
-                                    <td class="text-center col-10">{{ $task->user ? $task->user->surname . ' ' . $task->user->name : '' }}</td>
-                                @endif
+                                <?php else: ?>
+                                    <td class="text-center col-10"><?php echo e($task->user ? $task->user->surname . ' ' . $task->user->name : ''); ?></td>
+                                <?php endif; ?>
 
                                 <td class="text-center col-11">
-                                    <a href="{{ route('mon.show', $task->slug) }}" class="btn btn-success"><i
+                                    <a href="<?php echo e(route('mon.show', $task->slug)); ?>" class="btn btn-success"><i
                                             class="bi bi-eye"></i></a>
                                 </td>
                             </tr>
 
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>
                     </table>
 
@@ -160,9 +160,9 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <script>
         const controls = document.getElementById('controls');
         controls.addEventListener('change', e => {
@@ -179,7 +179,7 @@
 
 
     </script>
-    {{--    New export to js --}}
+    
     <!-- Подключение библиотеки exceljs через CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
 
@@ -229,8 +229,8 @@
 
 
 
-    <script src="{{asset('assets/js/filter3.js')}}"></script>
-    <script src="{{asset('assets/js/table2excel.js')}}"></script>
+    <script src="<?php echo e(asset('assets/js/filter3.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/table2excel.js')); ?>"></script>
     <script type="text/javascript">
         "use strict";
 
@@ -380,4 +380,6 @@
 
     </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Khusrav\tasks\resources\views/admin/monitoring/index.blade.php ENDPATH**/ ?>
