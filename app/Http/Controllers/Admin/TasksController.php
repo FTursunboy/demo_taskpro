@@ -586,4 +586,13 @@ class  TasksController extends BaseController
         $history?->delete();
         return back();
     }
+
+    public function getClientName($id) {
+        $user = User::find($id);
+
+        return response([
+            'name' => $user->name . " " .$user->lastname,
+            'phone' => $user->phone
+        ]);
+    }
 }
