@@ -200,6 +200,7 @@ Route::group(['middleware' => ['role:admin', 'redirectIfUnauthorized']], functio
         Route::get('/monitoring/delete/{task}', [\App\Http\Controllers\Admin\MonitoringController::class, 'delete'])->name('delete');
         Route::get('/monitoring/all', [\App\Http\Controllers\Admin\MonitoringController::class, 'all'])->name('all');
         Route::get('/monitoring/archive/{slug}', [\App\Http\Controllers\Admin\MonitoringController::class, 'archive'])->name('archive');
+        Route::post('/monitoring/otkat/{id}', [\App\Http\Controllers\Admin\MonitoringController::class, 'otkat'])->name('otkat');
 
         // get task-statuses
         Route::get('/tasks/public/monitoring-tasks-filter/{status}/{user}/{client}/{project}', [\App\Http\Controllers\Admin\MonitoringController::class, 'filter']);

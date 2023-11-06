@@ -276,4 +276,18 @@ class  MonitoringController extends BaseController
         return redirect()->route('mon.index')->with('mess', 'Успешно архивирована');
     }
 
+    public function otkat($id) {
+        $task = TaskModel::find($id);
+        $task->status_id = 6;
+        $task->save();
+
+        if ($task->offer_id) {
+            $offer = Offer::find($task->offer_id);
+            $offer->status_id = 6;
+            $offer->save();
+        }
+
+        return redirect()->back()->with('mess', 'Успешно');
+    }
+
 }

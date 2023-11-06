@@ -1,33 +1,35 @@
- @extends('admin.layouts.app')
+ 
 
-@section('title')
-    {{ $task->name }}
-@endsection
+<?php $__env->startSection('title'); ?>
+    <?php echo e($task->name); ?>
 
-@section('content')
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
 
         <div id="page-heading">
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>{{ $task->name }}</h3>
+                        <h3><?php echo e($task->name); ?></h3>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Панель</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('mon.index') }}">Мониторинг</a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo e(route('admin.index')); ?>">Панель</a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo e(route('mon.index')); ?>">Мониторинг</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Просмотр задачи</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
             </div>
-            @if(session('mess'))
+            <?php if(session('mess')): ?>
                 <div class="alert alert-success">
-                    {{ session('mess') }}
+                    <?php echo e(session('mess')); ?>
+
                 </div>
-            @endif
+            <?php endif; ?>
             <div class="page-content">
                 <div class="row my-4">
                     <div class="col-1">
@@ -39,29 +41,29 @@
                     <div class="col-md-2">
                         <button data-bs-target="#reports" data-bs-toggle="modal" class="btn btn-outline-success w-100 text-left">Отчеты</button>
                     </div>
-                    @if($task->user_id == \Illuminate\Support\Facades\Auth::id())
+                    <?php if($task->user_id == \Illuminate\Support\Facades\Auth::id()): ?>
                         <div class="col-md-2">
-                            <button data-bs-target="#admin{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
+                            <button data-bs-target="#admin<?php echo e($task->id); ?>" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Завершить задачу</button>
                         </div>
-                    @endif
-                    @if($task?->status?->id == 6 || $task?->status?->id == 16)
+                    <?php endif; ?>
+                    <?php if($task?->status?->id == 6 || $task?->status?->id == 16): ?>
                         <div class="col-md-2">
-                            <button data-bs-target="#check{{$task->id}}" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
+                            <button data-bs-target="#check<?php echo e($task->id); ?>" data-bs-toggle="modal" class="btn btn-success w-100 text-left">Проверить задачу</button>
                         </div>
-                    @endif
-                    @if($task?->status?->id == 5)
+                    <?php endif; ?>
+                    <?php if($task?->status?->id == 5): ?>
                         <div class="col-md-2">
-                            <button data-bs-target="#sendBack{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
+                            <button data-bs-target="#sendBack<?php echo e($task->id); ?>" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Отклонено (Сотрудник)</button>
                         </div>
-                    @endif
-                    @if($task?->status?->id == 3)
+                    <?php endif; ?>
+                    <?php if($task?->status?->id == 3): ?>
                         <div class="col-md-2">
-                            <button data-bs-target="#otkat{{$task->id}}" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Откатить</button>
+                            <button data-bs-target="#otkat<?php echo e($task->id); ?>" data-bs-toggle="modal" class="btn btn-danger w-100 text-left">Откатить</button>
                         </div>
-                    @endif
+                    <?php endif; ?>
                     <div class="col-md-4 ms-auto d-flex justify-content-end">
-                        <button data-bs-target="#delete{{$task->id}}" data-bs-toggle="modal" class="btn btn-outline-danger me-2">Удалить</button>
-                        <a href="{{route('mon.edit', $task->slug)}}" class="btn btn-outline-primary">Изменить</a>
+                        <button data-bs-target="#delete<?php echo e($task->id); ?>" data-bs-toggle="modal" class="btn btn-outline-danger me-2">Удалить</button>
+                        <a href="<?php echo e(route('mon.edit', $task->slug)); ?>" class="btn btn-outline-primary">Изменить</a>
                     </div>
 
                 </div>
@@ -72,194 +74,194 @@
                             class="btn btn-primary w-100 collapsed"
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample{{ $task->id }}" aria-expanded="false"
+                            data-bs-target="#collapseExample<?php echo e($task->id); ?>" aria-expanded="false"
                             aria-controls="collapseExample"><span
                                 class="d-flex justify-content-start"><i
-                                    class="bi bi-info-circle mx-2"></i> <span>{{ $task->name }}</span> </span>
+                                    class="bi bi-info-circle mx-2"></i> <span><?php echo e($task->name); ?></span> </span>
                         </button>
                     </p>
-                    <div class="collapse my-3 show" id="collapseExample{{ $task->id }}">
+                    <div class="collapse my-3 show" id="collapseExample<?php echo e($task->id); ?>">
                         <div class="row p-3">
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="name">Имя</label>
                                     <input type="text" id="name" class="form-control"
-                                           value="{{ $task->name }}" disabled>
+                                           value="<?php echo e($task->name); ?>" disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="user">Сотрудник</label>
                                     <input type="text" id="user" class="form-control"
-                                           value="{{ $task?->user?->name }} {{ $task?->user?->surname }}"
+                                           value="<?php echo e($task?->user?->name); ?> <?php echo e($task?->user?->surname); ?>"
                                            disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="from">От</label>
                                     <input type="text" id="from" class="form-control"
-                                           value="{{ date('d-m-Y', strtotime($task->from)) }}" disabled>
+                                           value="<?php echo e(date('d-m-Y', strtotime($task->from))); ?>" disabled>
                                 </div>
 
 
-                                @if($task->file !== null)
+                                <?php if($task->file !== null): ?>
                                     <div class="form-group">
                                         <label for="file">Файл</label>
-                                        <a href="{{ route('tasks.download', $task->id) }}" download class="form-control text-bold">Просмотреть
+                                        <a href="<?php echo e(route('tasks.download', $task->id)); ?>" download class="form-control text-bold">Просмотреть
                                             файл</a>
                                     </div>
-                                @else
+                                <?php else: ?>
                                     <div class="form-group">
                                         <label for="to">Файл</label>
                                         <input type="text" class="form-control" id="to"
                                                value="Нет файл" disabled>
                                     </div>
-                                @endif
+                                <?php endif; ?>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="time">Время</label>
                                     <input type="text" id="time" class="form-control"
-                                           value="{{$task->time}}" disabled>
+                                           value="<?php echo e($task->time); ?>" disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="project">Проект</label>
                                     <input type="text" id="project" class="form-control"
-                                           value="{{$task?->project?->name}}" disabled>
+                                           value="<?php echo e($task?->project?->name); ?>" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="to">До</label>
                                     <input type="text" id="to" class="form-control"
-                                           value="{{ date('d-m-Y', strtotime($task->to)) }}" disabled>
+                                           value="<?php echo e(date('d-m-Y', strtotime($task->to))); ?>" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="comment">Коментария</label>
                                     <textarea type="text" id="comment" class="form-control" disabled
-                                              rows="1">{{ $task->comment }}</textarea>
+                                              rows="1"><?php echo e($task->comment); ?></textarea>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="sts">Статус</label>
-                                    @switch($task?->status?->id)
-                                        @case($task?->status?->id === 1)
+                                    <?php switch($task?->status?->id):
+                                        case ($task?->status?->id === 1): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-warning text-black"
-                                                       id="sts" value="{{ $task?->status?->name }}"
+                                                       id="sts" value="<?php echo e($task?->status?->name); ?>"
                                                        disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 2)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 2): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-success text-white"
-                                                       id="sts" value="{{ $task?->status?->name }}"
+                                                       id="sts" value="<?php echo e($task?->status?->name); ?>"
                                                        disabled>
                                             </div>
-                                            @break
-                                        @case($task->status->id === 3)
+                                            <?php break; ?>
+                                        <?php case ($task->status->id === 3): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-success text-white"
-                                                       id="sts" value="{{ $task?->status?->name }}"
+                                                       id="sts" value="<?php echo e($task?->status?->name); ?>"
                                                        disabled>
                                             </div>
-                                            @break
-                                        @case($task->status->id === 4)
+                                            <?php break; ?>
+                                        <?php case ($task->status->id === 4): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-primary text-white"
-                                                       id="sts" value="{{ $task?->status?->name }}"
+                                                       id="sts" value="<?php echo e($task?->status?->name); ?>"
                                                        disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 5)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 5): ?>
                                             <div class="form-group">
                                                 <input type="text" class="form-control text-white" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled
                                                        style="background-color: #fc0404">
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 6)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 6): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-secondary text-white"
-                                                       id="sts" value="{{ $task?->status?->name }}"
+                                                       id="sts" value="<?php echo e($task?->status?->name); ?>"
                                                        disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 7)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 7): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task->status->id === 8)
+                                            <?php break; ?>
+                                        <?php case ($task->status->id === 8): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 9)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 9): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-warning text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 10)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 10): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 11)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 11): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 12)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 12): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 13)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 13): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                        @case($task?->status?->id === 14)
+                                            <?php break; ?>
+                                        <?php case ($task?->status?->id === 14): ?>
                                             <div class="form-group">
                                                 <input type="text"
                                                        class="form-control  bg-info text-black" id="sts"
-                                                       value="{{ $task?->status?->name }}" disabled>
+                                                       value="<?php echo e($task?->status?->name); ?>" disabled>
                                             </div>
-                                            @break
-                                    @endswitch
+                                            <?php break; ?>
+                                    <?php endswitch; ?>
 
                                     <div class="form-group">
                                         <label for="type">Тип</label>
                                         <input type="text" id="type" class="form-control"
-                                               value="{{ $task?->type?->name }} {{  (isset($task?->typeType?->name)) ? '- '.$task?->typeType?->name . ' - ' . $task->percent . ' %' : '' }}"
+                                               value="<?php echo e($task?->type?->name); ?> <?php echo e((isset($task?->typeType?->name)) ? '- '.$task?->typeType?->name . ' - ' . $task->percent . ' %' : ''); ?>"
                                                disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="author">Автор</label>
                                         <input type="text" id="author" class="form-control"
-                                               value="{{ $task?->author?->name .' '. $task?->author?->surname}}"
+                                               value="<?php echo e($task?->author?->name .' '. $task?->author?->surname); ?>"
                                                disabled>
                                     </div>
-                                    @if($task->status_id === 5 || $task->status_id === 12)
+                                    <?php if($task->status_id === 5 || $task->status_id === 12): ?>
                                         <div class="form-group">
                                             <label for="reason">Причина</label>
                                             <textarea
@@ -268,9 +270,9 @@
                                                 style="color: white;
                                                 background: red;"
                                                 disabled
-                                            >{{ $task->cancel }}</textarea>
+                                            ><?php echo e($task->cancel); ?></textarea>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
 
                                 </div>
                             </div>
@@ -285,104 +287,106 @@
                             <div class="card-header">
                                 <div class="media d-flex align-items-center">
                                     <div class="avatar me-3">
-                                        @if($task?->user?->avatar)
+                                        <?php if($task?->user?->avatar): ?>
                                             <img
-                                                src="{{ asset('storage/'. $task?->user?->avatar)}}">
-                                        @else
-                                            <img src="{{asset('assets/images/avatar-2.png')}}">
-                                        @endif
-                                        <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->user?->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                                src="<?php echo e(asset('storage/'. $task?->user?->avatar)); ?>">
+                                        <?php else: ?>
+                                            <img src="<?php echo e(asset('assets/images/avatar-2.png')); ?>">
+                                        <?php endif; ?>
+                                        <span class="avatar-status <?php echo e(Cache::has('user-is-online-' . $task?->user?->id) ? 'bg-success' : 'bg-danger'); ?>"></span>
                                     </div>
                                     <div class="name me-3">
-                                        <h6 class="mb-0">{{ $task?->user?->name }} {{ $task?->user?->surname }}</h6>
+                                        <h6 class="mb-0"><?php echo e($task?->user?->name); ?> <?php echo e($task?->user?->surname); ?></h6>
                                         <span class="text-xs">
-                                             @if(Cache::has('user-is-online-' . $task?->user?->id))
+                                             <?php if(Cache::has('user-is-online-' . $task?->user?->id)): ?>
                                                 <span class="text-center text-success mx-2"><b>Online</b></span>
-                                            @else
+                                            <?php else: ?>
                                                 <span class="text-center text-danger  mx-2"><b>Offline</b>
-                                                    @if($task?->user?->last_seen !== null)
-                                                        <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->user?->last_seen)->diffForHumans() }}</span>
-                                                    @endif
+                                                    <?php if($task?->user?->last_seen !== null): ?>
+                                                        <span class="text-gray-600"> - <?php echo e(\Carbon\Carbon::parse($task?->user?->last_seen)->diffForHumans()); ?></span>
+                                                    <?php endif; ?>
                                                 </span>
-                                            @endif
+                                            <?php endif; ?>
                                         </span>
                                     </div>
-                                    @if($task?->author?->id !== \Illuminate\Support\Facades\Auth::id() )
+                                    <?php if($task?->author?->id !== \Illuminate\Support\Facades\Auth::id() ): ?>
                                         <div class="avatar me-3">
-                                            @if($task?->author?->avatar)
+                                            <?php if($task?->author?->avatar): ?>
                                                 <img
-                                                    src="{{ asset('storage/'. $task?->author?->avatar)}}">
-                                            @else
-                                                <img src="{{asset('assets/images/avatar-2.png')}}">
-                                            @endif
-                                            <span class="avatar-status {{ Cache::has('user-is-online-' . $task?->author?->id) ? 'bg-success' : 'bg-danger' }}"></span>
+                                                    src="<?php echo e(asset('storage/'. $task?->author?->avatar)); ?>">
+                                            <?php else: ?>
+                                                <img src="<?php echo e(asset('assets/images/avatar-2.png')); ?>">
+                                            <?php endif; ?>
+                                            <span class="avatar-status <?php echo e(Cache::has('user-is-online-' . $task?->author?->id) ? 'bg-success' : 'bg-danger'); ?>"></span>
                                         </div>
                                         <div class="name me-3">
-                                            <h6 class="mb-0">{{ $task?->author?->name }} {{ $task?->author?->surname }}</h6>
+                                            <h6 class="mb-0"><?php echo e($task?->author?->name); ?> <?php echo e($task?->author?->surname); ?></h6>
                                             <span class="text-xs">
-                                             @if(Cache::has('user-is-online-' . $task?->author?->id))
+                                             <?php if(Cache::has('user-is-online-' . $task?->author?->id)): ?>
                                                     <span class="text-center text-success mx-2"><b>Online</b></span>
-                                                @else
+                                                <?php else: ?>
                                                     <span class="text-center text-danger  mx-2"><b>Offline</b>
-                                                         @if($task?->author?->last_seen !== null)
-                                                            <span class="text-gray-600"> - {{ \Carbon\Carbon::parse($task?->author?->last_seen)->diffForHumans() }}</span>
-                                                        @endif
+                                                         <?php if($task?->author?->last_seen !== null): ?>
+                                                            <span class="text-gray-600"> - <?php echo e(\Carbon\Carbon::parse($task?->author?->last_seen)->diffForHumans()); ?></span>
+                                                        <?php endif; ?>
                                                 </span>
-                                                @endif
+                                                <?php endif; ?>
                                         </span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="card-body pt-4 bg-grey">
                                 <div class="chat-content" style="overflow-y: scroll; height: 320px;" id="block">
-                                    @foreach($messages as $mess)
+                                    <?php $__currentLoopData = $messages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mess): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                                        @if($mess->sender_id === \Illuminate\Support\Facades\Auth::id())
+                                        <?php if($mess->sender_id === \Illuminate\Support\Facades\Auth::id()): ?>
                                             <div class="chat">
                                                 <div class="chat-body" style="margin-right: 10px">
                                                     <div class="chat-message">
                                                         <p>
                                                         <span style="display: flex; justify-content: space-between;">
-                                                            <b>{{$mess?->sender?->name}}</b>
-                                                            <a style="color: red" href="{{route('tasks.messages.delete', $mess->id)}}"><i class="bi bi-trash"></i></a>
+                                                            <b><?php echo e($mess?->sender?->name); ?></b>
+                                                            <a style="color: red" href="<?php echo e(route('tasks.messages.delete', $mess->id)); ?>"><i class="bi bi-trash"></i></a>
                                                         </span>
-                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
-                                                        @if($mess->file !== null)
+                                                            <span style="margin-top: 10px"><?php echo e($mess->message); ?></span>
+                                                        <?php if($mess->file !== null): ?>
                                                             <div class="form-group">
-                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть файл</a>
+                                                                <a href="<?php echo e(route('tasks.messages.download', $mess)); ?>" download class="form-control text-bold">Просмотреть файл</a>
                                                             </div>
-                                                        @endif
+                                                        <?php endif; ?>
                                                         <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px; margin-bottom: -25px">
-                                                            {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                            <?php echo e(date('d.m.Y H:i:s', strtotime($mess->created_at))); ?>
+
                                                         </span>
                                                         </p>
 
                                                     </div>
                                                 </div>
                                             </div>
-                                        @else
+                                        <?php else: ?>
                                             <div class="chat chat-left">
                                                 <div class="chat-body">
                                                     <div class="chat-message">
                                                         <p>
-                                                            <span><b>{{$mess?->sender?->name}}</b><br></span>
-                                                            <span style="margin-top: 10px">{{ $mess->message }}</span>
-                                                        @if($mess->file !== null)
+                                                            <span><b><?php echo e($mess?->sender?->name); ?></b><br></span>
+                                                            <span style="margin-top: 10px"><?php echo e($mess->message); ?></span>
+                                                        <?php if($mess->file !== null): ?>
                                                             <div class="form-group">
-                                                                <a href="{{ route('tasks.messages.download', $mess) }}" download class="form-control text-bold">Просмотреть
+                                                                <a href="<?php echo e(route('tasks.messages.download', $mess)); ?>" download class="form-control text-bold">Просмотреть
                                                                     файл</a>
                                                             </div>
-                                                        @endif
+                                                        <?php endif; ?>
                                                             <span class="d-flex justify-content-end" style="font-size: 10px; margin-left: 100px; margin-top: 15px;margin-bottom: -25px">
-                                                                {{date('d.m.Y H:i:s', strtotime($mess->created_at))}}
+                                                                <?php echo e(date('d.m.Y H:i:s', strtotime($mess->created_at))); ?>
+
                                                             </span>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endif
-                                    @endforeach
+                                        <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                                         <script>
                                             let block = document.getElementById("block");
@@ -392,7 +396,7 @@
                             <div class="card-footer">
                                 <div class="message-form d-flex flex-direction-column align-items-center">
                                     <form id="formMessage" class="w-100" enctype="multipart/form-data">
-                                        @csrf
+                                        <?php echo csrf_field(); ?>
                                         <div class="d-flex flex-grow-1 ml-4">
                                             <div class="input-group mb-3">
                                                 <input type="text" id="message" name="message" class="form-control" placeholder="Сообщение..." required>
@@ -437,26 +441,27 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($reports as $report)
+                                            <?php $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td>{{date('d.m.Y H:i:s', strtotime($report->created_at))}}</td>
-                                                        <td>{{$report?->user?->name }}</td>
+                                                        <td><?php echo e($loop->iteration); ?></td>
+                                                        <td><?php echo e(date('d.m.Y H:i:s', strtotime($report->created_at))); ?></td>
+                                                        <td><?php echo e($report?->user?->name); ?></td>
                                                         <td>
-                                                            {{ $report?->status?->name }}
-                                                            @if ($report?->user?->hasRole('admin'))
+                                                            <?php echo e($report?->status?->name); ?>
+
+                                                            <?php if($report?->user?->hasRole('admin')): ?>
                                                                 (Админ)
-                                                            @elseif ($report?->user?->hasRole('user'))
+                                                            <?php elseif($report?->user?->hasRole('user')): ?>
                                                                 (Сотрудник)
-                                                            @elseif ($report?->user?->hasRole('client') || $report?->user?->hasRole('client-worker'))
+                                                            <?php elseif($report?->user?->hasRole('client') || $report?->user?->hasRole('client-worker')): ?>
                                                                 (Клиент)
-                                                            @else
+                                                            <?php else: ?>
                                                                 (Система)
-                                                            @endif
+                                                            <?php endif; ?>
                                                         </td>
-                                                        <td>{{$report->text}}</td>
+                                                        <td><?php echo e($report->text); ?></td>
                                                     </tr>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -500,52 +505,54 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @if(isset($histories))
-                                                @foreach($histories as $history)
+                                            <?php if(isset($histories)): ?>
+                                                <?php $__currentLoopData = $histories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $history): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
-                                                        <td>{{$history?->user?->name }}</td>
+                                                        <td><?php echo e($loop->iteration); ?></td>
+                                                        <td><?php echo e(date('d.m.Y H:i:s', strtotime($history?->created_at))); ?></td>
+                                                        <td><?php echo e($history?->user?->name); ?></td>
                                                         <td>
-                                                            {{ $history?->status?->name }}
+                                                            <?php echo e($history?->status?->name); ?>
 
-{{--                                                            @if ($history?->user->hasRole('admin'))--}}
-{{--                                                                (Админ)--}}
-{{--                                                            @elseif ($history?->user->hasRole('user'))--}}
-{{--                                                                (Сотрудник)--}}
-{{--                                                            @elseif ($history?->user?->hasRole('client') || $history?->user->hasRole('client-worker'))--}}
-{{--                                                                (Клиент)--}}
-{{--                                                            @else--}}
-{{--                                                                (Система)--}}
-{{--                                                            @endif--}}
+
+
+
+
+
+
+
+
+
+
                                                         </td>
 
                                                     </tr>
-                                                @endforeach
-                                            @elseif(isset($histories_task))
-                                                @foreach($histories_task as $history)
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php elseif(isset($histories_task)): ?>
+                                                <?php $__currentLoopData = $histories_task; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $history): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                                     <tr>
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td>{{date('d.m.Y H:i:s', strtotime($history?->created_at))}}</td>
-                                                        <td>{{$history?->sender?->name }}</td>
+                                                        <td><?php echo e($loop->iteration); ?></td>
+                                                        <td><?php echo e(date('d.m.Y H:i:s', strtotime($history?->created_at))); ?></td>
+                                                        <td><?php echo e($history?->sender?->name); ?></td>
                                                         <td>
-                                                            {{ $history?->status?->name }}
+                                                            <?php echo e($history?->status?->name); ?>
 
-{{--                                                            @if ($history?->user?->hasRole('admin'))--}}
-{{--                                                                (Админ)--}}
-{{--                                                            @elseif ($history?->user?->hasRole('user'))--}}
-{{--                                                                (Сотрудник)--}}
-{{--                                                            @elseif ($history?->user?->hasRole('client') || $history?->user?->hasRole('client-worker'))--}}
-{{--                                                                (Клиент)--}}
-{{--                                                            @else--}}
-{{--                                                                (Система)--}}
-{{--                                                            @endif--}}
+
+
+
+
+
+
+
+
+
+
                                                         </td>
 
                                                     </tr>
-                                                @endforeach
-                                            @endif
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -559,8 +566,8 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td class="text-center">{{$task->created_at}}</td>
-                                                <td class="text-center">{{$task->finish}}</td>
+                                                <td class="text-center"><?php echo e($task->created_at); ?></td>
+                                                <td class="text-center"><?php echo e($task->finish); ?></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -573,11 +580,11 @@
                 </div>
             </div>
         </div>
-        <div class="modal" tabindex="-1" id="otkat{{$task->id}}">
+        <div class="modal" tabindex="-1" id="otkat<?php echo e($task->id); ?>">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="{{ route('mon.otkat', $task->id)  }}" method="post">
-                        @csrf
+                    <form action="<?php echo e(route('mon.otkat', $task->id)); ?>" method="post">
+                        <?php echo csrf_field(); ?>
                         <div class="modal-header">
                             <h5 class="modal-title">Откат</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -595,11 +602,11 @@
             </div>
         </div>
 
-        <div class="modal" tabindex="-1" id="admin{{$task->id}}">
+        <div class="modal" tabindex="-1" id="admin<?php echo e($task->id); ?>">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="{{ route('mytasks.done', $task->id)  }}" method="post">
-                        @csrf
+                    <form action="<?php echo e(route('mytasks.done', $task->id)); ?>" method="post">
+                        <?php echo csrf_field(); ?>
                         <div class="modal-header">
                             <h5 class="modal-title">Подтверждение</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -616,15 +623,15 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="check{{$task->id}}" data-bs-backdrop="static"
+        <div class="modal fade" id="check<?php echo e($task->id); ?>" data-bs-backdrop="static"
              data-bs-keyboard="false" tabindex="-1" style="z-index: 9994"
-             aria-labelledby="check{{$task->id}}" aria-hidden="true">
+             aria-labelledby="check<?php echo e($task->id); ?>" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="{{route('tasks.sendBack1', $task->id,)}}"
+                    <form action="<?php echo e(route('tasks.sendBack1', $task->id,)); ?>"
                           method="POST">
-                        @csrf
-                        @method('PATCH')
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PATCH'); ?>
                         <div class="modal-header">
                             <h1>Проверка</h1>
                             <button type="button" class="btn-close"
@@ -634,7 +641,7 @@
                             <div class="form-group">
                                 <label for="employee">Отчёт о проделанной работе</label>
                                 <textarea class="form-control"
-                                          disabled>{{ $task->success_desc }} </textarea>
+                                          disabled><?php echo e($task->success_desc); ?> </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="employee">Исполнителя</label>
@@ -643,10 +650,10 @@
                                     <option disabled value="0" selected>Выберите
                                         исполнителя
                                     </option>
-                                    @foreach($users as $user)
+                                    <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option
-                                            value="{{ $user?->id }}">{{ $user?->surname .' ' . $user?->name .' '.$user?->lastname }}</option>
-                                    @endforeach
+                                            value="<?php echo e($user?->id); ?>"><?php echo e($user?->surname .' ' . $user?->name .' '.$user?->lastname); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                             <div class="form-group" id="reasonId" style="display: none">
@@ -665,7 +672,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal" id="reason{{$task->id}}" tabindex="-1" role="dialog">
+        <div class="modal" id="reason<?php echo e($task->id); ?>" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -678,13 +685,13 @@
                         <textarea name="reason" id="" cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <a href="{{route('mon.delete', $task->id)}}" class="btn btn-danger" >Удалить задачу</a>
+                        <a href="<?php echo e(route('mon.delete', $task->id)); ?>" class="btn btn-danger" >Удалить задачу</a>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal" id="delete{{$task->id}}" tabindex="-1" role="dialog">
+        <div class="modal" id="delete<?php echo e($task->id); ?>" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -697,24 +704,24 @@
                         <p>Действительно хотите удалить задачу</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="{{route('mon.delete', $task->id)}}" class="btn btn-danger" >Удалить задачу</a>
+                        <a href="<?php echo e(route('mon.delete', $task->id)); ?>" class="btn btn-danger" >Удалить задачу</a>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="sendBack{{$task->id}}" data-bs-backdrop="static"
+        <div class="modal fade" id="sendBack<?php echo e($task->id); ?>" data-bs-backdrop="static"
              data-bs-keyboard="false" tabindex="-1" style="z-index: 9992"
-             aria-labelledby="editRight{{$task->id}}" aria-hidden="true">
+             aria-labelledby="editRight<?php echo e($task->id); ?>" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="{{route('tasks.sendBack', $task->id,)}}"
+                    <form action="<?php echo e(route('tasks.sendBack', $task->id,)); ?>"
                           method="POST">
-                        @csrf
-                        @method('PATCH')
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PATCH'); ?>
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editRight{{$task->id}}">
+                            <h1 class="modal-title fs-5" id="editRight<?php echo e($task->id); ?>">
                                 Предупреждение</h1>
                             <button type="button" class="btn-close"
                                     data-bs-dismiss="modal" aria-label="Close"></button>
@@ -725,10 +732,10 @@
                                     <label for="user">Сотрудник</label>
                                     <select name="user_id" id="user_id"
                                             class="form-select">
-                                        @foreach($users as $user)
+                                        <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option
-                                                value="{{ $user?->id }}" {{ ($user?->id === old('user_id') or $user?->id === $task?->user?->id ) ? 'selected' : '' }}>{{ $user?->name }}</option>
-                                        @endforeach
+                                                value="<?php echo e($user?->id); ?>" <?php echo e(($user?->id === old('user_id') or $user?->id === $task?->user?->id ) ? 'selected' : ''); ?>><?php echo e($user?->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -737,11 +744,11 @@
                             <button type="submit" class="btn btn-success">
                                 Перенаправить
                             </button>
-                            <a href="{{route('mon.archive', $task->slug)}}"
+                            <a href="<?php echo e(route('mon.archive', $task->slug)); ?>"
                                class="btn btn-warning">
                                 Архивировать
                             </a>
-                            <a href="{{route('mon.edit', $task->slug)}}"
+                            <a href="<?php echo e(route('mon.edit', $task->slug)); ?>"
                                class="btn btn-primary">
                                 Изменить
                             </a>
@@ -751,11 +758,11 @@
             </div>
         </div>
 
-        <div class="modal fade" id="ready{{ $task->id }}" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready{{ $task->id }}" aria-hidden="true">
+        <div class="modal fade" id="ready<?php echo e($task->id); ?>" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ready<?php echo e($task->id); ?>" aria-hidden="true">
             <div class="modal-dialog" style=" box-shadow: none;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ready{{ $task->id }}">Поставте оценку исполнителю</h1>
+                        <h1 class="modal-title fs-5" id="ready<?php echo e($task->id); ?>">Поставте оценку исполнителю</h1>
                     </div>
                     <div class="modal-body">
                         <h6 class="text-center">Поставьте оценку, за выполнение задачи!</h6>
@@ -763,9 +770,9 @@
                             <div class="ponavues">
                                 <label class="eysan">
 
-                                    <form id="scoreForm" action="{{route('tasks.score')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" value="{{ session('task1') }}" name="session">
+                                    <form id="scoreForm" action="<?php echo e(route('tasks.score')); ?>" method="post">
+                                        <?php echo csrf_field(); ?>
+                                        <input type="hidden" value="<?php echo e(session('task1')); ?>" name="session">
                                         <input type="submit" name="rating" class="star" value="1">
                                         <input type="submit" name="rating" class="star2" value="2">
                                         <input type="submit" name="rating" class="star3" value="3">
@@ -781,21 +788,21 @@
             </div>
         </div>
 
-        @if(session('mess') == 'Успешно завершено')
+        <?php if(session('mess') == 'Успешно завершено'): ?>
 
             <script>
                 window.addEventListener('DOMContentLoaded', function() {
-                    var modal = new bootstrap.Modal(document.getElementById('ready{{ $task->id }}'));
+                    var modal = new bootstrap.Modal(document.getElementById('ready<?php echo e($task->id); ?>'));
                     modal.show();
                 });
             </script>
-        @endif
+        <?php endif; ?>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-    @routes
+<?php $__env->startSection('script'); ?>
+    <?php echo app('Tightenco\Ziggy\BladeRouteGenerator')->generate(); ?>
     <script>
         const redirect = document.getElementById('redirect');
         const redirectButton = document.getElementById('redirectButton');
@@ -842,7 +849,7 @@
                 formData.append('file', selectedFile);
 
                 $.ajax({
-                    url: "{{ route('tasks.message', $task->id) }}",
+                    url: "<?php echo e(route('tasks.message', $task->id)); ?>",
                     method: "POST",
                     data: formData,
                     dataType: 'json',
@@ -918,4 +925,6 @@
             }
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Khusrav\tasks\resources\views/admin/monitoring/show.blade.php ENDPATH**/ ?>
