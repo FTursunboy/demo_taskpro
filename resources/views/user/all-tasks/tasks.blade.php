@@ -35,7 +35,7 @@
         <tbody id="tableBodyMonitoring">
         @foreach($tasks as $task)
             <tr>
-                <td class="text-center">{{ $loop->iteration  }}</td>
+                <td class="text-center">{{ $task->id + 1000 }}</td>
                 <td >{{ $task->name }}</td>
                 <td >{{ Str::limit($task->comment, 100) }}</td>
                 <td class="text-center">{{ date('d-m-Y', strtotime($task->from))  }}</td>
