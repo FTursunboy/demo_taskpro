@@ -124,7 +124,7 @@
                                 </tr>
                                 <tr>
                                     <th>Баланс :</th>
-                                    <th><span class="mx-2"> {{ $settings->balance }} </span></th>
+                                    <th><span class="mx-2"> {{ $settings->balance??0 }} </span></th>
                                 </tr>
                             </table>
                         </div>

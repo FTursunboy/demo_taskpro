@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        @if($settings->max_users >= $userscount)
+        @if($settings->max_users < $userscount)
             <h3>Максимальное количество пользователей достигнуто, Вы не можете создать больше</h3>
         @endif
         @include('inc.messages')
