@@ -48,7 +48,7 @@ class TeamLeadCommandModel extends Model
     public function userTaskList($teamLeadID)
     {
         return DB::table('task_models as t')
-            ->select('u.id as user_id', 'u.name', 'u.surname', 'u.lastname', 't.id as task_id', 't.name as task', 't.slug as slug', 'sts.name as sts', 'sts.id as status_id', 'p.name as group')
+            ->select('u.id as user_id', 't.created_at', 'u.name', 'u.surname', 'u.lastname', 't.id as task_id', 't.name as task', 't.slug as slug', 'sts.name as sts', 'sts.id as status_id', 'p.name as group')
             ->join('project_models as p', 't.project_id', '=', 'p.id')
             ->join('statuses_models as sts', 't.status_id', '=', 'sts.id')
             ->join('users as u', 't.user_id', '=', 'u.id')

@@ -7,6 +7,7 @@
             <th>Статус</th>
             <th>Исполнитель</th>
             <th>Проект</th>
+            <th>Дата создания</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -64,6 +65,8 @@
                 @endswitch
                 <td>{{ $task->surname . ' ' . $task->name. ' '. $task->lastname}}</td>
                 <td>{{ $task->group}}</td>
+                <td>{{ \Carbon\Carbon::parse($task->created_at)->format('Y-m-d') }}</td>
+
                 <td><a href="{{ route('my-command.show', $task->slug) }}" class="btn btn-success"><i class="bi bi-eye"></i></a></td>
             </tr>
         @endforeach

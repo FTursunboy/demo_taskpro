@@ -35,7 +35,7 @@
         <tbody id="tableBodyMonitoring">
         <?php $__currentLoopData = $tasks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $task): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td class="text-center"><?php echo e($loop->iteration); ?></td>
+                <td class="text-center"><?php echo e($task->id + 1000); ?></td>
                 <td ><?php echo e($task->name); ?></td>
                 <td ><?php echo e(Str::limit($task->comment, 100)); ?></td>
                 <td class="text-center"><?php echo e(date('d-m-Y', strtotime($task->from))); ?></td>

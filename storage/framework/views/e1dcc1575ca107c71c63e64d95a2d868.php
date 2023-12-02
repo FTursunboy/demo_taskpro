@@ -7,6 +7,7 @@
             <th>Статус</th>
             <th>Исполнитель</th>
             <th>Проект</th>
+            <th>Дата создания</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -64,6 +65,8 @@
                 <?php endswitch; ?>
                 <td><?php echo e($task->surname . ' ' . $task->name. ' '. $task->lastname); ?></td>
                 <td><?php echo e($task->group); ?></td>
+                <td><?php echo e(\Carbon\Carbon::parse($task->created_at)->format('Y-m-d')); ?></td>
+
                 <td><a href="<?php echo e(route('my-command.show', $task->slug)); ?>" class="btn btn-success"><i class="bi bi-eye"></i></a></td>
             </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
