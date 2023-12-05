@@ -1213,7 +1213,7 @@
                                 <label for="time">Время</label>
                                 <input {{$settings?->has_access ? '' : 'disabled'}} tabindex="2" type="number" id="time" name="time" class="form-control mt-3"
                                        value="{{ old('time') }}" placeholder="Время"
-                                       required>
+                                       >
                             </div>
                             <div class="form-group">
                                 <label for="project_id">Проект</label>

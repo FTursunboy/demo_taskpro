@@ -63,6 +63,7 @@
                                     <th>Исполнитель</th>
                                     <th>Проект</th>
                                     <th>Статус</th>
+                                    <th>Дата создания</th>
                                     <th class="text-center">Действие</th>
                                 </tr>
                                 </thead>
@@ -123,7 +124,7 @@
                                             <td><a href="#" data-bs-target="#send<?php echo e($offer->id); ?>" data-bs-toggle="modal"><span class="badge bg-success p-2">Задача сделана, отправьте клиенту на проверку</span></a></td>
                                             <?php break; ?>
                                         <?php endswitch; ?>
-
+                                        <td><?php echo e(\Carbon\Carbon::parse($offer->created_at)->format('Y-m-d')); ?></td>
 
                                     <?php if($offer->user_id): ?>
                                             <?php if(isset($search)): ?>

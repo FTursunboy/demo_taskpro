@@ -84,7 +84,6 @@
             "stateSave": true
         });
 
-
         var filters = JSON.parse(localStorage.getItem('datatableFilters'));
         if (filters) {
             for (var i = 0; i < filters.length; i++) {
