@@ -10,7 +10,7 @@ services:
             - "9009:80"
         depends_on:
             - app
-        container_name: markerovka_nginx
+        container_name: taskpro_nginx
     app:
         build:
             context: .
@@ -19,7 +19,7 @@ services:
             - ./:/var/www
         depends_on:
             -   database
-        container_name: markerovka_app
+        container_name: taskpro_app
 
     database:
         image: mysql:latest
@@ -33,4 +33,4 @@ services:
         ports:
             -   8102:3306
         command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci  --lower_case_table_names=2
-        container_name: markerovka_db
+        container_name: taskpro_db
