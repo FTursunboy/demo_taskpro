@@ -255,6 +255,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ThemeEventSeeder::class);
         $this->call(TypeEventSeeder::class);
         $this->call(EventStatusSeeder::class);
+        $this->call(SettingSe)
 
     }
 }

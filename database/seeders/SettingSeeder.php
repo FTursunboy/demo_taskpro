@@ -15,6 +15,8 @@ class SettingSeeder extends Seeder
     {
         Setting::create([
             'invited_friends' => 0,
+            'max_users' => 10,
+            'has_access' => true
         ]);
     }
 }
